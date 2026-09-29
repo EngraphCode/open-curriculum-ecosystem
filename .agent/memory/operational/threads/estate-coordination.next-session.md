@@ -835,6 +835,16 @@ primary residing on it; this entry is its first commit; its draft PR is opened a
 and named in the rotation broadcast, DUE at the midday fold (12:00Z 2026-09-29). The count at the
 cut: 3 open non-coordination PRs, all on the lineage (296 Myrtle's twin ruling, 297 Siren's C3, 298 Nova's N7), 3 of 3 across both estates, JC.net 0; remote branches outside a PR: none in either estate; the JC.net successor coordination/2026-09-29-d2b910 (draft PR 264) was cut at 00:48:04Z from its fold's merge d2b91090e.
 
+### 2026-09-29T09:4xZ — Director check-in 84, three lines (Wick binds Temper, ed7b48)
+
+Rows whole: 8 of 21. Open: 311 (Nova, its push held for the cache pull request), 310 and 309
+(Siren, tests reworked to the owner's bar before any sync), the ci.yml cache pull request
+(Myrtle, opening as the fourth on the owner's priority word, lands first). Landed in the window:
+305, JC.net 272. Blockers: none. The owner's words of the hour on both streams: tests spawn
+nothing and prove behaviour; no new pull request while an old one waits, trend to zero; monitors
+instead of ad-hoc shell scripts, always. The finishing plan's Finish section is on the exchange
+node of both estates, amended for the WIP word.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

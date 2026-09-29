@@ -191,3 +191,15 @@ template gains (Myrtle, after the docs pull request); the strictness units measu
 todo 7's re-pin on JC.net (Siren); at the finish the settling and decline rows, the lessons batch
 into the Box, the JC.net fold, the prose-class close pull request with the owner's word, the
 lineage fold, and the verification.
+
+**Amended 09:4xZ on the owner's words** (given in Siren's session, relayed verbatim on both
+streams): "the entire team is supposed to have been instructed NOT to create new PRs while
+waiting for old ones, that is how WIP is managed... if you move on while the older work is
+still pending you create an ever growing tail, and you end up with 15 unmerged PRs despite a
+WIP limit of 4"; "We are aiming for trend to zero open PRs"; "prioritise the remote caching
+work, assuming that will speed up CI". So: a seat with an open pull request builds nothing
+new; its work is that pull request's cures and its door, or helping close another seat's pull
+request; the next worktree is cut only after the current pull request merges; the open count
+trends to zero and is never held at the limit; the order above is a door order, not a licence
+to author ahead. The Turbo remote cache pull request on the lineage's `ci.yml` (OIDC, the
+owner's policy and `TURBO_TEAM` variable set) opens at once and lands first.
