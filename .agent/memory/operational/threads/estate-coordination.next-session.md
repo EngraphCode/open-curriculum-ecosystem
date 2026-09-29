@@ -854,6 +854,14 @@ none. Landed since 84: none. Blockers: TURBO_TEAM (the owner's hand); on this ho
 Turbo login token expired at 10:11Z and the JC.net pre-commit fails on turbo's remote-cache
 warning, surfaced to the owner.
 
+### 2026-09-29T11:15Z — Director check-in 86, three lines (Wick binds Temper, ed7b48)
+
+Rows whole: 8 of 21. Open: 312 (Myrtle, clean on both legs, red on the OIDC step: TURBO_TEAM
+still absent), 311 (Nova, settlement pushed at c07b8ff6d 11:13Z, its run on the uncached floor
+by the 11:1xZ ruling), 310 then 309 (Siren, heads right, held for 311's landing). JC.net: none.
+Landed since 85: none. Blockers: TURBO_TEAM and the local Turbo login (the JC.net pre-commit),
+both the owner's hand; the door runs uncached meanwhile.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
