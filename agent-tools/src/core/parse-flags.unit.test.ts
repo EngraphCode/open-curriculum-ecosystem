@@ -24,6 +24,11 @@ describe('parseFlags', () => {
     expect(isErr(flags) && flags.error.message).toMatch(/^Invalid flags: .*--map-result/u);
   });
 
+  it('returns a stray positional as an input error', () => {
+    const flags = parseFlags({ args: ['stray'], options });
+    expect(isErr(flags) && flags.error.message).toMatch(/^Invalid flags: .*stray/u);
+  });
+
   it("rethrows a defect in the caller's own options, which no operator input can cure", () => {
     expect(() =>
       parseFlags({ args: [], options: { 'map-result': { type: 'string', short: 'mr' } } }),
