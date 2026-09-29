@@ -1,3 +1,36 @@
+---
+description: Read-only recall-calibration synthesist for the corpus-analysis meta workflow stage. Dispatched exclusively via the Workflow agent() agentType option; never invoke for interactive delegation. Judges per-baseline recall matches and verifies corroboration home paths on disk before claiming them, answering through the schema-forced structured output call.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  tools: Glob, Grep, Read
+  disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch, ReportFindings
+  maxTurns: 40
+  body: system-prompt
+cursor:
+  description: Read-only recall-calibration synthesist for the corpus-analysis meta workflow stage. Dispatched by a corpus-analysis orchestrator, one call per run; never invoke for interactive delegation. Judges per-baseline recall matches, verifies corroboration home paths on disk before claiming them, and answers through the schema-forced structured output call.
+  note: |-
+    That template is the canonical role definition (purpose, capability envelope,
+    system prompt, delegation triggers). The dispatch supplies the complete
+    judgment inputs (dispositioned candidates + frozen recall baselines); use
+    read-only search solely to verify on-disk corroboration home paths, emit
+    per-item judgments and prose only — never aggregate numbers — and answer
+    with the single required structured output call.
+codex:
+  description: Read-only recall-calibration synthesist for the corpus-analysis meta workflow stage; judges per-baseline matches and verifies corroboration paths, emitting per-item judgments only.
+  note: |-
+    This file is a thin Codex adapter. The canonical role definition lives in the
+    template referenced above; the dispatch supplies the complete judgment inputs
+    (dispositioned candidates + frozen recall baselines).
+
+    Mode: read-only search solely to verify on-disk corroboration home paths;
+    emit per-item judgments and prose only — never aggregate numbers — and
+    answer with the single required structured output call. Do not modify
+    anything.
+---
+
 # Corpus Meta: Read-Only Recall-Calibration Synthesist
 
 Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper

@@ -1,3 +1,34 @@
+---
+description: No-tools clustering synthesist for the corpus-analysis reduce workflow stage. Dispatched exclusively via the Workflow agent() agentType option; never invoke for interactive delegation. Clusters the inlined leaf signals into mechanism-grained candidates and answers only through the schema-forced structured output call.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  tools: none
+  maxTurns: 6
+  body: system-prompt
+cursor:
+  description: Clustering synthesist for the corpus-analysis reduce workflow stage. Dispatched by a corpus-analysis orchestrator, one call per run; never invoke for interactive delegation. Clusters the inlined leaf signals into mechanism-grained candidates and answers only through the schema-forced structured output call.
+  note: |-
+    That template is the canonical role definition (purpose, capability envelope,
+    system prompt, delegation triggers). The dispatch inlines the complete
+    leaf-signal set: cluster only from the supplied leaves — no other reads are
+    part of the task — and answer with the single required structured output
+    call. (On Claude this role runs zero-tools by frontmatter; Cursor cannot
+    enforce that envelope, so honour it behaviourally.)
+codex:
+  description: Clustering synthesist for the corpus-analysis reduce workflow stage; clusters inlined leaf signals into mechanism-grained candidates via the schema-forced structured output.
+  note: |-
+    This file is a thin Codex adapter. The canonical role definition lives in the
+    template referenced above; the dispatch inlines the complete leaf-signal set.
+
+    Mode: cluster only from the supplied leaves — no other reads are part of the
+    task (on Claude this role runs zero-tools by frontmatter; honour that
+    envelope behaviourally here) — and answer with the single required
+    structured output call. Do not modify anything.
+---
+
 # Corpus Reducer: No-Tools Clustering Synthesist
 
 Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper

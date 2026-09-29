@@ -1,3 +1,34 @@
+---
+description: Read-only leaf-signal extractor for the corpus-analysis map workflow stage. Dispatched exclusively via the Workflow agent() agentType option; never invoke for interactive delegation. Reads one time-contiguous window's corpus files in full and answers only through the schema-forced structured output call.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  tools: Read
+  disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch, Glob, Grep, ReportFindings
+  maxTurns: 16
+  body: system-prompt
+cursor:
+  description: Read-only leaf-signal extractor for the corpus-analysis map workflow stage. Dispatched by a corpus-analysis orchestrator, one agent per time-contiguous corpus window; never invoke for interactive delegation. Reads one window's corpus files in full and answers only through the schema-forced structured output call.
+  note: |-
+    That template is the canonical role definition (purpose, capability envelope,
+    system prompt, delegation triggers). The dispatch prompt names the window's
+    corpus files and carries the full task instructions; read only the named
+    files, extract the specified leaf signals, and answer with the single
+    required structured output call.
+codex:
+  description: Read-only leaf-signal extractor for the corpus-analysis map workflow stage; one agent per corpus window, answering only via the schema-forced structured output.
+  note: |-
+    This file is a thin Codex adapter. The canonical role definition lives in the
+    template referenced above; the dispatch prompt names the window's corpus
+    files and carries the full task instructions.
+
+    Mode: read only the named corpus files, extract the specified leaf signals,
+    answer with the single required structured output call. Do not modify
+    anything.
+---
+
 # Corpus Mapper: Read-Only Leaf-Signal Extractor
 
 Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
