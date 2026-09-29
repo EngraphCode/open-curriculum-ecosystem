@@ -417,6 +417,14 @@ hydrations, the graduation would mark this PDR as `Superseded by
 
 ## Amendment Log
 
+### 2026-09-29 — The inline-prompt copy is generated on this estate
+
+The check the 2026-09-24 amendment names as "a generator, or a comparison of
+each hand-kept copy with its template" is the generator: the sub-agent adapters
+are rendered from each template's declaration and recomputed byte for byte,
+the hand-copy comparison retires, and the template stays the prompt's one home
+(the host's record of the surfaces is its agent-artefact portability decision).
+
 ### 2026-09-24 — A role that cannot read files, or whose bounded turns belong to its task, carries its template's prompt
 
 A review of the corpus-analysis adapters found the thin-wrapper rule

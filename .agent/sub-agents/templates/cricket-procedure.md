@@ -1,3 +1,45 @@
+---
+variants:
+  - name: cricket-procedure-xhigh
+    platforms:
+      - cursor
+      - claude
+      - codex
+    description: Fast xhigh-effort conscience check using a compiled decision procedure with quote-anchored evidence and a mechanical verdict table. Call directly for a reproducible second opinion when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a mechanically derived frame verdict (SOUND, NARROWED or CONTRADICTED), with one redirection.
+    title: Cricket Procedure — Xhigh Effort
+    cursor:
+      description: Cursor adapter for the xhigh compiled-procedure role; Cursor does not pin reasoning effort. Call directly for a reproducible second opinion when priority, proportion, or a wait/gate may be drifting; returns a work verdict (ON-TRACK, DRIFTING or WRONG-PRIORITY) and a mechanically derived frame verdict (SOUND, NARROWED or CONTRADICTED), with one redirection.
+      note: |-
+        That template is the canonical role definition. This adapter preserves the
+        xhigh-effort procedure role's semantics, but the suffix does not claim a Cursor
+        reasoning-effort pin. Execute the compiled procedure exactly from the supplied context
+        in a single fast pass and report only. Never explore the repository.
+    claude:
+      tools: Read
+      disallowedTools: Write, Edit, Bash, Grep, Glob
+      color: green
+      model: haiku
+      effort: xhigh
+      pointerTail: ", then execute its procedure exactly."
+      note: |-
+        This adapter explicitly waives the template's reading-discipline component to preserve
+        the one-pass speed contract; the identity component remains mandatory. Execute and report
+        from the supplied context and STANCE, using at most the template's two targeted
+        verification Reads when its speed contract permits them. Never explore the repository.
+    codex:
+      model: gpt-5.6-luna
+      effort: xhigh
+      note: |-
+        This file is a thin Codex adapter. The canonical role definition lives in the
+        template referenced above; each dispatch supplies the objective frame,
+        critical-path owner, intent, recent actions, next planned action, and STANCE
+        (normal or adversarial, defined in the template).
+
+        Mode: execute the template's compiled decision procedure exactly in a single
+        fast pass, using at most its two targeted verification Reads when the speed
+        contract permits them. Never explore; report only. Do not modify anything.
+---
+
 ## Delegation Triggers
 
 Use this role for a fast, reproducible second opinion when the primary needs its current

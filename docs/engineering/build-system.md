@@ -217,8 +217,8 @@ pnpm i && turbo run build type-check lint:fix && pnpm subagents:check && pnpm po
    - `type-check` - TypeScript validation
    - `lint:fix` - auto-fix linting issues
 3. Root-only fixes:
-   - `subagents:check` - validate sub-agent wrapper/template standards
-   - `portability:check` - validate canonical/adaptor and hook parity
+   - `subagents:check` - validate the sub-agent templates and the rendered adapters' frontmatter
+   - `portability:check` - recompute the rule projections and the sub-agent adapters from their declarations; validate hook parity
    - `practice:fitness:informational` — four-zone report (ADR-144), always exits 0
    - `markdownlint:root` - fix markdown in root
    - `format:root` - format root files
@@ -727,7 +727,8 @@ reader a broken `pnpm build`.
   Hand-trimming generated output causes regeneration footguns.
   When knip or depcruise flags a generated file, fix the generator that
   produced it and regenerate (`pnpm skills:generate` for the skill adapters,
-  `pnpm portability:fix` for the rules index and the rule adapters).
+  `pnpm portability:fix` for the rules index, the rule adapters, the sub-agent adapters
+  and the `.codex/config.toml` registry tail).
 
 ## Related Documentation
 

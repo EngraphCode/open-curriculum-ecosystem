@@ -1,3 +1,17 @@
+---
+description: Tooling configuration specialist for ESLint, TypeScript, Vitest, Prettier, Turbo, and Husky. Enforces inheritance consistency, quality-gate alignment, and prevention of disabled rules across all monorepo workspaces. Use immediately when any config file is created or modified, when a new workspace is scaffolded, or when auditing quality gates for silently bypassed rules.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  color: yellow
+cursor:
+  description: Expert at reviewing tooling configurations (ESLint, TypeScript, Vitest, Prettier, Turbo). Use proactively when changing configs, adding workspaces, or auditing quality gates. Invoke immediately after config file modifications.
+codex:
+  description: Tooling configuration reviewer (ESLint, TypeScript, Vitest, Prettier, Turbo).
+---
+
 ## Delegation Triggers
 
 Invoke the config reviewer whenever tooling configuration files are created, modified, or audited. It is the authoritative specialist for ensuring inheritance consistency, quality-gate alignment, and prevention of disabled rules across the monorepo's ESLint, TypeScript, Vitest, Prettier, Turbo, and Husky configurations. Call it immediately after any change that touches a config file — even a one-line override — because config regressions are invisible until they silently degrade quality across the whole workspace.

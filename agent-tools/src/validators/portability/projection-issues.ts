@@ -1,8 +1,8 @@
 /**
- * The projection leg's issue wording: what a listing or an entry read yields, or the one
- * issue that refuses a leg; and the drift issues that name the cure. The leg names its
- * subject (`RULE_SUBJECT`), so the wording reads in one place and a second leg shares it by
- * naming its own.
+ * The projection legs' issue wording: what a listing or an entry read yields, or the one
+ * issue that refuses a leg; and the drift issues that name the cure. Each leg names its
+ * subject (the rule projections, the sub-agent adapters), so the wording reads in one place
+ * and each leg stays within the line cap.
  *
  * @packageDocumentation
  */
@@ -45,6 +45,18 @@ export const RULE_SUBJECT: ProjectionSubject = {
   owner: "rule's",
   renderer: 'canonical rule',
 };
+
+export const SUBAGENT_SUBJECT: ProjectionSubject = {
+  outputs: 'sub-agent adapters',
+  output: 'sub-agent adapter',
+  outputsBare: 'adapters',
+  canonical: 'template',
+  canonicalDir: 'the templates directory',
+  surfaces: 'the sub-agent surfaces',
+  owner: "template's",
+  renderer: 'template',
+};
+
 /** The refusal clause a leg appends when it will not regenerate its outputs. */
 export function refusing(subject: ProjectionSubject): string {
   return `refusing to regenerate the ${subject.outputs}`;

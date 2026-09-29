@@ -12,11 +12,11 @@
  *   settings-wiring checks, surface-matrix description check.
  * - `claude-hook-wiring` — Hook-wiring issue collection that combines
  *   the detection predicates into human-readable portability issues.
- * - `reviewer-adapter-parity` — Cross-platform reviewer adapter parity checks.
  * - `skill-permission-checks` — Claude Code skill/command permission
  *   allow-list checks.
  * - `rules-index-checks` — the rules index's Codex byte-budget check (its
  *   presence and rows are the projection leg's).
+ * - `skills-walk` — the canonical skill walker over the three ratified tiers.
  */
 
 export {
@@ -34,8 +34,6 @@ export {
 } from './claude-hook-detection.js';
 
 export { getClaudeHookPortabilityIssues } from './claude-hook-wiring.js';
-
-export { getReviewerAdapterParityIssues } from './reviewer-adapter-parity.js';
 
 export { getSkillPermissionIssues, selectPracticeSkillDirs } from './skill-permission-checks.js';
 
