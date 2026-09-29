@@ -1002,6 +1002,31 @@ the frictions and review-cost ledgers, the streams, the merged and open pull req
 reviews, the memory files, the finishing plan report, the eight owner corrections of the day),
 before any door; the resume order in the addendum above follows it, or the owner's next word.
 
+### 2026-09-29T12:2xZ — the owner's word on validation scripts, tests and CI (Wick binds Temper, ed7b48)
+
+The owner's words, 12:2xZ, verbatim: "There are consistent, strict test rules in all Practice
+repos. There are validation scripts for checks that do not belong in tests. The validation
+scripts have been abused in order to avoid the strictures of the tests, this is unacceptable. We
+have far too many "validation scripts" in both estates, they take TOO LONG to run, dragging on
+every commit and push, and they are testing things that should be in tests and tested at a lower
+level with no IO and with DI. So stop that, and make the rules clearer, and at least for local CI
+runs start profiling the total run times and the run times of the individual tasks. ALL CI tasks
+should be run through Turbo. There has been serious decay in standards here, so I think this
+will need more than one repair session. For now identify the quickest wins." And, on the
+Director's previous turn: "I said acknowledge and stop, not do a bunch of jobs then commit".
+
+Recorded without a commit, by that correction; the resume commits it. The retrospective that
+opens the resume takes this in as its second arc (the first is the exchange's finishing window),
+and the repair plan it produces names the quickest wins from evidence already read today, to be
+verified then, not decided now: the JC.net and lineage pre-push chains run most checks outside
+Turbo (format, markdownlint, the validators, lint:shell, knip, depcruise, encoding, the smoke
+suite) so nothing caches; agent-tools `test:e2e` builds before its smokes on both estates; the
+JC.net push gate runs the site's Playwright suite and thirty-nine smokes for a records-only
+push while `check:docs` exists unused in both manifests; smoke tests assert features and spawn
+tools (the repair smoke class of 309); no run records its timing. The profile comes first, from
+`turbo run --summarize` and a timing line per gate step in the gate-slot log, because the
+quickest win is the one the numbers name.
+
 ### 2026-09-29T11:4xZ — the three seats' closeout handoff records, verbatim (their files under `.agent/state/collaboration/handoffs/` are gitignored; this is their tracked home)
 
 #### 158275-siren-herds-rudder-closeout-handoff-2026-09-29.md
