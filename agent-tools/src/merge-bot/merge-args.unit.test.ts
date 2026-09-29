@@ -32,8 +32,46 @@ describe('parseMergeArgs', () => {
         json: true,
         intervalSeconds: 20,
         maxPolls: 10,
+        unavailable: [],
       });
     }
+  });
+
+  it('reads each --unavailable declaration, naming an expected reviewer in any case or [bot] form', () => {
+    const url = 'https://github.com/acme/widgets/pull/42#issuecomment-1';
+    const parsed = parseMergeArgs([
+      ...EXPECT_ARGS,
+      '--unavailable',
+      `Copilot-Pull-Request-Reviewer[bot]=${url}`,
+    ]);
+
+    expect(parsed.ok ? parsed.value.unavailable : parsed.error.message).toStrictEqual([
+      { login: 'Copilot-Pull-Request-Reviewer[bot]', url },
+    ]);
+  });
+
+  it('refuses a declaration of a reviewer no --expect declares', () => {
+    const parsed = parseMergeArgs([
+      ...EXPECT_ARGS,
+      '--unavailable',
+      'chatgpt-codex-connector=https://github.com/acme/widgets/pull/42#issuecomment-1',
+    ]);
+
+    expect(parsed.ok ? '' : parsed.error.message).toContain(
+      '--unavailable names chatgpt-codex-connector, which no --expect declares',
+    );
+  });
+
+  it('refuses a malformed --unavailable value', () => {
+    const parsed = parseMergeArgs([
+      ...EXPECT_ARGS,
+      '--unavailable',
+      'copilot-pull-request-reviewer',
+    ]);
+
+    expect(parsed.ok ? '' : parsed.error.message).toContain(
+      '--unavailable takes <login>=<comment-url>, got "copilot-pull-request-reviewer"',
+    );
   });
 
   it('defaults the poll budget inside the token hour', () => {

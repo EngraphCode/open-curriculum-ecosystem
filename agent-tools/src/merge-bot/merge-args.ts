@@ -1,5 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
+import type { UnavailableDeclaration } from '../pr-watch/declared-unavailable.js';
+import { parseUnavailableFlag } from '../pr-watch/unavailable-flag.js';
 import { SETTLEMENT_WAIT_STATES } from './merge-decision.js';
 
 /**
@@ -20,9 +22,11 @@ export interface MergeArgs {
   readonly json: boolean;
   readonly intervalSeconds: number;
   readonly maxPolls: number;
+  /** Vendors declared unavailable (`--unavailable`), each an expected reviewer. */
+  readonly unavailable: readonly UnavailableDeclaration[];
 }
 
-export const MERGE_USAGE = `merge-bot merge --pr <number> --expect <reviewer> [--expect <reviewer> ...] [--json] [--interval <seconds>] [--max-polls <n>]
+export const MERGE_USAGE = `merge-bot merge --pr <number> --expect <reviewer> [--expect <reviewer> ...] [--unavailable <reviewer>=<comment-url> ...] [--json] [--interval <seconds>] [--max-polls <n>]
   Merges the PR via the sanctioned REST path when — and only when — the
   settlement verdict is SETTLE-READY: merge-commit method always (refusing
   when repo settings disallow merge commits, never a squash fallback), the
@@ -40,6 +44,10 @@ export const MERGE_USAGE = `merge-bot merge --pr <number> --expect <reviewer> [-
   --expect declares the expected reviewer set (repeatable; REQUIRED here —
   source it from the repository's automatic-review configuration; a
   defaulted or blank set never merges).
+  --unavailable declares an expected reviewer down, naming the bot's own
+  comment on the pull request; it stands in for that reviewer's review only
+  on the pull request's own proof (pr-watch/declared-unavailable.ts), and a
+  refused declaration refuses the merge at once (repeatable).
   --json puts EXACTLY the outcome object on stdout; progress moves to
   stderr.
   Exit map: 0 merged, 1 operational failure, 2 usage, 3 typed refusal —
@@ -88,7 +96,19 @@ const EXPECT_GRAMMAR = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})?(?:\[bot\])?$/u;
 interface CollectedMergeFlags {
   readonly singles: Partial<Record<SingleFlag, number>>;
   readonly expect: string[];
+  readonly unavailable: UnavailableDeclaration[];
   json: boolean;
+}
+
+function recordUnavailable(state: CollectedMergeFlags, value: string): Result<undefined, Error> {
+  try {
+    state.unavailable.push(parseUnavailableFlag(value));
+    return ok(undefined);
+  } catch (cause) {
+    return err(
+      new Error(`${cause instanceof Error ? cause.message : String(cause)}\n${MERGE_USAGE}`),
+    );
+  }
 }
 
 function recordSingle(
@@ -109,29 +129,38 @@ function recordSingle(
   return ok(undefined);
 }
 
+function recordExpect(state: CollectedMergeFlags, value: string): Result<undefined, Error> {
+  if (!EXPECT_GRAMMAR.test(value)) {
+    return err(new Error(`--expect must be a GitHub login (got "${value}")\n${MERGE_USAGE}`));
+  }
+  state.expect.push(value);
+  return ok(undefined);
+}
+
+const LIST_FLAGS: Readonly<
+  Record<string, (state: CollectedMergeFlags, value: string) => Result<undefined, Error>>
+> = { '--expect': recordExpect, '--unavailable': recordUnavailable };
+
 function consumeValueFlag(
   state: CollectedMergeFlags,
   flag: string,
   value: string | undefined,
 ): Result<undefined, Error> {
-  if (flag !== '--expect' && !isSingleFlag(flag)) {
+  const listFlag = LIST_FLAGS[flag];
+  if (listFlag === undefined && !isSingleFlag(flag)) {
     return err(new Error(`unknown flag "${flag}"\n${MERGE_USAGE}`));
   }
   if (value === undefined || value.startsWith('--')) {
     return err(new Error(`${flag} needs a value\n${MERGE_USAGE}`));
   }
-  if (flag === '--expect') {
-    if (!EXPECT_GRAMMAR.test(value)) {
-      return err(new Error(`--expect must be a GitHub login (got "${value}")\n${MERGE_USAGE}`));
-    }
-    state.expect.push(value);
-    return ok(undefined);
+  if (listFlag !== undefined) {
+    return listFlag(state, value);
   }
-  return recordSingle(state.singles, flag, value);
+  return isSingleFlag(flag) ? recordSingle(state.singles, flag, value) : ok(undefined);
 }
 
 function collectMergeFlags(rest: readonly string[]): Result<CollectedMergeFlags, Error> {
-  const state: CollectedMergeFlags = { singles: {}, expect: [], json: false };
+  const state: CollectedMergeFlags = { singles: {}, expect: [], unavailable: [], json: false };
   for (let index = 0; index < rest.length; index += 1) {
     const flag = rest[index] ?? '';
     if (flag === '--json') {
@@ -152,7 +181,7 @@ export function parseMergeArgs(rest: readonly string[]): Result<MergeArgs, Error
   if (!collected.ok) {
     return collected;
   }
-  const { singles, expect, json } = collected.value;
+  const { singles, expect, unavailable, json } = collected.value;
   const prNumber = singles['--pr'];
   if (prNumber === undefined) {
     return err(new Error(`--pr is required\n${MERGE_USAGE}`));
@@ -163,6 +192,16 @@ export function parseMergeArgs(rest: readonly string[]): Result<MergeArgs, Error
         '--expect is required at least once: declare the expected reviewer set from the ' +
           'repository automatic-review configuration. A defaulted (observed) set can omit a ' +
           'configured-but-never-requested reviewer, so it cannot back an irreversible merge.',
+      ),
+    );
+  }
+  const unexpected = unavailable.find(
+    (declaration) => !expect.some((login) => sameLogin(login, declaration.login)),
+  );
+  if (unexpected !== undefined) {
+    return err(
+      new Error(
+        `--unavailable names ${unexpected.login}, which no --expect declares\n${MERGE_USAGE}`,
       ),
     );
   }
@@ -178,5 +217,11 @@ export function parseMergeArgs(rest: readonly string[]): Result<MergeArgs, Error
       ),
     );
   }
-  return ok({ prNumber, expect, json, intervalSeconds, maxPolls });
+  return ok({ prNumber, expect, json, intervalSeconds, maxPolls, unavailable });
+}
+
+// Logins compare without case, and a `[bot]` suffix names the same account.
+function sameLogin(left: string, right: string): boolean {
+  const bare = (login: string) => login.toLowerCase().replace(/\[bot\]$/u, '');
+  return bare(left) === bare(right);
 }
