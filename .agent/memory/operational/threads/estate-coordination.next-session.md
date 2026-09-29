@@ -926,6 +926,21 @@ background loop `bash "$S/pulse.sh" 58c2684a-5e8d-4a33-a29e-ed074df63128 coordin
 First act after "carry on": read both streams since 11:3xZ and gh; one line to the seats; commit
 this block on JC.net when the hook allows.
 
+HANDOFFS RECEIVED AT THE BOUNDARY (11:3xZ, the owner closed Siren's and Nova's sessions with
+"hand all responsibilities to the Director"). From Siren: claims e8fd79d5 (PR 310) and 3ca10e17
+(PR 309), record `.agent/state/collaboration/handoffs/158275-siren-herds-rudder-closeout-handoff-2026-09-29.md`,
+event 9cd1845c; 310 synced and pushed at 44ab80289 with the OLD title and body, no legs, round-one
+thread 4131728101 unanswered, the door slot the Director's (read its reviews at 44ab80289 before
+any request; a push can start a review by itself); 309 local at ef4c19a62, unpushed, in
+oce-wt-repair-smoke-group, after 310. From Nova: claims 803d5d7d and abcd5ea9 (arc-metrics),
+record `.agent/state/collaboration/handoffs/8a94ba-nova-turns-penumbra-handoff-to-director-2026-09-29.md`,
+event ab83aaae; the arc-metrics lane (b84e3f0e6 unpushed plus three patched edits, opens at
+310's merge), the Practice docs pull request, the strictness measure, Nova's records commit, the
+pr-watch cure. Myrtle's 9f02e9ebe (the register closes J8, 16 of 32) is committed on the JC.net
+primary and UNPUSHED: this shell's pre-push fails on turbo's remote-cache warning (the local
+login), so it rides the first push after the owner renews or unlinks. At the resume the Director
+holds these lanes until the owner seats them or says otherwise.
+
 PROCESSES STOPPED AT THIS BLOCK: the comms watch, the 312 rerun watch, the login watch, the
 12:00Z mark (Monitors), the pulse (background). Stopped by task id, read back absent.
 
