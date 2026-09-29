@@ -1,4 +1,5 @@
 import { NO_CONTENT } from '../../pr-watch/content-binding.js';
+import { NO_DECLARATIONS } from '../../pr-watch/declared-unavailable.js';
 import type { PrStateReading } from '../../pr-watch/state-types.js';
 
 /**
@@ -42,6 +43,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
       },
     ],
     completionComments: { reviews: [], refused: [] },
+    declaredUnavailable: NO_DECLARATIONS,
     reviewRuns: { kind: 'read', runs: [] },
     content: NO_CONTENT,
     ...overrides,

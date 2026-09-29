@@ -31,7 +31,8 @@
     "SENTRY_TRACES_SAMPLE_RATE",
     "TEST_ERROR_SECRET",
     "VERCEL_GIT_REPO_OWNER",
-    "VERCEL_GIT_REPO_SLUG"
+    "VERCEL_GIT_REPO_SLUG",
+    "PRACTICE_GATE_SLOT_HELD"
   ],
   "globalDependencies": ["**/.env.*local", "tsconfig.base.json"],
   "tasks": {
@@ -511,6 +512,7 @@
         "$TURBO_ROOT$/.claude/hooks/sonar-secrets/**",
         "$TURBO_ROOT$/.husky/refuse-commit-on-main.sh",
         "$TURBO_ROOT$/package.json",
+        "$TURBO_ROOT$/pnpm-workspace.yaml",
         "$TURBO_ROOT$/runtime-only-scripts/**"
       ]
     },

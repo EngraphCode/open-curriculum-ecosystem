@@ -24,14 +24,14 @@ export const REVIEWS_QUERY = `query($owner: String!, $name: String!, $number: In
  * the ruling's "updated timestamp equals created timestamp". `editor` names
  * who made the last edit: the connector's own rewrite of its summary is its
  * report, and anyone else's edit is not (the decision note's 2026-09-28
- * amendment).
+ * amendment). `url` is how an unavailability declaration names its comment.
  */
 export const COMMENTS_QUERY = `query($owner: String!, $name: String!, $number: Int!, $endCursor: String) {
   repository(owner: $owner, name: $name) {
     pullRequest(number: $number) {
       comments(first: 100, after: $endCursor) {
         pageInfo { hasNextPage endCursor }
-        nodes { id author { login } editor { login } body createdAt lastEditedAt }
+        nodes { id url author { login } editor { login } body createdAt lastEditedAt }
       }
     }
   }

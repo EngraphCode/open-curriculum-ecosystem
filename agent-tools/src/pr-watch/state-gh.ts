@@ -9,12 +9,7 @@ import {
   type PathExistsCheck,
   type PrTarget,
 } from './gh.js';
-import { readCompletionComments } from './completion-comments.js';
-import { allReviews } from './completion-evidence.js';
-import type { CompletionComment } from './completion-comments.js';
-import type { ContentLeg } from './content-binding.js';
 import { contentReaderFor, gitPatchIdOf, type PatchIdOf } from './content-reader.js';
-import { defaultExpectedReviewers } from './expected-reviewers.js';
 import {
   COMMENTS_QUERY,
   COMMITS_QUERY,
@@ -23,16 +18,11 @@ import {
   REVIEWS_QUERY,
 } from './harvests.js';
 import { parseReviewThreadPages } from './review-threads.js';
-import { hasLanded } from './reviewer-legs.js';
 import { readReviewRunsLeg } from './review-runs.js';
-import { commentRequests, parseRequestsHarvest } from './round-requests.js';
+import { parseRequestsHarvest } from './round-requests.js';
+import { composeReading, type UnavailableInput } from './state-compose.js';
 import { parseCommentsHarvest, parseCommitsHarvest } from './state-conversation.js';
-import {
-  parseReviewsHarvest,
-  parseStateView,
-  PR_STATE_VIEW_JSON_FIELDS,
-  type ParsedStateView,
-} from './state-fields.js';
+import { parseReviewsHarvest, parseStateView, PR_STATE_VIEW_JSON_FIELDS } from './state-fields.js';
 import type { PrStateReading } from './state-types.js';
 
 /**
@@ -63,6 +53,8 @@ export interface ReadPrStateOptions {
   readonly expectedReviewers?: readonly string[];
   /** Hashes a diff to its patch-id; the trusted git's `patch-id` by default. */
   readonly patchIdOf?: PatchIdOf;
+  /** Vendors declared unavailable (`--unavailable`), the bot that may declare, and the clock. */
+  readonly unavailable?: UnavailableInput | undefined;
 }
 
 // `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
@@ -151,44 +143,6 @@ function readHarvests(input: {
   };
 }
 
-// The expected set resolves first (declared, else the observed surface:
-// outstanding requests and the authors of landed non-empty reviews), and the
-// completion comments are read against it: a comment widens no defaulted
-// set, so a comment by an author outside it reads as no review.
-function composeReading(input: {
-  readonly view: ParsedStateView;
-  readonly comments: readonly CompletionComment[];
-  readonly commits: readonly string[];
-  readonly requests: PrStateReading['roundRequests'];
-  readonly reviewThreads: PrStateReading['reviewThreads'];
-  readonly reviews: PrStateReading['reviews'];
-  readonly reviewRuns: PrStateReading['reviewRuns'];
-  readonly declared: readonly string[];
-  readonly readContent: (reviewedOids: readonly string[]) => ContentLeg;
-}): PrStateReading {
-  const expectedReviewers =
-    input.declared.length > 0
-      ? input.declared
-      : defaultExpectedReviewers(input.view.reviewRequests, input.reviews);
-  const completionComments = readCompletionComments({
-    comments: input.comments,
-    commits: input.commits,
-    reviewers: expectedReviewers,
-  });
-  const landed = allReviews({ reviews: input.reviews, completionComments }).filter(hasLanded);
-  return {
-    ...input.view,
-    reviewThreads: input.reviewThreads,
-    reviews: input.reviews,
-    roundRequests: [...input.requests, ...commentRequests(input.comments)],
-    completionComments,
-    reviewRuns: input.reviewRuns,
-    expectedReviewers,
-    expectedDeclared: input.declared.length > 0,
-    content: input.readContent(landed.map((review) => review.commitOid)),
-  };
-}
-
 /**
  * Fetch the `pr state` gh surfaces and compose the compound reading.
  *
@@ -238,6 +192,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         reviews,
         reviewRuns,
         declared: options.expectedReviewers ?? [],
+        unavailable: options.unavailable,
         readContent: contentReaderFor({ run, gh, repo, view: confirm, patchIdOf }),
       });
     }
