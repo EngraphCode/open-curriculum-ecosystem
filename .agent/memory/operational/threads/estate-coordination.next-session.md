@@ -862,6 +862,73 @@ by the 11:1xZ ruling), 310 then 309 (Siren, heads right, held for 311's landing)
 Landed since 85: none. Blockers: TURBO_TEAM and the local Turbo login (the JC.net pre-commit),
 both the owner's hand; the door runs uncached meanwhile.
 
+### 2026-09-29T11:3xZ — COMPACTION BOUNDARY 12 of the Director seat (Wick binds Temper, ed7b48)
+
+The owner's word, 11:3xZ, verbatim: "prepare for compaction ultrathink /jc-metacognition
+/jc-free-play /jc-concept-exploration /jc-reason /jc-wrap then stop all processes. And STOP
+assigning gender to agents, I am sick of having to say that". A freeze: nothing of this seat starts
+before "carry on"; the seats run their own doors; the owner reads the streams.
+
+WORK SAFETY, 11:31Z. JC.net primary on coordination/2026-09-29-d2b910, level with origin at
+7fe09e20, zero unpushed; uncommitted and this seat's: the napkin (check-ins 85 and 86 and this
+block) and the exchange node's six ledger rows; not this seat's: the exchange-seat thread record
+and .gitignore (peers'). Lineage primary on coordination/2026-09-29-76974c, level at 81953bb25,
+zero unpushed; Nova's letter untracked. The proxy worktree clean, detached.
+
+STATE. Rows whole 9 of 21 (J8 complete at 311, its settling row Nova's). Open, all lineage:
+312 (Myrtle, the Turbo cache by OIDC, clean on both legs, red on the OIDC step: the
+organisation variable TURBO_TEAM is not visible to this public repository; the owner sets its
+repository access, then Myrtle re-runs the failed jobs on 12e90cafd, no push); 310 (Siren, synced
+11:28Z, legs then door); 309 (Siren, head ef4c19a62 local, the slot after 310). JC.net: none.
+Landed in the window: 305, 272 (the LinkedIn work, ordinary work by the owner's word), 311. The
+WIP limit, the owner's word 11:2xZ: one item per non-Director seat, three in all; Siren holds two
+until 310 lands; nothing opens until every seat is at one or none. No midday fold; the fold at
+the finish. The plan: the exchange node's §Finish on both estates (amended for the WIP word) and
+the Director's plan file. The order after the open three: Nova arc-metrics (after 310 merges),
+Myrtle J2 (after 312), Siren the JC.net smoke removal (after 309), then N4, the retire command,
+the re-pin; Nova the docs pull request; Myrtle N5 then J16; the strictness units measured.
+
+BLOCKERS, both the owner's hand: the organisation variable's repository access (312); the local
+Turbo login (expired 10:11Z, both checkouts linked), which fails every JC.net pre-commit on this
+host on turbo's remote-cache warning; the honest workaround for a seat is the environment
+TURBO_CACHE=local:rw on the commit; the permanent cure is a repo-check change post-close.
+
+CORRECTIONS THIS WINDOW, eight, one class each, all in memory: residue categories; nothing is
+cut; LinkedIn is ordinary work; no new PR while an old one waits, one per seat; monitors not
+ad-hoc loops; "did you even check" (a repository-level read reported as the whole truth while
+the organisation level was unreadable); no ceremony; agents are named, never gendered (the
+Director wrote she/her for three seats all morning). The class beneath six of them: a sentence
+before its read, or a schedule ahead of the owner's intent. The cure in one habit: name the
+surfaces not read in every negative claim, and schedule nothing the owner's word has not opened.
+
+THE MODES. Metacognition: the inherited shape was a pipeline; the owner's frame is a finish; the
+seat still reaches for ceremony (folds, suites, long blocks) under load, and the owner has to say
+so; the tripwire is the fluent "the cadence says". Free play: the day's throughput is now bounded
+by two owner hand-actions the seats cannot see, which is the shape of a blocked-on-owner line in
+every check-in and nothing more; discarded: "relax the ruleset", forced. Concept exploration: one
+generator under the JC.net hook failure and the org-variable failure, an infrastructure setting
+invisible from the surface the seat can read; the movement that bites is "name the unread
+surface". Reason: the order was safety, records, the freeze line, the stop, the report; the
+records go where a commit works (the lineage), the JC.net copy stays uncommitted.
+
+METALOSS. The recipes are in the scratchpad (volatile): director-watch-v2.sh, watch-312-rerun.sh,
+pulse.sh, fold-env.sh and the fold scripts; the plan file carries the PR set; memory carries the
+eight words. Promises: check-in 87 due 12:00Z, superseded by the freeze; the ready list stale
+since 09:4xZ (its commit blocked); the register's J8 row (Nova's); the JC.net napkin lines and
+ledger rows to commit on the login cure. Attribution inferences: 312's red step is the org
+variable's access (inferred from a public repository and an empty value; the owner can read the
+setting). Zero silent drops.
+
+RE-ARM (on "carry on", as Monitors, 30 minutes each, re-armed on expiry): the comms watch
+`bash "$S/director-watch-v2.sh"`; 312's checks `bash "$S/watch-312-rerun.sh"`; the login cure watch
+(auth.json expiresAt or .turbo/config.json presence); the next 45-minute mark; the pulse as a
+background loop `bash "$S/pulse.sh" 58c2684a-5e8d-4a33-a29e-ed074df63128 coordination/2026-09-29-d2b910 standalone-6`.
+First act after "carry on": read both streams since 11:3xZ and gh; one line to the seats; commit
+this block on JC.net when the hook allows.
+
+PROCESSES STOPPED AT THIS BLOCK: the comms watch, the 312 rerun watch, the login watch, the
+12:00Z mark (Monitors), the pulse (background). Stopped by task id, read back absent.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
