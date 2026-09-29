@@ -600,8 +600,12 @@ The commit is the gate. Its pre-commit hook runs the local gates: the
 staged formatting and markdown checks, the repo validators, shell lint,
 then build, type-check, lint and unit tests, then dependency-cruiser and
 knip. Shell lint runs the pinned shellcheck from the checkout's `.tools/bin`,
-or the `PATH` copy only while that one is the pinned version, so in any
-checkout without `.tools/bin/shellcheck`, fresh or already in use, run
+or the `PATH` copy only while that one is the pinned version. `pnpm install`
+provisions it at the first install of a clone or worktree, and at the next
+dependency change in a checkout already installed, since pnpm 11 runs no
+lifecycle script on an install that changes nothing ("Already up to date"),
+even with `--force`. Until then the gate's own failure and this line name the
+installer: in any checkout without `.tools/bin/shellcheck`, run
 `.agent/setup/install-shellcheck.sh` once before its first commit (§8 says
 why). The pre-push hook runs the wider local set: the pushed-commit secret
 scan and the review-cost gate first, then the whole-tree format and markdown
