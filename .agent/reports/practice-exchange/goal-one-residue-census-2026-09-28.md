@@ -40,15 +40,18 @@ J16, J20, J23). The count beside the heads reads 4 of 21.
   took its cures). Residue: the shellcheck gate and the bash floor (no shellcheck anywhere in
   `.husky`, `repo-check` or the root manifest; `install-shellcheck.sh` absent), with the rides:
   the CI install step, `.tools/` in `.gitignore`, the ownership-only `.markdownlint-cli2.jsonc`
-  and `.prettierignore`, the tooling and workflow notes' shellcheck lines. PRs: 1.
+  and `.prettierignore`, the tooling and workflow notes' shellcheck lines. PRs: 1 at the census;
+  3 by the recount of 18:3xZ, which supersedes this row's count (see Recounts).
 - **J4** settled (#202, #203, #205).
 - **J5** not owed (`graduated into L9`); its hold and grammar ride pr-tally todo 2, this
   estate's lane. 0 PRs here.
-- **J6** (no landing). Residue: N6, the discovered smoke runner with the smoke hardening and
-  `--max-warnings 0` on lint (the runner, its bin and `smoke/` absent; `test:e2e` is still a
-  hand chain); N7, the derived install-time closure (`bootstrap.ts` still hand-lists the
-  workspace deps); N8, the hook-command fixture compare (both estates built one). PRs: 3 (N6;
-  N7; N8 as a small compare, or a decline line if this estate's fixture already covers it).
+- **J6** (no landing). Residue: N6, the discovered smoke runner with the smoke hardening (the
+  runner, its bin and `smoke/` absent; `test:e2e` is still a hand chain; the `--max-warnings 0`
+  lint flag graduated into the recovery lane at the recount of 21:4xZ); N7, the derived
+  install-time closure (`bootstrap.ts` still hand-lists the workspace deps); N8, the hook-command
+  fixture compare (both estates built one). PRs: 3 at the census (N6; N7; N8 as a small compare,
+  or a decline line if this estate's fixture already covers it); 4 by the recount of 21:4xZ,
+  which supersedes this row's count (see Recounts).
 - **J7** (PARTIAL: #270 root-anchored scopes with payload paths against `cwd`, #271 scoped
   blocks over another repository; N9 landed). Residue: N10, `describeUnreadable` in the
   tracked-file scan (absent; two validators still print the raw cause with the absolute path).
@@ -58,8 +61,8 @@ J16, J20, J23). The count beside the heads reads 4 of 21.
   matcher; all absent), the input hardening (repo-relative partition files, the empty-reduce
   refusal, `class` in the meta binding), the tree-bound drivers with concise flag errors, and
   the eight lineage-logic findings from the second estate's PR 86 signed lines (records, no
-  code). PRs: 3 (post-run hardening; input hardening with the drivers; the findings as a
-  records commit, not a PR). The restore itself is PARITY.
+  code). PRs: 2 (post-run hardening; input hardening with the drivers); the findings land as a
+  records commit, not a pull request. The restore itself is PARITY.
 - **J9** settled (#194, #195, #197, #201, #215, #220, #240; three rules declined in receipt
   `c46a0e4b`).
 - **J10** (PARTIAL: #199 PDR-008, PDR-132 and PDR-082's state line). Residue: PDR-082's

@@ -527,7 +527,7 @@ contract, its §Recount run at 14:58Z and matching.
   unavailable on both estates by the Director at 20:4xZ (a lift at 21:02Z withdrawn at 21:04Z, an
   error review on #290), so a code-expert review of the diff at e2966c661 was posted as the leg
   with a confirm read at adecc4bcf, and the door ran with Codex as the only expectation on the
-  Director's word; the one Copilot re-request the word allowed went on adecc4bcf. Two more pure syncs (146f14ab3 after #290, c4ddcaca5 after #292, 8fae75f45 after #293) and one
+  Director's word; the one Copilot re-request the word allowed went on adecc4bcf. Two more pure syncs (c4ddcaca5 after #292, 8fae75f45 after #293) and one
   door refused THREADS-OPEN on a fifth Codex finding at the last sync (the projection fake calls
   the leg's pure classifier: Rejected with rationale, the classifier is IO-free and part of the
   leg under test; a copy would drift). Copilot's content review at 4b42a2432 (two medium findings:

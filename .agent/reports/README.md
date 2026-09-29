@@ -66,7 +66,8 @@ matching one nesting depth missed two deeper directories and changed twelve rows
   and reconciled projection/intake state
 - [practice-exchange/goal-one-residue-census-2026-09-28.md](./practice-exchange/goal-one-residue-census-2026-09-28.md)
   — the first act of goal one's close charter: one line per owed J row, the batch-six triage's
-  BRING items minus the landings, read first-hand at both estates on 2026-09-28; 24 PRs in all.
+  BRING items minus the landings, read first-hand at both estates on 2026-09-28; the residue
+  count is dated in its Recounts section.
 
 - `oak-ecosystem-progress-*` — the progress-report family: point-in-time
   syntheses of where the whole effort stands, for readers who ask "where is it
