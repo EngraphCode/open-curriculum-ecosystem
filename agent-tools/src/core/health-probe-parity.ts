@@ -72,7 +72,9 @@ function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
   const declared = readDeclaredAdapters(repoRoot);
   // A refusal fails the check before any surface is listed: listing is a read that can itself
   // throw, and the refusal is the whole verdict.
-  if (!declared.ok) return reviewerAdapterParityOf(declared, UNLISTED_SURFACES);
+  if (!declared.ok) {
+    return reviewerAdapterParityOf(declared, UNLISTED_SURFACES);
+  }
   return reviewerAdapterParityOf(declared, {
     cursor: surfaceBasenames(repoRoot, 'cursor'),
     claude: surfaceBasenames(repoRoot, 'claude'),
