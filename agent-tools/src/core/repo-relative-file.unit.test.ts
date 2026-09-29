@@ -32,9 +32,12 @@ describe('repoRelativeFileSchema', () => {
     ['a current-directory segment first', './a.md'],
     ['a current-directory segment inside', 'a/./b.md'],
     ['the empty string', ''],
-  ])('refuses %s (%j), so the file cannot name a place outside the repository', (_label, file) => {
-    expect(repoRelativeFileSchema.safeParse(file).success).toBe(false);
-  });
+  ])(
+    'refuses %s (%j), which is not one plain spelling of a path inside the repository',
+    (_label, file) => {
+      expect(repoRelativeFileSchema.safeParse(file).success).toBe(false);
+    },
+  );
 
   it('checks a path of four million segments without throwing, so a huge partition is an error result, never a crash', () => {
     const huge = `${'a/'.repeat(4_000_000)}a`;
