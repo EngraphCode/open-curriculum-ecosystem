@@ -81,8 +81,17 @@ if [[ -x "${bin_dir}/shellcheck" ]] &&
   exit 0
 fi
 
-archive="$(mktemp)"
-trap 'rm -f "$archive"' EXIT
+# Anything else at .tools/bin/shellcheck goes before the fetch: a failed
+# install then leaves no binary for the gate to accept by its version, so the
+# gate refuses and names this script.
+rm -f "${bin_dir}/shellcheck"
+
+# The download and the extract live in a directory beside .tools/bin, so the
+# checked binary moves into place by rename and nothing half-made is there.
+mkdir -p "${repo_root}/.tools"
+work="$(mktemp -d "${repo_root}/.tools/install-shellcheck.XXXXXX")"
+trap 'rm -f "${work}/archive.tar.gz" "${work}/shellcheck"; rmdir "$work" 2> /dev/null || true' EXIT
+archive="${work}/archive.tar.gz"
 
 # https only, on the request and on every redirect hop; the asset redirects
 # to release-assets.githubusercontent.com, the host gitleaks' asset uses.
@@ -99,11 +108,12 @@ if [[ "$(sha256_of "$archive")" != "${sha256}" ]]; then
 fi
 
 # The binary is owned by whoever runs the install, root included.
-mkdir -p "$bin_dir"
-tar --extract --gzip --no-same-owner --file "$archive" --directory "$bin_dir" \
+tar --extract --gzip --no-same-owner --file "$archive" --directory "$work" \
   --strip-components=1 "shellcheck-v${SHELLCHECK_VERSION}/shellcheck"
-if [[ "$(sha256_of "${bin_dir}/shellcheck")" != "${binary_sha256}" ]]; then
+if [[ "$(sha256_of "${work}/shellcheck")" != "${binary_sha256}" ]]; then
   echo "install-shellcheck: the extracted shellcheck does not match its pinned binary sha256; recompute the pin" >&2
   exit 1
 fi
+mkdir -p "$bin_dir"
+mv "${work}/shellcheck" "${bin_dir}/shellcheck"
 "${bin_dir}/shellcheck" --version
