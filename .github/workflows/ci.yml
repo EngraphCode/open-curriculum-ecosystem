@@ -165,6 +165,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
       - name: Turbo remote cache by OIDC
+        # A fork pull request gets no OIDC token and a Dependabot pull request runs
+        # with a read-only token, and the action fails when the token is absent, so
+        # the step runs only where the token can exist; elsewhere turbo runs without
+        # the remote cache, as it did before this step.
+        if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
         with:
           team: ${{ vars.TURBO_TEAM }}
@@ -285,6 +290,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
       - name: Turbo remote cache by OIDC
+        # A fork pull request gets no OIDC token and a Dependabot pull request runs
+        # with a read-only token, and the action fails when the token is absent, so
+        # the step runs only where the token can exist; elsewhere turbo runs without
+        # the remote cache, as it did before this step.
+        if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
         with:
           team: ${{ vars.TURBO_TEAM }}
@@ -308,6 +318,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
       - name: Turbo remote cache by OIDC
+        # A fork pull request gets no OIDC token and a Dependabot pull request runs
+        # with a read-only token, and the action fails when the token is absent, so
+        # the step runs only where the token can exist; elsewhere turbo runs without
+        # the remote cache, as it did before this step.
+        if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
         with:
           team: ${{ vars.TURBO_TEAM }}
@@ -334,6 +349,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
       - name: Turbo remote cache by OIDC
+        # A fork pull request gets no OIDC token and a Dependabot pull request runs
+        # with a read-only token, and the action fails when the token is absent, so
+        # the step runs only where the token can exist; elsewhere turbo runs without
+        # the remote cache, as it did before this step.
+        if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
         with:
           team: ${{ vars.TURBO_TEAM }}
@@ -385,6 +405,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
       - name: Turbo remote cache by OIDC
+        # A fork pull request gets no OIDC token and a Dependabot pull request runs
+        # with a read-only token, and the action fails when the token is absent, so
+        # the step runs only where the token can exist; elsewhere turbo runs without
+        # the remote cache, as it did before this step.
+        if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
         with:
           team: ${{ vars.TURBO_TEAM }}
