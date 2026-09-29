@@ -1,51 +1,32 @@
 import { describe, expect, it } from 'vitest';
 
 import { installTimeClosure, type InstallTimeClosureVerdict } from './install-time-closure.js';
-import { type WorkspaceManifestInput } from './install-time-manifest.js';
+import { type Manifest, type WorkspaceManifestInput } from './install-time-manifest.js';
 
 const RECIPE = 'tsup && tsc --emitDeclarationOnly --project tsconfig.build.json';
 const ROOT_DIR = 'tools';
 
-interface PackageShape {
-  readonly deps?: readonly string[];
-  readonly devDeps?: readonly string[];
-  readonly peerDeps?: readonly string[];
-  readonly exports?: unknown;
-  readonly main?: string;
-  readonly types?: string;
-  /** The build script; `null` declares none. */
-  readonly build?: string | null;
-}
-
 const DIST_EXPORTS = { '.': { types: './dist/index.d.ts', import: './dist/index.js' } };
 
-function workspaceRecord(names: readonly string[] | undefined) {
-  return names === undefined
-    ? undefined
-    : Object.fromEntries(names.map((name) => [name, 'workspace:*']));
+/** A dependency record declaring each name at `workspace:*`. */
+function ws(...names: readonly string[]): Readonly<Record<string, string>> {
+  return Object.fromEntries(names.map((name) => [name, 'workspace:*']));
 }
 
-/** A workspace package; dist-only and built by the recipe unless the shape says otherwise. */
-function pkg(dir: string, name: string, shape: PackageShape = {}): WorkspaceManifestInput {
-  const build = shape.build === undefined ? RECIPE : shape.build;
+/**
+ * A workspace package: dist-only and built by the recipe, with any manifest
+ * field the case gives replacing the default.
+ */
+function pkg(dir: string, name: string, fields: Partial<Manifest> = {}): WorkspaceManifestInput {
   return {
     dir,
-    manifest: {
-      name,
-      exports: shape.exports ?? DIST_EXPORTS,
-      ...(shape.main === undefined ? {} : { main: shape.main }),
-      ...(shape.types === undefined ? {} : { types: shape.types }),
-      scripts: build === null ? {} : { build },
-      dependencies: workspaceRecord(shape.deps),
-      devDependencies: workspaceRecord(shape.devDeps),
-      peerDependencies: workspaceRecord(shape.peerDeps),
-    },
+    manifest: { name, exports: DIST_EXPORTS, scripts: { build: RECIPE }, ...fields },
   };
 }
 
 /** The package running the bootstrap: its dependencies are where the closure starts. */
-function root(shape: PackageShape): WorkspaceManifestInput {
-  return pkg(ROOT_DIR, '@x/tools', { exports: { '.': './src/index.ts' }, ...shape });
+function root(fields: Partial<Manifest>): WorkspaceManifestInput {
+  return pkg(ROOT_DIR, '@x/tools', { exports: { '.': './src/index.ts' }, ...fields });
 }
 
 function closure(inputs: readonly WorkspaceManifestInput[]): InstallTimeClosureVerdict {
@@ -60,7 +41,7 @@ function members(...names: readonly string[]) {
 describe('installTimeClosure membership', () => {
   it('builds each reached dist-only package, witnessed by every dist file its entry points name', () => {
     const verdict = closure([
-      root({ devDeps: ['@x/config'], deps: ['@x/result'] }),
+      root({ devDependencies: ws('@x/config'), dependencies: ws('@x/result') }),
       pkg('core/config', '@x/config', {
         exports: {
           './tsup': { types: './dist/tsup.base.d.ts', import: './dist/tsup.base.js' },
@@ -86,10 +67,10 @@ describe('installTimeClosure membership', () => {
 
   it('leaves out a dist-only package the root never reaches, however it is built', () => {
     const verdict = closure([
-      root({ deps: ['@x/result'] }),
+      root({ dependencies: ws('@x/result') }),
       pkg('core/result', '@x/result'),
       pkg('libs/graph', '@x/graph'),
-      pkg('design/tokens', '@x/tokens', { build: 'tsx src/build.ts && tsup' }),
+      pkg('design/tokens', '@x/tokens', { scripts: { build: 'tsx src/build.ts && tsup' } }),
     ]);
 
     expect(verdict).toMatchObject(members('@x/result'));
@@ -97,8 +78,11 @@ describe('installTimeClosure membership', () => {
 
   it('follows workspace edges transitively, whichever dependency field declares them', () => {
     const verdict = closure([
-      root({ deps: ['@x/result'] }),
-      pkg('core/result', '@x/result', { devDeps: ['@x/config'], peerDeps: ['@x/peer'] }),
+      root({ dependencies: ws('@x/result') }),
+      pkg('core/result', '@x/result', {
+        devDependencies: ws('@x/config'),
+        peerDependencies: ws('@x/peer'),
+      }),
       pkg('core/config', '@x/config'),
       pkg('core/peer', '@x/peer'),
     ]);
@@ -124,7 +108,11 @@ describe('installTimeClosure membership', () => {
 
   it('never makes the root a member, even with dist exports and a build the recipe is not', () => {
     const verdict = closure([
-      root({ exports: DIST_EXPORTS, build: 'tsc -p tsconfig.build.json', deps: ['@x/result'] }),
+      root({
+        exports: DIST_EXPORTS,
+        scripts: { build: 'tsc -p tsconfig.build.json' },
+        dependencies: ws('@x/result'),
+      }),
       pkg('core/result', '@x/result'),
     ]);
 
@@ -133,7 +121,7 @@ describe('installTimeClosure membership', () => {
 
   it('reads dist/x and ./dist/x alike, in main and types as in exports', () => {
     const verdict = closure([
-      root({ deps: ['@x/sdk'] }),
+      root({ dependencies: ws('@x/sdk') }),
       pkg('sdks/sdk', '@x/sdk', { exports: {}, main: 'dist/index.js', types: 'dist/index.d.ts' }),
     ]);
 
@@ -145,7 +133,7 @@ describe('installTimeClosure membership', () => {
 
   it('witnesses only dist targets, skipping a package.json self-export and a null target', () => {
     const verdict = closure([
-      root({ deps: ['@x/mixed'] }),
+      root({ dependencies: ws('@x/mixed') }),
       pkg('core/mixed', '@x/mixed', {
         exports: {
           '.': { import: './dist/index.js' },
@@ -163,7 +151,7 @@ describe('installTimeClosure membership', () => {
 
   it('leaves out a reached package whose entry points name no dist file', () => {
     const verdict = closure([
-      root({ deps: ['@x/source', '@x/result'] }),
+      root({ dependencies: ws('@x/source', '@x/result') }),
       pkg('libs/source', '@x/source', { exports: { '.': './src/index.ts' } }),
       pkg('core/result', '@x/result'),
     ]);
@@ -175,11 +163,11 @@ describe('installTimeClosure membership', () => {
 describe('installTimeClosure order', () => {
   it('builds a package after the members it reaches, including through a non-member', () => {
     const verdict = closure([
-      root({ deps: ['@x/app-lib'] }),
-      pkg('libs/app-lib', '@x/app-lib', { deps: ['@x/bridge'] }),
+      root({ dependencies: ws('@x/app-lib') }),
+      pkg('libs/app-lib', '@x/app-lib', { dependencies: ws('@x/bridge') }),
       pkg('libs/bridge', '@x/bridge', {
         exports: { '.': './src/index.ts' },
-        deps: ['@x/base'],
+        dependencies: ws('@x/base'),
       }),
       pkg('core/base', '@x/base'),
     ]);
@@ -189,9 +177,9 @@ describe('installTimeClosure order', () => {
 
   it('builds the config base, then the lint plugin, then what devDepends on both, whatever the names', () => {
     const verdict = closure([
-      root({ deps: ['@x/alpha'], devDeps: ['@x/plugin', '@x/zconfig'] }),
-      pkg('core/alpha', '@x/alpha', { devDeps: ['@x/plugin', '@x/zconfig'] }),
-      pkg('core/plugin', '@x/plugin', { devDeps: ['@x/zconfig'] }),
+      root({ dependencies: ws('@x/alpha'), devDependencies: ws('@x/plugin', '@x/zconfig') }),
+      pkg('core/alpha', '@x/alpha', { devDependencies: ws('@x/plugin', '@x/zconfig') }),
+      pkg('core/plugin', '@x/plugin', { devDependencies: ws('@x/zconfig') }),
       pkg('core/zconfig', '@x/zconfig'),
     ]);
 
@@ -200,7 +188,7 @@ describe('installTimeClosure order', () => {
 
   it('breaks ties by name, never by the order the workspace was read in', () => {
     const verdict = closure([
-      root({ deps: ['@x/zeta', '@x/alpha', '@x/mid'] }),
+      root({ dependencies: ws('@x/zeta', '@x/alpha', '@x/mid') }),
       pkg('core/zeta', '@x/zeta'),
       pkg('core/mid', '@x/mid'),
       pkg('core/alpha', '@x/alpha'),
@@ -211,10 +199,10 @@ describe('installTimeClosure order', () => {
 
   it('refuses a dependency cycle among members, naming them and the members waiting on them', () => {
     const verdict = closure([
-      root({ deps: ['@x/a', '@x/c'] }),
-      pkg('core/a', '@x/a', { devDeps: ['@x/b'] }),
-      pkg('core/b', '@x/b', { devDeps: ['@x/a'] }),
-      pkg('core/c', '@x/c', { devDeps: ['@x/a'] }),
+      root({ dependencies: ws('@x/a', '@x/c') }),
+      pkg('core/a', '@x/a', { devDependencies: ws('@x/b') }),
+      pkg('core/b', '@x/b', { devDependencies: ws('@x/a') }),
+      pkg('core/c', '@x/c', { devDependencies: ws('@x/a') }),
     ]);
 
     expect(verdict).toHaveProperty('ok', false);
@@ -225,10 +213,16 @@ describe('installTimeClosure order', () => {
 
   it('tolerates a cycle among packages that are not members, since none of them is built', () => {
     const verdict = closure([
-      root({ deps: ['@x/app-lib'] }),
-      pkg('libs/app-lib', '@x/app-lib', { deps: ['@x/left'] }),
-      pkg('libs/left', '@x/left', { exports: { '.': './src/l.ts' }, devDeps: ['@x/right'] }),
-      pkg('libs/right', '@x/right', { exports: { '.': './src/r.ts' }, devDeps: ['@x/left'] }),
+      root({ dependencies: ws('@x/app-lib') }),
+      pkg('libs/app-lib', '@x/app-lib', { dependencies: ws('@x/left') }),
+      pkg('libs/left', '@x/left', {
+        exports: { '.': './src/l.ts' },
+        devDependencies: ws('@x/right'),
+      }),
+      pkg('libs/right', '@x/right', {
+        exports: { '.': './src/r.ts' },
+        devDependencies: ws('@x/left'),
+      }),
     ]);
 
     expect(verdict).toMatchObject(members('@x/app-lib'));
@@ -238,8 +232,8 @@ describe('installTimeClosure order', () => {
 describe('installTimeClosure refusals', () => {
   it('refuses a workspace dependency no workspace manifest names, wherever it is declared', () => {
     const verdict = closure([
-      root({ deps: ['@x/result'] }),
-      pkg('core/result', '@x/result', { deps: ['@x/ghost'] }),
+      root({ dependencies: ws('@x/result') }),
+      pkg('core/result', '@x/result', { dependencies: ws('@x/ghost') }),
     ]);
 
     expect(verdict).toHaveProperty('ok', false);
@@ -271,13 +265,13 @@ describe('installTimeClosure refusals', () => {
   });
 
   it.each([
-    ['no build script', null],
-    ['a build that stops short of the declarations', 'tsup'],
-    ['a build of its own', 'tsx src/build.ts && tsup'],
-  ])('refuses a member with %s, naming it', (_case, build) => {
+    ['no build script', {}],
+    ['a build that stops short of the declarations', { build: 'tsup' }],
+    ['a build of its own', { build: 'tsx src/build.ts && tsup' }],
+  ])('refuses a member with %s, naming it', (_case, scripts) => {
     const verdict = closure([
-      root({ deps: ['@x/tokens'] }),
-      pkg('design/tokens', '@x/tokens', { build }),
+      root({ dependencies: ws('@x/tokens') }),
+      pkg('design/tokens', '@x/tokens', { scripts }),
     ]);
 
     expect(verdict).toHaveProperty('ok', false);
