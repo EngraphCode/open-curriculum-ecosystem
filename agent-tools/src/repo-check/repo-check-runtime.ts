@@ -2,7 +2,9 @@ import { spawn, spawnSync, type ChildProcess, type SpawnSyncReturns } from 'node
 
 import { writeErrorLine } from '../core/terminal-output.js';
 import { resolveTrustedGit } from '../core/trusted-git.js';
+import { childEnvironment } from '../spawn/child-environment.js';
 import { resolvePnpm } from '../spawn/pnpm-path.js';
+import { signalProcessGroup, type SignalOutcome } from '../spawn/process-group.js';
 
 import type { RepoCheckRuntime } from './repo-check-types.js';
 
@@ -66,6 +68,21 @@ export interface InheritedProcessEnd {
 export interface InheritedProcessOptions {
   /** The child's working directory; defaults to this process's. */
   readonly cwd?: string;
+  /** Variables set over the environment the child would otherwise get. */
+  readonly extraEnv?: Readonly<Record<string, string>>;
+  /**
+   * Start the child as the leader of its own process group (and session),
+   * and hand `onSpawn` a kill for the whole group once it is spawned, so the
+   * caller can forward signals to it, bound its lifetime and sweep it. A
+   * signal sent to one pid reaches only that process: the pnpm launcher on
+   * this estate's hosts is a shell script that runs pnpm without exec, so a
+   * gate's real work sits two levels below it. The kill returns the kernel's
+   * answer. The child also leaves the controlling terminal, so a terminal's
+   * Ctrl-C reaches it only through the caller.
+   */
+  readonly processGroup?: {
+    readonly onSpawn: (killGroup: (signal: NodeJS.Signals) => SignalOutcome) => void;
+  };
 }
 
 /**
@@ -80,7 +97,7 @@ export interface InheritedProcessOptions {
  *
  * @param command - The command; `pnpm` and `git` resolve to their trusted binaries.
  * @param args - Arguments.
- * @param options - The child's working directory.
+ * @param options - The child's working directory, extra environment, group and kill seam.
  */
 export function spawnInheritedProcess(
   command: string,
@@ -99,14 +116,22 @@ export function spawnInheritedProcess(
     try {
       child = spawn(trusted.command, [...(trusted.leadingArgs ?? []), ...args], {
         stdio: 'inherit',
-        env: trusted.environment,
+        env: childEnvironment({
+          pnpm: trusted.environment !== undefined,
+          ambient: process.env,
+          extra: options.extraEnv,
+          platform: process.platform,
+        }),
         cwd: options.cwd,
+        detached: options.processGroup !== undefined,
       });
     } catch (error: unknown) {
       writeErrorLine(`${command}: ${error instanceof Error ? error.message : String(error)}`);
       resolve({ status: 1, signal: null });
       return;
     }
+    const leader = child.pid;
+    options.processGroup?.onSpawn((signal) => signalProcessGroup(leader, signal));
     child.on('close', (status, signal) => resolve({ status, signal }));
     child.on('error', (error) => {
       writeErrorLine(`${command}: ${error.message}`);
