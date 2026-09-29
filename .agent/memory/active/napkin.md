@@ -1336,3 +1336,40 @@ a known recipe rather than making a write.
 **Routing.** No new rule; the rule's worked commands have it. The seat's boundary record now carries
 the bot recipe, and the 02:03Z re-request went as the bot. An instance for the Director's
 bot-identity count.
+
+## 2026-09-29 ~01:58Z — a derived door script parsed past the merge and failed on a quote; the cleanup ran by hand (Myrtle turns Canopy, bf4957)
+
+**Observation.** door-296.sh was derived from n1-door.sh by editing the slot text; one
+apostrophe inside a single-quoted string left an unmatched quote at line 28. sh reads a script
+incrementally, so it ran the slot-taken line and the merge-bot merge (PR 296 merged 1b6c1b4d1),
+then hit the parse error and never ran the cleanup: no slot-released line, the remote branch
+left, the worktree and local branch left, the claim open. Found by reading the door log; every
+step done by hand within two minutes.
+
+**Reading.** A script edited by hand is unproven until it is parsed whole; sh's incremental
+read means a late syntax error runs the dangerous half and skips the tidy half. The commit
+ceremony scripts had been proven by use; the door script's slot text changes at every
+derivation.
+
+**Routing.** A working habit, not a rule: every derived shell script is run through `sh -n`
+before its first use (done for door-301.sh, the settle and open scripts the same hour). If a
+second instance appears, the door scripts take a `set -e`-free parse check at their head as a
+pattern.
+
+## 2026-09-29 ~02:1xZ — a heartbeat loop that baked in its claim id went silent when the door closed the claim (Myrtle turns Canopy, bf4957)
+
+**Observation.** The seat's OCE heartbeat loop carried the ruling lane's claim id as a literal
+in its send line. When PR 296's door closed that claim at 01:58Z, every heartbeat send from
+01:59Z was refused (heartbeats are claim-anchored: "no claim ... exists in the registry"); the
+refusals went to the loop's own log while the stream read silent. Nova's F-75 poll flagged the
+silence at 02:09Z; the loop now reads its claim id from a file at each tick and was restarted
+by its own pid; a heartbeat followed at 02:11:28Z. The JC.net loop was unaffected.
+
+**Reading.** The liveness signal depended on a value that the seat's own next act (closing the
+claim) invalidates, and the failure surfaced only in a log nobody reads between acts. The same
+shape as a check whose name outruns its coverage: the loop was alive, its output was not.
+
+**Routing.** Two habits: a heartbeat loop reads its anchor (claim id, branch) from files at
+every tick, never from literals; closing a claim is followed by a read of the loop's log. If
+the loop's send fails twice in a row, it should say so on the stream itself (an untagged line
+needs no claim), a small cure for the heartbeat script if a second instance appears.

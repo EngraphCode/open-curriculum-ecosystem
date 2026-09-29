@@ -574,6 +574,29 @@ contract, its §Recount run at 14:58Z and matching.
   shell's name also stopped the Director's push on the second estate (retried, landed); the napkin's
   entry of 00:5xZ. Next: 296's door at its legs; todo 8's validator twin (one PR, say when it
   opens); N1's second slice (four verdicts first); J2; the partials in census order.
+- **THE RULING PR LANDED; TODO 8'S TWIN OPEN, 2026-09-29 01:5xZ to 02:3xZ (Myrtle turns Canopy,
+  bf4957).** PR 296 merged by the bot as 1b6c1b4d1 (01:57:53Z) on the synced tip 810c75475 with both
+  vendor legs, zero open threads, nine signed lines across four rounds (settlements 3306d9f7c and
+  3d120c11e, the one late cure a2549d9bb; Codex's last P2 on the synced tip Routed to the node's
+  close edit: the Not taken proof line takes "or a §Landings row written by that seat, citing the
+  triage"). The door script parsed past the merge and failed on a quote; the cleanup was done by
+  hand (remote branch deleted, 0 refs; worktree and local branch removed; claim closed). The second
+  estate's PR 265 (its register's count line 9 of 30 with the rows named, the node's todo 8
+  sentence) is open at settlement one c80af6247 (Copilot's two findings: PR 248 named as that
+  estate's; the fold figure a reconstruction); the census here names the second estate's PR 248 the
+  same way (92557b869). Todo 8's validator twin is PR 301 at e437782d1
+  (feat/exchange-todo8-core-adr-citations, synced onto ec5db1d5d; opened 02:33Z on the slot #300
+  freed, Siren's line): validate-core-adr-citations in docs-validators:check after
+  validate-no-machine-local-paths, strict on a Core reading zero citations (155 files); the helpers,
+  the unit test and the smoke Taken by bytes (bc6e501e, dbbe38be, abca92a8 at the second estate's
+  d2b91090e6), the entry file Written in this estate's words (readCore lists through
+  core/repository-paths and refuses on every branch; the second estate's 7b98e68e); the script,
+  chain and knip entries; the rule's §Enforcement names the two gates; the build-system note and the
+  reference-direction helpers' TSDoc name the sibling. Code-expert plan and diff reads PROCEED; both
+  legs requested 02:33Z; budget 2. The count reads 9 of 30 until 301 lands. Next: 301's door at its
+  legs (door-301.sh); 265's settlement two carries the number into the node sentence, then its door;
+  the register's count line to 10 of 30 at 301's landing; N1's second slice (four verdicts to the
+  Director first); J2; the partials in census order.
 - **N1 SLICE 1 IN FLIGHT: THE RULE-DECLARATIONS GENERATOR, PR 291, 2026-09-28 19:5xZ to
   20:1xZ (Myrtle turns Canopy, bf4957).** Exchange row J1, the triage's N1, first of three
   slices: the second estate's `rule-declarations` module as the same bytes under this estate's
