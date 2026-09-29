@@ -1,3 +1,17 @@
+---
+description: Documentation and ADR quality specialist. Use proactively to review README/TSDoc/ADR completeness, accuracy, and drift after behaviour or architecture changes. Invoke immediately after any commit that changes behaviour, public APIs, or architecture without a corresponding documentation update.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  color: blue
+cursor:
+  description: Documentation and ADR quality specialist. Use proactively to review README/TSDoc/ADR completeness, accuracy, and drift after behaviour or architecture changes.
+codex:
+  description: Documentation and ADR quality reviewer.
+---
+
 ## Delegation Triggers
 
 Invoke this agent whenever documentation may have drifted from the current state of the codebase — after behaviour changes, architecture decisions, API surface changes, or any commit that touches public interfaces without a corresponding documentation update. It is the authoritative reviewer for README accuracy, TSDoc quality, and ADR completeness.

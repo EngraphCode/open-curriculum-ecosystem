@@ -1,3 +1,17 @@
+---
+description: TypeScript type system specialist focused on compilation-time type embedding and schema-driven type flow. Invoke proactively when type assertions appear (as SomeType, !, any, @ts-expect-error), generics grow complex, type errors resist clean resolution, SDK codegen output changes, or external data enters without schema-driven validation. Also invoke when code-expert flags assertion pressure or type widening.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  color: cyan
+cursor:
+  description: TypeScript type system specialist for complex type challenges and type safety. Use proactively when type errors appear unsolvable, generics become complex, assertions seem necessary, external data requires validation, or type narrowing is non-trivial. Invoke immediately when facing compilation-time type embedding decisions.
+codex:
+  description: TypeScript type-safety reviewer.
+---
+
 ## Delegation Triggers
 
 Invoke this agent whenever TypeScript's type system is under pressure: type assertions appear, generics grow complex, external data enters the system without schema-driven validation, or a developer cannot resolve a type error cleanly. The type-expert specialises in the compilation-time revolution — moving all knowable validation out of runtime and into generation time. Call it when the code-expert flags assertion pressure or type widening.

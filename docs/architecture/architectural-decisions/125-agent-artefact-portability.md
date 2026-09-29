@@ -2,6 +2,19 @@
 
 **Status**: Accepted
 **Date**: 2026-03-04
+**Amended**: 2026-09-29 — the sub-agent adapters under `.cursor/agents/`,
+`.claude/agents/` and `.codex/agents/`, with the `[agents."<name>"]` tail of
+`.codex/config.toml`, are projections of each template's frontmatter declaration
+(`.agent/sub-agents/README.md` §Declarations; the shape is
+`agent-tools/src/subagent-declarations/subagent-declaration.ts`): `pnpm portability:fix`
+renders them and `pnpm portability:check` recomputes them byte for byte, so none is
+hand-edited; the hand-kept parity and inline-prompt comparisons retire with it. The
+field lists the surface rows below give are what the generator writes.
+
+**Amended**: 2026-09-29 — the archived Claude sub-agent wrapper lives at
+`.agent/sub-agents/archive/`, outside every rendered surface; `.claude/agents/`
+holds only rendered files.
+
 **Amended**: 2026-09-28 — rule adapters and `RULES_INDEX.md` are projections of each
 canonical rule's frontmatter declaration, rendered by `pnpm portability:fix` and recomputed
 byte for byte by `pnpm portability:check`; skill-targeting triggers are retired
@@ -83,20 +96,20 @@ Each platform has thin wrappers that reference canonical content. Skill adapters
 
 #### Claude Code (`.claude/`)
 
-| Location                                        | Format                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Read by            |
-| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `.claude/skills/*/SKILL.md`                     | Generated thin wrapper with spec-portable frontmatter PLUS Claude top-level fields (`when_to_use`, `argument-hint`, `arguments`, `disable-model-invocation`, `user-invocable`, `context`, `agent`, `model`) derived from `metadata.claude-*` keys in canonical -> the skill's canonical body under `.agent/skills/` (any of the three ratified depths: flat, concern, or concern/domain)                                                                             | Claude Code (only) |
-| `.claude/skills/*/{references,scripts,assets}/` | Bytewise copies of canonical supporting files                                                                                                                                                                                                                                                                                                                                                                                                                        | Same               |
-| `.claude/rules/*.md`                            | Generated thin wrappers (`paths`-scoped when the rule declares globs) -> `.agent/rules/`                                                                                                                                                                                                                                                                                                                                                                             | Claude Code        |
-| `.claude/agents/*.md`                           | Markdown with YAML frontmatter (`name`, `description`, `tools`, `disallowedTools`, `model`, `permissionMode`, `color`). All wrappers require a `color` field and ≥2 `<example>` blocks in `description`; **`model` is optional** — omitted by default so the invoking agent's model is inherited (owner-directed inherit policy, 2026-06-28; the per-platform subagent frontmatter schema `agent-tools/src/validators/subagents/frontmatter-schema.ts` is the SSOT). | Claude Code        |
-| `.claude/agents/archive/*.md`                   | Archived wrappers — superseded or retired agents. Preserved for reference. Not validated by `pnpm subagents:check`.                                                                                                                                                                                                                                                                                                                                                  | —                  |
+| Location                                        | Format                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Read by            |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `.claude/skills/*/SKILL.md`                     | Generated thin wrapper with spec-portable frontmatter PLUS Claude top-level fields (`when_to_use`, `argument-hint`, `arguments`, `disable-model-invocation`, `user-invocable`, `context`, `agent`, `model`) derived from `metadata.claude-*` keys in canonical -> the skill's canonical body under `.agent/skills/` (any of the three ratified depths: flat, concern, or concern/domain)                                                                                                                                                                                                                                                                                                           | Claude Code (only) |
+| `.claude/skills/*/{references,scripts,assets}/` | Bytewise copies of canonical supporting files                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Same               |
+| `.claude/rules/*.md`                            | Generated thin wrappers (`paths`-scoped when the rule declares globs) -> `.agent/rules/`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Claude Code        |
+| `.claude/agents/*.md`                           | Markdown with YAML frontmatter rendered from the template's declaration (`agent-tools/src/subagent-declarations/subagent-declaration.ts`, `claude-fields.ts`: `name`, `description`, then `tools`, `disallowedTools`, `color`, `permissionMode`, `model`, `effort`, `maxTurns` where declared or defaulted); `agent-tools/src/validators/subagents/frontmatter-schema.ts` is the `pnpm subagents:check` gate over the rendered output. **`model` is optional** — omitted by default so the invoking agent's model is inherited (owner-directed inherit policy, 2026-06-28; the per-platform subagent frontmatter schema `agent-tools/src/validators/subagents/frontmatter-schema.ts` is the SSOT). | Claude Code        |
+| `.agent/sub-agents/archive/*.md`                | Archived sub-agent adapters — superseded or retired, kept for reference outside every rendered surface (moved from `.claude/agents/archive/` on 2026-09-29: a rendered surface holds only rendered files). Not validated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | —                  |
 
 #### Cursor (`.cursor/`) — sub-agents and rules only
 
-| Location              | Format                                                                                                                                                                                                               | Count |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `.cursor/rules/*.mdc` | Generated; `alwaysApply`/`globs`/`description` frontmatter rendered from the rule's declaration                                                                                                                      | live  |
-| `.cursor/agents/*.md` | Markdown with `name`/`description`/`model` (optional, inherit)/`readonly`; the `tools` frontmatter field is non-functional and dropped (Cursor sub-agent tools are not frontmatter-configurable per the schema SSOT) | live  |
+| Location              | Format                                                                                                                                                                                                                                                                                      | Count |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| `.cursor/rules/*.mdc` | Generated; `alwaysApply`/`globs`/`description` frontmatter rendered from the rule's declaration                                                                                                                                                                                             | live  |
+| `.cursor/agents/*.md` | Markdown with `name`/`description`/`readonly`, rendered from the template's declaration (the Cursor block admits a `description` and prose only); the `tools` frontmatter field is non-functional and dropped (Cursor sub-agent tools are not frontmatter-configurable per the schema SSOT) | live  |
 
 Cursor reads skills from `.agents/skills/` per its current docs. The
 previously-emitted `.cursor/skills/` adapters are retired per the 2026-05-09
@@ -121,11 +134,11 @@ fresh verification and adapter design lands.
 
 #### Codex (`.codex/`)
 
-| Location               | Format                                                         | Count |
-| ---------------------- | -------------------------------------------------------------- | ----- |
-| `.codex/agents/*.toml` | Codex project-agent adapters -> `.agent/sub-agents/templates/` | 22    |
-| `.codex/hooks/*.mjs`   | Soft Codex hook adapters -> canonical Practice tooling         | —     |
-| `.codex/config.toml`   | Tracked Codex project configuration                            | 1     |
+| Location               | Format                                                                                                                                                  | Count |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| `.codex/agents/*.toml` | Codex project-agent adapters -> `.agent/sub-agents/templates/`, rendered from the template's declaration with the registry tail of `.codex/config.toml` | live  |
+| `.codex/hooks/*.mjs`   | Soft Codex hook adapters -> canonical Practice tooling                                                                                                  | —     |
+| `.codex/config.toml`   | Tracked Codex project configuration                                                                                                                     | 1     |
 
 Codex reads skills from `.agents/skills/` per its current docs (with parent-walk
 to repo root); `.codex/skills/` is not used.
@@ -239,7 +252,7 @@ A thin wrapper contains ONLY:
 
 A thin wrapper MUST NOT contain substantive instructions, workflow steps, or logic that does not exist in the canonical source. The canonical content describes **what** to do; the wrapper describes **how** to invoke it on a specific platform.
 
-An inline-prompt role's adapter (PDR-009: the role cannot read files, or its bounded turns belong to its task) carries its template's System prompt block verbatim in place of the pointer, and `pnpm subagents:check` compares the copy with the template.
+An inline-prompt role's adapter (PDR-009: the role cannot read files, or its bounded turns belong to its task) carries its template's System prompt block verbatim in place of the pointer; the template declares `claude.body: system-prompt`, `pnpm portability:fix` renders the block into the adapter and `pnpm portability:check` recomputes it byte for byte.
 
 ### Owned-Skill Naming Convention
 
@@ -270,13 +283,13 @@ adapter emission; canonical identity is unprefixed.
 
 Each platform uses its native mechanism for sub-agent-equivalent functionality:
 
-| Platform                 | Mechanism                                                  | Key fields                                                                                                           |
-| ------------------------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Cursor                   | `.cursor/agents/*.md`                                      | `name`, `description`, `model`, `tools`, `readonly`                                                                  |
-| Claude Code              | `.claude/agents/*.md`                                      | `name`, `description`, `tools`, `disallowedTools`, `model`, `permissionMode`, `color`                                |
-| Gemini / Antigravity CLI | `.gemini/commands/review-*.toml`; native `/agents` unwired | Transitional reviewer invocation adapter plus native platform capability                                             |
-| Codex                    | `.codex/agents/*.toml`                                     | TOML roster and developer instructions loaded from canonical templates                                               |
-| GitHub Copilot CLI       | `.github/agents/*.agent.md` (ratified target)              | Generated cloud-safe metadata, tool aliases, MCP selection, inherited model, and explicit auto-selection disposition |
+| Platform                 | Mechanism                                                  | Key fields                                                                                                                                             |
+| ------------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Cursor                   | `.cursor/agents/*.md`                                      | `name`, `description`, `readonly` (rendered from the template's declaration)                                                                           |
+| Claude Code              | `.claude/agents/*.md`                                      | `name`, `description`, `tools`, `disallowedTools`, `color`, `permissionMode`, `model`, `effort`, `maxTurns` (rendered from the template's declaration) |
+| Gemini / Antigravity CLI | `.gemini/commands/review-*.toml`; native `/agents` unwired | Transitional reviewer invocation adapter plus native platform capability                                                                               |
+| Codex                    | `.codex/agents/*.toml`                                     | TOML roster and developer instructions loaded from canonical templates                                                                                 |
+| GitHub Copilot CLI       | `.github/agents/*.agent.md` (ratified target)              | Generated cloud-safe metadata, tool aliases, MCP selection, inherited model, and explicit auto-selection disposition                                   |
 
 Read-only reviewers on Claude Code use `permissionMode: plan` and `disallowedTools: Write, Edit` to enforce read-only behaviour at the platform level, not just via instructions.
 

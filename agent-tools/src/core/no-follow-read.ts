@@ -17,7 +17,7 @@
  * @packageDocumentation
  */
 
-import { constants, type BigIntStats } from 'node:fs';
+import { constants, lstatSync, type BigIntStats } from 'node:fs';
 
 /** The two flags a host may lack at runtime, typed as the runtime has them. */
 const hostFlags: Partial<Record<'O_NOFOLLOW' | 'O_NONBLOCK', number>> = {
@@ -35,6 +35,9 @@ export const NO_FOLLOW_READ_FLAGS =
 /** Read-only open flags that follow links but do not wait on a pipe, where the host has `O_NONBLOCK`. */
 export const NON_BLOCKING_READ_FLAGS = constants.O_RDONLY | (hostFlags.O_NONBLOCK ?? 0);
 
+/** The three facts of a stat the identity check reads: the kind, the device and the inode. */
+export type FileIdentity = Pick<BigIntStats, 'isFile' | 'dev' | 'ino'>;
+
 /**
  * Whether a path's own entry, read with `lstat` after the open, is the very
  * regular file the descriptor holds. Only a host without `O_NOFOLLOW` needs it.
@@ -44,13 +47,33 @@ export const NON_BLOCKING_READ_FLAGS = constants.O_RDONLY | (hostFlags.O_NONBLOC
  * @returns `true` only for a regular file on the same device and inode.
  */
 export function entryIsDescriptorFile(
-  entry: BigIntStats | undefined,
-  viaDescriptor: BigIntStats,
+  entry: FileIdentity | undefined,
+  viaDescriptor: FileIdentity,
 ): boolean {
   return (
     entry !== undefined &&
     entry.isFile() &&
     entry.dev === viaDescriptor.dev &&
     entry.ino === viaDescriptor.ino
+  );
+}
+
+/**
+ * The synchronous Windows arm: where the host has no `O_NOFOLLOW` the open
+ * followed a linked leaf, so the path's own entry (`lstat`, absent read as
+ * gone) must be the very file the descriptor holds; a host that enforces
+ * `O_NOFOLLOW` already refused a link at the open, so the answer is `true`.
+ *
+ * @param path - The path that was opened.
+ * @param viaDescriptor - The descriptor's `fstat`.
+ * @returns Whether the descriptor may be read as the path's regular file.
+ */
+export function pathEntryIsDescriptorFileSync(path: string, viaDescriptor: FileIdentity): boolean {
+  if (HOST_ENFORCES_NO_FOLLOW) {
+    return true;
+  }
+  return entryIsDescriptorFile(
+    lstatSync(path, { bigint: true, throwIfNoEntry: false }),
+    viaDescriptor,
   );
 }
