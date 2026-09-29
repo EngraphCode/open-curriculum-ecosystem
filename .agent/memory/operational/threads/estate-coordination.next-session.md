@@ -1435,14 +1435,18 @@ write JC.net records from a separate worktree cut from `origin/main`.
     two unpushed commits: 46d8cb049 (a sync) and ef4c19a62 ("the repair smoke comes out; the
     gate's tests prove behaviour only"). One unresolved Copilot thread on `killGroup` treating
     every signalling error as the group gone.
-  - **299**, the lineage coordination draft, carrying this session's records.
+  - **299**, the lineage coordination draft, carrying this session's records. It was cut at 01:12Z,
+    so by `coordination-branch-24h-lifetime` it was due at 12:00Z, and it has not folded. At n=1
+    the seat folds it (the `coordination-fold` skill) before the door work below, unless the
+    owner says otherwise.
 - Lineage work outside any pull request: worktree `oce-wt-arc-metrics` (branch
   `feat/exchange-arc-metrics`, commit b84e3f0e6, no remote branch, three uncommitted files);
   worktree `oce-wt-j2-docs-validators` (no commits; two modified files under
   `agent-tools/src/validators/markdown-links/` and three untracked directories `cited-paths/`,
   `cited-scripts/`, `lineage-names/`). Worktree `oce-wt-turbo-oidc` is merged (312) and clean.
-- JC.net: no open pull request of this lane apart from its coordination draft, PR 274; `main`
-  green at b6232c77 after the LinkedIn agent's PR 273.
+- JC.net: no open pull request of this lane apart from its coordination draft, PR 274, whose
+  branch is checked out in the worktree `jcnet-wt-fold-push`; `main` green at b6232c77 after the
+  LinkedIn agent's PR 273. PR 274 folds at the 00:00Z boundary.
 - The exchange: stories whole 9 of 21 (J4, J8, J9, J13, J14, J15, J19, J22, J23); partial 10 (J1,
   J3, J6, J7, J10, J11, J16, J17, J18, J21); none 2 (J2, J20). JC.net-only files under the five
   surfaces: 193 (`agent-tools/src` 131, `agent-tools/smoke-tests` 23, `.agent/skills` 18,

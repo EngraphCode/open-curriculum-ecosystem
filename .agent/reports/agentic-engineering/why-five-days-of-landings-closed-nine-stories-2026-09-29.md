@@ -119,8 +119,10 @@ smallest change that turns both?
   are Turbo tasks, and then the site's Playwright suite. The plan that set this reads "records
   commits get no lighter path" (`.agent/plans/delivery/commit-as-the-full-local-gate.plan.md:82`).
   `check:docs` exists (`package.json:40`) and no hook or CI step calls it.
-- Nothing records gate timing. The lineage's `check:profile` last ran on 2026-06-03, and it times
-  `pnpm check`, not the hooks. JC.net has never run it.
+- No gate step records its time. The gate slot writes nothing to disk; the lineage's pre-commit
+  keeps only the last Turbo segment's output in `.turbo/last-gate.log`, overwritten each run. The
+  lineage's `check:profile` last ran on 2026-06-03, and it times `pnpm check`, not the hooks.
+  JC.net has never run it.
 
 ### Accretion
 
