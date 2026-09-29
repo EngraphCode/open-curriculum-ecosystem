@@ -248,8 +248,8 @@ pnpm check:docs
 ```
 
 It composes root Prettier and Markdownlint checks with the documentation
-validators for reference direction, machine-local paths, internal Markdown
-links, the patterns index, and ratified lists. Fitness reports are not part of
+validators for reference direction, machine-local paths, Core ADR citations,
+internal Markdown links, the patterns index, and ratified lists. Fitness reports are not part of
 this gate: they remain signals and never justify deleting or compressing
 knowledge. Specialised Markdown surfaces retain their owning validators; for
 example, skill or sub-agent definition changes also require their dedicated
@@ -505,7 +505,18 @@ This indicates core packages weren't built before type-check ran. Ensure:
 
 Editing a workspace `package.json` (e.g. adding a script) makes the next pnpm
 run re-verify dependencies, which triggers the postinstall bootstrap and a
-whole-package `tsc`. This catches real type errors BEFORE any explicit
+whole-package `tsc`, after it rebuilds any stale member of its install-time
+closure (every package agent-tools reaches whose entry points name built
+output under `dist`, derived at run time from the workspace manifests by
+`agent-tools/src/bootstrap/install-time-closure.ts`; the ESLint plugin is among
+them). A type error in one of those, the plugin mid-edit included, fails the
+install. So does a reached package with built entry points whose build script
+is not the bootstrap's one recipe (`BUILD_RECIPE` in
+`agent-tools/src/bootstrap/closure-member-build.ts`), and a build that does not write a `dist/`
+file its `package.json` entry points name: the install exits naming the
+package. A workspace dependency added to agent-tools, or to any package it
+reaches, enters the derivation at the next install and meets the same checks.
+This catches real type errors BEFORE any explicit
 type-check pass — read the error HEAD (the tail is pnpm plumbing; the
 `runDepsStatusCheck` stack is the fingerprint). Used deliberately, it is a
 free whole-package pre-gate: run `pnpm install` in a worktree immediately
@@ -518,7 +529,10 @@ An edit to `@oaknational/eslint-plugin-standards` source (e.g. a rule config
 or allowlist in `recommended.ts`) does not affect lint output until the
 plugin package rebuilds — ESLint resolves the built `dist/`. Rebuild the
 plugin after every config-source edit before trusting a lint readout
-(sibling of the F-120 stale-dist family).
+(sibling of the F-120 stale-dist family): `pnpm install` does it, since the
+plugin is in the postinstall bootstrap's install-time closure and rebuilds
+when its `dist/` is older than its `src` or build config, or build the package
+directly.
 
 ### Slow repeated runs
 
@@ -654,9 +668,11 @@ artefacts it actually resolved:
   load-bearing, rebuild the producer workspaces first (the full
   `pnpm check` orders `^build` ahead of `type-check` for exactly this
   reason).
-- **A fresh checkout or worktree cannot lint until producer workspaces
-  are built** — see the start-right worktree-build discipline; ESLint's
-  flat config imports a workspace plugin resolved from `dist/`.
+- **A fresh checkout or worktree is not gate-ready until producer
+  workspaces are built** — see the start-right worktree-build discipline;
+  the install's bootstrap builds only what agent-tools reaches (the ESLint
+  plugin among it, so the flat config loads), and dependency-cruiser, knip
+  and each workspace's typed lint read every workspace's `dist/`.
 - **`pnpm check` does not run every suite** (e.g. `test:smoke` and
   experiment suites are outside it) — verify the aggregate actually
   exercises the suites your change touches before citing it as proof.
