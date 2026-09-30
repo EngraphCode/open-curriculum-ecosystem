@@ -108,7 +108,7 @@ parity required to keep `pnpm portability:check` green.
 
 User-facing plugin packages under `plugins/` are outside this recipe: they are
 product deliverables (ADR-125 §Skill classes and validation jurisdiction), and the ChatGPT/Codex package
-README (`plugins/oak-open-curriculum-chatgpt/README.md`) records how a shared
+README (`chatgpt/plugins/oak-national-academy/README.md`) records how a shared
 skill is copied there and gated.
 
 **Always create the canonical file first** under `.agent/`, then add platform

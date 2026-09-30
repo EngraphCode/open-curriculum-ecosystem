@@ -12,7 +12,7 @@ import {
  * The ChatGPT/Codex package's shipped invariants, recomputed from the tree.
  *
  * @remarks
- * MCP-692. `plugins/oak-open-curriculum-chatgpt/` is what OpenAI ingests, and
+ * MCP-692. `chatgpt/plugins/oak-national-academy/` is what OpenAI ingests, and
  * its load-bearing properties were checked by hand at the 2026-09-07 sideload
  * and recorded in the PR body only. This suite recomputes them on every run:
  * the Codex manifest has exactly the shape the package relies on (skills only,
@@ -31,9 +31,9 @@ import {
  * ADR-078 helper-mediated committed-artefact reads.
  */
 
-const PACKAGE_ROOT = 'plugins/oak-open-curriculum-chatgpt';
+const PACKAGE_ROOT = 'chatgpt/plugins/oak-national-academy';
 const CODEX_MANIFEST_PATH = `${PACKAGE_ROOT}/.codex-plugin/plugin.json`;
-const CLAUDE_MANIFEST_PATH = 'plugins/oak-open-curriculum/.claude-plugin/plugin.json';
+const CLAUDE_MANIFEST_PATH = 'claude/plugins/oak-national-academy/.claude-plugin/plugin.json';
 const SKILLS_ROOT = `${PACKAGE_ROOT}/skills`;
 
 /** Agent Skills specification: the description a host routes on is at most 1024 characters. */

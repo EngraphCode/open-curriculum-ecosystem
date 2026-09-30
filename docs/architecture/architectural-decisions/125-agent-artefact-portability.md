@@ -30,6 +30,11 @@ Owner-directed through the first-class Copilot CLI plan estate.
 Claude plugin is the source: shared skills are checked-in copies gated by
 `validate-plugin-skill-copies`, and the two merged skills are the Claude
 workflow+agent pairs folded into single skills. Owner-directed (MCP-692).
+**Amended**: 2026-09-30 — user-facing plugin packages live at
+`<provider>/plugins/<name>/`, named by product: `claude/plugins/oak-national-academy/`
+and `chatgpt/plugins/oak-national-academy/`, replacing the two `plugins/`
+folders above. The plugin, its MCP server key and the package are all named
+`oak-national-academy`. Owner-directed (MCP-763).
 **Related**: [ADR-114 (Layered Sub-agent Prompt Composition)](114-layered-sub-agent-prompt-composition-architecture.md), [ADR-119 (Agentic Engineering Practice)](119-agentic-engineering-practice.md), [ADR-124 (Practice Propagation Model)](124-practice-propagation-model.md), [PDR-009 (Canonical-First Cross-Platform Architecture)](../../../.agent/practice-core/decision-records/PDR-009-canonical-first-cross-platform-architecture.md), [PDR-035 (Agent Work Capabilities Belong to the Practice)](../../../.agent/practice-core/decision-records/PDR-035-agent-work-capabilities-belong-to-the-practice.md), [PDR-051 (Vendor-Agnostic Skills Standardisation)](../../../.agent/practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md), [ADR-165 (Agent Work Practice Phenotype Boundary)](165-agent-work-practice-phenotype-boundary.md)
 
 ## Context
@@ -546,10 +551,10 @@ generation prefix) are configurable parameters, not class boundaries:
   repository, surfaced to external users via MCP, plugins, or the
   external skills ecosystem. Current sub-classes: curriculum skills
   (for teachers) and engineering skills (for ed-tech engineers building
-  on the curriculum SDK). Home today: `plugins/oak-open-curriculum/`
+  on the curriculum SDK). Home today: `claude/plugins/oak-national-academy/`
   (Claude Code) and its ChatGPT/Codex packaging
-  `plugins/oak-open-curriculum-chatgpt/`, the latter listed by the root
-  `.agents/plugins/marketplace.json` (2026-09-08 amendment).
+  `chatgpt/plugins/oak-national-academy/`, the latter listed by the root
+  `.agents/plugins/marketplace.json` (2026-09-08 and 2026-09-30 amendments).
   These are product deliverables assured under validation-strategy's
   tiers (teacher-facing content sits at the Critical/Standard tier);
   they are not repo-projection machinery and the adapter pipeline never
@@ -572,6 +577,17 @@ closure would need an identity discriminator, a separate design
 decision.
 
 ## Amendments
+
+### 2026-09-30 — Provider folders and one plugin name
+
+The owner renamed the plugin to `oak-national-academy` so its machine name,
+MCP server key and package name match its display name, "Oak National
+Academy", and moved each package under a folder for the product that installs
+it: `claude/plugins/oak-national-academy/` and
+`chatgpt/plugins/oak-national-academy/` (MCP-763). Product names, not company
+names, follow oak-skills (`chatgpt/`, `gemini/`, `m365/`). The published copy
+in oaknational/oak-ai-plugins uses the same `claude/plugins/` path. The
+2026-09-08 section below keeps the paths it was written with.
 
 ### 2026-09-08 — Second user-facing plugin package (ChatGPT and Codex)
 
