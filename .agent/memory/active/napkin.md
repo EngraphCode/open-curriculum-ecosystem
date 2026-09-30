@@ -46,7 +46,9 @@ leased push passing the guard on 2026-09-28. Unverified; its guidance (merge, ne
   fourteen `.agent/` subdirectories at this close (F-217); they were moved to the session
   scratchpad before the commit, never deleted.
 
-## 2026-09-30 — the two-estate consolidation's reading (Hawthorn binds Bracken, b3f117, from jimcresswell.net)
+## 2026-09-30 — the two-estate consolidation's reading (Hawthorn binds Bracken, b3f117)
+
+Written from the home estate, jimcresswell.net, working this estate non-resident.
 
 - **Verified:** the open item of the 2026-09-29 rotation record (a helper's report that a leased
   push passed the guard). `.agent/hooks/policy.json` blocks the pattern `git push --force`, which
