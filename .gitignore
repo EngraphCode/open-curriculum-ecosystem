@@ -26,7 +26,7 @@ ONBOARDING.md
 # Local MCP server config
 .mcp.json
 # Plugin-shipped MCP configs are tracked release artefacts, not local config.
-!plugins/*/.mcp.json
+!claude/plugins/*/.mcp.json
 
 # Repo-scoped tool binaries: .agent/setup/install-shellcheck.sh installs the
 # pinned shellcheck here, and the lint:shell gate runs it before any on PATH.

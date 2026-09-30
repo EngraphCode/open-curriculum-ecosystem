@@ -1,3 +1,10 @@
+## [1.185.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.185.3...v1.185.4) (2026-09-30)
+
+
+### Bug Fixes
+
+* **plugin:** rename the plugin and its MCP server to oak-national-academy (MCP-763) ([20589f2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/20589f2603e9250c740d760ace52b9b46345c48f))
+
 ## [1.185.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.185.2...v1.185.3) (2026-09-28)
 
 

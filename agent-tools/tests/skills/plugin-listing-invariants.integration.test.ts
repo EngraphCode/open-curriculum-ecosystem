@@ -22,11 +22,11 @@ import {
  * ADR-078 helper-mediated committed-artefact reads.
  */
 
-const PLUGIN_ROOT = 'plugins/oak-open-curriculum';
+const PLUGIN_ROOT = 'claude/plugins/oak-national-academy';
 const README_PATH = `${PLUGIN_ROOT}/README.md`;
 const CLAUDE_MANIFEST_PATH = `${PLUGIN_ROOT}/.claude-plugin/plugin.json`;
 const MCP_CONFIG_PATH = `${PLUGIN_ROOT}/.mcp.json`;
-const CODEX_MANIFEST_PATH = 'plugins/oak-open-curriculum-chatgpt/.codex-plugin/plugin.json';
+const CODEX_MANIFEST_PATH = 'chatgpt/plugins/oak-national-academy/.codex-plugin/plugin.json';
 const CANONICAL_LOGO_PATH =
   'packages/design/oak-design-assets/assets/oak-national-academy-logo-512.png';
 const SKILL_ROOTS = [`${PLUGIN_ROOT}/skills`, `${PLUGIN_ROOT}/workflows`] as const;
