@@ -132,7 +132,16 @@ the first comms write, claim, or registration).
    governance binds writes and merges to each estate's gates, while
    authorship is unrestricted under this ceremony. The founding
    violation: a join event that named the host's Practice-donor repo
-   directly, tripping the host's neutrality doctrine.
+   directly, tripping the host's neutrality doctrine. A twin of a text the
+   other estate already carries starts from THAT estate's bytes: a
+   rename-mapped diff against its default branch comes before any write,
+   shows which files differ only by host content, and shared text travels
+   as bytes; a row re-authored in the seat's own words cost a settlement
+   push and a review round to converge (2026-09-26). Before authoring a
+   NEW Core file (a pattern, a rule), list the other estate for the same
+   name: a same-named file with different substance is a divergence only
+   `git apply --check` finds, and the cure is one merged file carrying
+   both instances, the same bytes in both estates (2026-09-30).
 2. **Declare the coordination home.** One substrate owns the
    arrangement's coordination state. Resolution order: explicit CLI
    flag, then `PRACTICE_COORDINATION_HOME`, then git-native

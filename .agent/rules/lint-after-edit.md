@@ -10,7 +10,14 @@ globs:
 
 Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md).
 
-After editing TypeScript files, check lint for file/function length violations. Run lint on the changed files (on Cursor, `ReadLints` on the changed files) or run `pnpm lint:fix`. Catch violations early — don't accumulate them.
+After editing TypeScript files, check lint for file/function length violations. Run lint on the changed files (on Cursor, `ReadLints` on the changed files) or run `pnpm lint:fix`. Catch violations early — don't accumulate them. A file you edit is yours to leave clean:
+fix its lint findings whatever their provenance, never only the lines you changed
+(owner norm, 2026-06).
+
+Lint the fragment before it joins the whole. A commit header is checkable with `wc -c` and a
+block about to be appended with markdownlint on the block file, before either joins the record;
+a check that runs only on the whole runs late, and each late refusal cost a commit or a gate run
+(six in one window, 2026-09-26).
 
 Key ESLint thresholds that bite during refactoring:
 

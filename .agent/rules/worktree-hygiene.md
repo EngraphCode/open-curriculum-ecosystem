@@ -357,6 +357,19 @@ subshell, `( cd <primary> && … )`, so the cwd never moves; the escape that
 worked was `EnterWorktree` with `path` set to an existing worktree under
 `.claude/worktrees/`.
 
+**A foreign dirty primary is pushed through a proxy worktree.** When another
+agent's uncommitted edits in the shared primary fail the push gate (the gate
+reads the working tree: a link into an untracked directory, an unformatted
+file), the committed shas are pushed from a clean detached worktree cut at
+the branch's tip, and the primary's tree is never touched; the successor
+branch is then cut by hand from the pushed tip (2026-09-28).
+
+**Every remote branch is in a pull request or deleted** (owner, 2026-09-24).
+Assess each remote branch first-hand: wanted work goes to a pull request and
+is driven to merged, since delivered means merged; everything else is
+deleted as the bot with read-back, the conserved copy verified first for
+anything unmerged. The standing target is zero open pull requests.
+
 ## Failure mode this prevents
 
 Orphaned worktrees: branches with commits that never reach `main`, no PR, invisible

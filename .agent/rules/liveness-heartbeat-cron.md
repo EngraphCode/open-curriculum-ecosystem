@@ -119,7 +119,12 @@ weight should be low so the comms stream stays scannable.
 Run a 4-minute-cadence loop that emits a heartbeat event each cycle.
 **A claim-holding seat's loop bumps BOTH liveness surfaces every tick**:
 the comms heartbeat event AND the claims registry
-(`claims heartbeat --active <path> --claim-id <id> …`). The two are
+(`claims heartbeat --active <path> --claim-id <id> …`), on EVERY estate's
+registry the seat holds a claim in: a heartbeat-tagged send to a second
+estate's stream needs a claim on that estate's registry too, and after each
+re-arm the seat reads `heartbeat_at` back on both (2026-09-28: a Director's
+pulse lapsed two hours when its scratchpad script vanished, unnoticed
+because nothing read the registry back). The two are
 distinct mechanisms — a comms-only loop leaves the registry's
 `heartbeat_at` silently stale for the whole tenure (F-92; worked
 instance 2026-07-15: a Director seat read continuously live on the

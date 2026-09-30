@@ -22,6 +22,11 @@ const WINDOW_REGISTRY = new Map<string, number>([
   ['claude-sonnet-4-6[1m]', 1_000_000],
   ['claude-haiku-4-5-20251001', 200_000],
   ['claude-fable-5', 200_000],
+  // Added 2026-09-30 from a `claude-fable-5-1` session's own transcript
+  // (cache reads of 252,933 tokens with no compaction, jimcresswell.net
+  // session b3f11747): the harness runs this model at the one-million-token
+  // window.
+  ['claude-fable-5-1', 1_000_000],
 ]);
 
 /**

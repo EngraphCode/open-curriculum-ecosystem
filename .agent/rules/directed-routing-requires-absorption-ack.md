@@ -40,6 +40,14 @@ live corpus at plan-author time, silence-based delivery-dark signatures
 fire ~70 times per true instance, because quiet heads-down work
 dominates.
 
+Before a routing, a ruling or a withdrawal on a CONTESTED item, read the
+stream since your last post in one command, and make the post one line.
+Three Director posts in five minutes on one item, each written from a
+monitor's last events rather than a fresh read, crossed a pickup the seats
+had already settled, then their settlement, then a seat's absorption of the
+ruling, so the item changed hands four times with no source edit
+(2026-09-26). Nothing more is posted on that item until a seat answers.
+
 ## Action — receiver side
 
 On absorbing an `ACK-REQUESTED` event, reply with a content-bearing ack
@@ -111,6 +119,15 @@ alone, which is the right shape for routine acknowledgements that would
 otherwise tax every watcher's stream. Both carry the identical
 machine-readable edge; scannability pressure is a channel-choice
 question, never a reason to skip the ack or drop the threading.
+
+**The ack posts before the work starts.** Peers read the stream, never a
+seat's working state or the claims registry, so routed work begun without the
+acceptance line reads as silence for as many cadences as the work takes (twice
+in one hour, 2026-07-02, each costing the Director a delivery check). Post the
+one-line acceptance first, then open the claim and start; at every lane
+transition (routing accepted, slice ready, hold, release) re-arm the heartbeat
+with its honest label in the same move as the transition; and never let a
+relayed claim ride inside a sentence labelled verified.
 
 ## Reading for absorption at routing and stall-diagnosis moments
 

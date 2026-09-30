@@ -63,7 +63,16 @@ exactly where independent eyes are cheapest.
 
 Cheap fleets (a handful of legs, well-trodden shape) do not need this
 ceremony — the rule binds where the spend makes a design defect
-expensive.
+expensive. The earlier one-or-two-subagents limit was lifted by the owner
+on 2026-09-16 for all seats and all repositories; what stays is the
+identical-frame discipline (every leg gets the same six-field frame) and
+this review for expensive fleets. Estimate after scripting, never before:
+an estimate that paced agent work like hand work (26 to 40 hours) was
+overtaken when the first scripted hour delivered most of it (2026-09-12).
+A frame that asks for a report names the report's exact row shape (the
+field order, the delimiter, the heading per row): seven analysts given
+identical frames returned three formats, and the seat's join tooling read
+one (2026-09-30).
 
 ## Briefs centre the question, never the predecessor
 

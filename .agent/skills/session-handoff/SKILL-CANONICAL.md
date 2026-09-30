@@ -20,8 +20,8 @@ napkin rotation, fitness management) belongs to
 thread-scoped.
 
 **Governance**: This workflow operationalises
-[ADR-150 (Continuity Surfaces, Session Handoff, and Surprise Pipeline)](../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
-(host architecture) and
+the continuity-surfaces and surprise-pipeline decision (PDR-011)
+and
 [PDR-011 (Continuity Surfaces and the Surprise Pipeline)](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md)
 (portable Practice governance). These name the learning path for
 surprise and correction as `capture → distil → graduate → enforce`,
@@ -225,7 +225,22 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    the owner rules a shared handoff BRANCH for a day's uncommitted records
    (2026-09-02, `handoff/jim-september`), that branch is the owner's
    instrument, not a licence for per-seat handover PRs — a seat's own draft
-   continuity PR was withdrawn the same day under this ruling.
+   continuity PR was withdrawn the same day under this ruling. Local
+   amendment (owner ruling 2026-09-13, `jimcresswell.net`): a wrap run
+   because the owner has asked for a clean tree before compaction lands
+   as its own `chore(continuity)` commit; the owner's compaction word is
+   the instrument, and the no-handover-PR half of the 2026-07-15 ruling
+   stands unchanged. The home of
+   every wrap and continuity record is the primary checkout's day-stamped
+   coordination branch, by pathspec, riding its fold; no seat mints a private
+   records branch (owner, 2026-09-15, verbatim: "the whole point of
+   coordination branches is to have a common home for things like wraps").
+   Cadence, reconciled with the ruling above: commit records at each state
+   change, but push once per landed merge or shape change, never per event,
+   and where a live-state block and the routing log's last entry disagree the
+   block says which line is current (2026-09-13: a records pull request
+   pushed per event drew five review rounds, each finding the next stale
+   line).
    Active plans remain authoritative for scope, sequencing, acceptance criteria,
    and validation.
 
@@ -632,7 +647,7 @@ no retrospective memos; those are close-out work, this skill's §Steps.
       Practice-bearing repos may choose a clearer `Active identities` heading.
       Update the existing identity summary column rather than renaming the
       table during routine handoff. The summary must reflect the thread record
-      or the audit in `oak-consolidate-docs` step 7c will flag a mismatch.
+      or the audit in `consolidate-docs` step 7c will flag a mismatch.
 
    This is the session-close counterpart to the session-open
    registration step in
@@ -661,7 +676,7 @@ no retrospective memos; those are close-out work, this skill's §Steps.
       threads from it, not from memory. Self-reporting is not
       sufficient (the very failure mode this gate exists to
       counter per the
-      [`passive-guidance-loses-to-artefact-gravity`](../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)
+      `passive-guidance-loses-to-artefact-gravity`
       pattern).
    2. For each thread the session touched (by edit, read-and-
       reference, or commit), open its next-session record at the
@@ -749,11 +764,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
 10. **Escalate only when the deeper loop is clearly warranted.**
 
     - If the triggered work is already well-bounded and belongs to this
-      closeout, continue immediately into `oak-consolidate-docs`.
+      closeout, continue immediately into `consolidate-docs`.
     - If deep consolidation is due but not well-bounded for this closeout,
       stop after marking `due — <reason>` so the next session can pick it up
       deliberately.
-    - If `oak-consolidate-docs` runs now, refresh `Deep consolidation status`
+    - If `consolidate-docs` runs now, refresh `Deep consolidation status`
       to `completed this handoff — <reason>`.
 
 11. **Verify the cleanliness gate — from the commit, never a separate run.**
@@ -847,6 +862,6 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     discover the dispatch obligation only at session-open.
 
 12. **Keep the boundary clean.** `session-handoff` includes the consolidation
-    gate and can escalate into `oak-consolidate-docs` when appropriate, but
+    gate and can escalate into `consolidate-docs` when appropriate, but
     ordinary sessions remain lightweight. It does not smuggle in review or git
     actions.

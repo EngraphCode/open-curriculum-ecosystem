@@ -45,3 +45,16 @@ leased push passing the guard on 2026-09-28. Unverified; its guidance (merge, ne
 - **Observation:** `.logs` directories from the owner's local statusline settings sat under
   fourteen `.agent/` subdirectories at this close (F-217); they were moved to the session
   scratchpad before the commit, never deleted.
+
+## 2026-09-30 — the two-estate consolidation's reading (Hawthorn binds Bracken, b3f117, from jimcresswell.net)
+
+- **Verified:** the open item of the 2026-09-29 rotation record (a helper's report that a leased
+  push passed the guard). `.agent/hooks/policy.json` blocks the pattern `git push --force`, which
+  the text `git push --force-with-lease` contains, so the rule's line stands as written; a leased
+  push that passed used a form the pattern does not match (a refspec `+ref`, or the flag before
+  `push`). The guidance (merge, never force) stands; the helper's command form was not recorded.
+- **Observation:** the six consolidation skills and the per-user-memory rule now read the same
+  bytes in both estates, with every host-bound token (package scope, slash-command prefix, record
+  directory) replaced by a host-neutral phrase; the divergence the owner named on 2026-09-30 was
+  a defect of host tokens more than of substance, and `diff` between the two checkouts is the
+  check that keeps it at zero.

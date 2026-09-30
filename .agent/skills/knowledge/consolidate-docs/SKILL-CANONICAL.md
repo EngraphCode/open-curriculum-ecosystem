@@ -251,7 +251,7 @@ persist:
   recurrence is first-class evidence that the home's *mechanism is not firing* (the home is passive
   guidance and loses at the action moment — `passive-guidance-loses-to-artefact-gravity`). Route it to
   the doctrine-traction mechanism lane (PDR-098's empty quadrant / the semantic-pathogen inventory in
-  [`action-time-structural-interrupt-design-space.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md))
+  `action-time-structural-interrupt-design-space.plan.md`)
   as recurrence evidence, THEN remove the duplicate instance. Deleting the duplicate without capturing
   the recurrence throws away the exact signal that forces the mechanism decision — which is why the
   same corrections keep recurring. (This step gives recurrence-capture a *defined firing moment* at the
@@ -323,8 +323,8 @@ by `corpus-analysis-salvage-and-topology-redesign.plan.md`.
 
 ## Sweep pointers into a moved range before moving it
 
-A moved or archived range leaves its readers behind. PR #80 (2026-09-08,
-the director-handoff disposition) was a correct move that the Director
+A moved or archived range leaves its readers behind. PR #80 of 2026-09-08 (the
+director-handoff disposition, in the estate that made the move) was a correct move that the Director
 had read, and still paid seven review rounds after the YES, every finding a
 real pointer into the moved range: a retained block's "below", a
 next-safe-steps entry, a rule's provenance line, the archive's own relative
@@ -471,7 +471,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
       (`permanent-doc-is-the-consolidation-record`); the retired ledger is
       the machinery that once made a loss-free move read as impossible.
     - **Provenance gate (Invariant 3):** the pre-move provenance check
-      (`pnpm --filter @oaknational/agent-tools comms-provenance-check`) must
+      (the agent-tools workspace's `comms-provenance-check` script) must
       report 0 violations — no event cited in a permanent doc leaves the
       live stream without inline-quote or digest coverage.
     - **Class tiers (movement schedules):** heartbeat 48h (cadence aggregate
@@ -553,7 +553,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    a. **Extract** — read every "Patterns to Remember", "Mistakes Made", "Key Insight", and "Lessons" section from the outgoing napkin. Collect all entries that would change behaviour if read next session.
    b. **Merge** — compare extracted entries against existing `distilled.md`. For each entry: new insight → add it to the appropriate section; duplicate → skip; refinement of existing rule → update with the sharper formulation; contradiction → investigate (the more recent finding usually wins, but verify before overwriting).
    c. **Prune** — remove entries from `distilled.md` that have already been captured in permanent documentation. No duplication across tiers. (Graduation of settled content happens in step 7.)
-   d. **Archive** — move the processed outgoing napkin to `.agent/memory/active/archive/napkin-YYYY-MM-DD.md` using the current date. Prove the move: `cmp` the archive against the pre-move napkin (or its committed blob) before the fresh napkin starts, and name the proof in the rotation record (the 2026-08-14 and 2026-09-02 rotations both did).
+   d. **Archive** — move the processed outgoing napkin to `.agent/memory/active/archive/napkin-YYYY-MM-DD.md` using the current date. Prove the move: `cmp` the archive against the pre-move napkin (or its committed blob) before the fresh napkin starts, and name the proof in the rotation record (the 2026-08-14 and 2026-09-02 rotations both did). Archive only a processed napkin: a rotation whose lessons were not consolidated goes to `.agent/memory/active/unconsolidated/` and stays there until a consolidation pass processes it (owner ruling 2026-09-13: an archive is where material goes after full processing, never a place to tick a box).
    e. **Start fresh** — create a new `.agent/memory/active/napkin.md` with a session heading documenting the distillation.
 
    Target: `distilled.md` should stay under 200 lines of high-signal content.
@@ -646,7 +646,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    - It names an **architectural constraint, trade-off, or boundary** (not just an operational convention);
    - It is **stable across sessions** (has survived at least one subsequent session without correction);
-   - It has **no existing governance home** (no ADR, no `docs/governance/` doc, no README section that already covers it);
+   - It has **no existing governance home** (no ADR, no host reference or governance doc, no README section that already covers it);
    - It shapes **this repo's product architecture** (the next contributor in this repo would re-derive this decision without an ADR).
 
    **Is this PDR-shaped?** An entry is PDR-shaped when:
@@ -680,7 +680,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    Always graduate useful understanding — fitness pressure on the target doc is handled in step 9 via the three-zone scale, never by deferring graduation. The barrier is "stable and useful enough to place," not "no longer agent-operational." Common destinations:
 
    - **Rules / principles** codified in `.agent/directives/principles.md`.
-   - **Host-repo architectural decisions** → ADRs in `docs/architecture/architectural-decisions/` (or host equivalent).
+   - **Host-repo architectural decisions** → ADRs in the host's decision-record directory.
    - **Practice-governance decisions** → PDRs in `.agent/practice-core/decision-records/` (portable; travels with Core). Pattern-shaped governance uses `pdr_kind: pattern` frontmatter.
    - **General abstract engineering patterns** (ecosystem-agnostic, synthesised from ≥2 instances) → PDRs in `.agent/practice-core/decision-records/` with `pdr_kind: pattern` (portable; travels with Core; authored fresh via synthesis — instances stay in `memory/active/patterns/`).
    - **Specific engineering pattern instances** → `.agent/memory/active/patterns/` (repo-local, ecosystem-grounded).
@@ -735,7 +735,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    5. **Active threads ↔ next-session record correspondence** — for every thread listed in `§ Active threads`, confirm a file exists at the declared `Next-session record` path (canonical `threads/<slug>.next-session.md`). Flag any mismatch.
    6. **Retired-record banner hygiene** — checks 1–5 verify that *live* threads (active or paused) have well-formed records; this check covers the *retired* case. For every `*.next-session.md` file under [`threads/`](../../../memory/operational/threads/), confirm the thread appears in either [`repo-continuity.md § Active Threads`](../../../memory/operational/repo-continuity.md#active-threads) or `§ Paused Threads`. A record present on disk but absent from **both** indexes is a retired or completed thread (its work has concluded — e.g. a merged single-PR closure thread). Flag any such record whose top lacks a **retirement banner** per the convention in [`threads/README.md`](../../../memory/operational/threads/README.md#retirement-banner-convention) (a leading blockquote naming the retired/completed state, the conclusion date, and where the work concluded). Unlike checks 1–5, this check's remedy is a small edit: apply the missing banner as a follow-on consolidation diff (the same way 7d's archival edits land), not merely a flag — a retired record left unbannered silently reads as live to the next agent who opens it.
 
-   Record each finding as `[thread-slug-or-path]: <observed state> (<what the rule says it should be>)`. Present the aggregated list to the owner at consolidation close. The audit's enforcement force is that this step is part of `/oak-consolidate-docs` — any agent running the consolidation ritual is obligated to walk the six checks, not remember them. The "do not silently skip" posture is the same authority as earlier steps (7a ADR/PDR scan, 7b graduation application).
+   Record each finding as `[thread-slug-or-path]: <observed state> (<what the rule says it should be>)`. Present the aggregated list to the owner at consolidation close. The audit's enforcement force is that this step is part of this workflow (`consolidate-docs`) — any agent running the consolidation ritual is obligated to walk the six checks, not remember them. The "do not silently skip" posture is the same authority as earlier steps (7a ADR/PDR scan, 7b graduation application).
 
    <a id="stale-claim-audit"></a>**7d. Audit collaboration state for protocol observability.** The
    `active-claims.json`,

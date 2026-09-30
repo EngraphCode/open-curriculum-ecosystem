@@ -148,6 +148,10 @@ mark); and the design plan's R16 gloss, narrowed at PR #41's seventh round
 on 2026-09-05 to the owner's verbatim with the multi-tenant reading labelled
 a seat reading. The mechanical form — every owner-attributed clause carries
 a quotation or a mark — is a validator candidate for the rulings tables.
+An owner sentence is quoted whole or not at all: a spliced quote changed
+the owner's subject (2026-09-25), and a copied quote drifts ("throughput"
+written 26 times for the owner's typed "throughout", 2026-09-29), so quote
+from the transcript or the first record, never from a later copy.
 
 The scope corollary sits with §Direction Scope above: the bound of a
 direction is the SITUATION it addressed, which can be narrower than the
@@ -206,3 +210,29 @@ that thread, "run any edits past me before making them", applies to the
 owner's own drafts from that word on; and owner-facing prose documents
 carry no artificial hard-wrapped line breaks ("we will let the platforms
 handle formatting").
+
+## Stop Words Are Freezes; Cadence Words Change Only by Owner Word
+
+Four owner phrasings bind harder than their length suggests, each learned
+by a seat that read it softer:
+
+- **"Cold pause"** (2026-09-13): every owned process stops (each Monitor
+  stopped, the heartbeat loop killed), no push, no comms, no question; it
+  binds until the owner lifts it, over any peer's word.
+- **"Prepare for compaction … then stop all processes"** (2026-09-25 and
+  after): a freeze. Stop wakeups and monitors, start nothing until the
+  compaction lands, run the wrap programme, write the re-arm recipe in the
+  boundary block, and resume only on "carry on". The freeze governs the
+  compaction it names and no other.
+- **"Acknowledge, record, then stop"** (2026-09-29): no git. The record is
+  written and the commit waits for the resume (a seat committed at the
+  resume and that was right).
+- **A cadence the owner set in words** (45-minute check-ins, a suite
+  cadence) changes only by the owner's word: a suite verdict or a plan
+  note cannot thin it. A Director thinned one at suite 47 (2026-09-28) and
+  withdrew the change to a proposal. Ask, never change.
+
+After a pause lifts, the recorded queue is a hypothesis: read the live
+state, send one message to the Director (or, at n=1, re-read the owner's
+last word), and wait for the word before acting (owner, 2026-09-14: "get
+up to speed, then ask the Director what to do, do not assume").

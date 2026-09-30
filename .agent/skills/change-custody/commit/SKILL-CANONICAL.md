@@ -292,7 +292,9 @@ no window claim (F-132, F-139 and F-169 are superseded by scope). Two mechanics 
 the pathspec commit, measured 2026-09-07: the queue guard accepts only the bare
 `index/head` label (a scoped `index/head@<worktree>` is refused), and a pathspec
 commit records a deletion only for a path it names — after a `git mv`, list the
-old path as well as the new one or the move never lands. The separate host bound
+old path as well as the new one or the move never lands, and chain the `git add`
+to the `git commit` with `&&`, never `;`, because a rename staged by `git mv`
+matches no old-path pathspec and the add fails silently (2026-09-26). The separate host bound
 — two, at most three, simultaneous full local gates — is engineered as a
 semaphore, not declared (`no-unbounded-host-load` item 6): each hook's full gate
 holds a host gate slot, so it waits while two gates run on the host or one runs
@@ -793,6 +795,20 @@ EOF
 (`git commit -F -` reads the message from stdin; equivalent to the older
 `git commit -m "$(cat <<EOF)"` HEREDOC pattern, with one fewer subshell
 layer.)
+
+When the message goes through a file, write the file in its own command and
+check it (`pnpm agent-tools:check-commit-message -F <file>`) before the
+`git add`; never write it after a guarded command in the same `&&` chain,
+because a refused `git add` aborts the chain and the later `git commit -F`
+runs on a missing file (`stage-by-explicit-pathspec` §What to Do Instead,
+2026-09-12).
+
+When the message goes through a file, write the file in its own command and
+check it (`pnpm agent-tools:check-commit-message -F <file>`) before the
+`git add`; never write it after a guarded command in the same `&&` chain,
+because a refused `git add` aborts the chain and the later `git commit -F`
+runs on a missing file (`stage-by-explicit-pathspec` §What to Do Instead,
+2026-09-12).
 
 ## Stream truncation at the depcruise → turbo handover — workaround
 

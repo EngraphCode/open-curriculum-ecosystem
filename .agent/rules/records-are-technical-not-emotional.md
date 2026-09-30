@@ -17,6 +17,12 @@ frustrated"; "owner sharply corrected").
 
 ## Records carry their authority honestly
 
+A consequence of the path that was chosen is stated as state, never reported as a
+defect: a transplant that leaves adapters dangling until their generator lands, or a
+workspace count that changed because a package moved, is what the chosen path produces,
+and a record that calls it an error sends the next reader to cure something that is not
+broken (2026-09-12).
+
 A record's REGISTER encodes its authority, and readers obey the register
 (a napkin observation written in the imperative hardened into a cited
 "owner ruling" within thirty minutes and stood a peer's monitors down,

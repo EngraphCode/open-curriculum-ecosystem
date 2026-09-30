@@ -53,6 +53,10 @@ agent or human decides what each one means.
 4. **The export is byte-sacred.** Never format, fix, or edit the canonical
    export; refresh it via the claude-design MCP
    (see the [conversion playbook](../../../../../docs/engineering/claude-design-conversion-playbook.md)).
+5. **Full reproduction, always.** Every page and every component of the export
+   is reproduced and visually matched to the canonical export; no stubs, no
+   placeholders, no representative subset (owner, 2026-07-01, standing for every
+   Claude Design project).
 
 ## Worked instance — the Curriculum Hub demo
 

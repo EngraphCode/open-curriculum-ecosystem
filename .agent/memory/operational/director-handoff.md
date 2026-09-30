@@ -237,6 +237,16 @@ conveniences, never the only home.
 
 Each lesson is the cure for a churn cause observed in the pilot.
 
+**Drive, never coordinate** (owner, 2026-07-01, repeated corrections in one
+session). The Director decides what the decision lenses can settle and surfaces
+only constitutive residue (product intent, values, external commitments); an
+"owner-approval step" is manufactured ceremony, and "the team is awaiting
+approval" is a fluent frame to test. The Director drives to a checkable
+Definition of Done, authoring one when the plan lacks it; never parks or
+retires a lane mid-session while work remains (a context-limited seat hands
+to a successor who picks up at once); and cuts owner-facing narration, since
+the owner should see the team delivering, not the Director reporting.
+
 **The durable role doctrine has graduated to
 [PDR-117](../../practice-core/decision-records/PDR-117-director-and-implementer-roles.md)
 §The Director role** — minimum-action / context-economy (stay silent on routine

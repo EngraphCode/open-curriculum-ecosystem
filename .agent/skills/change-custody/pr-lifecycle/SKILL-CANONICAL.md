@@ -232,7 +232,15 @@ request PDR-140 governs that lacks it has no bounded loop until it exists (a cod
 pull request is bounded by the review-round transitions and declares no intake): the
 2026-09-11 coordination fold (PR #135) opened with a narrative body and no scope or intake,
 and ran five rounds and thirty-eight findings on records before the declaration was posted
-late.
+late. A records changeset is also pushed at waypoints, never per event: records commit at
+each state change, the push follows a landed merge or a shape change, and the review is
+requested once per settlement push (a pure sync push requests nothing; the merge-bot
+reference carries the rationing); on 2026-09-13 a records pull request pushed per event
+drew five rounds, each finding the next stale line. A records changeset is also pushed at waypoints, never per event: records commit at
+each state change, the push follows a landed merge or a shape change, and the review is
+requested once per settlement push (a pure sync push requests nothing; the merge-bot
+reference carries the rationing); on 2026-09-13 a records pull request pushed per event
+drew five rounds, each finding the next stale line.
 For a code-class changeset the writer's docblock states the CLOSED contract
 before the first push (a worktree lane's draft PR is created by that push, so the
 description cannot precede it) and the description copies it at PR-open — what a
@@ -392,7 +400,10 @@ live tickets where the platform is in use.
    two REST comments were triaged as "noise" while four unresolved Copilot
    threads and a failed Sonar gate sat unread.
 2. **Issue comments and reviews** — full bodies, never truncated skims, AND
-   each review's own `commit.oid` retained alongside its body (the paged
+   each review's own `commit.oid` retained alongside its body (compare the
+   FULL oid to the tip by prefix: GraphQL's `abbreviatedOid` is seven
+   characters and a poll that waits on it can wait on nothing, 2026-09-2x;
+   silence from a wait is never "no review") (the paged
    `reviews` connection carries both) — the binding the state machine's
    tally (item 2) buckets body findings by; a Sonar gate summary or a bot
    capability notice lives here. Read this surface UNFILTERED, every time
@@ -440,6 +451,17 @@ live tickets where the platform is in use.
    webhook; analysis follows within minutes.
 
 ## Phase 4 — TRIAGE every comment; fix at source
+
+- **On a records-class pull request, write the reader-harm test per finding
+  before choosing cure or reject** (PDR-140 clause 9(a)): one line naming the
+  reader, the act they would take, the harm, the class and the verb. A finding
+  labelled below the bar and then cured by a push has been dispositioned twice
+  and priced once (eight roles, 2026-09-27).
+- **A third edge case in one procedure paragraph ends the clause-adding.** When
+  review keeps finding edge cases in the same prose procedure (a rollback step,
+  an "owed branch" rule; 2026-09-27), stop adding clauses: point the paragraph
+  at one home, and propose a tested tool that carries the procedure instead. Rule
+  text gets a pre-open review for exactly this shape.
 
 - **The triage ruling** (owner, 2026-07-27, verbatim, a SEAT-LEVEL
   obligation applied at the moment each comment is read — never deferred to
@@ -590,6 +612,14 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 
 ## Phase 5 — Wait without burning budget: the SUPERVISED terminal-condition watch
 
+- **A pull request with a merge conflict runs no `pull_request` workflows.**
+  GitHub skips them, the rollup can still read green from an earlier tip, and
+  a base branch that requires no status check hides it entirely. Read the
+  tip's own run list (`gh run list --branch <head> --commit <sha>`) before
+  reading any check as satisfied, and cure the conflict before requesting a
+  review, since a review of an unmergeable tip is a round spent on nothing
+  (2026-09-15).
+
 - **Every PR-state read STARTS from the compound read — the review-round
   state machine's item 1, below — in ONE call.** This is a floor, not a
   ceiling: the Phase 3 harvest and the compound watch loop are consumers and
@@ -726,7 +756,12 @@ push; pushes changing no reviewed content (a CI cure, a sync) sit
 outside the budget and never carry cures. In-loop, this machine is
 sufficient by design (PDR-140 clause 8): needing an out-of-band
 cognitive-skill invocation to correct a running loop is a defect
-against this skill — file it as one.
+against this skill — file it as one. Two mechanics of the gate that
+prices this block (measured 2026-09-27): it reads the FIRST `budget — N`
+match in the pull request body, the intake line, so a rebudget edits that
+line and never appends a second; and it trips a round late, because GitHub
+moves a comment's `commit_id` to the head, so rounds are attributed by
+comment time, never by commit id.
 
 **Disposition format — the recorded fields the tally reads (the
 `pr-tally` node's todo 3, 2026-09-12).** Every reply or comment that
@@ -1722,7 +1757,17 @@ posted, then fired within the minute — fully auditable). Then:
   the remote merge has already succeeded, leaving the local tree stranded
   mid-cleanup in a confusing half-switched state (edits preserved but
   displaced onto the base branch). Commit or relocate local work first, or
-  merge without the flag and delete the branch separately.
+  merge without the flag and delete the branch separately. The separate
+  delete is `merge-bot retire` (a proven-ancestor compare-and-swap through
+  the API as the bot, with read-back), never `git push --delete`: a
+  push-based delete runs the full pre-push gate on the shared host inside
+  whoever holds the push slot (2026-09-15: a Director's branch delete ran
+  the whole gate inside a lane's slot; the lane's API delete ran no hook). The separate
+  delete is `merge-bot retire` (a proven-ancestor compare-and-swap through
+  the API as the bot, with read-back), never `git push --delete`: a
+  push-based delete runs the full pre-push gate on the shared host inside
+  whoever holds the push slot (2026-09-15: a Director's branch delete ran
+  the whole gate inside a lane's slot; the lane's API delete ran no hook).
 - **A deferred or denied merge does not end shepherding.** "Truly green" has
   a shelf life: bots re-review every push asynchronously, so comment-clean
   verified at one instant expires at the next event. When the merge is handed
@@ -1859,6 +1904,16 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     (reading, planning, reviewing a peer's PR), because `worktree-hygiene`
     allows no worktree to hold work without a PR; its landing turns and any
     cure that frees the count come first.
+  - **The owner lands small green pull requests by hand, in changed-file
+    order** (owner, 2026-09-26: "I can make judgements that allow me to merge
+    small PRs many, many times faster than Practice agents"). Never hold a
+    small green PR for the owner; keep a ready list with links, ordered by
+    changed-file count, and while the owner is landing hold every sync push
+    until the owner says done.
+  - **Review rounds per pull request never go up** (owner, 2026-09-14): after
+    round two every remaining finding is dispositioned in the last push's slot
+    turn, cured or rejected with its reason, and the pull request settles;
+    about eight claims per slice is the size that settles in two rounds.
 - **CI runs the test-merge with CURRENT main.** A mid-round main landing
   that moves a mirrored asset (a kit file vs a tracked copy under
   `public/`, or any tracked parity copy) can red a parity test on your

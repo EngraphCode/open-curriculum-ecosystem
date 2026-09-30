@@ -42,7 +42,14 @@ ever ratified? is the precondition constitutive regardless of the stated situati
 the claim true right now?* Naming this does **not** inoculate against it — a fluent move
 under context pressure overrides a passively-held lesson (the conservation reflex recurs
 even while you document it). So the cure is structural — an external check or a firing
-gate — not self-vigilance.
+gate — not self-vigilance. A review opened with "the through-line is…" has locked a
+narrative before the evidence: open it as inquiry and hunt the disconfirming case first
+(owner, 2026-06-05). Read the complete source before a diagnosis, never a subset
+(one ruleset rule type, an index line, a partial grep: two fluent wrong diagnoses in one
+session, 2026-06-26), and name the falsifier. The verification boundary is the lane
+boundary: in a briefing or handoff tag each fact verified-live, from-fixtures or inferred,
+since the two wrong facts in an "all first-hand" eight-fact briefing were the load-bearing
+ones (2026-07-02).
 
 ## The escape-hatch generative screen (general form)
 

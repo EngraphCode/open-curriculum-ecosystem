@@ -41,7 +41,13 @@ tag exclusion" below) — filter out events authored by the agent's own
 PDR-076a routing identity through the canonical `sameAgentRoutingKey`
 comparator (per
 [`.agent/reference/comms-watch-mechanism.md`](../reference/comms-watch-mechanism.md)
-§"Identity discipline") and emit everything else. Apply relevance triage
+§"Identity discipline") and emit everything else. Any supplementary
+watcher a seat adds (a rapid-comms channel tail, a per-file wake) keys on
+peer-entry counts and watches the channel DIRECTORY, never a file's size:
+a size-keyed watcher woke on its own appends and missed a peer's new
+channel for seventeen minutes, announced only by a canonical event
+(2026-08-12); and no channel watcher ever substitutes for this canonical
+one. Apply relevance triage
 in agent reasoning, not at the watcher boundary — **hand-rolled filters
 at the watcher boundary remain forbidden** (twice bitten: the 2026-06-10
 muting-filter and 2026-07-02 mute/leak instances); the CLI's tested

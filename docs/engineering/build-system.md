@@ -173,6 +173,10 @@ for the matrix, the per-check rationale, and the verify-vs-mutate rule.
 
 **Key principle**: pre-push and CI run the same check set. A CI-only failure
 indicates an environmental or configuration issue, not a missing check.
+A required check's verdict depends only on the head: a build that fetches from
+the network (Google fonts inside `next build`) fails on the network, and a pure
+sync went red twice in three hours and green on re-run (2026-09-28, F-208).
+Vendor the inputs (`next/font/local`) so the verdict is the head's.
 `pnpm check` is the broadest surface, adding clean rebuild, widget
 tests, and a11y tests. See ADR-121 for the full rationale.
 `pnpm check:docs` is the focused, verify-only aggregate for documentation work;
