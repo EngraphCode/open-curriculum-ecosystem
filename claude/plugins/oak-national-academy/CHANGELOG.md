@@ -9,7 +9,7 @@ the repo release that shipped it.
 
 - The Claude plugin gains support, documentation and terms of service links
   for its directory listing.
-- Both manifests name oaknational/oak-ai-plugins as the repository: the
+- The Claude plugin names oaknational/oak-ai-plugins as its repository: the
   public copy the directory lists, rather than this repository.
 
 ## 0.1.4 — 2026-09-30 (repo release v1.185.4)

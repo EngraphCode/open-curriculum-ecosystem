@@ -31,14 +31,18 @@ const CANONICAL_LOGO_PATH =
   'packages/design/oak-design-assets/assets/oak-national-academy-logo-512.png';
 const SKILL_ROOTS = [`${PLUGIN_ROOT}/skills`, `${PLUGIN_ROOT}/workflows`] as const;
 
+/** The listing fields the plugin directory reads from the Claude manifest. */
 const ClaudeManifestSchema = z.object({
   description: z.string().min(1),
   icon: z.string().startsWith('./'),
   privacyPolicyUrl: z.url(),
+  termsOfServiceUrl: z.url(),
+  supportUrl: z.url(),
+  documentationUrl: z.url(),
 });
 
 const CodexManifestSchema = z.object({
-  interface: z.object({ privacyPolicyURL: z.url() }),
+  interface: z.object({ privacyPolicyURL: z.url(), termsOfServiceURL: z.url() }),
 });
 
 const McpConfigSchema = z.object({
@@ -102,6 +106,22 @@ describe('Claude plugin listing', () => {
 
     expect(codex.interface.privacyPolicyURL).toBe(claude.privacyPolicyUrl);
     expect(privacyLinks(readme)).toStrictEqual([claude.privacyPolicyUrl]);
+  });
+
+  it('links one terms of service from both manifests', async () => {
+    const claude = ClaudeManifestSchema.parse(await readJson(CLAUDE_MANIFEST_PATH));
+    const codex = CodexManifestSchema.parse(await readJson(CODEX_MANIFEST_PATH));
+
+    expect(codex.interface.termsOfServiceURL).toBe(claude.termsOfServiceUrl);
+  });
+
+  it('sets the support and documentation links the listing shows', async () => {
+    const { supportUrl, documentationUrl } = ClaudeManifestSchema.parse(
+      await readJson(CLAUDE_MANIFEST_PATH),
+    );
+
+    expect(new URL(supportUrl).protocol).toBe('https:');
+    expect(new URL(documentationUrl).protocol).toBe('https:');
   });
 
   it('names the MCP endpoints the plugin declares, and no others', async () => {
