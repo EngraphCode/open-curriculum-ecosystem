@@ -9,6 +9,8 @@ the oak-open-curriculum-ecosystem release that shipped it.
 
 - The Claude plugin gains support, documentation and terms of service links
   for its directory listing.
+- New listing text: a one-line description, and a README that describes Oak
+  and what the plugin draws on.
 - The Claude plugin names oaknational/oak-ai-plugins as its repository: the
   public copy the directory lists, rather than oak-open-curriculum-ecosystem.
 
