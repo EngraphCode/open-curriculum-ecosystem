@@ -101,6 +101,11 @@ recorded independently.
   amendment is the Oak line's wording, corrected on this line by the owner on 2026-09-17: the
   plugin is in no way constrained to Claude Code). The listed-versus-installed distinction above
   holds per manifest.
+- **Addendum 2026-09-30 (the 1.185.4 sync).** Upstream renamed the plugin, its ChatGPT and Codex
+  package and its MCP server key to `oak-national-academy`, matching the display name, and moved
+  the packages: `.claude-plugin/marketplace.json` now points at `claude/plugins/oak-national-academy`
+  and `.agents/plugins/marketplace.json` at `chatgpt/plugins/oak-national-academy`. The paths the
+  2026-09-17 addendum names are the pre-rename ones.
 
 ## Validation
 
