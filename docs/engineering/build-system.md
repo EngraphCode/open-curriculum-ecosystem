@@ -458,6 +458,40 @@ the second estate runs its smoke suite that way on every gate.
 | `clean`    | ❌     | Destructive operation |
 | `dev`      | ❌     | Persistent process    |
 
+### The remote cache is optional and reached without a login
+
+Remote caching is enabled in `turbo.json`, which also names the Vercel team that
+holds the cache (`remoteCache.teamSlug`, the lowest-priority team source:
+`TURBO_TEAM` in the environment, a `turbo link` config and a Vercel build's own
+credentials all outrank it); the hooks export `TURBO_UI=0` so the TUI does not
+swallow output.
+
+The remote cache is optional. This repository enables it; a fork, a clone or a
+shell without a credential runs every gate the same on turbo's local cache, and
+each place says so in one information line rather than failing. The login-free
+path to the cache is a token in `TURBO_TOKEN`. Turbo also reads a `turbo login`
+credential from its own config when the variable is absent; that is a user
+token that expires, so the repository's shape rests on `TURBO_TOKEN` and does
+not remove the fallback:
+
+- A developer's host: a team-scoped token exported as `TURBO_TOKEN` from the
+  shell profile (read from a keychain, never a file in the tree). The hooks
+  source `.husky/turbo-remote-cache-notice.sh`, which prints one line when the
+  shell carries no `TURBO_TOKEN`; the line names turbo's own login credential
+  as the one other way the cache is reached, since the shell cannot see it. A
+  token the cache refuses is turbo's own warning in the gate output; the gates
+  judge turbo by its exit code, so it does not fail them.
+- CI: every job that runs turbo (`ci.yml`'s five, and `release.yml`'s build)
+  holds `id-token: write` and runs `vercel/setup-turborepo-remote-cache-action`
+  before its first turbo step. The action exchanges the job's GitHub OIDC token
+  for a short-lived Vercel token against the team's OIDC policy for this
+  repository, sets `TURBO_TOKEN` and `TURBO_TEAM` (the `TURBO_TEAM` variable)
+  for the following steps and revokes the token when the job ends. The step
+  runs only where a token can exist and a team is named (not on a fork's or
+  Dependabot's pull request, not without the variable) and never fails the
+  job; a step that did not succeed leaves a `::notice` annotation naming what
+  to configure. The policy and the variable are the owner's to set.
+
 ## Mixing pnpm and turbo
 
 ### Use turbo for
