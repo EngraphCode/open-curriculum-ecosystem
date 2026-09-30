@@ -54,6 +54,9 @@ const INVENTORY_IGNORE_GLOBS = [
   // Repo-local pnpm store cache (gitignored, machine-local): package
   // tarball contents are never live sources or portable link targets.
   '.pnpm-store/**',
+  // Agent worktrees nested in the checkout (gitignored, machine-local;
+  // owner ruling 2026-09-30): whole sibling checkouts, never link targets.
+  '.claude/worktrees/**',
 ] as const;
 
 /** Additional non-live or generated Markdown sources excluded from validation. */

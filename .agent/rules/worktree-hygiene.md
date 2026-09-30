@@ -48,6 +48,17 @@ or handing off a worktree; or auditing the worktree estate for hygiene.
 
 ## Action
 
+### 0. Every worktree lives at `.claude/worktrees/<lane>`
+
+Owner ruling 2026-09-30: lanes are cut nested in the checkout,
+`git worktree add .claude/worktrees/<lane> -b <branch> origin/<base>`, in both estates.
+`.gitignore` ignores the directory's contents (its placeholder `.gitignore` is the one
+tracked file), the platform's own `.git/info/exclude` ignores it, and every root check
+tool either reads the git index or carries the exclusion; `worktree-residency` lists
+them and records the one leak nested placement keeps (a false-clean dependency run,
+fenced by CI's fresh install on every pull request). Entering such a worktree never
+prompts. The sweep clause below still never touches a peer's lane, wherever it lives.
+
 ### 1. Every worktree has an open PR — at least a draft
 
 The moment a worktree's work has its first commit, push it and open at least a **draft**
@@ -188,7 +199,7 @@ delete for a proven remote branch (its freshly fetched tip an ancestor of the ba
 content-superseded branch (every file proven present newer on main by
 content comparison, not SHA ancestry) also deletes, with the comparison
 recorded first. Anything failing either proof, the active lanes, and
-platform-managed `.claude/worktrees/*` are NEVER touched. The grant covers
+a peer's worktree under `.claude/worktrees/*` are NEVER touched. The grant covers
 the worktrees and branches the seat owns: a peer's dormant worktree is
 theirs even when its content is superseded on the base (owner refusal,
 2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
@@ -313,7 +324,7 @@ else); parallel `isolation: worktree` subagents can inherit the **wrong base com
 and write to main-repo **absolute paths**, so verify a spawned worktree's HEAD and keep
 paths worktree-relative; and a whole-repo sweep rebuilds its tree's build output, deleting
 it first where the `check` script runs a `clean` step, from under every session that reads
-that output, a session in a sibling worktree whose hooks resolve the primary checkout's
+that output, a session in another worktree whose hooks resolve the primary checkout's
 build among them (the
 [`check-singleton-per-window`](check-singleton-per-window.md) hazard). Isolation is a
 property to verify per-seam, never an assumption.

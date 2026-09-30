@@ -56,8 +56,12 @@ not-Work result does not by itself identify Claude cloud.
 
 ```bash
 git fetch origin
-git worktree add <path> -b <branch> origin/<base>
+git worktree add .claude/worktrees/<lane> -b <branch> origin/<base>
 ```
+
+`<path>` below is that nested directory, `.claude/worktrees/<lane>` (owner ruling
+2026-09-30): git ignores its contents, every root check tool ignores it, and entering
+it never prompts.
 
 `<base>` is the repository's default branch (refreshed with `git remote set-head origin --auto`, then
 read with `git symbolic-ref --short refs/remotes/origin/HEAD` and the `origin/` prefix
@@ -158,20 +162,16 @@ vintage stays honest.
 In detected ChatGPT Work cloud, operate through the tool's explicit `workdir`
 or absolute paths. Do not invoke Claude's `EnterWorktree`; continue at step 5.
 
-The platform asks the human for approval on every `EnterWorktree` to a path outside
-`.claude/worktrees/`, and no permission rule or "don't ask again" suppresses it
-([Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
-since v2.1.206). So the session-level switch is an owner-present step: first say the
-exact invocation you are about to issue — as a directed event to the Director where a
-Director is live; in a solo session, in the reply the owner is reading, immediately
-before the call — then issue `EnterWorktree` with the path only when the owner is known
-to be at the keyboard. A prompt nobody answers holds the seat until someone does, while its
-heartbeat loop keeps reading fresh (nine hours on 2026-09-07/08). When the owner may be
-away, do not enter: operate the worktree non-resident from the principal (`git -C <path>`
-for git, the platform's file-editing tool on absolute paths for edits, one plain command
-per call — not residency, and named as such in the lane broadcast), or have the session
-launched inside the worktree (`cd <path> && claude`), which prompts for nothing
-([`worktree-residency`](../../rules/worktree-residency.md) clause 2). A bare `cd` is not
+Issue `EnterWorktree` with the path. The platform prompts the human only for a path
+outside `.claude/worktrees/` ([Claude Code worktrees documentation](https://code.claude.com/docs/en/worktrees),
+since v2.1.206), so a lane cut at step 1 enters without a prompt whether or not the
+owner is at the keyboard. The one worktree the tool cannot enter is a SIBLING
+repository's (it enters worktrees of the session's own repository alone): operate that
+one non-resident from the principal (`git -C <path>` for git, the platform's
+file-editing tool on absolute paths for edits, one plain command per call — not
+residency, and named as such in the lane broadcast), or have a session launched inside
+it (`cd <path> && claude`,
+[`worktree-residency`](../../rules/worktree-residency.md) clause 2). A bare `cd` is not
 residency and does not survive; a `Shell cwd was reset` line means it did not take. Arm
 monitors where you reside: at the principal before an entry, or inside the worktree once
 resident — the resident arm roots its `cd` at the worktree and passes the supervisor pid
