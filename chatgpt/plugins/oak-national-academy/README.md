@@ -87,9 +87,6 @@ refused with "Skill zip must contain one skill root or one directory of skill ro
 2026-09-09). The MCP step is where the Oak server (`https://mcp.thenational.academy/mcp`) is
 attached for the portal version.
 
-## Not done here
+## Publishing
 
-Publishing to the Oak workspace or the public directory (MCP-107). The Oak Curriculum Toolkit
-already in the workspace ships the three shared skills under the same names (observed
-2026-09-07); whether this package is listed separately from the toolkit is a product decision
-to take before any publish.
+The package is submitted to OpenAI's Plugin Directory through the portal's upload (MCP-107).
