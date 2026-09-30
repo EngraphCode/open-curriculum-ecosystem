@@ -259,6 +259,12 @@ bounded notification interval live only in the
 [`cross-platform-agent-surface-matrix`](../memory/executive/cross-platform-agent-surface-matrix.md#platform-liveness-declaration-pdr-133).
 This rule owns the operating procedure, not a second copy of its evidence.
 
+On the Codex CLI of 2026-09-23, the latest at the time, "`codex queue --thread <id> --message
+<text>` started a turn on an IDLE interactive Codex session with no user input", which "revises the
+"active-turn alert only, no idle wake" position" stated above; the owner's word binds the reading to
+the latest CLI, "we will not pin versions, we use latest" (an owner-directed finding of 2026-09-23,
+event e45cb5c1).
+
 ## Reference Shape (Comms Watcher)
 
 This block is a TEACHING EXCERPT — it illustrates the flags this rule

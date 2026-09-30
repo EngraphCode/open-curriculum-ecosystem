@@ -225,6 +225,11 @@ owner is at the keyboard.
    commits across; history rewrite is hook-blocked on this estate),
    close the contaminated PR with a pointer, and open its successor.
 
+On 2026-09-06 the switch did not reproduce the kill: "a residency switch did NOT kill the
+primary-armed monitors this time (counter-instance to 2026-09-01)", so the kill is
+version-conditioned and the first-hand monitor check after any switch stands (Juno seeks Apogee's
+closeout of 2026-09-06, event 720bdd21).
+
 ## Platform mechanics (version-pinned)
 
 Verified against Claude Code 2.1.263 and its tools reference,
@@ -289,6 +294,16 @@ wrapper, run as one plain command, for env-prefixed commands; and the
 Edit tool for edits — a Bash-hook workaround must never generalise into
 scripted file editing (owner correction 2026-09-02, verbatim: "why are
 you writing python to edit files?").
+
+From a checkout under the platform's own worktree directory, EnterWorktree refuses a sibling path:
+"from inside a .claude/worktrees checkout EnterWorktree refuses sibling-directory worktrees", so a
+seat leaves that checkout with ExitWorktree before entering a sibling worktree (Kiln holds Slag's
+freeze record of 2026-09-02, event 944ab610).
+
+The resident entry prompt reads, from the owner's screenshot of 2026-09-08, "Entering
+worktree(<path>)" then "permission-root relocation to <path>" then "a model-supplied worktree
+outside .claude/worktrees/" then "Do you want to proceed?"; "The platform's own name for the class
+is permission-root relocation" (Altair spins Umbra's report of 2026-09-08, event 3168367d).
 
 ## Why a rule, not a PDR clause
 

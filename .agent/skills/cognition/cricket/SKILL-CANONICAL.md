@@ -150,6 +150,10 @@ frame` (haiku). The labelling was first written in the jimcresswell.net Practice
 where the owner gave the ruling, and came here through the Practice Box exchange of
 2026-09-24 unchanged.
 
+A return that has not arrived by one cadence is UNDELIVERED and is never reported as in progress: "a
+missing Cricket return is UNDELIVERED at one cadence, never "still running"" (the owner's correction
+of 2026-09-07 as Jackal wakes Nocturne recorded it, event 58b01caa).
+
 ## Codex dispatch
 
 Oak adapts [OpenAI's Codex subagent workflow](https://learn.chatgpt.com/docs/agent-configuration/subagents)

@@ -81,6 +81,10 @@ policy back to its giver first (the three minutes this costs is nothing;
 a licence read as a mandate once deleted six weeks of archive inside the
 hour, 2026-07-26).
 
+A node closed at the owner's word with no instrument legs run is recorded as pre-read, "a record
+re-true, not a reclassification; inventing leg results to satisfy the checkpoint class is excluded"
+(the Director's settlement record of 2026-09-06, event 874a3d23).
+
 ## Evidence and instruction are two registers — never one line
 
 The register discipline above governs *authority*; this one governs *decay*. A

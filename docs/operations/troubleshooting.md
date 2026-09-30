@@ -273,6 +273,12 @@ When diagnosing a gate discrepancy, **never trust a cached result** — re-run
 the task with `--force` (or via the authoritative hook) before concluding
 anything. See also `docs/engineering/build-system.md` on cache inputs.
 
+A happy-dom unit suite loads stylesheet links for real unless told otherwise: "happy-dom loads a
+stylesheet link for real by default, so the live-token-causes test's fake href fires an unawaited
+fetch to localhost:3000 whose refusal lands as an unhandled error at random"; the showcase vitest
+config sets disableCSSFileLoading and a new happy-dom suite does the same (the Director's lane
+record of 2026-09-08, event 283a6660).
+
 ## Quick Fixes
 
 | Symptom                                                 | Fix                                                             |
@@ -306,6 +312,12 @@ Each gate may fix issues for subsequent gates (e.g.
 Check CI logs for "cache hit, replaying logs" — stale remote
 Turbo cache. Ensure `turbo.json` `inputs` use `**/*.ts` not
 directory enumeration.
+
+A build that fetches Google Fonts at build time depends on the network in CI: the hub demo build
+failed twice on 2026-09-24 with "Module not found: Can't resolve
+'@vercel/turbopack-next/internal/font/google/font'" and passed on re-run; "If your pull request's CI
+goes red with this message, rerun it rather than debugging your change"; "The cure belongs to
+whoever owns the hub demo's build" (Marten mends Shadow's record of 2026-09-24, event a0920f55).
 
 ### CI job red with ENOENT on a tsup bundled config, no test failed
 

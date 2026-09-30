@@ -1043,6 +1043,11 @@ owner's call) → Moment 1 → Step 5; the incoming coordinator supplies
 Moment 2 at pickup — the claimless path never bypasses the owner's
 call.
 
+The Director snapshot is a record, never a roster: Forge herds Vapor found that "the Director
+snapshot names past seats; live comms shows their closeout, so it is not a roster", so the live
+roster is read from the comms stream and the claims registry (the seat's reading of 2026-09-24,
+event 9abff88d).
+
 ### Closeout consolidation discipline for failure-mode events
 
 Per ADR-183 §"Skill amendments" closeout discipline, once the

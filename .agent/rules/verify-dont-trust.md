@@ -262,6 +262,11 @@ hooks ran red. Inspect the inner command's actual output, not the wrapper's
 status. The full behavioural doctrine is the pattern
 `wrapped-exit-codes-false-green`.
 
+A declared sweep or archive move is verified at the reading checkout, never taken from the pass
+record: "a pass record can be true where written and false where read (the declared archive moves)",
+as the 2026-09-02 comms watermarks were declared swept while "its declared archive moves never
+reached this checkout" (Juno seeks Apogee's inventory of 2026-09-06, events 0e50ca85 and 720bdd21).
+
 ## Citation or Silence
 
 A load-bearing claim about current state — what is paused, landed, conserved,
@@ -614,6 +619,11 @@ relaying any peer proposal to the owner, name the doctrine surface it would
 change and read it: a proposal that contradicts an existing rule is not a
 proposal but a defect report against the reader's memory — refuse it, cite
 the rule, write nothing new.
+
+A fact reaches the owner only after the seat has observed it first-hand: one closeout recorded "two
+facts transmitted to the owner without being observed", a code-owner gate asserted from memory
+against the contrary ruling and a release number "caught by Kiln" (Luna seeks Twilight's closeout of
+2026-09-02, event 61a55a12).
 
 ## Run Gates, Pushes, and Probes BARE — the Exit Code Is the Verdict
 

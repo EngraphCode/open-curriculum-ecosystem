@@ -299,6 +299,10 @@ n=1 seat" first: it carries the owner's binding words, the state read first-hand
 work and the recipes. In short: 310 to merged, then 309; the retrospective's quickest wins one
 pull request at a time; then the exchange's remaining stories, one pull request per story.
 
+The comms decision table of 2026-09-25 was drained on 2026-09-30 by the two-estate consolidation: its §H
+lists the 47 follow-ups still owed by surface (code slices for agent-tools, plan units, owner acts) and the
+seven owner cards now on the register; read §H before picking the next lane.
+
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
 
 **CURRENT PICKUP, 2026-09-25 ~15:05Z — Myrtle turns Canopy (bf4957), the exchange seat at the

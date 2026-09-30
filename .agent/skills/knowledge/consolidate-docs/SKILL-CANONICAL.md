@@ -41,6 +41,10 @@ Do not rush. Knowledge curation, conservation of insight, they are all that matt
 
 Never chase fitness functions, they are a signal, not a goal. Caring for understanding is the only goal.
 
+A continuity-surface pass is priced by its entries, not by its size: Juno seeks Apogee's closeout
+lesson is that "a continuity-surface pass's cost is the per-entry live-or-finished judgement and it
+does not compress" (the seat's lesson of 2026-09-08, event a2e37223).
+
 ## Trigger Checklist
 
 Run `consolidate-docs` when one or more of these is true:

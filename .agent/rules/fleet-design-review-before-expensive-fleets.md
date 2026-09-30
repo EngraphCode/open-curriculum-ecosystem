@@ -140,6 +140,11 @@ at EVERY elaboration boundary, and check the current effort against the
 VERBATIM original ask. The review below starts from that block; a review
 that opens on the instrument has skipped the question that prices it.
 
+The landscape-survey post-mortem's headline: "internal instruments audit mechanics, only external
+reads audit warrants", so a fleet's own review legs test how the instrument runs and never whether
+the question was worth asking; the warrant block above is read by someone outside the fleet (Poppy
+lifts Bark's closeout of 2026-08-17, event 51008ab5).
+
 ## Tier every leg to its judgment weight
 
 Owner, 2026-07-26, on a seven-agent verification workflow whose every agent
@@ -204,3 +209,8 @@ leg on a cheaper tier with a twelve-call cap):
    review with its verdict. Runs report tokens, calls, mean and max per phase
    from the run record when they end (a tally row, as the Cricket tally does per
    leg).
+
+The measured 2026-09-07 fleet failures share one generator: "instruments about the object instead of
+contact with it; a mechanism modelled instead of measured", recorded with "thirteen fleet-design
+defects and nine process defects each with a cure" (Juno seeks Apogee's owner-directed measurement
+of 2026-09-07, event c8812df4).

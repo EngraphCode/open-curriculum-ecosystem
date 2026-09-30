@@ -364,6 +364,12 @@ a gh-token invalidation once turned a supervised PR-watch loop into a
 silent crash-loop against the anonymous API tier because empty state was
 read as "no news" rather than "the transport is down" (2026-07-13/14).
 
+When the watcher itself is the defect under cure, the F-95 claims gate refuses the claim and the
+seat works claimless until a sound watcher is live: Luna stirs Radiance recorded that "Normal claims
+open was attempted and mechanically refused by F-95 because no watcher is allowed until this cure;
+outbound heartbeat and bounded foreground comms checks continue" and "I will register the claim when
+a non-spinning watcher is live" (the seat's record of 2026-09-24, event f7dce9ef).
+
 ### Interactive-harness x-stop is invisible from inside a session
 
 An owner stopping a background task interactively (the harness UI's `x`)

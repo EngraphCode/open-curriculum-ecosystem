@@ -116,8 +116,16 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **Comms decision table of the 2026-09-25 pass: the rows with no home found (owner words A, decisions B, lessons C, follow-ups D)**
-  `[captured: 2026-09-25 | source: the comms decision table (1,266 non-heartbeat events 2026-08-14 to 2026-09-25T11:17:35Z, eight analysts, one reducer), conserved with its analyses at .agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/ (tracked; the analyst outputs and briefs are in the ignored instance tier .agent/state/collaboration/comms-analysis-2026-09-25/); section A (93 owner-word rows) was read whole by the seat and twenty-two of its rows are accepted for rules, skills, the rulings ledger and two Core PDRs; sections B (42 rows), C (93 rows) and D (61 rows) are unread by the seat and unverified | target: per row, in the table's plausible-home column; every move-bearing claim verified at the event file (comms-archive after the sweep) before the edit | trigger: the next curator context, any budget (no directive edits above 30 %) | size: one lane, several commits | status: pending]`
+- **Owner cards from the comms decision table: seven rulings for decision records**
+  `[captured: 2026-09-30 | source: the comms decision table's §H dispositions (sections B, C and D
+  read by four analysts and verified row by row by the seat on 2026-09-30, at
+  .agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/);
+  the rulings are a Director's or a relayed seat's, which a seat never writes into a decision
+  record: B-16 (PDR-117 §The Director role), B-24 (PDR-064 §Moment 1), B-38 and B-39 (PDR-125
+  §Decision), C-42 (PDR-117 §Decision), D-44 (PDR-027 §Amendment Log), D-47 (PDR-140 clause 4);
+  the table's other rows are homed, session-scoped, superseded, or owed to a lane and listed in §H
+  | target: the named decision records, each clause as its card states it | trigger: the owner's
+  card answers | size: S | status: pending]`
 
 ## Slow lane (PDR-130 — constitutional-class concepts, decided at their review date)
 

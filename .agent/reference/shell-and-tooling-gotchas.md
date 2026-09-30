@@ -131,6 +131,11 @@ tool retires them.
   shared primary; `git branch --show-current` after every
   branch-affecting command is the cheap tripwire.
 
+A fast-forward of the primary succeeds over staged ride-along files whose content equals the
+incoming tip: "the identical files were staged before the fast-forward, which git's two-way merge
+accepts (proven in a scratch repository first)", so a fold lands without unstaging peer records (the
+Director's landing record of 2026-09-06, event f05a54da).
+
 ## Markdown
 
 - **A wrapped prose line starting with `+ ` reads as a list marker**
@@ -537,6 +542,10 @@ tool retires them.
   nothing for all of them and reads as a clean negative (four false NONE
   verdicts in one curation pass, 2026-09-14). Name paths literally, or set
   `nullglob` for the call; a census with a glob in it needs a known positive.
+- **A pre-push gate that drives a browser starts the app on port 3000**, so a listener already on
+  the port (a dev server, an earlier gate still running) fails the gate with a bind or connection
+  error that reads like a test defect. Check the port is free (`lsof -nP -iTCP:3000 -sTCP:LISTEN`)
+  before a push that runs the gate (the 2026-09-16 orchestration recipe, homed 2026-09-30).
 - **Claude Code's Edit tool refuses a file in a sibling repository as unread until the Read
   tool has read it** (2026-09-30): a `cat` or `sed` through Bash counts as a read only for files
   under the session's own repository. Read the sibling file with the Read tool first, or make

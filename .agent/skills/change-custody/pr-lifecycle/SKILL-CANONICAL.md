@@ -1925,6 +1925,15 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   — it binds to the pre-push tip (three instances, 2026-07-21). Push the
   complete batch first, then request.
 
+The seat's own review and its pre-merge checks run before the ready declaration and before the door:
+Zephyr guards Leeward found that "four correction signals this afternoon shared one generator (own
+review and pre-merge checks run after the drive to land)" and that "the cure is to run them before
+ready and before the door" (the seat's lesson of 2026-09-21, event a68de270).
+
+The yield in the landing slot is a throughput rule: Altair spins Umbra measured that "the yielding
+rule is throughput, not courtesy (two landings inside the window this lane would have held)" (the
+seat's reading of 2026-09-10, event 2a55fd9a).
+
 ## Phase 8 — After merge
 
 **Every merge gets its own fleet broadcast, no exceptions** (obligation

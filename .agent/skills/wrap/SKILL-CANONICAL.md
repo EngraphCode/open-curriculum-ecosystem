@@ -85,6 +85,12 @@ and its handoff record written as a boundary record, not a retirement. The
 routing of non-terminal boundaries to `knowledge-safety-sweep` applies when
 the seat chooses the instrument, never when the owner names wrap.
 
+A seat never infers the session's end from a finished task or an ambiguous boundary; it stands down
+at the owner's word. Two Codex seats wrapped early and rearmed on correction: "Owner clarified this
+is ongoing ideation, not session end" and "The 10:17Z heartbeat-end and closeout were premature and
+are superseded" (the owner's corrections relayed by Badger seeks Hush, event e40ae685 of 2026-09-23,
+and Forge herds Vapor, event 5c30f92a of 2026-09-24).
+
 ## The Programme
 
 1. **Enter the modes.** Genuinely enter

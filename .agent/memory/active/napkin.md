@@ -60,3 +60,8 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   directory) replaced by a host-neutral phrase; the divergence the owner named on 2026-09-30 was
   a defect of host tokens more than of substance, and `diff` between the two checkouts is the
   check that keeps it at zero.
+- **Landed at the close (17:06Z):** the comms decision table's 196 rows dispositioned in its §H (seven
+  owner cards on the register, 47 owed follow-ups by surface, the rest homed, session-scoped or
+  superseded); the frictions register from 99 entries to 44, the settled 55 archived byte-identical
+  with index rows and nine lessons homed; the Director handoff's finished state archived; every
+  shared rule and skill this pass touched the same bytes in both estates.

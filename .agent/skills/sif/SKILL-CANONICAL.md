@@ -165,6 +165,12 @@ probe lives beside it at
   source under the plank-5 data contract, never committed or
   transmitted.
 
+The binding this annex records no longer exists on the Codex CLI the owner-directed research of
+2026-09-23 ran against, the latest at the time: "`codex mcp-server` IS GONE", so the stdio MCP
+binding cannot launch; the probe record carries the version that established the binding, and the
+owner's word binds every reading to the latest CLI, "we will not pin versions, we use latest" (event
+e45cb5c1).
+
 ## Annex B — candidate reverse binding: `claude mcp serve` (stdio)
 
 **Observation-grade CANDIDATE, not probe-verified.** Observed

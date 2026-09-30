@@ -191,6 +191,10 @@ commit or push will pass: the gates are independent, so enumerate the
 actual gate set the boundary will run and run that set, never the
 convenient subset.
 
+Hook-time validators run from the lockfile through `pnpm exec`, never through `pnpm dlx`: dlx
+resolves the newest registry version at commit time, and once fetched an unpublished transitive
+package so a message that passed locally failed in the commit-msg hook (F-31, settled 2026-05-12).
+
 ## Quality Gate Commands
 
 This document is the command source of truth that AGENT.md links to. Root
@@ -293,6 +297,11 @@ process.
   stage, but it does not prove the later root-only stages would pass. After
   clearing one failure, expect the next downstream stage to reveal another
   latent problem until `pnpm check` itself is green.
+
+The profile artefact records the environment it ran in: the Node version, the pnpm store path,
+whether the Playwright browser cache exists, and a note that Chromium fails under a restricted macOS
+sandbox with Mach-port permission errors. Read those fields before classifying a browser-leg failure
+as a product failure, and rerun outside the sandbox first (F-20, settled 2026-06-08).
 
 ### `pnpm test:all` - All test suites
 
