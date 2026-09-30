@@ -3,7 +3,7 @@
 Versions are the plugin manifest version. The Claude Code plugin and the
 ChatGPT/Codex package are cut from the same source at the same version.
 
-## 0.1.3 — unreleased
+## 0.1.3 — 2026-09-28 (repo release v1.185.3)
 
 - Claude plugin: adds an icon, a privacy policy link and a README, which the
   Claude plugin directory asks for.
