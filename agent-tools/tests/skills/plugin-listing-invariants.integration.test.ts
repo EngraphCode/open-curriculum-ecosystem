@@ -31,9 +31,20 @@ const CANONICAL_LOGO_PATH =
   'packages/design/oak-design-assets/assets/oak-national-academy-logo-512.png';
 const SKILL_ROOTS = [`${PLUGIN_ROOT}/skills`, `${PLUGIN_ROOT}/workflows`] as const;
 
+/**
+ * The public repository the plugin directory lists the Claude plugin from.
+ *
+ * @remarks
+ * This repository is too large for the directory to read, so each release is
+ * copied to oaknational/oak-ai-plugins and listed from there. Nothing else in
+ * this repository records that, so this test is the authority for the value.
+ */
+const PUBLISHED_REPOSITORY = 'https://github.com/oaknational/oak-ai-plugins';
+
 /** The listing fields the plugin directory reads from the Claude manifest. */
 const ClaudeManifestSchema = z.object({
   description: z.string().min(1),
+  repository: z.literal(PUBLISHED_REPOSITORY),
   icon: z.string().startsWith('./'),
   privacyPolicyUrl: z.url(),
   termsOfServiceUrl: z.url(),
@@ -113,6 +124,12 @@ describe('Claude plugin listing', () => {
     const codex = CodexManifestSchema.parse(await readJson(CODEX_MANIFEST_PATH));
 
     expect(codex.interface.termsOfServiceURL).toBe(claude.termsOfServiceUrl);
+  });
+
+  it('names the public repository the directory lists the plugin from', async () => {
+    const { repository } = ClaudeManifestSchema.parse(await readJson(CLAUDE_MANIFEST_PATH));
+
+    expect(repository).toBe(PUBLISHED_REPOSITORY);
   });
 
   it('sets the support and documentation links the listing shows', async () => {
