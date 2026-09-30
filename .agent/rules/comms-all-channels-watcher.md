@@ -282,7 +282,7 @@ pass of the catch-up, which is that plan's measured concern.
 
 A file-system watch error is never a change signal: "a watch error is never a change; it falls back
 to the poll timer or fails loudly", and under the host-load rule "any watcher spinning at 85 to 96
-percent stops now, before the cure" (a Director's ruling relayed by the watcher's seat, 2026-09-24,
+percent stops now, before the cure" (a Director's ruling on a defect the author routed, 2026-09-24,
 event 01808b32).
 
 ### Cursor movement is the health check; the batch bound is per-pass

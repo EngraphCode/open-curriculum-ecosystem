@@ -127,7 +127,7 @@ workaround.
 When a handoff says fetch and rebase but the tree is dirty, do not rebase: fetch, prove the required
 commits are already ancestors of HEAD with `git merge-base --is-ancestor`, and proceed from that
 base, reporting whether origin is ahead or behind. A rebase in a dirty tree is the owner's call
-(F-29, settled 2026-09-14).
+(OCE friction F-29, settled 2026-09-14).
 
 ## A Block Is a Question, Never a Detour
 

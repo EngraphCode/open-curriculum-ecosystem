@@ -20,10 +20,16 @@ linking into the patterns tier, a cited path the host does not own, a pattern in
 sync): run `pnpm check:docs` before a records push. Three pushes in one hour were refused, one
 validator each (2026-09-30).
 
-Lint the fragment before it joins the whole. A commit header is checkable with `wc -c` and a
-block about to be appended with markdownlint on the block file, before either joins the record;
-a check that runs only on the whole runs late, and each late refusal cost a commit or a gate run
-(six in one window, 2026-09-26).
+Lint the fragment before it joins the whole, and lint every write at once. A commit
+header is checkable with `wc -c` and a block about to be appended with markdownlint on
+the block file, before either joins the record; a check that runs only on the whole runs
+late, and each late refusal cost a commit or a gate run (six in one window, 2026-09-26).
+On this repository the pre-push gate reads the WORKING TREE, not the commit: an
+uncommitted edit to a tracked file, a stale comms-log projection or an unconsolidated
+link fails the next push whoever made the edit, so each write to the shared primary is
+linted at once with the gate's own command (`pnpm exec prettier --check --ignore-unknown
+-- <files>`, `pnpm exec markdownlint-cli2 --no-globs -- <files>`) and the render is
+refreshed before a push.
 
 Key ESLint thresholds that bite during refactoring:
 

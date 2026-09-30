@@ -43,7 +43,7 @@ describes it). Rollout sequencing:
   a configuration value and never asserts an implementation shape.
   Configuration is guaranteed by construction or by a validator.
 - **Tests are forbidden real IO and child processes; validators start the
-  minimum and alter nothing** (owner, 2026-09-29, verbatim: "tests are
+  minimum and alter nothing** (owner, 2026-09-29, as two seats relayed it: "tests are
   FORBIDDEN to create real IO and child processes. I don't want excuses or
   carve outs, we have these rules for a reason", and "validation scripts can
   start real processes, but they are to be kept to a MINIMUM, and they are

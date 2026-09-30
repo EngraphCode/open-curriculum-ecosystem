@@ -236,18 +236,12 @@ late. A records changeset is also pushed at waypoints, never per event: records 
 each state change, the push follows a landed merge or a shape change, and the review is
 requested once per settlement push (a pure sync push requests nothing; the merge-bot
 reference carries the rationing); on 2026-09-13 a records pull request pushed per event
-drew five rounds, each finding the next stale line. A records changeset is also pushed at waypoints, never per event: records commit at
-each state change, the push follows a landed merge or a shape change, and the review is
-requested once per settlement push (a pure sync push requests nothing; the merge-bot
-reference carries the rationing); on 2026-09-13 a records pull request pushed per event
 drew five rounds, each finding the next stale line.
 For a code-class changeset the writer's docblock states the CLOSED contract
 before the first push (a worktree lane's draft PR is created by that push, so the
 description cannot precede it) and the description copies it at PR-open — what a
 target may be, what a flag may be — so reviewers read a contract rather than
-discover it a case per round, and the
-pull request's tests and recorded fixtures are the specification a code finding
-must be exercised by (the state machine's item 2): on
+discover it a case per round: on
 2026-09-06 rounds two to four of a containment-writer review were one contract
 specified case by case. A review OF a pull request lands its records on that
 PR's branch, never as a separate PR into the base (on this fork every PR branch
@@ -1762,11 +1756,6 @@ posted, then fired within the minute — fully auditable). Then:
   the API as the bot, with read-back), never `git push --delete`: a
   push-based delete runs the full pre-push gate on the shared host inside
   whoever holds the push slot (2026-09-15: a Director's branch delete ran
-  the whole gate inside a lane's slot; the lane's API delete ran no hook). The separate
-  delete is `merge-bot retire` (a proven-ancestor compare-and-swap through
-  the API as the bot, with read-back), never `git push --delete`: a
-  push-based delete runs the full pre-push gate on the shared host inside
-  whoever holds the push slot (2026-09-15: a Director's branch delete ran
   the whole gate inside a lane's slot; the lane's API delete ran no hook).
 - **A deferred or denied merge does not end shepherding.** "Truly green" has
   a shelf life: bots re-review every push asynchronously, so comment-clean
@@ -1798,10 +1787,8 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   2026-09-08).
   When the default branch's ruleset requires branches to be up to date, every
   merge knocks every other open PR to BEHIND; each knocked PR must sync and
-  push again, and every push re-runs the checks; a sync that changes the
-  pull request's own diff also opens a fresh review round, while a pure sync
-  keeps its reviews bound by content (state machine item 3; ADR-204 makes
-  the re-sync one push). PDR-131 retires serial slots as DEFAULT mechanics —
+  push again, and every push opens a fresh review round (ADR-204 makes the
+  re-sync one push). PDR-131 retires serial slots as DEFAULT mechanics —
   merge concurrency between settled-READY PRs is free where the ruleset does
   not require currency — and names the strict-currency ruleset policy as an
   owner-owned cost driver (its decision 5); this clause is that policy's cost
@@ -1827,15 +1814,13 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   approves, so the door's refusal on that is the system working, never a
   blocker to route around (2026-08-19). A holder that has synced and is
   waiting for a per-tip reviewer leg to bind is NOT an empty slot: nothing else
-  lands meanwhile, because every landing knocks the holder BEHIND, and a
-  re-sync that changes its own diff voids the leg bound to its head, a
-  livelock. A PR takes the slot when its legs are
+  lands meanwhile, because every landing knocks the holder BEHIND and voids the
+  leg bound to its head, a livelock. A PR takes the slot when its legs are
   green and its remaining conditions need no push: its unresolved threads are
   zero or settled by signed lines. "Clean" in a slot ruling means green legs
   and zero unresolved threads, never GitHub's `mergeStateStatus`. A turn opens
   and closes on the coordination stream: "slot taken" with the PR's number,
-  one sync push, the legs bound to the synced head (requested only as
-  §merge boundary item 5 says), the merge-bot front door,
+  one sync push, the legs bound to the synced head, the merge-bot front door,
   "slot released", then the remote branch deleted as the bot with read-back;
   the seat then yields to the next ready PR. A holder leaves the slot in one
   of three ways: it lands and releases; it cannot land without a cure push (a
@@ -1850,8 +1835,7 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   A coordination fold takes the slot at its time. Any auto-sync babysitter — a watcher running
   `gh pr update-branch` on OPEN and BEHIND auto-merge PRs — runs for the
   slot-holder only; a waiting PR is never auto-synced, because each sync is
-  a push and a sync that changes the pull request's own diff is a review
-  round. Worked instance (2026-09-06): one
+  a push and each push is a review round. Worked instance (2026-09-06): one
   PR was knocked BEHIND twice in one evening by other seats' merges, and its
   round five came from a sync push, not a cure.
 - **The work-in-progress limit** (owner, 2026-09-26 and 2026-09-27; the

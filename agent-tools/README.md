@@ -176,17 +176,6 @@ file contents are read literally by the CLI without any shell
 interpretation. Typical usage:
 
 ```bash
-
-The CLI owns its own mechanics: `--now` defaults to the wall clock, `--active` and `--comms-dir`
-resolve to the primary coordination home, and the sender identity derives from the platform session
-seed, so an agent never copies timestamps, ids or registry paths between commands. The explicit
-flags stay for deterministic tests, recovery and replay, never as the normal path (F-19, settled
-2026-06-28).
-
-To capture a command's output in a script, run the shortcut silently (`pnpm -s agent-tools:<topic>
--- <command>`) or call `node agent-tools/dist/src/bin/agent-tools.js` directly; without `-s` the
-pnpm wrapper prints its script preamble ahead of the command's stdout and the captured value is
-polluted (F-36, settled 2026-08-14).
 # Write body to a tmp file (any heredoc / printf / editor-generated file works)
 cat > tmp/event-body.txt <<'EOF'
 Body with backticks like `agent-tools` and dollars like $HOME survive intact.
@@ -207,6 +196,17 @@ pnpm agent-tools:collaboration-state comms direct \
   --platform claude --model claude-opus-4-7 \
   --active .agent/state/collaboration/active-claims.json
 ```
+
+The CLI owns its own mechanics: `--now` defaults to the wall clock, `--active` and `--comms-dir`
+resolve to the primary coordination home, and the sender identity derives from the platform session
+seed, so an agent never copies timestamps, ids or registry paths between commands. The explicit
+flags stay for deterministic tests, recovery and replay, never as the normal path (OCE friction
+F-19, settled 2026-06-28).
+
+To capture a command's output in a script, run the shortcut silently (`pnpm -s agent-tools:<topic>
+-- <command>`) or call `node agent-tools/dist/src/bin/agent-tools.js` directly; without `-s` the
+pnpm wrapper prints its script preamble ahead of the command's stdout and the captured value is
+polluted (OCE friction F-36, settled 2026-08-14).
 
 For directed messages (`comms direct` / `comms reply`), the body
 (whether inline or from file) must contain at least one non-

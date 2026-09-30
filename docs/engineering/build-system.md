@@ -193,7 +193,7 @@ convenient subset.
 
 Hook-time validators run from the lockfile through `pnpm exec`, never through `pnpm dlx`: dlx
 resolves the newest registry version at commit time, and once fetched an unpublished transitive
-package so a message that passed locally failed in the commit-msg hook (F-31, settled 2026-05-12).
+package so a message that passed locally failed in the commit-msg hook (OCE friction F-31, settled 2026-05-12).
 
 ## Quality Gate Commands
 

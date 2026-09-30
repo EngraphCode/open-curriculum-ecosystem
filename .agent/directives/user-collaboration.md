@@ -186,8 +186,8 @@ paragraph is reasoning the owner may overrule, never the estate's verdict (owner
 direction the owner has set is executed, not re-argued (2026-03-09). After a
 session-over word a new ask is a bounded fix, not a licence to resume: "you were
 never supposed to keep going, you were supposed to fix one small issue" (owner,
-2026-09-30); a plan's execution waits for a fresh seat unless the owner says
-otherwise.
+2026-09-30). A seat's reading of that word, never the owner's: a plan's execution
+waits for a fresh seat unless the owner says otherwise.
 
 ## Risk and Decisions
 

@@ -116,17 +116,6 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **Owner cards from the comms decision table: seven rulings for decision records**
-  `[captured: 2026-09-30 | source: the comms decision table's §H dispositions (sections B, C and D
-  read by four analysts and verified row by row by the seat on 2026-09-30, at
-  .agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/);
-  the rulings are a Director's or a relayed seat's, which a seat never writes into a decision
-  record: B-16 (PDR-117 §The Director role), B-24 (PDR-064 §Moment 1), B-38 and B-39 (PDR-125
-  §Decision), C-42 (PDR-117 §Decision), D-44 (PDR-027 §Amendment Log), D-47 (PDR-140 clause 4);
-  the table's other rows are homed, session-scoped, superseded, or owed to a lane and listed in §H
-  | target: the named decision records, each clause as its card states it | trigger: the owner's
-  card answers | size: S | status: pending]`
-
 ## Slow lane (PDR-130 — constitutional-class concepts, decided at their review date)
 
 Rows here are live deliverables under a named review gate, NOT decision-debt:

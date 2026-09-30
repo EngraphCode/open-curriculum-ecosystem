@@ -101,6 +101,18 @@ This rule converts the check from passive guidance into an always-applied
 trigger at shape-entry, per the `passive-guidance-loses-to-artefact-gravity`
 pattern's Heath-brothers tripwire framing.
 
+A plan binds at or above its source, never below: "a plan may be stricter than the policy it cites,
+never looser", so a sequenced landing orders its steps to keep that direction between them, and
+"findings on files outside its story are pointers on the next PR in the sequence, never absorbed" (a
+Director's ruling, 2026-09-08, event 4681f525).
+
+A plan whose instrument is a probe states the probe's threat model in its body, so review tests one
+stated adversary instead of supplying a new one each round: Blazar lifts Corona found on the Codex
+dialogues node that "Each finding was right under an adversarial-interlocutor model, but the node
+never states a threat model" and asked to "state the threat model rather than let each review round
+supply one"; "a probe whose exit criterion cannot be reached on the owner's model is not an
+instrument" (the seat's reading of 2026-09-24, event 071a8257).
+
 ## Related surfaces
 
 - Pattern: `.agent/memory/active/patterns/inherited-framing-without-first-principles-check.md`
@@ -127,15 +139,3 @@ pattern's Heath-brothers tripwire framing.
 - Principles: [`.agent/directives/principles.md`](../directives/principles.md)
   — the First Question ("could it be simpler?") that backs the shape clause's
   "single pure-function test could prove the same thing simpler" heuristic.
-
-A plan binds at or above its source, never below: "a plan may be stricter than the policy it cites,
-never looser", so a sequenced landing orders its steps to keep that direction between them, and
-"findings on files outside its story are pointers on the next PR in the sequence, never absorbed" (a
-Director's ruling, 2026-09-08, event 4681f525).
-
-A plan whose instrument is a probe states the probe's threat model in its body, so review tests one
-stated adversary instead of supplying a new one each round: Blazar lifts Corona found on the Codex
-dialogues node that "Each finding was right under an adversarial-interlocutor model, but the node
-never states a threat model" and asked to "state the threat model rather than let each review round
-supply one"; "a probe whose exit criterion cannot be reached on the owner's model is not an
-instrument" (the seat's reading of 2026-09-24, event 071a8257).

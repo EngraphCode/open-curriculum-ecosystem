@@ -1,11 +1,18 @@
---- fitness_line_target: 200 fitness_line_limit: 320 fitness_char_limit: 20000 fitness_line_length: 115
-fitness_line_length_rationale: >- Raised 100 → 115 (owner-authorised 2026-06-29) for this append-heavy
-narrative/continuity surface. Marginal prose-width drift on appended prose is chronic-cosmetic (99% of breaches
-were ≤120; median 104) and manual reflow is a transient non-cure on a file that grows by append each session; 115
-clears the noise while still flagging genuine over-runs. fitness_content_role: reference overflow_disposition: 'the
-Director Brief stays; in CURRENT HANDOFF STATE, leave-if-live, else graduate, then archive to a dated file proven
-byte-identical — never before full processing (see continuity-practice.md §Disposition of Continuity Surfaces)'
-merge_class: index-narrative ---
+---
+fitness_line_target: 200
+fitness_line_limit: 320
+fitness_char_limit: 20000
+fitness_line_length: 115
+fitness_line_length_rationale: >-
+  Raised 100 → 115 (owner-authorised 2026-06-29) for this append-heavy
+  narrative/continuity surface. Marginal prose-width drift on appended prose is
+  chronic-cosmetic (99% of breaches were ≤120; median 104) and manual reflow is a
+  transient non-cure on a file that grows by append each session; 115 clears the
+  noise while still flagging genuine over-runs.
+fitness_content_role: reference
+overflow_disposition: 'the Director Brief stays; in CURRENT HANDOFF STATE, leave-if-live, else graduate, then archive to a dated file proven byte-identical — never before full processing (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: index-narrative
+---
 
 # Director Handoff — Central Pick-Up Point
 
@@ -229,8 +236,9 @@ conveniences, never the only home.
 
 Each lesson is the cure for a churn cause observed in the pilot.
 
-**Drive, never coordinate** (owner, 2026-07-01, repeated corrections in one
-session). The Director decides what the decision lenses can settle and surfaces
+**Drive, never coordinate** (a seat's reading of the owner's repeated corrections
+of 2026-07-01, recorded in per-user memory that day; the owner's words were not
+quoted). The Director decides what the decision lenses can settle and surfaces
 only constitutive residue (product intent, values, external commitments); an
 "owner-approval step" is manufactured ceremony, and "the team is awaiting
 approval" is a fluent frame to test. The Director drives to a checkable
@@ -303,8 +311,7 @@ word).** The Director lane closed on 2026-09-29; the owner handed the work to on
 both estates. That seat's handoff is the `estate-coordination` thread record's journal entry
 "2026-09-29T13:4xZ — HANDOFF to the n=1 seat", with the retrospective
 `.agent/reports/agentic-engineering/why-five-days-of-landings-closed-nine-stories-2026-09-29.md`.
-This role brief stays for any future Director seat. The blocks below are the 2026-09-19 state,
-kept.
+This role brief stays for any future Director seat.
 
 The state blocks of 2026-09-19 that stood here are archived byte-identical in
 `archive/director-handoff-current-handoff-state-2026-09-19.md`.
