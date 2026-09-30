@@ -1,3 +1,8 @@
+---
+classification: core
+description: Canonical documentation hygiene (misleading-doc detection, attribution on adoption, TSDoc presence).
+---
+
 # Documentation Hygiene
 
 Operationalises [ADR-127 (Documentation as Foundational Infrastructure)](../../docs/architecture/architectural-decisions/127-documentation-as-foundational-infrastructure.md)

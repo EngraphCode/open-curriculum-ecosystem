@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Refuse plain and --amend commits on main; mechanics and residual-vector
+# Refuse plain and --amend commits on a default branch; mechanics and residual-vector
 # notes live in the shared guard (never-commit-to-main rule). git invokes
 # pre-commit only for `git commit` — merge and sequencer paths are guarded
 # by pre-merge-commit and prepare-commit-msg.
@@ -66,15 +66,24 @@ mkdir -p .turbo
 # unset to the top of the hook would empty their file lists and fail open.
 # GIT_WORK_TREE rides along: set without GIT_DIR it would break discovery.
 # No gate is narrowed: the same tasks run in the same order.
+# The turbo step runs under a host gate slot (no-unbounded-host-load item 6):
+# at most two full gates run on the host at once, counted across every
+# estate that uses the slot, and one at a time in a working tree. A blocked
+# commit waits and names the gates it waits for (`pnpm agent-tools:gate-slot
+# status` lists them), holding its worktree's index lock while it waits; a
+# step that holds a slot past thirty minutes is stopped and fails.
+# --fail-if-no-match: pnpm exits 0 without running anything when a filter
+# matches no project, which would skip the gate.
 {
   env -u GIT_DIR -u GIT_INDEX_FILE -u GIT_WORK_TREE \
+    pnpm --fail-if-no-match --filter @oaknational/agent-tools gate-slot run \
     pnpm turbo run --continue --output-logs=errors-only build type-check lint test \
     && echo 0 > .turbo/last-gate.status \
     || echo 1 > .turbo/last-gate.status
 } 2>&1 | tee .turbo/last-gate.log
 gate_status="$(cat .turbo/last-gate.status 2>/dev/null || echo 1)"
 if [ "$gate_status" != "0" ]; then
-  echo "❌ Build, type-check, lint, or unit tests failed! (full output: .turbo/last-gate.log)"
+  echo "❌ Build, type-check, lint, or unit tests failed, or the gate slot refused or gave up! (full output: .turbo/last-gate.log)"
   exit 1
 fi
 

@@ -28,7 +28,9 @@ judgment, deterministic aggregation, conserve-by-default) and feeds the conserva
 
 Each step: build the seeded artefact (validates the input checkpoints with the zod stage
 contracts — a partial map, a failed stage, or an incomplete merged disposition set is a typed
-refusal), launch it, then commit the returned result envelope as the next checkpoint.
+refusal), launch it, then commit the returned result envelope as the next checkpoint. Every
+checkpoint flag must name a file that resolves inside this checkout: a partition or result
+left in a temp or scratch directory is refused before it is read.
 
 ```bash
 # from agent-tools/; artefacts land in dist/corpus-analysis/workflows/ (gitignored)
@@ -54,9 +56,11 @@ pnpm build-run-artefact --stage meta --reduce-result <reduce-result.json> \
 
 After meta: the deterministic post-run driver (strict re-parse via the stage-io/judgment parsers →
 recall integrity → Choice-B verdict {strict ≥ 0.6, lenient ≥ 0.85} → coverage + temporal coverage →
-recompute every disposition by replaying `adjudicate`), then the conservation buffer and
-`consolidate-until-done` — that conservation is the run's success; recall is the tuning
-instrument, never the milestone.
+corroboration of claimed homes, each a regular file under `.agent/memory/active/patterns/` or
+`.agent/rules/` → recompute every disposition by replaying `adjudicate`; the close fails on an
+incomplete map, a recall integrity violation or a recompute mismatch, naming each), then the
+conservation buffer and `consolidate-until-done` — that conservation is the run's success; recall
+is the tuning instrument, never the milestone.
 
 ### Known limitation (surfaced, owner-dispositioned)
 
@@ -83,6 +87,10 @@ instrument, never the milestone.
   build step typically leaves the shell in `agent-tools/` (first-hand, 2026-08-07
   longitudinal run — the relative launch failed on a doubled `agent-tools/agent-tools/`
   path).
+- Re-freeze the recall fixture from the marker-chain reports that cover the NEW window before
+  spending on a run: the frozen 18-baseline fixture is calibrated to February–June 2026, so a
+  later window measured against it reports recall for the wrong period (first-hand, the same
+  2026-08-07 run).
 - The Workflow tool's `.output` file wraps the script's return under `.result` (alongside
   `summary`, `logs`, `totalTokens`). Every stage returns a typed envelope discriminated on `ok` —
   inspect it before committing a checkpoint; a failure is a value, not an exception.
@@ -91,6 +99,23 @@ instrument, never the milestone.
   legitimately-oversized validate splits into candidate-subset runs via the resume mechanism.
 - Voter cost calibration: ~50k tokens/voter at high effort over grounding-heavy prompts
   (`OBSERVED_VALIDATE_TOKENS_PER_VOTER`, `run-orchestration.ts`).
+- Spend expectation per candidate: validate ran at about 92k subagent tokens per candidate
+  on both longitudinal runs (7.4M over 80 candidates on 2026-08-07; 4.77M over 52 on
+  2026-09-02). Voter loops terminate early, so the measured per-candidate actual, not the
+  five-voter ceiling arithmetic, is the expected-spend figure for a spend card (about 4.8M
+  expected against the 16.25M ceiling on 2026-09-02); the ceiling passed as `--ceiling`
+  (candidates × 5 × ~50k × 1.25) stays the abort bound.
+- Leg health during a run: the 2026-09-02 reduce leg wrote its first transcript line about
+  six minutes after dispatch and its structured output about two minutes later. The health
+  check that run used was a freeze detector keyed on the leg's transcript mtime (warn at 15
+  minutes without a write, stop at 30), never process liveness — a wedged leg keeps its
+  process alive while its transcript freezes; the warn threshold sits above the observed
+  first-write latency.
+- Voter free-text rationales are not captured: the voter contract records only the four-test
+  verdict grid (`judgment-schemas.ts` has no rationale field) and the workflow transcripts'
+  thinking blocks were empty on the 2026-09-02 run. A report's kill reasons are the seat's
+  reading of the committed per-voter grid and the candidate text, labelled as such; a
+  rationale field on the voter contract is the cure if a pass needs contestable reasons.
 
 ## Runbook — since-marker run (first used 2026-09-02)
 

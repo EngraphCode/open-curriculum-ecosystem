@@ -1,3 +1,8 @@
+---
+classification: core
+description: A pipeline's exit status is the last stage's — capture a command's own exit in-band (redirect first, filter after; named EXIT markers for gated/backgrounded commands) and verify streamed side effects landed. Never read a filter's exit as the command's.
+---
+
 # Exit Codes In-Band, Never Piped
 
 A pipeline's exit status is the LAST stage's, so any command whose exit
@@ -18,7 +23,7 @@ discipline held for expensive chains gets skipped.
 - Capture the command's own status in-band, bound directly to it:
 
   ```bash
-  status=0; cmd > tmp/out 2>&1 || status=$?; echo "CMD_EXIT:$status"; cat tmp/out
+  rc=0; cmd > tmp/out 2>&1 || rc=$?; echo "CMD_EXIT:$rc"; cat tmp/out
   ```
 
   The `echo` must bind to the COMMAND's `$?` — redirect first, filter
@@ -27,6 +32,11 @@ discipline held for expensive chains gets skipped.
 - For backgrounded or gated commands, print a named in-band marker
   (`PUSH_EXIT:$?`, `SEND_EXIT:$?`, `WORKFLOW_EXIT:$?`) on its own line
   and READ it before claiming the effect happened.
+- Chain an edit to its commit with `&&`, print a sentinel from the script,
+  and read the task's output for `Traceback` before trusting it: a
+  backgrounded edit script followed by a commit on `;` committed the
+  unedited file when the script's assertion failed, and a grep for the
+  push line alone missed it (2026-09-20).
 - For streamed-side-effect CLIs (comms sends, registry writes), also
   verify the effect landed (the event on the stream, the ref moved, the
   registry row changed) — a grep filter over a failed send returns empty
@@ -38,9 +48,18 @@ discipline held for expensive chains gets skipped.
   duplicate event/commit/row (worked instance 2026-07-24: a duplicated
   directed comms event from exactly this shape). Derive output parsing from
   observed output, never from memory of a schema.
-- When a command fails, capture the FULL output on that first run —
-  `tail -N` on a failure swallows the reason and forces a re-run
-  (sibling discipline: capture-expensive-command-output-first-run).
+- Capture the FULL output on the FIRST run of every check, gate, commit,
+  push and validator — `tail -N` swallows the reason and forces a re-run
+  that the first run had already answered (owner, 2026-07-08: "you ran the
+  full expensive check, decided the tail didn't count, and ran it again";
+  2026-08-13/14, generalised to every state-changing command after a
+  `git push | tail -1` printed "Pre-push checks completed!" over a dropped
+  SSH transfer and cost two blind reruns). The settled mechanism: redirect
+  to one untracked scratch file, OVERWRITTEN each run (no timestamped
+  variants, no historic accumulation), append the exit code inside it, then
+  read or grep the file. Decide what the run must yield (exit code, first
+  failure line, summary counts) before invoking it, and structure the one
+  run to capture that.
 - **No `tail` or `head` on command output, ever** (owner ruling 2026-09-03,
   verbatim: "I think we need to stop using tail, it causes this same issue
   over and over and over"). Truncation is the pipe hazard's twin: it hides

@@ -1,18 +1,18 @@
-import { ok, type Result } from '@oaknational/result';
-
 import type { GitExecutor } from './git-executor.js';
 import { mintForConfig, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
-import { RefFormatOracleUnavailableError } from './ref-format.js';
 import {
-  currentBranch,
   describeGitChildEnd,
+  gitReadsFrom,
   pushHead,
   resolveGitContext,
   type GitContext,
+  type PushGitReads,
   type TokenFileStore,
 } from './push-git.js';
+import { settleTargetBranch } from './push-target-branch.js';
+import { RefFormatOracleUnavailableError, type RefFormatOracle } from './ref-format.js';
 import {
   resolveBotIdentity,
   type BotIdentity,
@@ -33,9 +33,6 @@ import {
  * refusals. Which is also why there is no force flag and no `--no-verify`
  * pass-through: a bypass would be built value, and this one is never built.
  */
-
-/** Branch names that never take a direct push; the never-commit-to-main rule as behaviour. */
-const DEFAULT_BRANCH_NAMES: ReadonlySet<string> = new Set(['main', 'master']);
 
 /** The action's composition surface; cli.ts forwards its own injection seams. */
 export interface PushActionInput {
@@ -60,6 +57,10 @@ export interface PushActionInput {
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
   /** The token file's lifecycle (mkdtemp/write/remove); tests inject a recording fake. */
   readonly tokenFiles?: TokenFileStore;
+  /** git's answers about HEAD and origin; defaults to the git binary's. */
+  readonly gitReads?: PushGitReads;
+  /** Branch-name legality for --branch; defaults to asking the git binary. */
+  readonly refFormatOracle?: RefFormatOracle;
 }
 
 /** The outcome a machine reads under --json. */
@@ -67,13 +68,14 @@ type PushOutcome =
   | { readonly kind: 'pushed'; readonly branch: string; readonly remote: string }
   | { readonly kind: 'refused'; readonly reason: string };
 
-/** Everything settled before a token is minted: identity, git, and the target branch. */
+/** Everything settled before a token is minted: identity, git, the target branch and the child env. */
 type Prepared =
   | {
       readonly kind: 'ready';
       readonly identity: BotIdentity;
       readonly git: GitContext;
       readonly branch: string;
+      readonly env: Readonly<Record<string, string | undefined>>;
     }
   | { readonly kind: 'failed'; readonly exit: number; readonly message: string }
   | { readonly kind: 'refused'; readonly reason: string };
@@ -84,17 +86,6 @@ function mintSeamsFrom(input: PushActionInput): MintSeams {
     ...(input.readFileImpl === undefined ? {} : { readFileImpl: input.readFileImpl }),
     ...(input.nowEpochSeconds === undefined ? {} : { nowEpochSeconds: input.nowEpochSeconds }),
   };
-}
-
-/** The typed refusals, by target branch name — whether the name came from git or from --branch. */
-function refuseTargetBranch(branch: string): string | undefined {
-  if (branch === 'HEAD') {
-    return 'HEAD is detached — there is no branch to push; check a branch out, or name the target with --branch';
-  }
-  if (DEFAULT_BRANCH_NAMES.has(branch)) {
-    return `"${branch}" is a default branch — changes reach it through a pull request, never a direct push`;
-  }
-  return undefined;
 }
 
 /**
@@ -110,25 +101,15 @@ async function prepare(parsed: PushArgs, input: PushActionInput): Promise<Prepar
   if (!git.ok) {
     return { kind: 'failed', exit: 1, message: git.error.message };
   }
-  const branch = await targetBranch(parsed, git.value, input);
-  if (!branch.ok) {
-    return { kind: 'failed', exit: 1, message: branch.error.message };
+  const env = input.baseEnv ?? process.env;
+  const reads = input.gitReads ?? gitReadsFrom(git.value, { cwd: input.repoRoot, env });
+  const target = await settleTargetBranch(parsed.branch, reads, identity.value);
+  if (!target.ok) {
+    return { kind: 'failed', exit: 1, message: target.error.message };
   }
-  const refusal = refuseTargetBranch(branch.value);
-  return refusal === undefined
-    ? { kind: 'ready', identity: identity.value, git: git.value, branch: branch.value }
-    : { kind: 'refused', reason: refusal };
-}
-
-/** The named branch, or the one git says HEAD is on. */
-function targetBranch(
-  parsed: PushArgs,
-  git: GitContext,
-  input: PushActionInput,
-): Promise<Result<string, Error>> {
-  return parsed.branch === undefined
-    ? currentBranch(git, { cwd: input.repoRoot, env: input.baseEnv ?? process.env })
-    : Promise.resolve(ok(parsed.branch));
+  return target.value.kind === 'refused'
+    ? { kind: 'refused', reason: target.value.reason }
+    : { kind: 'ready', identity: identity.value, git: git.value, branch: target.value.branch, env };
 }
 
 function writeRefusal(reason: string, json: boolean, input: PushActionInput): void {
@@ -160,7 +141,10 @@ export async function runPushAction(
     input.stdout.write(PUSH_USAGE);
     return 0;
   }
-  const parsed = parsePushArgs(rest);
+  const parsed = parsePushArgs(
+    rest,
+    input.refFormatOracle === undefined ? {} : { refFormatOracle: input.refFormatOracle },
+  );
   if (!parsed.ok) {
     input.stderr.write(`merge-bot push: ${parsed.error.message}\n`);
     // A missing git binary is an operational failure, never a usage mistake.
@@ -215,14 +199,14 @@ async function transferAndReport(
   input: PushActionInput,
   token: string,
 ): Promise<number> {
-  const { identity, git, branch } = prepared;
+  const { identity, git, branch, env } = prepared;
   const remote = `https://github.com/${identity.owner}/${identity.repoName}.git`;
   const pushed = await pushHead(git, {
     remote,
     branch,
     cwd: input.repoRoot,
     token,
-    baseEnv: input.baseEnv ?? process.env,
+    baseEnv: env,
     tokenFiles: input.tokenFiles,
     // git's transfer output — and the gate chain's underneath — arrives in
     // full on completion: files, never a Node pipe or sized buffer (R1; F-112).

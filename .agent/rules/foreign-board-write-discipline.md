@@ -1,3 +1,8 @@
+---
+classification: core
+description: On a ticket or board owned by someone else, only links to our own tickets and status updates are permitted; the description, comments, and priority stay theirs. Check the field before the write call. Where the surface has its own owner-set write rule — Notion's [AI Managed] boundary and page-local change ledger — that rule takes precedence over this one.
+---
+
 # Foreign Board Write Discipline
 
 **TRIGGER — the rule fires at the WRITE CALL to a ticket, board, or
@@ -155,7 +160,7 @@ owns the foreign-record boundary.
   Stricter again, and nothing here loosens it.
 - [`bot-identity-on-third-party-systems`](./bot-identity-on-third-party-systems.md)
   — whose name a permitted write displays.
-- [`ticket-management` SKILL](../skills/ticket-management/SKILL-CANONICAL.md)
+- [`ticket-management` SKILL](../skills/planning/ticket-management/SKILL-CANONICAL.md)
   — the authoring discipline for the ticket graph the permitted links
   belong to.
 

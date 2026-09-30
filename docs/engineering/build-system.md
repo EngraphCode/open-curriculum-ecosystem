@@ -217,8 +217,8 @@ pnpm i && turbo run build type-check lint:fix && pnpm subagents:check && pnpm po
    - `type-check` - TypeScript validation
    - `lint:fix` - auto-fix linting issues
 3. Root-only fixes:
-   - `subagents:check` - validate sub-agent wrapper/template standards
-   - `portability:check` - validate canonical/adaptor and hook parity
+   - `subagents:check` - validate the sub-agent templates and the rendered adapters' frontmatter
+   - `portability:check` - recompute the rule projections and the sub-agent adapters from their declarations; validate hook parity
    - `practice:fitness:informational` — four-zone report (ADR-144), always exits 0
    - `markdownlint:root` - fix markdown in root
    - `format:root` - format root files
@@ -248,8 +248,8 @@ pnpm check:docs
 ```
 
 It composes root Prettier and Markdownlint checks with the documentation
-validators for reference direction, machine-local paths, internal Markdown
-links, the patterns index, and ratified lists. Fitness reports are not part of
+validators for reference direction, machine-local paths, Core ADR citations,
+internal Markdown links, the patterns index, and ratified lists. Fitness reports are not part of
 this gate: they remain signals and never justify deleting or compressing
 knowledge. Specialised Markdown surfaces retain their owning validators; for
 example, skill or sub-agent definition changes also require their dedicated
@@ -307,6 +307,21 @@ Runs the root field-integrity harness:
 ```bash
 pnpm test:field-integrity
 ```
+
+### `pnpm agent-tools:gate-slot` - The host bound on full gates
+
+Each hook's turbo step runs under a host gate slot (`no-unbounded-host-load`
+item 6): the pre-commit's `build type-check lint test` run and the pre-push's
+`sdk-codegen build type-check lint test test:e2e test:ui` run. At most two full
+gates hold a slot on the host at once, counted across every estate that uses the
+slot's ports, and one at a time in a working tree. A blocked commit or push waits
+and names the gates it waits for, and `pnpm agent-tools:gate-slot status` lists
+the holders. A waiting commit holds its worktree's index lock. A wait gives up
+after an hour, and a step that holds a slot past thirty minutes is stopped and
+fails. The rest of each hook (the staged-file checks, `repo-validators:check`
+with its embedded codegen build, depcruise and knip) runs outside the slot. The
+slot needs POSIX process groups, so a gate on a native Windows host is refused;
+commit and push from WSL.
 
 ### Practice health commands
 
@@ -394,14 +409,54 @@ When deliberately aligning with an upstream spec change, bypass turbo with
 cache's `info.version` moved. The full runbook lives in the
 [oak-sdk-codegen README](../../packages/sdks/oak-sdk-codegen/README.md#responding-to-upstream-spec-changes).
 
+### A root file a test reads must be among the task's inputs, or the cache replays a stale pass
+
+Turbo invalidates a task's cache from its declared inputs. The root `test`
+task declares package-local inputs (`$TURBO_DEFAULT$`, `**/*.ts`,
+`vitest.config.ts`), so a test that reads a ROOT file — the rules index, the
+patterns index, the plan corpus — is not re-run when only that root file
+changes: the pre-push hook runs `turbo run … test …`, prints
+`cache hit, replaying logs`, and replays the earlier pass. On 2026-09-07 an
+explaining cell on a new core row of `RULES_INDEX.md` passed every local
+gate this way and failed CI's classification test cold (a core row's trigger
+cell must be exactly the em dash); the 100 ms dedicated test would have
+caught it before the push. Two disciplines follow:
+
+- **Before pushing an edit to a registry or index file that has a test
+  directory named after it, run that directory directly** (`pnpm exec vitest
+run tests/<name>/` from `agent-tools/`), and read the hook's turbo summary
+  for `replaying logs` on the package whose tests cover the file. (The rules
+  index is a generated projection — `pnpm portability:fix` renders it and the
+  pre-push `portability:check` recomputes it — so the 2026-09-07 class cannot
+  recur there by hand edit.)
+- **The structural cure is declaring the root file among the task's
+  inputs** (`$TURBO_ROOT$/RULES_INDEX.md`, the form `tsconfig.base.json`
+  already uses) — a one-line `turbo.json` change per root file a test
+  reads, landed as its own config change with the classification test as
+  the proof.
+
+The rule behind both disciplines, held with the second estate: **a task is
+cached only on inputs that cover every file it reads.** Where a task's reads
+can be listed, they are declared and a check fails when the list is wrong.
+The agent-tools end-to-end task declares the hook scripts,
+`.claude/settings.json` and the root manifest its smokes read; the root
+`AGENTS.md`, which its Codex session-alert smoke also reads, is not yet among
+its inputs, so an `AGENTS.md`-only change can replay a cached pass until that
+one-line input lands as its own config change. Today the
+workspace-config-isolation validator's `turbo-inputs` check refuses a
+`$TURBO_ROOT$` input that matches no tracked file; the other direction, a
+read the inputs do not declare, has no check yet and is the one to build.
+Where a task's reads cannot be listed (a spawned process reading root
+surfaces), the task is uncached and its cost is named in the table below;
+the second estate runs its smoke suite that way on every gate.
+
 ### Uncached tasks (always run)
 
-| Task       | Cached | Reason                                   |
-| ---------- | ------ | ---------------------------------------- |
-| `lint:fix` | ❌     | Modifies source files                    |
-| `smoke:*`  | ❌     | External system tests, non-deterministic |
-| `clean`    | ❌     | Destructive operation                    |
-| `dev`      | ❌     | Persistent process                       |
+| Task       | Cached | Reason                |
+| ---------- | ------ | --------------------- |
+| `lint:fix` | ❌     | Modifies source files |
+| `clean`    | ❌     | Destructive operation |
+| `dev`      | ❌     | Persistent process    |
 
 ## Mixing pnpm and turbo
 
@@ -465,7 +520,18 @@ This indicates core packages weren't built before type-check ran. Ensure:
 
 Editing a workspace `package.json` (e.g. adding a script) makes the next pnpm
 run re-verify dependencies, which triggers the postinstall bootstrap and a
-whole-package `tsc`. This catches real type errors BEFORE any explicit
+whole-package `tsc`, after it rebuilds any stale member of its install-time
+closure (every package agent-tools reaches whose entry points name built
+output under `dist`, derived at run time from the workspace manifests by
+`agent-tools/src/bootstrap/install-time-closure.ts`; the ESLint plugin is among
+them). A type error in one of those, the plugin mid-edit included, fails the
+install. So does a reached package with built entry points whose build script
+is not the bootstrap's one recipe (`BUILD_RECIPE` in
+`agent-tools/src/bootstrap/closure-member-build.ts`), and a build that does not write a `dist/`
+file its `package.json` entry points name: the install exits naming the
+package. A workspace dependency added to agent-tools, or to any package it
+reaches, enters the derivation at the next install and meets the same checks.
+This catches real type errors BEFORE any explicit
 type-check pass — read the error HEAD (the tail is pnpm plumbing; the
 `runDepsStatusCheck` stack is the fingerprint). Used deliberately, it is a
 free whole-package pre-gate: run `pnpm install` in a worktree immediately
@@ -478,7 +544,10 @@ An edit to `@oaknational/eslint-plugin-standards` source (e.g. a rule config
 or allowlist in `recommended.ts`) does not affect lint output until the
 plugin package rebuilds — ESLint resolves the built `dist/`. Rebuild the
 plugin after every config-source edit before trusting a lint readout
-(sibling of the F-120 stale-dist family).
+(sibling of the F-120 stale-dist family): `pnpm install` does it, since the
+plugin is in the postinstall bootstrap's install-time closure and rebuilds
+when its `dist/` is older than its `src` or build config, or build the package
+directly.
 
 ### Slow repeated runs
 
@@ -534,7 +603,7 @@ After renaming or adding commands in `package.json`:
    - `CONTRIBUTING.md`
    - `docs/governance/development-practice.md`
    - `.agent/directives/AGENT.md`
-   - `.agent/skills/gates/SKILL-CANONICAL.md`
+   - `.agent/skills/change-custody/gates/SKILL-CANONICAL.md`
 
 ## Documentation Link Integrity
 
@@ -614,9 +683,11 @@ artefacts it actually resolved:
   load-bearing, rebuild the producer workspaces first (the full
   `pnpm check` orders `^build` ahead of `type-check` for exactly this
   reason).
-- **A fresh checkout or worktree cannot lint until producer workspaces
-  are built** — see the start-right worktree-build discipline; ESLint's
-  flat config imports a workspace plugin resolved from `dist/`.
+- **A fresh checkout or worktree is not gate-ready until producer
+  workspaces are built** — see the start-right worktree-build discipline;
+  the install's bootstrap builds only what agent-tools reaches (the ESLint
+  plugin among it, so the flat config loads), and dependency-cruiser, knip
+  and each workspace's typed lint read every workspace's `dist/`.
 - **`pnpm check` does not run every suite** (e.g. `test:smoke` and
   experiment suites are outside it) — verify the aggregate actually
   exercises the suites your change touches before citing it as proof.
@@ -643,18 +714,21 @@ reader a broken `pnpm build`.
 
 ## Linting and Auto-Fix Safety
 
-- **`lint:fix` can silently revert manual edits**: `pnpm check`
-  runs `lint:fix` internally. If an edit introduces code that
-  the linter "fixes" back, the edit is lost mid-pipeline. Always
-  verify the edited file AFTER the full `pnpm check`, not just
-  after a single gate.
+- **`lint:fix` can silently revert manual edits**: `pnpm make`
+  and `pnpm fix` run `lint:fix` internally. If an edit introduces
+  code that the linter "fixes" back, the edit is lost
+  mid-pipeline. Always verify the edited file AFTER the full
+  `pnpm make` or `pnpm fix`, not just after a single gate.
+  `pnpm check` applies no fixes.
 - **Reviewer fixes must exist on disk**: a disposition recorded in a
   napkin, summary, or review thread is not evidence. Open or search the
   target file after applying the fix, especially after auto-fix gates.
 - **Never edit generated files** — edit the generators instead.
   Hand-trimming generated output causes regeneration footguns.
-  When knip or depcruise flags a generated file, fix the
-  generator that produced it.
+  When knip or depcruise flags a generated file, fix the generator that
+  produced it and regenerate (`pnpm skills:generate` for the skill adapters,
+  `pnpm portability:fix` for the rules index, the rule adapters, the sub-agent adapters
+  and the `.codex/config.toml` registry tail).
 
 ## Related Documentation
 

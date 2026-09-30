@@ -19,6 +19,14 @@ barrier:
 >
 > See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern) for the polarity discipline.
 
+## The owner's words on limits (2026-09-24)
+
+Asked whether a module had room under its line limit for one more function,
+the owner: the limits "enforce thoughtful code design and clear public APIs and
+proper encapsulation, not to ask if the bucket has enough room left". The
+redesign kept the digest inside the module that owns the argv, behind a private
+template, and the gateway review endorsed it.
+
 # Honest Restructure Over Band-aid
 
 When a quality-gate fires mid-authoring — `max-lines` on a growing

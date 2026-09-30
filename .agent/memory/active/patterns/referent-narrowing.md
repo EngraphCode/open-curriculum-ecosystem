@@ -34,11 +34,17 @@ adjacent: >-
   not what-holds) — this pattern covers LIVE instrument signals, where no
   stored text exists to blame. The estate's incident-level rules for specific
   instances: exit-codes-in-band-never-piped, verify-dont-trust,
-  read-verdicts-by-name-never-column-parse,
-  validators-must-recompute-not-just-record,
+  the read-surface-is-not-decide-surface pattern (verdicts read by name,
+  never column-parsed), validators-must-recompute-not-just-record,
   stale-capture-wins-silent-merge-reverts, the Sonar dropped-trigger cure,
   PDR-133's liveness classes.
 ---
+
+> **POLARITY: ANTI-PATTERN.** This entry names a *failure mode to avoid*,
+> not a shape to repeat.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern)
+> for the polarity discipline.
 
 # Referent Narrowing
 

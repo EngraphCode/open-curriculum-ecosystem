@@ -1,3 +1,12 @@
+---
+classification: situational
+description: Invoke design-system-expert when changes touch design tokens, CSS custom properties, colour palettes, spacing scales, typography scales, theming, or visual consistency in UI-shipping workspaces.
+trigger: surface:design — Design token / theming / CSS custom property / colour palette change
+globs:
+  - packages/design/**
+  - "**/*.css"
+---
+
 # Invoke Design System Expert
 
 Operationalises [ADR-149 (Frontend Specialist Reviewer Gateway Cluster)](../../docs/architecture/architectural-decisions/149-frontend-specialist-expert-gateway-cluster.md), [ADR-148 (Design Token Architecture)](../../docs/architecture/architectural-decisions/148-design-token-architecture.md), and [ADR-129 (Domain Specialist Capability Pattern)](../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md).

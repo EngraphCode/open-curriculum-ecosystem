@@ -41,12 +41,15 @@ export const PUSH_USAGE = `merge-bot push [--branch <name>] [--json]
   overwriting.
 
   --branch names the target branch (default: the branch HEAD is on; a
-  detached HEAD is a typed refusal, never a guess).
+  detached HEAD is a typed refusal, never a guess). The push always writes
+  refs/heads/<branch>, so a full ref name (refs/...) refuses.
   --json puts EXACTLY the outcome object on stdout; git's transfer output is
   diagnostics and always goes to stderr.
   Exit map: 0 pushed, 1 operational failure (git's own non-zero exit, its
-  stderr surfaced), 2 usage, 3 typed refusal — main and master refuse by
-  name, because changes reach the default branch through pull requests.
+  stderr surfaced; or origin's default branch unreadable, or origin not the
+  repository the push goes to), 2 usage, 3 typed refusal — main, master and
+  the default branch origin names refuse in any case, because changes reach
+  the default branch through pull requests.
 `;
 
 /**

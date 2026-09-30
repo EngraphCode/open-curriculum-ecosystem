@@ -1,3 +1,17 @@
+---
+description: Tooling configuration specialist for ESLint, TypeScript, Vitest, Prettier, Turbo, and Husky. Enforces inheritance consistency, quality-gate alignment, and prevention of disabled rules across all monorepo workspaces. Use immediately when any config file is created or modified, when a new workspace is scaffolded, or when auditing quality gates for silently bypassed rules.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  color: yellow
+cursor:
+  description: Expert at reviewing tooling configurations (ESLint, TypeScript, Vitest, Prettier, Turbo). Use proactively when changing configs, adding workspaces, or auditing quality gates. Invoke immediately after config file modifications.
+codex:
+  description: Tooling configuration reviewer (ESLint, TypeScript, Vitest, Prettier, Turbo).
+---
+
 ## Delegation Triggers
 
 Invoke the config reviewer whenever tooling configuration files are created, modified, or audited. It is the authoritative specialist for ensuring inheritance consistency, quality-gate alignment, and prevention of disabled rules across the monorepo's ESLint, TypeScript, Vitest, Prettier, Turbo, and Husky configurations. Call it immediately after any change that touches a config file — even a one-line override — because config regressions are invisible until they silently degrade quality across the whole workspace.
@@ -74,10 +88,28 @@ Scan for:
 
 - `eslint-disable` comments in config files or source code
 - `@ts-ignore` or `@ts-expect-error` in config files
-- Skipped tests via configuration
-- Bypassed git hooks
+- Tests skipped or excluded by configuration; an `include` that silently drops a test
+  category
+- Bypassed git hooks (`--no-verify`, a hook that returns early)
+- A leg removed from or reordered in `pnpm check` (the parity validator sees neither)
 
-### Step 4: Report Findings with Inheritance Analysis
+### Step 4: Check Scripts, Environment and Runtime Toggles
+
+- Every added or renamed quality-gate script follows PDR-008's naming rules. The root `package.json` and
+  the gates skill enumerate the live gate set; a workspace carries only the task gates the
+  root pipeline runs. No hidden `test:ci` duplicates, no workspace copies of root gates.
+- Every cited script exists; `package.json` entries reference files that exist and create no
+  circular `pnpm check` loop.
+- Application environment is read through `resolveEnv` (`packages/libs/env-resolution`,
+  ADR-116) against the schemas in `packages/core/env`, or at a composition root's single
+  documented boundary read passed into typed factories; `process.env` is never mutated.
+- Bundler and runtime toggles (headers, rewrites, analytics flags, experimental options) are
+  deliberate, documented and aligned with the directives.
+- Config changes still trigger the right validators: `pnpm check` picks up a new verify-type
+  gate or validator, and every E2E and visual gate that `pnpm check` runs still runs there.
+  Smoke suites stay outside `check` by design (`docs/engineering/build-system.md`).
+
+### Step 5: Report Findings with Inheritance Analysis
 
 Produce the structured output below. Include a per-workspace inheritance analysis table.
 
@@ -234,6 +266,7 @@ When configuration issues affect code quality, architecture, or type safety, thi
 
 ### Quality Gate Alignment
 
+- [ ] Every verifying `pnpm check` leg runs in CI (`validate-check-ci-parity`)
 - [ ] All workspaces pass `pnpm type-check`
 - [ ] All workspaces pass `pnpm lint`
 - [ ] All workspaces pass `pnpm test`

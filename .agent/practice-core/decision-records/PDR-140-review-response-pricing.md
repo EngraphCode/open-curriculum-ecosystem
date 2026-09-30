@@ -10,7 +10,8 @@ providing?" and, on the cure direction, "flipping the default action on
 feedback to no action unless action is critically determined as
 worthwhile" — with the explicit constraint that auto-merge is not the
 answer, because "that just ignores feedback"; and, on sufficiency, the
-PR skill must correct its own loops without out-of-band skill pokes).
+PR skill must correct its own loops without out-of-band skill pokes;
+amended 2026-09-07 and 2026-09-26 — see Amendment Log).
 **Date**: 2026-08-31
 
 ## Context
@@ -119,7 +120,8 @@ scope widens by dated amendment, never by improvisation.
    doctrine change already owner-ratified in-session) declares "merge"
    as its verification point at open: any genuine falsehood then clears
    prong one and cures in the PR; below-bar findings there disposition
-   by rejection-with-rationale or a ticket.
+   by rejection-with-rationale or a ticket. Records-class artefacts read
+   this sentence through clause 9.
 
 3. **The intake contract binds at PR-open.** The shepherd's opening
    working notes declare: the changeset's artefact class, its next
@@ -155,7 +157,22 @@ scope widens by dated amendment, never by improvisation.
    raised set, and rebudget by recorded decision (one further
    settlement push with its reason in the working notes). The budget is
    a tripwire forcing that deliberate decision; the cure obligation
-   (clause 2) always survives it.
+   (clause 2) always survives it. On records-class artefacts the
+   rebudget is granted once per PR and its push carries over-bar cures
+   and queued ledger writes only (clause 9). Read with the owner's ruling
+   of 2026-09-14, verbatim "I don't want the number of rounds of PRs to go
+   up": the rebudget licenses the one settlement push that carries the
+   pending mandatory cure and the dispositions, never a further cure round
+   after it; past round two each later below-bar finding is a disposition
+   riding the settlement (a prose-class pull request took two rebudget
+   pushes under this clause before the ruling reached its seat, 2026-09-24).
+   An over-bar finding found after that push keeps the cure path clauses 2
+   and 5 give it, because the cure obligation survives budget exhaustion:
+   one late-cure push carrying that cure and its disposition line. That
+   push requests the expected leg, so the tip binds for the merge boundary;
+   the leg's findings are dispositions only, in signed lines, and a
+   correctness defect among them opens a further push only through this
+   clause's doors.
 
 5. **Age-out, scoped to below-bar findings.** A below-bar finding that
    binds to text unchanged since the last reviewed head reveals the
@@ -199,6 +216,46 @@ scope widens by dated amendment, never by improvisation.
    and is filed as one; it is never a usage pattern. (Worked instance:
    the owner manually invoked the proportionality skill twice in one
    day to correct the founding arc — the hack this clause retires.)
+
+9. **Records-class reading (amended 2026-09-07; the Amendment Log
+   entry of that date is the revision record, with the measurement
+   and the falsifier).** For a records-class artefact — a served
+   doc, a record, doctrine already ratified — whose declared
+   verification point is merge:
+   - (a) Clause 2's merge-verification sentence reads through prong
+     one as written: a falsehood clears the bar when a reader acting
+     on the artefact would be misled by it. A statement wrong under
+     a rule today is not over-bar per se; an imprecision, a bent
+     vocabulary, a missing qualifier or a stale aside that no reader
+     acts on is below the bar and dispositions by rejection with
+     rationale or by a route to a register row.
+   - (b) Clause 4's rebudget is granted once per PR, never once per
+     exhaustion, and a rebudgeted push carries over-bar cures and
+     queued ledger writes only. After it, every below-bar finding is
+     dispositioned without a cure — a rejection needs no write; a
+     route's durable write (clause 1) queues — and the final head is
+     named. The cure obligation survives every exhaustion exactly as
+     clause 4 says: an over-bar finding arriving later still cures,
+     in a push that carries nothing beyond that cure and any queued
+     ledger writes. That path terminates on merit: once (a) is
+     applied, the supply of statements that would mislead a reader
+     is finite, which the bent-vocabulary class never was.
+   - (c) Post-final-head route writes are bounded: queued writes land
+     together in at most ONE ledger push (clause 4's final settlement
+     push, which may also carry a late cure). A route arriving after
+     that push writes its row to the seat's napkin — the tracked
+     capture surface every consolidation pass consumes, landing with
+     the seat's own capture commits, never by reopening the reviewed
+     PR — or to a records PR of the lane that is already open; the
+     reply names the carrier. The thread is never the sole carrier,
+     and the reviewed PR merges with no write queued on it.
+   - (d) A routed residue's named home is an existing surface — a
+     register row (the pending-graduations register, the gotchas
+     reference, a plan's `## Review dispositions` section) or a PR
+     already open for its own story — never a PR opened to carry
+     residue. A residue PR that exists anyway is terminal: a
+     settlement budget of one push, no rebudget, the paths of (b) and
+     (c) unchanged, and no further residue PR opened from it.
 
 ## Prediction and falsifier
 
@@ -246,3 +303,60 @@ is evidence the bar or the ledger, not the reviewer, was the weak link.
 - Named follow-up: a per-finding retro-triage of the founding arc's
   full finding corpus against the declared bar, published as the
   calibration corpus for the judgement call — the bar's case law.
+
+## Amendment Log
+
+### 2026-09-07 — the records-class reading of prong one; one rebudget per PR; where residue is homed
+
+**Context** (measured first-hand on a fork's consolidation lane,
+2026-09-07). Five records-class PRs — continuity records, rules,
+skills and reference pages whose verification point is merge —
+each declared a two-push settlement budget at open and together ran
+seventeen settled rounds and fifty-three cures. Every finding was
+real at its anchor. Almost every cure answered a statement "wrong
+under a rule today": a sentence bending a rule's vocabulary, an
+unqualified claim, a missing dated qualifier. Each was read as a
+genuine falsehood under clause 2's merge-verification sentence,
+therefore as a mandatory cure, so every budget exhaustion rebudgeted
+under clause 4 and the next push drew the next sample from the
+reviewer's pool. The loop ended when the owner invoked
+`proportionality` and `pr-lifecycle` out of band, with no words;
+this seat read the invocation as the clause-8 correction and ended
+the loop — the anti-pattern recurring, filed here as the defect it
+names. A sixth PR was opened to carry two of the five PRs'
+step-back residue and cost two rounds, seven cures and a CI cycle
+of its own.
+
+**Decision** — clause 9 of the Decision section, authored there per
+`new-rule-vs-pdr-clause` item 2 (an amendment is a new numbered clause
+inside the Decision; this entry is the revision record): the
+records-class reading of prong one (9a), one rebudget per PR with
+over-bar cures and queued ledger writes only (9b), the bound on
+post-final-head ledger pushes (9c), and residue homes on existing
+surfaces (9d). Clauses 2 and 4 carry one-line pointers to clause 9
+where their unqualified text would otherwise contradict it.
+
+**Falsifiers**, one axis per control, measured by the trailing-month
+PR read of PDR-132's methodology and the clause-7 disposition sample;
+one verified instance amends the failing sub-clause by dated
+amendment: 9(a) — a records-class statement dispositioned below the
+bar that misleads a reader acting on it before the next records pass
+over that file; 9(b) — a records-class PR whose working notes record
+a second rebudget, or a below-bar cure landing on a post-budget push;
+9(c) — more than one post-final-head ledger push on a records-class
+PR, or a routed write found in no napkin, register or PR by the
+seat's session close; 9(d) — a PR whose body carries another PR's
+review residue as its story.
+
+### 2026-09-26 — clause 4 reads its rebudget with the owner's two-round ruling
+
+Clause 4 gained the reading of its rebudget under the owner's ruling of 2026-09-14, verbatim "I
+don't want the number of rounds of PRs to go up": the rebudget licenses the one settlement push
+that carries the pending mandatory cure and the dispositions, never a further cure round; past
+round two a later below-bar finding is a disposition riding the settlement; and an over-bar
+finding found after that push keeps one late-cure push. The lineage wrote the paragraph on
+2026-09-25 with no entry, and this entry records it. On 2026-09-26 the Director's ruling
+replaced the paragraph's "with no further round of review requests": the late-cure push
+requests its expected leg, so the tip binds for the merge boundary (PDR-132 item 6), and that
+leg's findings are dispositions only. A binding leg whose findings cannot be cured is not a
+round; the owner's concept, that the number of rounds does not go up, is kept.

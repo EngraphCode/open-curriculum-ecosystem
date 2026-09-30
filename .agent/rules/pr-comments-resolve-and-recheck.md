@@ -1,3 +1,9 @@
+---
+classification: situational
+description: 'Opening or taking over a pull request binds the session: no merge and no "ready" report until every comment on every surface — GraphQL reviewThreads, reviews, review and issue comments, bots and humans — is fixed in code or explicitly rejected with rationale, replied to, and resolved, re-fetched after every push and at the merge instant. mergeable means possible, never ready; readiness is mergeStateStatus CLEAN. Binds even when the oak-pr-lifecycle skill is not running: the named failure (PR #315) declared "fully green" from the checks table while a High-severity thread sat unresolved.'
+trigger: ceremony:pr-lifecycle
+---
+
 # Every PR comment is addressed, and every push is re-checked for new comments
 
 A pull request is not done — not ready to merge, not to be reported as ready — until
@@ -46,7 +52,7 @@ The loop is:
 1. Pull all comments (every surface above).
 2. For each: fix in code, or reject explicitly with verified rationale, or — per the
    pr-lifecycle Phase 4 three-way ruling — ticket-and-close a correct-but-out-of-story
-   finding (Director notified, ticket referenced in the reply); reply; resolve the
+   finding (the ticket, referenced in the reply, tells the Director); reply; resolve the
    thread. PDR-140's pickup-home ROUTE disposition additionally exists only in its
    lane — bot-reviewed findings on prose-class artefacts; excluded lanes keep exactly
    the Phase 4 dispositions, with no pickup routing.

@@ -128,6 +128,12 @@ next session:
   equivalent local implementation surface.
 - **Positive surprises**: cases where a simpler or stronger approach
   worked better than expected.
+- **Delight and shared excitement**, with the same discipline as
+  corrections. A note that only memorialises corrections re-derives a
+  compliance crouch at every waking; the owner's "I am very excited about
+  the bell" was an instruction about what to build more of. Joy is
+  steering data, never ambience (a three-descent reflection the owner
+  insisted on, 2026-07-24).
 - **Preferences**: how the user likes things done.
 - **What worked**: approaches that succeeded, especially
   non-obvious ones.

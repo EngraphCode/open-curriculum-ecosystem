@@ -127,6 +127,22 @@ Source: napkin 2026-05-03 §"Templates and components can
 institutionalise the failure mode they were not designed to
 enforce" (cleanup pass after the named-deferrals corrective).
 
+### Instance 5 — A lesson written that morning did not bind its author that afternoon (2026-09-20)
+
+Three observations from one seat's day, with a fourth from its peer. A wrapped line opening
+with a pull request number tripped markdownlint MD018 for the second time in two days, after
+the first had been written into the napkin as a lesson: the text did not fire, the hook did.
+The same seat wrote a retrospective naming a mechanism (obligations with a clock starve a job
+that has none) and within hours spent most of a context on clocked work while the job stood
+still. The instrument that did bind was the owner's, already in the launch prompt: "say those
+counts first in every report". The reports that skipped it hid the standing count; the first
+one that opened with the counts showed it at once. The peer seat's retrospective of the same
+day (Dynamo turns Temper) found the same of a lesson of theirs. What the instance adds: a
+report form that puts the job's own measure in its first line is a tripwire whose firing
+cadence is every report, and it costs one line. Source:
+`.agent/reports/agentic-engineering/why-the-register-stayed-at-twelve-for-three-days-2026-09-20.md`,
+the 14:3xZ addendum.
+
 ## Anti-pattern
 
 Responding to a repeated failure mode by **documenting** a

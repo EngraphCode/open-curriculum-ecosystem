@@ -1,3 +1,11 @@
+---
+classification: situational
+description: "Editing anything under .agent/practice-core/ (trinity, PDRs, CHANGELOG, incoming): the Core is portable by construction — no host-repo paths (docs/, src/, packages/), no adapter paths (../../skills/), no ADR identifiers, no commit SHAs, no host-context sections; the single permitted outgoing link is the bridge index .agent/practice-index.md. Core-to-Core cross-references and durable external citations (RFCs, vendor specs) stay allowed. Record host adoption in the bridge index and host ADR surface instead. Failure shape: a PDR citing its adopting ADR, dangling in another Practice-bearing repo."
+trigger: surface:practice-core
+globs:
+  - .agent/practice-core/**
+---
+
 # Practice-Core Portability Is by Construction
 
 Anything under `.agent/practice-core/` (the trinity, entry points,
@@ -82,7 +90,6 @@ critical-architectural-failure-shaped prior art for this rule.
 
 - [PDR-105](../practice-core/decision-records/PDR-105-reference-direction-invariants.md)
   §Axis 2 (portability) — the reference-direction invariant this rule operationalises
-- per-user feedback memory: `feedback_practice_core_portability_strict`
 - PDR-007 §Core-package contract (the package contract is the
   authority; this rule operationalises it)
 - PDR-009 (`.agent/` as canonical Practice home)
@@ -94,9 +101,22 @@ critical-architectural-failure-shaped prior art for this rule.
 ## Enforcement
 
 The Edit/Write hook (`.agent/hooks/policy.json`) applies the
-related moving-targets prohibition at write-time. A
-structural-enforcement scanner that catches host-path leakage
-specifically inside `practice-core/` is the next reinforcing layer
-named in PDR-038's Author-time enforcement family. Until that
-scanner lands, this rule is the human-readable contract that
-authoring agents apply at write-time.
+related moving-targets prohibition at write-time.
+
+Two gates in `docs-validators:check` enforce parts of this rule:
+
+- `validate-core-adr-citations` enforces the ADR-identifier clause. It
+  refuses an ADR identifier written anywhere under `practice-core/`:
+  `ADR`, a hyphen, dash or space, then digits, in any letter case. Each
+  finding prints its `path:line:column` and the citation as written.
+  The cure names the concept the ADR records in place of the number and
+  keeps the sentence (PDR-079). Run it alone with
+  `pnpm --filter @oaknational/agent-tools validate-core-adr-citations`.
+- `validate-reference-direction` refuses a resolvable link from the
+  Core to anything outside it.
+
+The remaining clauses (host paths written as text, commit references,
+host-context sections) have no scanner yet. PDR-038 pairs every stated
+principle with a structural enforcement surface, so that scanner is
+their next layer. Until it lands, those clauses are the human-readable
+contract that authoring agents apply at write-time.
