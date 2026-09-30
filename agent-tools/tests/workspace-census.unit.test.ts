@@ -38,9 +38,9 @@ describe('deriveSubjects — the mechanical subject predicate', () => {
   it('includes the parent of a tracked .claude-plugin/plugin.json manifest (source ii-b, owner-approved 2026-08-14)', () => {
     const subjects = deriveSubjects({
       members: [...MEMBERS],
-      trackedFiles: ['plugins/oak-open-curriculum/.claude-plugin/plugin.json'],
+      trackedFiles: ['claude/plugins/oak-national-academy/.claude-plugin/plugin.json'],
     });
-    const plugin = subjectByDir(subjects, 'plugins/oak-open-curriculum');
+    const plugin = subjectByDir(subjects, 'claude/plugins/oak-national-academy');
     expect(plugin).toBeDefined();
     expect(plugin?.sources).toContain('plugin-manifest-parent');
   });
@@ -48,9 +48,9 @@ describe('deriveSubjects — the mechanical subject predicate', () => {
   it('includes the parent of a tracked package.json outside the member set (source ii)', () => {
     const subjects = deriveSubjects({
       members: [...MEMBERS],
-      trackedFiles: ['plugins/oak-open-curriculum/package.json'],
+      trackedFiles: ['claude/plugins/oak-national-academy/package.json'],
     });
-    const plugin = subjectByDir(subjects, 'plugins/oak-open-curriculum');
+    const plugin = subjectByDir(subjects, 'claude/plugins/oak-national-academy');
     expect(plugin).toBeDefined();
     expect(plugin?.sources).toContain('package-json-parent');
   });
