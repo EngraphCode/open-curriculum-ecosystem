@@ -78,6 +78,13 @@ and the last fold's whole content was records about the fold before it (twenty-t
 findings, all true). A consolidation's doctrine edits are a work product with their own
 review contract.
 
+A disposition that deletes a span of a continuity record the coordination branch still appends to
+waits for the fold and lands as its own small pull request cut from the folded default branch,
+"never as the fold's own records commit (the fold prepends the seated block and nothing else on that
+file)": a deletion made first on the default branch conflicts across the whole deleted span when the
+fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events dd5ac28e and
+20f3c220).
+
 ## Ceremony
 
 3. Commit by explicit pathspec (`stage-by-explicit-pathspec`);

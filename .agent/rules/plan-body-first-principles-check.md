@@ -127,3 +127,8 @@ pattern's Heath-brothers tripwire framing.
 - Principles: [`.agent/directives/principles.md`](../directives/principles.md)
   — the First Question ("could it be simpler?") that backs the shape clause's
   "single pure-function test could prove the same thing simpler" heuristic.
+
+A plan binds at or above its source, never below: "a plan may be stricter than the policy it cites,
+never looser", so a sequenced landing orders its steps to keep that direction between them, and
+"findings on files outside its story are pointers on the next PR in the sequence, never absorbed" (a
+Director's ruling, 2026-09-08, event 4681f525).

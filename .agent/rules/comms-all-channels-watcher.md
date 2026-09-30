@@ -280,6 +280,11 @@ stays homed in `agent-tooling/current/comms-watch-storage-redesign.plan.md`;
 a re-arm onto a very stale cursor still pays the unseen-set read on every
 pass of the catch-up, which is that plan's measured concern.
 
+A file-system watch error is never a change signal: "a watch error is never a change; it falls back
+to the poll timer or fails loudly", and under the host-load rule "any watcher spinning at 85 to 96
+percent stops now, before the cure" (a Director's ruling relayed by the watcher's seat, 2026-09-24,
+event 01808b32).
+
 ### Cursor movement is the health check; the batch bound is per-pass
 
 `--max-events-per-drain 100` in the canonical invocation bounds EACH drain

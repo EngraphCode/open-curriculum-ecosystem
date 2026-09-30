@@ -106,6 +106,10 @@ frame as context with its date, then price the work from the owner's most
 recent word; a recorded boundary that would slow something the owner just
 asked for yields and gets re-trued, never obeyed.
 
+Where a binary rule moves work out of the repository, "the destination of moved work is the owner's
+business" and is not recorded on the estate's surfaces (a seat's standing reading of the owner's
+words, 2026-09-02, event 2b31497e).
+
 ## Direction Scope Is Session-Bounded by Default
 
 A direction the owner gives within a session applies to that session only;
@@ -178,7 +182,7 @@ the option selected.
 
 ## Colleagues Run on Trust, Never Pursuit
 
-Oak's working culture is trust between colleagues. When offered status-check
+The working culture is trust between colleagues. When offered status-check
 comments @-mentioning a colleague whose fix gated the week's work, the owner
 answered (2026-07-29): "No one is chasing anyone, we respect each other. He
 will be in tomorrow, he will take care of it." A human's assigned lane moving

@@ -146,7 +146,7 @@ it is a narrow parser check unless explicit paths are supplied.
 
 ## Legacy Event Transition Rule
 
-`.agent/state/collaboration/comms-events/` is the one live communication-event
+`.agent/state/collaboration/comms/` is the one live communication-event
 root. Archived references to the old path remain archived evidence unless a
 reviewer explicitly decides they are live instructions.
 

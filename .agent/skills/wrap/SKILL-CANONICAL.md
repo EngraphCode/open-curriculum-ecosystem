@@ -123,7 +123,7 @@ the seat chooses the instrument, never when the owner names wrap.
 6. **Price the session's review loops.** Where the host carries the review-cost
    gate (`agent-tools review-cost survey --since <session start>`), run the survey
    and append one row per pull request the session touched to the host's
-   review-cost ledger (`.agent/memory/operational/review-cost-ledger.md`): the
+   review-cost ledger in the operational memory tier: the
    survey's numbers, the seat's reading of the round the loop should have stopped
    at, and whether the gate agreed, fired early, or fired late. Post-merge reviews
    and comments are in the count, so a merged pull request is surveyed again at the
