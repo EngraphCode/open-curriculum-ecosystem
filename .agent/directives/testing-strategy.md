@@ -42,6 +42,28 @@ describes it). Rollout sequencing:
   product made of a collaborator, how often or in what order, never pins
   a configuration value and never asserts an implementation shape.
   Configuration is guaranteed by construction or by a validator.
+- **Tests are forbidden real IO and child processes; validators start the
+  minimum and alter nothing** (owner, 2026-09-29, verbatim: "tests are
+  FORBIDDEN to create real IO and child processes. I don't want excuses or
+  carve outs, we have these rules for a reason", and "validation scripts can
+  start real processes, but they are to be kept to a MINIMUM, and they are
+  FORBIDDEN from altering the code or triggering builds"; the same day: "There
+  are consistent, strict test rules in all Practice repos. There are
+  validation scripts for checks that do not belong in tests. The validation
+  scripts have been abused in order to avoid the strictures of the tests, this
+  is unacceptable. We have far too many "validation scripts" in both estates,
+  they take TOO LONG to run, dragging on every commit and push, and they are
+  testing things that should be in tests and tested at a lower level with no
+  IO and with DI. So stop that, and make the rules clearer, and at least for
+  local CI runs start profiling the total run times and the run times of the
+  individual tasks. ALL CI tasks should be run through Turbo."). A check that
+  asserts behaviour is a test: in-process, no IO, dependencies injected, never
+  an inspection of which calls were made, a pinned literal or a count of work
+  done. A validation script exists only for a check that cannot be a test; it
+  runs the built artefact, alters no code (no repair mode, formatter write,
+  install or build) and is counted; a smoke that alters code is misfiled and
+  comes out. Every CI task runs through Turbo with declared inputs, and each
+  gate run records its total and per-task time before a cure is chosen.
 - Prefer pure functions and unit tests
 - Always use TDD at ALL levels (unit and integration tests; an E2E check is
   written first in the same way)
@@ -301,7 +323,9 @@ mutation check happens before the commit that lands test and code together).
 The same disease in existing suites: DECORATIVE assertions — asserted
 values that never enter the exercised run — read as coverage while proving
 nothing (a privacy-surface review found six under a README claiming the
-behaviour was tested); the mutation check exposes them identically.
+behaviour was tested); the mutation check exposes them identically. A mutant that leaves a syntax error is killed by the parser, not by
+the claim: replace a removed statement with a no-op (`:` in shell, `void 0` in
+TypeScript) so the mutant fails on the claim itself (2026-09-25).
 
 Two guard shapes that read as biting and do not. **A poll on an absence
 passes before the event lands**: `expect.poll` returns on its first pass,

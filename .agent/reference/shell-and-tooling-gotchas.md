@@ -537,3 +537,7 @@ tool retires them.
   nothing for all of them and reads as a clean negative (four false NONE
   verdicts in one curation pass, 2026-09-14). Name paths literally, or set
   `nullglob` for the call; a census with a glob in it needs a known positive.
+- **Claude Code's Edit tool refuses a file in a sibling repository as unread until the Read
+  tool has read it** (2026-09-30): a `cat` or `sed` through Bash counts as a read only for files
+  under the session's own repository. Read the sibling file with the Read tool first, or make
+  the change with a scripted exact-match replace that asserts on its anchor.

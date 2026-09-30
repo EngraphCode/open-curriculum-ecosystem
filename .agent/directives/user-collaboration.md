@@ -180,6 +180,15 @@ theory expanding to fill the work is the named failure (owner-corrected
 2026-06-29, after simple asks began taking minutes and producing confusing
 changes).
 
+**The owner decides; the estate rejects nothing.** A rule's considered-and-rejected
+paragraph is reasoning the owner may overrule, never the estate's verdict (owner,
+2026-09-30: "the estate doesn't reject anything, I am the one with authority"). A
+direction the owner has set is executed, not re-argued (2026-03-09). After a
+session-over word a new ask is a bounded fix, not a licence to resume: "you were
+never supposed to keep going, you were supposed to fix one small issue" (owner,
+2026-09-30); a plan's execution waits for a fresh seat unless the owner says
+otherwise.
+
 ## Risk and Decisions
 
 Agents classify risk; humans accept risk.
