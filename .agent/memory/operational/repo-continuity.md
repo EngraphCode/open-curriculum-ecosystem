@@ -37,6 +37,20 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-01T13:2xZ: two seats (n=2), no Director, at the owner's word** (verbatim, to Crucible binds
+  Slag: "Hazel tracks Trunk (7d8b9d) is working on the dedicated conslidation, you pick up the other
+  threads, fix the fold and continuation records fist. Main also needs merging into engraph."). Both seats
+  are resident in JC.net and work this estate non-resident. Hazel tracks Trunk (7d8b9d, curator) runs a
+  second dedicated two-estate consolidation: read-only audit first, every tracked write on a lane cut from
+  `engraph` after the fold, nothing on the coordination branch. Crucible binds Slag (7b999c, implementer)
+  holds the folds, this record, the open lanes #313, #309 and #310, and the upstream sync: `engraph` is
+  six commits behind the mirror branch `main` at `SHA:050bf314c`. #299 is the fold of the coordination
+  branch cut on 2026-09-29; beside its records it carries the first consolidation's doctrine and the two
+  code hunks it shares with JC.net's fold, each class declared in its description. The five claims that
+  named seats closed on 2026-09-29 were adopted by the implementer on 2026-10-01. The first consolidation
+  (Hawthorn binds Bracken, b3f117) closed on 2026-10-01 at 11:5xZ. The order of work is the first PICKUP
+  block of §Next Safe Steps.
+
 - **2026-09-30T20:40Z: the Oak line's 1.185.4 carrier, #315, landed as `SHA:66b74dbc2`** (Nautilus lifts
   Seabed, 8da3c6, at the owner's word: bare-minimum ceremony, agent reviews not acted on). The hand-opened
   #314 (head `main`, the mirror itself) read merged at the landing. Two memory files resolved by concept,
@@ -298,6 +312,36 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+### PICKUP, 2026-10-01 13:2xZ — the implementer seat at n=2 (supersedes the blocks below where they differ)
+
+Crucible binds Slag's order, from the owner's word in §Current State, in landing order (this estate's
+own fold is not a line here: its state lives in its pull request):
+
+1. Land the three open lanes, one sync push each at its turn: #313 first (green at `SHA:7f7b2eb1a`, no
+   review threads), then #309 (one unresolved thread; its lane worktree holds commits the remote lacks)
+   and #310 (three unresolved threads, the Codex P1 first). The n=1 pickup's "310 to merged, then 309"
+   stands inside this item.
+2. The upstream sync: the carrier workflow opens the draft carrier for `SHA:050bf314c` at its next run,
+   and the seat takes it by the `cross-fork-integration` skill. Under the owner's limit on open pull
+   requests (one coordination pull request per repository, and as many others as there are implementer
+   seats, counted across both estates) the carrier's turn comes after the three lanes, unless the owner
+   puts it first.
+3. Routed from the code review, one twinned lane: Turbo's `globalDependencies` glob `**/.env.*local`
+   walks into a lane's `.env.local` under `.claude/worktrees/` in both estates (the reviewer's reading of
+   the dry run in JC.net; this estate's `turbo.json` carries the same glob); anchor it by depth, prove it
+   with the dry run, and re-true the coverage sentence in `worktree-residency`.
+4. The two lane worktrees that hold work outside any pull request, each to its own pull request after
+   the three lanes land: arc-metrics (`oce-wt-arc-metrics`, one commit with no remote branch and three
+   uncommitted files; claims 803d5d7d and abcd5ea9) and the J2 docs-validators port
+   (`oce-wt-j2-docs-validators`, uncommitted; claim 4b82394b). The five claims that named closed seats
+   were adopted by Crucible binds Slag on 2026-10-01 (event e36d295b); the premise of these two is still
+   to recompute first-hand before any edit.
+
+Not assigned to a seat: the capability-parity code lanes (the exchange register's rows L7 and L8, the
+commit queue in JC.net, the agent-tools smoke suites as tests with no IO, the divergence measure as a
+command). The consolidation seat keeps the inventory and the homing of knowledge; the code lanes wait on
+the owner's routing.
 
 ### PICKUP, 2026-09-29 13:4xZ — the n=1 seat (supersedes the pickup blocks below where they differ)
 

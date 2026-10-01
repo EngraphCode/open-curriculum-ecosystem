@@ -249,7 +249,7 @@ JC.net rules; the rules tier grew by 404 net lines in JC.net and 384 in OCE (`gi
 verdict stopped at decision records, directives and role contracts and let rules and skills
 through, so the decider gap the fleet review named was cured for the smaller surface and left open
 for the larger. `one-instance-is-an-observation` and `new-rule-vs-pdr-clause` both name this shape.
-Disposition: the direction question for the owner and the next session, stated under §Decisions;
+Disposition: the direction question for the owner and the next session, stated under §Decided 2026-10-01;
 the seat did not bulk-rewrite 38 paragraphs at a session's end.
 
 **Accepted and cured this turn.** The two Codex inserts (the Sif annex and the use-monitor relay
@@ -490,7 +490,7 @@ and the settled moves were made in this session in both estates.
 | --- | --- | --- |
 | 1 evidence form in JC.net copies | dissolved | lens 3, do both: role, date and n=1 stated, event id kept, nothing removed |
 | 2 the seven cards | dissolved | the owner's reading (owner-ratified text only): five Director or relayed rulings recorded in their decision records with the decider named (PDR-117, PDR-064, PDR-125); D-44 settled by strictness in PDR-027 (the harness-observed model is the fact); D-47 applies the owner's 2026-09-14 rounds word to PDR-140 clause 4 |
-| 2 the session-2 batch | survived, answered | the owner's item-8 word; all six candidates graduate (testing-strategy; precedence-is-not-approval; user-collaboration; consolidate-docs); the register's card rows and entries drained |
+| 2 the session-2 batch | survived, answered | the owner's item-8 word; all seven items graduate, two entries and five slow-lane concepts (testing-strategy; precedence-is-not-approval; user-collaboration; consolidate-docs); the register's card rows and entries drained |
 | 3 the practice box | survived in part, answered | the two tooling rows were already L7 and L8 ("bring") in the exchange register; the owner: "we are bringing both estates to the same level of capability, anything useful that one has must make it to the other"; the box archived as processed material |
 | 3 the napkin privacy review | already answered | the owner's card of 2026-09-14 (closure record item 100): no privacy review; archive after full processing |
 | 3 the JC.net comms pass | dissolved | delegated to the next session; sample before sizing |
@@ -509,7 +509,7 @@ log and the cross-estate rule's §Capability parity carry the verbatim.
 
 Moves made in this session, both estates unless noted: the whole-file snapshot removed and step 6b
 of `consolidate-docs` re-trued to name the pre-move commit; the six rulings recorded (PDR-117,
-PDR-064, PDR-125, PDR-027, PDR-140) and OCE's owner-decision item 11 withdrawn; the six session-2
-candidates homed and JC.net's register drained to one slow-lane row with a 2026-12-15 review; "the
+PDR-064, PDR-125, PDR-027, PDR-140) and OCE's owner-decision item 11 withdrawn; the seven session-2
+items homed and JC.net's register drained to one slow-lane row with a 2026-12-15 review; "the
 lineage" written as OCE across live doctrine; the practice box archived byte-identical (JC.net);
 this report and the thread record re-trued.
