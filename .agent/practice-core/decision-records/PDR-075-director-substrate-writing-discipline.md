@@ -52,8 +52,10 @@ with the promotion. The review found the `behaviour-note` and `failure-mode`
 tags on Director events only in the week of 2026-07-28 to 2026-08-01, while
 Directors wrote rulings and owner-decision answers to the stream as they
 occurred through 2026-09-29, most as untagged decision events. The obligation
-is the in-window emission. The tag marks the two classes §Tag Selection names
-and is not the test of compliance. Both new instances show emission. The
+is the in-window emission. The tag is still required where one of the two
+classes §Tag Selection names fits; a tag alone is not evidence that the
+discipline held, and an event of another class carries none. Both new
+instances show emission. The
 fifth instance says ratification hinges on a successor's bootstrap from the
 stream alone being repeatable, and none has been recorded since 2026-05-23 (a
 search of both estates' comms stores at this review found none). The record
@@ -467,17 +469,12 @@ record reduced to under 2k tokens.
    they contain is read-only audit history; future records adopt
    the reduced shape from PDR-075 forward.
 
-6. **CLI ergonomics for tag emission.** Substrate-writing requires
-   agents to author tagged events from the CLI; the tag-namespace substrate
-   is live but the agent-tools CLI does not yet expose a `--tags`
-   flag on `comms append` / `comms direct` / `comms send`. The
-   first PDR-075 worked instances wrote tags via direct JSON
-   authoring or by titling the event with a `(behaviour-note)`
-   parenthetical rather than via canonical tag-array. The `--tags`
-   CLI flag (it has since landed as the repeatable `--tag` on
-   `comms send`, read 2026-10-01) was a paired follow-on implementation slice; it is not
-   part of this PDR's atomic landing but is named here as the
-   visible ergonomics gap PDR-075 surfaces.
+6. **CLI ergonomics for tag emission (resolved; read 2026-10-01).**
+   When this record was written the agent-tools CLI had no tag flag,
+   so the first worked instances wrote tags via direct JSON authoring
+   or by titling the event with a `(behaviour-note)` parenthetical.
+   The repeatable `--tag` flag has since landed on `comms append`,
+   `comms direct` and `comms send`.
 
 7. **Owner-direct designation of substrate-population requests.**
    On 2026-05-23 the owner-direction to the incoming Director at
