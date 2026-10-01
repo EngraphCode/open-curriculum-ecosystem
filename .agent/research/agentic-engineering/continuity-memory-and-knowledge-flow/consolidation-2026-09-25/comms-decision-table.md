@@ -929,7 +929,13 @@ Counts over 196 rows: HOMED 59, MOVE 36, OWED 51, OWNER-CARD 7, SESSION-SCOPED 3
 
 **Section D** (61 rows; `dispositions-2026-09-30/comms-report-D.md`): HOMED 4, OWED 35, OWNER-CARD 2, SESSION-SCOPED 18, SUPERSEDED 2.
 
-### Owner cards (rulings for decision records; the register carries them)
+### Owner cards (rulings for decision records)
+
+Settled 2026-10-01 under the owner's reading that only owner-ratified text changes on the owner's word: the
+Director's and the relayed seats' rulings below are recorded in their decision records with the decider
+named and dated (PDR-117, PDR-064, PDR-125 amendment logs), D-44 is decided by the Practice's strictness
+lens (the harness-observed model is the fact), and D-47 applies the owner's own rounds word of 2026-09-14 to
+PDR-140 clause 4. No card went to the owner.
 
 - B-16 (56ff8be5, a419fb6c, dc3df033 (S3); decider -): a Director ruling for PDR-117 §The Director role; the owner's card
 - B-24 (67c04dd2, b9877590 (S5); decider -): a Director ruling for PDR-064 §Moment 1; the owner's card

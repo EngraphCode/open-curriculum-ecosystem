@@ -222,6 +222,11 @@ describes it). Rollout sequencing:
   no complex logic in mocks, or we risk testing the mocks rather
   than the code. Complex mocks are a signal that we need to step
   back and simplify the code or our approach.
+- **KISS: a large fixture, an allowlist or a helper definition inside a
+  test is a design smell** - logic a test carries as a fixture, an
+  allowlist or a helper belongs in product code as the source of truth;
+  relocate it there and let the test read it (owner preference,
+  2026-03-08; graduated 2026-10-01 at the owner's card).
 - **No skipped tests** - Fix it or delete it. Skipping mechanisms
   (`it.skip`, `describe.skip`, `test.todo`, `it.todo`, `xit`,
   `xdescribe`) are forbidden outright. A check that needs an external

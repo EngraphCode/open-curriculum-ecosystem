@@ -45,6 +45,13 @@ the owner may name a single final authority for the window (a named
 Director seat was the founding instance) — route the collision there
 instead of choosing between the directions yourself.
 
+A method question to the owner is asked as the sensible shape under the estate's
+rules, never as one authority against another. Owner, 2026-09-13, on a card that
+paired a ratified line against an estate rule: "this is not a matter of competing
+authorities, what does sensible look like?" A card framed as two texts in
+competition is refused by its author before it is sent (graduated 2026-10-01 at the
+owner's card).
+
 ## Working Model
 
 The collaboration model is dialogue, not an authority hierarchy. The owner is
@@ -189,6 +196,11 @@ permitted to exist where it serves practical purpose, the ceremony is there as a
 sometime required enabler, it has no value in its own right, but it does have
 cost." A count is a noticer; a ceremony without a reader or a purpose that day
 is dropped, not performed.
+
+Process is the last resort: before adding a step, a card, a precondition, a node or
+a pass, ask whether a computation, an existing rule or the owner's recorded words
+already answer it (four owner corrections of one shape in one afternoon, 2026-09-13;
+graduated 2026-10-01 at the owner's card).
 
 **The owner decides; the estate rejects nothing.** A rule's considered-and-rejected
 paragraph is reasoning the owner may overrule, never the estate's verdict (owner,

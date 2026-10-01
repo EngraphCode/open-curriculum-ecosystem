@@ -52,6 +52,15 @@ the retrospective and named the residue, with each file's reason, in the retrosp
 which also carries the measure as a script. The two main branches differed by 210 files and
 11,899 lines the same day: the inherited backlog, not the session's.
 
+## Capability parity
+
+Alignment is of capability as well as text. The owner, 2026-10-01, asked whether JC.net adopts two
+OCE tooling families, verbatim: "This shouldn't be a question, we are bringing both estates to the
+same level of capability, anything useful that one has must make it to the other." When one estate
+holds a useful capability the other lacks, the question is how and in what order it travels, never
+whether: the exchange register (PDR-125, PDR-142) opens the row and the lane, and the measure above
+reports the shared paths while the register reports the capabilities.
+
 ## Enforcement
 
 Behavioural at the open and the close; the close report names the two measurements, and a

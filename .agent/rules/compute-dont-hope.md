@@ -47,7 +47,7 @@ declaration states an intent; a list restates a fact.
 
 - 2026-09-13, a transplant's first merge: the postinstall bootstrap built a hand-kept list of
   workspace packages; the ESLint plugin every config file imports was not on it, a warm local
-  build output masked the gap, and CI's cold checkout failed dependency-cruise. The lineage
+  build output masked the gap, and CI's cold checkout failed dependency-cruise. OCE
   had hit the same class twice before. Cure: the closure is derived from the workspace
   manifests at run time; `agent-tools/src/bootstrap/install-time-closure.ts` defines its
   membership.

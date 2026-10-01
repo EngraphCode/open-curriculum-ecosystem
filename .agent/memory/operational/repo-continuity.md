@@ -308,8 +308,11 @@ pull request at a time; then the exchange's remaining stories, one pull request 
 
 The comms decision table of 2026-09-25 was drained on 2026-09-30 by the two-estate consolidation: its §H
 lists 51 rows the seat deferred by surface (code slices for agent-tools, plan units, owner acts), each a
-decision still to make and not a queue (the owner's 2026-09-28 word on "owed"), and the seven owner cards now
-under §Open Owner-Decision Items; read §H before picking the next lane. The register's §Routing Notes holds 86
+decision still to make and not a queue (the owner's 2026-09-28 word on "owed"), and the seven rulings once held as
+owner cards, recorded in their decision records with the decider named on 2026-10-01; read §H before
+picking the next lane. The owner set the next session's shape on 2026-10-01: capability parity, both
+ways ("anything useful that one has must make it to the other"); the exchange register's L7 and L8
+rows (the review-cost gate, pr-tally) are the first lanes into JC.net. The register's §Routing Notes holds 86
 entries (F-119 to F-217) no consolidation has read.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)
@@ -2364,12 +2367,6 @@ this section; create a thread record when execution is scheduled.
     input landed 2026-07-05: ADR-173 §"The estate is plural by design" carries the owner-corrected
     graphs-are-a-method doctrine (data-layer SSOT; deliberate plurality above; integration at
     source and surface) that the authoring session must honour.
-11. Seven rulings from the comms decision table for decision records, each a Director's or a relayed
-   seat's, which a seat never writes into a decision record: B-16 (PDR-117 §The Director role), B-24
-   (PDR-064 §Moment 1), B-38 and B-39 (PDR-125 §Decision), C-42 (PDR-117 §Decision), D-44 (PDR-027
-   §Amendment Log), D-47 (PDR-140 clause 4). The cards are the table's §H owner-card list
-   (`consolidation-2026-09-25/comms-decision-table.md`); moved here from the pending-graduations
-   register on 2026-09-30 by the register's own rule for owner decisions.
 
 ## Repo-Wide Invariants / Non-Goals
 

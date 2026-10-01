@@ -54,6 +54,15 @@ discriminator is what backs it (2026-09-06): a genuine collision with ratified s
 an ADR, a PDR, an owner ruling — earns an owner card; a bare appeal to precedent with no
 ratified backing is refuted at the seat and never forwarded.
 
+Owner-ratified text changes only on the owner's word: a record whose status says
+owner-ratified is amended by the owner's recorded word and nothing else, and a verdict
+quotes the governing text before it rules and never rules against it. Every other
+Accepted or Proposed record changes with the decider named and dated, and the owner
+overrules at will (the owner's card of 2026-10-01, choosing this reading over "every
+Accepted record" and over no reserved class; the instance behind it: a verdict
+overturned a ratified todo on 2026-09-13 and the owner asked what else was being
+overturned).
+
 The same discriminator runs the other way, when an owner IMPERATIVE collides with the
 owner's own ratified structure. The shape the owner praised (2026-08-11, "I gave an
 instruction and you suggested a better alternative, that was good" — an order to invert an

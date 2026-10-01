@@ -53,9 +53,8 @@ onto it now?"
   used to justify landing both old and new paths together.
 - Partial renames that leave two names for one concept. One concept =
   one name, everywhere.
-- Two conventions kept live after a transplant, the host's beside the
-  lineage's (two gate-name vocabularies, aliased scripts, a second
-  path family), pending a ruling. Converge on the lineage's practised
+- Two conventions kept live after a transplant, the host's beside OCE's (two gate-name vocabularies, aliased scripts, a second
+  path family), pending a ruling. Converge on OCE's practised
   convention, read from its live manifests at the pin, and surface the
   choice (PDR-005 §The process); the alias layer is a compatibility
   layer and doubles every citation while it lives (2026-09-12 to 13:

@@ -45,6 +45,16 @@ A continuity-surface pass is priced by its entries, not by its size: Juno seeks 
 lesson is that "a continuity-surface pass's cost is the per-entry live-or-finished judgement and it
 does not compress" (the seat's lesson of 2026-09-08, event a2e37223).
 
+A consolidation runs one truth-maintenance pass over every surface that advertises plan state:
+frontmatter status, narrative status, next-step sections, current-state notes, roadmap and parent
+tables, READMEs; no status divergence between two of them survives the pass, and the record names
+the surfaces swept (napkins 2026-03-09 and 2026-04-03; graduated 2026-10-01 at the owner's card).
+
+A consolidation checks each domain skill the period's findings touch, reading the skill's
+failure-shape and pitfall passages against those findings and re-truing what they contradict; the
+record names at least one skill it checked (napkin 2026-03-07; graduated 2026-10-01 at the owner's
+card).
+
 ## Trigger Checklist
 
 Run `consolidate-docs` when one or more of these is true:

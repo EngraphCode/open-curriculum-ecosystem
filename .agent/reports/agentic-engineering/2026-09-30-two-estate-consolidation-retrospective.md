@@ -223,16 +223,15 @@ before it launched.
 
 ## What the next session inherits
 
-The seven owner cards (OCE register); the session-2 cards (JC.net register); the 51 owed follow-ups
-in the OCE table's §H, each addressed to the n=1 seat or the owner; the 44 live frictions under §Friction Entries, five of
-which settle with one documentation sentence each (F-60, F-62, F-66, F-111, F-182), and the 86 under
-§Routing Notes no pass has read; OCE's oversized
-thread records and its 1,773-line exchange pickup block in repo-continuity; the practice box; the
-privacy review of the three JC.net napkins under `unconsolidated/`; the JC.net comms stream's roughly
-840 substantive events, unread by any consolidation; the rule `cross-estate-work-must-reduce-divergence`
-for the owner's ratification and the `agent-tools` command its enforcement names; the three shared
-files still more divergent than at the open, named above with their reasons; and the owner's eight
-decisions below.
+The next session is a capability-parity session, both ways, by the owner's word of 2026-10-01:
+inventory what each estate holds that the other lacks (the exchange register's L7 review-cost gate
+and L8 pr-tally into JC.net; OCE's commit queue; JC.net's docs pre-flight, its divergence measure as
+an `agent-tools` command, the visual-regression harness where it applies), then transplant lane by
+lane in small pull requests. Inside it, as they are met: the 51 deferred rows of §H decided (do,
+drop, or the owner's call), the 44 live and 86 unread frictions in OCE's register read for lessons
+without homes, a sample of JC.net's comms stream before any pass is sized, the three shared files
+still more divergent than at the open, the Codex lockstep test's read of `.agent/` files, and the
+event-cited paragraphs re-trued to their evidence in place.
 
 ## What five adversarial legs found
 
@@ -480,29 +479,37 @@ that frame, this report's own findings re-sort:
 - The 51 deferred rows and the 86 unread frictions stay as knowledge questions: each row is knowledge
   or a decision not yet acted on, and each open friction may carry a lesson without a home.
 
-## Decisions for the owner
+## Decided 2026-10-01 — the lenses and the owner's cards
 
-1. The event-cited paragraphs in JC.net doctrine quote OCE seats and event ids a JC.net reader cannot
-   open: keep that evidence as it stands, or carry role-and-date attribution in the JC.net copies with
-   the event ids in OCE's research tier only. Every paragraph stays; the seat re-trues each to its
-   evidence without a decision.
-2. The seven comms-table cards (OCE's continuity record, owner-decision item 11) and the session-2 cards
-   (JC.net's register, or the record of their 2026-09-14 answers).
-3. The practice box; the privacy review of the three napkins under `unconsolidated/`; whether JC.net's
-   comms stream (roughly 840 substantive events) receives the pass OCE's received.
-4. Whether shared executive memory (the owner-signal record, ported whole from OCE into JC.net) reads
-   identically across estates or carries estate-specific worked instances.
-5. Whether "lineage" stays as PDR-005's role word for a source Practice in a transplant.
-6. The shared files whose divergence is estate-specific by nature (`build-system.md`, the commit
-   skill's ceremony, the data-shape rule's worked instances): one file with estate-named paragraphs, or
-   estate-only surfaces for the estate-specific parts.
-7. The 51 deferred rows of §H: decided each (do, drop, or the owner's call) in one pass before other
-   consolidation work, as the 2026-09-28 word asks.
-8. The 86 open frictions under OCE's §Routing Notes: a reading pass for lessons without homes, with the
-   owner's word before any move.
+The owner asked for the eight decisions to run through the decision lenses (`principles.md`
+§Decision Lenses) and for what survived to be asked at once. Three survived to the owner and were
+answered the same morning; the rest were settled by a lens or by a word the owner had already given,
+and the settled moves were made in this session in both estates.
 
-Notifications, no decision asked: the bulk archives stand (byte-identical, pointer-linked, each
-revertible by one commit if the owner wants them back); the whole-file snapshot is recommended for
-removal with step 6b re-trued; the rule `cross-estate-work-must-reduce-divergence` stands as a rule; the
-analysts' reports stay whole; the per-user directories are audit trails and their counts leave the
-reports.
+| former decision | result | what decided it |
+| --- | --- | --- |
+| 1 evidence form in JC.net copies | dissolved | lens 3, do both: role, date and n=1 stated, event id kept, nothing removed |
+| 2 the seven cards | dissolved | the owner's reading (owner-ratified text only): five Director or relayed rulings recorded in their decision records with the decider named (PDR-117, PDR-064, PDR-125); D-44 settled by strictness in PDR-027 (the harness-observed model is the fact); D-47 applies the owner's 2026-09-14 rounds word to PDR-140 clause 4 |
+| 2 the session-2 batch | survived, answered | the owner's item-8 word; all six candidates graduate (testing-strategy; precedence-is-not-approval; user-collaboration; consolidate-docs); the register's card rows and entries drained |
+| 3 the practice box | survived in part, answered | the two tooling rows were already L7 and L8 ("bring") in the exchange register; the owner: "we are bringing both estates to the same level of capability, anything useful that one has must make it to the other"; the box archived as processed material |
+| 3 the napkin privacy review | already answered | the owner's card of 2026-09-14 (closure record item 100): no privacy review; archive after full processing |
+| 3 the JC.net comms pass | dissolved | delegated to the next session; sample before sizing |
+| 4 shared executive memory | dissolved | lens 1 and the alignment rule: identical bytes, each instance names its estate |
+| 5 "lineage" | dissolved | a defined role word (`practice-lineage.md`) is never a name: where OCE is meant, live doctrine now says OCE (about 90 replacements in JC.net, the shared twins in OCE; archives and the git-lineage senses untouched) |
+| 6 estate-specific shared files | dissolved | the specificity gradient: general lesson in the shared file, instances named by estate; `build-system.md` is a consumer doc, not a shared surface |
+| 7 the 51 rows | work | the owner's 2026-09-28 word; decided as they are met in the parity session |
+| 8 the 86 frictions | work | the skill's standing duty to read every buffer item |
+
+The owner's further words of the morning. On the bulk-act clause: proof replaces the word (a bulk
+archive needs no owner word when every moved entry is byte-identical, pointer-linked and its lessons
+stand at their homes; the word is asked only for a move that loses or relocates knowledge), now in
+`consolidate-until-done`. On "ratified text is the owner's": owner-ratified text only, now in
+`precedence-is-not-approval`. On the next session: capability parity, both ways, PDR-142's amendment
+log and the cross-estate rule's §Capability parity carry the verbatim.
+
+Moves made in this session, both estates unless noted: the whole-file snapshot removed and step 6b
+of `consolidate-docs` re-trued to name the pre-move commit; the six rulings recorded (PDR-117,
+PDR-064, PDR-125, PDR-027, PDR-140) and OCE's owner-decision item 11 withdrawn; the six session-2
+candidates homed and JC.net's register drained to one slow-lane row with a 2026-12-15 review; "the
+lineage" written as OCE across live doctrine; the practice box archived byte-identical (JC.net);
+this report and the thread record re-trued.

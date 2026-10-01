@@ -66,10 +66,6 @@ index row per moved id so citations resolve, and the archive keeps the text. The
 the two-estate consolidation is `archive/frictions-register-settled-2026-09-30.md`, 55 entries, each
 verified in the tree by an analyst and re-read by the seat.
 
-The whole pre-curation file, before the 2026-09-30 move, is
-`archive/frictions-register-pre-curation-2026-09-30.md`, byte-identical to the register at that
-moment (consolidate-docs step 6b).
-
 ### F-07 — No `comms list/show` CLIs (no `comms watch` either)
 
 - **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (a)

@@ -310,3 +310,12 @@ owner's concept is the seats' work under review. Both land as the same bytes in 
 
 **Falsifier.** A cure changes a concept in ratified text and is not stopped before it lands.
 One such instance reopens the sentence with the owner, and this log says so.
+
+### 2026-10-01 — capability parity: anything useful in one estate must reach the other (the owner's word)
+
+Asked whether JC.net adopts OCE's review-cost push gate and pr-tally, the owner, verbatim: "This
+shouldn't be a question, we are bringing both estates to the same level of capability, anything
+useful that one has must make it to the other." The sentence this record carries gains its
+direction: when one estate holds a useful capability the other lacks, the question is how and in
+what order it travels, never whether; the exchange register opens the row and the lane. The same day
+the owner set the next session's shape to capability parity, both ways.
