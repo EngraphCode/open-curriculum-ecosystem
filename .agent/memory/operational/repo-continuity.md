@@ -314,7 +314,10 @@ picking the next lane. The owner set the next session's shape on 2026-10-01: cap
 ways ("anything useful that one has must make it to the other"); the exchange register's L7 and L8
 rows (the review-cost gate, pr-tally) are the first lanes into JC.net. The full handoff for a fresh session is JC.net's thread record
 `two-estate-consolidation.next-session.md` §Current Continuation (the report's §Decided 2026-10-01 and
-§What the next session inherits are identical in this estate). The register's §Routing Notes holds 86
+§What the next session inherits are identical in this estate). The owner's word of 2026-10-01 on the agent-tools smoke suites
+(40 smokes here, 53 in JC.net, spawning processes and worktrees on every pre-push): "is not acceptable, make a
+note that we need to move those into real tests with no IO and with DI"; a parity-programme lane in both
+estates, under testing-strategy §Rules. The register's §Routing Notes holds 86
 entries (F-119 to F-217) no consolidation has read.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)

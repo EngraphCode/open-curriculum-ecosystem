@@ -2,7 +2,7 @@
 name: cross-fork-integration
 classification: active
 description: >-
-  Integrate an OCE's default branch into this fork's as a semantic
+  Integrate the upstream's default branch into this fork's as a semantic
   event, never a text merge: verify the mirror and carrier, merge-tree against
   the live tip, one two-parent merge with an ordinary message, regenerate the
   generated surfaces, reconcile memory files by concept, sweep the fork's
