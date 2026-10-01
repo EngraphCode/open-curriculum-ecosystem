@@ -116,8 +116,17 @@ describe('runArcMetricsCli', () => {
     expect(result.stdout).toContain('sessions 1');
   });
 
-  it('refuses a named project directory that does not exist, naming it', async () => {
-    const fs = fakeFs({ '/h/.claude/projects/-a': ['/p/one.jsonl'] });
+  it('refuses a named project directory that does not exist, naming it, before it reads any transcript', async () => {
+    const directories: Readonly<Record<string, readonly string[]>> = {
+      '/h/.claude/projects/-a': ['/p/one.jsonl'],
+    };
+    const fs: ArcMetricsFileSystem = {
+      listTranscripts: async (directory) => directories[directory],
+      readLines: async function* () {
+        yield* [];
+        throw new Error('a transcript was read before every directory was checked');
+      },
+    };
 
     const result = await runArcMetricsCli(
       baseInput(
@@ -199,7 +208,7 @@ describe('runArcMetricsCli', () => {
     });
   });
 
-  it.each(['0x10', '1e1', '5.0', '0', '-5', '99999999999999999999'])(
+  it.each(['0x10', '1e1', '5.0', '0', '-5', '99999999999999999999', '9007199254740989'])(
     'refuses the active-time threshold %s, which is not a positive whole number it can hold exactly',
     async (threshold) => {
       const fs = fakeFs({});

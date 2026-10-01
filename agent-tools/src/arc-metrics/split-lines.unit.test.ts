@@ -40,6 +40,18 @@ describe('splitLines', () => {
     expect(lines).toEqual(['first', 'sec\rond']);
   });
 
+  it('joins a line that spans many chunks, and drops a carriage return its newline was split from', async () => {
+    const lines = await collect(splitLines(chunks('lo', 'ng', ' line', '\r', '\nnext', '\n')));
+
+    expect(lines).toEqual(['long line', 'next']);
+  });
+
+  it('yields an empty line for each bare newline, wherever the chunks break', async () => {
+    const lines = await collect(splitLines(chunks('a\n', '\n', '\nb\n')));
+
+    expect(lines).toEqual(['a', '', '', 'b']);
+  });
+
   it('yields a last line that has no terminator', async () => {
     const lines = await collect(splitLines(chunks('whole\npart')));
 

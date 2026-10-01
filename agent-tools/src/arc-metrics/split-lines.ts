@@ -14,6 +14,11 @@
  * A carriage return that ends a line is dropped with its newline; one inside a
  * line is the entry's own text and stays.
  *
+ * Each chunk is scanned once. A line that spans chunks is held as its
+ * fragments and joined when its newline arrives, so a single entry of many
+ * megabytes costs time in proportion to its length, not to its length times
+ * the number of chunks it spans.
+ *
  * @packageDocumentation
  */
 
@@ -26,16 +31,21 @@
  *   is the caller's to skip.
  */
 export async function* splitLines(chunks: AsyncIterable<string>): AsyncIterable<string> {
-  let pending = '';
+  let unfinished: string[] = [];
   for await (const chunk of chunks) {
-    const parts = `${pending}${chunk}`.split('\n');
-    pending = parts.pop() ?? '';
+    const parts = chunk.split('\n');
+    const tail = parts.pop() ?? '';
     for (const part of parts) {
-      yield withoutTrailingCarriageReturn(part);
+      unfinished.push(part);
+      yield withoutTrailingCarriageReturn(unfinished.join(''));
+      unfinished = [];
+    }
+    if (tail.length > 0) {
+      unfinished.push(tail);
     }
   }
-  if (pending.length > 0) {
-    yield withoutTrailingCarriageReturn(pending);
+  if (unfinished.length > 0) {
+    yield withoutTrailingCarriageReturn(unfinished.join(''));
   }
 }
 

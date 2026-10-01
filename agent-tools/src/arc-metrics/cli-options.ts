@@ -87,10 +87,12 @@ export const ARC_METRICS_HELP_TEXT = [
 /**
  * A positive whole number written in decimal digits. `Number` alone also reads
  * `0x10` as sixteen and `1e1` as ten, which no one typing a threshold means;
- * a run of digits too long for a number to hold exactly is refused after the
- * conversion.
+ * a run of digits too long for a number to hold exactly, as minutes or as the
+ * seconds the threshold is compared in, is refused after the conversion.
  */
 const POSITIVE_WHOLE_NUMBER = /^[1-9]\d*$/u;
+
+const SECONDS_PER_MINUTE = 60;
 
 /**
  * Parse `arc-metrics` argv into options or an error.
@@ -125,7 +127,10 @@ export function parseArgs(argv: readonly string[]): ParseResult {
   }
 
   const gapMinutes = Number(state.gapMinutes);
-  if (!POSITIVE_WHOLE_NUMBER.test(state.gapMinutes) || !Number.isSafeInteger(gapMinutes)) {
+  if (
+    !POSITIVE_WHOLE_NUMBER.test(state.gapMinutes) ||
+    !Number.isSafeInteger(gapMinutes * SECONDS_PER_MINUTE)
+  ) {
     return {
       ok: false,
       error: `--gap-minutes expects a positive whole number of minutes (got ${state.gapMinutes})\n\n${ARC_METRICS_HELP_TEXT}`,

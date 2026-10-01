@@ -141,19 +141,23 @@ async function measure(input: {
   readonly fs: ArcMetricsFileSystem;
   readonly gapSeconds: number;
 }): Promise<MeasureOutcome> {
-  const sessions: SessionMetrics[] = [];
+  // Every directory is listed before any transcript is read, so a directory
+  // that does not exist is refused at once, whatever stands before it.
+  const transcripts: string[] = [];
   for (const directory of input.directories.paths) {
     const listed = await list(input.fs, directory, input.directories.named);
     if (!listed.ok) {
       return listed;
     }
-    for (const path of listed.paths) {
-      const aggregated = await aggregate(input.fs, path, input.gapSeconds);
-      if (!aggregated.ok) {
-        return aggregated;
-      }
-      sessions.push(aggregated.session);
+    transcripts.push(...listed.paths);
+  }
+  const sessions: SessionMetrics[] = [];
+  for (const path of transcripts) {
+    const aggregated = await aggregate(input.fs, path, input.gapSeconds);
+    if (!aggregated.ok) {
+      return aggregated;
     }
+    sessions.push(aggregated.session);
   }
   return {
     ok: true,
