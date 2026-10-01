@@ -1,12 +1,16 @@
 import { describe, expect, it } from 'vitest';
 
-import { isAdvertisementRefusal } from './push-attempts.js';
+import {
+  isAdvertisementRefusal,
+  keptForRefusal,
+  REFUSAL_TRANSCRIPT_BOUND,
+} from './push-attempts.js';
 
 /**
- * Which failed push is GitHub's refusal at the ref advertisement, read from a
- * captured transcript. The retry over a run of attempts is
- * `push-attempts.integration.test.ts`'s; the push itself, minted and
- * transferred, is `push-cli.integration.test.ts`'s.
+ * Which failed push is GitHub's refusal at the ref advertisement, read from
+ * the bounded copy of its transcript, and what that copy keeps. The retry
+ * over a run of attempts is `push-attempts.integration.test.ts`'s; the push
+ * itself, minted and transferred, is `push-cli.integration.test.ts`'s.
  */
 
 /** GitHub's refusal as git printed it on 2026-09-28, the repository and bot renamed. */
@@ -43,5 +47,37 @@ describe('isAdvertisementRefusal', () => {
     const notFound = REFUSAL.replace('error: 403', 'error: 404');
     expect(isAdvertisementRefusal(128, null, notFound)).toBe(false);
     expect(isAdvertisementRefusal(128, null, REFUSAL.split('\n')[1] ?? '')).toBe(false);
+  });
+
+  it('does not hold with the two lines in the other order', () => {
+    const [reason = '', failure = ''] = REFUSAL.split('\n');
+    expect(isAdvertisementRefusal(128, null, `${failure}\n${reason}\n`)).toBe(false);
+  });
+
+  it('does not hold for a transcript the check stopped keeping', () => {
+    expect(isAdvertisementRefusal(128, null, null)).toBe(false);
+  });
+});
+
+describe('keptForRefusal', () => {
+  it('keeps the transcript while it could still be the refusal, however it arrives', () => {
+    const [reason = '', failure = ''] = REFUSAL.split('\n');
+    const kept = keptForRefusal(keptForRefusal('', `${reason}\n`), `${failure}\n`);
+
+    expect(kept).toBe(REFUSAL);
+    expect(isAdvertisementRefusal(128, null, kept)).toBe(true);
+  });
+
+  it('keeps a transcript exactly at the bound', () => {
+    expect(keptForRefusal('', 'x'.repeat(REFUSAL_TRANSCRIPT_BOUND))).toHaveLength(
+      REFUSAL_TRANSCRIPT_BOUND,
+    );
+  });
+
+  it('stops keeping once a chunk would take the transcript past the bound, and never resumes', () => {
+    const over = keptForRefusal('x', 'x'.repeat(REFUSAL_TRANSCRIPT_BOUND));
+
+    expect(over).toBeNull();
+    expect(keptForRefusal(over, REFUSAL)).toBeNull();
   });
 });

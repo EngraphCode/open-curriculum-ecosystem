@@ -56,6 +56,33 @@ describe('pushWithRetry', () => {
     expect(run.text()).toContain('nothing was pushed');
   });
 
+  it('asks for each injected wait in turn, and names each retry with its wait', async () => {
+    const waited: number[] = [];
+    let text = '';
+    const exit = await pushWithRetry(refusedThrough(2), {
+      waitsMs: [5_000, 7_000],
+      sleep: (ms) => {
+        waited.push(ms);
+        return Promise.resolve();
+      },
+      stderr: {
+        write: (chunk: string) => {
+          text += chunk;
+          return true;
+        },
+      },
+    });
+
+    expect(exit).toBe(0);
+    expect(waited).toEqual([5_000, 7_000]);
+    const [first = '', second = '', ...more] = text.trimEnd().split('\n');
+    expect(first).toContain('1 of 3');
+    expect(first).toContain('5 s');
+    expect(second).toContain('2 of 3');
+    expect(second).toContain('7 s');
+    expect(more).toEqual([]);
+  });
+
   it('returns any other failure at once, trying nothing again', async () => {
     const run = retrying(() => Promise.resolve({ kind: 'ended', exit: 7 }));
 

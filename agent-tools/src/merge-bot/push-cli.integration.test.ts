@@ -314,6 +314,17 @@ describe('merge-bot push outcomes and refusals', () => {
     expect(run.errText()).toContain('single authority');
   });
 
+  it('fails as an operation, never as usage, when no trusted git can check the --branch value', async () => {
+    const run = runPush({
+      args: ['--branch', 'other-lane'],
+      overrides: { branchArgSeams: { pathExists: () => false } },
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('No trusted git binary found');
+    expect(run.calls).toEqual([]);
+  });
+
   it('answers push --help with the usage on stdout, exit 0 — never the unknown-flag path', async () => {
     const run = runPush({ args: ['--help'] });
 

@@ -3,12 +3,13 @@ import { describe, expect, it } from 'vitest';
 
 import type { GitCommandResult } from './git-executor.js';
 import type { PushGitReads } from './push-git.js';
-import { settleTargetBranch, type TargetBranch } from './push-target-branch.js';
+import { settleCommitFor, settleTargetBranch, type TargetBranch } from './push-target-branch.js';
+import { failureMessage } from './test-helpers/result-failure.js';
 
 /**
- * `settleTargetBranch` over git's answers, each a constant injected through
- * the read port: the branch a push writes, the refusals, and the failures
- * with their cures.
+ * `settleTargetBranch` and `settleCommitFor` over git's answers, each a
+ * constant injected through the read port: the branch a push writes, the
+ * commit it writes there, the refusals, and the failures with their cures.
  */
 
 const REPOSITORY = { owner: 'acme', repoName: 'widgets' } as const;
@@ -95,6 +96,11 @@ describe('settleTargetBranch: the branch a push writes', () => {
 
   it.each([
     { name: 'an scp-style origin', url: 'git@github.com:acme/widgets.git', repository: REPOSITORY },
+    {
+      name: 'an origin read over ssh',
+      url: 'ssh://git@github.com/acme/widgets.git',
+      repository: REPOSITORY,
+    },
     {
       name: 'a host in capitals',
       url: 'https://GitHub.com/acme/widgets.git',
@@ -202,6 +208,18 @@ describe('settleTargetBranch: failures, each naming its cure', () => {
       name: 'origin is a look-alike host',
       originUrls: answered('https://github.com.evil.example/acme/widgets.git\n'),
     },
+    {
+      name: 'origin is read over plain http',
+      originUrls: answered('http://github.com/acme/widgets.git\n'),
+    },
+    {
+      name: 'origin is read over plain http, written after a space',
+      originUrls: answered(' http://github.com/acme/widgets.git\n'),
+    },
+    {
+      name: 'origin is read over the git protocol',
+      originUrls: answered('git://github.com/acme/widgets.git\n'),
+    },
     { name: 'origin is a host alias', originUrls: answered('git@github-work:acme/widgets.git\n') },
     { name: 'origin is a local path', originUrls: answered('github.com/acme/widgets\n') },
     {
@@ -270,5 +288,83 @@ describe('settleTargetBranch: failures, each naming its cure', () => {
     expect(outcomeLine(settled)).toMatch(/^failed: /u);
 
     expect(outcomeLine(settled)).toContain('bad object');
+  });
+});
+
+describe('settleCommitFor: the branch and the commit are one snapshot of HEAD', () => {
+  const COMMIT = 'def5678def5678def5678def5678def5678def56';
+
+  /** git's answers about HEAD after the target is settled, each a constant. */
+  function headReads(answers: {
+    readonly headCommit?: GitCommandResult;
+    readonly currentBranch?: GitCommandResult;
+  }): Pick<PushGitReads, 'headCommit' | 'currentBranch'> {
+    const headCommit = answers.headCommit ?? answered(`${COMMIT}\n`);
+    const currentBranch = answers.currentBranch ?? answered('feat/example\n');
+    return {
+      headCommit: () => Promise.resolve(headCommit),
+      currentBranch: () => Promise.resolve(currentBranch),
+    };
+  }
+
+  it('settles the commit HEAD names while HEAD is still on the branch read from it', async () => {
+    expect(await settleCommitFor('feat/example', true, headReads({}))).toEqual({
+      ok: true,
+      value: COMMIT,
+    });
+  });
+
+  it('fails, naming both branches, when HEAD is on another branch by the time the commit is read', async () => {
+    const settled = await settleCommitFor(
+      'feat/example',
+      true,
+      headReads({ currentBranch: answered('feat/second\n') }),
+    );
+
+    expect(failureMessage(settled)).toContain('"feat/example"');
+    expect(failureMessage(settled)).toContain('"feat/second"');
+  });
+
+  it('fails when HEAD is on no branch by the time the commit is read', async () => {
+    const settled = await settleCommitFor(
+      'feat/example',
+      true,
+      headReads({ currentBranch: answered('\n') }),
+    );
+
+    expect(failureMessage(settled)).toContain('no branch');
+  });
+
+  it('fails with git own words when the branch cannot be read again', async () => {
+    const settled = await settleCommitFor(
+      'feat/example',
+      true,
+      headReads({ currentBranch: failed(128, 'fatal: not a git repository\n') }),
+    );
+
+    expect(failureMessage(settled)).toContain('not a git repository');
+  });
+
+  it.each([{ fromHead: true }, { fromHead: false }])(
+    'fails when HEAD names no commit (branch read from HEAD: $fromHead)',
+    async ({ fromHead }) => {
+      const settled = await settleCommitFor(
+        'feat/example',
+        fromHead,
+        headReads({ headCommit: failed(128, 'fatal: bad object HEAD\n') }),
+      );
+
+      expect(failureMessage(settled)).toContain('cannot settle the commit');
+    },
+  );
+
+  it('settles the commit for a named branch whatever branch HEAD is on', async () => {
+    const settled = await settleCommitFor(
+      'other-lane',
+      false,
+      headReads({ currentBranch: answered('feat/elsewhere\n') }),
+    );
+
+    expect(settled).toEqual({ ok: true, value: COMMIT });
   });
 });

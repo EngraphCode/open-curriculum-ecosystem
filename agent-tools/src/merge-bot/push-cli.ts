@@ -1,9 +1,12 @@
 import { delay } from '../core/delay.js';
 
+import type { BranchArgSeams } from './branch-arg.js';
 import type { GitExecutor } from './git-executor.js';
 import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
+import { guardedAttempt, type AttemptGuards } from './push-attempt-guards.js';
 import {
   isAdvertisementRefusal,
+  keptForRefusal,
   PUSH_RETRY_WAITS_MS,
   pushWithRetry,
   type PushAttempt,
@@ -20,8 +23,8 @@ import {
 } from './push-git.js';
 import { mintPushToken, type PushMint } from './push-mint.js';
 import { writePushed, writeRefusal } from './push-report.js';
-import { settleCommit, settleTargetBranch } from './push-target-branch.js';
-import { RefFormatOracleUnavailableError, type RefFormatOracle } from './ref-format.js';
+import { settleCommitFor, settleTargetBranch } from './push-target-branch.js';
+import { RefFormatOracleUnavailableError } from './ref-format.js';
 import {
   resolveBotIdentity,
   type BotIdentity,
@@ -55,6 +58,8 @@ export interface PushActionInput {
   readonly mint: PushMint;
   /** The wait before a refused push is tried again. */
   readonly sleepImpl?: (ms: number) => Promise<void>;
+  /** The wall clock each attempt is checked against (`push-attempt-guards.ts`). */
+  readonly nowIsoImpl?: () => string;
   /** Git seams: the executor, and the binary path (defaults to the trusted absolute path). */
   readonly gitExecutor?: GitExecutor;
   readonly gitPath?: string;
@@ -70,8 +75,8 @@ export interface PushActionInput {
   readonly tokenFiles?: TokenFileStore;
   /** git's answers about HEAD and origin; defaults to the git binary's. */
   readonly gitReads?: PushGitReads;
-  /** Branch-name legality for --branch; defaults to asking the git binary. */
-  readonly refFormatOracle?: RefFormatOracle;
+  /** The `--branch` check's seams (`branch-arg.ts`); its oracle defaults to asking the git binary. */
+  readonly branchArgSeams?: BranchArgSeams;
 }
 
 /** Everything settled before a token is minted: identity, git, the target branch, the commit and the child env. */
@@ -83,6 +88,7 @@ type Prepared =
       readonly branch: string;
       readonly commit: string;
       readonly env: Readonly<Record<string, string | undefined>>;
+      readonly reads: PushGitReads;
     }
   | { readonly kind: 'failed'; readonly exit: number; readonly message: string }
   | { readonly kind: 'refused'; readonly reason: string };
@@ -119,15 +125,17 @@ async function prepare(parsed: PushArgs, input: PushActionInput): Promise<Prepar
   if (target.value.kind === 'refused') {
     return { kind: 'refused', reason: target.value.reason };
   }
-  const commit = settleCommit(await reads.headCommit());
+  const { branch } = target.value;
+  const commit = await settleCommitFor(branch, parsed.branch === undefined, reads);
   return commit.ok
     ? {
         kind: 'ready',
         identity: identity.value,
         git: git.value,
-        branch: target.value.branch,
+        branch,
         commit: commit.value,
         env,
+        reads,
       }
     : { kind: 'failed', exit: 1, message: commit.error.message };
 }
@@ -142,10 +150,7 @@ export async function runPushAction(
     input.stdout.write(PUSH_USAGE);
     return 0;
   }
-  const parsed = parsePushArgs(
-    rest,
-    input.refFormatOracle === undefined ? {} : { refFormatOracle: input.refFormatOracle },
-  );
+  const parsed = parsePushArgs(rest, input.branchArgSeams ?? {});
   if (!parsed.ok) {
     input.stderr.write(`merge-bot push: ${parsed.error.message}\n`);
     // A missing git binary is an operational failure, never a usage mistake.
@@ -163,30 +168,39 @@ export async function runPushAction(
   return mintAndPush(prepared, parsed.value, input);
 }
 
-/** Mint the push's one token (`push-mint.ts`), then run the transfer with it on the retry's schedule. */
+/**
+ * Mint the push's one token (`push-mint.ts`), then run the transfer with it on
+ * the retry's schedule, each attempt only once its guards hold
+ * (`push-attempt-guards.ts`).
+ */
 async function mintAndPush(
   prepared: Ready,
   parsed: PushArgs,
   input: PushActionInput,
 ): Promise<number> {
-  const token = await mintPushToken(prepared.identity, input.mint);
-  if (!token.ok) {
-    input.stderr.write(`merge-bot push: ${token.error.message}\n`);
+  const minted = await mintPushToken(prepared.identity, input.mint);
+  if (!minted.ok) {
+    input.stderr.write(`merge-bot push: ${minted.error.message}\n`);
     return 1;
   }
-  return pushWithRetry(
-    () => transferAndReport(prepared, parsed, input, token.value),
-    retryFrom(input),
-  );
+  const guards: AttemptGuards = {
+    token: minted.value,
+    commit: prepared.commit,
+    reads: prepared.reads,
+    nowIso: input.nowIsoImpl ?? ((): string => new Date().toISOString()),
+  };
+  const transfer = (): Promise<PushAttempt> =>
+    transferAndReport(prepared, parsed, input, minted.value.token);
+  return pushWithRetry(guardedAttempt(guards, input.stderr, transfer), retryFrom(input));
 }
 
 /**
  * One attempt: the transfer of the settled commit with the push's token, and
- * its reporting. The output streams to stderr in full as it arrives (R1), and
- * the whole transcript is classified once. A warning that the token directory
- * could not be removed joins that transcript, so an attempt whose cleanup
- * warned is never taken for the refusal: it fails closed, never a second run
- * of the gate.
+ * its reporting. The output streams to stderr in full as it arrives, and the
+ * refusal check keeps a bounded copy of it (R1; `keptForRefusal`), classified
+ * once. A warning that the token directory could not be removed joins that
+ * copy, so an attempt whose cleanup warned is never taken for the refusal: it
+ * fails closed, never a second run of the gate.
  */
 async function transferAndReport(
   prepared: Ready,
@@ -196,7 +210,7 @@ async function transferAndReport(
 ): Promise<PushAttempt> {
   const { identity, git, branch, commit, env } = prepared;
   const remote = `https://github.com/${identity.owner}/${identity.repoName}.git`;
-  let transcript = '';
+  let kept: string | null = '';
   const pushed = await pushCommit(git, {
     remote,
     branch,
@@ -208,7 +222,7 @@ async function transferAndReport(
     // git's transfer output — and the gate chain's underneath — arrives in
     // full on completion: files, never a Node pipe or sized buffer (R1; F-112).
     onOutput: (chunk) => {
-      transcript += chunk;
+      kept = keptForRefusal(kept, chunk);
       input.stderr.write(chunk);
     },
   });
@@ -226,7 +240,7 @@ async function transferAndReport(
   input.stderr.write(captured);
   if (result.status !== 0) {
     input.stderr.write(`merge-bot push: git push ${describeGitChildEnd(result)}\n`);
-    return isAdvertisementRefusal(result.status, result.signal, `${transcript}${captured}`)
+    return isAdvertisementRefusal(result.status, result.signal, keptForRefusal(kept, captured))
       ? { kind: 'refused' }
       : FAILED;
   }

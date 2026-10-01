@@ -34,19 +34,49 @@ const REFUSAL_LINES: readonly RegExp[] = [
 const GIT_FATAL = 128;
 
 /**
+ * The most of a push's transcript the refusal check keeps, counted as the
+ * string's length (UTF-16 code units), so the copy holds at most three times
+ * that many bytes of UTF-8. The refusal's two lines, newlines included, were
+ * 224 characters, all ASCII, as GitHub printed them on 2026-09-28 for the
+ * repository this bound was set in; the bound holds over eighteen times that,
+ * for a longer repository or bot name, and a longer transcript cannot be the
+ * refusal. The
+ * push's output still streams to stderr in full as it arrives, so the check
+ * keeps a bounded copy and loses nothing (R1).
+ */
+export const REFUSAL_TRANSCRIPT_BOUND = 4096;
+
+/**
+ * The transcript the refusal check keeps, with the next chunk of the push's
+ * output added: the text while it could still be the refusal, and null once
+ * it is longer than the refusal can be, from then on.
+ *
+ * @param kept - What was kept so far, or null once the check stopped keeping.
+ * @param chunk - The next output, from either stream.
+ */
+export function keptForRefusal(kept: string | null, chunk: string): string | null {
+  return kept === null || kept.length + chunk.length > REFUSAL_TRANSCRIPT_BOUND
+    ? null
+    : kept + chunk;
+}
+
+/**
  * Whether a failed push is GitHub's refusal at the ref advertisement: git
  * exited 128 on its own, no signal ended it, and its whole transcript is the
  * refusal's two lines, so the pre-push hook never ran.
  *
  * @param status - The push's exit status.
  * @param signal - The signal that ended the push, or null when it exited.
- * @param transcript - Everything the push printed, both streams.
+ * @param transcript - What the push printed, both streams, as `keptForRefusal` kept it; null when it outgrew the bound.
  */
 export function isAdvertisementRefusal(
   status: number,
   signal: NodeJS.Signals | null,
-  transcript: string,
+  transcript: string | null,
 ): boolean {
+  if (transcript === null) {
+    return false;
+  }
   const lines = transcript
     .split('\n')
     .map((line) => line.trimEnd())

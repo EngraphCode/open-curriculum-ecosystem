@@ -10,7 +10,7 @@ import type { PushMint } from '../push-mint.js';
  * (`push-cli.integration.test.ts`, `push-cli-retry.integration.test.ts`): a
  * value-returning git seam, git's reads, a mint, a token store that touches
  * no filesystem, and `runPush`, the CLI over all of them with both output
- * streams captured and an instant retry wait.
+ * streams captured, an instant retry wait and a constant clock.
  */
 
 export const TOKEN = 'sekrit-installation-token';
@@ -102,10 +102,14 @@ export function gitReads(
   };
 }
 
-/** A mint that answers `token`, a constant. */
-export function mintAnswering(token: string = TOKEN): PushMint {
-  return () =>
-    Promise.resolve(ok({ token, expiresAt: '2026-08-06T10:00:00Z', installationId: 55 }));
+/** The instant these fixtures run at: an hour before the minted token expires. */
+export const NOW = '2026-08-06T09:00:00.000Z';
+/** The expiry the fixture mint states. */
+export const EXPIRES_AT = '2026-08-06T10:00:00Z';
+
+/** A mint that answers `token` expiring at `expiresAt`, both constants. */
+export function mintAnswering(token: string = TOKEN, expiresAt: string = EXPIRES_AT): PushMint {
+  return () => Promise.resolve(ok({ token, expiresAt, installationId: 55 }));
 }
 
 /** A mint that fails, a constant. */
@@ -188,10 +192,11 @@ export function runPush(input: {
     repoRoot: '/repo',
     runGitImpl: () => 'worktree /repo\n',
     sleepImpl: () => Promise.resolve(),
+    nowIsoImpl: () => NOW,
     gitExecutor,
     gitPath: GIT_PATH,
     gitReads: input.reads ?? gitReads(),
-    refFormatOracle: () => true,
+    branchArgSeams: { refFormatOracle: () => true },
     baseEnv: BASE_ENV,
     tokenFiles: store,
     ...input.overrides,
