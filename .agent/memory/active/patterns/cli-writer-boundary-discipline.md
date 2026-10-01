@@ -3,7 +3,7 @@ name: CLI Writer Boundary Discipline
 polarity: pattern
 use_this_when: A command-line tool or hook is about to write a file whose path, name or content comes from a caller, a flag, an environment variable or another process — apply the three cells before the first pull request, not after review finds them
 category: code
-proven_in: agent-tools (the collaboration-state and comms writers cured at PR #55 rounds four and five), 2026-09-13
+proven_in: "agent-tools: the atomic write in the collaboration-state writer (PR #55 round four, 2026-09-13); the link refusal in core/flag-path-resolve.ts; the two are not yet joined in one writer"
 proven_date: 2026-09-13
 barrier:
   broadly_applicable: true
@@ -37,9 +37,21 @@ its first pull request.
 
 ## Shape in agent-tools
 
-- The three cells live in one writer module the CLIs share, with the `lstat` and rename seams
-  injectable so the behaviour is proved in process without real IO
-  (`tests-prove-behaviour-no-io-no-spawn`).
+- The cells live in separate modules, read on 2026-10-01 in both estates and checked by
+  `security-expert`. The atomic write is `collaboration-state/atomic-file.ts`: a synced sibling
+  temporary file opened exclusively, then a rename (a hard link for an exclusive create), then a
+  directory sync on POSIX, behind an injectable file-system seam so the behaviour is proved in
+  process without real IO (`tests-prove-behaviour-no-io-no-spawn`). That module holds no
+  `lstat`. On POSIX its rename replaces a link planted at the target and does not write through
+  it, and its exclusive create refuses one; it follows a link in any parent directory.
+- The link refusal for a caller-supplied write path is `resolveWriteTargetWithinRepo` in
+  `core/flag-path-resolve.ts`: a dangling link at the target is refused, and so is a target or
+  an existing ancestor that resolves outside the repository. `resolveReadPathWithinRepo` in the
+  same module is the read side. `core/no-follow-read.ts` is a different thing: the no-follow
+  open of a single file that the hook and adapter reads use.
+- A CLI that hands a caller-supplied path to the atomic writer without that resolver has the
+  atomic write only. The collaboration-state CLIs do this with `--active`, `--closed`,
+  `--comms-dir`, `--output` and `--file`; the gap is in the frictions register.
 - A new CLI that writes files under a caller-supplied name cites this pattern in its TSDoc and
   ships the three cells in its first pull request; the reviewer templates check for them.
 
