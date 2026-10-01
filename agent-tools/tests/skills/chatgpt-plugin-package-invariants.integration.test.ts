@@ -46,14 +46,20 @@ const MAX_NAME_LENGTH = 64;
 /** Agent Skills specification: the compatibility note is at most 500 characters. */
 const MAX_COMPATIBILITY_LENGTH = 500;
 
-/** The fields the two manifests describe the same product with; they drift only by mistake. */
+/**
+ * The fields the two manifests describe the same product with; they drift only by mistake.
+ *
+ * @remarks
+ * `repository` is not one of them: each manifest names the repository that
+ * publishes its own package. The Claude plugin is published from
+ * oaknational/oak-ai-plugins; this package is published from here.
+ */
 const SharedManifestFieldsSchema = z.object({
   name: z.string().min(1),
   version: z.string().regex(/^\d+\.\d+\.\d+$/),
   description: z.string().min(1),
   author: z.object({ name: z.string().min(1), url: z.url() }),
   homepage: z.url(),
-  repository: z.url(),
   license: z.string().min(1),
   keywords: z.array(z.string().min(1)).min(1),
 });
@@ -64,6 +70,7 @@ const SharedManifestFieldsSchema = z.object({
  * grow a declared surface without this test being revisited.
  */
 const CodexManifestSchema = SharedManifestFieldsSchema.extend({
+  repository: z.url(),
   skills: z.literal('./skills/'),
   interface: z
     .object({

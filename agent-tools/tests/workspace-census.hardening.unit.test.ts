@@ -134,7 +134,7 @@ describe('computeDelta — presence spans every subject row; dangling renames su
           exclusionReason: 'runtime-only scripts',
         },
         {
-          dirPath: 'plugins/oak-open-curriculum',
+          dirPath: 'claude/plugins/oak-national-academy',
           publishedName: null,
           disposition: 'excluded',
           exclusionReason: 'manifest-only surface',
@@ -142,7 +142,9 @@ describe('computeDelta — presence spans every subject row; dangling renames su
       ],
     });
     expect(delta.disappeared).toEqual([]);
-    expect(delta.appeared.map((row) => row.dirPath)).toEqual(['plugins/oak-open-curriculum']);
+    expect(delta.appeared.map((row) => row.dirPath)).toEqual([
+      'claude/plugins/oak-national-academy',
+    ]);
   });
 
   it('surfaces a renamedFrom that matches no baseline row instead of hiding the subject', () => {

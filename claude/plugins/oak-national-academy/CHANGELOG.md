@@ -2,8 +2,19 @@
 
 Versions are the plugin manifest version. The Claude Code plugin and the
 ChatGPT/Codex package are cut from the same source at the same version.
+Each entry is dated when it is written; oaknational/oak-ai-plugins records
+the oak-open-curriculum-ecosystem release that shipped it.
 
-## 0.1.4 — unreleased
+## 0.1.5 — 2026-09-30
+
+- The Claude plugin gains support, documentation and terms of service links
+  for its directory listing.
+- New listing text: a one-line description, and a README that describes Oak
+  and what the plugin draws on.
+- The Claude plugin names oaknational/oak-ai-plugins as its repository: the
+  public copy the directory lists, rather than oak-open-curriculum-ecosystem.
+
+## 0.1.4 — 2026-09-30 (repo release v1.185.4)
 
 - The Claude plugin and the ChatGPT/Codex package are renamed from
   `oak-open-curriculum` to `oak-national-academy`, to match the display name.
