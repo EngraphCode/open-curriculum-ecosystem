@@ -37,6 +37,14 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-01T16:47Z: arc-metrics, #320, landed as `SHA:d6349ccb4`** (Crucible binds Slag, 7b999c). This
+  estate measures an arc from its session transcripts with `pnpm agent-tools arc-metrics --vendor claude`.
+  A code review before its ready-mark found three defects the ported bytes carried, and JC.net's `main`
+  with them; the cures went to JC.net as its pull request 277, where Copilot named three more, owed back
+  here as one small pull request (§Next Safe Steps line 1). No lane of the implementer seat is open here.
+  The J2 port is the one worktree left, `oce-wt-j2-docs-validators`: a code review of its uncommitted
+  work returned NOT READY, and §Next Safe Steps line 2 holds what it needs.
+
 - **2026-10-01T15:58Z: the Oak line's 1.185.6 carrier, #319, landed as `SHA:beceea25e`** (Crucible binds
   Slag, 7b999c, at the owner's word "Main also needs merging into engraph"). `engraph` holds every commit of
   the Oak line's `main` at `SHA:2a7773837`: seven commits, the Claude plugin's README wording (plugin 0.1.6)
@@ -347,16 +355,19 @@ The three open lanes and the upstream sync that stood first in this order landed
 repository, and as many others as there are implementer seats, counted across both estates) the lines
 below go one pull request at a time:
 
-1. arc-metrics, pull request #320, from `oce-wt-arc-metrics` (claims 803d5d7d and abcd5ea9). Premise
-   recomputed first-hand on 2026-10-01: the tool is on JC.net's `main` and absent here, and JC.net has not
-   changed it since the port. The lane carries `SHA:b84e3f0e6` (the port), `SHA:8e572d050` (the three
-   files the exchange seat left uncommitted, read and run before the commit) and one sync with `engraph`
-   at `SHA:beceea25e`, and `SHA:923786106`, the cures of a code review made before its ready-mark: the
-   line reader dropped every entry holding a Unicode line or paragraph separator (`node:readline` splits
-   on both), a named directory that does not exist reported no sessions, and nothing said that sub-agent
-   transcripts are not measured. Its state is in the pull request. Routed from that review, for both
-   estates, each after #320 lands:
-   - The same three cures are owed to JC.net's `main`, as the same bytes.
+1. arc-metrics landed: pull request #320 merged into `engraph` as `SHA:d6349ccb4` on 2026-10-01 at
+   16:47Z; its branch, worktree and two claims are closed. It carried the port, the three files the
+   exchange seat left uncommitted, and the cures of a code review made before its ready-mark: the line
+   reader dropped every entry holding a Unicode line or paragraph separator (`node:readline` splits on
+   both), a named directory that does not exist reported no sessions, and nothing said that sub-agent
+   transcripts are not measured. A settlement push made the CLI's tests hold on Windows (the path
+   resolver is an input). Routed from it, for both estates:
+   - The same cures went to JC.net as its pull request 277. Copilot's review there named three more
+     defects in the shared bytes, cured there in two settlement pushes: the splitter rescanned an
+     unfinished line with every chunk (quadratic on a long entry), a missing directory was refused only
+     after the directories before it had been read, and a threshold was checked in minutes and not in
+     the seconds it is compared in. **Owed here once 277 lands, one small pull request, the same
+     bytes:** `split-lines.ts`, `cli.ts`, `cli-options.ts` and two test files.
    - Counting the sub-agent transcripts, which the vendor nests under each session: in the directory
      measured they hold about two fifths of all model calls. It changes what the tool measures and needs
      its own design.
@@ -365,10 +376,39 @@ below go one pull request at a time:
      two neighbouring topics.
    - `codex-exec/cli.ts` reads its event lines through `node:readline` too, in both estates: the same
      splitting on a second reader, which is when `split-lines.ts` moves to `core/`.
-2. The J2 docs-validators port to its pull request, from `oce-wt-j2-docs-validators` (claim 4b82394b).
-   Premise recomputed first-hand on 2026-10-01: `cited-paths`, `cited-scripts` and `lineage-names` are on
-   JC.net's `main` and absent here. The work is uncommitted (two modified files and three new
-   directories, about 2,650 lines) and unread by this seat: read and run it before any commit.
+2. The J2 docs-validators port, from `oce-wt-j2-docs-validators` (claim 4b82394b). Premise recomputed
+   first-hand on 2026-10-01: `cited-paths`, `cited-scripts` and `lineage-names` are on JC.net's `main`
+   and absent here. The work is uncommitted (two modified files and three new directories, about 2,650
+   lines). A code review of it on 2026-10-01 (read-only; its report is quoted in the pull request when
+   one opens) returned NOT READY: the port is the source's bytes with the scope renamed, and it does not
+   run here. It goes in the Director's order, recorded in the pickup blocks below (cited-paths with the
+   describer and lineage-names; cited-scripts; the compare cure), one pull request each, and each
+   needs this work first:
+   - The three entry files do not load (verified first-hand): they import `collectTrackedPaths`,
+     `collectIgnoredPaths`, `describeUnreadable` and `listTrackedFiles`, and this estate's core exports
+     the Result-returning `listTrackedPathSet` and `listIgnoredPaths` in `core/repository-paths.ts` and
+     no `describeUnreadable` in `core/tracked-file-scan.ts`. `listIgnoredPaths` has its own contract (a
+     directory carries a trailing `/`), so this is adaptation. The 151 ported tests pass because none
+     runs an entry file.
+   - `.agent/hooks/policy.json` has no `lineage-name` block (verified first-hand), so that validator
+     would refuse every run. The Director's ruling stands: this estate's needles are hook-policy data,
+     listed for the owner in the pull request's body. The block also arms the write hook.
+   - The scan scope is the source estate's (the reviewer's run, not repeated by this seat): composed
+     with this estate's git readers over the lane tree, `cited-scripts` reports 346 findings in 2,630
+     files (217 under `.agent/plans-backlog-2026-07`) and `cited-paths` 25. Fit the scope to this
+     estate and cure or exempt what remains before either leg joins `docs-validators:check`.
+   - Statements false here: the pnpm version the built-ins were probed on (this estate pins 11.20.0),
+     the operator text that names the source estate's site, and a header that cites a smoke not ported.
+   - Wiring: three scripts in `agent-tools/package.json`, three legs in the root
+     `docs-validators:check`, three `knip.config.ts` entries; Prettier fails one ported test file.
+   - The two modified `markdown-links` files are byte-identical to the source and the validator stays
+     green; they can land with the first of the three.
+   - Logic defects the review reproduced through the port's helpers, present in JC.net's source too, a
+     twinned lane after the ports: quoted and negated `--filter` values give a false
+     `unknown-workspace`; a second `--filter` and a `...` suffix hide a missing workspace; a heredoc
+     body is read as a command; `/bin/bash -c`, `env … bash -c` and `eval` are not read; a `~~~` line
+     inside a backtick fence turns later prose into citations; `pnpm cache`, `runtime` and `t` are
+     flagged on pnpm 11.20; a cited path keeps its `:12-20` line suffix.
 3. Routed from the code review, one twinned lane: Turbo's `globalDependencies` glob `**/.env.*local`
    walks into a lane's `.env.local` under `.claude/worktrees/` in both estates (the reviewer's reading of
    the dry run in JC.net; this estate's `turbo.json` carries the same glob); anchor it by depth, prove it
