@@ -777,7 +777,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
     gate evidence is the landed commit's own pre-commit run: the hook runs
     Prettier and markdownlint on the staged files, the repo validators, the
     shell lint, and the whole-tree build, type-check, lint and unit tests
-    (`.turbo/last-gate.log`). The wider suites that `pnpm check` also
+    (`.turbo/last-gate.log`). That is OCE's hook. In JC.net the commit hook
+    runs the staged-file checks and the changed-workspace lint only, and the
+    whole-tree gate with the site's end-to-end suite runs at the push, so in
+    JC.net the local gate evidence is the push's own pre-push run and a
+    commit that was never pushed carries none. The wider suites that `pnpm check` also
     aggregates (widget, e2e, ui and a11y) run on the pull request's checks,
     which the front door verdicts before any merge. Owner ruling,
     2026-09-14, verbatim: "the commit triggers the gates, there is no point

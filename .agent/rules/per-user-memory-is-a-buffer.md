@@ -76,8 +76,8 @@ per-user buffer.
 
 ## How to Apply
 
-At every the `session-handoff` skill, step 6 and the `consolidate-docs` skill,
-step 3, the agent sweeps **its own platform's per-user memory
+At step 6 of every `session-handoff` and step 3 of every `consolidate-docs`
+run, the agent sweeps **its own platform's per-user memory
 surface** for substance with cross-platform value. The sweep
 produces either:
 

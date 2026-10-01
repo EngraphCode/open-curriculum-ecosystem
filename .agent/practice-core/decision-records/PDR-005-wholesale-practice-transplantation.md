@@ -163,7 +163,7 @@ Transplantation runs in three phases:
 
 ### Success criteria
 
-Transplantation is complete when all four audits pass AND the
+Transplantation is complete when all five audits pass AND the
 destination repo passes the cold-start hydration's existing Bootstrap
 Checklist (reference check, agent check, build check, stable-index
 check, cohesion check, operational check, deliberate-omission check,
@@ -346,7 +346,7 @@ being treated as a specialised case of cold-start.
 - Any wholesale Practice transplantation MUST produce a transplant
   manifest as an exploration in the destination's `docs/explorations/`
   before any file is copied.
-- The four audits MUST pass before the transplantation is considered
+- The five audits MUST pass before the transplantation is considered
   complete.
 - The manifest is retained as the destination's record of what was
   imported and adapted; it is not discarded after the transplant.
