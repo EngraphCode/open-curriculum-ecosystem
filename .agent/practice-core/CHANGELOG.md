@@ -4,15 +4,16 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
-## [EngraphCode/open-curriculum-ecosystem] 2026-10-01 — PDR-075 accepted and PDR-130 retained at their slow-lane reviews
+## [EngraphCode/open-curriculum-ecosystem] 2026-10-01 — PDR-075 promoted to Proposed and PDR-130 retained at their slow-lane reviews
 
 - PDR-075 (Director substrate-writing discipline) moves from Candidate to
-  Accepted by its own trigger: two worked instances in sessions distinct from
-  2026-05-23 are recorded (2026-07-29, 2026-07-31), read from the events. One
-  refinement is absorbed: the obligation is the in-window emission, and the
-  tag marks the two classes §Tag Selection names. PDR-130 (two-speed learning)
-  is retained at its first review: its falsifier did not fire. Joint bytes in
-  both estates.
+  Proposed: two worked instances in sessions distinct from 2026-05-23 are
+  recorded (2026-07-29, 2026-07-31), read from the events, and no successor
+  bootstrap from the stream is recorded since, so Accepted waits for one or
+  for the owner's ratification. One refinement is absorbed: the obligation is
+  the in-window emission, and the tag marks the two classes §Tag Selection
+  names. PDR-130 (two-speed learning) is retained at its first review: its
+  slow-lane falsifier did not fire. Joint bytes in both estates.
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-09-28 — the last ADR citations named by concept: the tooling and fitness family and the changelog's residue
 

@@ -4,8 +4,8 @@ pdr_kind: governance
 
 # PDR-075: Director Substrate-Writing Discipline During The Role Authority Window
 
-**Status**: Accepted (2026-10-01, by this record's own trigger: two worked
-instances in sessions distinct from 2026-05-23; see §Status Review)
+**Status**: Proposed (2026-10-01, promoted from Candidate at its slow-lane
+review; see §Status Review)
 **Date**: 2026-05-23
 **Related**:
 [PDR-027](PDR-027-threads-sessions-and-agent-identity.md)
@@ -41,7 +41,7 @@ absorbed, or explicit owner ratification. Until that happens, agents
 should cite PDR-075 as Candidate doctrine with useful evidence, not as
 Proposed or Accepted doctrine.
 
-**2026-10-01 — Accepted.** Decided at this record's slow-lane review
+**2026-10-01 — Proposed.** Decided at this record's slow-lane review
 (PDR-130) by the curating seat of the second two-estate consolidation. The
 trigger below asks for worked instances in sessions distinct from 2026-05-23:
 one (its "fourth") moves the record to Proposed, a second (its "fifth") to
@@ -53,13 +53,15 @@ tags on Director events only in the week of 2026-07-28 to 2026-08-01, while
 Directors wrote rulings and owner-decision answers to the stream as they
 occurred through 2026-09-29, most as untagged decision events. The obligation
 is the in-window emission. The tag marks the two classes §Tag Selection names
-and is not the test of compliance. Both new instances show emission. A
-successor's bootstrap from the stream alone, on which the fifth instance says
-ratification hinges, has not been recorded since 2026-05-23 and rides on the
-prediction. Prediction (PDR-130): a Director's successor finds the window's
-rulings on the stream without opening a handoff record; a successor who has to
-reconstruct a ruling from a handoff record or a napkin shows the discipline is
-not holding.
+and is not the test of compliance. Both new instances show emission. The
+fifth instance says ratification hinges on a successor's bootstrap from the
+stream alone being repeatable, and none has been recorded since 2026-05-23 (a
+search of both estates' comms stores at this review found none). The record
+therefore moves to Proposed and no further: Accepted waits for a recorded
+successor bootstrap or the owner's ratification. Prediction (PDR-130): a
+Director's successor finds the window's rulings on the stream without opening
+a handoff record; a successor who has to reconstruct a ruling from a handoff
+record or a napkin shows the discipline is not holding.
 
 ## Context
 
@@ -487,6 +489,5 @@ record reduced to under 2k tokens.
    request is implicit? Hypothesis: the request becomes implicit
    once PDR-075 is Accepted; under Candidate / Proposed status,
    surfacing the request explicitly is the cure for the
-   transitional ratification window. The record is Accepted from
-   2026-10-01, so the hypothesis now stands to be tested at the next
-   Director succession.
+   transitional ratification window. The record is Proposed from
+   2026-10-01, so the explicit request stays the cure until it is Accepted.

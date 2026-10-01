@@ -112,6 +112,6 @@ in each estate. In
 JC.net five slow-lane rows were decided on 2026-10-01 by the owner's cards. In
 OCE the lane held eight rows; none had reached a review date before this one,
 and this review decided the first two (this record retained; PDR-075
-accepted). The fast-lane falsifier falls due three months after adoption, on
+promoted to Proposed). The fast-lane falsifier falls due three months after adoption, on
 2026-10-20, and is not yet measured as a rate: nobody has counted the
 graduations that landed without a prediction line.

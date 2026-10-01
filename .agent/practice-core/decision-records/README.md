@@ -198,7 +198,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-072](PDR-072-knowledge-curation-as-autonomic-learning.md) | Knowledge Curation as Autonomic Learning | Proposed |
 | [PDR-073](PDR-073-recursion-as-method-is-practice-core-mind-shape.md) | Recursion as Method Is Practice Core's Mind-Shape | Proposed |
 | [PDR-074](PDR-074-director-value-is-mind-coherence-per-owner-attention.md) | Director Value Is Mind-Coherence-Per-Owner-Attention | Candidate |
-| [PDR-075](PDR-075-director-substrate-writing-discipline.md) | Director Substrate-Writing Discipline During The Role Authority Window | Accepted |
+| [PDR-075](PDR-075-director-substrate-writing-discipline.md) | Director Substrate-Writing Discipline During The Role Authority Window | Proposed |
 | [PDR-076](PDR-076-agent-identity-tuple-and-body-file-frontmatter.md) | Agent Identity Tuple and Body-File Frontmatter (SPLIT stub) | Superseded |
 | [PDR-076a](PDR-076a-agent-identity-tuple-name-and-uuid.md) | Agent Identity Tuple `(name, UUID id)` | Accepted |
 | [PDR-076b](PDR-076b-body-file-frontmatter-contract.md) | Body-File Frontmatter Contract | Accepted |
