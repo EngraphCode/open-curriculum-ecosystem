@@ -4,7 +4,8 @@ pdr_kind: governance
 
 # PDR-075: Director Substrate-Writing Discipline During The Role Authority Window
 
-**Status**: Candidate
+**Status**: Accepted (2026-10-01, by this record's own trigger: two worked
+instances in sessions distinct from 2026-05-23; see §Status Review)
 **Date**: 2026-05-23
 **Related**:
 [PDR-027](PDR-027-threads-sessions-and-agent-identity.md)
@@ -39,6 +40,26 @@ instance worked validation in a distinct session, with refinements
 absorbed, or explicit owner ratification. Until that happens, agents
 should cite PDR-075 as Candidate doctrine with useful evidence, not as
 Proposed or Accepted doctrine.
+
+**2026-10-01 — Accepted.** Decided at this record's slow-lane review
+(PDR-130) by the curating seat of the second two-estate consolidation. The
+trigger below asks for worked instances in sessions distinct from 2026-05-23:
+one (its "fourth") moves the record to Proposed, a second (its "fifth") to
+Accepted. The instances headed sixth and seventh under §Worked Instances are
+those two sessions (2026-07-29 and 2026-07-31), each read from the event
+itself; they follow the five recorded on 2026-05-23. One refinement is absorbed
+with the promotion. The review found the `behaviour-note` and `failure-mode`
+tags on Director events only in the week of 2026-07-28 to 2026-08-01, while
+Directors wrote rulings and owner-decision answers to the stream as they
+occurred through 2026-09-29, most as untagged decision events. The obligation
+is the in-window emission. The tag marks the two classes §Tag Selection names
+and is not the test of compliance. Both new instances show emission. A
+successor's bootstrap from the stream alone, on which the fifth instance says
+ratification hinges, has not been recorded since 2026-05-23 and rides on the
+prediction. Prediction (PDR-130): a Director's successor finds the window's
+rulings on the stream without opening a handoff record; a successor who has to
+reconstruct a ruling from a handoff record or a napkin shows the discipline is
+not holding.
 
 ## Context
 
@@ -81,9 +102,9 @@ Moment 1 of role-release).
 
 ### What Must Be Emitted
 
-During the authority window, the Director MUST emit tagged
-comms-events for the following substrate-worthy observations as
-they occur:
+During the authority window, the Director MUST emit comms-events,
+tagged where §Tag Selection names a class that fits, for the
+following substrate-worthy observations as they occur:
 
 - **Routing-blockage observations**: doctrine-failing-author worked
   instances, idle-detection methodology errors, ceremony-over-
@@ -162,7 +183,7 @@ role-handoff substrate:
 
 The handoff record does NOT re-narrate team state, in-flight routes,
 landed commits, or owner-decisions answered. Those live in the
-comms stream as tagged events; the handoff record points at them.
+comms stream as events; the handoff record points at them.
 
 ### Anti-Pattern Named
 
@@ -243,9 +264,9 @@ fifth instance, to Accepted.
 
 ### Required
 
-- The Director emits tagged comms-events at coherence-moments
-  through the window, using `failure-mode` and `behaviour-note`
-  per the tag-namespace decision.
+- The Director emits comms-events at coherence-moments through
+  the window, tagged `failure-mode` or `behaviour-note` per the
+  tag-namespace decision where one of those classes fits.
 - Director handoff records reduce to the minimum-irreducible
   substrate (Moment 1 metadata, lineage chain, single-highest-
   priority action, comms-event range pointer).
@@ -365,6 +386,29 @@ bootstrap cleanly from substrate-rich streams alone, the
 comprehensive handoff record's load-bearing role can dissolve as
 PDR-075 specifies.
 
+### Sixth instance — a routing-blockage diagnosis in a distinct session
+
+`narrative` broadcast tagged `behaviour-note` at 2026-07-29T09:43:41Z by Lynx
+guards Whisper, the seated Director, titled "BEHAVIOUR-NOTE (Director): the
+F-75 active->offline flicker is structural — 240s cadence vs the <4m window;
+read retired-only as signal". The event gives the observation (healthy seats,
+the Director's own among them, flagged offline by liveness polls), the
+diagnosis (a four-minute threshold read against a four-minute heartbeat
+cadence flickers by construction) and the cure applied at the seat. It is the
+routing-blockage class of §What Must Be Emitted, written when it surfaced and
+not at session close, sixty-seven days after the first five instances.
+
+### Seventh instance — owner-decision answers broadcast at the moment
+
+Three `behaviour-note` events by Falcon hunts Flight, the seated Director, on
+2026-07-31 and 2026-08-01, their titles beginning "Director stand-down at
+owner word: monitors stopping; heartbeat silence is intentional", "Director
+resumed at owner word: monitors re-armed, gap swept, residency rule re-true
+landing", and "Director stand-down (sixth boundary): monitors stopping; fold
+merge is first act at resume". Each names the owner's decision, what it changes for the team's
+reading of the stream, and the first act at the next coherence-moment: the
+owner-decision-answer class, emitted at the boundary itself.
+
 ### Anti-pattern surface — comprehensive synthesis cost (this session)
 
 Four Director handoff records authored on 2026-05-23 prior to
@@ -428,7 +472,8 @@ record reduced to under 2k tokens.
    first PDR-075 worked instances wrote tags via direct JSON
    authoring or by titling the event with a `(behaviour-note)`
    parenthetical rather than via canonical tag-array. The `--tags`
-   CLI flag is a paired follow-on implementation slice; it is not
+   CLI flag (it has since landed as the repeatable `--tag` on
+   `comms send`, read 2026-10-01) was a paired follow-on implementation slice; it is not
    part of this PDR's atomic landing but is named here as the
    visible ergonomics gap PDR-075 surfaces.
 
@@ -442,4 +487,6 @@ record reduced to under 2k tokens.
    request is implicit? Hypothesis: the request becomes implicit
    once PDR-075 is Accepted; under Candidate / Proposed status,
    surfacing the request explicitly is the cure for the
-   transitional ratification window.
+   transitional ratification window. The record is Accepted from
+   2026-10-01, so the hypothesis now stands to be tested at the next
+   Director succession.
