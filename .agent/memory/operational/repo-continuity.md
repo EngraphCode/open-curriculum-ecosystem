@@ -422,18 +422,34 @@ below go one pull request at a time:
    read from origin, `core/git-remote-url.ts`); JC.net the `retire` action, the `--branch` check the two
    commands share (`branch-arg.ts`) and a bounded copy of the push's output for the refusal check (this
    estate's push holds the whole transcript, the gate's output included).
-   - Step one, in JC.net: its pull request 278 (opened 2026-10-01 17:57Z, lane
-     `fix/merge-bot-push-one-token`). Its push takes this estate's design and keeps the bound and the
-     shared check. A code review before it opened found that this estate's rework had dropped proofs
-     JC.net's tests held, so this estate's push is unproven on them today: the token file's 0600 mode,
-     the terminal prompt turned off, every configured credential arm cleared before the one helper,
-     the wait between attempts, and the production mint's scope (every push test here injects the
-     mint). 278 puts each back with its mutant.
-   - Step two, here, after step one lands: this estate takes JC.net's `merge-bot` directory as the same
-     bytes, which brings `retire`, the bound and those proofs, and one sentence of the
-     `cross-fork-integration` skill that quotes the push's argv (`HEAD:refs/heads/<branch>` there, the
-     source stale since #310 settled the commit). Until then every landed branch here is deleted by hand after the same ancestry proofs (a
-     REST delete of the ref as the bot, then `git branch -d`).
+   - Step one, in JC.net, landed: its pull request 278 (`SHA:18ec6145`, 2026-10-01 18:37Z). Its push
+     takes this estate's design and keeps the bound and the shared check. A code review before it
+     opened found that this estate's rework had dropped proofs JC.net's tests held, so this estate's
+     push is unproven on them today: the token file's 0600 mode, the terminal prompt turned off,
+     every configured credential arm cleared before the one helper, the wait between attempts, and
+     the production mint's scope (every push test here injects the mint). 278 put each back with its
+     mutant. Copilot's reviews of 278 then found defects of the design this estate's push still has:
+     a retry pushes the settled commit after HEAD has moved, while the pre-push hook validates the new
+     checkout; nothing bounds an attempt by the token's own expiry (R5); with no `--branch`, the branch
+     and the commit are read apart and can come from two checkouts; an origin read over plain http is
+     trusted. Each is cured there. Its pull request 279 (opened 18:45Z) carries five small items from
+     278's last review and lands before step two.
+   - Step two, here, after 279 lands: this estate takes JC.net's push files as the same bytes (the
+     bound, the proofs, the guards, `token-deadline.ts`) and the `retire` action with what it needs
+     (`branch-arg.ts`, `github-fetch.ts`, the `branch-retire` row of the scope table, the wiring in
+     `cli.ts`, its smokes), and one sentence of the `cross-fork-integration` skill that quotes the
+     push's argv (`HEAD:refs/heads/<branch>` there, the source stale since #310 settled the commit).
+     Until then every landed branch here is deleted by hand after the same ancestry proofs (a REST
+     delete of the ref as the bot, then `git branch -d`). Not the whole directory: this seat wrote
+     that earlier in this line and it was wrong.
+   - The merge action is its own convergence, read 2026-10-01 by comparing the trees with the scope
+     made the same. It has diverged in both directions. This estate has `--unavailable`
+     declarations (`pr-watch/declared-unavailable.ts`), the `SETTLING-QUIET-WINDOW` verdict and two
+     tests JC.net lacks (`merge-cli-unavailable`, `resolve-app-slug`); JC.net has one `realFetch` and
+     one header builder (`github-fetch.ts`) where this estate has a `realFetch` in each of
+     `merge-github-api.ts` and `mint-for-config.ts`, and prints a verdict's grounds through
+     `printable`. The scope table differs by design: the upstream-mirror
+     row is this estate's, and `branch-retire` arrives with step two.
    - Two readers of a remote URL then stand in JC.net beside the parser (the operator profile's keys
      and `retire`'s origin check; its `secret-scan` parses no URL, and this estate's URL scoping of the
      push scan is a parity item of its own); here `secret-scan` and the operator profile
