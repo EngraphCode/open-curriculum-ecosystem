@@ -107,8 +107,8 @@ mechanical check or retirement.
 
 **First review, 2026-10-01: retained.** Decided by the curating seat of the
 second two-estate consolidation, on computed evidence. The slow-lane
-falsifier did not fire. Prediction lines stand in five rule and skill files
-in each estate. In
+falsifier did not fire. Prediction lines stand in rule and skill files in
+both estates. In
 JC.net five slow-lane rows were decided on 2026-10-01 by the owner's cards. In
 OCE the lane held eight rows; none had reached a review date before this one,
 and this review decided the first two (this record retained; PDR-075

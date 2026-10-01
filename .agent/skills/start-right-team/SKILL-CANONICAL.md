@@ -969,8 +969,8 @@ Coordinator role transitions have two distinct moments per
 [PDR-064](../../practice-core/decision-records/PDR-064-coordinator-handoff-two-moments.md);
 conflating them creates a coordinator-less window the team cannot
 detect. Inside the authority window, from Moment 2 of acquiring the role to
-Moment 1 of releasing it, what the coordinator writes to the stream as it
-happens is
+Moment 1 of releasing it, what a coordinator holding the Director role
+writes to the stream as it happens is
 [PDR-075](../../practice-core/decision-records/PDR-075-director-substrate-writing-discipline.md)'s
 discipline: rulings and owner-decision answers go on the stream when they
 occur, so a successor reads the stream and the handoff record stays small.
