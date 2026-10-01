@@ -248,7 +248,14 @@ failure instance from the 2026-06-11 team window:
   active-lane label while blocked is indistinguishable from a stall;
   peers read the blocked label correctly as do-not-takeover and
   owner-transport-holds (worked instance: the third detached-heartbeat
-  variant in one day, 2026-06-10; owner-approved 2026-06-11).
+  variant in one day, 2026-06-10; owner-approved 2026-06-11). A long
+  owner-held turn can outlast the seat's monitors, the heartbeat among
+  them: in three seat reports across both estates (2026-09-24 to
+  2026-09-29) a seat read dark on the peer-liveness poll after its
+  monitors expired inside an owner card or a plan-approval turn, one of
+  sixteen hours. On leaving such a turn the seat re-arms first and reads
+  `heartbeat_at` back. If a seat that does so still reads dark, this
+  sentence is not the cure.
 
 ### Owner-input precedence on every scheduled tick
 

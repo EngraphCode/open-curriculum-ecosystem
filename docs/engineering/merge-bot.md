@@ -339,10 +339,49 @@ the push writes exactly one ref, the full `refs/heads/<branch>`: no tag
 or submodule ref follows it. Pushes to the default branch refuse, in any
 case: `main` and `master` by name, then whatever branch
 `refs/remotes/origin/HEAD` names, read only when `origin` has one URL and
-it is the repository the push goes to. That read is a snapshot a fetch
+it is the repository the push goes to, over `https` or ssh (an origin read
+over plain `http` is not trusted). That read is a snapshot a fetch
 does not move, so after the repository's default branch changes, run
 `git remote set-head origin --auto`. Where the configured repository's
 ruleset on the default branch binds the bot, as this repository's does,
-GitHub refuses a direct push either way. An unreadable default branch
-fails the push rather than guessing (see
+GitHub refuses a direct push either way. An unreadable default branch,
+or an `origin` that is not that one repository, fails the push (exit 1)
+rather than guessing. So does a checkout that changes branch while the
+target is settled: with no `--branch`, the branch and the commit are one
+snapshot of HEAD (see
 [`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)).
+
+GitHub has refused a freshly minted token's push at its first request,
+before git runs the pre-push hook. The transcript is these two lines and
+nothing else:
+
+```text
+remote: Permission to <repo> denied to <bot>.
+fatal: unable to access '<url>': The requested URL returned error: 403
+```
+
+GitHub refuses a fresh installation token until it has replicated to every
+one of its edge caches, and advises retrying at increasing intervals
+(GitHub Support, as quoted in aws-amplify/amplify-hosting#4080). The push
+therefore mints one token and tries the transfer again with that same token
+after each wait in `PUSH_RETRY_WAITS_MS` (`agent-tools/src/merge-bot/push-attempts.ts`),
+naming each retry on stderr. A fresher token would only start the wait
+again. Every attempt pushes the same commit, settled from HEAD before the
+mint, so a commit made during the waits is never pushed in its place. When
+the waits run out, it reports an operational failure with every refusal
+shown. Any other failure is final at once, including a 403 after the hook
+ran: trying that again would run the whole gate again. The refusal check
+keeps a bounded copy of the push's output (`REFUSAL_TRANSCRIPT_BOUND`, same
+file); the output itself reaches stderr in full.
+
+Two things are checked before each attempt, the first included
+(`agent-tools/src/merge-bot/push-attempt-guards.ts`); either stops the push
+as an operational failure:
+
+- The token's own stated expiry leaves five minutes to start in. One token
+  serves every attempt, so the waits count against it. A gate that runs
+  longer than the token has left still meets the expiry: GitHub's refusal
+  then comes after the hook ran, and is final.
+- HEAD still names the settled commit. The pre-push hook validates the
+  checkout, never the commit git is handed, so an attempt made after HEAD
+  moved would land a commit the gate did not run on.

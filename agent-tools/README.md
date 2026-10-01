@@ -31,6 +31,7 @@ domain-specific flows:
 - `commit-queue`: coordinate short-lived git index/head commit windows and verify staged bundles before commit.
 - `branch-touched-files`: report the files touched by a branch against a base ref.
 - `context-cost`: estimate chars/4 token cost for an arbitrary fileset from repeatable glob inputs.
+- `arc-metrics`: measure an arc from the vendor's session transcripts — active hours against a named gap threshold, model calls and tokens counted once per API message id, median context per call (per session only), compactions, usage-limit stalls, and owner messages read from the transcript's own attribution (the owner's turns, and the messages a running turn absorbed) with the excluded count reported beside them. It measures the main sessions' transcripts; the sub-agent transcripts the vendor nests under each session are not counted.
 - `claude-agent-ops`: monitor background agents, inspect logs, diff worktrees, run preflight checks, and run a summary-first health probe for agent infrastructure drift.
 - `cursor-session-from-claude-session`: find/inspect Claude sessions and generate Cursor takeover bundles with an explicit reintegration contract.
 - `codex-reviewer-resolve`: resolve a repo-local Codex reviewer adapter to the exact `.codex` and canonical `.agent` files that should ground a review.
@@ -63,6 +64,7 @@ pnpm agent-tools:test:e2e
 pnpm agent-tools agent-identity --seed example-session-id-001 --format display
 pnpm agent-tools collaboration-state identity preflight --platform codex --model GPT-5
 pnpm agent-tools context-cost --glob '.agent/rules/*.md'
+pnpm agent-tools arc-metrics --vendor claude --json
 pnpm agent-tools:claude-agent-ops status
 pnpm agent-tools:claude-agent-ops health
 pnpm agent-tools:cursor-session-from-claude-session find --last-hours 2

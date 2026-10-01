@@ -32,6 +32,15 @@ Lenses do not resolve locally, or the impulse to ask the owner anything.
    broadcasts carry state only; each ask, routing or decision request is a
    separate directed event whose subject is the question in one line and
    whose body is the facts read first-hand plus the seat's own verdict.
+   A Director's announced compaction freeze binds that seat only: routing
+   to it pauses and its records carry the state, the other seats continue
+   on the routings they hold, the merge door runs by its own rules, and a
+   question that cannot wait, and that the asking seat has taken through
+   the Decision Lenses as item 2 requires, goes to the owner's queue by a
+   stream line
+   (the Director's ruling at three boundaries: 2026-09-26 twice, and
+   2026-09-29). The unannounced gap is the ping clause's case. If seats
+   stall on a frozen Director with this loaded, it is not working.
 2. The Director resolves via the Decision Lenses
    (`.agent/directives/principles.md` §Decision Lenses; concept exploration
    first when the question is unformed): answer it, re-route the bundle to a
@@ -41,7 +50,12 @@ Lenses do not resolve locally, or the impulse to ask the owner anything.
    that does reach the owner is ALWAYS surfaced as a decision card
    (AskUserQuestion or the platform equivalent, recommended option first,
    per `present-verdicts-not-menus.md`) — never as prose the owner must
-   parse for the ask (owner standing directive, 2026-07-15).
+   parse for the ask (owner standing directive, 2026-07-15). With the
+   owner away, the same order holds and the channel is a push
+   notification through the Director (one instance, 2026-09-25, the
+   owner's word relayed by the Director to both estates: "All questions
+   go to you first, and any that genuinely survive the decision matrix
+   can come to me via push notification").
 3. Never ask the owner for in-session intervention ("one word in <seat>'s
    session"). Per-session consent isolation is real — and it does not need
    owner curing: the cure is bundle re-routing (the WORK moves to a session

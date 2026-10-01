@@ -27,7 +27,8 @@ file keeps its name so every citation of it stays valid.
 
 Cutting a coordination branch; or opening a session whose primary
 checkout sits on a coordination branch. This rule fires at the cut (to
-stamp the lifetime) and at session-open (to check it).
+stamp the lifetime) and at session-open (to check it). The Director's
+check-in cadence reads the DUE clock at each check-in as well.
 
 ## Action
 
@@ -49,8 +50,9 @@ stamp the lifetime) and at session-open (to check it).
    regardless (the stricter reading of "at most 24 hours": a branch cut
    late in the day rotates sooner, never later). A date-only stamp cannot
    express which half of the day, so on a same-day branch read the cut
-   time from the branch's first own commit or the rotation broadcast
-   against the clock. On a DUE branch, surface convergence to
+   time as the rotation broadcast's `created_at` against the clock, never
+   as the branch's first own commit (a branch cut at 11:59Z whose first
+   commit lands after 12:00Z would skip the midday fold). On a DUE branch, surface convergence to
    the Director (or, at n=1, act on it) before staking new work onto
    the branch. An overdue coordination branch is a defect to route, not
    a home to build on.
@@ -109,6 +111,14 @@ stamp the lifetime) and at session-open (to check it).
    checkout's own branch, always — never a snapshot worktree (owner,
    2026-08-06, verbatim: "the coordination branch shouldn't be a
    worktree, it should be the branch in the primary checkout, always").
+   A seat never switches the branch of a primary that another seat
+   shares; it works in a worktree (the Director's ruling of 2026-09-27,
+   after a settlement script switched OCE's shared primary under a peer's
+   unpushed commit). The one exception is the fold's successor cut, which
+   the fold skill's ceremony governs: it renames the primary's branch
+   under every seat on it, so the folding seat announces the cut on the
+   stream first and makes it when no seat has said it is mid-commit there
+   (2026-10-01, two seats on JC.net's primary). Two instances.
 
 ## Why This Rule Exists (Worked Instance)
 

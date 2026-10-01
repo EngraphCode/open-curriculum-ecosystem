@@ -82,10 +82,11 @@ describes it). Rollout sequencing:
   and a seat refutes such a precedent claim itself, never routing it upward
   as a question for the owner.
   What a test cannot prove without IO is not a test's to prove. It is proven
-  by non-test validation kept to a minimum (a validator script's own
-  self-proof, run by a CI-gated task) or by an observation made once at cure
-  time and recorded ([validation-strategy.md](validation-strategy.md) §Right
-  tool). Existing code that breaks the invariant is a defect: it is cured by
+  by non-test validation kept to a minimum, which never alters the code or
+  triggers a build (a validator script's own self-proof, run by a CI-gated
+  task; [validation-strategy.md](validation-strategy.md) §Validators), or by
+  an observation made once at cure time and recorded (§Right tool there).
+  Existing code that breaks the invariant is a defect: it is cured by
   injection or moved to validation, never exempted, and its presence
   licenses nothing.
 - NEVER create complex mocks, use simple mocks passed as arguments
@@ -517,7 +518,10 @@ infrastructure.
 Smoke checks are validators, never tests: booting an artefact is
 process and filesystem IO. The files and directories still named
 "smoke tests" are history; each is run by a CI-gated task, never by the
-test runner's in-process suites.
+test runner's in-process suites. As validators they start the fewest
+processes, never alter the code and never build: a smoke reads the artefact
+a separate step built ([validation-strategy.md](validation-strategy.md)
+§Validators).
 
 The taxonomy above classifies by SCOPE of behaviour (unit →
 integration → E2E). There is a second, orthogonal axis: EXECUTION

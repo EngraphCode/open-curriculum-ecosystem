@@ -17,6 +17,7 @@ import {
   runReviewCostTopic,
   runSkillEvalsTopic,
 } from './agent-tools-cli-topics.js';
+import { runArcMetricsTopic } from './arc-metrics-topic.js';
 import type {
   AgentToolsCliInput,
   AgentToolsCliResult,
@@ -125,6 +126,7 @@ type UniformTopicHandler = (
 ) => AgentToolsCliResult | Promise<AgentToolsCliResult>;
 
 const UNIFORM_TOPIC_HANDLERS: Readonly<Record<string, UniformTopicHandler>> = {
+  'arc-metrics': runArcMetricsTopic,
   'commit-queue': runCommitQueueTopic,
   'branch-touched-files': runBranchTouchedFilesTopic,
   'context-cost': runContextCostTopic,
@@ -228,6 +230,7 @@ function usage(): string {
     '',
     'Topics:',
     '  agent-identity',
+    '  arc-metrics',
     '  collaboration-state',
     '  commit-queue',
     '  branch-touched-files',

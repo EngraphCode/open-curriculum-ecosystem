@@ -20,7 +20,11 @@ lesson already written in memory; an hour at a nested `$(gh api …)`
 substitution). The owner's words: "stop doing things that need approval,
 I am not here, you will get yourself stuck and do no useful work for ten
 hours" (2026-09-08) and "I need things like this to stop happening, it is
-preventing useful work from happening" (2026-09-09).
+preventing useful work from happening" (2026-09-09). And on 2026-09-25,
+relayed verbatim by the Director: "I absolutely need all seats to be able to
+push without me"; that evening the Director withheld a path-scoped
+owner-review ruleset because it would have put the owner on every `.husky/`
+change.
 
 ## The rule
 
@@ -30,6 +34,11 @@ preventing useful work from happening" (2026-09-09).
    (the action is never wanted, and a deny returns to the seat as an error
    the seat can route — see
    [`route-blocks-and-questions-to-director`](route-blocks-and-questions-to-director.md)).
+   A harness's automatic approval review is the same class: on 2026-09-25 a
+   Codex seat's push of evidence derived from a private local capture was
+   refused twice as unauthorised egress, and the Director ruled that no peer
+   grants in the owner's place what the harness refused (one instance, OCE
+   pull request 211).
    The destructive git operations and `rm -rf` are denies; the hook policy
    in `.agent/hooks/policy.json` denies the same shapes with a reappraisal,
    so the refusal teaches. Every command that leaves the ask list is

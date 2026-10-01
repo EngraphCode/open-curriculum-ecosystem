@@ -1,12 +1,15 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { parseGitRemoteUrl } from '../core/git-remote-url.js';
+import { parseGitRemoteUrl, type GitRemoteRepository } from '../core/git-remote-url.js';
+import { printable } from '../pr-watch/printable.js';
+import { DEFAULT_BRANCH_NAMES } from './branch-arg.js';
 import type { GitCommandResult } from './git-executor.js';
 import { describeGitChildEnd, type PushGitReads } from './push-git.js';
 import type { BotIdentity } from './resolve-identity.js';
 
 /**
- * Which branch `merge-bot push` writes, and which it refuses. Changes reach a
+ * Which branch `merge-bot push` writes, which it refuses, and which commit it
+ * writes there. Changes reach a
  * default branch through a pull request, never a direct push: `main` and
  * `master` refuse by name, and so does the repository's own default branch,
  * read from `refs/remotes/origin/HEAD`, which a clone sets and every worktree
@@ -14,17 +17,14 @@ import type { BotIdentity } from './resolve-identity.js';
  * from the default one breaks every fetch on a case-insensitive disk.
  *
  * The origin read is trusted only when origin names the repository the push
- * goes to, since the push itself goes to the configured repository's URL,
- * never to `origin`. It is a snapshot: a fetch does not move an existing
+ * goes to, over https or ssh, since the push itself goes to the configured
+ * repository's URL, never to `origin`. It is a snapshot: a fetch does not move an existing
  * `origin/HEAD`, so after the repository's default branch changes,
  * `git remote set-head origin --auto` refreshes it. Where the configured
  * repository's ruleset on the default branch binds the bot, as this
  * repository's does, GitHub refuses a direct push either way. Anything
  * unreadable fails the push rather than guessing.
  */
-
-/** Branch names that never take a direct push; the never-commit-to-main rule as behaviour. */
-const DEFAULT_BRANCH_NAMES: ReadonlySet<string> = new Set(['main', 'master']);
 
 /** Where `git symbolic-ref` names an origin branch. */
 const ORIGIN_HEAD_PREFIX = 'refs/remotes/origin/';
@@ -54,7 +54,7 @@ function refused(reason: string): TargetBranch {
 
 /** The refusal for a branch that is a default branch, by name or as origin names it. */
 function defaultBranchRefusal(branch: string): string {
-  return `"${branch}" is a default branch — changes reach it through a pull request, never a direct push`;
+  return `"${printable(branch)}" is a default branch — changes reach it through a pull request, never a direct push`;
 }
 
 /** The refusals that need only the name, decided before any read of origin. */
@@ -63,7 +63,7 @@ function refuseBranchName(branch: string): string | undefined {
     return `"${branch}" names no branch — HEAD is git's name for the current commit; name the branch to push`;
   }
   if (branch.startsWith('refs/')) {
-    return `"${branch}" reads as a full ref — name the branch alone; the push always writes refs/heads/<branch>`;
+    return `"${printable(branch)}" reads as a full ref — name the branch alone; the push always writes refs/heads/<branch>`;
   }
   return DEFAULT_BRANCH_NAMES.has(branch.toLowerCase()) ? defaultBranchRefusal(branch) : undefined;
 }
@@ -90,7 +90,20 @@ function originReadFailure(result: GitCommandResult, cure: string): Error {
       );
 }
 
-/** Whether origin's one URL names the configured repository on github.com. */
+/**
+ * The repository origin's one URL names, when it is read over a transport the
+ * push trusts. What a remote advertises over plain http, its default branch
+ * included, is not trusted; the parser reads that form all the same, for
+ * callers that need only the repository a URL names.
+ */
+function trustedOriginRepository(urls: readonly string[]): GitRemoteRepository | undefined {
+  const url = urls[0]?.trim();
+  return urls.length !== 1 || url === undefined || url.startsWith('http://')
+    ? undefined
+    : parseGitRemoteUrl(url);
+}
+
+/** Whether origin's one URL names the configured repository on github.com, over https or ssh. */
 function trustOrigin(result: GitCommandResult, repository: Repository): Result<undefined, Error> {
   const repo = `github.com/${repository.owner}/${repository.repoName}`;
   const cure = `point origin at https://${repo}.git, then ${SET_HEAD_CURE}`;
@@ -98,7 +111,7 @@ function trustOrigin(result: GitCommandResult, repository: Repository): Result<u
     return err(originReadFailure(result, cure));
   }
   const urls = result.stdout.split('\n').filter((line) => line.trim() !== '');
-  const remote = urls.length === 1 ? parseGitRemoteUrl(urls[0] ?? '') : undefined;
+  const remote = trustedOriginRepository(urls);
   const names =
     remote?.host.toLowerCase() === 'github.com' &&
     remote.owner.toLowerCase() === repository.owner.toLowerCase() &&
@@ -138,17 +151,73 @@ function defaultBranchFrom(result: GitCommandResult): Result<string, Error> {
       );
 }
 
+/** A full object name: SHA-1 (40 hex digits) or SHA-256 (64). */
+const OBJECT_NAME = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/u;
+
+/**
+ * Settle the commit a push writes: the one HEAD names, read once before the
+ * mint, so every attempt pushes the same commit however long the retry waits.
+ *
+ * @param read - git's answer naming HEAD's commit (`rev-parse --verify HEAD^{commit}`).
+ * @returns The commit's full object name, or the failure naming the cure.
+ */
+export function settleCommit(read: GitCommandResult): Result<string, Error> {
+  const name = read.stdout.trim();
+  return read.status === 0 && OBJECT_NAME.test(name)
+    ? ok(name)
+    : err(
+        new Error(
+          `cannot settle the commit HEAD names (git rev-parse ${describeGitChildEnd(read)}, answering ${JSON.stringify(name)}); check out a branch with a commit and push again`,
+        ),
+      );
+}
+
+/**
+ * Settle the commit for a settled branch, as one snapshot of HEAD. The branch
+ * is read first and the commit last, with origin's reads between; a checkout
+ * that changed branch in that interval would pair the first branch with the
+ * second branch's commit. So when the branch came from HEAD it is read again
+ * after the commit, and a different answer fails the push before the mint. A
+ * named branch takes HEAD's commit wherever HEAD is, and is not asked.
+ *
+ * @param branch - The settled target branch.
+ * @param fromHead - Whether the branch was read from HEAD, never named.
+ * @param reads - git's answers naming HEAD's commit and its branch.
+ * @returns The commit's full object name, or the failure naming the cure.
+ */
+export async function settleCommitFor(
+  branch: string,
+  fromHead: boolean,
+  reads: Pick<PushGitReads, 'headCommit' | 'currentBranch'>,
+): Promise<Result<string, Error>> {
+  const commit = settleCommit(await reads.headCommit());
+  if (!commit.ok || !fromHead) {
+    return commit;
+  }
+  const now = currentBranchFrom(await reads.currentBranch());
+  if (!now.ok) {
+    return now;
+  }
+  return now.value === branch
+    ? commit
+    : err(
+        new Error(
+          `HEAD moved from branch "${printable(branch)}" to ${now.value === undefined ? 'no branch' : `"${printable(now.value)}"`} while the push settled its target; nothing was minted or pushed; run the push again`,
+        ),
+      );
+}
+
 /**
  * Settle the branch a push writes: the one named, or the one HEAD is on;
  * refused by name first, then against the default branch origin names.
  *
  * @param named - The branch given with `--branch`, or undefined for HEAD's branch.
- * @param reads - git's answers about HEAD and origin.
+ * @param reads - git's answers about HEAD's branch and origin.
  * @param repository - The configured repository the push goes to.
  */
 export async function settleTargetBranch(
   named: string | undefined,
-  reads: PushGitReads,
+  reads: Pick<PushGitReads, 'currentBranch' | 'originUrls' | 'originHead'>,
   repository: Repository,
 ): Promise<Result<TargetBranch, Error>> {
   const current = named === undefined ? currentBranchFrom(await reads.currentBranch()) : ok(named);

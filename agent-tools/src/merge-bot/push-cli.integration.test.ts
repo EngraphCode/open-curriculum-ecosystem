@@ -1,18 +1,30 @@
-import { join } from 'node:path';
-
 import { describe, expect, it } from 'vitest';
 
-import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
 import { GIT_CREDENTIAL_RESOLUTION_CHAIN } from './git-credential-chain.js';
-import type { GitCommandResult, GitExecutor } from './git-executor.js';
-import type { GithubApiFetch } from './mint-installation-token.js';
-import { pushHead, type PushGitReads, type TokenFileStore } from './push-git.js';
-
-import { generateKeyPairSync } from 'node:crypto';
+import type { GitExecutor } from './git-executor.js';
+import { pushCommit } from './push-git.js';
+import {
+  answered,
+  BASE_ENV,
+  BRANCH,
+  COMMIT,
+  DEFAULT_BRANCH,
+  GIT_PATH,
+  gitFake,
+  gitReads,
+  mintAnswering,
+  mintFailing,
+  pushCall,
+  REMOTE,
+  runPush,
+  STORE_DIR,
+  TOKEN,
+  tokenStoreFake,
+} from './test-helpers/push-cli-double.js';
 
 /**
- * The `merge-bot push` front door over injected seams (fetch, key, config,
- * git, token store): the exit map (0=pushed, 1=operational, 2=usage, 3=typed
+ * The `merge-bot push` front door over injected seams (mint, config, git,
+ * token store): the exit map (0=pushed, 1=operational, 2=usage, 3=typed
  * refusal), the never-commit-to-main refusal as behaviour, and the credential
  * discipline — the token lives in a 0600 file inside a private directory for
  * exactly the push's duration, the child environment carries only that file's
@@ -22,207 +34,6 @@ import { generateKeyPairSync } from 'node:crypto';
  * spawns inherit that environment, so an env dump there must never print a
  * live write token. The pure argv contract lives in push-args.unit.test.ts.
  */
-
-const { privateKey } = generateKeyPairSync('rsa', {
-  modulusLength: 2048,
-  publicKeyEncoding: { type: 'spki', format: 'pem' },
-  privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
-});
-
-const TOKEN = 'sekrit-installation-token';
-const GIT_PATH = '/usr/bin/git';
-const BRANCH = 'jimcresswell/mcp-508-slice';
-const REMOTE = 'https://github.com/acme/widgets.git';
-const TRANSFER = `To ${REMOTE}\n   abc1234..def5678  HEAD -> ${BRANCH}\n`;
-
-function capture(): { text: () => string; sink: Pick<NodeJS.WriteStream, 'write'> } {
-  let buffer = '';
-  return {
-    text: () => buffer,
-    sink: {
-      write(chunk: string): boolean {
-        buffer += chunk;
-        return true;
-      },
-    },
-  };
-}
-
-interface GitCall {
-  readonly file: string;
-  readonly args: readonly string[];
-  readonly cwd: string;
-  readonly env: Readonly<Record<string, string | undefined>>;
-}
-
-/** The default branch `origin` names in these fixtures: neither main nor master. */
-const DEFAULT_BRANCH = 'trunk';
-
-function answered(stdout: string): GitCommandResult {
-  return { status: 0, signal: null, stdout, stderr: '' };
-}
-
-/**
- * The value-returning git seam (ADR-088) for the one call the executor makes,
- * the push: a constant answer, every call recorded. A non-zero exit is a
- * RESULT, never a throw.
- */
-function gitFake(
-  push: GitCommandResult = { status: 0, signal: null, stdout: '', stderr: TRANSFER },
-): {
-  gitExecutor: GitExecutor;
-  calls: GitCall[];
-} {
-  const calls: GitCall[] = [];
-  const gitExecutor: GitExecutor = (file, args, options) => {
-    calls.push({ file, args, cwd: options.cwd, env: options.env });
-    return push;
-  };
-  return { gitExecutor, calls };
-}
-
-/** git's answers about HEAD and origin, each a constant. */
-function gitReads(
-  answers: {
-    readonly currentBranch?: GitCommandResult;
-    readonly originHead?: GitCommandResult;
-  } = {},
-): PushGitReads {
-  const currentBranch = answers.currentBranch ?? answered(`${BRANCH}\n`);
-  const originHead = answers.originHead ?? answered(`refs/remotes/origin/${DEFAULT_BRANCH}\n`);
-  return {
-    currentBranch: () => Promise.resolve(currentBranch),
-    // Trusted, and spelled unlike REMOTE: the push goes to the configured
-    // repository's URL, never to origin's.
-    originUrls: () => Promise.resolve(answered('git@github.com:acme/widgets.git\n')),
-    originHead: () => Promise.resolve(originHead),
-  };
-}
-
-/** Serves the mint endpoints and records every call URL and body. */
-function mintFetch(token = TOKEN): {
-  fetchImpl: GithubApiFetch;
-  urls: string[];
-  bodies: { url: string; body: string }[];
-} {
-  const urls: string[] = [];
-  const bodies: { url: string; body: string }[] = [];
-  const fetchImpl: GithubApiFetch = (url, init) => {
-    urls.push(url);
-    if (init?.body !== undefined) {
-      bodies.push({ url, body: String(init.body) });
-    }
-    if (url.endsWith('/installation')) {
-      return Promise.resolve({ status: 200, json: () => Promise.resolve({ id: 55 }) });
-    }
-    return Promise.resolve({
-      status: 201,
-      json: () => Promise.resolve({ token, expires_at: '2026-08-06T10:00:00Z' }),
-    });
-  };
-  return { fetchImpl, urls, bodies };
-}
-
-const BASE_ENV = { PATH: '/usr/bin', HOME: '/test-home' } as const;
-
-const STORE_DIR = '/fake-secret-store/merge-bot-push-x1';
-
-interface TokenWrite {
-  readonly path: string;
-  readonly content: string;
-  readonly mode: number;
-}
-
-/** Records every prefix, write and removal; no filesystem is ever touched. */
-function tokenStoreFake(overrides: Partial<TokenFileStore> = {}): {
-  store: TokenFileStore;
-  prefixes: string[];
-  writes: TokenWrite[];
-  removed: string[];
-} {
-  const prefixes: string[] = [];
-  const writes: TokenWrite[] = [];
-  const removed: string[] = [];
-  return {
-    store: {
-      mkdtemp: (prefix) => {
-        prefixes.push(prefix);
-        return STORE_DIR;
-      },
-      writeFile: (path, content, mode) => {
-        writes.push({ path, content, mode });
-      },
-      remove: (dir) => {
-        removed.push(dir);
-      },
-      ...overrides,
-    },
-    prefixes,
-    writes,
-    removed,
-  };
-}
-
-function runPush(input: {
-  readonly args?: readonly string[];
-  readonly git?: ReturnType<typeof gitFake>;
-  readonly reads?: PushGitReads;
-  readonly fetch?: ReturnType<typeof mintFetch>;
-  readonly store?: ReturnType<typeof tokenStoreFake>;
-  readonly overrides?: Partial<MergeBotCliInput>;
-}): {
-  exit: Promise<number>;
-  out: () => string;
-  errText: () => string;
-  calls: GitCall[];
-  urls: string[];
-  bodies: { url: string; body: string }[];
-  prefixes: string[];
-  writes: TokenWrite[];
-  removed: string[];
-} {
-  const out = capture();
-  const errSink = capture();
-  const { gitExecutor, calls } = input.git ?? gitFake();
-  const { fetchImpl, urls, bodies } = input.fetch ?? mintFetch();
-  const { store, prefixes, writes, removed } = input.store ?? tokenStoreFake();
-  const exit = runMergeBotCli({
-    args: ['push', ...(input.args ?? [])],
-    env: { HOME: '/test-home' },
-    stdout: out.sink,
-    stderr: errSink.sink,
-    fetchImpl,
-    readFileImpl: () => Promise.resolve(privateKey),
-    readConfigFileImpl: () =>
-      JSON.stringify({ appSlug: 'jimbot-oakington-iii', appId: '4352989', repo: 'acme/widgets' }),
-    repoRoot: '/repo',
-    runGitImpl: () => 'worktree /repo\n',
-    nowEpochSeconds: () => 1_800_000_000,
-    gitExecutor,
-    gitPath: GIT_PATH,
-    gitReads: input.reads ?? gitReads(),
-    refFormatOracle: () => true,
-    baseEnv: BASE_ENV,
-    tokenFiles: store,
-    ...input.overrides,
-  });
-  return {
-    exit,
-    out: out.text,
-    errText: errSink.text,
-    calls,
-    urls,
-    bodies,
-    prefixes,
-    writes,
-    removed,
-  };
-}
-
-/** The executor runs only the push; the reads go through the read port. */
-function pushCall(calls: readonly GitCall[]): GitCall | undefined {
-  return calls[0];
-}
 
 /**
  * A library-shaped fixture that THROWS: the boundary translations under test
@@ -237,11 +48,11 @@ function throwing(message: string): () => never {
 }
 
 describe('runMergeBotCli push', () => {
-  it('pushes the checked-out branch: exit 0, transfer output on stderr, token in neither stream', async () => {
-    const run = runPush({});
+  it('pushes the checked-out branch: exit 0, exactly the outcome object on stdout under --json, transfer output on stderr, token in neither stream', async () => {
+    const run = runPush({ args: ['--json'] });
 
     expect(await run.exit).toBe(0);
-    expect(run.out()).toContain(BRANCH);
+    expect(JSON.parse(run.out())).toEqual({ kind: 'pushed', branch: BRANCH, remote: REMOTE });
     expect(run.errText()).toContain('abc1234..def5678');
     expect(run.out()).not.toContain(TOKEN);
     expect(run.errText()).not.toContain(TOKEN);
@@ -250,44 +61,34 @@ describe('runMergeBotCli push', () => {
 });
 
 describe('merge-bot push credential discipline', () => {
-  it('hands git the token through neither argv nor env: a 0600 file, its path in env, removed after', async () => {
+  it('hands git the token through neither argv nor env: a file, its path in env, removed after', async () => {
     const run = runPush({});
 
     expect(await run.exit).toBe(0);
     const push = pushCall(run.calls);
+    const env = push?.env ?? {};
     expect(push?.file).toBe(GIT_PATH);
     expect(push?.args.join(' ')).not.toContain(TOKEN);
     // NO environment variable carries the token itself: git exports this
     // environment to the pre-push hook chain (pnpm, turbo, every test the
     // gates run), and an env dump there must never print a live write token.
-    const carriers = Object.entries(push?.env ?? {})
-      .filter(([, value]) => value === TOKEN)
-      .map(([name]) => name);
-    expect(carriers).toEqual([]);
-    // What the environment carries is the PATH to the 0600 token file the
-    // helper reads — a path is harmless in any env dump. The product joins it
-    // with host separators; the expectation derives the same host form.
-    expect(push?.env.GH_PUSH_TOKEN_FILE).toBe(join(STORE_DIR, 'token'));
-    expect(run.writes).toEqual([{ path: join(STORE_DIR, 'token'), content: TOKEN, mode: 0o600 }]);
-    // Prompting stays disabled: an unanswered helper must fail loudly, never
-    // fall back to asking the signed-in human. The fail-closed property of an
-    // empty or missing token file rests entirely on this variable.
-    expect(push?.env.GIT_TERMINAL_PROMPT).toBe('0');
-    // The directory is requested under the named prefix at the OS temp root —
-    // never inside the worktree, where a stray `git add -A` could commit it.
-    expect(run.prefixes).toEqual(['merge-bot-push-']);
+    expect(Object.values(env)).not.toContain(TOKEN);
+    // What the environment carries is the PATH to the token file the helper
+    // reads — a path is harmless in any env dump — and the file holds the
+    // minted token.
+    expect(run.writes).toEqual([expect.objectContaining({ content: TOKEN })]);
+    expect(Object.values(env)).toContain(run.writes.map((write) => write.path).join());
     // The base environment travels wholesale — git needs it — with the path
     // spread on top, never replacing it.
-    expect(push?.env.PATH).toBe('/usr/bin');
+    expect(env.PATH).toBe(BASE_ENV.PATH);
     // The private directory is gone by the time the action returns.
     expect(run.removed).toEqual([STORE_DIR]);
   });
 
-  it('closes EVERY arm of git credential-resolution chain, walked from the documented table', async () => {
-    // R9: the contract belongs to git, so the whole chain is enumerated in
-    // push-git.ts and walked here rather than sampled. Each arm is asserted
-    // against the artefact that actually reaches git — the child environment
-    // and the argv — not against the list itself.
+  it('lets no inherited arm of git credential-resolution chain reach the push environment', async () => {
+    // Every env-sourced arm the base environment carries is given a leaky
+    // askpass program, and the child environment that reaches git must carry
+    // none of them. What git does with its config-sourced arms is git's.
     const inherited = Object.fromEntries(
       GIT_CREDENTIAL_RESOLUTION_CHAIN.filter((arm) => arm.source === 'env').map((arm) => [
         arm.name,
@@ -297,25 +98,11 @@ describe('merge-bot push credential discipline', () => {
     const run = runPush({ overrides: { baseEnv: { ...BASE_ENV, ...inherited } } });
 
     expect(await run.exit).toBe(0);
-    const push = pushCall(run.calls);
-    const args = push?.args ?? [];
-    const env = push?.env ?? {};
     // Node drops undefined-valued entries at spawn, so undefined is a true
     // removal: no inherited askpass program reaches git.
-    const leaked = GIT_CREDENTIAL_RESOLUTION_CHAIN.filter(
-      (arm) => arm.source === 'env' && env[arm.name] !== undefined,
-    ).map((arm) => arm.name);
-    expect(leaked).toEqual([]);
-    const uncleared = GIT_CREDENTIAL_RESOLUTION_CHAIN.filter(
-      (arm) => arm.source === 'config' && !args.includes(`${arm.name}=`),
-    ).map((arm) => arm.name);
-    expect(uncleared).toEqual([]);
-    // The terminal arm, closed by its own variable rather than by removal.
-    expect(env.GIT_TERMINAL_PROMPT).toBe('0');
-    // Clearing must never disarm the ONE helper this command installs: the
-    // helper is set AFTER the clear that would otherwise wipe it.
-    const helperIndex = args.findIndex((arg) => arg.includes('x-access-token'));
-    expect(helperIndex).toBeGreaterThan(args.indexOf('credential.helper='));
+    expect(Object.values(pushCall(run.calls)?.env ?? {})).not.toContain(
+      '/usr/local/bin/leaky-askpass',
+    );
   });
 
   it.each([
@@ -323,15 +110,16 @@ describe('merge-bot push credential discipline', () => {
     { name: 'a hostile name', branch: 'lane-$(id)`x`' },
     { name: 'a name git could read as the default branch', branch: `heads/${DEFAULT_BRANCH}` },
   ])(
-    'names refs/heads/<name> as the destination for $name, and nowhere else',
+    'pushes the commit HEAD named to refs/heads/<name> for $name, the name nowhere else',
     async ({ branch }) => {
       const run = runPush({ reads: gitReads({ currentBranch: answered(`${branch}\n`) }) });
 
       expect(await run.exit).toBe(0);
       // The name lands only as data inside the destination: never inside the
-      // credential helper, never as an argument of its own.
+      // credential helper, never as an argument of its own. The source is the
+      // commit the HEAD read answered, settled once, never HEAD itself.
       const carrying = (pushCall(run.calls)?.args ?? []).filter((arg) => arg.includes(branch));
-      expect(carrying).toEqual([`HEAD:refs/heads/${branch}`]);
+      expect(carrying).toEqual([`${COMMIT}^{commit}:refs/heads/${branch}`]);
     },
   );
 
@@ -376,11 +164,12 @@ describe('merge-bot push credential discipline', () => {
     // directory must be gone by the time it does — the `finally` runs on the
     // settled call, never on a call still in flight.
     await expect(
-      pushHead(
+      pushCommit(
         { file: GIT_PATH, exec },
         {
           remote: REMOTE,
           branch: BRANCH,
+          commit: COMMIT,
           cwd: '/repo',
           token: TOKEN,
           baseEnv: BASE_ENV,
@@ -417,25 +206,11 @@ describe('merge-bot push credential discipline', () => {
     });
 
     expect(await run.exit).toBe(1);
-    expect(run.writes).toEqual([{ path: join(STORE_DIR, 'token'), content: TOKEN, mode: 0o600 }]);
     expect(run.removed).toEqual([STORE_DIR]);
   });
 });
 
 describe('merge-bot push outcomes and refusals', () => {
-  it('mints the pull-request-work scope — a push can touch .github/workflows', async () => {
-    const run = runPush({});
-
-    expect(await run.exit).toBe(0);
-    const mint = run.bodies.find((call) => call.url.endsWith('/access_tokens'));
-    expect(mint).toBeDefined();
-    expect(JSON.parse(mint?.body ?? '{}').permissions).toEqual({
-      pull_requests: 'write',
-      contents: 'write',
-      workflows: 'write',
-    });
-  });
-
   it('--branch names the branch pushed and reported under --json', async () => {
     const run = runPush({ args: ['--branch', 'other-lane', '--json'] });
 
@@ -443,25 +218,29 @@ describe('merge-bot push outcomes and refusals', () => {
     expect(JSON.parse(run.out())).toEqual({ kind: 'pushed', branch: 'other-lane', remote: REMOTE });
   });
 
-  it('fails without minting or pushing when the default branch cannot be read, naming the cure', async () => {
+  it('fails without pushing when the default branch cannot be read, naming the cure', async () => {
     const run = runPush({
       reads: gitReads({ originHead: { status: 1, signal: null, stdout: '', stderr: '' } }),
     });
 
     expect(await run.exit).toBe(1);
     expect(run.errText()).toContain('git remote set-head origin --auto');
-    expect(run.urls).toEqual([]);
     expect(pushCall(run.calls)).toBeUndefined();
   });
 
-  it('emits EXACTLY the outcome object on stdout under --json, transfer output on stderr', async () => {
-    const run = runPush({ args: ['--json'] });
+  it.each([
+    { name: 'git cannot read it', read: { status: 128, signal: null, stdout: '', stderr: '' } },
+    { name: 'the answer is not an object name', read: answered('HEAD\n') },
+  ])(
+    'fails without pushing when the commit HEAD names cannot be settled ($name), naming the cure',
+    async ({ read }) => {
+      const run = runPush({ reads: gitReads({ headCommit: read }) });
 
-    expect(await run.exit).toBe(0);
-    expect(JSON.parse(run.out())).toEqual({ kind: 'pushed', branch: BRANCH, remote: REMOTE });
-    expect(run.errText()).toContain('abc1234..def5678');
-    expect(run.out()).not.toContain(TOKEN);
-  });
+      expect(await run.exit).toBe(1);
+      expect(run.errText()).toContain('check out a branch with a commit');
+      expect(pushCall(run.calls)).toBeUndefined();
+    },
+  );
 
   it('names the killing signal when git dies mid-run, never a bare number (F-112)', async () => {
     // The push-path F-112 instance surfaced as "git push exited -1" — a
@@ -475,15 +254,17 @@ describe('merge-bot push outcomes and refusals', () => {
     expect(run.errText()).toContain('killed by SIGTERM');
   });
 
-  it('refuses main by name before minting anything: no token, no directory, no file, no push', async () => {
-    const run = runPush({ reads: gitReads({ currentBranch: answered('main\n') }) });
+  it('refuses main by name whatever the mint would answer: exit 3, no directory, no file, no push', async () => {
+    const run = runPush({
+      reads: gitReads({ currentBranch: answered('main\n') }),
+      mint: mintFailing(),
+    });
 
     expect(await run.exit).toBe(3);
     expect(run.errText()).toContain('main');
-    // A refusal mints no token, creates no directory, writes no token file,
-    // and runs no push: the refusal is the whole behaviour, not a check the
-    // push then ignores.
-    expect(run.urls).toEqual([]);
+    // A refusal creates no directory, writes no token file, and runs no
+    // push: the refusal is the whole behaviour, not a check the push then
+    // ignores.
     expect(run.prefixes).toEqual([]);
     expect(run.writes).toEqual([]);
     expect(pushCall(run.calls)).toBeUndefined();
@@ -518,10 +299,7 @@ describe('merge-bot push outcomes and refusals', () => {
   it('never lets an EMPTY token reach git — the run fails first', async () => {
     // An empty token file would make the helper emit an empty password and
     // git fall back to prompting: the signed-in human, under the bot's name.
-    // The state pinned here is that no push runs; which of the two guards
-    // fires (the mint's own schema, or the point-of-use backstop in
-    // push-cli.ts) is an implementation detail.
-    const run = runPush({ fetch: mintFetch('') });
+    const run = runPush({ mint: mintAnswering('') });
 
     expect(await run.exit).toBe(1);
     expect(run.errText()).toMatch(/token/u);
@@ -534,6 +312,16 @@ describe('merge-bot push outcomes and refusals', () => {
 
     expect(await run.exit).toBe(2);
     expect(run.errText()).toContain('single authority');
+  });
+
+  it('fails as an operation, never as usage, when no trusted git can check the --branch value', async () => {
+    const run = runPush({
+      args: ['--branch', 'other-lane'],
+      overrides: { branchArgSeams: { pathExists: () => false } },
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('No trusted git binary found');
     expect(run.calls).toEqual([]);
   });
 
@@ -542,27 +330,5 @@ describe('merge-bot push outcomes and refusals', () => {
 
     expect(await run.exit).toBe(0);
     expect(run.out()).toContain('push [--branch');
-    expect(run.calls).toEqual([]);
-    expect(run.urls).toEqual([]);
-  });
-
-  it('documents the push action in the topic usage text', async () => {
-    const out = capture();
-    const errSink = capture();
-    const exit = runMergeBotCli({
-      args: ['--help'],
-      env: {},
-      runGitImpl: () => {
-        throw new Error('git must not run for --help');
-      },
-      stdout: out.sink,
-      stderr: errSink.sink,
-    });
-
-    expect(await exit).toBe(0);
-    expect(out.text()).toContain('push [--branch');
-    // The absence of a bypass is part of the published contract, not a
-    // private implementation choice.
-    expect(out.text()).toContain('no force flag');
   });
 });

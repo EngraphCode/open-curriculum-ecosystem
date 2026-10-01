@@ -5,12 +5,13 @@ import type { PrStateReading } from '../pr-watch/state-types.js';
 import { MERGE_USAGE } from './merge-args.js';
 import { runMergeAction, type MergeActionInput } from './merge-cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
-import { mintForConfig, type MintedToken } from './mint-for-config.js';
+import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
+import type { BranchArgSeams } from './branch-arg.js';
 import type { GitExecutor } from './git-executor.js';
 import type { PushGitReads, TokenFileStore } from './push-git.js';
-import type { RefFormatOracle } from './ref-format.js';
+import type { PushMint } from './push-mint.js';
 import type { GitRunner } from '../collaboration-state/coordination-home.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
@@ -82,8 +83,10 @@ export interface MergeBotCliInput {
   readonly tokenFiles?: TokenFileStore;
   /** Push seam: git's answers about HEAD and origin. */
   readonly gitReads?: PushGitReads;
-  /** Push seam: branch-name legality for --branch. */
-  readonly refFormatOracle?: RefFormatOracle;
+  /** Push seam: the `--branch` check's oracle. */
+  readonly branchArgSeams?: BranchArgSeams;
+  /** Push seam: the push's token mint. Unset, the push mints with `mintForConfig` over `fetchImpl`, `readFileImpl` and `nowEpochSeconds`; set, those three never reach the push. `mint-token` and `merge` never read it. */
+  readonly mintImpl?: PushMint;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
@@ -107,6 +110,15 @@ ${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionNamesFor(name).join(
 ${MERGE_USAGE}
 ${PUSH_USAGE}`;
 
+/** The mint's injection seams, the same for every action that mints. */
+function mintSeamsFrom(input: MergeBotCliInput): MintSeams {
+  return {
+    fetchImpl: input.fetchImpl,
+    readFileImpl: input.readFileImpl,
+    nowEpochSeconds: input.nowEpochSeconds,
+  };
+}
+
 /** Forward the CLI's injection seams to the merge action. */
 function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
   return {
@@ -118,16 +130,14 @@ function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
     },
     stdout: input.stdout,
     stderr: input.stderr,
-    fetchImpl: input.fetchImpl,
-    readFileImpl: input.readFileImpl,
-    nowEpochSeconds: input.nowEpochSeconds,
+    ...mintSeamsFrom(input),
     readReadingImpl: input.readReadingImpl,
     sleepImpl: input.sleepImpl,
     nowIsoImpl: input.nowIsoImpl,
   };
 }
 
-/** Forward the CLI's injection seams to the push action. */
+/** Forward the CLI's injection seams to the push action, composing its mint. */
 function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
   return {
     identityInput: {
@@ -139,15 +149,15 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
     repoRoot: input.repoRoot ?? process.cwd(),
     stdout: input.stdout,
     stderr: input.stderr,
-    fetchImpl: input.fetchImpl,
-    readFileImpl: input.readFileImpl,
-    nowEpochSeconds: input.nowEpochSeconds,
+    mint: input.mintImpl ?? ((config) => mintForConfig(config, mintSeamsFrom(input))),
+    sleepImpl: input.sleepImpl,
+    nowIsoImpl: input.nowIsoImpl,
     gitExecutor: input.gitExecutor,
     gitPath: input.gitPath,
     baseEnv: input.baseEnv,
     tokenFiles: input.tokenFiles,
     gitReads: input.gitReads,
-    refFormatOracle: input.refFormatOracle,
+    branchArgSeams: input.branchArgSeams,
   };
 }
 
@@ -198,11 +208,7 @@ async function runMintTokenAction(
     return 2;
   }
 
-  const outcome = await mintForConfig(config.value, {
-    fetchImpl: input.fetchImpl,
-    readFileImpl: input.readFileImpl,
-    nowEpochSeconds: input.nowEpochSeconds,
-  });
+  const outcome = await mintForConfig(config.value, mintSeamsFrom(input));
   if (!outcome.ok) {
     input.stderr.write(`merge-bot mint-token: ${outcome.error.message}\n`);
     return 1;

@@ -55,7 +55,12 @@ inter-practice protocol / an incoming-capture note), and the adaptation
 note — the maximum reproducibility a private upstream permits. Stating
 "no public upstream URL exists" explicitly is part of the citation, so a
 reader knows the link's absence is a property of the source, not an
-omission.
+omission. Where the private upstream is the owner's own project, the
+citation uses the name the owner gives it for the repository: on
+2026-09-27 the owner ruled, relayed by the Director on OCE pull request
+250, that one such project's own name stays out of the repository for
+now and that it is called Student Support Experiments until the owner
+says otherwise (one instance).
 
 The motivation is twofold: (a) reproducibility — a future reader
 should be able to consult the upstream when a local restatement
