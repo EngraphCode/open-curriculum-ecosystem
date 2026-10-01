@@ -28,7 +28,7 @@ As with all Oak products, we design in line with the DfE's [Generative AI Produc
 
 Claude can draw on Oak's content, but will not always do this. Its outputs are AI-generated and not endorsed by Oak. You are the expert and know your pupils best. As with all resources, check carefully that what you create is right for your pupils and context.
 
-Oak content is licensed under the Open Government Licence v3.0 and requires attribution to Oak. A small amount of Oak’s content is not available through this Claude connector due to copyright and licensing restrictions.
+Oak content is licensed under the Open Government Licence v3.0 and requires attribution to Oak. A small amount of Oak’s content is not available through this Claude plugin due to copyright and licensing restrictions.
 
 Explore the full library at thenational.academy.
 
