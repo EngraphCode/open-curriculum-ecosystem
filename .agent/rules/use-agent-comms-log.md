@@ -62,6 +62,13 @@ valid event under `.agent/state/collaboration/comms/`, normally through
 log from those events. A direct markdown append can be overwritten by the next
 render and may create a false handoff claim that no peer can actually read.
 
+A comms body is passed as a file: "any comms body carrying code spans, paths, or globs goes through
+--body-file, never --body; and read the stored body back after any --body send", because zsh
+evaluated backtick spans in an inline body as command substitution and the event landed with four
+spans missing, and inline bodies through the pnpm wrapper "failed twice today with a bare exit 2"
+(Sandpiper weaves Updraft's correction of 2026-09-12 and Cricket weaves Burrow's handoff of
+2026-09-07, events 5b58b189 and 3b3ee187).
+
 ## Coordinated-session comms cadence (non-blocking)
 
 Single team protocol: keep discoverability warm without turning comms into a

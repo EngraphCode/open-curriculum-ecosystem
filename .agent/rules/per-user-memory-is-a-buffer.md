@@ -22,8 +22,8 @@ Substance written into per-user memory with cross-platform or
 cross-session value **MUST** be integrated into in-repo surfaces
 during:
 
-- `oak-session-handoff` step 6 — mirror at session close.
-- `oak-consolidate-docs` step 3 — cross-platform ingestion at
+- the `session-handoff` skill, step 6 — mirror at session close.
+- the `consolidate-docs` skill, step 3 — cross-platform ingestion at
   thread-scoped depth.
 
 Until that integration happens, the substance lives in a single
@@ -76,8 +76,8 @@ per-user buffer.
 
 ## How to Apply
 
-At every `oak-session-handoff` step 6 and `oak-consolidate-docs`
-step 3, the agent sweeps **its own platform's per-user memory
+At step 6 of every `session-handoff` and step 3 of every `consolidate-docs`
+run, the agent sweeps **its own platform's per-user memory
 surface** for substance with cross-platform value. The sweep
 produces either:
 
@@ -106,7 +106,7 @@ line is a re-truing that keeps every seat's head.
 
 At session open, the agent reads **only its own platform's
 surface**. Reading another platform's per-user memory for insight
-is a consolidation-time activity (`oak-consolidate-docs` step 3),
+is a consolidation-time activity (the `consolidate-docs` skill, step 3),
 not a session-open activity. The reason: session-open grounding is
 bounded by the session-open context budget (PDR-124's injected-tier
 economy); sweeping all platforms' memories at every open would

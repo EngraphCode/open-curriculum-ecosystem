@@ -116,9 +116,6 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **Comms decision table of the 2026-09-25 pass: the rows with no home found (owner words A, decisions B, lessons C, follow-ups D)**
-  `[captured: 2026-09-25 | source: the comms decision table (1,266 non-heartbeat events 2026-08-14 to 2026-09-25T11:17:35Z, eight analysts, one reducer), conserved with its analyses at .agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/consolidation-2026-09-25/ (tracked; the analyst outputs and briefs are in the ignored instance tier .agent/state/collaboration/comms-analysis-2026-09-25/); section A (93 owner-word rows) was read whole by the seat and twenty-two of its rows are accepted for rules, skills, the rulings ledger and two Core PDRs; sections B (42 rows), C (93 rows) and D (61 rows) are unread by the seat and unverified | target: per row, in the table's plausible-home column; every move-bearing claim verified at the event file (comms-archive after the sweep) before the edit | trigger: the next curator context, any budget (no directive edits above 30 %) | size: one lane, several commits | status: pending]`
-
 ## Slow lane (PDR-130 — constitutional-class concepts, decided at their review date)
 
 Rows here are live deliverables under a named review gate, NOT decision-debt:

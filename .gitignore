@@ -26,7 +26,7 @@ ONBOARDING.md
 # Local MCP server config
 .mcp.json
 # Plugin-shipped MCP configs are tracked release artefacts, not local config.
-!plugins/*/.mcp.json
+!claude/plugins/*/.mcp.json
 
 # Repo-scoped tool binaries: .agent/setup/install-shellcheck.sh installs the
 # pinned shellcheck here, and the lint:shell gate runs it before any on PATH.
@@ -47,8 +47,13 @@ ONBOARDING.md
 .cursor/oak-composer-session.local.json
 .gemini/settings.local.json
 
-# Claude agent worktrees (transient, machine-local)
-.claude/worktrees/
+# Agent worktrees nested in the checkout (owner ruling 2026-09-30): every
+# lane lives under .claude/worktrees/<lane>, ignored here and by every root
+# check tool; only the placeholder .gitignore inside it is tracked (the
+# contents pattern, not the directory: git cannot re-include a file under an
+# ignored directory).
+.claude/worktrees/**/*
+!.claude/worktrees/.gitignore
 
 # Claude hook error log (machine-local; created on demand by .claude/hooks/_lib/log-hook-errors.sh)
 .claude/logs/

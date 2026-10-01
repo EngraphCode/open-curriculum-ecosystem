@@ -33,6 +33,10 @@ Load `.agent/skills/change-custody/complex-merge/shared/complex-merge.md` and en
      `*.next-session.md` records, registers, anything with a `merge_class:` key). Git
      line-merges corrupt their meaning even with no conflict marker, and both git and the
      merging agent can be "confident and wrong"; reconcile those by concept, not lines.
+     Where the set is a STACK of pull requests over the same continuity files, no merge
+     order lands the later ones unchanged: preserve each PR's accepted outcome, prove
+     custody, and rebuild the story as one change on fresh `main`
+     (`pre-merge-divergence-analysis` §stacked pull requests).
 3. Execute the 7-phase process from the shared workflow:
    - Phase 1: Measure divergence
    - Phase 2: Identify all conflicts (text and structural)

@@ -73,3 +73,11 @@ corrupt the *meaning* even when no conflict marker appears, and both git AND the
 merging agent can be "confident and wrong". Reconcile those by CONCEPT via the
 [semantic-merge skill](../skills/change-custody/semantic-merge/SKILL-CANONICAL.md), never by
 trusting the conflict count.
+
+Stacked pull requests over the same continuity files have no safe merge order
+in which the later ones land unchanged: each merge re-truths the files the next
+one also edits, so the second and third carry stale line-merges of the first
+whatever the order. Preserve the accepted outcomes (the settled text of each),
+prove custody of every commit, then rebuild the bounded story as one change on
+fresh `main`; never merge the stack in sequence and reconcile afterwards
+(2026-08-12: a three-PR records closeout was rebuilt this way).

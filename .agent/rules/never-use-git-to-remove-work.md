@@ -86,6 +86,10 @@ Three reasons, in increasing order of consequence:
 | "Revert this file to before I touched it" | `git checkout HEAD -- <file>` | `Read` the HEAD version (`git show HEAD:<file>` to a buffer; do not run `git checkout`); `Edit` your version line-by-line to match what you want to keep |
 | "Delete the needless complexity" | `git checkout HEAD -- .` | `rm` the files that should not exist; `Edit` the files that should exist but in simpler form; capture the realisation in the napkin |
 | "I went down a wrong path; reset" | `git reset --hard HEAD` | `Edit` the files back toward where you want them; this is slower and that is the point — slow is the rate at which the realisation travels with the action |
+| "Sync my local `main` to `origin/main`" when the local branch carries local-only commits | `git reset --hard origin/main` over the unexamined commits | Preserve the pointer first as a dated branch (`git branch main-local-<date>`), read what it holds, then move `main`; never move a ref over unexamined local-only commits (2026-08-12: two months-old local commits) |
+| "Delete every file this grep matched" | `grep -l … \| xargs rm` | Print the list and read it before any `rm`, and match the import form (`from '…/<module>/`), never a bare path string, which also matches comments (2026-09-12: eight files deleted by a comment match) |
+| "Revert this range" or "check out the whole tree from that ref" | A bulk revert or whole-tree checkout from a diff read at a glance | Confirm the diff's shape first: a two-dot `parent..HEAD` diff conflates both sides, so `git diff --stat` the exact range and read it before any bulk act (2026-06) |
+| "Rebase it", "reset hard", "force the push" | A history-rewriting or outward op staged (tree stashed and cleaned) before the environment's policy is read | Read `.agent/hooks/policy.json` and the host deny-list first; a denied op takes the permitted path (merge, a patch onto a fresh branch), never a route around the guard; the owner's word that an act is wanted is not the same fact as the act being admissible here (2026-06-05) |
 
 The `rm` in that table is scoped to YOUR OWN deliberate drafts of this
 session — files you created on purpose and now judge needless. It does not
@@ -119,6 +123,11 @@ dirty tree blocks a standard operation, the options presented are standard
 git ones, with the genuinely risk-class step (clearing a dirty shared
 checkout) routed to the owner to run, surfaced once, never an agent
 workaround.
+
+When a handoff says fetch and rebase but the tree is dirty, do not rebase: fetch, prove the required
+commits are already ancestors of HEAD with `git merge-base --is-ancestor`, and proceed from that
+base, reporting whether origin is ahead or behind. A rebase in a dirty tree is the owner's call
+(OCE friction F-29, settled 2026-09-14).
 
 ## A Block Is a Question, Never a Detour
 

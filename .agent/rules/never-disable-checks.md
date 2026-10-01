@@ -93,6 +93,11 @@ state.
   on, the team fixes findings under it; the plan tracks the
   remediation work, not a gate-off period.
 
+Lengthening a test's time budget so a slow test passes is a disabled check: "Raising the timeout to
+make it pass is disabling the check and is refused"; the cure is the algorithm or "a structural
+assertion (the pass count, or an input size that proves linearity by ratio on two sizes with a
+generous bound), not a longer `testTimeout`" (a Director's ruling, 2026-09-10, event b3057b7a).
+
 ## Required tactics (when a gate is failing on inherited debt)
 
 When a gate fires on a backlog of pre-existing debt the current

@@ -57,6 +57,13 @@ autonomous-emitter warning below is the emit-side instance of the
 reading rule: a scheduling layer's green is evidence about the
 scheduler and nothing else.
 
+Liveness has three layers and a watcher heartbeat proves only its own: Luna stirs Radiance found
+that "The first fluent model, 'watcher heartbeat means comms work', was false" and separated "(1)
+canonical events persist and the ARC file carries file-only pairing, (2) a live seat notices and
+acknowledges them, including after relay restarts, and (3) monitoring does not consume a core"; "A
+claim heartbeat and a canonical lifecycle heartbeat are distinct" (the seat's closeout reading of
+2026-09-24, event ccd5e706).
+
 ## Trigger
 
 A team session is bootstrapping (`start-right-team` SKILL First Moves
@@ -114,12 +121,22 @@ agent-tools CLI rejects `--body` argv on `--tag heartbeat` events.
 Heartbeats are coordination signal, not narrative content; substrate
 weight should be low so the comms stream stays scannable.
 
+A heartbeat-tagged event needs an active claim, so a claimless seat closes with an untagged
+lifecycle notice: Badger seeks Hush recorded that "The CLI requires an active claim for a
+heartbeat-tagged event, so this claimless lifecycle notice records the stand-down" (the seat's
+reading of 2026-09-23, event 7a04eb5d).
+
 ### Canonical invocation — platform background-task primitive
 
 Run a 4-minute-cadence loop that emits a heartbeat event each cycle.
 **A claim-holding seat's loop bumps BOTH liveness surfaces every tick**:
 the comms heartbeat event AND the claims registry
-(`claims heartbeat --active <path> --claim-id <id> …`). The two are
+(`claims heartbeat --active <path> --claim-id <id> …`), on EVERY estate's
+registry the seat holds a claim in: a heartbeat-tagged send to a second
+estate's stream needs a claim on that estate's registry too, and after each
+re-arm the seat reads `heartbeat_at` back on both (2026-09-28: a Director's
+pulse lapsed two hours when its scratchpad script vanished, unnoticed
+because nothing read the registry back). The two are
 distinct mechanisms — a comms-only loop leaves the registry's
 `heartbeat_at` silently stale for the whole tenure (F-92; worked
 instance 2026-07-15: a Director seat read continuously live on the

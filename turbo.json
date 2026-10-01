@@ -2,7 +2,11 @@
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
   "remoteCache": {
-    "enabled": true
+    "enabled": true,
+    // The team that holds the cache: turbo's lowest-priority team source
+    // (TURBO_TEAM in the environment, a `turbo link` config and a Vercel
+    // build's own credentials all outrank it), so a clone needs no link.
+    "teamSlug": "engraph"
   },
   "globalPassThroughEnv": [
     "OAK_API_KEY",

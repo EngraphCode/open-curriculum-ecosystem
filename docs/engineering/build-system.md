@@ -173,6 +173,10 @@ for the matrix, the per-check rationale, and the verify-vs-mutate rule.
 
 **Key principle**: pre-push and CI run the same check set. A CI-only failure
 indicates an environmental or configuration issue, not a missing check.
+A required check's verdict depends only on the head: a build that fetches from
+the network (Google fonts inside `next build`) fails on the network, and a pure
+sync went red twice in three hours and green on re-run (2026-09-28, F-208).
+Vendor the inputs (`next/font/local`) so the verdict is the head's.
 `pnpm check` is the broadest surface, adding clean rebuild, widget
 tests, and a11y tests. See ADR-121 for the full rationale.
 `pnpm check:docs` is the focused, verify-only aggregate for documentation work;
@@ -186,6 +190,10 @@ a push succeeds. Conversely, a green declared on a **partial local subset**
 commit or push will pass: the gates are independent, so enumerate the
 actual gate set the boundary will run and run that set, never the
 convenient subset.
+
+Hook-time validators run from the lockfile through `pnpm exec`, never through `pnpm dlx`: dlx
+resolves the newest registry version at commit time, and once fetched an unpublished transitive
+package so a message that passed locally failed in the commit-msg hook (OCE friction F-31, settled 2026-05-12).
 
 ## Quality Gate Commands
 
@@ -289,6 +297,11 @@ process.
   stage, but it does not prove the later root-only stages would pass. After
   clearing one failure, expect the next downstream stage to reveal another
   latent problem until `pnpm check` itself is green.
+
+The profile artefact records the environment it ran in: the Node version, the pnpm store path,
+whether the Playwright browser cache exists, and a note that Chromium fails under a restricted macOS
+sandbox with Mach-port permission errors. Read those fields before classifying a browser-leg failure
+as a product failure, and rerun outside the sandbox first (F-20, settled 2026-06-08).
 
 ### `pnpm test:all` - All test suites
 
@@ -457,6 +470,40 @@ the second estate runs its smoke suite that way on every gate.
 | `lint:fix` | ❌     | Modifies source files |
 | `clean`    | ❌     | Destructive operation |
 | `dev`      | ❌     | Persistent process    |
+
+### The remote cache is optional and reached without a login
+
+Remote caching is enabled in `turbo.json`, which also names the Vercel team that
+holds the cache (`remoteCache.teamSlug`, the lowest-priority team source:
+`TURBO_TEAM` in the environment, a `turbo link` config and a Vercel build's own
+credentials all outrank it); the hooks export `TURBO_UI=0` so the TUI does not
+swallow output.
+
+The remote cache is optional. This repository enables it; a fork, a clone or a
+shell without a credential runs every gate the same on turbo's local cache, and
+each place says so in one information line rather than failing. The login-free
+path to the cache is a token in `TURBO_TOKEN`. Turbo also reads a `turbo login`
+credential from its own config when the variable is absent; that is a user
+token that expires, so the repository's shape rests on `TURBO_TOKEN` and does
+not remove the fallback:
+
+- A developer's host: a team-scoped token exported as `TURBO_TOKEN` from the
+  shell profile (read from a keychain, never a file in the tree). The hooks
+  source `.husky/turbo-remote-cache-notice.sh`, which prints one line when the
+  shell carries no `TURBO_TOKEN`; the line names turbo's own login credential
+  as the one other way the cache is reached, since the shell cannot see it. A
+  token the cache refuses is turbo's own warning in the gate output; the gates
+  judge turbo by its exit code, so it does not fail them.
+- CI: every job that runs turbo (`ci.yml`'s five, and `release.yml`'s build)
+  holds `id-token: write` and runs `vercel/setup-turborepo-remote-cache-action`
+  before its first turbo step. The action exchanges the job's GitHub OIDC token
+  for a short-lived Vercel token against the team's OIDC policy for this
+  repository, sets `TURBO_TOKEN` and `TURBO_TEAM` (the `TURBO_TEAM` variable)
+  for the following steps and revokes the token when the job ends. The step
+  runs only where a token can exist and a team is named (not on a fork's or
+  Dependabot's pull request, not without the variable) and never fails the
+  job; a step that did not succeed leaves a `::notice` annotation naming what
+  to configure. The policy and the variable are the owner's to set.
 
 ## Mixing pnpm and turbo
 

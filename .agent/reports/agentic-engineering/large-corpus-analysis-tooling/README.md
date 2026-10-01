@@ -28,7 +28,9 @@ judgment, deterministic aggregation, conserve-by-default) and feeds the conserva
 
 Each step: build the seeded artefact (validates the input checkpoints with the zod stage
 contracts — a partial map, a failed stage, or an incomplete merged disposition set is a typed
-refusal), launch it, then commit the returned result envelope as the next checkpoint.
+refusal), launch it, then commit the returned result envelope as the next checkpoint. Every
+checkpoint flag must name a file that resolves inside this checkout: a partition or result
+left in a temp or scratch directory is refused before it is read.
 
 ```bash
 # from agent-tools/; artefacts land in dist/corpus-analysis/workflows/ (gitignored)
@@ -140,3 +142,32 @@ run already mapped. The shape, all file-level, no engine change:
 
 The meta stage emits absolute home paths; rewrite them repo-relative before committing the
 checkpoint (the driver resolves either form; the path ratchet accepts only the relative one).
+
+## Findings received, not yet verified here
+
+The second estate restored this workflow in its pull request 86 (2026-09-14) and signed the
+findings below "to the exchange window": each is a reviewer's claim about this estate's logic,
+read there and routed here, one instance each. None is verified against this estate's code yet;
+each needs its own read, and a cure its own lane.
+
+| Surface | The finding as signed |
+| --- | --- |
+| `workflows/map.workflow.ts` | Each returned leaf's `window` is not checked against the partition window it was dispatched for. |
+| `workflows/map.workflow.ts`, `workflows/adjudication.ts` | The setTimeout jitter is absent from the harness sandbox; staggering is a host-scheduler design. |
+| `workflows/adjudication.ts` | A `HarnessParallel` null slot is not kept as an unadjudicated outcome; the source estate calls the defect real, and its cure touches the state machine's retry slicing. |
+| `workflow-build/harness-emitter.ts` | The meta-binding guard misses the `async function` and generator forms. |
+| `workflows/meta.workflow.ts` | No empty-candidates guard, an asymmetry the schema already closes. |
+| `workflows/stage-io.ts` | Map completeness is taken from the envelope, not recomputed from partition, coverage and leaves. |
+| `workflows/run-inputs.ts` | The resume seed is read from the checkpoint's resolved ids, not derived from the dispositions. |
+| `post-run/post-run-driver.ts` | A recall match through a killed or held candidate counts toward Choice-B, not as missed. |
+| `post-run/post-run-driver.ts` | The validate-set completeness and merge gate are not re-run before the close's aggregates. |
+| `post-run/post-run-driver.ts` | The recall integrity pass does not check `matchedCandidateId` against the run's candidates. |
+| `post-run/salvage-driver.ts` | The standalone salvage path runs without the close's recall-integrity tripwire. |
+| `aggregation-recall.ts` | An omitted known baseline reads as a miss, not as an integrity violation. |
+| `real-world-signal.ts` | More than one corroboration claim per candidate passes the meta boundary. |
+| `recall-schemas.ts` | The 3-to-8 `synthesisNotes` cardinality is a prompt-and-schema pair to keep in step. |
+
+One more, found here on the same read: `restatement-audit/render-ledger-cli.ts` and
+`restatement-audit/derive-stage-run-data.ts` take the repo root from `CLAUDE_PROJECT_DIR`, and
+the ledger CLI reads its flag path without anchoring it at the repo root; the corpus drivers'
+own-tree binding does not reach them.

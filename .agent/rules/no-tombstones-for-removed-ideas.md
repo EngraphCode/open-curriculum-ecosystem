@@ -39,6 +39,13 @@ governance doc, rule, README, or code comment stating what the system *is* and
 3. Read the result as a first-time reader. If the dead idea is still
    reconstructable from the prose, it is not yet removed.
 
+The same holds for a manifest or inventory: it declares what is present and
+its lifecycle (a surface created at first write is declared
+`runtime-created`), and a surface doctrine has superseded gets no entry at
+all; "must never exist" rows are tombstones, and absence-by-supersession
+lives in the superseding record (the substrate contract's §Lifecycle
+Declarations is the worked form).
+
 Two things you write carry their own subject — an action, or a change — and
 read positively on their own terms:
 

@@ -2,6 +2,7 @@
 
 # Disable turbo TUI
 export TURBO_UI=0
+. .husky/turbo-remote-cache-notice.sh
 
 
 echo "🚀 Running pre-push checks..."

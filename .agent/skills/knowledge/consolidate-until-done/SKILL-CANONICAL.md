@@ -25,6 +25,17 @@ strict, persistent version of `dedicated-knowledge-curation`: keep working
 until the proof exists, or report the exact remaining owner decisions without
 calling the goal complete.
 
+The goal, in the owner's words (2026-10-01): "we are not here to tidy things
+away or hit numerical goals, we are here to make sure that knowledge is
+preserved, discoverable and accessible. Where there is ceremony it is only
+permitted to exist where it serves practical purpose, the ceremony is there as a
+sometime required enabler, it has no value in its own right, but it does have
+cost." Every count this skill reports (buffer entries, register entries, a
+fitness reading, the two-estate divergence measure) is a noticer for that goal
+and never the goal; every move answers where a seat will look for the knowledge
+afterwards; and every step this skill names is performed only where it serves a
+reader or a purpose that day.
+
 ## Conservation Invariant
 
 The value of this workflow is that knowledge and understanding come to **exist
@@ -177,7 +188,7 @@ Before substantive work:
    owner's launch prompt already answers it (the dedicated-consolidation prompt ranks the
    job above the daily fold), that answer holds for the session the prompt launched and
    no other, and the seat records on the branch's pull request that the fold is late by
-   the owner's word. Source: the lineage estate's retrospective of 2026-09-20 on why
+   the owner's word. Source: OCE's retrospective of 2026-09-20 on why
    its register stayed at twelve for three days.
    Falsifier: a pass that reserved still reaches its directive step over the line.
 
@@ -279,6 +290,10 @@ Never do these to satisfy the goal:
   owner approval.
 - Redefine the goal around a smaller selected buffer once work has begun.
   Selection can order the pass; it cannot narrow the completion contract.
+- Perform a step this skill or a rule names when it has no reader and no purpose
+  that day (a whole-file snapshot of what the pre-move commit already preserves,
+  2026-09-30); a ceremony is an enabler with a cost, never a value in itself
+  (owner, 2026-10-01).
 
 Archive moves are allowed only as normal lifecycle cleanup after the item-level
 disposition already proves the source content is graduated, duplicate, or
@@ -311,11 +326,14 @@ Repeat this loop until the completion contract is met:
    record knowledge disposition without taking over file rotation, archival, or
    deletion; if a required platform surface is absent or inaccessible, record
    that as an explicit inventory disposition. The inventory also settles, in the
-   owner's words, which surfaces "empty" covers, and any owner decision that gates a
-   bulk act (an archive lifecycle, a frontmatter sweep) is asked before the act
-   (2026-09-17: the owner widened the target from the register to "buffers to EMPTY,
-   then memory files to an optimised soft" and ruled "Graduate, then archive" only
-   because the seat asked before moving anything).
+   owner's words, which surfaces "empty" covers: empty means no un-homed knowledge,
+   and a file count is never the measure (owner, 2026-10-01). A bulk act (an archive
+   lifecycle, a frontmatter sweep) needs no owner word when every moved entry is
+   byte-identical, pointer-linked and its lessons stand at their homes, and the
+   close report names the move; the owner's word is asked only for a move that loses
+   or relocates knowledge (owner's card, 2026-10-01, re-truing the 2026-09-17
+   reading under which "Graduate, then archive" was ruled because the seat asked
+   first).
 2. **Choose the next real item.** The organising axis is the **knowledge flow**
    (sources → napkin → distilled → pending-graduations → permanent homes;
    PDR-046's staircase, walked **bottom-up**), NOT the fitness report's

@@ -31,6 +31,17 @@ narrow.
 - `preCommit` — documented policy only; quality-gate reminders already
   live in the workflow and review surfaces
 
+**Activation order** (learned 2026-09-12, at the transplant): land
+`.agent/hooks/policy.json` first, make sure `agent-tools/dist` is built
+(the `postinstall` bootstrap does it), and only then wire `hooks` into
+`.claude/settings.json`. The guard fails closed and reloads the moment the
+settings file changes, so in the other order every Bash, Edit and Write
+call is refused until the policy file exists. New hooks run from
+TypeScript source with no shim (`source-is-typescript-esm-only`; the
+`PreCompact` observer above is the worked instance; the owner's word of
+2026-09-16: a shim is a last resort), and the surviving hand-authored
+`.mjs` shims are deletion candidates, not templates.
+
 The Codex identity hook does **not** activate the canonical `sessionStart`
 grounding reminder in `policy.json`, and it does not enforce the canonical
 destructive-command or content policy. Those guards remain Claude Code

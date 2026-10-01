@@ -35,7 +35,6 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 | Row | Ruling | Authority | Proposed home |
 | --- | --- | --- | --- |
 | L1612a | System residue (.DS_Store): gitignore AND delete on find (owner, 2026-08-01 era) | owner-paraphrase | new always-applied rule via `new-rule-vs-pdr-clause` |
-| R46 | Display name "Oak National Academy"; machine name `oak-open-curriculum`; asymmetry deliberate (owner, Spark tenure) | owner-paraphrase | naming section in the plugin contributor doc (MCP-3xx surface) |
 | SPARK-5 | Tool descriptions governed: stale anchor + semanticSha256; one validator problem per run; hashes only from validator output | seat-inference | the agent-facing content audit's own report and registry under `.agent/reports/mcp-agent-facing-content-audit/` (the audit-mechanics home) |
 | C-971 | "Self-limits are gated on ASKING, never silent" (owner, 2026-07-28, line 971) — critic find, missed by the inventory | owner-verbatim | first-hand read then rule-route via `new-rule-vs-pdr-clause` |
 | C-357 | ESM ruling: zero `require`; dynamic imports error-with-recorded-exemptions (owner, 2026-08-09, line 357) — critic find | owner-verbatim | first-hand read; candidate `source-is-typescript-esm-only` rule amendment |
@@ -131,6 +130,7 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 | XPLAT-4 | resume order at the 2026-08-17 compaction — verbatim: "after compaction start with our Windows work and reviewing Luke's work. He has only been on the team a few days so please be supportive, not crazy supportive, but just warm"; with the same-day sequencing correction "I intended our Windows work to go in first in order to support the manual windows work" — the XPLAT research rider is support-sequencing, never a contribution fence; supersedes SKILLS-FIRST at the queue head | owner-verbatim | discharged this seating: research node `cross-platform-research` born sketch (plan-corpus status enum; execution state rides MCP-607, In Progress — authorities distinguished per the plan's amendment trail); warm reviews delivered on #891 (with first-hand macOS gate proof) and #888 |
 | BATCH-CADENCE | commit/push cadence corrected — verbatim: "comitting is expensive, pushing is expensive, you are committing and pushing every little thing, and it means a MASSIVELY disproportionate amount of our time is spent running the quality gates. I like that you make small commits and push often, but I do think we are currently overshooting the sweet spot" (2026-08-17, direct to Director) | owner-verbatim | working practice: one commit per coherent parcel, push at safety boundaries; safety floor unchanged — freezes and handoffs never left unpushed |
 | XPLAT-3 | invariant restated at the provider quantifier, owner-agreed 2026-08-14 at this seat, superseding XPLAT-2's capability-level wording in the live ADR-225 text (establishment discipline unchanged): "no single named external provider may become a condition for this system's existence: every supported composition survives the loss of any one such provider — by a compatible provider, a local or self-hosted binding, or omission of a non-constitutive capability — and each surviving composition is exercised, not merely declared" | owner-verbatim (agreed to Director-proposed wording, "agreed, please make the change") | ADR-225 at `1823c90f2` on PR #886 + PR comment 5292457799 |
+| PLUGIN-NAME | plugin, ChatGPT/Codex package and MCP server key are all `oak-national-academy`, matching the display name; supersedes R46 (owner, 2026-09-30) | owner-verbatim | plugin CHANGELOG 0.1.4; SERVER_KEY TSDoc in `plugin-mcp-server-binding.integration.test.ts` |
 
 ## Expired / superseded / executed (dated; no home owed)
 
@@ -141,7 +141,9 @@ R1, R5, R9, R12, R15, R25, R26, R31 (superseded by L1578's general grant),
 R32–R35, R37–R41, R43, R44, R49, R50, S626–S648, L1571, L1572 (superseded;
 class kin `model-tier-stance-gradient`), L1574 (superseded by L1580), L1576
 (first half), L1580 (expired by date; superseded by the 2026-08-06
-writes-allowed word), MAG-7 (pacing, window-scoped) — all verified dated
+writes-allowed word), MAG-7 (pacing, window-scoped), R46 (superseded
+2026-09-30: the owner renamed the plugin and its MCP server key to
+`oak-national-academy` to match the display name; plugin CHANGELOG 0.1.4) — all verified dated
 historical facts in the inventory; substance conserved in the historical
 blocks (relocating byte-conserved at plan S4) and git history.
 

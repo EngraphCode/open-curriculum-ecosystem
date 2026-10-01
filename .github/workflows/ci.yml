@@ -44,10 +44,12 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 # Permissions are declared per job (least privilege; Sonar githubactions:S8264):
-# the checkout jobs get `contents: read`, the aggregator needs none.
-env:
-  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+# the checkout jobs get `contents: read`, the aggregator needs none. The jobs
+# that run turbo also take `id-token: write`: the Turbo remote cache is reached
+# by GitHub OIDC (the setup-turborepo-remote-cache-action exchanges the job's
+# OIDC token for a short-lived Vercel token, sets TURBO_TOKEN and TURBO_TEAM for
+# the following steps, and revokes the token when the job ends), so no
+# long-lived TURBO_TOKEN secret is read here.
 
 jobs:
   # Branch + tag secret scan. Independent of Node/pnpm, so it runs from t=0 in
@@ -155,12 +157,34 @@ jobs:
     name: build
     permissions:
       contents: read
+      id-token: write
     needs: install
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
+      - name: Turbo remote cache by OIDC
+        id: turbo-remote-cache
+        # The step runs only where an OIDC token can exist and a team is named:
+        # a fork's or Dependabot's pull request has no usable token, and a fork
+        # or a clone without the TURBO_TEAM repository variable names no team.
+        # It never fails the job either: the cache is a speed-up, not a gate,
+        # so a refused exchange shows as this step's own red mark and turbo
+        # runs on its local cache. The next step says so in either case.
+        if: vars.TURBO_TEAM != '' && github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        continue-on-error: true
+        uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
+        with:
+          team: ${{ vars.TURBO_TEAM }}
+      - name: Turbo remote cache not in use
+        if: steps.turbo-remote-cache.outcome != 'success'
+        run: >-
+          echo "::notice title=Turbo remote cache::Not in use for this run
+          (${{ steps.turbo-remote-cache.outcome }}); turbo uses its local cache.
+          To share a cache, configure an optional remote Turbo cache: a TURBO_TEAM
+          repository variable and a Vercel OIDC policy for this repository
+          (docs/engineering/build-system.md, Caching)."
       - name: Build (sdk-codegen + build)
         run: pnpm exec turbo run sdk-codegen build --continue --log-order=grouped --summarize
       - name: Report Turbo summary
@@ -270,12 +294,34 @@ jobs:
     name: unit-tests
     permissions:
       contents: read
+      id-token: write
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
+      - name: Turbo remote cache by OIDC
+        id: turbo-remote-cache
+        # The step runs only where an OIDC token can exist and a team is named:
+        # a fork's or Dependabot's pull request has no usable token, and a fork
+        # or a clone without the TURBO_TEAM repository variable names no team.
+        # It never fails the job either: the cache is a speed-up, not a gate,
+        # so a refused exchange shows as this step's own red mark and turbo
+        # runs on its local cache. The next step says so in either case.
+        if: vars.TURBO_TEAM != '' && github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        continue-on-error: true
+        uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
+        with:
+          team: ${{ vars.TURBO_TEAM }}
+      - name: Turbo remote cache not in use
+        if: steps.turbo-remote-cache.outcome != 'success'
+        run: >-
+          echo "::notice title=Turbo remote cache::Not in use for this run
+          (${{ steps.turbo-remote-cache.outcome }}); turbo uses its local cache.
+          To share a cache, configure an optional remote Turbo cache: a TURBO_TEAM
+          repository variable and a Vercel OIDC policy for this repository
+          (docs/engineering/build-system.md, Caching)."
       - name: Type-check, lint, unit tests
         run: pnpm exec turbo run type-check lint test --continue --log-order=grouped --summarize
       - name: Report Turbo summary
@@ -288,12 +334,34 @@ jobs:
     name: knip-depcruise
     permissions:
       contents: read
+      id-token: write
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
+      - name: Turbo remote cache by OIDC
+        id: turbo-remote-cache
+        # The step runs only where an OIDC token can exist and a team is named:
+        # a fork's or Dependabot's pull request has no usable token, and a fork
+        # or a clone without the TURBO_TEAM repository variable names no team.
+        # It never fails the job either: the cache is a speed-up, not a gate,
+        # so a refused exchange shows as this step's own red mark and turbo
+        # runs on its local cache. The next step says so in either case.
+        if: vars.TURBO_TEAM != '' && github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        continue-on-error: true
+        uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
+        with:
+          team: ${{ vars.TURBO_TEAM }}
+      - name: Turbo remote cache not in use
+        if: steps.turbo-remote-cache.outcome != 'success'
+        run: >-
+          echo "::notice title=Turbo remote cache::Not in use for this run
+          (${{ steps.turbo-remote-cache.outcome }}); turbo uses its local cache.
+          To share a cache, configure an optional remote Turbo cache: a TURBO_TEAM
+          repository variable and a Vercel OIDC policy for this repository
+          (docs/engineering/build-system.md, Caching)."
       - name: Restore build outputs
         run: pnpm exec turbo run sdk-codegen build --continue --log-order=grouped
       - name: Run knip gate (unused code detection; crash-as-pass guarded)
@@ -309,12 +377,34 @@ jobs:
     name: browser-tests
     permissions:
       contents: read
+      id-token: write
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
+      - name: Turbo remote cache by OIDC
+        id: turbo-remote-cache
+        # The step runs only where an OIDC token can exist and a team is named:
+        # a fork's or Dependabot's pull request has no usable token, and a fork
+        # or a clone without the TURBO_TEAM repository variable names no team.
+        # It never fails the job either: the cache is a speed-up, not a gate,
+        # so a refused exchange shows as this step's own red mark and turbo
+        # runs on its local cache. The next step says so in either case.
+        if: vars.TURBO_TEAM != '' && github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        continue-on-error: true
+        uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
+        with:
+          team: ${{ vars.TURBO_TEAM }}
+      - name: Turbo remote cache not in use
+        if: steps.turbo-remote-cache.outcome != 'success'
+        run: >-
+          echo "::notice title=Turbo remote cache::Not in use for this run
+          (${{ steps.turbo-remote-cache.outcome }}); turbo uses its local cache.
+          To share a cache, configure an optional remote Turbo cache: a TURBO_TEAM
+          repository variable and a Vercel OIDC policy for this repository
+          (docs/engineering/build-system.md, Caching)."
       - name: Resolve Playwright version
         id: pw
         run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
@@ -353,6 +443,7 @@ jobs:
     name: windows-basic
     permissions:
       contents: read
+      id-token: write
     runs-on: windows-latest
     timeout-minutes: 30
     env:
@@ -361,6 +452,27 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
+      - name: Turbo remote cache by OIDC
+        id: turbo-remote-cache
+        # The step runs only where an OIDC token can exist and a team is named:
+        # a fork's or Dependabot's pull request has no usable token, and a fork
+        # or a clone without the TURBO_TEAM repository variable names no team.
+        # It never fails the job either: the cache is a speed-up, not a gate,
+        # so a refused exchange shows as this step's own red mark and turbo
+        # runs on its local cache. The next step says so in either case.
+        if: vars.TURBO_TEAM != '' && github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        continue-on-error: true
+        uses: vercel/setup-turborepo-remote-cache-action@49d7b1b46ba4c9251e1977986bfe18336feabc8f # v1.1.0
+        with:
+          team: ${{ vars.TURBO_TEAM }}
+      - name: Turbo remote cache not in use
+        if: steps.turbo-remote-cache.outcome != 'success'
+        run: >-
+          echo "::notice title=Turbo remote cache::Not in use for this run
+          (${{ steps.turbo-remote-cache.outcome }}); turbo uses its local cache.
+          To share a cache, configure an optional remote Turbo cache: a TURBO_TEAM
+          repository variable and a Vercel OIDC policy for this repository
+          (docs/engineering/build-system.md, Caching)."
       - name: Build agent-tools and its dependencies
         shell: bash
         run: pnpm exec turbo run build --filter=@oaknational/agent-tools... --output-logs=errors-only

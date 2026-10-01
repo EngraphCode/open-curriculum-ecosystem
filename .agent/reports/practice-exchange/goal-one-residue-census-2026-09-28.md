@@ -145,8 +145,8 @@ J16, J20, J23). The count beside the heads reads 4 of 21.
 | The charter's other acts: todo 6; the lessons and the comparison; the re-pin | 4 |
 | All | 24 |
 
-The table is the census-day count. The recounts supersede it: J3 3, J6 4, residue PRs 23, all
-27 (see §Recounts below; the rows keep their dated counts).
+The table is the census-day count. The recounts supersede it: J3 5, J6 4, residue PRs 25, the
+charter's acts 5, all 30 (see §Recounts below; the rows keep their dated counts).
 
 Under the charter's reopen bound of thirty. Three cards for the owner, none a PR: J11's
 exchange instrument (decline with reason), J17's gate-running doctrine (converge or decline by
@@ -177,3 +177,66 @@ here; the register carries the current total.
   all 27. The triage's `--max-warnings 0` on agent-tools' lint is graduated into the recovery
   lane, not a J6 slice: the flag fails lint on six existing no-real-io-in-tests warnings in five
   integration test files (repo-continuity.md's recovery-lane entry), and lands with their cure.
+- 2026-09-29 01:2xZ: the close charter's todo 8 (the Core's portability twins) has one leg with
+  no landing and no seat on this estate: the validator that refuses an ADR identifier in a Core
+  decision record (the second estate's PR 239, b5d954209, with its ratchet census, in its
+  docs-validators chain; this estate holds no such validator, verified by the Director
+  first-hand). The Director's ruling: it is the exchange seat's after PR 296's door, ahead of
+  N1's second slice, one pull request of J1's kind (the same bytes: the validator module, its
+  ratchet census file, the package script and the chain entry, the tests), recorded under todo
+  8 and not as a new J row. Opened as PR 301 (e437782d1, 02:33Z on 2026-09-29); merged as
+  eb1ad3f80 at 2026-09-29T03:19:24Z, the fifth act landed. The charter's acts read 5 (todo 6;
+  the lessons and the comparison; the re-pin; todo 8's validator twin), the residue rows 23
+  unchanged, all 28; the register's count line carries the same change with this ruling as its
+  source.
+- 2026-09-29 01:4xZ: J3's landed shape (the Director's suite-50 question, answered from the
+  merged pull requests read first-hand). The 18:3xZ recount's three were the repo-check cures,
+  the script cures with the bash floor, and the shellcheck gate with its installer, CI step and
+  docs; the second estate's seat landed the first as #289 (its title: J3 slice 2; slice 1 was
+  #269 at the census), the second as #290 (slice 3), and the third as three pull requests: #292
+  (slice 4a, the gate over the tracked tree, 22:48Z), #294 (slice 4b, the gate recorded and
+  installed in every setup path, 00:04Z) and #297 (slice 4c, the install at pnpm install,
+  01:36Z, after the fold). A recount by the contract's rule: J3 reads 5, the residue rows 25,
+  all 30 with the charter's five acts. Landed of total at the rollover fold's merge 76974c3cc
+  (01:12:26Z): 8 of 30, the rows named: todo 6's amendment, the second estate's PR 248 (its own
+  pull request, merged on its main 17:14Z); and on this estate J3's #289, #290, #292, #294;
+  J1's #291 (N1's first slice); J6's #293 (N6) and #295 (the commit-queue worktree smoke, split
+  from N6 at the 21:4xZ recount). At engraph ef0ba83c1 (#297 merged): 9 of 30. Not residue
+  rows, so not counted: #286 and #287 (todo 8's doctrine text cures) and #288 (a directive
+  cure, no row); #283 is the fold. The register's count line on the second estate carries the
+  same numbers at the heads it names.
+
+At engraph e07d6b34e (#305, N1's second slice, merged 2026-09-29T09:21:08Z from its final tip
+b77fced20; read 2026-09-29T09:2xZ): 15 of 32, with #298 (J6's N7, 2026-09-29T02:52:41Z), #301
+(todo 8's validator twin, 03:19:24Z), #303 (J6's N8, 04:19:04Z), #305 (N1's second slice,
+09:21:08Z), #306 (J8's first, the post-run hardening, 05:49:58Z) and #307 (J17's note 4, the gate
+slot, 05:25:23Z) counted since the previous recount. At engraph ecf59d763 (#311, J8's B2 and B3,
+merged 2026-09-29T11:27:02Z; read 2026-09-29T11:39Z): 16 of 32, with #308 (J8's B1, the input
+refusals, 06:35:27Z) and #311 (the flag refusals and the drivers bound to their checkout,
+11:27:02Z) counted together as J8's second unit (the table gives J8 two: the post-run hardening;
+input hardening with the drivers), J8 complete on the lineage; PR 312 (the Turbo remote cache by
+OIDC in ci.yml, open) is no row of the count. A recount by the contract's rule from the exchange seat's design reads of 2026-09-29 05:4xZ and the
+Director's rulings of 05:5xZ, in three parts. One: N1's third slice as the table names it (the
+health-probe parity that reads the declarations) landed inside #305, whose parity probe reads the
+templates' declarations, and J16's rider that was to ride it (the root entrypoints as pointers to
+the adapter model) is declined by this estate's entrypoint contract (the session-handoff skill's
+step 6d: a heading and one pointer line, named extensions only on AGENTS.md, skills.md and the
+Copilot instructions; the homing rule's item 3), every fact it would have restated being homed in
+AGENT.md §Rules, the artefact inventory and extending.md: J1 reads four (N1's two slices, N4, N5
+with N3). Two: J16 takes one unit by the Director's ruling, ADR-125's 2026-05-10 amendment retiring
+the .gemini/commands review-*.toml adapters once native Gemini agent support exists, which the
+surface matrix records: declare Gemini on the reviewer roles after a vendor-shape verification
+against Gemini CLI's current documentation (a mechanism change there is a joint design on both
+estates before the lane), render .gemini/agents/ as the second estate does, retire the TOMLs, amend
+ADR-125, the matrix, the inventory's recipe and the roster; sequenced after J2. Three: J2 reads
+three by its design read and the Director's word, cited-paths with J7's describer (three call sites
+here) and lineage-names (the same bytes with this estate's needles as hook-policy data: the second
+estate's identifiers, the needle set listed for the owner in the PR body), cited-scripts, then the
+compare cure; the authored-surfaces walker landed in #291. Four, by the Director's ruling of 06:1xZ
+(posted on the stream at 06:22Z): goal one is every second-estate innovation, so a landing the
+second estate made after the census takes a row and a unit at its lineage port, dated, with its
+source; the register's L34, the merge-bot push retry (the second estate's PR 261, merged 24b72825e3
+at 00:09:50Z; the port fd0bd9db1 on feat/exchange-b1-push-retry, opened as PR 310 at 09:1xZ), one. The
+residue rows 27, the total 32 with the charter's five acts, 16 landed. The register's count line on
+the second estate moves to the same numbers on its coordination branch, with #305's Landings row
+and J16's row, by the finishing plan's rule (no register refresh as its own pull request).
