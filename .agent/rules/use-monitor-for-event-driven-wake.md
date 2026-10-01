@@ -24,10 +24,12 @@ the periodic-comms-check cadence rule.
 
 The owner's word (2026-09-29, verbatim): "Wherever reasonable we must use
 monitors instead of ad-hoc shell scripts in order to stay aware of events".
-It binds every wait, for all work: a wait on a pull request, a push, a gate
-or a CI run is a Monitor that emits its pass and fail lines and exits at the
-terminal state, never a scripted loop; a long command that must be watched
-runs as a Monitor too. Where a script is unavoidable it sets its own paths,
+It binds every wait, for all work, except the one-shot wait §When the Rule
+Does Not Fire names (a command whose only event is its exit, which Bash in
+the background reports): a wait on a pull request, a review or a CI run
+is a Monitor that emits its pass and fail lines and exits at the
+terminal state, never a scripted loop; a long command whose lines must be
+watched runs as a Monitor too. Where a script is unavoidable it sets its own paths,
 locks itself, is syntax-checked (`bash -n`), and sends its failures to the
 stream, because five scratch scripts failed silently in four days
 (2026-09-25 to 29).

@@ -205,8 +205,9 @@ theirs even when its content is superseded on the base (owner refusal,
 2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
 removals + 5 stale prunes), zero losses.
 
-**Every remote branch is assessed before it is merged or deleted** (the owner's
-2026-09-24 rule, §1). The assessment is first-hand: the branch's tip, fetched into its
+**Every remote work branch is assessed before it is merged or deleted** (the owner's
+2026-09-24 rule, §1, under which the default branch and an upstream mirror are not work
+branches). The assessment is first-hand: the branch's tip, fetched into its
 tracking ref (`git fetch origin "+refs/heads/<branch>:refs/remotes/origin/<branch>"`),
 against a freshly fetched default branch, and the records for an earlier assessment. A
 branch existing on the remote is never a reason to merge it. Merged: it joins the proven
@@ -364,11 +365,16 @@ file), the committed shas are pushed from a clean detached worktree cut at
 the branch's tip, and the primary's tree is never touched; the successor
 branch is then cut by hand from the pushed tip (2026-09-28).
 
-**Every remote branch is in a pull request or deleted** (owner, 2026-09-24).
-Assess each remote branch first-hand: wanted work goes to a pull request and
+**Every remote work branch is in a pull request or deleted** (owner, 2026-09-24;
+the default branch and an upstream mirror are not work branches, §1). Assess
+each remote work branch first-hand: wanted work goes to a pull request and
 is driven to merged, since delivered means merged; everything else is
 deleted as the bot with read-back, the conserved copy verified first for
-anything unmerged. The standing target is zero open pull requests.
+anything unmerged. The standing target is zero open pull requests. It
+is reached by landing, never by capping intake: offered a per-seat intake
+bound as a route to it, the owner selected "No bound" (card answer,
+2026-09-26, relayed by the Director; one instance), and the Director's
+programme then read pull requests opened beside those merged.
 
 ## Failure mode this prevents
 
