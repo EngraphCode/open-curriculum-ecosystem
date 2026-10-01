@@ -312,7 +312,9 @@ decision still to make and not a queue (the owner's 2026-09-28 word on "owed"), 
 owner cards, recorded in their decision records with the decider named on 2026-10-01; read §H before
 picking the next lane. The owner set the next session's shape on 2026-10-01: capability parity, both
 ways ("anything useful that one has must make it to the other"); the exchange register's L7 and L8
-rows (the review-cost gate, pr-tally) are the first lanes into JC.net. The register's §Routing Notes holds 86
+rows (the review-cost gate, pr-tally) are the first lanes into JC.net. The full handoff for a fresh session is JC.net's thread record
+`two-estate-consolidation.next-session.md` §Current Continuation (the report's §Decided 2026-10-01 and
+§What the next session inherits are identical in this estate). The register's §Routing Notes holds 86
 entries (F-119 to F-217) no consolidation has read.
 
 ### PICKUP for the next session — the three-estate Practice exchange (owner's word 2026-09-21)

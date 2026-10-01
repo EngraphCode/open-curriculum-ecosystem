@@ -678,6 +678,12 @@ check briefing fact gets verified first-hand BEFORE building on it, not at
 verification time (a 10-second `curl` beats a parser built on a relayed
 vocabulary).
 
+A constraint carried in a compaction summary, a handoff or a seat's own notes is a claim about the
+record, never the record: re-read it against the record before it gates an act. One seat carried
+"the three napkins archive only after the owner's privacy review" through a whole session and into
+its retrospective (2026-09-30 to 2026-10-01); the owner's card of 2026-09-14, in the closure record
+the seat never re-opened, had already said no review was needed.
+
 ## Probe the Deployment Before Planning About It
 
 Artefact grounding (docs, ADRs, code, plan shape) and artefact-shaped review

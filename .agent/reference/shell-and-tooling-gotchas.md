@@ -550,3 +550,11 @@ Director's landing record of 2026-09-06, event f05a54da).
   tool has read it** (2026-09-30): a `cat` or `sed` through Bash counts as a read only for files
   under the session's own repository. Read the sibling file with the Read tool first, or make
   the change with a scripted exact-match replace that asserts on its anchor.
+- **A regex over wrapped prose misses a phrase split across a line break** (2026-10-01): `\bthe
+  lineage's\b` found 80 uses and missed nine whose "the" ended the previous line; match whitespace
+  with `\s+` or collapse whitespace before matching, the same class as a presence check that
+  compares unwrapped text with a wrapped file.
+- **`grep -rl` over `.agent` can return non-UTF-8 files** (transcripts, binaries), and a Python
+  `open().read()` on one aborts the pass; restrict with `--include='*.md'` or guard the decode. A
+  substring exclusion list over-excludes: `practice.md` matched `accessibility-practice.md`; match
+  on the basename, never a substring (2026-10-01).
