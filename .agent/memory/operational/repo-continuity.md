@@ -432,16 +432,65 @@ below go one pull request at a time:
      a retry pushes the settled commit after HEAD has moved, while the pre-push hook validates the new
      checkout; nothing bounds an attempt by the token's own expiry (R5); with no `--branch`, the branch
      and the commit are read apart and can come from two checkouts; an origin read over plain http is
-     trusted. Each is cured there. Its pull request 279 (opened 18:45Z) carries five small items from
-     278's last review and lands before step two.
-   - Step two, here, after 279 lands: this estate takes JC.net's push files as the same bytes (the
-     bound, the proofs, the guards, `token-deadline.ts`) and the `retire` action with what it needs
-     (`branch-arg.ts`, `github-fetch.ts`, the `branch-retire` row of the scope table, the wiring in
-     `cli.ts`, its smokes), and one sentence of the `cross-fork-integration` skill that quotes the
-     push's argv (`HEAD:refs/heads/<branch>` there, the source stale since #310 settled the commit).
-     Until then every landed branch here is deleted by hand after the same ancestry proofs (a REST
-     delete of the ref as the bot, then `git branch -d`). Not the whole directory: this seat wrote
-     that earlier in this line and it was wrong.
+     trusted. Each is cured there. Its pull request 279 (`SHA:c6394b98`, 19:00Z) carried five small
+     items from 278's last review.
+   - **Correction to the bullet above, from the test review of step two:** the proofs 278 "put
+     back" (the token file's mode, the directory prefix, the prompt setting, two git flags, the
+     cleared arms computed from the product's own table) pin decision values, which
+     `testing-strategy.md` §Philosophy and §Rules forbid. This estate's rework was right to drop
+     them. JC.net's 279 had already removed the scope one for the same reason; the rest go in its
+     twin of step two.
+   - Step two, here, is two pull requests. First the push product code: pull request #322 (opened
+     2026-10-01 19:52Z, lane `.claude/worktrees/push-converge`, branch
+     `fix/merge-bot-push-converge`, claim 48c023b5, `SHA:7da2c6816`). Three sub-agent reviews ran
+     before it opened (code, security, test) and changed it from a copy of JC.net's bytes in two
+     ways. Plain http is refused in the push's own origin check (`trustedOriginRepository`), on
+     the trimmed URL, and never in `core/git-remote-url.ts`: that parser has two more callers here,
+     and refusing there would move the push secret scan to its unscoped exclusion for a plain-http
+     remote. The tests are re-derived against the directive: each new behaviour at its own seam
+     over constant fakes (`push-attempt-guards.integration.test.ts`, the `settleCommitFor` block,
+     `token-deadline.unit.test.ts`), no fake that answers in sequence, no pinned decision. Its
+     state is in the pull request. Then the `retire` action with what it needs (`github-fetch.ts`,
+     the `branch-retire` row of the scope table, the wiring in `cli.ts`, its smokes); `branch-arg.ts`
+     and `test-helpers/result-failure.ts` arrive with #322. Until `retire` lands every landed
+     branch here is deleted by hand after the same ancestry proofs (a REST delete of the ref as
+     the bot, then `git branch -d`). Not the whole directory: this seat wrote that earlier in this
+     line and it was wrong.
+   - Owed to JC.net from #322, one twin pull request there: the http refusal moved from its parser
+     to its origin check; the push tests as #322's bytes; `printable` on the unknown-argument
+     echo; the help's sentence on what the HEAD guard delivers; the measurement in
+     `push-attempts.ts` worded to be true in both estates; "reaches stderr" in its merge-bot
+     document.
+   - Routed from #322's security review, one lane, each confirmed by probe on the base branch of
+     both estates and untouched by #322. Over the bar: a `url.<base>.insteadOf` or
+     `pushInsteadOf` value that prefixes `https://github.com/` carries the bot's push over ssh, as
+     the signed-in human, past the credential helper and every scrub (cure: a fifth token-free
+     read before the mint that fails when any such value prefixes the push URL, naming the key
+     kind and never the base; `http.<url>.extraHeader` is the same class, not tested); an ambient
+     `GIT_TRACE_REDACT=0` with `GIT_TRACE_CURL=1` prints the credential on stderr (cure: unset
+     `GIT_TRACE_REDACT` in `pushEnv`). Under the bar: a `--branch` value git calls legal that
+     holds C1 or format characters is echoed raw by the typed refusals, the `--json` outcome and
+     the `pushed:` line; `trustOrigin` drops whitespace-only lines before it counts URLs;
+     `REFUSED_FLAGS[flag]` is a plain-object lookup (`merge-bot push constructor` prints a function
+     source) and an unknown action is echoed raw; `Date.parse` reads lenient forms of
+     `expires_at`, throws a `RangeError` near the minimum date, and `deadlinePassed` answers false
+     for a clock it cannot read; `AttemptGuards` holds the whole token where the deadline alone is
+     used. Not closable in the push: the pre-push hook validates the files on disk, so a dirty
+     tree or a HEAD that moves during the gate still passes it (cure is hook-side: the ref line's
+     commit against HEAD, and a clean tree).
+   - Routed from #322's test review, one lane, debt in tests #322 does not add:
+     `push-args.unit.test.ts` asks the real git binary in five cases (15 processes, 19 filesystem
+     probes) and so proves git's grammar; the cure is an injected oracle, the file renamed
+     `.integration`, and the real oracle's one proof moved to the push smoke. Older cases in
+     `push-cli.integration.test.ts` claim more than they assert; `outcomeLine` and `refusedThrough`
+     branch; the mint test's fetch fake branches on the URL; five files generate a key pair at
+     module scope. The token file's mode, its location, the submodule flag and the prompt setting
+     have no proof against the real filesystem or git: the smoke's live-push leg can report them
+     from its hook.
+   - Routed from #322's code review: this estate writes a check name from a fork's workflow to the
+     terminal raw (`pr-watch/state-cli.ts`, `merge-bot/merge-report.ts`), where JC.net passes each
+     evidence line through `printable`. It travels with the merge action's convergence below, and
+     is the security-relevant part of it.
    - The merge action is its own convergence, read 2026-10-01 by comparing the trees with the scope
      made the same. It has diverged in both directions. This estate has `--unavailable`
      declarations (`pr-watch/declared-unavailable.ts`), the `SETTLING-QUIET-WINDOW` verdict and two
