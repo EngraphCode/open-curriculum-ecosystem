@@ -37,6 +37,13 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-09-30T20:40Z: the Oak line's 1.185.4 carrier, #315, landed as `SHA:66b74dbc2`** (Nautilus lifts
+  Seabed, 8da3c6, at the owner's word: bare-minimum ceremony, agent reviews not acted on). The hand-opened
+  #314 (head `main`, the mirror itself) read merged at the landing. Two memory files resolved by concept,
+  two docs re-trued for the `oak-national-academy` rename; the workspace census is stale against the
+  renamed plugin roots and held (not a gate). Ledger:
+  `.agent/reports/upstream-sync/carried-code-findings-1.185.4-sync-2026-09-30.md`.
+
 - **2026-09-29T13:4xZ: the Director lane closed; one seat (n=1) takes the work on both estates**
   (Wick binds Temper, ed7b48, at the owner's word). The handoff is the `estate-coordination`
   thread record's journal entry "2026-09-29T13:4xZ — HANDOFF to the n=1 seat"; the retrospective
