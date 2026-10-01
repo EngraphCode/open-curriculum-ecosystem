@@ -11,6 +11,12 @@
  *
  * The arc is every transcript in the directories measured, so the report grows
  * as sessions are added there: the directories named are what bound an arc.
+ * A directory the caller named and that does not exist is refused as an input
+ * error, since a mistyped name would otherwise drop out of the totals in
+ * silence; the directory derived from the launch directory may be absent, and
+ * then holds no sessions. The transcripts measured are the main sessions':
+ * the vendor nests each session's sub-agent transcripts in a directory of
+ * their own, and those are not read.
  *
  * @packageDocumentation
  */
@@ -65,7 +71,7 @@ export async function runArcMetricsCli(input: ArcMetricsCliInput): Promise<ArcMe
   }
 
   const directories = resolveDirectories(parsed.options, input);
-  if (directories.length === 0) {
+  if (directories.paths.length === 0) {
     return emit(input, {
       exitCode: 2,
       stdout: '',
@@ -76,45 +82,59 @@ export async function runArcMetricsCli(input: ArcMetricsCliInput): Promise<ArcMe
   const fs = input.fs ?? nodeArcMetricsFileSystem;
   const measured = await measure({ directories, fs, gapSeconds: parsed.options.gapMinutes * 60 });
   if (!measured.ok) {
-    return emit(input, { exitCode: 1, stdout: '', stderr: `${measured.error}\n` });
+    return emit(input, { exitCode: measured.exitCode, stdout: '', stderr: `${measured.error}\n` });
   }
 
   const report: ArcMetricsReport = {
     vendor: parsed.options.vendor,
     gapSeconds: parsed.options.gapMinutes * 60,
-    projectDirectories: directories,
+    projectDirectories: directories.paths,
     sessions: measured.sessions,
   };
   const text = parsed.options.json ? formatJson(report) : formatText(report);
   return emit(input, { exitCode: 0, stdout: text, stderr: '' });
 }
 
+/** The directories to measure, and whether the caller named them or they were derived. */
+interface ResolvedDirectories {
+  readonly paths: readonly string[];
+  readonly named: boolean;
+}
+
 function resolveDirectories(
   options: ArcMetricsOptions,
   input: ArcMetricsCliInput,
-): readonly string[] {
+): ResolvedDirectories {
   if (options.projectDirs.length > 0) {
-    return [...new Set(options.projectDirs.map((directory) => resolve(input.cwd, directory)))];
+    return {
+      paths: [...new Set(options.projectDirs.map((directory) => resolve(input.cwd, directory)))],
+      named: true,
+    };
   }
   const home = input.env.HOME;
   if (home === undefined || home.length === 0) {
-    return [];
+    return { paths: [], named: false };
   }
-  return [projectDirectoryFor({ home, cwd: input.cwd })];
+  return { paths: [projectDirectoryFor({ home, cwd: input.cwd })], named: false };
 }
 
-type MeasureOutcome =
-  | { readonly ok: true; readonly sessions: readonly SessionMetrics[] }
-  | { readonly ok: false; readonly error: string };
+/** A failure with the exit code it maps to: 2 for the caller's input, 1 for a failed read. */
+interface Failure {
+  readonly ok: false;
+  readonly exitCode: 1 | 2;
+  readonly error: string;
+}
+
+type MeasureOutcome = { readonly ok: true; readonly sessions: readonly SessionMetrics[] } | Failure;
 
 async function measure(input: {
-  readonly directories: readonly string[];
+  readonly directories: ResolvedDirectories;
   readonly fs: ArcMetricsFileSystem;
   readonly gapSeconds: number;
 }): Promise<MeasureOutcome> {
   const sessions: SessionMetrics[] = [];
-  for (const directory of input.directories) {
-    const listed = await list(input.fs, directory);
+  for (const directory of input.directories.paths) {
+    const listed = await list(input.fs, directory, input.directories.named);
     if (!listed.ok) {
       return listed;
     }
@@ -132,21 +152,25 @@ async function measure(input: {
   };
 }
 
-type ListOutcome =
-  | { readonly ok: true; readonly paths: readonly string[] }
-  | { readonly ok: false; readonly error: string };
+type ListOutcome = { readonly ok: true; readonly paths: readonly string[] } | Failure;
 
-async function list(fs: ArcMetricsFileSystem, directory: string): Promise<ListOutcome> {
+async function list(
+  fs: ArcMetricsFileSystem,
+  directory: string,
+  named: boolean,
+): Promise<ListOutcome> {
   try {
-    return { ok: true, paths: await fs.listTranscripts(directory) };
+    const paths = await fs.listTranscripts(directory);
+    if (paths === undefined && named) {
+      return { ok: false, exitCode: 2, error: `no such project directory: ${directory}` };
+    }
+    return { ok: true, paths: paths ?? [] };
   } catch (cause) {
-    return { ok: false, error: `failed to list ${directory}: ${describe(cause)}` };
+    return { ok: false, exitCode: 1, error: `failed to list ${directory}: ${describe(cause)}` };
   }
 }
 
-type AggregateOutcome =
-  | { readonly ok: true; readonly session: SessionMetrics }
-  | { readonly ok: false; readonly error: string };
+type AggregateOutcome = { readonly ok: true; readonly session: SessionMetrics } | Failure;
 
 async function aggregate(
   fs: ArcMetricsFileSystem,
@@ -161,7 +185,7 @@ async function aggregate(
     });
     return { ok: true, session };
   } catch (cause) {
-    return { ok: false, error: `failed to read ${path}: ${describe(cause)}` };
+    return { ok: false, exitCode: 1, error: `failed to read ${path}: ${describe(cause)}` };
   }
 }
 

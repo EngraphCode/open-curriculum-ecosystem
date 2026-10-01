@@ -60,6 +60,10 @@ export const ARC_METRICS_HELP_TEXT = [
   'report grows as sessions are added there: name the directories that bound',
   'the arc.',
   '',
+  "The transcripts measured are the main sessions'. The vendor nests each",
+  "session's sub-agent transcripts in a directory of their own, and their",
+  'calls and tokens are not counted.',
+  '',
   'Options:',
   '  --vendor <vendor>     Agent vendor. Supported: claude. Required.',
   '  --project-dir <path>  A vendor project directory holding session',
@@ -67,7 +71,8 @@ export const ARC_METRICS_HELP_TEXT = [
   '                        for the launch directory. An arc whose sessions',
   '                        ran in several working directories (worktrees,',
   '                        say) has transcripts under each, so name each one.',
-  '                        A directory named twice is measured once.',
+  '                        A directory named twice is measured once; one that',
+  '                        does not exist is refused.',
   '  --gap-minutes <n>     Active-time threshold: a gap of at most this many',
   '                        minutes between consecutive events counts as',
   '                        active. Default 10.',
@@ -78,6 +83,12 @@ export const ARC_METRICS_HELP_TEXT = [
   '  agent-tools arc-metrics --vendor claude',
   '  agent-tools arc-metrics --vendor claude --gap-minutes 5 --json',
 ].join('\n');
+
+/**
+ * A positive whole number written in decimal digits. `Number` alone also reads
+ * `0x10` as sixteen and `1e1` as ten, which no one typing a threshold means.
+ */
+const POSITIVE_WHOLE_NUMBER = /^[1-9]\d*$/u;
 
 /**
  * Parse `arc-metrics` argv into options or an error.
@@ -111,15 +122,14 @@ export function parseArgs(argv: readonly string[]): ParseResult {
     return { ok: false, error: `--vendor is required\n\n${ARC_METRICS_HELP_TEXT}` };
   }
 
-  const gapMinutes = Number(state.gapMinutes);
-  if (!Number.isInteger(gapMinutes) || gapMinutes <= 0) {
+  if (!POSITIVE_WHOLE_NUMBER.test(state.gapMinutes)) {
     return {
       ok: false,
       error: `--gap-minutes expects a positive whole number of minutes (got ${state.gapMinutes})`,
     };
   }
 
-  return { ok: true, options: frozen(state, gapMinutes) };
+  return { ok: true, options: frozen(state, Number(state.gapMinutes)) };
 }
 
 function frozen(state: MutableOptions, gapMinutes: number): ArcMetricsOptions {

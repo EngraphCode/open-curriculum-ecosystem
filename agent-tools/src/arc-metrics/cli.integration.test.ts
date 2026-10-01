@@ -29,11 +29,17 @@ function transcript(sessionSuffix: string): string {
   ].join('\n');
 }
 
+const TRANSCRIPTS: Readonly<Record<string, readonly string[]>> = {
+  '/p/one.jsonl': transcript('1').split('\n'),
+  '/p/two.jsonl': transcript('2').split('\n'),
+};
+
+/** A file system holding the named directories only; any other directory does not exist. */
 function fakeFs(files: Readonly<Record<string, readonly string[]>>): ArcMetricsFileSystem {
   return {
-    listTranscripts: async (directory) => files[directory] ?? [],
+    listTranscripts: async (directory) => files[directory],
     readLines: async function* (absolutePath) {
-      yield* transcript(absolutePath.includes('two') ? '2' : '1').split('\n');
+      yield* TRANSCRIPTS[absolutePath] ?? [];
     },
   };
 }
@@ -106,6 +112,39 @@ describe('runArcMetricsCli', () => {
     expect(result.stdout).toContain('sessions 1');
   });
 
+  it('refuses a named project directory that does not exist, naming it', async () => {
+    const fs = fakeFs({ '/h/.claude/projects/-a': ['/p/one.jsonl'] });
+
+    const result = await runArcMetricsCli(
+      baseInput(
+        [
+          '--vendor',
+          'claude',
+          '--project-dir',
+          '/h/.claude/projects/-a',
+          '--project-dir',
+          '/h/.claude/projects/-typo',
+        ],
+        fs,
+      ),
+    );
+
+    expect(result).toEqual({
+      exitCode: 2,
+      stdout: '',
+      stderr: 'no such project directory: /h/.claude/projects/-typo\n',
+    });
+  });
+
+  it('reports no sessions when the launch directory has never held one', async () => {
+    const fs = fakeFs({});
+
+    const result = await runArcMetricsCli(baseInput(['--vendor', 'claude'], fs));
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('sessions 0');
+  });
+
   it("reports each session's cache reads in its own text row", async () => {
     const fs = fakeFs({ '/h/.claude/projects/-ws-code-site': ['/p/one.jsonl'] });
 
@@ -150,6 +189,20 @@ describe('runArcMetricsCli', () => {
     expect(result.stderr).toContain('--gap-minutes');
   });
 
+  it.each(['0x10', '1e1', '5.0', '0', '-5'])(
+    'refuses the active-time threshold %s, which is not a positive whole number in digits',
+    async (threshold) => {
+      const fs = fakeFs({});
+
+      const result = await runArcMetricsCli(
+        baseInput(['--vendor', 'claude', '--gap-minutes', threshold], fs),
+      );
+
+      expect(result.exitCode).toBe(2);
+      expect(result.stderr).toContain(`got ${threshold}`);
+    },
+  );
+
   it('refuses an empty HOME as an input error rather than reporting from the filesystem root', async () => {
     const fs = fakeFs({ '/.claude/projects/-ws-code-site': ['/p/one.jsonl'] });
 
@@ -176,8 +229,38 @@ describe('runArcMetricsCli', () => {
 
     const result = await runArcMetricsCli(baseInput(['--vendor', 'claude'], fs));
 
-    expect(result.exitCode).toBe(1);
-    expect(result.stderr).toContain('permission denied');
+    expect(result).toEqual({
+      exitCode: 1,
+      stdout: '',
+      stderr: 'failed to list /h/.claude/projects/-ws-code-site: permission denied\n',
+    });
+  });
+
+  it('reports a transcript that cannot be read as exit code 1 with the file named', async () => {
+    const fs: ArcMetricsFileSystem = {
+      listTranscripts: async () => ['/p/one.jsonl'],
+      readLines: async function* () {
+        yield* [];
+        throw new Error('input/output error');
+      },
+    };
+
+    const result = await runArcMetricsCli(baseInput(['--vendor', 'claude'], fs));
+
+    expect(result).toEqual({
+      exitCode: 1,
+      stdout: '',
+      stderr: 'failed to read /p/one.jsonl: input/output error\n',
+    });
+  });
+
+  it('refuses to run without a vendor', async () => {
+    const fs = fakeFs({});
+
+    const result = await runArcMetricsCli(baseInput([], fs));
+
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('--vendor is required');
   });
 
   it('prints help without reading anything', async () => {

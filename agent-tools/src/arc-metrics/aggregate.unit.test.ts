@@ -61,11 +61,41 @@ describe('aggregateSession', () => {
       gapSeconds: 600,
       lines: lines(
         assistant('2026-09-16T10:00:00Z', 'msg_1', USAGE),
-        assistant('2026-09-16T10:00:01Z', 'msg_2', USAGE),
+        assistant('2026-09-16T10:00:01Z', 'msg_1', USAGE),
       ),
     });
 
+    expect(session.apiCalls).toBe(1);
     expect(session.toolCalls).toBe(2);
+  });
+
+  it('reports the middle context of an odd number of calls, not their mean or their first', async () => {
+    const session = await aggregateSession({
+      sessionId: 'abc',
+      gapSeconds: 600,
+      lines: lines(
+        assistant('2026-09-16T10:00:00Z', 'msg_1', { ...USAGE, cache_read_input_tokens: 70 }),
+        assistant('2026-09-16T10:00:01Z', 'msg_2', { ...USAGE, cache_read_input_tokens: 970 }),
+        assistant('2026-09-16T10:00:02Z', 'msg_3', { ...USAGE, cache_read_input_tokens: 270 }),
+      ),
+    });
+
+    expect(session.medianContextTokens).toBe(300);
+  });
+
+  it('reports the rounded mean of the two middle contexts of an even number of calls', async () => {
+    const session = await aggregateSession({
+      sessionId: 'abc',
+      gapSeconds: 600,
+      lines: lines(
+        assistant('2026-09-16T10:00:00Z', 'msg_1', { ...USAGE, cache_read_input_tokens: 70 }),
+        assistant('2026-09-16T10:00:01Z', 'msg_2', { ...USAGE, cache_read_input_tokens: 970 }),
+        assistant('2026-09-16T10:00:02Z', 'msg_3', { ...USAGE, cache_read_input_tokens: 270 }),
+        assistant('2026-09-16T10:00:03Z', 'msg_4', { ...USAGE, cache_read_input_tokens: 471 }),
+      ),
+    });
+
+    expect(session.medianContextTokens).toBe(401);
   });
 
   it('reports owner messages, those typed mid-turn, and the traffic it excluded', async () => {

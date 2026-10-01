@@ -20,11 +20,14 @@ export interface ArcMetricsFileSystem {
    * List the transcript files directly inside a project directory.
    *
    * @param directory - Absolute path of the vendor's project directory.
-   * @returns Absolute paths of its `.jsonl` files, in any order. A directory
-   *   that does not exist yields an empty list rather than an error: a project
-   *   key with no sessions is an ordinary state, not a failure.
+   * @returns Absolute paths of its `.jsonl` files, in any order, or `undefined`
+   *   when the directory does not exist. Absence is an answer, not an error:
+   *   whether it is ordinary (the launch directory has never held a session)
+   *   or a mistake (a directory the caller named) is the caller's to decide.
+   *   Transcripts the vendor nests deeper, a session's sub-agents among them,
+   *   are not listed.
    */
-  readonly listTranscripts: (directory: string) => Promise<readonly string[]>;
+  readonly listTranscripts: (directory: string) => Promise<readonly string[] | undefined>;
 
   /**
    * Stream one transcript's lines.
