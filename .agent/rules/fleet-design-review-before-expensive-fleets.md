@@ -138,7 +138,11 @@ question's class (an owner-fact question goes to the owner's records and a
 card, never to measurement), present it at the action moment, re-state it
 at EVERY elaboration boundary, and check the current effort against the
 VERBATIM original ask. The review below starts from that block; a review
-that opens on the instrument has skipped the question that prices it.
+that opens on the instrument has skipped the question that prices it. The
+same day the owner cancelled a survey's second round with "the programme
+guessed at owner-class questions" (relayed by the Director; one instance):
+what the owner intends is not a discovery target, so a programme whose
+questions turn on it asks the owner before launch.
 
 The landscape-survey post-mortem's headline: "internal instruments audit mechanics, only external
 reads audit warrants", so a fleet's own review legs test how the instrument runs and never whether

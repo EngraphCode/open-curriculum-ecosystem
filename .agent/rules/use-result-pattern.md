@@ -10,6 +10,12 @@ globs:
 
 Use `Result<T, E>` for error handling. Never throw exceptions. Errors are part of the type signature; the compiler ensures all cases are handled. Handle all cases explicitly.
 
+Where a vendor's contract makes our code throw or reject, the owner's ruling of 2026-06-19
+holds (one instance, OCE's JSON-LD document loader): "We can't ever control how third parties
+handle errors, and we should not try. Either wrap our call to the vendor appropriately, or — if
+we don't need the callback — simplify by deleting it. Simplification beats
+fixing-through-added-complexity."
+
 When a constructed error **must** leave a boundary (e.g. at a trust
 edge, a library surface that cannot return `Result`, or inside a
 `catch` block re-expressing a caught error), attach `{ cause }` so

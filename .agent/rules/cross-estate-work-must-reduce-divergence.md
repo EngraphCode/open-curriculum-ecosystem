@@ -35,7 +35,8 @@ transplant, or an edit to any path that exists at the same relative location in 
    it, four had stated a mutual wait, which holds both copies).
    Before a port in either direction, each thing the destination lacks is read as a decision
    first and a loss second: run `git log -S'<distinctive string>' -- <file>` in the destination
-   and read the commit that removed it. A diff shows that the estates differ; only history shows
+   and read the commit that removed it; no commit means it was never there, and the port is an
+   addition. A diff shows that the estates differ; only history shows
    who decided (two instances on 2026-10-01: assertions one estate had deleted on purpose were
    restored in the other and removed again at review).
 3. **Measure at the close.** The activity closes only when neither number is above the baseline

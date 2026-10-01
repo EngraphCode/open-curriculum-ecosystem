@@ -24,6 +24,10 @@ A validator that only records the value, never compares it, is a
 recording surface, not a validation surface. Naming it "validator"
 mis-advertises its function.
 
+The general form of this rule — no list is ever hand-kept; it is computed from
+its source or gated by a recomputing validator — is
+[`compute-dont-hope`](compute-dont-hope.md) (owner ruling 2026-09-13).
+
 A validator that scans its own outputs needs a DECLARED regeneration
 order: a census parity gate failed its first run because `render`
 rewrote the matrix its `facts` sweep then scanned — the canonical order is

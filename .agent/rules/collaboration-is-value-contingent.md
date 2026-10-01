@@ -42,7 +42,10 @@ current context. No consumer means no value; do not do it.
 
 - Awareness monitors almost always have a consumer (you, needing to respond
   in time) — keep them. Do NOT mis-file a monitor as ceremony and drop it;
-  that blinds the role.
+  that blinds the role. Keeping one assumes work it serves: the owner,
+  2026-08-14, to OCE's Director, "any agent that has no active work for an
+  hour should go into cold pause. This is to prevent the monitors draining
+  tokens for no value".
 - Outgoing periodic emission is the contingent surface. A liveness
   heartbeat's consumer is async retirement-detection (silence drives claim
   auto-rebalance). When a live owner-conductor detects retirement directly,

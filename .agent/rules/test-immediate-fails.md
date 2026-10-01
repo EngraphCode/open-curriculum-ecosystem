@@ -58,7 +58,9 @@ seam, extract a pure function, inject a dependency).
    the absolute invariant of `testing-strategy.md` §Philosophy
    (owner, 2026-09-14 and 2026-09-15). A filesystem read is IO
    whatever the provenance of the bytes: committed fixtures enter a
-   test as imported modules or as literal values. A fixture-reading
+   test as imported modules or as literal values (a seat's reading from
+   the 2026-09-19 directive pass, ratified by the owner's card of
+   2026-09-20: "Yes, no disk reads"). A fixture-reading
    `test-helpers/` module (the two worked instances are
    `agent-tools/tests/mcp-conformance/test-helpers/fixture-loader.ts` and
    the sdk-codegen `schema-cache-reader.ts`)
@@ -134,7 +136,8 @@ seam, extract a pure function, inject a dependency).
     port), how often or in what order, couples the test to
     implementation and breaks on refactor. Assert on return values,
     public behaviour, or an output port's record read as a value
-    (`testing-strategy.md` §Stubs vs Fakes).
+    (`testing-strategy.md` §Stubs vs Fakes). The owner, 2026-09-24: "never
+    test config or implementation (no call inspection, no config pins)".
 19. **Test proves something about the test scaffolding, not the
     product code.** E.g. asserts that a mock returned the value it
     was configured to return; asserts on types only; tautologies

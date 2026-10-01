@@ -50,7 +50,9 @@ Lenses do not resolve locally, or the impulse to ask the owner anything.
    that does reach the owner is ALWAYS surfaced as a decision card
    (AskUserQuestion or the platform equivalent, recommended option first,
    per `present-verdicts-not-menus.md`) — never as prose the owner must
-   parse for the ask (owner standing directive, 2026-07-15). With the
+   parse for the ask (owner standing directive, 2026-07-15; restated to
+   the Director on 2026-09-23: "Use the decision matrix, ONLY ask
+   questions that survive that"). With the
    owner away, the same order holds and the channel is a push
    notification through the Director (one instance, 2026-09-25, the
    owner's word relayed by the Director to both estates: "All questions

@@ -166,6 +166,10 @@ import: "warranted exemption is a huge alarm bell, either we need to change
 policy, or fix the problem. Strict, everywhere, all the time, is not for
 fun, it is for survival of a complex system in the face of entropy and
 time." And in the same message: "if things are at error they need fixing."
+On 2026-09-29, of a local-cache environment a seat set so that one commit
+passed a lint step: "we don't do workarounds, we fix problems"; the
+environment was withdrawn and the cure went to the step that consulted the
+remote cache (one instance).
 An exemption inside an enforcement configuration (a `pathNot`, an eslint
 disable, a census row, an allowlist entry) is a bypass surface where entropy
 compounds silently while the gate reads green; a dated warrant makes it
