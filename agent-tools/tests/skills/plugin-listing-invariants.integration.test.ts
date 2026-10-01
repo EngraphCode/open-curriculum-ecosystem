@@ -110,13 +110,17 @@ describe('Claude plugin listing', () => {
     ).toBe(true);
   });
 
-  it('links one privacy policy from both manifests and the README', async () => {
+  it('links one Oak privacy policy from both manifests and the README', async () => {
     const claude = ClaudeManifestSchema.parse(await readJson(CLAUDE_MANIFEST_PATH));
     const codex = CodexManifestSchema.parse(await readJson(CODEX_MANIFEST_PATH));
     const readme = await readRepoDocument(README_PATH);
 
     expect(codex.interface.privacyPolicyURL).toBe(claude.privacyPolicyUrl);
-    expect(privacyLinks(readme)).toStrictEqual([claude.privacyPolicyUrl]);
+    // Other services' privacy policies may be linked too (the README links Anthropic's);
+    // only links on the manifest's own host must be the one declared policy.
+    const oakHost = new URL(claude.privacyPolicyUrl).host;
+    const oakPrivacyLinks = privacyLinks(readme).filter((url) => new URL(url).host === oakHost);
+    expect(oakPrivacyLinks).toStrictEqual([claude.privacyPolicyUrl]);
   });
 
   it('links one terms of service from both manifests', async () => {
