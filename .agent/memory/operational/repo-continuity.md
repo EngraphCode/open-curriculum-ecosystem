@@ -37,6 +37,11 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-01T14:40Z: #299 folded into `engraph` as `SHA:972020417`** (Crucible binds Slag, 7b999c; the
+  bot's merge through the merge door, three Copilot rounds, every finding dispositioned on the pull
+  request). The folded branch is retired, local and remote. The fold entry with its gravity line is the
+  `estate-coordination` thread record's journal entry of the same time.
+
 - **2026-10-01T13:2xZ: two seats (n=2), no Director, at the owner's word** (verbatim, to Crucible binds
   Slag: "Hazel tracks Trunk (7d8b9d) is working on the dedicated conslidation, you pick up the other
   threads, fix the fold and continuation records fist. Main also needs merging into engraph."). Both seats
@@ -316,7 +321,8 @@ not the current session-priority lane. Reactivation is owner-directed.
 ### PICKUP, 2026-10-01 13:2xZ — the implementer seat at n=2 (supersedes the blocks below where they differ)
 
 Crucible binds Slag's order, from the owner's word in §Current State, in landing order (this estate's
-own fold is not a line here: its state lives in its pull request):
+own fold is not a line here: its state lives in its pull request). The live coordination branch is
+`coordination/2026-10-01-972020`, cut from `SHA:972020417`:
 
 1. Land the three open lanes, one sync push each at its turn: #313 first (green at `SHA:7f7b2eb1a`, no
    review threads), then #309 (one unresolved thread; its lane worktree holds commits the remote lacks)
