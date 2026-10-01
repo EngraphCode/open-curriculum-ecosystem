@@ -1,6 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { parseGitRemoteUrl, type GitRemoteRepository } from '../core/git-remote-url.js';
+import { printable } from '../pr-watch/printable.js';
 import { DEFAULT_BRANCH_NAMES } from './branch-arg.js';
 import type { GitCommandResult } from './git-executor.js';
 import { describeGitChildEnd, type PushGitReads } from './push-git.js';
@@ -53,7 +54,7 @@ function refused(reason: string): TargetBranch {
 
 /** The refusal for a branch that is a default branch, by name or as origin names it. */
 function defaultBranchRefusal(branch: string): string {
-  return `"${branch}" is a default branch — changes reach it through a pull request, never a direct push`;
+  return `"${printable(branch)}" is a default branch — changes reach it through a pull request, never a direct push`;
 }
 
 /** The refusals that need only the name, decided before any read of origin. */
@@ -62,7 +63,7 @@ function refuseBranchName(branch: string): string | undefined {
     return `"${branch}" names no branch — HEAD is git's name for the current commit; name the branch to push`;
   }
   if (branch.startsWith('refs/')) {
-    return `"${branch}" reads as a full ref — name the branch alone; the push always writes refs/heads/<branch>`;
+    return `"${printable(branch)}" reads as a full ref — name the branch alone; the push always writes refs/heads/<branch>`;
   }
   return DEFAULT_BRANCH_NAMES.has(branch.toLowerCase()) ? defaultBranchRefusal(branch) : undefined;
 }
@@ -201,7 +202,7 @@ export async function settleCommitFor(
     ? commit
     : err(
         new Error(
-          `HEAD moved from branch "${branch}" to ${now.value === undefined ? 'no branch' : `"${now.value}"`} while the push settled its target; nothing was minted or pushed; run the push again`,
+          `HEAD moved from branch "${printable(branch)}" to ${now.value === undefined ? 'no branch' : `"${printable(now.value)}"`} while the push settled its target; nothing was minted or pushed; run the push again`,
         ),
       );
 }

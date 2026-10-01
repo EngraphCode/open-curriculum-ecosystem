@@ -164,6 +164,31 @@ describe('settleTargetBranch: refusals', () => {
     expect(outcomeLine(settled)).toContain(`"${branch}"`);
   });
 
+  it.each([
+    {
+      name: 'a full ref',
+      branch: 'refs/heads/a\u{202e}b',
+      head: DEFAULT_BRANCH,
+      shown: '"refs/heads/ab"',
+    },
+    {
+      name: 'the default branch origin names',
+      branch: 'tr\u{200b}unk',
+      head: 'tr\u{200b}unk',
+      shown: '"trunk"',
+    },
+  ])('names $name it refuses without its format characters', async ({ branch, head, shown }) => {
+    const settled = await settleTargetBranch(
+      branch,
+      reads({ originHead: answered(`refs/remotes/origin/${head}\n`) }),
+      REPOSITORY,
+    );
+
+    expect(outcomeLine(settled)).toMatch(/^refused: /u);
+    expect(outcomeLine(settled)).toContain(shown);
+    expect(outcomeLine(settled)).not.toMatch(/\p{Cf}/u);
+  });
+
   it('refuses the default branch when HEAD is on it', async () => {
     const settled = await settleTargetBranch(
       undefined,
@@ -323,6 +348,18 @@ describe('settleCommitFor: the branch and the commit are one snapshot of HEAD', 
 
     expect(failureMessage(settled)).toContain('"feat/example"');
     expect(failureMessage(settled)).toContain('"feat/second"');
+  });
+
+  it('names both branches without their format characters', async () => {
+    const settled = await settleCommitFor(
+      'feat/ex\u{200b}ample',
+      true,
+      headReads({ currentBranch: answered('feat/se\u{202e}cond\n') }),
+    );
+
+    expect(failureMessage(settled)).toContain('"feat/example"');
+    expect(failureMessage(settled)).toContain('"feat/second"');
+    expect(failureMessage(settled)).not.toMatch(/\p{Cf}/u);
   });
 
   it('fails when HEAD is on no branch by the time the commit is read', async () => {
