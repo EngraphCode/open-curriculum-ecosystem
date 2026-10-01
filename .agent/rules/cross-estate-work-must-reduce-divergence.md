@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: "Any activity that edits both estates (a consolidation, a skill or rule sync, a Practice exchange or transplant, an edit to a path both estates hold) measures the shared-path divergence at its open and its close, and closes only with both estates more aligned than at the open: fewer differing shared files, fewer differing lines, every shared file that grew more divergent named in the close record with its reason. Owner, 2026-09-30: all activities involving both estates MUST leave them more aligned and less divergent than they were before those activities."
+description: "Any activity that edits both estates (a consolidation, a skill or rule sync, a Practice exchange or transplant, an edit to a path both estates hold) measures the shared-path divergence at its open and its close, and closes only with both estates more aligned than at the open: neither the differing shared files nor the differing lines more than at the open, at least one fewer (or both zero), every shared file that grew more divergent named in the close record with its reason. Owner, 2026-09-30: all activities involving both estates MUST leave them more aligned and less divergent than they were before those activities."
 trigger: ceremony:cross-estate-work — any activity that edits both estates
 ---
 
@@ -19,17 +19,20 @@ transplant, or an edit to any path that exists at the same relative location in 
 ## Action
 
 1. **Measure at the open.** Before the first edit, record the baseline: the shared paths (the
-   same relative path present in both estates under `.agent/` and the shared engineering docs),
-   how many differ, and the total differing lines (a unified diff with zero context, counting
-   its `+` and `-` lines). Say the three numbers in the opening statement.
+   same relative path present in both estates among the Markdown files under `.agent/rules/`,
+   `.agent/skills/`, `.agent/directives/`, `.agent/memory/executive/` and
+   `.agent/practice-core/`, plus `agent-tools/README.md` and `docs/engineering/build-system.md`:
+   what the measuring script reads that both estates hold), how many differ, and the total
+   differing lines (a unified diff with zero context, counting its `+` and `-` lines). Say the
+   three numbers in the opening statement.
 2. **Write shared changes once, in both.** A change to a shared path lands in both estates in
    the same words and the same wrapping. An estate-specific fact goes into an estate-only
    surface, or into the shared file in both estates worded so it reads true in each: name the
    estate ("in OCE", "in JC.net"), never "this repository", "here" or "the lineage".
-3. **Measure at the close.** The activity closes only when both numbers are below the baseline
-   and every shared file that grew more divergent is named in the close record with its
-   reason: phenotype by nature (an estate-specific worked instance), or a defect owed to a
-   named seat with its cure.
+3. **Measure at the close.** The activity closes only when neither number is above the baseline
+   and at least one is below it (or both are zero), and every shared file that grew more
+   divergent is named in the close record with its reason: phenotype by nature (an
+   estate-specific worked instance), or a defect owed to a named seat with its cure.
 4. **Say the two measurements** beside the buffer counts in every close report of a two-estate
    activity.
 
