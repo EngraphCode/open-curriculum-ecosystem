@@ -30,7 +30,7 @@ function reads(
     readonly originUrls?: GitCommandResult;
     readonly originHead?: GitCommandResult;
   } = {},
-): PushGitReads {
+): Pick<PushGitReads, 'currentBranch' | 'originUrls' | 'originHead'> {
   const currentBranch = answers.currentBranch ?? answered('feat/example\n');
   const originUrls = answers.originUrls ?? answered(`${ORIGIN}\n`);
   const originHead = answers.originHead ?? answered(`refs/remotes/origin/${DEFAULT_BRANCH}\n`);

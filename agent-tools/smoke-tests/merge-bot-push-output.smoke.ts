@@ -6,7 +6,7 @@ import { join } from 'node:path';
 
 import { resolveTrustedGit } from '../src/core/trusted-git';
 import { realGitExecutor } from '../src/merge-bot/git-executor';
-import { gitReadsFrom, pushHead, resolveGitContext } from '../src/merge-bot/push-git';
+import { gitReadsFrom, pushCommit, resolveGitContext } from '../src/merge-bot/push-git';
 import { settleTargetBranch } from '../src/merge-bot/push-target-branch';
 
 import { hermeticGitEnv } from './hermetic-git-env';
@@ -128,6 +128,11 @@ function makeRepoWithLoudHook(root: string): { work: string; remote: string } {
   return { work, remote };
 }
 
+/** A git read's trimmed output, run hermetically in `cwd`. */
+function gitOutput(cwd: string, args: readonly string[], root: string): string {
+  return execFileSync(GIT, args, { cwd, encoding: 'utf8', env: hermeticGitEnv(root) }).trim();
+}
+
 /** Leg 2 (R8): the real command, the real repository, the real hook. */
 async function landsARealPushThroughALoudHook(): Promise<void> {
   const outcome = await withTempDir(async (root) => {
@@ -142,9 +147,11 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
     const git = resolveGitContext({});
     assert.ok(git.ok, 'no trusted git binary to run the live fire against');
     let received = 0;
-    const pushed = await pushHead(git.value, {
+    const commit = gitOutput(work, ['rev-parse', 'HEAD'], root);
+    const pushed = await pushCommit(git.value, {
       remote,
       branch: 'lane',
+      commit,
       cwd: work,
       token: 'unused-for-a-local-remote',
       baseEnv: hermeticGitEnv(root),
@@ -152,17 +159,9 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
         received += Buffer.byteLength(chunk);
       },
     });
-    const landed = execFileSync(GIT, ['rev-parse', 'lane'], {
-      cwd: remote,
-      encoding: 'utf8',
-      env: hermeticGitEnv(root),
-    }).trim();
-    const remoteTags = execFileSync(GIT, ['tag', '--list'], {
-      cwd: remote,
-      encoding: 'utf8',
-      env: hermeticGitEnv(root),
-    }).trim();
-    return { pushed, received, landed, remoteTags };
+    const landed = gitOutput(remote, ['rev-parse', 'lane'], root);
+    const remoteTags = gitOutput(remote, ['tag', '--list'], root);
+    return { pushed, received, commit, landed, remoteTags };
   });
 
   assert.ok(outcome.pushed.ok, 'the push seam refused before reaching git');
@@ -171,8 +170,9 @@ async function landsARealPushThroughALoudHook(): Promise<void> {
     0,
     `git push exited ${outcome.pushed.value.status}: ${outcome.pushed.value.stderr}`,
   );
-  // The push LANDED — the state a buffer death silently failed to produce.
-  assert.match(outcome.landed, /^[0-9a-f]{40}$/u, 'the ref never reached the remote');
+  // The push LANDED the settled commit — the state a buffer death silently
+  // failed to produce, reached through the `<commit>^{commit}` source.
+  assert.equal(outcome.landed, outcome.commit, 'the settled commit never reached the remote');
   assert.equal(outcome.remoteTags, '', 'a tag rode along with the branch push');
   assert.ok(
     outcome.received >= DRIVE_BYTES,
