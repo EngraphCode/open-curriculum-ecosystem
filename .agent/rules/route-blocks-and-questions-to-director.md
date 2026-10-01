@@ -35,7 +35,9 @@ Lenses do not resolve locally, or the impulse to ask the owner anything.
    A Director's announced compaction freeze binds that seat only: routing
    to it pauses and its records carry the state, the other seats continue
    on the routings they hold, the merge door runs by its own rules, and a
-   question that cannot wait goes to the owner's queue by a stream line
+   question that cannot wait, and that the asking seat has taken through
+   the Decision Lenses as item 2 requires, goes to the owner's queue by a
+   stream line
    (the Director's ruling at three boundaries: 2026-09-26 twice, and
    2026-09-29). The unannounced gap is the ping clause's case. If seats
    stall on a frozen Director with this loaded, it is not working.

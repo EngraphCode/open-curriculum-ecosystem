@@ -114,9 +114,11 @@ check-in cadence reads the DUE clock at each check-in as well.
    A seat never switches the branch of a primary that another seat
    shares; it works in a worktree (the Director's ruling of 2026-09-27,
    after a settlement script switched OCE's shared primary under a peer's
-   unpushed commit). The successor cut renames the primary's branch under
-   every seat on it, so the folding seat announces the cut before making
-   it (2026-10-01, two seats on JC.net's primary). Two instances.
+   unpushed commit). The one exception is the fold's successor cut, which
+   the fold skill's ceremony governs: it renames the primary's branch
+   under every seat on it, so the folding seat announces the cut on the
+   stream first and makes it when no seat has said it is mid-commit there
+   (2026-10-01, two seats on JC.net's primary). Two instances.
 
 ## Why This Rule Exists (Worked Instance)
 
