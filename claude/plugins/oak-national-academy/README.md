@@ -46,9 +46,9 @@ Explore the full library at thenational.academy.
 
 The plugin connects to one service, Oak's curriculum server at <https://mcp.thenational.academy/mcp>. You sign in when prompted, and the searches and lookups Claude makes for you are sent there. See Oak's [privacy policy](https://www.thenational.academy/legal/privacy-policy).
 
-**What Oak stores.** When you sign in, we store your email address through Clerk, our sign-in provider. We also keep pseudonymised records of which tools were used and when, so we can see how the service is working. We keep account data for 2 years after your last sign-in, and you can delete your account at any time.
+**What Oak stores.** When you sign in, we store your name, email address and country through Clerk, our sign-in provider. We also keep pseudonymised records of which tools were used and when, so we can see how the service is working. We keep account data for 2 years after your last sign-in, and you can delete your account at any time.
 
-**What Oak does not store.** The searches and lookups Claude makes for you are sent to our server so it can return the right content. We don't keep them. We don't store your conversations with Claude, your IP address or your location.
+**What Oak does not store.** The searches and lookups Claude makes for you are sent to our server so it can return the right content. We don't keep them. We don't store your conversations with Claude.
 
 **What happens in Claude.** Your conversations are handled by Anthropic under its own terms and privacy policy. On a personal Claude account, your conversations may be used to train Anthropic's models unless you turn this off in Settings → Privacy → "Help improve Claude".
 
