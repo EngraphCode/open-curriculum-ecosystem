@@ -132,6 +132,9 @@ For each issue:
 
 - [ ] No secrets or credentials in code
 - [ ] User input validated and sanitised
+- [ ] A file writer under a caller-supplied name carries the three cells — name validated at
+      the boundary, atomic write, no link followed
+      (`.agent/memory/active/patterns/cli-writer-boundary-discipline.md`)
 - [ ] No SQL/command injection vulnerabilities
 - [ ] Appropriate authentication/authorisation checks
 

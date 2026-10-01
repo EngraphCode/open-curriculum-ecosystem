@@ -105,6 +105,10 @@ Mechanical refusal is explicitly out of scope per
 [`agent-collaboration.md`](../directives/agent-collaboration.md) §Knowledge
 and Communication, Not Mechanical Refusals.
 
+The seat holding the claim is the authority on its lane's state: a redirect from it stands over the
+Director's routing, "the claim-holder's fact governs", and cures already held in the claimed branch
+mean "no second hand on either branch" (a Director's ruling, 2026-09-09, event 76a46230).
+
 ## Definition of "area"
 
 Any file path, plan, ADR, workspace, or git transaction surface currently

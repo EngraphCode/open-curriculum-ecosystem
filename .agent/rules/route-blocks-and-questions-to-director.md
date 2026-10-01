@@ -70,6 +70,10 @@ permissions requests to the Director"): the seat sends the exact invocation to t
 by directed event; the refused invocation waits for the routing while the seat continues the
 rest of its bundle (Action 1, part (d)); it never routes the request to the owner's prompt.
 
+The Director's side of the truncation cure: "any rendered event marked (truncated) whose subject
+names a routing is read from its file in full before acting" (the Director's steer of 2026-09-07,
+event 429bea70).
+
 ## The Director Hears Questions and Requests, Never State
 
 Owner ruling, 2026-09-23, verbatim: "This applies to ALL agents, do not update the Director

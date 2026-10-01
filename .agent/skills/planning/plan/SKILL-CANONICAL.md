@@ -327,8 +327,12 @@ having a recorded decision**, not every item triggering a separate
 execution cycle:
 
 - **Every input gets a recorded decision** — `applied`,
-  `already-covered`, `superseded`, `out-of-scope`, etc. The ledger is
-  the proof that nothing was silently dropped.
+  `already-covered`, `superseded`, `out-of-scope`, or a dated `FAIL`.
+  The ledger is the proof that nothing was silently dropped. A `FAIL`
+  is a complete disposition, not a gap: a design family's acceptance is
+  permission to test a boundary, never approval to extract, so a losing
+  path is executed and its evidenced failure is recorded as a dated
+  child outcome without reopening the family (2026-08-12).
 - **Implementation work is sized to the unique substance**, not to the
   input count.
 - **Counts derived from the input list are derivation-anchored** —
@@ -354,6 +358,14 @@ shape, landing-path, and vendor-literal clauses fire.
 Ratification itself is the owner's act: present the sketch, receive the
 word, land the stamp with `ratified_where` pointing at it.
 
+A ruling that widens a ratified scope is re-costed before work continues:
+restate the cost in measured agent-hours (the arc's own seat-hours so far
+are the yardstick), put the bound to the owner with the widened scope, and
+record the owner's decision with that bound (owner's card, 2026-09-16: the
+transplant closure took sixteen ruling rounds and eight closure items with
+no restated cost, about sixty agent-hours against an opening estimate of
+one).
+
 ## Completion and Archival
 
 A delivery plan completes when its acceptance criteria are proven at
@@ -363,11 +375,19 @@ successor). Completion claims follow the proof contract — a landed
 slice, session close, or green gate is not completion unless the
 acceptance criteria for the scope are proven. Plan completion and
 archival reference the consolidation workflow so learning is conserved.
+Before a platform-integration or infrastructure plan closes, any reusable
+architecture it settled (a boundary, a contract, a source-of-truth choice)
+is mined into an ADR, and the plan cites the record: a plan is safe to
+delete only when no decision lives solely in it (2026-03-08: a
+platform-integration plan settled reusable architecture that reached no
+ADR until a later pass).
 Archival is a multi-surface move: the markdown-links validator treats
 `**/archive/**` as non-live, so every inbound link to the old path breaks
 and a re-point to the archive path is refused too — sweep inbound links to
 plain text naming the archived node BEFORE the archiving commit (#959,
-2026-09-03).
+2026-09-03), and re-true any count an index or roadmap carries about the
+live set in the same edit (2026-03-08: the inventory drifted the moment a
+plan moved).
 
 ## First Question
 

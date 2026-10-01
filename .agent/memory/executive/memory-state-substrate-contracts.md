@@ -121,7 +121,7 @@ for the doctor plan.
 
 | Gap | Current classification | Next owner |
 | --- | --- | --- |
-| `comms/events/` legacy fragments migrated | Terminal migration complete; the whole legacy `comms/` tree must not remain on disk | Doctor validates root absence and stale-path classifier |
+| `comms/events/` legacy fragments migrated | Terminal migration complete; the current root is declared below and the retired tree has no manifest entry | Doctor validates the declared root and the stale-path classifier |
 | Live and archived prose still mention `comms/events/` | Must classify by live reference vs archived evidence | Doctor stale-path classifier |
 | `shared-comms-log.md` is not drift-checked by no-arg collaboration check | Deterministic checker gap | Doctor report mode |
 | Communication event JSON has a parser but no colocated JSON Schema | Contract gap | Agent tooling |
@@ -146,10 +146,21 @@ it is a narrow parser check unless explicit paths are supplied.
 
 ## Legacy Event Transition Rule
 
-`.agent/state/collaboration/comms-events/` is the one live communication-event
-root. The deleted legacy collaboration comms tree must not remain on disk.
-Archived references to the old path remain archived evidence unless a reviewer
-explicitly decides they are live instructions.
+`.agent/state/collaboration/comms/` is the one live communication-event
+root. Archived references to the old path remain archived evidence unless a
+reviewer explicitly decides they are live instructions.
+
+## Lifecycle Declarations
+
+The manifest declares presence and lifecycle, nothing else. A surface that
+is absent until its first writer acts (the commit-queue store, a seen-file
+directory) is declared with lifecycle `runtime-created`, so a reader knows
+its absence is a state and not a defect. A surface that doctrine has
+superseded gets no manifest entry at all: absence-by-supersession lives in
+the superseding record (the ADR or PDR that retired it), never as a
+manifest row of the form "must never exist" (`no-tombstones-for-removed-ideas`
+§Rule; the retired comms tree above once carried such a row, cured
+2026-09-30).
 
 [pdr-049]: ../../practice-core/decision-records/PDR-049-memory-and-state-file-merge-semantics.md
 [pdr-050]: ../../practice-core/decision-records/PDR-050-state-memory-substrate-contracts.md

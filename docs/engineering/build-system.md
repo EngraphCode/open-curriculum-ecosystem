@@ -173,6 +173,10 @@ for the matrix, the per-check rationale, and the verify-vs-mutate rule.
 
 **Key principle**: pre-push and CI run the same check set. A CI-only failure
 indicates an environmental or configuration issue, not a missing check.
+A required check's verdict depends only on the head: a build that fetches from
+the network (Google fonts inside `next build`) fails on the network, and a pure
+sync went red twice in three hours and green on re-run (2026-09-28, F-208).
+Vendor the inputs (`next/font/local`) so the verdict is the head's.
 `pnpm check` is the broadest surface, adding clean rebuild, widget
 tests, and a11y tests. See ADR-121 for the full rationale.
 `pnpm check:docs` is the focused, verify-only aggregate for documentation work;
@@ -186,6 +190,10 @@ a push succeeds. Conversely, a green declared on a **partial local subset**
 commit or push will pass: the gates are independent, so enumerate the
 actual gate set the boundary will run and run that set, never the
 convenient subset.
+
+Hook-time validators run from the lockfile through `pnpm exec`, never through `pnpm dlx`: dlx
+resolves the newest registry version at commit time, and once fetched an unpublished transitive
+package so a message that passed locally failed in the commit-msg hook (OCE friction F-31, settled 2026-05-12).
 
 ## Quality Gate Commands
 
@@ -289,6 +297,11 @@ process.
   stage, but it does not prove the later root-only stages would pass. After
   clearing one failure, expect the next downstream stage to reveal another
   latent problem until `pnpm check` itself is green.
+
+The profile artefact records the environment it ran in: the Node version, the pnpm store path,
+whether the Playwright browser cache exists, and a note that Chromium fails under a restricted macOS
+sandbox with Mach-port permission errors. Read those fields before classifying a browser-leg failure
+as a product failure, and rerun outside the sandbox first (F-20, settled 2026-06-08).
 
 ### `pnpm test:all` - All test suites
 

@@ -70,6 +70,7 @@ The corrective is the natural one:
 | "Record the hash so we know what was vendored" | Lock entry has `computedHash`; validator only checks the entry exists | Lock entry has `computedHash`; validator recomputes `localHash` from current source and compares |
 | "Snapshot the generated output" | Snapshot is written to disk; nothing reads it | Snapshot is written; the next-run validator re-generates and diffs |
 | "Track the manifest checksum" | Manifest stores `checksum` field; field is never re-derived | Manifest stores `checksum`; manifest validator re-derives from current contents and compares |
+| "Count the messages, reviews or tokens for a report" | A one-off script over one surface's records, read as one-to-one with the thing counted | A tested instrument with a cell per known error: records are not one-to-one with what they count (peer messages recorded as user turns, 417 for 145; bot thread replies counted as reviews, 123 for 133 after pagination; several content blocks carrying one message's usage, 35.8M for 8.35M, all in one retrospective, 2026-09-15) |
 
 ## Scope
 

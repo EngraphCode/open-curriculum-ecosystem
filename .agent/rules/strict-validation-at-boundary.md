@@ -37,3 +37,9 @@ revisit (MCP-319 carries the schema follow-up), never doctrine.
 
 See `docs/governance/typescript-practice.md` §Compiler-time Types and
 Runtime Validation.
+
+A boundary reader parses the shape and a judge applies the policy; a reader that rejects a value the
+policy should judge hides the news. Blazar lifts Corona's review of the rollout reader found
+"Parsing and judging are fused: the reader rejects values that rule 8 should judge" and that "The
+seat is told the shape is unknown when the real news is that the policy loosened" (the seat's review
+of 2026-09-24, event 636018d5).

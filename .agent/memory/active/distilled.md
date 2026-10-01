@@ -30,3 +30,13 @@ point. Apply judgment about *which* home, not about *whether* the lesson has
 earned promotion.
 
 New napkin rotations append below; the next consolidation promotes them out.
+
+The dedicated two-estate consolidation of 2026-09-30 (Hawthorn binds Bracken, b3f117, from
+jimcresswell.net) promoted the seven lessons of the 2026-09-29 rotation into their homes: the
+background-agent read into the `wrap` skill's report step; the reserved shell names into
+`.agent/reference/shell-and-tooling-gotchas.md`; the scratch-script guards into
+`use-monitor-for-event-driven-wake`; the knip export refusal into
+`docs/governance/typescript-gotchas.md`; the process-listing credential leak into
+`no-unbounded-host-load`; the comparison form of a context reading into
+`directive-file-context-budget`; and the network-fetching required check into
+`docs/engineering/build-system.md` beside F-208. The buffer is empty at rest.

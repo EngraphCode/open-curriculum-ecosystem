@@ -1,6 +1,6 @@
 # Retrospective: the review rounds that grew on the transplant runbook's rollback and the WIP clause, 2026-09-26 to 2026-09-27
 
-Commissioned by the owner (the word given in Siren's session before her 15:49Z compaction on
+Commissioned by the owner (the word given in Siren's session before that session's 15:49Z compaction on
 2026-09-27, relayed verbatim by her brief at 15:5xZ: "post compaction write the retrospective
 brief and pass it to the Director to carry out /jc-retrospective"). Run by the Director (Wick
 binds Temper, ed7b48) with the retrospective skill: metacognition (retrospective mode) and reason
@@ -17,7 +17,7 @@ reviews, commits and timeline events of the five PRs, read by the REST and Graph
 on 2026-09-27 into a ledger and recomputed there; the review-cost gate's own pricing of the three
 lineage PRs (`review-cost gate --pr N --json`, run at 16:06Z; its total is the settlement cost,
 the opening round excluded); the Director's napkin blocks on JC.net's coordination branches
-(check-ins 24 to 41 and the suite tallies between them); Siren's thread record and her two
+(check-ins 24 to 41 and the suite tallies between them); Siren's thread record and Siren's two
 letters; the two comms streams; the brief itself, whose author is one of the arc's actors and
 whose reading is rival 1 below, a source checked, never evidence.
 
@@ -81,7 +81,7 @@ Read against the ledger (every number recomputed from the API reads at 16:0xZ):
   runbook's rollback unsafe (`git show <tag>:<path> > <path>` follows a symlink and restores no
   mode or type); the estate's own forward-write invariant is the cure; ruled: cure now in 263 and
   in JC.net's copy through the WIP twin PR; a procedure change returns both copies to sketch by
-  the template's line; one batched card to the owner"). Siren's label for it, "fix now", is hers.
+  the template's line; one batched card to the owner"). Siren's label for it, "fix now", is Siren's own.
 - 10:56:15Z: 263 opens, titled for the runbook's rollback cured and ratified here and the WIP
   count leaving out coordination PRs (two files); at its opening the rollback still read as 258
   carried it, the cure came in its first settlement push. Round one on 737f26d04 (Copilot 10:59Z,
@@ -209,7 +209,7 @@ ledger's numbers.
    cost at least one round of 263 and one of 226. The ruling did not start the growth (258's and
    260's rounds were the 26th's); it made 263's three rounds and 226's two the concept's carriers
    and spent the ratification where a ledger row would have kept it; the skipped pre-open pass is
-   Siren's own account (the lesson in her night-watch letter of the 26th's evening, restated in
+   Siren's own account (the lesson in Siren's night-watch letter of the 26th's evening, restated in
    her 09:1xZ block on the 27th, "recorded and not applied" in her 12:1xZ block) and is confirmed
    by the blind pass.
 
@@ -294,7 +294,7 @@ loop-dynamics principle that the estate can now name and test for (§7).
 ## 7. Proposals, each with its warrant, its falsifier and its PDR-130 lane
 
 1. **The mechanics move into an instrument or a pointer; procedure prose that specifies a
-   mechanism does not get a fourth clause** (fast lane; Siren's P1 and P2 for the rollback, her P3
+   mechanism does not get a fourth clause** (fast lane; Siren's P1 and P2 for the rollback, Siren's P3
    for the count; the runbook's rollback shrinks to one pointer at
    `never-use-git-to-remove-work`'s forward write in 226's settlement push, already her plan; the
    tool rows on the JC.net napkin's tool-findings block, routed to the toolkit lane). Warrant: the
