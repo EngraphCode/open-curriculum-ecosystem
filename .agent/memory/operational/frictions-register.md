@@ -3702,6 +3702,9 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   open, the consolidation seat cut, committed and pushed two more branches and cut a third,
   with the sentence "While the count is full, a seat prepares without a worktree or a commit"
   loaded. The text did not hold; five instances.
+- **The owner's word on the count, 2026-09-29** (recorded in OCE's estate-coordination thread,
+  two days after the limit landed, with seventeen pull requests open under the label
+  "residual"): "There are WIP limits for very good reasons."
 
 ### F-234 — commitlint refuses the message only after the pre-commit gate has run (2026-09-26)
 
@@ -4339,4 +4342,133 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   zero-finding reading while that count is above zero and no signed disposition names them.
 - **Target surface**: agent-tools CLI (`pr-watch`, `merge-bot`).
 - **Status**: open; four rounds on two pull requests, two seats.
+- **Owner direction status**: standing
+
+### F-274 — nothing flags a gendered pronoun for an agent at the moment it is written (2026-09-29)
+
+- **Source**: the owner's word of 2026-09-29, at the end of a compaction order, recorded in OCE's
+  estate-coordination thread and a handoff record: "STOP assigning gender to agents, I am sick
+  of having to say that".
+- **Surface**: `agents-default-no-gender` (both estates); the comms CLI, thread records, handoff
+  records and commit messages.
+- **Observed**: the rule was loaded and the owner still had to say it again; nothing reads the
+  text a seat writes about another seat.
+- **Expected**: the miswrite is caught at the write.
+- **Candidate cure**: a validator over agent-authored records that flags he, she, him, her, his
+  or hers in a sentence naming a registered seat identity (human referents stay out of scope),
+  run by the record-append tool and the commit-msg hook.
+- **Target surface**: agent-tools CLI (`collaboration-state`); `.husky/commit-msg`.
+- **Status**: open; homed and recurred.
+- **Owner direction status**: standing
+
+### F-275 — a turn can end on a question to the owner, or a block on the owner, with no card (2026-08-19)
+
+- **Source**: two owner words in OCE's records. Absorbed 2026-08-19: "never, EVER proclaim you
+  are not going to do anything because you are blocked on me without raising a user card". At
+  the end of a compaction order, 2026-09-17: "And when I say cards, I mean use the user question
+  UI".
+- **Surface**: `present-verdicts-not-menus` and `route-blocks-and-questions-to-director` (both
+  estates), which name the question tool; the harness's turn end.
+- **Observed**: both rules say a question reaches the owner as a card, never as prose, and
+  questions still end turns as prose. On 2026-10-01 the consolidation seat held fourteen
+  questions in report text with the owner away, because a card holds the turn until answered
+  and `unattended-seats-never-prompt` forbids stopping on a prompt; it sent one push
+  notification instead.
+- **Expected**: the turn end carries the rule: a card when the owner is present, a push
+  notification when the owner is away, and the question in the report text in both cases.
+- **Candidate cure**: a Stop hook that refuses to end a turn whose final text carries an
+  owner-directed question or a claim to be blocked on the owner when the turn made neither an
+  AskUserQuestion call nor a push notification.
+- **Target surface**: harness hooks; agent-tools hook policy.
+- **Status**: open; homed and recurred.
+- **Owner direction status**: standing
+
+### F-276 — a pull request can be readied, and a test change committed, with no expert verdict on record (2026-09-29)
+
+- **Source**: the owner's words of 2026-09-29 and 2026-09-30, recorded in JC.net's thread and
+  handoff records: "use the testing expert and code expert subagent reviewers, you have clearly
+  been decreasing the quality of the repo, breaking rules, creating rework and wasting time";
+  "nothing about that test information was new, it is ALL written down in directives, in rules,
+  in the test expert, so WHY were bad, wasteful tests written?"; and, of a test that pinned a
+  setting, "And we never test for configuration."
+- **Surface**: `invoke-code-experts`, `invoke-test-expert`, `testing-strategy` and
+  `test-immediate-fails` (both estates); the ready-for-review step of `pr-lifecycle`; the commit
+  path.
+- **Observed**: every rule the tests broke was loaded. Tests of configuration and of call
+  sequences were written and committed with no reviewer run, three times in two days in one
+  lane (2026-09-29 and 2026-09-30).
+- **Expected**: the reviewer rules fire where the work leaves the seat.
+- **Candidate cure**: the ready-for-review step, or a pull-request body check, refuses a body
+  with no code-expert verdict line, and no test-expert line where test paths changed; the
+  commit path refuses a commit staging test files, test helpers or test config whose message
+  carries no test-expert verdict line; the test-expert checklist names fakes that branch on
+  their own call arguments and assertions on our own configuration literals.
+- **Target surface**: agent-tools CLI (`commit-queue`, `pr-watch`); `pr-lifecycle`; the
+  test-expert template.
+- **Status**: open; homed and recurred. The no-IO half is the no-IO test boundary plan's lint
+  rule.
+- **Owner direction status**: standing
+
+### F-277 — OCE's merge door does not hold on Copilot's suppressed findings (2026-09-14)
+
+- **Source**: the owner's standing word, recorded in OCE's continuity records: "ALWAYS fetch and
+  analyse the suppressed Copilot comments along with the normal comments"; JC.net's hold landed
+  from the owner's card of 2026-09-14.
+- **Surface**: `pr-watch` and `merge-bot` (OCE); `pr-lifecycle`'s Copilot review policy.
+- **Observed**: JC.net's door holds a round as SUPPRESSED-FINDINGS-OPEN until each suppressed
+  finding carries a signed disposition. OCE's `pr-lifecycle` still says its door "does NOT yet
+  consume the tally or disposition state" (read 2026-10-01), so in OCE the harvest depends on
+  the skill passage being read.
+- **Expected**: a tip-bound review body's suppressed count holds the merge in both estates.
+- **Candidate cure**: port JC.net's hold (`suppressed-hold.ts`, the pr-watch state and its
+  tests) and the skill sentence to OCE.
+- **Target surface**: agent-tools CLI (`pr-watch`, `merge-bot`, OCE).
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-278 — nothing stops a commit or a push after the owner's stop word (2026-09-29)
+
+- **Source**: the owner's correction of 2026-09-29 to a Director, recorded in OCE's
+  estate-coordination thread: "I said acknowledge and stop, not do a bunch of jobs then commit".
+- **Surface**: `owner-signal-interpretation` §Stop Words Are Freezes (both estates); the Bash
+  guard.
+- **Observed**: the freeze reading was homed and the seat still ran jobs and committed after an
+  acknowledge-and-stop word.
+- **Expected**: the first write after a stop-class word meets the word.
+- **Candidate cure**: a PreToolUse check on `git commit` and `git push` that, when the owner's
+  latest prompt carries a stop-class instruction (acknowledge, stop, hold, pause), refuses once
+  with a message quoting that prompt.
+- **Target surface**: agent-tools hook policy.
+- **Status**: open; homed and recurred (one instance after the home).
+- **Owner direction status**: standing
+
+### F-279 — a handoff record can be written without the assumption ledger PDR-063 asks for (2026-09-25)
+
+- **Source**: the owner's word at two boundaries on 2026-09-25, recorded in OCE's handoff
+  records: "Identify assumptions and highlight them".
+- **Surface**: `session-handoff` (the record step) and the handoff record's shape, both estates;
+  PDR-063.
+- **Observed**: the ledger was written at those boundaries because the owner asked for it by
+  name; the PDR clause is not in front of the seat when the record is written.
+- **Expected**: the record's shape carries the ledger.
+- **Candidate cure**: the handoff record shape gains an assumption-ledger heading, and the
+  record step's check refuses a record without one.
+- **Target surface**: `session-handoff`; agent-tools CLI (`collaboration-state`).
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-280 — OCE's agent-tools smoke suites spawn processes and worktrees on every pre-push (2026-10-01)
+
+- **Source**: the owner's word of 2026-10-01 on the agent-tools smoke suites (40 in OCE, 53 in
+  JC.net), recorded in OCE's continuity record: "is not acceptable, make a note that we need to
+  move those into real tests with no IO and with DI".
+- **Surface**: `agent-tools/smoke-tests/` and the pre-push hook (OCE). JC.net's half is step 3
+  of its no-IO test boundary plan.
+- **Observed**: each push runs the suites, which create worktrees and child processes; OCE has
+  no plan node that owns their conversion.
+- **Expected**: each smoke is a no-IO test over injected fakes, or moves to validation.
+- **Candidate cure**: convert suite by suite, test first, the same shape as JC.net's plan step;
+  the owner assigned the code lanes to the implementer seat on 2026-10-01.
+- **Target surface**: agent-tools tests (OCE).
+- **Status**: open.
 - **Owner direction status**: standing

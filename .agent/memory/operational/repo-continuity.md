@@ -2646,7 +2646,6 @@ this section; create a thread record when execution is scheduled.
 Each invariant below has a canonical home; this section is a resume aid, not the
 authority.
 
-- Comms-log rotation is paused until a dedicated comms research plan exists.
 - No compatibility layers; replace, do not bridge.
 - Distinct architectural layers live in distinct workspaces.
 - TDD at all levels; tests prove product behaviour, not file presence.

@@ -58,6 +58,11 @@ sees what the working lens hides.
 - A migration changes a precondition that many call sites depend on.
 - Any fix whose root cause is a shared property ("missing X", "wrong assumption about Y")
   rather than a one-off typo.
+- A second review round that brings another member of a class the first round cured. One
+  allowlist renderer leaked in six of its branches over two rounds, each found by a reviewer and
+  none by the lane's tests (a seat's observation, 2026-09-27; one instance); the lens that
+  would have revealed the class was one property test over every branch, not a different
+  environment.
 
 ## Adjacent
 
