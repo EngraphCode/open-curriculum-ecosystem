@@ -74,8 +74,8 @@ forward-asks remain.
   `SHA:2e8892fed` (the bot's branch transfer retried with one token on GitHub's backoff). Every lane branch
   and worktree of the four is gone, and the stale worktree of #312 with them. The Codex connector signals a
   review with no finding by a thumbs-up reaction on the pull request, not by a review or a comment: it
-  reacted within about three minutes of each head pushed to #299, #313, #309 and #310, and posted a review
-  only on #319, where it had a finding (rejected with evidence on its thread). This seat read the silence
+  reacted within about three minutes of each head pushed to #299, #313, #309 and #310 on 2026-10-01, and of
+  those heads posted a review only on #319, where it had a finding (rejected with evidence on its thread). This seat read the silence
   as absence and wrote "unavailable" on the premises of #299, #313 and #309; each carries a signed
   correction. The merge door's leg computation reads reviews and not the reaction, so a head on which the
   connector found nothing cannot settle that leg through the door: a seat reads the pull request's
@@ -400,8 +400,9 @@ below go one pull request at a time:
    needs this work first:
    - The three entry files do not load (verified first-hand): they import `collectTrackedPaths`,
      `collectIgnoredPaths`, `describeUnreadable` and `listTrackedFiles`, and this estate's core exports
-     the Result-returning `listTrackedPathSet` and `listIgnoredPaths` in `core/repository-paths.ts` and
-     no `describeUnreadable` in `core/tracked-file-scan.ts`. `listIgnoredPaths` has its own contract (a
+     the Result-returning `listTrackedPathSet`, `listIgnoredPaths` and `listTrackedFiles` in
+     `core/repository-paths.ts` (the port imports the last from `core/tracked-file-scan.ts`, which
+     does not export it here) and no `describeUnreadable` in `core/tracked-file-scan.ts`. `listIgnoredPaths` has its own contract (a
      directory carries a trailing `/`), so this is adaptation. The 151 ported tests pass because none
      runs an entry file.
    - `.agent/hooks/policy.json` has no `lineage-name` block (verified first-hand), so that validator
