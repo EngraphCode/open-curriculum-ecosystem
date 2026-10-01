@@ -3,6 +3,7 @@ import { Readable } from 'node:stream';
 import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { ARC_METRICS_HELP_TEXT } from '../src/arc-metrics/cli-options';
 import { runAgentToolsCli } from '../src/bin/agent-tools-cli';
 
 describe('agent-tools unified CLI', () => {
@@ -104,6 +105,16 @@ describe('agent-tools unified CLI', () => {
 
     expect(result).toMatchObject({ exitCode: 0, stderr: '' });
     expect(result.stdout).toContain('coordination successor-name [--base <ref>]');
+  });
+
+  it('dispatches arc-metrics through the single entrypoint to its own help', async () => {
+    const result = await runAgentToolsCli({
+      argv: ['arc-metrics', '--help'],
+      env: {},
+      cwd: '/repo',
+    });
+
+    expect(result).toEqual({ exitCode: 0, stdout: `${ARC_METRICS_HELP_TEXT}\n`, stderr: '' });
   });
 
   it('uses one error shape for unknown topics', async () => {

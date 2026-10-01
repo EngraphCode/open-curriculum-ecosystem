@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { ARC_METRICS_HELP_TEXT } from './cli-options.js';
 import { runArcMetricsCli, type ArcMetricsCliInput } from './cli.js';
 import type { ArcMetricsFileSystem } from './file-system.js';
 
@@ -55,7 +56,7 @@ describe('runArcMetricsCli', () => {
     expect(result.stdout).toContain('owner 1');
   });
 
-  it('measures several named project directories, as a session that moved needs', async () => {
+  it('measures several named project directories, as an arc across working directories needs', async () => {
     const fs = fakeFs({
       '/h/.claude/projects/-a': ['/p/one.jsonl'],
       '/h/.claude/projects/-b': ['/p/two.jsonl'],
@@ -180,11 +181,18 @@ describe('runArcMetricsCli', () => {
   });
 
   it('prints help without reading anything', async () => {
-    const fs = fakeFs({});
+    const unreadable: ArcMetricsFileSystem = {
+      listTranscripts: async () => {
+        throw new Error('help read the filesystem');
+      },
+      readLines: async function* () {
+        yield* [];
+        throw new Error('help read a transcript');
+      },
+    };
 
-    const result = await runArcMetricsCli(baseInput(['--help'], fs));
+    const result = await runArcMetricsCli(baseInput(['--help'], unreadable));
 
-    expect(result.exitCode).toBe(0);
-    expect(result.stdout).toContain('arc-metrics --vendor');
+    expect(result).toEqual({ exitCode: 0, stdout: `${ARC_METRICS_HELP_TEXT}\n`, stderr: '' });
   });
 });
