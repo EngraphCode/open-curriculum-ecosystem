@@ -29,6 +29,15 @@ transplant, or an edit to any path that exists at the same relative location in 
    the same words and the same wrapping. An estate-specific fact goes into an estate-only
    surface, or into the shared file in both estates worded so it reads true in each: name the
    estate ("in OCE", "in JC.net"), never "this repository", "here" or "the lineage".
+   Twin pull requests for one shared change land in sequence. The first copy's review settles
+   the bytes and it lands without waiting for its twin; the second estate's copy is cut from the
+   settled blobs (the Director's ruling of 2026-09-26; of eleven exchange-lane events applying
+   it, four had stated a mutual wait, which holds both copies).
+   Before a port in either direction, each thing the destination lacks is read as a decision
+   first and a loss second: run `git log -S'<distinctive string>' -- <file>` in the destination
+   and read the commit that removed it. A diff shows that the estates differ; only history shows
+   who decided (two instances on 2026-10-01: assertions one estate had deleted on purpose were
+   restored in the other and removed again at review).
 3. **Measure at the close.** The activity closes only when neither number is above the baseline
    and at least one is below it (or both are zero), and every shared file that grew more
    divergent is named in the close record with its reason: phenotype by nature (an

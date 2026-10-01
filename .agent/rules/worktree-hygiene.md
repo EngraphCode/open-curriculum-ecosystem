@@ -370,7 +370,11 @@ the default branch and an upstream mirror are not work branches, §1). Assess
 each remote work branch first-hand: wanted work goes to a pull request and
 is driven to merged, since delivered means merged; everything else is
 deleted as the bot with read-back, the conserved copy verified first for
-anything unmerged. The standing target is zero open pull requests.
+anything unmerged. The standing target is zero open pull requests. It
+is reached by landing, never by capping intake: offered a per-seat intake
+bound as a route to it, the owner selected "No bound" (card answer,
+2026-09-26, relayed by the Director; one instance), and the Director's
+programme then read pull requests opened beside those merged.
 
 ## Failure mode this prevents
 
