@@ -4472,3 +4472,20 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: agent-tools tests (OCE).
 - **Status**: open.
 - **Owner direction status**: standing
+
+### F-281 — the conformance run retains vendor output as it arrives; the redaction is decided and unbuilt (2026-09-11)
+
+- **Source**: the owner's card answer of 2026-09-12, recorded in OCE's estate-coordination
+  thread record: "redact at boundary, but do not touch any .env files".
+- **Surface**: the MCP conformance run's retained output (OCE).
+- **Observed**: the run keeps vendor output as it arrives. The decision is option C, redaction
+  at the retention boundary as a property of the output's shape; an implementation that reads
+  real secret values from env files to match against output is forbidden by the same word,
+  because it would make the redactor a second secret-handling surface. A filesystem-type
+  allowlist was refused.
+- **Expected**: retained output is redacted at the boundary.
+- **Candidate cure**: the delivery node the decision names. The owner paused it on 2026-09-12
+  until the issue recurs, and said not to author the node speculatively.
+- **Target surface**: agent-tools conformance tooling (OCE).
+- **Status**: decided, unbuilt, paused by the owner until a retention incident recurs.
+- **Owner direction status**: standing
