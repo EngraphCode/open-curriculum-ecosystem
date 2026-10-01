@@ -282,6 +282,13 @@ workflows look plausible but no host surface exists.
 After hydration, verify every referenced local surface actually exists.
 Fail validation when activation exists without canonical source — the
 missing source is the defect, not a condition that bypasses the check.
+Judge completeness by function, never by a green gate: green means the
+checks that exist pass, not that the estate is whole. Enumerate what the
+Practice must do for this repository, and for each function exercise the
+estate's own claims — every backticked path and cited script in live
+doctrine resolves (a cited-paths check is the cheapest instrument) — before
+any survey of the source Practice, which cannot show what its surveys
+missed (PDR-005 §Audit close; jimcresswell.net, 2026-09-13).
 Treat optional local surfaces as feature flags, not assumptions: if a
 repo does not install prompts, continuity workflows must point to the
 real local surface instead of hardcoding a path that does not exist.

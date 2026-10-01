@@ -1,7 +1,7 @@
 {
-  "name": "oak-open-curriculum",
-  "version": "0.1.3",
-  "description": "Work with Oak National Academy's live curriculum graph: surface the pupil misconceptions Oak has documented for a topic, and audit a draft plan against how Oak sequences the same units and the prior knowledge each unit states it assumes. Includes Oak's six curriculum principles and its WCAG 2.2 AA accessibility guidance — grounded in real Oak data.",
+  "name": "oak-national-academy",
+  "version": "0.1.5",
+  "description": "Free, national curriculum-aligned Oak teaching resources.",
   "author": {
     "name": "Oak National Academy",
     "url": "https://www.thenational.academy"
@@ -14,7 +14,7 @@
   "interface": {
     "displayName": "Oak National Academy",
     "shortDescription": "Plan and check teaching against Oak's live curriculum data",
-    "longDescription": "Work with Oak National Academy's live curriculum graph: surface the pupil misconceptions Oak has documented for a topic, and audit a draft plan against how Oak sequences the same units and the prior knowledge each unit states it assumes. Includes Oak's six curriculum principles and its WCAG 2.2 AA accessibility guidance — grounded in real Oak data.",
+    "longDescription": "Free, national curriculum-aligned Oak teaching resources.",
     "developerName": "Oak National Academy",
     "category": "Education",
     "capabilities": [],

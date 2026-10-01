@@ -10,6 +10,7 @@ GUARD_HINT="Move to a branch first: git switch -c <branch> (staged changes trave
 
 # Disable turbo TUI
 export TURBO_UI=0
+. .husky/turbo-remote-cache-notice.sh
 
 echo "🔍 Running pre-commit checks..."
 

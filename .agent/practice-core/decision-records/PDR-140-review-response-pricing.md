@@ -354,9 +354,22 @@ Clause 4 gained the reading of its rebudget under the owner's ruling of 2026-09-
 don't want the number of rounds of PRs to go up": the rebudget licenses the one settlement push
 that carries the pending mandatory cure and the dispositions, never a further cure round; past
 round two a later below-bar finding is a disposition riding the settlement; and an over-bar
-finding found after that push keeps one late-cure push. The lineage wrote the paragraph on
+finding found after that push keeps one late-cure push. OCE wrote the paragraph on
 2026-09-25 with no entry, and this entry records it. On 2026-09-26 the Director's ruling
 replaced the paragraph's "with no further round of review requests": the late-cure push
 requests its expected leg, so the tip binds for the merge boundary (PDR-132 item 6), and that
 leg's findings are dispositions only. A binding leg whose findings cannot be cured is not a
 round; the owner's concept, that the number of rounds does not go up, is kept.
+
+### 2026-10-01 — clause 4's rebudget is bounded by the owner's rounds word of 2026-09-14
+
+The owner, 2026-09-14 (PDR-132 §Decision item 1 carries it: "I don't want the number of rounds of
+PRs to go up"; the closure record of that day carries the operating form: the two rounds bind as
+written, after round two every remaining finding is dispositioned in the same slot turn as the last
+push, and a round three is a call on a correctness defect only). Clause 4's rebudget by recorded
+decision therefore never adds a review round: one further settlement push may carry over-bar cures,
+and a third review round opens only for a correctness defect, by the coordinating seat's recorded
+call. Recorded 2026-10-01 by the two-estate consolidation's retrospective seat as the application of
+the owner's own word to owner-ratified text; the draft reconciliation a Director prepared on
+2026-09-28 (OCE comms events a847fc35, a3b0f6bd) is the instance, and nothing beyond the owner's
+word is carried.

@@ -182,7 +182,7 @@ need the splitter to be found, and the class tests did not need four rounds to b
    the design lacked the line. **Falsifier**: three code lanes carry the line and it never changes an
    approach (ceremony, cut it); or a lane carries it and still duplicates (the line was filled from
    memory, and the cure is a validator, not a sentence). **Carrier**: the queued doctrine edits lane
-   (the Director's ruling `1ba895c3` (2); Nova after PR 250, or Siren at her resume).
+   (the Director's ruling `1ba895c3` (2); Nova after PR 250, or Siren on resuming).
 2. **The class test at the second instance** (fast lane, operational). `pr-lifecycle` §Phase 4
    triage: when a round's findings carry a second instance of one leniency at a second place, the
    settlement push carries a structural test for the class (a nonce at every position; a probe over

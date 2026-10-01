@@ -17,6 +17,12 @@ frustrated"; "owner sharply corrected").
 
 ## Records carry their authority honestly
 
+A consequence of the path that was chosen is stated as state, never reported as a
+defect: a transplant that leaves adapters dangling until their generator lands, or a
+workspace count that changed because a package moved, is what the chosen path produces,
+and a record that calls it an error sends the next reader to cure something that is not
+broken (2026-09-12).
+
 A record's REGISTER encodes its authority, and readers obey the register
 (a napkin observation written in the imperative hardened into a cited
 "owner ruling" within thirty minutes and stood a peer's monitors down,
@@ -74,6 +80,10 @@ Before enacting the irreversible part of any correction, restate the
 policy back to its giver first (the three minutes this costs is nothing;
 a licence read as a mandate once deleted six weeks of archive inside the
 hour, 2026-07-26).
+
+A node closed at the owner's word with no instrument legs run is recorded as pre-read, "a record
+re-true, not a reclassification; inventing leg results to satisfy the checkpoint class is excluded"
+(the Director's settlement record of 2026-09-06, event 874a3d23).
 
 ## Evidence and instruction are two registers — never one line
 

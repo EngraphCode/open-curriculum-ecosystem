@@ -64,7 +64,14 @@ corroboration. And "first-hand" means the main agent's own read: run
 a fan-out for breadth or second opinion, but read the load-bearing sources
 yourself and form your own verdicts first — sub-agent reports corroborate or
 challenge your reading, never substitute for it, and the first-hand pass is
-never deferred to "after the agents finish".
+never deferred to "after the agents finish". The owner's word (2026-09-29,
+verbatim): "The work and claims of all subagents MUST be verified by you,
+yourself". A return is a lead: every figure, `file:line` and state it
+reports is re-read at the primary surface before it enters a record or a
+message, and the rest is marked unverified (the same day's re-read
+corrected four of nine gatherers' claims). Gatherers that write files get
+one scratch directory each: one deleted its own files by name in a shared
+directory and could have removed another's.
 
 A ruling names the primary surface it read. Any routing, acceptance,
 recommendation or ruling that rests on a count, a register row, a ruleset,
@@ -84,6 +91,23 @@ Fix verification must also return to the original defect location. A patch that
 adds intended cure text elsewhere but leaves the contradicting source text in
 place has not fixed the defect. Re-read the original offending line or section,
 not only the new-content area, before declaring the tranche complete.
+
+A claimed violation of a policed rule is checked against the validator that
+polices it before it is repeated to anyone. Every validator the estate owns is
+the first read for a claim in its domain, and its verdict outranks any
+reader's: a claim that contradicts a green validator is wrong until the
+validator is shown to be (2026-09-12: an explorer's six "portability
+violations" reached a peer estate before the reference-direction validator's
+own count, zero, was read; retracted).
+
+A failure hypothesis names the mechanism's existence at the time in question
+as its first premise. Before asking why a hook, a watcher or a write failed at
+time T, establish that it existed and was wired at T: one
+`git log --diff-filter=A -- <path>` answers it (2026-09-12: a "missed
+startup write" was diagnosed and a timeout changed for a hook installed five
+hours after the session started). Surfaces that arrive mid-session, as they do
+in a transplant, make "it did not fire at start" usually mean "it did not
+exist at start".
 
 ## Apply This Before
 
@@ -237,6 +261,11 @@ output is redirected; a background-task wrapper reporting exit 0 while both inne
 hooks ran red. Inspect the inner command's actual output, not the wrapper's
 status. The full behavioural doctrine is the pattern
 `wrapped-exit-codes-false-green`.
+
+A declared sweep or archive move is verified at the reading checkout, never taken from the pass
+record: "a pass record can be true where written and false where read (the declared archive moves)",
+as the 2026-09-02 comms watermarks were declared swept while "its declared archive moves never
+reached this checkout" (Juno seeks Apogee's inventory of 2026-09-06, events 0e50ca85 and 720bdd21).
 
 ## Citation or Silence
 
@@ -591,6 +620,11 @@ change and read it: a proposal that contradicts an existing rule is not a
 proposal but a defect report against the reader's memory — refuse it, cite
 the rule, write nothing new.
 
+A fact reaches the owner only after the seat has observed it first-hand: one closeout recorded "two
+facts transmitted to the owner without being observed", a code-owner gate asserted from memory
+against the contrary ruling and a release number "caught by Kiln" (Luna seeks Twilight's closeout of
+2026-09-02, event 61a55a12).
+
 ## Run Gates, Pushes, and Probes BARE — the Exit Code Is the Verdict
 
 `gate | tail` / `| head` / `| grep` returns the LAST pipe stage's exit, so a
@@ -608,6 +642,10 @@ plan-state refusal read green through `| head`, `check-commit | tail`,
   `; echo "EXIT: $?" >> log`).
 - A success echo chained after a pipe (`… | tail && echo OK`) is unproven —
   the echo keys off the tail's exit, never the gate's.
+- `set -e` does not stop a Bash-tool chain: on 2026-09-26 a failed `git add`
+  ran on into a push and a gate, and four later instances followed. Join the
+  steps with `&&`, read each exit code in-band, and test a header's length
+  before any step with a side effect.
 - The **trailing-echo variant**: `cmd; echo "exit=$?"` makes the harness task
   notification read exit 0 (the echo's) while `cmd` failed — when a status
   echo trails the command, read the PRINTED value, never the notification's
@@ -639,6 +677,12 @@ surface. The consumer side of the same discipline: a load-bearing, cheap-to-
 check briefing fact gets verified first-hand BEFORE building on it, not at
 verification time (a 10-second `curl` beats a parser built on a relayed
 vocabulary).
+
+A constraint carried in a compaction summary, a handoff or a seat's own notes is a claim about the
+record, never the record: re-read it against the record before it gates an act. One seat carried
+"the three napkins archive only after the owner's privacy review" through a whole session and into
+its retrospective (2026-09-30 to 2026-10-01); the owner's card of 2026-09-14, in the closure record
+the seat never re-opened, had already said no review was needed.
 
 ## Probe the Deployment Before Planning About It
 
@@ -681,6 +725,12 @@ in sync and one fetch would have shown it).
 - Treating a handoff record as live state without checking current claims,
   comms, and git.
 - Trusting a sub-agent's cited source without opening the source.
+- Repeating a claimed violation of a policed rule before reading the policing
+  validator's own output.
+- Curing a failure at time T by changing a mechanism that did not exist at T.
+- Answering "does content X exist in source Y" through a coordinator's subagent
+  workflow: route it to the seat that owns the source for gated first-hand
+  proof; a subagent workflow once fabricated the answer (2026-06).
 - Verifying a compound claim's headline while its elements go unchecked — a
   homes-authored note once claimed "pattern file + testing-strategy cross-ref"
   where the pattern was real and the cross-ref absent; a reviewer-praised
@@ -751,6 +801,10 @@ load-bearing fact; an unlabelled or mis-zoned one is a verification failure.
   58-minute coordinator-less gap came from reading `07:52Z` against an `~08:50` local
   clock on a `+0100` (BST) host, where `07:52Z` *is* `08:52` local.
 - **Label every timestamp's zone.** An unlabelled timestamp is a bug.
+- **Read the clock before writing a time.** Every time in a record or a message comes
+  from a `date -u` read in a call that COMPLETED before the writing call, never inside
+  it and never in a parallel sibling; eight pre-read times were written in one session
+  (2026-09-25). Grep the text for times before it is sent.
 - **Never infer a timeline from a truncated log view** (`tail` / `head` / capped grep) —
   query the full window first (a `tail`-truncated `pmset` read once reported `00:51Z`
   when the full log gave `00:06Z`).

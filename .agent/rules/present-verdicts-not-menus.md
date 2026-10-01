@@ -183,6 +183,12 @@ default.
    wrong and I'll re-analyse" is legitimate; "pick one of these three"
    over the agent's own findings is not.
 4. **Reserve `AskUserQuestion`** for the three legitimate cases above.
+5. **Synthesise; never choose between options.** A binary card gets the
+   decision method and a synthesis verdict (owner, 2026-09-28: "we don't
+   choose between options, we create the best from what we have"); the
+   options are inputs to one design, not a menu. And a pending-state label
+   that names no owner, position, clock and failure signal is a parked item,
+   not a decision awaiting the owner.
 
 ## Proportionate Exploration and the Optionality-Invention Costumes
 

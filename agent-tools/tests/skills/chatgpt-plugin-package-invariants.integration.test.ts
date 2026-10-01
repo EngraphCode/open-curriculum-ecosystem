@@ -12,7 +12,7 @@ import {
  * The ChatGPT/Codex package's shipped invariants, recomputed from the tree.
  *
  * @remarks
- * MCP-692. `plugins/oak-open-curriculum-chatgpt/` is what OpenAI ingests, and
+ * MCP-692. `chatgpt/plugins/oak-national-academy/` is what OpenAI ingests, and
  * its load-bearing properties were checked by hand at the 2026-09-07 sideload
  * and recorded in the PR body only. This suite recomputes them on every run:
  * the Codex manifest has exactly the shape the package relies on (skills only,
@@ -31,9 +31,9 @@ import {
  * ADR-078 helper-mediated committed-artefact reads.
  */
 
-const PACKAGE_ROOT = 'plugins/oak-open-curriculum-chatgpt';
+const PACKAGE_ROOT = 'chatgpt/plugins/oak-national-academy';
 const CODEX_MANIFEST_PATH = `${PACKAGE_ROOT}/.codex-plugin/plugin.json`;
-const CLAUDE_MANIFEST_PATH = 'plugins/oak-open-curriculum/.claude-plugin/plugin.json';
+const CLAUDE_MANIFEST_PATH = 'claude/plugins/oak-national-academy/.claude-plugin/plugin.json';
 const SKILLS_ROOT = `${PACKAGE_ROOT}/skills`;
 
 /** Agent Skills specification: the description a host routes on is at most 1024 characters. */
@@ -46,14 +46,20 @@ const MAX_NAME_LENGTH = 64;
 /** Agent Skills specification: the compatibility note is at most 500 characters. */
 const MAX_COMPATIBILITY_LENGTH = 500;
 
-/** The fields the two manifests describe the same product with; they drift only by mistake. */
+/**
+ * The fields the two manifests describe the same product with; they drift only by mistake.
+ *
+ * @remarks
+ * `repository` is not one of them: each manifest names the repository that
+ * publishes its own package. The Claude plugin is published from
+ * oaknational/oak-ai-plugins; this package is published from here.
+ */
 const SharedManifestFieldsSchema = z.object({
   name: z.string().min(1),
   version: z.string().regex(/^\d+\.\d+\.\d+$/),
   description: z.string().min(1),
   author: z.object({ name: z.string().min(1), url: z.url() }),
   homepage: z.url(),
-  repository: z.url(),
   license: z.string().min(1),
   keywords: z.array(z.string().min(1)).min(1),
 });
@@ -64,6 +70,7 @@ const SharedManifestFieldsSchema = z.object({
  * grow a declared surface without this test being revisited.
  */
 const CodexManifestSchema = SharedManifestFieldsSchema.extend({
+  repository: z.url(),
   skills: z.literal('./skills/'),
   interface: z
     .object({

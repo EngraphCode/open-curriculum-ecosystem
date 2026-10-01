@@ -9,7 +9,7 @@ Operationalises [ADR-127 (Documentation as Foundational Infrastructure)](../../d
 and the **Misleading docs are blocking** principle in
 [`.agent/directives/principles.md` § Code Quality](../directives/principles.md).
 
-Five surfaces operationalised by this rule:
+Six surfaces operationalised by this rule:
 
 ## 1. Misleading-doc detection
 
@@ -106,3 +106,20 @@ does not distribute). Both were caught only because a reviewer executed
 them. The check for a diagnostic example is that it FAILS on the failure
 it diagnoses, not merely that it runs; verify-on-real-content applies to
 the documented cure itself, not just the claim it supports.
+
+## 6. Current-state truth lives in permanent docs; a boundary change sweeps the old names
+
+A stable fact about how the system is built now (which surface owns which
+data, where a boundary sits, what derives from what) lives in the permanent
+architecture docs (`docs/architecture/`, the relevant ADR), never only in a
+plan, an audit or a report: on 2026-03-09 the site's split-ownership truth
+lived in an audit until it was moved. When the architecture moves on, the
+historical ADR stays accepted and gains a short clarification note pointing
+at the record that supersedes the detail; the ADR is never rewritten to the
+new truth. And when a source-of-truth boundary lands (a field renamed, a
+route retired, a derivation moved), the same landing greps accepted ADRs and
+live plans for the superseded names and re-trues each hit, because those
+surfaces keep speaking the old names long after the code has stopped
+(2026-08-12: older accepted ADRs and a current plan still named a retired
+field and retired routes after the boundary landed). The pull request names
+the grep it ran.

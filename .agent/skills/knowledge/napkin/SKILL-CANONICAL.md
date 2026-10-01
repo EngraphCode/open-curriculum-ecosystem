@@ -145,6 +145,14 @@ Be specific. "Made an error" is useless. "Assumed the API
 returns a list but it returns a paginated object with `.items`"
 is actionable.
 
+The napkin is a lesson log, not a state log. Check-ins, cadence ticks,
+"where things are" blocks and landing lists go on the comms stream and the
+thread record; the napkin takes behaviour-changing lessons only, because
+`start-right` loads it whole into every session. At 876 KB (2026-09-27) it
+passed the Read tool's cap so no reviewer could read it, and two days after
+its rotation it held 5,161 lines, mostly check-ins. Rotate it at its
+trigger, never as relief.
+
 Append-discipline note for this hot file: anchor edits on the shortest
 unique stable text, and verify the entry's heading line survived after
 any structural edit — long anchors on a frequently-appended file are

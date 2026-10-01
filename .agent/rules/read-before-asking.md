@@ -36,6 +36,14 @@ question is the residue of a verified record gap, and new evidence against
 a settled decision is a statement plus default-continue
 (`present-verdicts-not-menus` §Closed decisions), not a reopened card.
 
+**Read the governing text before a ruling or a new home.** A status is
+ruled from the template that governs that file's line, not from a schema's
+general clause; a divergence is called after the file's open pull requests
+are read, since one may already carry the convergence; and a new rule or
+pattern file is authored after the candidate homes' headings are read, since
+a phrase search misses the home that already answers (three instances,
+2026-09-27 and 09-28).
+
 **A card built on a premise the seat knows is unverified is void.** Naming
 the verification as pending inside the recommendation is worse than
 omitting it — it advertises that the question was put before the reading

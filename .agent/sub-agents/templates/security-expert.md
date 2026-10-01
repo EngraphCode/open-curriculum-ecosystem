@@ -102,6 +102,10 @@ Review for:
    - Command injection, SQL/NoSQL injection, template injection
    - Unsafe deserialisation
    - Missing input validation at trust boundaries
+   - A CLI or hook that writes a file under a caller-supplied name validates the name at the
+     boundary, writes atomically (temporary sibling, rename) and refuses symbolic links
+     (`.agent/memory/active/patterns/cli-writer-boundary-discipline.md`), in its first pull
+     request
 4. **OAuth/OIDC and session flows**
    - Missing state/nonce or callback validation
    - Redirect URI and token exchange weaknesses

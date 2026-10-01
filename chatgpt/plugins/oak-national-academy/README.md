@@ -1,9 +1,9 @@
-# Oak Open Curriculum — ChatGPT and Codex package
+# Oak National Academy — ChatGPT and Codex package
 
-This directory is the ChatGPT/Codex packaging of the Claude plugin in `../oak-open-curriculum/`.
+This directory is the ChatGPT/Codex packaging of the Claude plugin in `../../../claude/plugins/oak-national-academy/`.
 It is a **checked-in copy**, not a build output. The Claude plugin is the source: a correction to
 a shared skill lands there first and is re-copied here, never the other way round. Both carry the
-same version; the changes per version are in `../oak-open-curriculum/CHANGELOG.md`.
+same version; the changes per version are in `../../../claude/plugins/oak-national-academy/CHANGELOG.md`.
 
 ## Why a separate package
 
@@ -87,9 +87,6 @@ refused with "Skill zip must contain one skill root or one directory of skill ro
 2026-09-09). The MCP step is where the Oak server (`https://mcp.thenational.academy/mcp`) is
 attached for the portal version.
 
-## Not done here
+## Publishing
 
-Publishing to the Oak workspace or the public directory (MCP-107). The Oak Curriculum Toolkit
-already in the workspace ships the three shared skills under the same names (observed
-2026-09-07); whether this package is listed separately from the toolkit is a product decision
-to take before any publish.
+The package is submitted to OpenAI's Plugin Directory through the portal's upload (MCP-107).

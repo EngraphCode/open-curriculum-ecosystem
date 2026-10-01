@@ -122,6 +122,10 @@ for years if the sibling's tests all use a different extension
 
 ## Package Export Contracts
 
+- knip refuses an exported type whose only consumer is its own module,
+  however necessary the export looks (three refusals across two lanes,
+  2026-09-25 and 09-26). Keep the type local or inline it; export it
+  where its second consumer is.
 - **Exports resolve built `dist/` via standard conditions only**
   (`types`, `import`, `default`) — so a subpath whose `default`
   points at a file tsup never emits fails at first import instead

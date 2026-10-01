@@ -9,7 +9,7 @@
  * repository is not in the lock and is linted. An entry counts only when it carries what the lock's tool records
  * for a vendored skill, its source and its content hash, so a bare key cannot
  * take a directory out of the lint. A lock this module cannot read fails the
- * gate; a repository with no lock has no vendored skills.
+ * gate; a repository whose git tracks no lock has no vendored skills.
  *
  * @packageDocumentation
  */
@@ -46,8 +46,8 @@ function parsedJson(text: string): Result<unknown, string> {
 /**
  * The directory of each skill the lock pins, each ending `/`.
  *
- * @param lockText - The lock's text, or undefined when the repository has no lock.
- * @returns The directories, none when there is no lock, or a failure line when
+ * @param lockText - The lock's text, or undefined when git tracks no lock.
+ * @returns The directories, none when git tracks no lock, or a failure line when
  *   the lock is not JSON or its `skills` is not an object keyed by skill names.
  */
 export function lockedSkillRoots(lockText: string | undefined): Result<readonly string[], string> {

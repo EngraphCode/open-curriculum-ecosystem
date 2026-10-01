@@ -156,6 +156,20 @@ a dependency-injection seam (ADR-078):
   good thing — that is surfacing an architectural issue and fixing it";
   owner, 2026-06-13).
 
+## Split Proofs by Layer
+
+A graph-backed claim is proved twice, at two layers, and each layer proves
+what only it can. The contract assertion (a derived value equals what the
+entity model says) lives in Vitest, importing the product module. The
+emitted-channel assertion (the rendered page, metadata or JSON-LD carries
+that value) lives in Playwright, which never imports a product module
+(`testing-strategy` §Site Workspace Conventions): a Playwright spec that
+imports an app module fails on bundler-resolved JSON imports, three times
+over in 2026-03. Where the end-to-end side needs the expected value, it
+reads `content/entities.json` directly with a JSON import attribute
+(`with { type: 'json' }`), so the expectation is graph-backed without the
+product module.
+
 ## Real-Content Backstops for Transforms
 
 For any generator, transform, extractor, or content firewall, **green

@@ -3,7 +3,7 @@
 /**
  * Plugin skill-copy validator.
  *
- * The ChatGPT/Codex package (`plugins/oak-open-curriculum-chatgpt/`) carries
+ * The ChatGPT/Codex package (`chatgpt/plugins/oak-national-academy/`) carries
  * the Claude plugin's shared skills as checked-in copies. This gate discovers
  * which skills exist under both roots, recomputes the byte-level comparison of
  * each on every run, and fails the build when a copy drifts from its source,
@@ -35,10 +35,10 @@ import { createFileSystemSkillTreeReader } from './plugin-skill-copies-fs.js';
 import { decideSkillCopyVerdict } from './plugin-skill-copies-verdict.js';
 import { findSkillCopyDrift, type SkillCopyReport } from './plugin-skill-copies.js';
 
-const SOURCE_SKILLS = 'plugins/oak-open-curriculum/skills';
-const COPY_SKILLS = 'plugins/oak-open-curriculum-chatgpt/skills';
+const SOURCE_SKILLS = 'claude/plugins/oak-national-academy/skills';
+const COPY_SKILLS = 'chatgpt/plugins/oak-national-academy/skills';
 /** The Claude workflows the merged, copy-only skills derive from. */
-const DERIVED_SKILLS = 'plugins/oak-open-curriculum/workflows';
+const DERIVED_SKILLS = 'claude/plugins/oak-national-academy/workflows';
 const IGNORED_DIRS = ['evals'] as const;
 
 const repoRoot = resolveRepoRoot(import.meta.url);

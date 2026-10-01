@@ -49,6 +49,16 @@ resides on the coordination branch).
    its owner for the cure, never edited or reverted by the folding seat,
    since a fixer's rewrite races the peer's next write; a class (a) file is
    cured and folded with its authorship named.
+3. **A records pass before the ready-mark.** Every finding of the 2026-09-28
+   rollover fold's review was a records slip; before the fold PR is marked
+   ready, a read-only reviewer checks every carried record against the day's
+   landings (shas, PR numbers, states), and on a repository whose Copilot
+   request is the operator's the timeline is read after the mark. The fold is
+   the Director's ceremony in a team session and the seat's own at n=1; it
+   takes the slot at its time unless a synced holder waits for a leg, and a
+   worktree seat that must write a record into the primary's coordination
+   branch does so by an append-mode scripted write into the primary tree,
+   runs no git there, and names the paths to the folding seat.
 **The branch carries shared coordination-home state only** — fleet state, doctrine and
 memory surfaces, the class
 [`coordination-branch-24h-lifetime`](../../rules/coordination-branch-24h-lifetime.md)
@@ -67,6 +77,13 @@ large, the lifetime rule forced the next before the consolidation's own work cou
 and the last fold's whole content was records about the fold before it (twenty-three
 findings, all true). A consolidation's doctrine edits are a work product with their own
 review contract.
+
+A disposition that deletes a span of a continuity record the coordination branch still appends to
+waits for the fold and lands as its own small pull request cut from the folded default branch,
+"never as the fold's own records commit (the fold prepends the seated block and nothing else on that
+file)": a deletion made first on the default branch conflicts across the whole deleted span when the
+fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events dd5ac28e and
+20f3c220).
 
 ## Ceremony
 
