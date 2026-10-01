@@ -422,13 +422,21 @@ below go one pull request at a time:
    read from origin, `core/git-remote-url.ts`); JC.net the `retire` action, the `--branch` check the two
    commands share (`branch-arg.ts`) and a bounded copy of the push's output for the refusal check (this
    estate's push holds the whole transcript, the gate's output included).
-   - Step one, in JC.net, in hand: its push takes this estate's design and keeps the bound and the
-     shared check (its lane `fix/merge-bot-push-one-token`).
+   - Step one, in JC.net: its pull request 278 (opened 2026-10-01 17:57Z, lane
+     `fix/merge-bot-push-one-token`). Its push takes this estate's design and keeps the bound and the
+     shared check. A code review before it opened found that this estate's rework had dropped proofs
+     JC.net's tests held, so this estate's push is unproven on them today: the token file's 0600 mode,
+     the terminal prompt turned off, every configured credential arm cleared before the one helper,
+     the wait between attempts, and the production mint's scope (every push test here injects the
+     mint). 278 puts each back with its mutant.
    - Step two, here, after step one lands: this estate takes JC.net's `merge-bot` directory as the same
-     bytes, which brings `retire` and the bound. Until then every landed branch here is deleted by hand
-     after the same ancestry proofs (a REST delete of the ref as the bot, then `git branch -d`).
-   - Three readers of a remote URL then stand in JC.net beside the one parser (`secret-scan`, the
-     operator profile's keys, `retire`'s origin check); here `secret-scan` and the operator profile
+     bytes, which brings `retire`, the bound and those proofs, and one sentence of the
+     `cross-fork-integration` skill that quotes the push's argv (`HEAD:refs/heads/<branch>` there, the
+     source stale since #310 settled the commit). Until then every landed branch here is deleted by hand after the same ancestry proofs (a
+     REST delete of the ref as the bot, then `git branch -d`).
+   - Two readers of a remote URL then stand in JC.net beside the parser (the operator profile's keys
+     and `retire`'s origin check; its `secret-scan` parses no URL, and this estate's URL scoping of the
+     push scan is a parity item of its own); here `secret-scan` and the operator profile
      already use it. Their move to the one parser is its own lane, and `retire`'s check moves when it
      arrives here.
 5. Owed to JC.net from #309, on its own pull request there: its twin (the repair smoke's removal with
