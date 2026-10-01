@@ -1,3 +1,8 @@
+---
+classification: core
+description: Follow the agent-to-agent collaboration model.
+---
+
 # Follow Agent Collaboration Practice
 
 Read and follow `.agent/directives/agent-collaboration.md`.
@@ -22,9 +27,9 @@ another agent's claim authority); for everything else, agents decide what
 to ask whom, including which channel (async comms-event vs sync sidebar),
 which agent, which deadline, and what default action. For blocking
 situations, include a deadline + default action in the message body so a
-future reader can resolve the coordination if no reply lands. Source:
-Claude per-user memory `feedback_inter_agent_comms_first_class` (owner
-sharpening 2026-05-05, Opalescent Threading Nebula's session, standing).
+future reader can resolve the coordination if no reply lands. Source: the
+owner's standing sharpening of 2026-05-05 (Opalescent Threading Nebula's
+session).
 
 ## Source doctrine
 

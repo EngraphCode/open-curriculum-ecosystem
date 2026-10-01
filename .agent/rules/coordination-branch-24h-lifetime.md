@@ -1,3 +1,9 @@
+---
+classification: situational
+description: Coordination branches fold twice a day, at 12:00Z and at the UTC rollover (owner, 2026-09-26), and live at most 24 hours — day-stamped name at the cut, convergence due at the next half-day boundary, converge-and-rotate shape, work products stay in worktrees.
+trigger: ceremony:branch-cut — Cutting a coordination branch, or session-open on one
+---
+
 # Coordination Branch 24-Hour Lifetime
 
 Owner-ruled (2026-07-28, in-chat, verbatim intent): coordination branches
@@ -6,6 +12,16 @@ fleet's shared state for at most one day, converges (merge main in, land
 the branch via its PR), and a fresh branch is cut. The lifetime is a
 bound on divergence, not a deadline on work: rotating daily keeps the
 convergence merge small enough to be routine.
+
+Amended by the owner's word of 2026-09-26 (card answer to the Director, about
+10:50Z, the selected option verbatim: "Fold them twice a day"; the same
+morning's word, 10:09Z: "work is safe when it is merged, the target number
+of open PRs is always zero"): the coordination drafts count toward the
+standing target of zero open pull requests, and each estate's coordination
+branch folds twice a day, at 12:00Z and at the UTC rollover. The 24-hour
+bound stands as the ceiling; the half-day boundary is the DUE clock. The
+fold is the Director's ceremony and takes the first free landing slot. This
+file keeps its name so every citation of it stays valid.
 
 ## Trigger
 
@@ -26,12 +42,15 @@ stamp the lifetime) and at session-open (to check it).
    `<YYYY-MM-DD>` segment between `coordination/` and the trailing
    `-<sha6>` (older branches may carry legacy forms such as
    `coordination/estate-<YYYY-MM-DD>`; their date segment is still the
-   stamp). The check is UTC-date rollover: a branch whose stamp date is before the
-   current UTC date is DUE — the stricter reading of "at most 24 hours"
-   (a branch cut late in the day rotates sooner, never later; a
-   date-only stamp cannot express hours, so the day boundary is the
-   clock). When cut-time precision genuinely matters, the branch's
-   first own commit records it. On a DUE branch, surface convergence to
+   stamp). The check is the half-day boundary: a branch is DUE at the
+   first 12:00Z or 00:00Z after its cut, so a branch cut before 12:00Z
+   folds at midday and one cut after 12:00Z folds at the rollover, and a
+   branch whose stamp date is before the current UTC date is DUE
+   regardless (the stricter reading of "at most 24 hours": a branch cut
+   late in the day rotates sooner, never later). A date-only stamp cannot
+   express which half of the day, so on a same-day branch read the cut
+   time from the branch's first own commit or the rotation broadcast
+   against the clock. On a DUE branch, surface convergence to
    the Director (or, at n=1, act on it) before staking new work onto
    the branch. An overdue coordination branch is a defect to route, not
    a home to build on.
@@ -53,7 +72,43 @@ stamp the lifetime) and at session-open (to check it).
    start in worktrees on their own branches per
    [`worktree-hygiene`](worktree-hygiene.md) and the owner's standing
    word (2026-07-28: work in worktrees where reasonable). A coordination
-   branch that accumulates work products cannot converge in a day.
+   branch that accumulates work products cannot converge in a day. And
+   CODE never rides it directly at all: source, workflows, hooks,
+   config-as-code, anything executable or CI-affecting enters the
+   repository only on a branch through a pull request with review before
+   merge, however small and however well the author verified it (owner,
+   2026-07-25, after dependency pin bumps were evaluated first-hand and
+   committed straight to the coordination branch: "that's not a cure,
+   that's papering over a fuck up. Do not allow code into this repo
+   without a first hand review, not ever"; cured the same hour by a revert
+   and a real pull request). Self-review is structurally blind and a
+   direct commit forecloses every reviewer; the test is "is this code?",
+   never "am I confident?". Direct commits here remain correct only for
+   fleet state and knowledge surfaces.
+5. **Keep the branch reasonably clean between rotations** (owner,
+   2026-07-25: "periodic commits, not too many, just don't let things
+   build up"): the accruing shared-state surfaces (memory, handoff maps,
+   tally ledgers) commit periodically in sensible batches under the bot
+   identity by explicit pathspec — each a continuity-only commit, never
+   bundled with a cycle commit, so the orphan boundary of
+   [`continuity-surface-commits-as-orphans`](continuity-surface-commits-as-orphans.md)
+   holds at every one of them — and the default branch merges in at quiet
+   windows so the gap stays small. Uncommitted state on the shared
+   primary is absent from the branch every other seat reads, invisible to
+   peers, and blocks other seats' operations on that tree (a merge or a
+   branch switch refuses over it). An uncommitted file on the shared primary
+   is also in every seat's push gate, since the pre-push gate's checks read
+   the working tree: each writer checks a file it writes there as the write
+   lands, with the formatter and markdownlint by name, keeps its links
+   resolving and its paths repository-relative where the gate validates
+   them, and cures its own failure at once
+   (2026-09-27: a peer's unlinted append to a thread record failed a fold's
+   push on MD032).
+   The fold's pre-push check (`coordination-fold` precondition 2) is this
+   clause at the fold. And the coordination branch IS the primary
+   checkout's own branch, always — never a snapshot worktree (owner,
+   2026-08-06, verbatim: "the coordination branch shouldn't be a
+   worktree, it should be the branch in the primary checkout, always").
 
 ## Why This Rule Exists (Worked Instance)
 

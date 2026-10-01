@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Before broadcasting that a peer agent is retired, offline, or unresponsive in a team session: cross-check three surfaces — recent git commits by the agent, commit-queue entries in active-claims.json, their directed-comms inbox — then send a direct liveness ping with a bounded four-minute deadline; broadcast only after it expires unanswered. Applies when the PDR-078 silence threshold makes the broadcast permissible; not inside its exemption windows, which already suppress it. Failure shape: a false-positive retirement broadcast about an actively committing peer, firing claim auto-rebalance."
+trigger: session:team
+---
+
 # Ping Before Escalate
 
 Before broadcasting a retirement-detection event about another
@@ -38,11 +44,11 @@ retirement broadcast and direct-ping them instead.
    Active commit work is the strongest counter-signal to a
    retirement hypothesis — an agent landing commits within the
    silence window is unambiguously alive.
-2. **Commit-queue entries**: read
-   `.agent/state/collaboration/active-claims.json`'s `commit_queue`
-   for entries authored by the suspected-silent agent within the
-   silence window. An unexpired queued intent means the agent was
-   actively staging when last seen.
+2. **Commit-queue intents**: list the machine-local advisory commit
+   queue (`pnpm agent-tools:commit-queue -- list`) for intents
+   authored by the suspected-silent agent within the silence window.
+   An unexpired queued intent means the agent was actively staging
+   when last seen.
 3. **Directed-comms inbox**: scan recent comms events for
    directed messages addressed to the agent inside the silence
    window. If they have an unread directed message, route through

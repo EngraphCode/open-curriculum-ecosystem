@@ -1,3 +1,9 @@
+---
+classification: situational
+description: "Invoking any agent-tools CLI (agent-identity, collaboration-state, commit-queue, context-cost, and peers): bind to the built dist artefact via the pnpm agent-tools:* shortcuts, never rebuild per invocation; rebuild once after editing source, merging main, or a branch switch. Sequence CLI calls after any running check/build chain — a half-written dist kills the loader; a stale dist makes hooks fail open. A missing affordance is a friction to record, never a licence to fork. Failure shape: per-invocation rebuilds resolving one session seed to different agent names mid-conversation."
+trigger: tool:agent-tools-cli
+---
+
 # Use Only The Built Agent-Tools CLI
 
 When invoking any agent-tools CLI (`agent-identity`, `collaboration-state`,
@@ -105,8 +111,7 @@ were running. Per-invocation rebuilds resolved the same session seed to
 different `agent_name`s mid-conversation (Twilit Beaming Aurora →
 Ashen Banking Bellows; Opalescent Eclipsing Asteroid wiped from name
 lookups entirely). The cure is structural: bind to the built artefact,
-not to the in-progress source. Source: Claude per-user memory
-`feedback_use_built_agent_tools_only`.
+not to the in-progress source.
 
 The built-artefact contract has a staleness dual — the **build/dist
 inversion** (three instances, late July 2026): validators, gates, and

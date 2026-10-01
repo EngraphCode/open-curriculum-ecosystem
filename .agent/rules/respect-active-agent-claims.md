@@ -1,3 +1,8 @@
+---
+classification: core
+description: Consult active claims and the commit queue before touching another agent's area or racing a git:index/head commit window.
+---
+
 # Respect Active Agent Claims
 
 Operationalises the area-consultation tripwire from
@@ -100,6 +105,10 @@ Mechanical refusal is explicitly out of scope per
 [`agent-collaboration.md`](../directives/agent-collaboration.md) §Knowledge
 and Communication, Not Mechanical Refusals.
 
+The seat holding the claim is the authority on its lane's state: a redirect from it stands over the
+Director's routing, "the claim-holder's fact governs", and cures already held in the claimed branch
+mean "no second hand on either branch" (a Director's ruling, 2026-09-09, event 76a46230).
+
 ## Definition of "area"
 
 Any file path, plan, ADR, workspace, or git transaction surface currently
@@ -126,7 +135,8 @@ outside the claim you opened at session start, expand the claim before the next
 edit in that new area. New files are not invisible to coordination just because
 they did not exist when the original claim was written.
 
-A fresh root `commit_queue` entry ahead of yours means another agent has the
+A fresh advisory commit-queue intent ahead of yours
+(`pnpm agent-tools:commit-queue -- list`) means another agent has the
 next advisory commit turn. Do not treat it as a refusal gate, but do inspect
 the queued files, subject, phase, and expiry before staging. The commit skill's
 exact staged-bundle verification is the final guard before durable history.
@@ -158,9 +168,9 @@ exact staged-bundle verification is the final guard before durable history.
 ## Bootstrap fast-path
 
 If `active-claims.json` has no entries other than yours and the shared
-communication log has no recent (≤ 24 hour) entries from other agents, log
-"no other agents present" as a comms event and proceed
-without further coordination overhead.
+communication log shows no live peer, the session is solo: record your
+claim and proceed without broadcasts (`use-agent-comms-log` §Scale
+ceremony to the audience).
 
 ## Cross-references
 

@@ -26,6 +26,19 @@ multiple workaround attempts at the consumer site fail for related reasons,
 the fix is almost always in the producer — the type definition, the
 generator template, or the function signature that established the shape.
 
+The owner's general form, ratifying the design-lane instance (2026-08-13,
+verbatim): **"fix things at the lowest level where the fix works and
+produces the correct outcome."** Both bounds bind. The LOWEST level, never
+higher: a page-level cure for a kit-level gap cures one page while the gap
+re-appears in every other consumer (the showcase's hyphenation workaround
+for the kit's fixed type ramp). And only as low as WHERE THE FIX WORKS AND
+PRODUCES THE CORRECT OUTCOME, never lower than effectiveness: clamping the
+kit's font-size primitives would have cured only the Oak base, because both
+counter-identities re-point whole shorthands and never read the primitives.
+Before homing any cure, walk the stack downward and stop at the lowest layer
+where the fix both works and yields the correct outcome for every consumer;
+name that layer in the plan or PR rationale.
+
 ## The Anti-Pattern
 
 Each workaround is locally reasonable. Collectively they form a maze:

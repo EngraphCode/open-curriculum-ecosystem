@@ -1,3 +1,8 @@
+---
+classification: core
+description: Data arriving from an external boundary (JSON.parse, API responses, file reads, SSE, WebSocket) is unknown; validate immediately to the exact expected shape (Zod, exhaustive guard, or SDK types) and never widen — as Record<string, unknown> is widening, not validation.
+---
+
 # Strict Validation at External Boundaries
 
 Operationalises [ADR-032 (External Boundary Validation)](../../docs/architecture/architectural-decisions/032-external-boundary-validation.md), [ADR-055 (Zod Version Boundaries)](../../docs/architecture/architectural-decisions/055-zod-version-boundaries.md), and [ADR-153 (Constant-Type-Predicate Pattern)](../../docs/architecture/architectural-decisions/153-constant-type-predicate-pattern.md).
@@ -13,6 +18,16 @@ The correct pattern:
 3. Use the validated, fully-typed result from then on
 4. If the shape is genuinely open-ended, that is a design problem to fix, not a type problem to work around
 
+An admission predicate binds every axis it reasons about. Where kind is an
+admission axis, an allowlist entry is a (name, kind) pair, never the name
+alone: a transient-file allowlist that exempted by basename before kind
+handling let a symlink wearing a transient name ride out of the symlink
+refusals, and a place-only design-token admission did the same in the same
+sitting (2026-08-19). An allowlist that deliberately admits along one axis (a
+string-only token allowlist; a path-only stale-invocation allowlist) binds
+that one axis and invents no other. Validate each axis the decision depends
+on, at the boundary the value crosses.
+
 Owner ruling on tool surfaces (2026-07-28): **"Strict, all the time,
 everywhere"** — every MCP tool carries proper input AND output schemas, with
 realistic examples drawn from real data (graph tools were the founding
@@ -22,3 +37,9 @@ revisit (MCP-319 carries the schema follow-up), never doctrine.
 
 See `docs/governance/typescript-practice.md` §Compiler-time Types and
 Runtime Validation.
+
+A boundary reader parses the shape and a judge applies the policy; a reader that rejects a value the
+policy should judge hides the news. Blazar lifts Corona's review of the rollout reader found
+"Parsing and judging are fused: the reader rejects values that rule 8 should judge" and that "The
+seat is told the shape is unknown when the real news is that the policy loosened" (the seat's review
+of 2026-09-24, event 636018d5).

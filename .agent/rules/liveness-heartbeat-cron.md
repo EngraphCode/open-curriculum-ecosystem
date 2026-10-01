@@ -1,3 +1,9 @@
+---
+classification: situational
+description: At team session bootstrap, after the comms watcher and before the team-start broadcast, arm a 4-minute loop emitting BOTH the comms heartbeat event AND claims heartbeat for every held claim each tick via the persistent Monitor primitive, never CronCreate (idle-only firing goes dark when busiest). Relabel at lane transitions; solo and standby seats suspend under the consumer-absent exemption. Silence past 10 minutes opens retired-pending-confirmation, never a verdict. Failure shapes — a comms-only loop leaving the claim registry stale; an emitter heartbeating through a suspended harness.
+trigger: session:team — Team session bootstrap
+---
+
 # Liveness Heartbeat Cron
 
 Liveness is observable, or it is not. Where the
@@ -14,7 +20,10 @@ exemption**: suspend heartbeat emission when no consuming peer is observable on
 the registry (a solo session, or a live owner/coordinator detecting retirement
 directly from ground-truth surfaces), and resume the moment a consuming peer
 appears, the conductor goes async, or the cast rotates. PDR-082 (Adopted) is
-the n=2 owner-visible special case of this exemption.
+the n=2 owner-visible special case of this exemption. As of 2026-09-06 the
+owner-word stand-down (the PAUSED seat state, §Exemptions below) is PDR-078
+§4's fifth exemption class, a declared-state class distinguished from silence
+by its opening event.
 
 The portable contract — cadence, threshold, redundancy rule, exemption
 set, and the structural cure they compose — is authoritatively specified
@@ -47,6 +56,13 @@ obligations bind. The
 autonomous-emitter warning below is the emit-side instance of the
 reading rule: a scheduling layer's green is evidence about the
 scheduler and nothing else.
+
+Liveness has three layers and a watcher heartbeat proves only its own: Luna stirs Radiance found
+that "The first fluent model, 'watcher heartbeat means comms work', was false" and separated "(1)
+canonical events persist and the ARC file carries file-only pairing, (2) a live seat notices and
+acknowledges them, including after relay restarts, and (3) monitoring does not consume a core"; "A
+claim heartbeat and a canonical lifecycle heartbeat are distinct" (the seat's closeout reading of
+2026-09-24, event ccd5e706).
 
 ## Trigger
 
@@ -105,12 +121,22 @@ agent-tools CLI rejects `--body` argv on `--tag heartbeat` events.
 Heartbeats are coordination signal, not narrative content; substrate
 weight should be low so the comms stream stays scannable.
 
+A heartbeat-tagged event needs an active claim, so a claimless seat closes with an untagged
+lifecycle notice: Badger seeks Hush recorded that "The CLI requires an active claim for a
+heartbeat-tagged event, so this claimless lifecycle notice records the stand-down" (the seat's
+reading of 2026-09-23, event 7a04eb5d).
+
 ### Canonical invocation — platform background-task primitive
 
 Run a 4-minute-cadence loop that emits a heartbeat event each cycle.
 **A claim-holding seat's loop bumps BOTH liveness surfaces every tick**:
 the comms heartbeat event AND the claims registry
-(`claims heartbeat --active <path> --claim-id <id> …`). The two are
+(`claims heartbeat --active <path> --claim-id <id> …`), on EVERY estate's
+registry the seat holds a claim in: a heartbeat-tagged send to a second
+estate's stream needs a claim on that estate's registry too, and after each
+re-arm the seat reads `heartbeat_at` back on both (2026-09-28: a Director's
+pulse lapsed two hours when its scratchpad script vanished, unnoticed
+because nothing read the registry back). The two are
 distinct mechanisms — a comms-only loop leaves the registry's
 `heartbeat_at` silently stale for the whole tenure (F-92; worked
 instance 2026-07-15: a Director seat read continuously live on the
@@ -183,7 +209,9 @@ Four disciplines keep the heartbeat loop honest; each cures a recorded
 failure instance from the 2026-06-11 team window:
 
 - **Relabel at lane transitions.** A fixed-label loop goes stale by
-  construction: its title and typed state args are frozen at start, so a
+  construction (read the label from a file each tick, or restart the loop at
+  every state change; a peer read a stale label as a possible unread
+  direction, 2026-09-24): its title and typed state args are frozen at start, so a
   claim open, lane-terminal event, or cycle advance leaves the loop
   asserting a lane the agent no longer occupies (worked instance: a
   PDR-078 stall ping fired on a seat that was actively working, three
@@ -196,6 +224,12 @@ failure instance from the 2026-06-11 team window:
   stop the loop FIRST, then emit the final heartbeat-end event. A loop
   that outlives the end event can emit a stale "active" heartbeat after
   peers have already read the stand-down.
+- **The stand-down order is the mirror of the resume order, and the watcher stops LAST.**
+  Every recorded stand-down (2026-07-31, 2026-08-05, 2026-08-09, 2026-09-02, 2026-09-03)
+  held one order: the heartbeat loop first, then the heartbeat-end or freeze broadcast, then
+  the PR watch and any dialogue-channel tail and idle sub-agents, and the all-channels
+  watcher last — after the broadcast — so the seat was still reading its stream when the
+  broadcast landed and saw any immediate peer reply before going dark.
 - **One timestamp per tick.** Derive a single timestamp per tick and pass
   it to every consumer in the tick (the `--now` option on both `comms send`
   and `claims heartbeat`); two `$(date)` calls can race a second boundary
@@ -396,8 +430,8 @@ spaces, so a positional `awk` field split is wrong).
 
 The standalone command is the read-model; the poll-recipe is the alert. Wiring
 the same classifier into `comms watch` as an `--alert-stale-peers` mode is a
-recorded follow-on (it would couple an absence/timer concern into the
-event-driven watcher, so it is kept a separate thin consumer).
+recorded follow-on (it would couple an absence concern into the
+event-emitting comms watcher, so it is kept a separate thin consumer).
 
 ### Reading calibrations (consolidated 2026-07-30, all measured)
 
@@ -417,11 +451,17 @@ event-driven watcher, so it is kept a separate thin consumer).
   silence it is environmental — no retirement broadcasts, re-arm and move on.
   The host power-management posture (caffeinate/pmset during fleet windows) is
   an owner-level decision, not agent-side retry logic.
-- **Process restart is a distinct event class from compaction**: monitors
-  SURVIVE compaction but NOT a platform process restart. The restart signature
-  is vanished tasks ("no completion record") plus MCP servers reconnecting —
-  on it, re-arm all monitors and run the foreground gap sweep; do not trust
-  any monitor's apparent continuity.
+- **A compaction may end every session-scoped process, as a platform process
+  restart does, and may not** (measured 2026-09-09 at two seats: a Director resumed from
+  `/compact` to an empty cron list and no watcher, poll or loop in the process
+  table; a second seat with a watcher, four monitors and a cron armed found
+  none alive — the 2026-07-30 reading that monitors survive compaction did
+  not hold; then a schedule survived a compaction on 2026-09-23 and a watcher
+  and a heartbeat loop survived an automatic one on 2026-09-25, so neither
+  outcome is assumed). The restart signature is vanished tasks ("no completion record")
+  plus MCP servers reconnecting; on either boundary verify by id (the task
+  list, the cron list, the process table), re-arm only what is absent, and
+  run the foreground gap sweep; never trust a monitor's apparent continuity.
 - **Never diff lines that contain their own clocks**: a delta poll comparing
   raw output whose age field changes every pass never converges (two measured
   noise classes: the moving age field, then its residual column padding) —
@@ -497,6 +537,42 @@ not a retirement signal:
     Adopting the claim flips the seat to active and arms the heartbeat in the
     same move. Minting a marker-claim purely to anchor a heartbeat re-creates
     the consumer the exemption removes; do not.
+- **Owner-word stand-down — the PAUSED seat state.** A seat the owner has
+  paused by word ("prepare for compaction … then stop all processes";
+  "acknowledge then stop"; an overnight "stand down"; a declared
+  week-sleep) stops its heartbeat and its watcher BY INTENT, emits a final
+  heartbeat-end event naming the owner's word and the stand-down, and
+  RETAINS its claim (with a handoff record attached when work is in
+  flight). For every reader of the stream, staleness past that event is
+  the declared state, not a retirement signal: a peer who has read the
+  heartbeat-end does not treat the silence as retirement and does not
+  adopt the claim, and the seat resumes only at the owner's next word,
+  re-arming watcher then heartbeat before its first act. In a paused team
+  the Director stands down last and resumes first. The machine readers do
+  not yet see the pause: the peer-liveness classifier reads heartbeats
+  only and reports the seat retired at ten minutes, and claim freshness
+  stays the registry's authority (`respect-active-agent-claims`), so a
+  pause longer than the claim's freshness window (four hours by default)
+  expects the next stale-archive sweep to move its claim to the archive as
+  `stale` — two claims whose last heartbeat fell on the declared sleep day
+  of 2026-08-19 were swept by the 2026-09-02 fold, their handoff records
+  intact on disk. The resuming seat re-opens its claim from the archived
+  row and re-attaches the record; the sweep is loss-free because the
+  record, not the row, carries the work. A machine-readable paused state
+  on the claim and in both readers is the cure (frictions register
+  F-173). Instances: the
+  2026-08-17 overnight cold-pause (three seats, Director last); a declared
+  week-sleep of 2026-08-19 ("staleness past this event is intentional
+  sleep, never retirement"); an owner-word pause of a second seat on
+  2026-09-03; the Director's and the consolidation seat's compaction
+  stand-downs of 2026-09-05 and 2026-09-06. This composes with
+  `silence-is-never-liveness`: the stand-down is announced before it
+  begins, which is what makes it not silence. The seat states the estate
+  names, for the record: active; standby (no claim, watcher only); paused
+  at owner word (claim held, monitors down; the compaction drill is one);
+  handing off mid-cycle at the owner's call (PDR-063); dissolved into a
+  peer by owner-directed succession (PDR-063 §Deliberate succession);
+  closed.
 
 ## Worked Instance
 

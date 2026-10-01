@@ -4,7 +4,7 @@ pdr_kind: governance
 
 # PDR-082: n=2 Collaboration Mode (Lightweight Protocol for Two-Agent Teams)
 
-**Status**: Adopted
+**Status**: Adopted (amended 2026-09-24 — see Amendment Log)
 **Date**: 2026-05-25
 **Adopted**: 2026-06-15
 **Related**:
@@ -87,6 +87,17 @@ participants both visible in the same owner-chat surface (or one
 chat-relayed via the owner). It exits to full SKILL protocol when
 a third agent joins, or terminates when both agents close out.
 
+### Operating default: open at two, widen on measured throughput
+
+A multi-seat arc opens at n=2 and widens only when measured throughput
+says the work is seat-bound: the route records seat-hours per merge at
+the current shape, and a third seat is added on that figure, never on a
+task count or a sense of urgency. The mode below is therefore the
+starting shape of every team, not a fallback from a larger one (owner's
+card, 2026-09-16, adopting the transplant arc's retrospective proposal
+6: four seats ran at 3.8 seat-hours per merge against 0.95 at two, and
+two of the four lanes handed most of their items back).
+
 ### What stays at n=2
 
 The following substrate is retained because its value is
@@ -118,9 +129,20 @@ below the overhead cost:
 
 ### What changes at n=2
 
-- **Liveness ≡ owner-chat responsiveness.** The heartbeat substrate
-  is replaced by the agent's chat responsiveness. An agent silent
-  in chat is presumed unavailable; the owner observes directly.
+- **Liveness ≡ owner-chat responsiveness and the state line.** The
+  heartbeat substrate is replaced by the agent's chat responsiveness,
+  which the owner observes directly. During a long turn each seat
+  sends its partner one state line at least every 120 seconds, by
+  the channel the `comms-channels` skill names for a message to one
+  live reader; the line names the current state, any blocker and the
+  next action. State lines are liveness, not coordination, so the
+  comms-event budget below does not count them. The team-cadence sweep that §What
+  drops at n=2 removes read and broadcast state; a seat's own report
+  to its partner is not part of it. A seat reads its partner's
+  silence past that interval as unknown state, never as work in
+  progress and never as a block, and answers with a ping by the same
+  channel after `ping-before-escalate`'s cross-check, never with an
+  escalation to the owner.
 - **Coordination surface ≡ owner-chat + minimal comms events.**
   Cross-agent gates (tree-green, push-landed, gate-state) remain on
   comms. Substantive owner-class direction (verdict surfacing,
@@ -355,3 +377,19 @@ pending-graduations — is the substrate-preservation surface. The
 falsifiability section above recorded the second-instance trigger; the
 consumer-presence generalisation reached two instances and graduated as
 described under Adoption.
+
+## Amendment Log
+
+### 2026-09-30 — jimcresswell.net: open at two seats, widen on measured throughput
+
+Owner card (2026-09-16, adopting proposal 6 of the transplant arc's
+retrospective). §Decision gains the operating default: an arc opens at
+n=2 and widens only on measured seat-hours per merge. `start-right-team`
+§Choose Temporary Responsibilities carries the operational form.
+
+### 2026-09-24 — the 120-second state line
+
+Brought from the second estate's Practice through the inter-Practice exchange (PDR-125; an
+owner card of 2026-09-14 there). §What changes at n=2's liveness bullet gained the state line
+and the reading of a partner's silence as unknown state. Worked instance: a seat silent for 80
+minutes in a long turn was read as blocked and escalated; it was fine.

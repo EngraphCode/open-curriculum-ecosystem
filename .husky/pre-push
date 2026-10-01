@@ -2,6 +2,7 @@
 
 # Disable turbo TUI
 export TURBO_UI=0
+. .husky/turbo-remote-cache-notice.sh
 
 
 echo "🚀 Running pre-push checks..."
@@ -25,15 +26,31 @@ echo "🛡️ Running secret scan (pushed commits only; CI scans full history)..
 # argument handling) and hand them to the scanner, which scans ONLY the pushed
 # commits. The CI secret-scan job runs the full `--branches --tags` scan as the
 # comprehensive backstop, so no history goes unscanned.
-secret_scan_refs="$(mktemp)"
-[ -t 0 ] || cat > "$secret_scan_refs"   # capture git's ref lines (empty on a manual/TTY run)
-pnpm agent-tools:secret-scan --remote "$1" --refs-file "$secret_scan_refs"
+push_refs="$(mktemp)"
+[ -t 0 ] || cat > "$push_refs"   # capture git's ref lines once (empty on a manual/TTY run)
+pnpm agent-tools:secret-scan --remote "$1" --refs-file "$push_refs"
 secret_scan_status=$?
-rm -f "$secret_scan_refs"
 if [ "$secret_scan_status" -ne 0 ]; then
+  rm -f "$push_refs"
   echo "❌ Secret scan failed."
   echo "Remove or scrub secret-like values before pushing."
   echo "Use local placeholders for .env.example and real credentials only in .env files."
+  exit 1
+fi
+
+echo "💸 Pricing the review loop against the declared budget..."
+# The review cost gate (PR #139, 2026-09-12: seven settlement pushes against a
+# declared budget of two, stopped only by the owner). Past the budget, while the
+# loop is not converging, the push is refused: the remaining findings are
+# dispositioned without a cure, or the owner raises the budget on the PR.
+# Every pushed branch is priced from the captured ref lines, so naming another
+# branch cannot route around the gate; a TTY run with no ref lines prices nothing.
+pnpm --silent agent-tools:review-cost gate --refs-file "$push_refs"
+review_cost_status=$?
+rm -f "$push_refs"
+if [ "$review_cost_status" -ne 0 ]; then
+  echo "❌ Review cost gate refused the push (BUDGET-EXHAUSTED or unreadable)."
+  echo "💡 Disposition the remaining findings without a cure, or record a rebudget on the PR."
   exit 1
 fi
 
@@ -95,9 +112,17 @@ echo "🔤 Running build, type-check, lint, and tests..."
 # children must not inherit either. Unset the trio for the turbo child
 # only (same load-bearing narrow scope); turbo re-derives the repo from
 # cwd in every checkout shape. No gate is narrowed. Dated account: MCP-414.
+# The turbo step runs under a host gate slot (no-unbounded-host-load item 6):
+# at most two full gates run on the host at once, counted across every
+# estate that uses the slot, and one at a time in a working tree. A blocked
+# push waits and names the gates it waits for (`pnpm agent-tools:gate-slot
+# status` lists them); a step that holds a slot past thirty minutes is
+# stopped and fails. --fail-if-no-match: pnpm exits 0 without running
+# anything when a filter matches no project, which would skip the gate.
 if ! env -u GIT_DIR -u GIT_INDEX_FILE -u GIT_WORK_TREE \
+  pnpm --fail-if-no-match --filter @oaknational/agent-tools gate-slot run \
   pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
-  echo "❌ Turbo quality gate checks failed!"
+  echo "❌ Turbo quality gate checks failed, or the gate slot refused or gave up!"
   exit 1
 fi
 

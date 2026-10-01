@@ -13,6 +13,10 @@ barrier:
   prevents_recurring_mistake: "Bulk-rewriting an apparently-conflicting document to match the newer model, destroying still-valid shared-intent content and deleting orthogonal work that only looked like conflict"
 ---
 
+> **POLARITY: PATTERN.** This entry names a *shape to repeat*, not a failure mode to avoid.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern) for the polarity discipline.
+
 ## Principle
 
 When two documents appear to conflict, run a clause-by-clause **crosswalk before

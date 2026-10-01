@@ -12,6 +12,10 @@ barrier:
   stable: true
 ---
 
+> **POLARITY: PATTERN.** This entry names a *shape to repeat*, not a failure mode to avoid.
+>
+> See [`patterns/README.md` § Polarity](README.md#polarity-required-every-pattern) for the polarity discipline.
+
 ## Principle
 
 A classification instrument exists because the system it grades does

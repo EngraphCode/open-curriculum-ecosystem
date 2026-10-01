@@ -1,3 +1,8 @@
+---
+classification: core
+description: Before committing to the shape of a build (tool, feature, schema, migration, refactor), verify the data actually supports it — trace value end-to-end and fingerprint the corpus before building, not after.
+---
+
 # Verify the Data Supports the Shape Before Building
 
 Operationalises [ADR-038 (Compilation-Time Revolution)](../../docs/architecture/architectural-decisions/038-compilation-time-revolution.md)
@@ -71,3 +76,11 @@ invented "resource-less hosts" while the governing plan had already assigned
 that capability to resources for the real target hosts. The correction was to
 delete the unsupported design surface, not to add optional fields, handler
 bridges, or reviewer rationale around the fabricated premise.
+
+A fourth instance (JC.net, 2026-09-13): a curator-passes README was imported
+because a report listed the directory as a register the curation loop writes to;
+the writer's own doctrine (PDR-081 and the curator-pass skill) says the loop
+writes no such register, and the directory was history OCE kept. Before creating
+a surface because a document says something writes to it, read the writer: a
+report's inventory is a projection, and only the writer's contract is the
+source.

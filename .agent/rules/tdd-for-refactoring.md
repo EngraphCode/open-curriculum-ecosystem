@@ -1,3 +1,11 @@
+---
+classification: situational
+description: For signature-changing refactors, update test call sites FIRST. Compiler errors are RED phase.
+trigger: surface:source-authoring
+globs:
+  - "**/*.{ts,tsx,mts}"
+---
+
 # TDD for Refactoring
 
 Operationalises [ADR-011 (Use Vitest for Testing)](../../docs/architecture/architectural-decisions/011-vitest-for-testing.md) and [ADR-078 (Dependency Injection for Testability)](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md).

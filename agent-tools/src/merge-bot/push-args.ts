@@ -22,10 +22,15 @@ export interface PushArgs {
 }
 
 export const PUSH_USAGE = `merge-bot push [--branch <name>] [--json]
-  Pushes HEAD to the repository's GitHub remote as the BOT, over a freshly
-  minted installation token — the whole per-session credential-helper recipe
-  as one command. The push itself IS the git binary; this command injects the
-  bot identity and refuses by type, and adds no transfer behaviour of its own.
+  Pushes the commit HEAD names to the repository's GitHub remote as the BOT,
+  over one freshly minted installation token — the whole per-session
+  credential-helper recipe as one command. The push itself IS the git binary;
+  this command injects the bot identity and refuses by type, and adds no
+  transfer behaviour of its own but one bounded retry: when GitHub refuses the
+  push at git's first request, before the pre-push hook runs, because the
+  fresh token has not yet reached every edge, it runs git again with the same
+  token after each wait on GitHub's advised backoff, naming each retry on
+  stderr.
 
   The token reaches git ONLY through a 0600 file that lives exactly as long
   as the transfer, read by a static credential helper; the child environment
@@ -41,12 +46,15 @@ export const PUSH_USAGE = `merge-bot push [--branch <name>] [--json]
   overwriting.
 
   --branch names the target branch (default: the branch HEAD is on; a
-  detached HEAD is a typed refusal, never a guess).
+  detached HEAD is a typed refusal, never a guess). The push always writes
+  refs/heads/<branch>, so a full ref name (refs/...) refuses.
   --json puts EXACTLY the outcome object on stdout; git's transfer output is
   diagnostics and always goes to stderr.
   Exit map: 0 pushed, 1 operational failure (git's own non-zero exit, its
-  stderr surfaced), 2 usage, 3 typed refusal — main and master refuse by
-  name, because changes reach the default branch through pull requests.
+  stderr surfaced; or origin's default branch unreadable, or origin not the
+  repository the push goes to), 2 usage, 3 typed refusal — main, master and
+  the default branch origin names refuse in any case, because changes reach
+  the default branch through pull requests.
 `;
 
 /**

@@ -12,12 +12,11 @@ import { createMessage, type RuleWithReappraisingMessages } from '../reappraisin
  * return a `Result` — belong at a single named edge, translated to a `Result`
  * there, not scattered through the call graph.
  *
- * Wired at `warn` first (see `configs/recommended.ts`) per the
- * `no-warning-toleration` rule-authoring nuance: the existing-throw surface
- * (notably workspaces that predate Result adoption, such as `agent-tools`) is
- * captured at `warn` while the throw→Result retrofit lane migrates it and the
- * false-positive profile (test files, sanctioned boundary throws) is designed.
- * Promotion to `error` lands with that lane.
+ * Severity: `error` in `configs/recommended.ts`. The owner's ruling of
+ * 2026-09-08 (quoted there) turns the rule off in each workspace that holds
+ * throw debt, in that workspace's own flat config, until the merge-back into
+ * the upstream lets the no-throw-remediation plan migrate the debt; every
+ * other workspace, and every new workspace, holds it at `error`.
  */
 const noThrowStatementRule: RuleWithReappraisingMessages<'throwBanned'> = {
   meta: {

@@ -1,3 +1,17 @@
+---
+description: Onboarding documentation quality specialist. Use proactively when onboarding paths change, new contributors join, or documentation drift is suspected across the human or AI-agent onboarding flows. Invoke immediately after changes to README (especially the Quick Start section), CONTRIBUTING.md, AGENT.md, or any document that sits on an onboarding path.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  color: pink
+cursor:
+  description: Onboarding documentation quality specialist. Use proactively when onboarding paths change, new contributors join, or documentation drift is suspected. Reviews accuracy, efficacy, readability, style consistency, stale information, and gaps across human and AI-agent flows.
+codex:
+  description: Onboarding documentation quality reviewer.
+---
+
 ## Delegation Triggers
 
 Invoke this agent whenever the onboarding experience for human contributors or AI agents may have degraded — after changes to setup scripts, contribution workflows, the root `README.md` (especially the Quick Start section), `CONTRIBUTING.md`, `AGENT.md`, or any document that sits on an onboarding path. It is also the right agent when a new contributor reports confusion, when onboarding documentation has not been audited in a while, or when documentation drift is suspected across the human and AI onboarding paths.
@@ -35,7 +49,7 @@ Before reviewing onboarding quality, you MUST also read and internalise these do
 | Document | Purpose |
 |----------|---------|
 | `.agent/skills/start-right-quick/shared/start-right.md` | Canonical AI-agent onboarding workflow |
-| `.agent/skills/under-the-hood/SKILL-CANONICAL.md` | The orientation lens (`/oak-under-the-hood`) — audit its discernment contract and three delivery modes against the live docs it routes to |
+| `.agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md` | The orientation lens (`/oak-under-the-hood`) — audit its discernment contract and three delivery modes against the live docs it routes to |
 | `README.md` | Public entrypoint and top-level onboarding (includes the Quick Start and audience routing) |
 | `CONTRIBUTING.md` | Human contributor flow: development process and quality expectations |
 | `docs/README.md` | Documentation index and start paths |

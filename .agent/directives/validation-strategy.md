@@ -1,7 +1,11 @@
 ---
 title: "Validation Strategy"
 status: seeded-stub
-last_updated: 2026-08-10
+last_updated: 2026-09-24
+fitness_line_target: 180
+fitness_line_limit: 240
+fitness_char_limit: 14000
+fitness_line_length: 100
 ---
 
 # Validation Strategy
@@ -17,13 +21,18 @@ last_updated: 2026-08-10
 ## The spine: test / evaluate / assure
 
 - **Test** — *deterministic*. Proves code does what its spec says. Binary,
-  reproducible; unit of truth is the assertion. This is all of
-  [testing-strategy.md](testing-strategy.md). Mutation testing (Stryker) is the
+  reproducible; unit of truth is the assertion, and a test uses no IO.
+  [testing-strategy.md](testing-strategy.md) defines the tests, and the E2E and
+  smoke checks beside them, which are validation surfaces. Mutation testing (Stryker) is the
   meta-quality layer that makes test coverage meaningful.
 - **Evaluate** — *probabilistic*. Measures the value and reliability of a
   judgement-laden capability across realistic inputs, graded relative to a
   baseline. Unit of truth is a graded outcome over a corpus plus a with/without
   delta. Assertions are authored *after* the first run (this inverts test-first).
+  For a Practice skill the delta is read from the evidence `agent-tools skill-evals`
+  retains under the skill's `evals/results/` (the runner's result per arm, every
+  trace and answer, a manifest of the evaluated versions); the instrument is in
+  [`agent-tools/README.md`](../../agent-tools/README.md) §`skill-evals`.
 - **Assure** — the umbrella trust case: composes test + evaluate + conformance +
   UAT + observability + security review + human review into ongoing evidence that
   the capability is fit for the world.
@@ -51,7 +60,7 @@ passed on a runtime fact the real build path could not satisfy, because
 Vite resolves workspace packages and `tsx esbuild.config.ts` does not — the
 green unit test "proved" a resolution the shipped artefact lacked. When a
 claim is about a RUNTIME or BUILD property, the check must run on that
-runtime or build path (a smoke test on the built artefact, not a unit test
+runtime or build path (a smoke check on the built artefact, not a unit test
 on the source graph). Composes with the
 `green-parts-red-composition` pattern: per-path checks compose no better
 than per-part ones.
@@ -70,6 +79,21 @@ not bugs to patch one spelling at a time. This generalises the section
 above — prefer the instrument that exercises the property's real path
 over a textual shadow of it.
 
+**An observation is an instrument** (owner, 2026-09-14, verbatim: "sometimes
+you don't need an automated check @validation-strategy.md sometimes you need
+an observation"). Where the property's real machinery cannot run inside a
+test (git's own merge semantics, a filesystem, a running vendor, a spawned
+process), because tests never use or create IO
+([testing-strategy.md](testing-strategy.md) §Philosophy), the property is
+exercised once at cure time by hand and the run is recorded on the pull
+request and in the records: the commands, the inputs, what was seen. An
+observation is dated, first-hand and reproducible from its record; it is
+never narrated as a suite's proof, and a suite is never built to replace it
+with IO. Worked instance: the review-cost gate's sync predicate, proven by
+unit tests over injected git output plus one recorded run of the real git on
+PR #146 (2026-09-14), a scratch repository exercising the admitted and
+refused merge shapes by hand.
+
 The module-system policy those rules enforce (owner ruling
 2026-08-09): this estate is **strictly ESM — zero `require`
 statements**; the presence of a `require` IS the finding, never a
@@ -80,6 +104,35 @@ allowance. Worked instance: the
 workspace-config-isolation containment leg (2026-08-09) — its
 replacement with dependency-cruiser rules was ruled at the owner's
 word; the isolation lane executes it.
+
+## Validators: the fewest processes, never a change to the code, never a build
+
+The owner's words of 2026-09-29, verbatim: "tests are FORBIDDEN to create real IO and child
+processes. I don't want excuses or carve outs, we have these rules for a reason", and
+"validation scripts can start real processes, but they are to be kept to a MINIMUM, and they
+are FORBIDDEN from altering the code or triggering builds".
+
+- **Tests** use no IO and start no process, with no exception
+  ([testing-strategy.md](testing-strategy.md) §Philosophy).
+- **A validator** may start real processes, and starts only the fewest its property needs.
+- **A validator never alters the code**: no formatter or fixer in its writing mode, no repair,
+  no code generator, no install, nothing written into this repository's checkouts, worktrees or
+  their `node_modules`. A scratch directory under the system temp root is not the code.
+- **A validator never triggers a build**: it reads the artefact a separate step built, and
+  when that artefact is absent it fails and names the step.
+- What a validator cannot prove inside these bounds is proven once, by an observation made at
+  cure time and recorded (§Right tool), never by a suite.
+- A check whose purpose is a code-altering mode (a repair, a `--write`, a `--fix`) is neither a
+  test nor a validator. Its logic is proven in process against injected fakes; the real tool's
+  effect is an observation.
+- A file's directory or suffix ("smoke", "e2e") never licenses a process; its class follows what
+  it does.
+
+Worked instance (2026-09-28 to 2026-09-29): a repair "smoke" ran source through a loader,
+started seven processes a run, ran both repair modes, and linked the repository's
+`node_modules` into a scratch repository. Three review findings on its process lifecycle were
+each cured with more process handling. One run by hand reinstalled through the link and
+emptied a worktree's `node_modules`.
 
 ## Validation jurisdiction: we validate our own systems
 
@@ -101,6 +154,19 @@ install layout as a defect tolerated only via a homegrown lock
 exemption; cured by recognising Practice projections through their
 recorded derivation and leaving everything else untouched (ADR-125
 §Skill classes and validation jurisdiction).
+
+## Visibility precedes validation
+
+A validator over a shape nobody has ratified promotes the accidental to the
+canonical (owner correction, 2026-07-09, on an audit of agent-facing content
+that had evolved organically: "a validator at this time might accidentally
+lock in shapes that evolved organically and without intention or oversight").
+Before proposing any validator, guard or eval gate, ask whether the surface's
+shape has been ratified from first principles. If not, the sequence is: make
+the shape visible and reviewable (a registry, a report), let the right people
+judge it, ratify the intended shape, and only then guard it. The reflex to
+guard drift the moment it is found presupposes that the current shape is
+intended.
 
 ## Eval home
 

@@ -1,3 +1,11 @@
+---
+classification: situational
+description: 'All source is TypeScript and all JavaScript is ESM — apply when creating any source or executable file, scaffolding tooling, hooks, or scripts, or reviewing a diff that adds .js, .mjs, .cjs, or .sh. New logic goes in a .ts module; a runtime that demands JS gets it compiled from TypeScript, never hand-authored (sole carve-out: ADR-168 §4 runtime-only-scripts). CJS is banned outright; shell only where it significantly reduces effort. No lint enforces this; the bar is judgement, "high, high" — an exception never grandfathers surviving hand-authored JS, which stays a rewrite candidate.'
+trigger: surface:source-authoring
+globs:
+  - "**/*.{js,mjs,cjs,sh}"
+---
+
 # Source Is TypeScript, ESM Only
 
 All source code in this repository MUST be TypeScript unless absolutely
@@ -22,9 +30,16 @@ files.
 
 - New logic → a `.ts` module in a workspace `src/`, typed, linted, and
   unit-tested (ADR-168 §5).
-- A runtime that demands a JS file (a hook target) → compile it from
-  TypeScript (the bootstrap-built `agent-tools/dist` pattern); never
-  hand-author the compiled artefact.
+- A hook or command entry point → run it from TypeScript source
+  (`node <source>.ts`): Node 24.18 executes a TypeScript entry directly
+  under `erasableSyntaxOnly` (set repo-wide), resolving workspace
+  dependencies and relative TypeScript specifiers, at about ten
+  milliseconds over the compiled file against a ten-second hook timeout
+  (measured 2026-09-16). A shim is a last resort (owner, 2026-09-16), and
+  a compiled artefact is never hand-authored. The entry being source does
+  not make the closure build-free: an import that reaches a workspace
+  package exporting only `dist/` still needs that package built, so the
+  build dependency is stated once in the entry's TSDoc.
 - A no-compile pre-install constraint (a script that must run before
   `pnpm install` can) → the explicitly-authorised per-workspace
   `runtime-only-scripts/` tier (ADR-168 §4): the named

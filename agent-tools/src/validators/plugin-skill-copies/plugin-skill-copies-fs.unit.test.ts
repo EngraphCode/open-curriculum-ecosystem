@@ -36,6 +36,13 @@ function childNames(layout: Layout, directory: string): readonly string[] {
   return [...new Set(names)].sort(byName);
 }
 
+/**
+ * The layout is keyed with forward slashes; the walker joins with the host's
+ * separator, which is a backslash on Windows. The facade does no path
+ * resolution, so it reads either spelling as the same key.
+ */
+const layoutKey = (hostPath: string): string => hostPath.replaceAll('\\', '/');
+
 /** A filesystem facade that answers from the declared layout only. */
 function memoryFileSystem(layout: Layout): SkillFileSystem {
   const entryFor = (directory: string, name: string): SkillDirectoryEntry => {
@@ -49,12 +56,13 @@ function memoryFileSystem(layout: Layout): SkillFileSystem {
     };
   };
   return {
-    readDirectory: (directory) => {
+    readDirectory: (hostDirectory) => {
+      const directory = layoutKey(hostDirectory);
       const names = childNames(layout, directory);
       return names.length === 0 ? undefined : names.map((name) => entryFor(directory, name));
     },
     readFile: (file) => {
-      const node = layout[file];
+      const node = layout[layoutKey(file)];
       // A non-file read is a walker bug; surface it as content the assertion will show.
       return encoder.encode(node?.kind === 'file' ? node.text : `<not a file: ${file}>`);
     },

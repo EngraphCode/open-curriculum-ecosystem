@@ -74,6 +74,12 @@ argue; they do not decide anything.
   — systems-thinking synthesis of the repo's reinforcing, refinement, and
   balancing loops, with a narrow recommended tranche for stronger
   negative-feedback control over memory quality
+- [retrospective-the-twenty-four-open-prs-2026-09-27.md](./retrospective-the-twenty-four-open-prs-2026-09-27.md)
+  — the Director's retrospective on the arc from twenty-four open pull requests (2026-09-25) to
+  the count at the limit (2026-09-27): the causal stack, the counterfactual of a mechanised door,
+  the proposals read against their falsifiers, and a resume addendum
+- [retrospective-the-review-rounds-that-grew-2026-09-27.md](./retrospective-the-review-rounds-that-grew-2026-09-27.md)
+  — the Director's retrospective, on the owner's brief relayed by Siren, on the review rounds that grew on the transplant runbook's rollback and the WIP clause (2026-09-26 to 27): the mechanism (a procedure written as prose, with the reviewers as its only test, under a per-PR budget the concept crossed), the five rivals against their falsifiers, a blind pre-open pass, six proposals.
 
 ## Current Posture
 
