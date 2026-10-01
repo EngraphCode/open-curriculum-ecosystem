@@ -20,7 +20,9 @@ Whenever a prior act is invoked as the reason for an action:
 
 - a prior agent's annotation ("holding", "ready", "verified", "withdraw-ready");
 - a status label (`graduated`, `duplicate`, `done`) used as authority to act;
-- a recorded verdict or continuity prose inherited as the frame;
+- a recorded verdict or continuity prose inherited as the frame (the owner, 2026-08-13, twice:
+  "Question the assumptions and authority of decisions handed to you by the previous seats and
+  plans");
 - "it has always been done this way" or an inherited shape;
 - who acted, broadcast, or arrived first;
 - the shape of a prior owner intervention;
@@ -60,8 +62,8 @@ quotes the governing text before it rules and never rules against it. Every othe
 Accepted or Proposed record changes with the decider named and dated, and the owner
 overrules at will (the owner's card of 2026-10-01, choosing this reading over "every
 Accepted record" and over no reserved class; the instance behind it: a verdict
-overturned a ratified todo on 2026-09-13 and the owner asked what else was being
-overturned).
+overturned a ratified todo on 2026-09-13 and the owner wrote "this makes me concerned for
+what other instructions are being overturned").
 
 The same discriminator runs the other way, when an owner IMPERATIVE collides with the
 owner's own ratified structure. The shape the owner praised (2026-08-11, "I gave an

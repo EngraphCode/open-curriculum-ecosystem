@@ -62,6 +62,12 @@ The urge passes the moment ceremony is applied. The cycle that
 seemed urgent five minutes ago lands cleanly under full protocol
 and the urgency vanishes — confirming it was never real.
 
+The owner, 2026-09-29 (recorded in OCE's estate-coordination thread; one
+instance): "We don't cut things to make the work go faster, we stop wasting
+time doing needless work, that would significantly increase throughput." A
+seat that finds the work slow looks for needless work to stop, never for a
+step or a piece of scope to cut.
+
 ## Severity Is Importance, Not Urgency
 
 Severity-tier labels (`CRITICAL`, `HARD`, `P1`, `P2`, etc.) name

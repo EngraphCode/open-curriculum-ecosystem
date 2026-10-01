@@ -84,9 +84,7 @@ pending-graduations register (in a relay event, a branch or a handoff opener)
 is easily lost: one ruling of 2026-09-24 took three owner
 words and had not landed after twenty-three hours, while a queued cure landed
 at the next drain (one seat's retrospective of 2026-09-25, in OCE's reports;
-one source). That seat proposed a cure that nothing has yet ratified: whoever
-relays such a ruling writes its pending-graduations row, and any seat under
-30 % executes it.
+one source). That report also proposes a cure, which nothing has ratified.
 
 ## Reading the Figure
 
