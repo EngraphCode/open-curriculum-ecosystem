@@ -37,14 +37,62 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-01T20:21Z: #322 landed as `SHA:30f5b4338`; the push starts each attempt inside its token's
+  life and on the settled commit** (Crucible binds Slag, 7b999c). Before every attempt, the first
+  included, `merge-bot push` stops when the token is within five minutes of its expiry or when HEAD
+  no longer names the commit it began with; with no `--branch`, a checkout that changes branch while
+  the target settles fails the push before the mint; an origin read over plain http is not trusted;
+  what a refusal quotes is printed without control or format characters. The push's tests are held
+  to the testing directive. Two findings on the push as it stood before, in both estates, are not
+  cured by it and are routed in §Next Safe Steps line 4: a seat whose git config rewrites
+  `https://github.com/` to ssh pushes as the signed-in human, and `GIT_TRACE_REDACT=0` with curl
+  tracing prints the credential.
+
+- **2026-10-01T17:37Z: arc-metrics is the same bytes in both estates; #321 landed as `SHA:9dae121c7`**
+  (Crucible binds Slag, 7b999c). It carried the three cures Copilot named on JC.net's pull request 277
+  (merged there as `SHA:ce3e0296` at 17:19Z): the splitter rescanned an unfinished line with every chunk,
+  a missing directory was refused only after the directories before it had been read, and the threshold
+  was checked in minutes and not in the seconds it is compared in. The topic's files differ between the
+  estates only in three citation lines.
+
+- **2026-10-01T16:47Z: arc-metrics, #320, landed as `SHA:d6349ccb4`** (Crucible binds Slag, 7b999c). This
+  estate measures an arc from its session transcripts with `pnpm agent-tools arc-metrics --vendor claude`.
+  A code review before its ready-mark found three defects the ported bytes carried, and JC.net's `main`
+  with them; the cures went to JC.net as its pull request 277. No lane of the implementer seat is open here.
+  The J2 port is the one worktree left, `oce-wt-j2-docs-validators`: a code review of its uncommitted
+  work returned NOT READY, and §Next Safe Steps line 2 holds what it needs.
+
+- **2026-10-01T15:58Z: the Oak line's 1.185.6 carrier, #319, landed as `SHA:beceea25e`** (Crucible binds
+  Slag, 7b999c, at the owner's word "Main also needs merging into engraph"). `engraph` holds every commit of
+  the Oak line's `main` at `SHA:2a7773837`: seven commits, the Claude plugin's README wording (plugin 0.1.6)
+  and the release. #317, the unworked carrier at `SHA:050bf314c`, was closed and replaced by the
+  `cross-fork-integration` skill's step 1 when the Oak line moved one commit past it. The carrier's merge
+  `SHA:beaad99a9` has the tree `git merge-tree` wrote; no generator changed a file; the premise sweep found
+  nothing to re-true (recorded on #319). The three open lanes landed before it, one sync each: #313
+  `SHA:e453ff81a` (the Turbo remote cache optional everywhere), #309 `SHA:2691a8143` (the repair smoke
+  removed, the shellcheck gate's tracked lock, `validation-strategy.md` §Validators) and #310
+  `SHA:2e8892fed` (the bot's branch transfer retried with one token on GitHub's backoff). Every lane branch
+  and worktree of the four is gone, and the stale worktree of #312 with them. The Codex connector signals a
+  review with no finding by a thumbs-up reaction on the pull request, not by a review or a comment: it
+  reacted within about three minutes of each head pushed to #299, #313, #309 and #310 on 2026-10-01, and of
+  those heads posted a review only on #319, where it had a finding (rejected with evidence on its thread). This seat read the silence
+  as absence and wrote "unavailable" on the premises of #299, #313 and #309; each carries a signed
+  correction. The merge door's leg computation reads reviews and not the reaction, so a head on which the
+  connector found nothing cannot settle that leg through the door: a seat reads the pull request's
+  reactions before calling the connector absent, and the door's reading of the reaction is a tooling lane.
+
+- **2026-10-01T14:40Z: #299 folded into `engraph` as `SHA:972020417`** (Crucible binds Slag, 7b999c; the
+  bot's merge through the merge door, three Copilot rounds, every finding dispositioned on the pull
+  request). The folded branch is retired, local and remote. The fold entry with its gravity line is the
+  `estate-coordination` thread record's journal entry of the same time.
+
 - **2026-10-01T13:2xZ: two seats (n=2), no Director, at the owner's word** (verbatim, to Crucible binds
   Slag: "Hazel tracks Trunk (7d8b9d) is working on the dedicated conslidation, you pick up the other
   threads, fix the fold and continuation records fist. Main also needs merging into engraph."). Both seats
   are resident in JC.net and work this estate non-resident. Hazel tracks Trunk (7d8b9d, curator) runs a
   second dedicated two-estate consolidation: read-only audit first, every tracked write on a lane cut from
   `engraph` after the fold, nothing on the coordination branch. Crucible binds Slag (7b999c, implementer)
-  holds the folds, this record, the open lanes #313, #309 and #310, and the upstream sync: `engraph` is
-  six commits behind the mirror branch `main` at `SHA:050bf314c`. #299 is the fold of the coordination
+  holds the folds, this record, the lanes and the upstream sync. #299 is the fold of the coordination
   branch cut on 2026-09-29; beside its records it carries the first consolidation's doctrine and the two
   code hunks it shares with JC.net's fold, each class declared in its description. The five claims that
   named seats closed on 2026-09-29 were adopted by the implementer on 2026-10-01. The first consolidation
@@ -316,28 +364,196 @@ not the current session-priority lane. Reactivation is owner-directed.
 ### PICKUP, 2026-10-01 13:2xZ — the implementer seat at n=2 (supersedes the blocks below where they differ)
 
 Crucible binds Slag's order, from the owner's word in §Current State, in landing order (this estate's
-own fold is not a line here: its state lives in its pull request):
+own fold is not a line here: its state lives in its pull request). The live coordination branch is
+`coordination/2026-10-01-972020`, cut from `SHA:972020417`:
 
-1. Land the three open lanes, one sync push each at its turn: #313 first (green at `SHA:7f7b2eb1a`, no
-   review threads), then #309 (one unresolved thread; its lane worktree holds commits the remote lacks)
-   and #310 (three unresolved threads, the Codex P1 first). The n=1 pickup's "310 to merged, then 309"
-   stands inside this item.
-2. The upstream sync: the carrier workflow opens the draft carrier for `SHA:050bf314c` at its next run,
-   and the seat takes it by the `cross-fork-integration` skill. Under the owner's limit on open pull
-   requests (one coordination pull request per repository, and as many others as there are implementer
-   seats, counted across both estates) the carrier's turn comes after the three lanes, unless the owner
-   puts it first.
+The three open lanes and the upstream sync that stood first in this order landed on 2026-10-01
+(§Current State). Under the owner's limit on open pull requests (one coordination pull request per
+repository, and as many others as there are implementer seats, counted across both estates) the lines
+below go one pull request at a time:
+
+1. arc-metrics landed: pull request #320 merged into `engraph` as `SHA:d6349ccb4` on 2026-10-01 at
+   16:47Z; its branch, worktree and two claims are closed. It carried the port, the three files the
+   exchange seat left uncommitted, and the cures of a code review made before its ready-mark: the line
+   reader dropped every entry holding a Unicode line or paragraph separator (`node:readline` splits on
+   both), a named directory that does not exist reported no sessions, and nothing said that sub-agent
+   transcripts are not measured. A settlement push made the CLI's tests hold on Windows (the path
+   resolver is an input). Routed from it, for both estates:
+   - The same cures went to JC.net as its pull request 277. Copilot's review there named three more
+     defects in the shared bytes, cured there in two settlement pushes and landed here as #321
+     (§Current State). Nothing of arc-metrics is owed in either direction.
+   - Counting the sub-agent transcripts, which the vendor nests under each session: in the directory
+     measured they hold about two fifths of all model calls. It changes what the tool measures and needs
+     its own design.
+   - A failed call's synthetic entry counts as a model call with zero usage; a zero-byte transcript counts
+     as a session; unparseable lines are skipped without a count; a failed read exits 1 here and 2 in
+     two neighbouring topics.
+   - `codex-exec/cli.ts` reads its event lines through `node:readline` too, in both estates: the same
+     splitting on a second reader, which is when `split-lines.ts` moves to `core/`.
+2. The J2 docs-validators port, from `oce-wt-j2-docs-validators` (claim 4b82394b). Premise recomputed
+   first-hand on 2026-10-01: `cited-paths`, `cited-scripts` and `lineage-names` are on JC.net's `main`
+   and absent here. The work is uncommitted (two modified files and three new directories, about 2,650
+   lines). A code review of it on 2026-10-01 (read-only; its report is quoted in the pull request when
+   one opens) returned NOT READY: the port is the source's bytes with the scope renamed, and it does not
+   run here. It goes in the Director's order, recorded in the pickup blocks below (cited-paths with the
+   describer and lineage-names; cited-scripts; the compare cure), one pull request each, and each
+   needs this work first:
+   - The three entry files do not load (verified first-hand): they import `collectTrackedPaths`,
+     `collectIgnoredPaths`, `describeUnreadable` and `listTrackedFiles`, and this estate's core exports
+     the Result-returning `listTrackedPathSet`, `listIgnoredPaths` and `listTrackedFiles` in
+     `core/repository-paths.ts` (the port imports the last from `core/tracked-file-scan.ts`, which
+     does not export it here) and no `describeUnreadable` in `core/tracked-file-scan.ts`. `listIgnoredPaths` has its own contract (a
+     directory carries a trailing `/`), so this is adaptation. The 151 ported tests pass because none
+     runs an entry file.
+   - `.agent/hooks/policy.json` has no `lineage-name` block (verified first-hand), so that validator
+     would refuse every run. The Director's ruling stands: this estate's needles are hook-policy data,
+     listed for the owner in the pull request's body. The block also arms the write hook.
+   - The scan scope is the source estate's (the reviewer's run, not repeated by this seat): composed
+     with this estate's git readers over the lane tree, `cited-scripts` reports 346 findings in 2,630
+     files (217 under `.agent/plans-backlog-2026-07`) and `cited-paths` 25. Fit the scope to this
+     estate and cure or exempt what remains before either leg joins `docs-validators:check`.
+   - Statements false here: the pnpm version the built-ins were probed on (this estate pins 11.20.0),
+     the operator text that names the source estate's site, and a header that cites a smoke not ported.
+   - Wiring: three scripts in `agent-tools/package.json`, three legs in the root
+     `docs-validators:check`, three `knip.config.ts` entries; Prettier fails one ported test file.
+   - The two modified `markdown-links` files are byte-identical to the source and the validator stays
+     green; they can land with the first of the three.
+   - Logic defects the review reproduced through the port's helpers, present in JC.net's source too, a
+     twinned lane after the ports: quoted and negated `--filter` values give a false
+     `unknown-workspace`; a second `--filter` and a `...` suffix hide a missing workspace; a heredoc
+     body is read as a command; `/bin/bash -c`, `env … bash -c` and `eval` are not read; a `~~~` line
+     inside a backtick fence turns later prose into citations; `pnpm cache`, `runtime` and `t` are
+     flagged on pnpm 11.20; a cited path keeps its `:12-20` line suffix.
 3. Routed from the code review, one twinned lane: Turbo's `globalDependencies` glob `**/.env.*local`
    walks into a lane's `.env.local` under `.claude/worktrees/` in both estates (the reviewer's reading of
    the dry run in JC.net; this estate's `turbo.json` carries the same glob); anchor it by depth, prove it
    with the dry run, and re-true the coverage sentence in `worktree-residency`.
-4. The two lane worktrees that hold work outside any pull request, each to its own pull request after
-   the three lanes land: arc-metrics (`oce-wt-arc-metrics`, one commit with no remote branch and three
-   uncommitted files; claims 803d5d7d and abcd5ea9) and the J2 docs-validators port
-   (`oce-wt-j2-docs-validators`, uncommitted; claim 4b82394b). The five claims that named closed seats
-   were adopted by Crucible binds Slag on 2026-10-01 (event e36d295b); the premise of these two is still
-   to recompute first-hand before any edit.
-5. Routed from the Copilot reviews of the two folds, each verified first-hand:
+4. The merge-bot converges in two steps, read first-hand on 2026-10-01 by comparing the two
+   `agent-tools/src/merge-bot` trees. Each estate holds what the other lacks: this estate the push as #310
+   and its predecessor left it (one token on GitHub's backoff, one settled commit, the default branch
+   read from origin, `core/git-remote-url.ts`); JC.net the `retire` action, the `--branch` check the two
+   commands share (`branch-arg.ts`) and a bounded copy of the push's output for the refusal check (this
+   estate's push holds the whole transcript, the gate's output included).
+   - Step one, in JC.net, landed: its pull request 278 (`SHA:18ec6145`, 2026-10-01 18:37Z). Its push
+     takes this estate's design and keeps the bound and the shared check. A code review before it
+     opened found that this estate's rework had dropped proofs JC.net's tests held, so this estate's
+     push is unproven on them today: the token file's 0600 mode, the terminal prompt turned off,
+     every configured credential arm cleared before the one helper, the wait between attempts, and
+     the production mint's scope (every push test here injects the mint). 278 put each back with its
+     mutant. Copilot's reviews of 278 then found defects of the design this estate's push still has:
+     a retry pushes the settled commit after HEAD has moved, while the pre-push hook validates the new
+     checkout; nothing bounds an attempt by the token's own expiry (R5); with no `--branch`, the branch
+     and the commit are read apart and can come from two checkouts; an origin read over plain http is
+     trusted. Each is cured there. Its pull request 279 (`SHA:c6394b98`, 19:00Z) carried five small
+     items from 278's last review.
+   - **Correction to the bullet above, from the test review of step two:** the proofs 278 "put
+     back" (the token file's mode, the directory prefix, the prompt setting, two git flags, the
+     cleared arms computed from the product's own table) pin decision values, which
+     `testing-strategy.md` §Philosophy and §Rules forbid. This estate's rework was right to drop
+     them. JC.net's 279 had already removed the scope one for the same reason; the rest go in its
+     twin of step two.
+   - Step two, here, is two pull requests. First the push product code, landed: pull request #322
+     (`SHA:30f5b4338`, 2026-10-01 20:21Z; one settlement push, on a branch name a refusal quoted
+     raw). Three sub-agent reviews ran before it opened (code, security, test) and changed it from
+     a copy of JC.net's bytes in two ways. Plain http is refused in the push's own origin check (`trustedOriginRepository`), on
+     the trimmed URL, and never in `core/git-remote-url.ts`: that parser has two more callers here,
+     and refusing there would move the push secret scan to its unscoped exclusion for a plain-http
+     remote. The tests are re-derived against the directive: each new behaviour at its own seam
+     over constant fakes (`push-attempt-guards.integration.test.ts`, the `settleCommitFor` block,
+     `token-deadline.unit.test.ts`), no fake that answers in sequence, no pinned decision. Then
+     the `retire` action with what it needs (`github-fetch.ts`,
+     the `branch-retire` row of the scope table, the wiring in `cli.ts`, its smokes); `branch-arg.ts`
+     and `test-helpers/result-failure.ts` arrive with #322. Until `retire` lands every landed
+     branch here is deleted by hand after the same ancestry proofs (a REST delete of the ref as
+     the bot, then `git branch -d`). Not the whole directory: this seat wrote that earlier in this
+     line and it was wrong.
+   - The twin of #322 in JC.net is its pull request 280 (opened 2026-10-01 20:30Z, head
+     `SHA:5527d3c5` after one settlement push, its second review round requested at 20:40Z; its
+     state is in that pull request and in JC.net's `repo-continuity.md` line 4). It takes #322's
+     tests and product changes as the same bytes.
+   - Owed here from JC.net's 280, small, to arrive with the `retire` port: two source comments
+     (`push-attempts.ts` at `REFUSAL_TRANSCRIPT_BOUND`, and the header of `transferAndReport` in
+     `push-cli.ts`) say the push's output "streams to stderr as it arrives", and the file-backed
+     executor replays it when git ends (`git-executor.ts`; Copilot's finding on 280, cured there
+     in `SHA:5527d3c5`); `core/git-remote-url.ts` describes its scheme pattern as "`https://` or
+     `ssh://`" though it reads plain http too, and its unit test has no row for the http form
+     (JC.net's 280 carries both).
+   - The next lane here for this seat, not yet cut: the `retire` port, after 280 lands in JC.net.
+     Its dependency closure, read from JC.net's `main`: the `retire-*.ts` files (source and
+     tests), `github-fetch.ts` with `mint-for-config.ts` importing `realFetch` from it,
+     `githubHeaders` exported from `mint-installation-token.ts` (this estate's user-agent string
+     stays its own), `test-helpers/retire-cli-double.ts`, the `branch-retire` row of
+     `token-scopes.ts` with `permissionLevelsFor`, the `retire` wiring and `GitActionInput` in
+     `cli.ts`, `branch-arg.ts` restored to the second estate's header (it names both commands),
+     eight smoke files (`merge-bot-retire*.ts`, which import `hermetic-git-env`), and the
+     document's "Retiring a merged branch" section. The test review's verdicts on #322 apply to
+     those tests before they are taken: no fake that answers in sequence, no pinned decision,
+     no real git in a unit test.
+   - Routed from #322's security review, one lane, each confirmed by probe on the base branch of
+     both estates and untouched by #322. Over the bar: a `url.<base>.insteadOf` or
+     `pushInsteadOf` value that prefixes `https://github.com/` carries the bot's push over ssh, as
+     the signed-in human, past the credential helper and every scrub (cure: a fifth token-free
+     read before the mint that fails when any such value prefixes the push URL, naming the key
+     kind and never the base; `http.<url>.extraHeader` is the same class, not tested); an ambient
+     `GIT_TRACE_REDACT=0` with `GIT_TRACE_CURL=1` prints the credential on stderr (cure: unset
+     `GIT_TRACE_REDACT` in `pushEnv`). Under the bar: `trustOrigin` drops whitespace-only lines before it counts URLs;
+     `REFUSED_FLAGS[flag]` is a plain-object lookup (`merge-bot push constructor` prints a function
+     source) and an unknown action is echoed raw; `Date.parse` reads lenient forms of
+     `expires_at`, throws a `RangeError` near the minimum date, and `deadlinePassed` answers false
+     for a clock it cannot read; `AttemptGuards` holds the whole token where the deadline alone is
+     used; the expiry the mint answers is quoted unsanitised by the push's and the merge's deadline
+     messages (Copilot's last review of #322; the cure is at the boundary, `expires_at` validated
+     as an ISO datetime in `mint-installation-token.ts`, which closes the lenient parse too); the
+     branch name in the `pushed:` line and the `--json` outcome is written as git names it. Not closable in the push: the pre-push hook validates the files on disk, so a dirty
+     tree or a HEAD that moves during the gate still passes it (cure is hook-side: the ref line's
+     commit against HEAD, and a clean tree).
+   - **Found at the 20:5xZ boundary: #322 brought back two things this estate had deleted on
+     purpose.** Commit `SHA:2432ac462` (2026-09-29, #310's rework, reviewed by test-expert,
+     code-expert, assumptions-expert and security-expert) says so in its message: the pins of
+     configuration deleted, "The 4096-byte transcript bound is gone: the transcript is
+     classified whole, once", and "a constant mint in place of a fake that routed GitHub's two
+     mint endpoints; the RSA key it generated at load is gone". #322 kept the pins out. It
+     restored the bound (`REFUSAL_TRANSCRIPT_BOUND` and `keptForRefusal` in `push-attempts.ts`,
+     with their cases in `push-attempts.unit.test.ts`) and added
+     `push-cli-mint.integration.test.ts`, whose fetch fake routes the two mint endpoints and
+     whose key pair is generated at load. This seat ported from the second estate's bytes and
+     never read this estate's history for what it had removed; the three reviews before #322
+     opened were not given that history either. This seat's verdict, for the lane in the next
+     bullet: this estate's 2026-09-29 decision stands in both estates (the bound changes memory
+     and never behaviour; the mint is a port, and its production composition is a smoke's to
+     prove, which no smoke does today).
+     The owner may rule otherwise; nothing is changed on this verdict before that lane runs.
+   - Routed from #322's test review, one lane, debt in tests #322 does not add:
+     `push-args.unit.test.ts` asks the real git binary in five cases (15 processes, 19 filesystem
+     probes) and so proves git's grammar; the cure is an injected oracle, the file renamed
+     `.integration`, and the real oracle's one proof moved to the push smoke. Older cases in
+     `push-cli.integration.test.ts` claim more than they assert; `outcomeLine` and `refusedThrough`
+     branch; the mint test's fetch fake branches on the URL; five files generate a key pair at
+     module scope. The token file's mode, its location, the submodule flag and the prompt setting
+     have no proof against the real filesystem or git: the smoke's live-push leg can report them
+     from its hook.
+   - Routed from #322's code review: this estate writes a check name from a fork's workflow to the
+     terminal raw (`pr-watch/state-cli.ts`, `merge-bot/merge-report.ts`), where JC.net passes each
+     evidence line through `printable`. It travels with the merge action's convergence below, and
+     is the security-relevant part of it.
+   - The merge action is its own convergence, read 2026-10-01 by comparing the trees with the scope
+     made the same. It has diverged in both directions. This estate has `--unavailable`
+     declarations (`pr-watch/declared-unavailable.ts`), the `SETTLING-QUIET-WINDOW` verdict and two
+     tests JC.net lacks (`merge-cli-unavailable`, `resolve-app-slug`); JC.net has one `realFetch` and
+     one header builder (`github-fetch.ts`) where this estate has a `realFetch` in each of
+     `merge-github-api.ts` and `mint-for-config.ts`, and prints a verdict's grounds through
+     `printable`. The scope table differs by design: the upstream-mirror
+     row is this estate's, and `branch-retire` arrives with step two.
+   - Two readers of a remote URL then stand in JC.net beside the parser (the operator profile's keys
+     and `retire`'s origin check; its `secret-scan` parses no URL, and this estate's URL scoping of the
+     push scan is a parity item of its own); here `secret-scan` and the operator profile
+     already use it. Their move to the one parser is its own lane, and `retire`'s check moves when it
+     arrives here.
+5. Owed to JC.net from #309, on its own pull request there: its twin (the repair smoke's removal with
+   `validation-strategy.md` §Validators, the same bytes). #310's rework goes there as step one of line 4.
+6. The n=1 pickup's order from its third item on (the block below): the retrospective's quickest wins,
+   then the exchange's remaining stories, one pull request each.
+7. Routed from the Copilot reviews of the two folds, each verified first-hand:
    - To the second consolidation, which converges the shared skills: `pr-lifecycle` §Phase 7's
      landing-slot bullet says "every push opens a fresh review round", while the state machine says a
      pure sync opens none; JC.net's copy carries the same sentence and lacks the state machine's
@@ -2431,7 +2647,6 @@ this section; create a thread record when execution is scheduled.
 Each invariant below has a canonical home; this section is a resume aid, not the
 authority.
 
-- Comms-log rotation is paused until a dedicated comms research plan exists.
 - No compatibility layers; replace, do not bridge.
 - Distinct architectural layers live in distinct workspaces.
 - TDD at all levels; tests prove product behaviour, not file presence.

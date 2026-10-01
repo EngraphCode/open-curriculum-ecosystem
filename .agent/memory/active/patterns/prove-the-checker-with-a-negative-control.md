@@ -53,7 +53,9 @@ because the failure cannot be introduced safely into the live tree.
 
 - **The visual-regression harness (2026-03-08).** Proved by making a temporary repository
   from `git archive`, introducing a deliberate visual change, and reading the harness refuse
-  it, before any claim that the harness detects rendering drift. The README records the recipe.
+  it, before any claim that the harness detects rendering drift. This entry is the recipe's
+  only record: the harness README (`jcdotnet/visual-regression-harness/README.md`) does not
+  yet carry it.
 - **The schema-dts guard (2026-03-08).** The red phase re-added the historical failure the
   guard was written to prevent; the guard refused it; then the fix landed and the guard passed.
 - **markdownlint without `--dot` (2026-06-12).** The tool matches ZERO files under any dot

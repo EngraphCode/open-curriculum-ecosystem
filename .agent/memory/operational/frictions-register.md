@@ -56,6 +56,10 @@ agent-observed friction is first-class user feedback."*
 Keep entries terse. Long-form analysis belongs in the napkin or in a
 dedicated plan that this entry points to.
 
+From F-218 the two estates (JC.net and OCE) share one id space: a new entry takes
+the next number after the highest in either register, so an entry both estates
+carry has one id and the same bytes.
+
 ---
 
 ## Friction Entries
@@ -515,6 +519,9 @@ verified in the tree by an analyst and re-read by the seat.
 - **Target surface**: build-system / turbo config investigation.
 - **Status**: open (escalates if a third lane hits it).
 - **Owner direction status**: standing.
+- **Instance, 2026-09-29** (the Director): the `prettier-tracked` step of the coordination sync's
+  push gate failed with prettier refusing explicitly listed generated SDK files; it passed
+  standalone in the same tree and on retry; whether a gate ran beside it is unrecorded.
 
 ### F-62 — relocating tsx-invoked entry points silently breaks knip's entry config
 
@@ -760,6 +767,9 @@ verified in the tree by an analyst and re-read by the seat.
   `liveness-heartbeat-cron` rule loop-hygiene.
 - **Status**: open. Distinct from F-44 (freshness≠liveness) and F-30 (stale syntax recovery).
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+- **Instance, 2026-09-29** (a seat, OCE): a loop held the lane's claim id as a literal; when PR
+  296's door closed the claim, every beat was refused into the loop's own log while the stream
+  read silent. Cured by reading the id from a file each tick; JC's rule copy lacks that clause.
 
 ### F-106 — CLI help strings are a hand-maintained doc-drift surface; generate them from the spec table
 
@@ -1009,6 +1019,16 @@ verified in the tree by an analyst and re-read by the seat.
   the skill tree and the incoming Box, and the pre-push skill-adapter check refused
   the push; the two cures stand as written (a fixed log path, or the adapter check
   skipping dot-directories).
+- **Instances, 2026-09-29** (the Director): the relative log path planted `.logs` under
+  `.agent/rules` and `.agent/skills`, and two push validators refused them; both are recorded
+  whole as F-217, which is this entry's class.
+- **Status read 2026-10-01**: the Surface and Status lines are out of date: the variable is now
+  `PRACTICE_STATUSLINE_LOG_FILE`, and the tracked resolver (`resolveDebugLogConfig` in
+  `agent-tools/src/claude/statusline-debug-log.ts`, both estates, read 2026-10-01) returns any
+  `*.log` value as the path unresolved, so the cure need not wait on the owner's settings edit:
+  resolving a relative value against the payload's `project_dir`, or refusing it with the existing
+  invalid-config warning, is the estate's change. F-217 duplicates this entry and can fold into
+  it.
 
 ### F-182 — instruments that answer about themselves rather than about their input
 
@@ -1078,6 +1098,9 @@ verified in the tree by an analyst and re-read by the seat.
   each cured by re-posting as the bot. The structural cure is a PreToolUse guard that
   refuses a `gh` write with no `GH_TOKEN` in the command; PR G's redesign
   (segment-aware match on `shell-words.ts`, closed default) is the Director's verdict.
+- **Instance, 2026-09-26** (Myrtle turns Canopy, under the Director's ruling 8): PR G's branch and
+  worktree were deleted after its 229-line patch was verified, so the guard's only copy is the
+  gitignored `.agent/state/collaboration/handoffs/74fc02-pr-g-gh-write-guard-uncommitted-2026-09-24.patch`.
 
 ## Settled entries, archived
 
@@ -1328,6 +1351,9 @@ commit SHA and the closing plan reference.
   plausibly why this friction has stayed open.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions); captured at session closeout.
+- **Third instance, 2026-09-24** (event 7985ac9b): append accepted a reply threaded to the
+  correspondent's author id, and two misthreaded events followed (f59b1c24, 224f2e4c); both
+  estates' `cli-comms-commands.ts` (line 208) still pass `--in-response-to` on unchecked.
 
 ### F-122 — `claims close` fails ENOENT rather than creating the untracked closed-claims archive container
 
@@ -1379,6 +1405,12 @@ commit SHA and the closing plan reference.
   catch-up sweep; treat in-window silence as reclaim, not retirement.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
+- **Instances, 2026-09-24 and 2026-09-25** (the Director, JC; seats, OCE): push and fold-commit
+  gates from the primary rebuilt `agent-tools/dist` under live readers with no broadcast, four in
+  an hour (JC) and about twenty minutes at load 16 (OCE); no rule or hook announces a push's gate.
+- **Read 2026-10-01**: The instances add a candidate cure: the pre-commit and pre-push hooks, run
+  in the primary, post the start and result events of `check-singleton-per-window` themselves
+  (`gate-slot`, now in both pre-push hooks, limits concurrent gates and posts nothing).
 
 ### F-125 — cwd drift breaks root pnpm scripts and whole-estate gate runs; the cure is location-independent root-level gate scripts
 
@@ -1483,6 +1515,9 @@ commit SHA and the closing plan reference.
 - **Status**: open.
 - **Owner direction status**: emerged from an owner correction ("you have a real mental block
   around conversation thread resolution being a merge blocker"); rule clause landed same day.
+- **Instance, 2026-09-26** (seats, both streams): a CLEAN reading of PR 250 was of the head the
+  legs answered on, the owner then changed the PR, and the stale CLEAN was relayed until a
+  correction named it; the candidate command would also print the head sha and draft state read.
 
 ### F-131 — a harness-timeout kill of `git commit` orphans the pre-commit hook chain as a whole-tree lint fleet
 
@@ -1508,6 +1543,9 @@ commit SHA and the closing plan reference.
   spawn path (`runInheritedProcess`).
 - **Status**: open.
 - **Owner direction status**: captured at session closeout under record-all-frictions.
+- **The Director's bound on an orphan instance, 2026-09-06** (event 81234225, on c1c4101b): an
+  intent orphaned by external termination is cured by
+  "a process-group trap or pid-liveness on the intent, never a guard-side valve"; cure (c) fires at the first two-chain host-load reading.
 
 ### F-133 — the `commit-queue commit` workflow verifies staged state against the PRIMARY checkout, so worktree seats structurally cannot ride it
 
@@ -1592,6 +1630,9 @@ commit SHA and the closing plan reference.
 - **Target surface**: `agent-tools/src/validators/` (new validator).
 - **Status**: open — tooling candidate.
 - **Owner direction status**: standing (record-all-frictions).
+- **Instance, 2026-09-25** (Copilot, in both estates): PDR-142 line 73 carried a session prefix
+  and a comms event id, which PDR-079's portability rule bars ("event UUIDs, intent UUIDs, session
+  identifiers"); cured by hand in both, and the candidate validator would refuse both forms.
 
 ### F-137 — staged RENAMES cannot ride the commit-queue workflow (name-only verify vs both-sides pathspec)
 
@@ -1894,6 +1935,13 @@ commit SHA and the closing plan reference.
   working copy cannot read green; (c) CI remains the backstop but is not the
   cure — the contract is local-gates-bind.
 - **Status**: open (mitigated in the originating lane only).
+- **Instance, 2026-09-27** (a seat, JC PR 231's first push): a fresh worktree's first install
+  failed at postinstall and the second ran no husky prepare, so `.husky/_` was absent and the push
+  ran ungated; the pre-open review widened cure (b) to git's own HEAD, objects and refs tests.
+- **Status read 2026-10-01**: "mitigated in the originating lane only" is out of date: cure (a) is
+  a step of `set-up-worktree-lane` in both estates (its `.husky/_` check), while cure (b), a
+  recomputing check on the commit and push path, exists in neither estate's agent-tools (no
+  `hooksPath` reader found).
 
 ### F-148 — a suspended session's heartbeat Monitor keeps emitting: false liveness from an autonomous emitter
 
@@ -2219,15 +2267,16 @@ commit SHA and the closing plan reference.
   read as "still waiting" until a blocking wait timed out and a one-shot
   `pr-watch 149` showed 19 passed, 1 pending, 0 failed. Replaced by a
   background `gh pr checks 149 --watch --interval 60`, which ends with the
-  checks and returns their exit code. The pr-lifecycle SKILL prescribed the
-  `--watch` form as the supervised watch until the 2026-09-16 consolidation
-  (`63b544464`) replaced it with a compound GraphQL watch loop that ends only
-  on MERGED or CLOSED; the tool still wants correcting.
+  checks and returns their exit code. OCE's pr-lifecycle SKILL prescribed the `--watch` form as the supervised watch until its 2026-09-16 consolidation (`63b544464`, an OCE commit) replaced it with a compound GraphQL watch loop that ends only on MERGED or CLOSED; JC.net's copy of the skill still prescribes the `--watch` form (read 2026-10-01), and the tool still wants correcting.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a
   `--hold-until-merged` mode.
 - **Route**: agent-tooling backlog (the watch-commands node).
+- **Cause, read at the fifth instance, 2026-09-29** (Nova turns Penumbra): a Monitor on PR 311's
+  `--watch` read zero lines in 30 minutes; `runPrWatchTopic` hands `runPrWatchCli` an
+  `OutputBuffer` and returns its text at exit (`agent-tools-cli-topics.ts`, both estates).
+- **Read 2026-10-01**: The candidate cure, unbuilt in both estates (the topic still hands the command an `OutputBuffer`), is to pass `process.stdout` and `process.stderr` when `--watch` is set; the seat's workaround calls `runPrWatchCli` from dist with the real streams.
 
 ### F-165 — `claims open` has no amend verb; a mis-named area path forces close + reopen
 
@@ -2417,6 +2466,11 @@ commit SHA and the closing plan reference.
   declared resume horizon, or until the seat closes it.
 - **Route**: agent-tools backlog (collaboration-state: claims + peer-liveness),
   beside F-170.
+- **Instances, 2026-09-28 and 2026-09-29** (Nova turns Penumbra): a live seat with no open claim
+  in an estate read as silent there, since a heartbeat send refuses a sender with no active claim
+  row; it followed PR 287's landing in OCE and recurred on JC's stream the next day.
+- **Read 2026-10-01**: The paused state this entry expects extends to a claimless standby seat,
+  read from the team-start registration and the watcher's live assertion.
 
 ### F-174 — `assert-watcher-live` keys on the display name alone
 
@@ -2556,6 +2610,9 @@ commit SHA and the closing plan reference.
 - **Route**: agent-tooling backlog (collaboration-state heartbeat) beside
   F-170 and F-173; the liveness rule's PROGRESS-stall diagnostic; the
   watcher rule names the background-shell watcher as the anti-pattern.
+- **A second detector from the founding instance, 2026-09-06** (Finch binds Sundog, d32c227a, not
+  decided): a seat in a long external wait declares it in its cycle label with a deadline, "so
+  silence past the deadline is the alarm, not the heartbeat"; no turn stamp exists in agent-tools.
 
 ### F-184 — the root `test` task's inputs omit the root registry files its tests read, so the pre-push cache replays a stale pass
 
@@ -2573,6 +2630,14 @@ commit SHA and the closing plan reference.
   as its own config change with the classification test as proof;
   `build-system.md` §Caching carries the interim discipline (run the
   dedicated test directory before pushing an edited registry file).
+- **Instances, 2026-09-25 and 2026-09-27** (seats, OCE): agent-tools test tasks omitted
+  `.husky/refuse-commit-on-main.sh` and `.agent/hooks/policy.json`, so an edit to either alone
+  replayed a cached pass; each was cured by one `$TURBO_ROOT$` input line (PR 272 for the policy).
+- **Status read 2026-10-01**: this entry's own file is still absent: `turbo.json` (last changed
+  2026-09-30) lists `.agent/hooks/policy.json` for `agent-tools#test` and `#test:e2e` and the
+  commit guard for `#test:e2e`, but no `$TURBO_ROOT$/RULES_INDEX.md`, so the entry stays open;
+  three root files in one class point to a check that fails when a cached task's tests read a root
+  path its inputs omit (JC's agent-tools test tasks are `cache: false`).
 
 ### F-187 — three identity and link-validator defects a transplant seat found, verified and never cured
 
@@ -2701,6 +2766,12 @@ commit SHA and the closing plan reference.
   `master` and the `guard_default_branch` the sourced guard leaves in scope, with a real
   `git rebase` leg in the smoke, and the commit skill's binding sentence still names `main`
   alone (both routed to the follow-on, 2026-09-26).
+- **Instances, 2026-09-25 and 2026-09-26** (a routed decision-table row; Copilot on PR 246, round
+  three): `branch-touched-files` defaults `--base` to `origin/main` (`cli.ts:111`, and its rule's
+  line), and the commit guard passes when `origin/HEAD` names a ref outside `refs/remotes/origin/`.
+- **Read 2026-10-01**: Both cures read the default branch from `origin/HEAD`, failing closed on a
+  malformed one, or from the PR's target; the JC twin of PR 246's guard is the JC guard entry of
+  this consolidation (G049).
 
 ### F-191 — the context-usage instrument refuses this seat's model and is not named where the 30 % rule fires
 
@@ -2739,6 +2810,17 @@ commit SHA and the closing plan reference.
   A fifth instance the same day: `session-metadata` exits 2, "unknown model", for
   `claude-fable-5-1`, so a Fable seat cannot read its own context figure (Geyser rides
   Pewter, 2026-09-25); the registry's nearest row is `claude-fable-5` at 200,000.
+- **Status**: partially-addressed. `claude-fable-5-1` is registered at 1,000,000 in
+  `agent-tools/src/session-metadata/window-registry.ts` (2026-09-30). The Opus 5 rows
+  (`claude-opus-5`, `claude-opus-5[1m]`, `claude-opus-5-5[1m]`) are in JC.net's registry and not
+  in this one. The second observation (the compaction call's usage line) has not been re-read.
+- **Sixth instance, 2026-09-28** (Myrtle turns Canopy): `session-metadata` printed nothing for
+  `claude-fable-5-1`, so the directive context-budget check rested on an estimate (about 357k
+  tokens of a window of at least 1M); the model was registered two days later.
+- **Status read 2026-10-01**: the Status line is true as read on 2026-10-01, with one gap it does
+  not name: neither estate registers the bare `claude-opus-5-5` (JC has `claude-opus-5`,
+  `claude-opus-5[1m]` and `claude-opus-5-5[1m]`; OCE has none of the three), so a seat on that id
+  is refused in both.
 
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
@@ -2762,6 +2844,9 @@ commit SHA and the closing plan reference.
   the claims rows and the heartbeat file carry the current label. Until then a seat whose model
   changes mid-session keeps its opening label on the coordination surfaces and records the
   change in its records, as this seat did.
+- **Instances, 2026-09-26 and 2026-09-27**: after the owner switched a seat's model at compaction
+  the route refused the new tuple and the seat re-took eight claims with `claims adopt` (same id);
+  the harness moved a seat from `claude-fable-5-1` to `claude-opus-5-5` mid-session, continuous.
 
 ### F-193 — the operator-profile push leg checks the working tree, not the commits it pushes
 
@@ -2782,7 +2867,7 @@ commit SHA and the closing plan reference.
   decision 11 is re-widened to match. PDR-141 itself names no host record; this entry is the
   host's tracker for the lane.
 
-### F-195 — git hung three times on the fsmonitor socket on 2026-09-17; the cause is supported, not proven
+### F-195 — git hung three times on the fsmonitor socket on 2026-09-17; cause measured 2026-09-19, monitor off for the shared clone by the owner's ruling of 2026-09-23
 
 - **Observed**: 2026-09-17 ~15:59Z to ~16:13Z, three git commands slept on the fsmonitor
   daemon's unix socket on this machine: a commit in a trial worktree (twelve minutes), this
@@ -2824,6 +2909,12 @@ commit SHA and the closing plan reference.
   commit pass in ninety seconds; that evening the owner ruled fsmonitor OFF for the
   shared clone (`core.fsmonitor=false` in the clone config, two daemons stopped). Plain
   `git status` is instant since.
+- **Status read 2026-10-01**: the heading's "the cause is supported, not proven" is untrue: the
+  body records "The measurement that settled it" (cure of 2026-09-19) and the owner's ruling of
+  2026-09-23 turning fsmonitor off for the shared clone; a heading true to the body is "git hung
+  on the fsmonitor socket while installs churned ignored trees; cause measured 2026-09-19, monitor
+  off for the shared clone by the owner's ruling of 2026-09-23", with the body and its Status line
+  unchanged.
 
 ### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
 
@@ -2839,6 +2930,13 @@ commit SHA and the closing plan reference.
 - **Route**: a validator row (the markdown records' sha form) in the repo validators, with the
   existing bare shas converted in one mechanical sweep in the same lane; until then a seat
   writing a sha into these surfaces prefixes it.
+- **Instances, 2026-09-26 and 2026-09-29** (Copilot on PR 211's fold; Copilot on JC PR 268):
+  four bare commit hashes in the napkin and records, then a plan-node merge commit without its
+  prefix and a mistyped OCE head, each cured by a settlement push after a sweep.
+- **Read 2026-10-01**: The rule's `globs` in both estates list only
+  `.agent/state/collaboration/**` and `.agent/collaboration/**`, so it does not load when the
+  napkin, a thread record or a plan node is written; widening them to its in-scope list rides with
+  the validator row.
 
 ### F-196 — the stale-claims sweep reads a live seat as stale when its loop bumps comms only
 
@@ -2874,24 +2972,40 @@ commit SHA and the closing plan reference.
   the host's one-minute load average stood above 20, and each passed alone (3 of 3) or on a
   retry once the load fell below 12. PR 179 changed nothing under `agent-tools`. With five
   instances across two seats, this is a pattern.
+- **Instance, 2026-09-25** (a code-expert finding, event c17c34d7): the 180 s backstop
+  (`WATCHER_HANG_BACKSTOP_MS = 180_000`) is not above the watcher's worst self-exit, three 60 s
+  steps plus `pollMs`; JC derives it (`4 * SMOKE_STEP_TIMEOUT_MS + SMOKE_POLL_MS`), the port.
 
 ### F-198 — the merge door does not read the Codex connector's summary comment or its reaction
 
-- **Observed**: 2026-09-24 ~12:45Z (Blazar lifts Corona, `b65a9a`), PR 189. The Codex connector
+- **Observed**: 2026-09-24 ~12:45Z (Blazar lifts Corona, `b65a9a`), OCE PR 189. The Codex connector
   reported a clean review of the tip `ebe3123` through two transports. It edited its
   `codex-pull-request-review-summary` comment to "✅ Completed" with the commit in a table cell,
   and it put a 👍 reaction on the pull request. `merge-bot merge` refused with
   UNCLASSIFIED-EVIDENCE: the summary comment was "edited after creation", and the connector's
   quota comment "names no reviewed commit". The documented cure, a fresh `@codex review`, then
   bounced on the usage limit, as a comment. A quota notice counts as SKIPPED only when posted
-  as a tip-bound review, so both PR 188 and PR 189 stayed held on a vendor quota. The Director
+  as a tip-bound review, so both OCE PR 188 and PR 189 stayed held on a vendor quota. The Director
   ruled to hold them rather than merge outside the door.
 - **Expected**: the door reads each reporting transport a configured reviewer uses, under the
   owner's 2026-09-16 comment-evidence ruling. It reads the summary comment's commit and status
   cells as a tip-bound result, and a quota notice posted as a comment as the same
   scope-declared SKIPPED marker it honours as a review.
 - **Route**: a merge-bot candidate. The door is shared by both estates, so the cure is portable.
-  One instance.
+- **Second instance, 2026-10-01** (Crucible binds Slag, first-hand): on OCE pull requests 299,
+  313, 309 and 310 the connector reacted with a thumbs-up within about three minutes of each
+  head and posted no review; it posted a review only where it had a finding (319). The seat
+  read the silence as absence and wrote "unavailable" on three pull requests, each since
+  corrected. The door's leg computation reads reviews and not the reaction, so a head the
+  connector found nothing on cannot settle that leg. Two instances: a pattern.
+- **Summary-comment instances, 2026-09-27 and 2026-09-28** (seats, OCE; the Director): the doors
+  of OCE PRs 267, 268 and 264 held because Codex recorded each clean run only by editing its
+  summary comment, posting a review object only with findings; 264 landed after PR 274's cure.
+- **Status read 2026-10-01**: the summary-comment arm is cured in OCE by `SHA:c85d4d8e8`
+  (2026-09-28, PR 274, "the connector's own edit of its summary is its report"; OCE `pr-lifecycle`
+  reads "unedited or last edited by its author"); JC's pr-watch and merge-bot carry no
+  editor-aware reading (read 2026-10-01), so the arm stays open there; the quota-notice-as-comment
+  arm and the reaction arm of the 2026-10-01 instance stay open in both.
 
 ### F-199 — the commit queue's `commit` command runs `git commit` without `--author`, so a ceremony commit on the primary is bot-authored
 
@@ -2938,6 +3052,9 @@ commit SHA and the closing plan reference.
   the review-cost gate refusing at the push without the recorded budget, which did
   catch a seat the same day.
 - **Route**: a merge-bot candidate. Two instances, two seats.
+- **Instances, 2026-09-24 and 2026-09-25** (Siren herds Rudder, JC PR 178; Swallow holds Drift,
+  OCE PR 214): each deletion sweep ran after the merge; every deleted line was read afterwards and
+  no silent revert found. Both estates' `merge-cli.ts` still print only the note.
 
 ### F-202 — `merge-bot push` under redirection writes nothing while the pre-push runs
 
@@ -3034,8 +3151,15 @@ commit SHA and the closing plan reference.
   way; the words `git` and `restore` on one line of prose are enough. The substitution is the
   Write and Edit tools for any file content that speaks of git, and prose that keeps the two words
   apart.
+- **Instance, 2026-09-25** (a seat, OCE): the guard refused a command whose text held a
+  force-push or wildcard-staging shape as an argument to a checker, so an execpolicy transcript
+  ran from a cases file as data; a `pgrep -f` after the push word was refused the same day.
+- **Status read 2026-10-01**: F-207 carries no Status line, and the scanner its Route names has
+  changed: the code can segment a command line (`segmentCommand`, `blocked-patterns.ts`) and drop here-document bodies, but only for policy entries declared `match: argv`, and neither estate's `policy.json` declares one: the git entries still match by token subsequence over the whole command, as F-225, F-251 and F-262 record. This entry is open. (An earlier reading here, and the archive rows for F-102 and F-107, called it addressed; a code read on 2026-10-01 corrected that.) Lines 8 and 122 of `hook-policy-substring-discipline` in
+  both estates still call the policy "a substring-matcher" and say `git push --force-with-lease`
+  "is blocked by the `--force` substring". JC's open case of the compound-command class is F-225.
 
-### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
+### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves
 
 - **Source**: check-in 21 (Director, 2026-09-25); PR 225's CI run `36185664112`.
 - **Surface**: the `CI` workflow's `build` job, step "Build (sdk-codegen + build)", running
@@ -3055,8 +3179,12 @@ commit SHA and the closing plan reference.
   the bot app the `actions: write` permission so `merge-bot` can re-run a failed job.
 - **Target surface**: `demos/oak-curriculum-hub` (its font import and build config); the
   GitHub App's permissions; `agent-tools` merge-bot (a `rerun` verb once the permission exists).
-- **Status**: open, a pattern at two instances (recorded 2026-09-25 as an observation; the
-  second instance read 2026-09-26). The second failure of the same step arrived on PR 240's
+- **Status**: open, six instances on docs-only heads (pull requests 225, 240, 264, 282, 272 and
+  288, 2026-09-25 to 2026-09-28). The re-run call was refused to the bot at the first instance
+  ("Resource not accessible by integration"); on 2026-09-28 the failed jobs re-ran as the bot
+  (run 36456432908), so whether the bot can re-run is to be confirmed at the next flake. No
+  live plan node names the hub's font cure. This line's history: recorded 2026-09-25 as an
+  observation, the second instance read 2026-09-26. The second failure of the same step arrived on PR 240's
   settlement push `c312a6930` (run `36193715549`, 2026-09-25 21:50Z): the hub build inside
   the `unit-tests` job failed on the Lexend Google-font module, on a docs-only PR, with no
   network error, and `run-quality-gates` went red behind it. The trigger this entry named has
@@ -3071,6 +3199,15 @@ commit SHA and the closing plan reference.
   under the owner's gh credential (`gh run rerun --failed`) passed by 13:31Z with no change to the
   branch (the Director, check-in 38). Three instances in three days on docs-only heads; the cure
   stays a re-run until the hub build's font resolution is made hermetic, a code change for a seat.
+- **Fourth instance, 2026-09-28**: PR 282's browser-tests job failed in the hub build when
+  Turbopack (Next.js 16.3.0) could not fetch the Lexend faces; it passed on other heads (Myrtle
+  turns Canopy).
+- **Fifth and sixth instances, 2026-09-27 and 2026-09-28** (Myrtle turns Canopy): PR 272 went
+  green only on a re-run, and PR 288's build failed on a synced head with PR 282's twelve Lexend
+  "Module not found" errors; the failed jobs then re-ran as the bot (run 36456432908).
+- **Read 2026-10-01**: The seat routed a cure to the Director on 2026-09-28 (event 12d60f6d):
+  vendor the Lexend faces through `next/font/local` in `demos/oak-curriculum-hub/app/layout.tsx`,
+  which still imports Lexend from `next/font/google` (read 2026-10-01).
 
 ### F-209 — no CI check runs commitlint over a pull request's commits
 
@@ -3141,6 +3278,15 @@ commit SHA and the closing plan reference.
   routing. The wait scripts of this seat can take cure (b) without doctrine: emit a comms event
   on completion.
 - **Owner direction status**: session-scoped (this seat's own record).
+- **Cure (b) in use, 2026-09-28**: a seat's own leg wait for PR 282 emitted its result as a
+  comms event so the watcher woke the seat (Myrtle turns Canopy). It lives in that seat's wait
+  script, not in agent-tools; cure (a) stays open.
+- **Further cure (b) instances, 2026-09-27 to 2026-09-29** (seats, OCE): leg and eval waits
+  emitted their own completion events in at least seven runs; cure (a) is unapplied, as both
+  `pr-lifecycle` copies free a slot only when "heartbeat and state lines stop for twenty minutes".
+- **Status read 2026-10-01**: the Status line's single instance holds for the stall itself; its
+  note that cure (b) needs no doctrine is now practice in several seats' wait scripts (not
+  agent-tools), and cure (a) is unapplied in both estates' landing-slot bullet (read 2026-10-01).
 
 ### F-212 — agent-tools' test:e2e rebuilds `dist` while lint and type-check may read it
 
@@ -3263,3 +3409,1069 @@ commit SHA and the closing plan reference.
 ### F-217 — the local statusline settings plant `.logs` directories under whatever cwd the statusline runs from; two validators refuse them (2026-09-29)
 
 Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by the portability validator at the 00:0xZ fold push, and `.agent/skills/.logs` refused by the skills adapter validator at the 11:3xZ push ("no readable SKILL-CANONICAL.md"). Both directories held one gitignored statusline log written by the owner's local statusline settings, whose log path is relative (`.logs/statusline.log`). Cure each time: the log relocated to the Director's scratchpad with its bytes kept, the empty directory removed, the push re-run green. The generator is the relative path in the local settings; an absolute path or a home-directory path ends the class. Class: host artefact, not a content defect.
+
+### F-218 — the shared atomic writer takes caller-supplied paths with no link check (2026-10-01)
+
+- **Source**: a review finding on the coordination fold of 2026-10-01 (the pattern
+  `cli-writer-boundary-discipline` claimed an `lstat` seam the writer does not have), verified
+  against the code in both estates by two seats (Crucible binds Slag; Hazel tracks Trunk) and
+  then by `security-expert`, which traced each flag.
+- **Surface**: the collaboration-state CLIs' path flags (`cli-claim-commands.ts`,
+  `cli-comms-commands.ts`, `cli-json-commands.ts`, through `state-io.ts`) and the writer they
+  reach, `agent-tools/src/collaboration-state/atomic-file.ts`.
+- **Observed**: `--active`, `--closed`, `--comms-dir`, `--output` and `--file` reach the atomic
+  writer with no containment or link check, and nothing under `collaboration-state/` calls
+  `resolveWriteTargetWithinRepo` (`core/flag-path-resolve.ts`). The writer replaces a link
+  planted at the target and follows a link in any parent directory. The JSON writers refuse a
+  path that is not a named state file or state directory; `--output` has no such gate and
+  replaces any file with the rendered log, the worst case. `--seen-file` reaches `appendFile`,
+  which writes through a link. `--event-id` is checked only for being non-empty and becomes a
+  file name.
+- **Expected**: every writer under a caller-supplied path carries the pattern's three cells
+  (name validated, atomic write, no link followed).
+- **Severity**: hardening. To use the gap an attacker has to choose the CLI's arguments or plant
+  a link in the coordination state directory, so is already acting as the user or steering an
+  agent.
+- **Candidate cure**: resolve every path flag through `resolveWriteTargetWithinRepo` at the
+  spec-wiring boundary, on the resolved path with defaults included, with the coordination home
+  as the base (a worktree seat's `--active` resolves to the primary checkout); cover
+  `--output`, `--file` and `--seen-file`; give `--event-id` a closed grammar. Test first, the
+  same bytes in both estates.
+- **Target surface**: agent-tools CLI (`collaboration-state`).
+- **Status**: open
+- **Owner direction status**: standing
+- **Instance, 2026-09-28** (architecture-expert-fred's routed item on OCE PR 291; JC lane B's
+  board item of 2026-09-13): `atomic-file.ts` has three product importers in both estates, so
+  the no-follow seam lands with its move to `core/`, a test and a header, one same-bytes change.
+
+### F-219 — a peer's comms event during the pre-push gate fails the push: the generated log is stale (2026-10-01)
+
+- **Source**: Crucible binds Slag, first-hand, the push of the coordination fold on 2026-10-01.
+- **Surface**: JC.net's pre-push `practice-substrate check`, reached through `pnpm check` (in OCE the script `practice:substrate:check` exists and no hook calls it); `collaboration-state -- comms append`.
+- **Observed**: the check renders the comms log from the event files and refuses when the rendered text differs from `shared-comms-log.md` on disk (`live-shared-comms-log.ts`); it makes no age test. `comms append` writes an event without rendering the log, and any
+  seat's event written during the ten-minute gate makes the log stale. Cost: one full gate run.
+  Cure used: `comms render`, then push again, with the peer asked to hold comms writes.
+- **Expected**: a push does not depend on an untracked, generated file that another seat's
+  write can invalidate mid-gate.
+- **Candidate cure**: the check writes the rendered log back before comparing (the repair is deterministic), or the file on disk stops being an input; `comms append` renders.
+- **Target surface**: agent-tools CLI (`practice-substrate`, `collaboration-state`).
+- **Status**: open
+- **Owner direction status**: standing
+- **Instances, 2026-09-26 and 2026-09-27** (the Director and a seat, JC): the pre-push check
+  refused twice on a stale `shared-comms-log.md`; read first-hand at 11:38Z, two sends in one
+  second each rendered without the other's event until the next send, a race a render lock cures.
+
+### F-220 — `claims close` requires `--now` and the directed comms commands require both paths, where their siblings default them (2026-10-01)
+
+- **Source**: a review finding on the coordination fold and Crucible binds Slag's first-hand
+  runs, 2026-10-01.
+- **Surface**: `agent-tools/README.md`; `collaboration-state -- comms direct`, `comms reply`,
+  `claims close`.
+- **Observed**: `comms direct` and `comms reply` require `--active` and `--comms-dir`; only
+  `comms send`, `comms watch` and `comms validate` resolve the coordination home, as the README
+  says since the fold. The README's sentence "`--now` defaults to the wall clock" is unscoped:
+  `claims open` defaults it and `claims close` requires it. Read in both estates' source on
+  2026-10-01.
+- **Expected**: the directed commands and `claims close` take the same defaults as `comms send`
+  and `claims open`.
+- **Candidate cure**: wire the send defaults into the directed commands and default `--now` on
+  every claims command, test first, both estates; until then the README scopes the sentence.
+- **Target surface**: agent-tools CLI (`collaboration-state`).
+- **Status**: open
+- **Owner direction status**: standing
+
+### F-221 — `codex-exec` reads lines through `node:readline`, which splits on U+2028 and U+2029 (2026-10-01)
+
+- **Source**: the code review of the arc-metrics port, reported by Crucible binds Slag,
+  2026-10-01. The same defect in `arc-metrics/file-system-node.ts` is cured in both estates.
+- **Surface**: `agent-tools/src/codex-exec/cli.ts`.
+- **Observed**: a line reader built on `node:readline` treats the Unicode line and paragraph
+  separators as line ends, so a JSON line holding either is split and dropped.
+- **Expected**: one entry per newline-terminated line, whatever the entry holds.
+- **Candidate cure**: the line splitter arc-metrics now uses, shared by both readers, test first.
+- **Target surface**: agent-tools CLI (`codex-exec`).
+- **Status**: open
+- **Owner direction status**: standing
+
+### F-222 — the local gates read the shared working tree, so a peer's uncommitted hunk blocks a commit or a push (2026-09-28)
+
+- **Source**: five comms events of 2026-09-28 across both estates, grouped at the second
+  two-estate consolidation: a push from the primary failing the link validator on another
+  workspace's uncommitted edits; two seats' records hunks in the same two files; a seat saving a
+  peer's hunks as a patch and rewriting the files to stage only its own; a second commit racing
+  the index during a gate.
+- **Surface**: the pre-commit and pre-push hooks in a shared primary checkout.
+- **Observed**: `respect-active-agent-claims` §Shared-state files already says a claim never
+  blocks a write or an inclusion, and `stage-by-explicit-pathspec` covers the staging. The
+  waits and rewrites recurred with both loaded, because the gates read the tree and not what
+  ships.
+- **Expected**: the pre-push gate judges the pushed commit and the pre-commit gate judges the
+  index, so a peer's uncommitted work cannot fail either.
+- **Candidate cure**: run the pre-push validators against a clean checkout of the pushed commit;
+  the commit-queue ceremony prints the never-block-inclusion line when its pathspec names a
+  shared-state file holding another seat's hunks.
+- **Target surface**: hooks; agent-tools CLI (`commit-queue`).
+- **Status**: open
+- **Owner direction status**: standing
+- **Further instance, 2026-10-01** (Hazel tracks Trunk, JC.net): the pre-push link check failed a
+  coordination-branch push on two Markdown files in a gitignored analysis directory, copies of
+  the other estate's register synced there as scratch. The gate reads ignored files as well as
+  a peer's uncommitted ones. Cure used: the copies were renamed to a non-Markdown extension.
+
+### F-223 — nothing refuses a process kill by name (2026-09-29)
+
+- **Source**: a seat's incident line, 2026-09-29: stopping its own push with `pkill` by name
+  also ended the Director's hook shell in the other estate.
+- **Surface**: the PreToolUse Bash policy (`agent-tools/src/hook-policy`).
+- **Observed**: `no-unbounded-host-load` says "Kill by the pids recorded at launch, never by
+  command text", and `comms-all-channels-watcher` forbids a `pkill -f` pattern. The kill by
+  name recurred after both; no hook checks it.
+- **Expected**: the moment of the kill carries the rule.
+- **Candidate cure**: a Bash policy check that refuses `pkill`, `killall` and a
+  `pgrep … | xargs kill` pipeline and prints the kill-by-recorded-pid line.
+- **Target surface**: agent-tools hook policy.
+- **Status**: open
+- **Owner direction status**: standing
+- **Earlier instance, 2026-09-27** (a seat, OCE): stopping its own processes, a seat swept the
+  process table for "sleep 240" and signalled a sleep in the Director's pulse loop (one early
+  tick). The 2026-09-29 kill was read from both sides; its napkin entry was owed to the successor.
+
+### F-224 — OCE's branch-guard smoke's PATH is narrower than the trusted-git allowlist (2026-09-26)
+
+- **Source**: a seat's first-hand confirmation on OCE PR 246, round 4 (Swallow holds Drift),
+  2026-09-26; accepted as a follow-up when the settlement budget was spent.
+- **Surface**: `agent-tools/smoke-tests/trusted-shell-directories.ts` (`trustedShellPath`).
+- **Observed**: the smoke's PATH on POSIX is `/usr/bin:/bin`, while `resolveTrustedGit` in
+  `agent-tools/src/core/trusted-git.ts` also admits `/opt/homebrew/bin/git` and
+  `/usr/local/bin/git`. On a host with git only there, the smoke's pass cases fail closed.
+- **Expected**: the smoke can find any git the allowlist admits.
+- **Candidate cure**: the smoke's PATH gains the directory of the resolved trusted git, joined
+  with the platform's delimiter; both estates carry the same list.
+- **Target surface**: agent-tools smoke tests.
+- **Status**: open
+- **Owner direction status**: standing
+
+### F-227 — four real-filesystem integration tests time out at five seconds on the Windows job (2026-10-01)
+
+- **Source**: Crucible binds Slag, first-hand, the fold of 2026-10-01.
+- **Surface**: the `windows-basic` CI job; `tests/protocol-conformance/node-io.integration.test.ts`
+  and `tests/skills-adapter-generate/carriage.integration.test.ts`.
+- **Observed**: the four tests ran 5.0 to 7.6 s against vitest's default 5 s limit and failed
+  on a head that changed four docs files; the re-run passed.
+- **Expected**: a test that does real IO is not judged against a wall clock (the owner's word
+  on smoke suites, 2026-09-29).
+- **Candidate cure**: move the IO behind the injected seam these tests already have elsewhere,
+  as the testing directive asks.
+- **Target surface**: agent-tools tests.
+- **Status**: open
+- **Owner direction status**: standing
+- **Earlier instance, 2026-09-26** (Myrtle turns Canopy): PR 221's `windows-basic` job failed with
+  `refound-tile.integration.test.ts` at 6038 ms against the 5000 ms default (run 36237551167),
+  unrelated to the PR's files; the test sets no timeout of its own.
+
+### F-228 — no command formats or lints a computed file list, so seats pass an unquoted variable (2026-09-30)
+
+- **Source**: the napkin, 2026-09-30 (Hawthorn binds Bracken); the gotchas entry of 2026-09-03 is
+  the first instance.
+- **Surface**: `prettier` and `markdownlint` run by hand over a shell variable under zsh.
+- **Observed**: an unquoted variable holding a file list reaches the tool as one argument. On
+  2026-09-03 prettier exited 2 and markdownlint linted the whole tree; on 2026-09-30 prettier
+  printed "0 files" above a clean verdict. The gotchas file carried the lesson for four weeks
+  before the second instance.
+- **Expected**: a seat lints exactly the files it changed with one command.
+- **Candidate cure**: a root script that takes paths on stdin (or lints the files changed
+  against a base ref) and prints the count of files it read; until then, `xargs`.
+- **Target surface**: root package scripts.
+- **Status**: open
+- **Owner direction status**: standing
+
+### F-229 — a unit test pins text inside an agent document, and the docs pre-flight does not run it (2026-09-30)
+
+- **Source**: the JC.net napkin, 2026-09-30T17:06Z (Hawthorn binds Bracken): a records edit to
+  the Sif annex failed its pre-commit.
+- **Surface**: `agent-tools/tests/skills/the-codex-dialogues-probe-lockstep.unit.test.ts`.
+- **Observed**: the test refuses a version literal beside `codex mcp-server` or the CLI name in
+  the annex, which may only reference the version pin. `pnpm check:docs` does not run it, so a
+  records edit that passes the docs pre-flight fails at the commit's full gate.
+- **Expected**: a records edit is judged by the docs pre-flight alone, or the pre-flight names
+  the tests that read documents.
+- **Candidate cure**: the owner assigned the cure to the exchange seat on 2026-10-01; either
+  the pinned fact moves out of prose into the data the test already reads, or the docs
+  pre-flight runs the document-reading tests.
+- **Target surface**: agent-tools tests; root package scripts.
+- **Status**: open
+- **Owner direction status**: standing
+
+### F-230 — the divergence measure names a directory neither estate has and skips three shared trees (2026-10-01)
+
+- **Source**: the second two-estate consolidation, 2026-10-01 (Hazel tracks Trunk): the docs
+  check refused the rule's scope list for citing `.agent/reviewers/`.
+- **Surface**: the measuring script in the 2026-09-30 retrospective report, which
+  `cross-estate-work-must-reduce-divergence` makes the measure.
+- **Observed**: the script's scope lists `.agent/reviewers/`, which neither estate has. The
+  reviewer templates are under `.agent/sub-agents/`, which it does not read; it does not read
+  `.agent/memory/active/patterns/` or `.agent/reference/` either, both shared doctrine.
+- **Expected**: the measure covers every shared doctrine tree, from one tracked command.
+- **Candidate cure**: the owed `agent-tools` divergence command takes its scope from the rule
+  and adds the three trees; the first run with the wider scope sets a new baseline and is
+  reported beside the old one.
+- **Target surface**: agent-tools CLI; the rule's clause 1.
+- **Status**: open
+- **Owner direction status**: standing
+
+### F-231 — boundary records sit uncommitted on a cited precedent with no live owner word (2026-09-15)
+
+- **Source**: twenty comms events in both estates, 2026-09-15 to 2026-09-30, grouped at the second
+  two-estate consolidation (2026-10-01); the owner's word for compaction boundary 6, relayed by
+  the Director (Wick binds Temper) on 2026-09-26 at 11:04Z, is "commit and push post-compaction".
+- **Surface**: the boundary block and resume step of `session-handoff`;
+  `precedence-is-not-approval`, whose trigger list names "the shape of a prior owner
+  intervention".
+- **Observed**: after that word, seats left boundary records uncommitted on the primary citing
+  "the owner's precedent", "the Director's precedent" or "the compaction precedent" at five later
+  boundaries (2026-09-26, 2026-09-28, 2026-09-29), each traced to the one word, so their commit
+  and push became the resume's first act. On 2026-09-26 a usage limit cut a seat's records commit
+  and push promised "before the stop" (OCE). Earlier boundaries left records on a local branch or
+  for a later seat to commit (2026-09-15, 2026-09-24, 2026-09-25).
+- **Expected**: a boundary's records are committed by pathspec before the stop unless the owner's
+  word at that boundary says otherwise, and the resume finds any that were not.
+- **Candidate cure**: the boundary block takes a field "records: committed <sha> | uncommitted
+  under the owner's word at this boundary <quote, time>", so a precedent with no live word reads
+  empty; the resume step lists uncommitted records on the primary with their authoring seat.
+- **Target surface**: `session-handoff` (boundary block, resume step).
+- **Status**: open; five instances after the rule's home date (2026-09-12) cite a precedent.
+- **Owner direction status**: standing
+
+### F-232 — a proven-superseded local branch has no permitted delete command (2026-09-25)
+
+- **Source**: seats' comms events in OCE, 2026-09-25 to 2026-09-28 (Swallow holds Drift and
+  Myrtle turns Canopy among them), grouped at the second two-estate consolidation.
+- **Surface**: the standing prune in `worktree-hygiene` §6 (both estates); `git branch -d`; JC's
+  `merge-bot retire` (`agent-tools/src/merge-bot/retire-*.ts`); the harness classifier and the
+  seat's Bash guard.
+- **Observed**: §6 deletes a branch that "landed by squash or is content-superseded" once its
+  content proof is recorded, but `git branch -d` refuses such a branch as not fully merged, and the harness's permission layer refuses `git branch -D` and `git update-ref -d` (OCE's `.claude/settings.json` deny list names both; neither estate's hook policy has such an entry). In
+  five instances proven branches were held for the owner's word; one was cleared on 2026-09-28
+  at the owner's word ("Delete it by the forced path on this word (Recommended)") by removing
+  the loose ref file. JC's `merge-bot retire` deletes only a tip that is an ancestor of the
+  default branch (`retire-decision.ts`); OCE has no retire command.
+- **Expected**: the prune policy names one admissible route for the proven class, so a proven
+  branch is deleted without routing to the owner.
+- **Candidate cure**: `merge-bot retire` accepts a content-superseded local branch, recomputing
+  the per-file content proof against a freshly fetched base and recording it before its
+  compare-and-swap `update-ref -d`; OCE takes the command; §6 names it.
+- **Target surface**: agent-tools CLI (`merge-bot retire`); `worktree-hygiene` §6, both estates.
+- **Status**: open; five instances (OCE). Distinct from F-178, a merged branch whose configured
+  upstream lacks it.
+- **Owner direction status**: standing
+
+### F-233 — the WIP limit is hand-counted, and prepared work waits outside a pull request (2026-09-26)
+
+- **Source**: comms events in both estates, 2026-09-26 to 2026-09-29: the Director's rulings of
+  2026-09-26 and 2026-09-27, a landing post of 2026-09-27, and seats' pause closeouts.
+- **Surface**: the work-in-progress limit in `pr-lifecycle` (both estates), with the owner's words
+  "The total number of allowed PRs not including coordination PRs is the number of implementer agents, in this case three"
+  and the sentence "While the count is full, a seat prepares without a worktree or a commit".
+- **Observed**: no command in either estate's agent-tools computes the count. On 2026-09-27 a
+  count included a coordination PR until a first-hand read; on 2026-09-28, at 3 of 3, one seat
+  pushed a branch as the bot with no PR "so the bytes are safe" and another pushed a branch with
+  no PR; on 2026-09-29 J8 B2 and B3 were committed in a worktree and held unpushed. The owner's
+  word quoted by the Director on 2026-09-27 is
+  "All useful work must be pushed and in a PR or merged".
+- **Expected**: the count is computed, and a first push or a new lane worktree meets the limit at
+  the moment it acts.
+- **Candidate cure**: an agent-tools command that counts open PRs across the team's repositories
+  less those whose head is under `coordination/`, for check-in, landing and slot lines to quote;
+  a command that makes a branch's first push and opens its draft PR in one step, refusing at the
+  limit with the pr-lifecycle sentence; `set-up-worktree-lane` runs the same check.
+- **Target surface**: agent-tools CLI; `pr-lifecycle`; `set-up-worktree-lane`.
+- **Status**: open; four instances.
+- **Owner direction status**: standing
+- **Further instance, 2026-10-01** (Hazel tracks Trunk, both estates): with its own pull request
+  open, the consolidation seat cut, committed and pushed two more branches and cut a third,
+  with the sentence "While the count is full, a seat prepares without a worktree or a commit"
+  loaded. The text did not hold; five instances.
+- **The owner's word on the count, 2026-09-29** (recorded in OCE's estate-coordination thread,
+  two days after the limit landed, with seventeen pull requests open under the label
+  "residual"): "There are WIP limits for very good reasons."
+
+### F-234 — commitlint refuses the message only after the pre-commit gate has run (2026-09-26)
+
+- **Source**: comms events in both estates, 2026-09-26 to 2026-09-29, from seats (Myrtle turns
+  Canopy among them) and the Director; nine refusals or warnings.
+- **Surface**: `.husky/commit-msg` (commitlint), which git runs after `.husky/pre-commit`; the
+  commit-queue workflow (`agent-tools/src/commit-queue/commit-workflow.ts`); the seats' records
+  ceremony; `pnpm agent-tools:check-commit-message`.
+- **Observed**: the commit-queue workflow runs the message check before `git commit` only as an advisory (`commit-workflow.ts` calls the advisory orchestrator, whose result does not block), so a header
+  over length, a subject in the wrong case, or a body line opening with a word and a colon or a
+  hash-prefixed PR number (read as a footer) is refused after the full gate. A push then carried
+  only another seat's commit (2026-09-26), and a records ceremony ended exit 2 at an unchanged
+  tip four times (2026-09-28 and 2026-09-29). The commit skill says the message is "validated by
+  `pnpm agent-tools:check-commit-message` before `git commit` is invoked"; seats ran it by hand
+  after a refusal. JC's commit-msg hook runs commitlint without `--strict`, so a warning passes
+  there (one shipped on 2026-09-28); OCE's runs `--strict`.
+- **Expected**: a message refusal costs no gate run and needs no seat to remember the step.
+- **Candidate cure**: the commit paths (the commit-queue workflow, the records ceremony, OCE's
+  designed `merge-bot commit --message-file`) run `check-commit-message` on the message file
+  before any staging or gate and name the offending line; a commit refused at the hook prints
+  "NOT COMMITTED: tip unchanged at <sha>"; JC's commit-msg hook takes `--strict`.
+- **Target surface**: agent-tools CLI (`commit-queue`); `.husky/commit-msg`.
+- **Status**: open; nine instances. F-209 covers commitlint in CI, not this order.
+- **Owner direction status**: standing
+- **Further instance, 2026-10-01** (Hazel tracks Trunk): one message body with a line opening
+  "rule: re-arm" passed JC.net's `check-commit-message` and was refused by OCE's as a footer
+  with no leading blank line; the same day a commit chained after the check with `;` ran on a
+  refused header. Ten and eleven.
+
+### F-235 — a stale `.git/index.lock` from a seat's own interrupted git child blocks the primary (2026-09-25)
+
+- **Source**: comms events of 2026-09-25 (OCE, Swallow holds Drift) and 2026-09-28 (JC, Siren
+  herds Rudder and Nova turns Penumbra; OCE, Nova turns Penumbra), grouped at the second
+  two-estate consolidation.
+- **Surface**: the commit skill's Foreign index lock section; `.agent/hooks/policy.json` (both
+  estates).
+- **Observed**: three stale 0-byte locks with no live holder, each left by the seat's own
+  interrupted git child: a merge-bot push's pre-push hook (OCE primary, 2026-09-25), a heartbeat
+  stopped mid-cycle (JC primary, 2026-09-28, git blocked from 17:11Z to 17:15Z) and a build
+  backgrounded inside one shell call (an OCE worktree, 2026-09-28). The skill's premise "A
+  foreign lock means another agent is mid-commit" fitted none. Two were removed without the
+  owner's word, one on the Director's no-objection (2026-09-25) and one recorded afterwards as a
+  deviation (2026-09-28); the third went with its worktree under the owner's word,
+  "Yes, remove it (Recommended)". Neither policy file names `index.lock`.
+- **Expected**: the moment a seat reaches for the lock carries the skill's direction and names the
+  likely own-child causes.
+- **Candidate cure**: a Bash policy entry refusing `rm`, `unlink` or `mv` of a path ending
+  `index.lock` (argv patterns, not a substring), whose reappraisal names the Foreign index lock
+  section, the own-child causes and the route to the owner through the Director, lock untouched.
+- **Target surface**: agent-tools hook policy; the commit skill's foreign-lock premise.
+- **Status**: open; three instances, two removals without the owner's word.
+- **Owner direction status**: standing; the skill cites the owner's direction of 2026-05-03
+
+### F-236 — a commit on the shared primary carries a peer's staged or uncommitted hunks (2026-09-25)
+
+- **Source**: comms events in both estates, 2026-09-25 to 2026-09-29, grouped at the second
+  two-estate consolidation; the 2026-09-28 events in the same blocks are F-222's sources.
+- **Surface**: commit and records scripts staging by pathspec on a primary checkout several seats
+  commit from; `stage-by-explicit-pathspec`.
+- **Observed**: staging a shared file by pathspec took a peer's uncommitted edits with it: the
+  napkin (OCE, 2026-09-25), the review-cost ledger and napkin (OCE, 2026-09-27), and a 13-line
+  plan-node hunk through a records script's fixed pathspec (JC, 2026-09-29). On 2026-09-29 two
+  failed commits left files staged in JC's primary index: a seat's register rows (its
+  102-character header refused by commitlint) rode the Director's commit, and the Director's
+  napkin stayed staged after a pre-commit failure. The rule says "staging a file captures its
+  WHOLE uncommitted state"; F-222 holds the other face, a peer's hunk failing a gate.
+- **Expected**: a commit carries only what its author's own change produced.
+- **Candidate cure**: records and commit scripts stage from the patch they applied, with
+  `git apply --cached` as one JC records script now does; the commit path checks the message
+  before any `git add`; a pre-commit check refuses an index holding paths outside the commit's
+  pathspec and lists any staged hunk in a shared live file the seat's patch did not produce (the
+  rule's Structural-Enforcement Candidate, shape 1).
+- **Target surface**: agent-tools CLI (`commit-queue`); hooks; `stage-by-explicit-pathspec`.
+- **Status**: open; five instances.
+- **Owner direction status**: standing; the rule marks its structural-enforcement choice as
+  owner-direction-shaped
+
+### F-237 — commit and push chains report an outcome not read from the repository (2026-09-26)
+
+- **Source**: comms events in both estates, 2026-09-26 to 2026-09-29: the Director's own
+  corrections (JC) and seats' gate-done lines (OCE).
+- **Surface**: hand-composed commit, push and sign chains; the seats' records ceremony (gate
+  notice, queued records commit, gate done), which no agent-tools module in either estate names.
+- **Observed**: two JC push runs carried nothing, one through an index lock and one through a
+  missing message file (2026-09-26); a "rotation done" line went out against an unmoved head
+  after an index-lock test failed silently (2026-09-27); a chain masked an exit and signed two
+  threads before its push landed (2026-09-28). In OCE a ceremony's entry script reported end 0
+  over a refused push (2026-09-28, cured in that seat's script), and gate-done lines reported
+  exit 1 or 2 at tips that already held the commit, once at a tip already reported exit 0, with
+  the gate events posted twice (2026-09-26, 2026-09-29). The in-band exit-codes rule names "a
+  gate-runner helper that owns capture" as future tooling.
+- **Expected**: the reported outcome is computed from the repository: HEAD moved, the remote tip
+  equals HEAD, one gate event each.
+- **Candidate cure**: an agent-tools landing command that records HEAD before the commit, refuses
+  when HEAD did not move, reads the remote tip back after the push and exits non-zero unless it
+  equals HEAD, naming the failing step; signing and "done" lines chain on its exit, and the
+  records ceremony becomes that tracked command.
+- **Target surface**: agent-tools CLI.
+- **Status**: open; seven instances.
+- **Owner direction status**: standing
+
+### F-238 — the Cricket frame is assembled by hand and omits or misstates plan items (2026-09-26)
+
+- **Source**: the Director's check-in frames of 2026-09-26 and the suite judges' readings, five
+  comms events in both estates.
+- **Surface**: `cricket` §Build one identical frame, field 1 (both estates).
+- **Observed**: one frame left P7 out of READING and NEXT and did not compute the plan's
+  §Verification measures (four NARROWED readings); a later frame did not say P7, P6 and P10(a)
+  were done (five judges); check-in 31 reported P7 "not started" when it had landed in JC pull
+  request 214 and OCE 249 (CONTRADICTED 6, all on that line). Field 1 asks for "the governing
+  plan node's todo lines, quoted verbatim with the file and commit they were read at".
+- **Expected**: the frame's sources carry every named item of the governing plan node with its
+  true status, so the judges spend no verdicts on omissions.
+- **Candidate cure**: a frame-assembly command that renders the SOURCES block from the plan node,
+  each todo line verbatim with file and commit and each todo's landed PR or holding seat looked
+  up.
+- **Target surface**: agent-tools CLI; `cricket`.
+- **Status**: open; three instances, one seat, one day.
+- **Owner direction status**: standing
+
+### F-240 — nothing makes a ruling name the primary surface it read (2026-09-28)
+
+- **Source**: the Director's own corrections of 2026-09-28 on both streams, which count them as
+  the sixth and seventh read-the-primary-surface instances against that seat in one window.
+- **Surface**: the clause in `verify-dont-trust` that a ruling
+  "names what was read: the file's blob at the default branch's tip (never a checkout on a coordination branch), the API response, the run list"
+  (both estates, from 2026-09-26); ruling-bearing comms sends.
+- **Observed**: a review verdict read the coordination branch's copy of the exchange register
+  before the convergence merge, not origin/main; a ruling rested on an unread premise about a
+  deployed entry point; a lift rested on a review's state, not its body (all 2026-09-28, each
+  corrected by a later event).
+- **Expected**: a ruling names its primary surface at the moment it is sent.
+- **Candidate cure**: a ruling-bearing comms send takes a `--read` argument per primary surface (a
+  path at the default-branch blob sha, an API response, a run id), and the comms CLI refuses a
+  ruling without one.
+- **Target surface**: agent-tools CLI (`collaboration-state` comms); `verify-dont-trust`.
+- **Status**: open; three instances recorded here, seven by the seat's own count.
+- **Owner direction status**: standing
+
+### F-241 — a machine-local path written into a channel file blocks another seat's commit (2026-09-25)
+
+- **Source**: seats' comms events of 2026-09-25 (OCE, 11:23Z and 15:24Z) and 2026-09-26.
+- **Surface**: tracked ARC channel files; `validate-no-machine-local-paths` (OCE's pre-commit hook; in JC.net it runs at pre-push through `pnpm check`);
+  the comms concept gate's path-scoped `machine-local-path` concept (`comms-concept-gate.ts`,
+  both estates).
+- **Observed**: temporary-directory prefixes written into a pairing channel by two seats sat in
+  the tracked file until another seat's commit and coordination-branch push were refused by the
+  validator; two commit tries failed before the prefixes were replaced by a placeholder (twice
+  on 2026-09-25, the second after a scratchpad-guard bullet landed in
+  `important-state-not-in-temp-files` that day). By the source's read, the concept gate checks
+  comms events only.
+- **Expected**: the writer meets the refusal when the channel is written.
+- **Candidate cure**: extend the concept gate's `machine-local-path` concept, or a write hook, to
+  ARC channel appends.
+- **Target surface**: agent-tools CLI (`collaboration-state`); hooks.
+- **Status**: open; two instances, one day.
+- **Owner direction status**: standing; the no-machine-local-paths principle is the owner's
+  ruling of 2026-06-12
+
+### F-242 — pr-watch counts a seat's reply as a review round when its signature shape differs (2026-09-26)
+
+- **Source**: seats' comms events of 2026-09-26 (OCE), one by the seat whose replies carried the
+  earlier shape.
+- **Surface**: `SIGNATURE_SUFFIX` in `agent-tools/src/pr-watch/reviewer-legs.ts` (both
+  estates); `identify-as-agent-under-shared-credentials`.
+- **Observed**: the reader takes a bot-account reply as signed only when its last line starts
+  with an em dash and ends with the session prefix, so "— <agent-name> (<prefix>), an agent"
+  reads as unsigned and counts as a review round. The rule placed the prefix last at 12:41Z; at
+  15:32Z a seat's PR 255 reply lacked the signed line, a peer caught it, and one comment edit as
+  the bot cured it.
+- **Expected**: the replying seat learns of an unsigned reply from the watch, not from a peer.
+- **Candidate cure**: pr-watch names in its own output each bot-account reply whose last line
+  begins with an em dash but fails `SIGNATURE_SUFFIX`, as a seat reply read as unsigned.
+- **Target surface**: agent-tools CLI (`pr-watch`).
+- **Status**: open; one instance after the rule's home.
+- **Owner direction status**: standing
+
+### F-243 — nothing lists unanswered ACK-REQUESTED events, so the Director answers them late (2026-09-27)
+
+- **Source**: the Director's recorded defects of 2026-09-27 on both streams.
+- **Surface**: the comms CLI (`collaboration-state`); `directed-routing-requires-absorption-ack`;
+  `use-monitor-for-event-driven-wake`.
+- **Observed**: a seat's ACK-REQUESTED question was answered 36 minutes late and another seat's
+  routing request and ping sat about eighteen minutes, because OCE's stream was not read
+  between check-ins. The wake rule says nothing makes the seat "READ the buffer between wakes";
+  no agent-tools source in either estate handles ACK-REQUESTED. The cure applied was by hand,
+  "every wake now reads directed events first".
+- **Expected**: the reading order at each wake is the tool's, not the seat's memory.
+- **Candidate cure**: a wake-time line from the comms CLI listing ACK-REQUESTED directed events
+  addressed to the reader with no threaded reply, oldest first with their age; the Director's
+  bootstrap arms one Monitor-backed `comms watch` per directed estate stream.
+- **Target surface**: agent-tools CLI (`collaboration-state` comms); the Director's bootstrap.
+- **Status**: open; two instances, one seat, one day.
+- **Owner direction status**: standing
+
+### F-244 — a script switched the shared primary's branch under a peer's unpushed commit (2026-09-27)
+
+- **Source**: the Director's recorded defect and a seat's lesson, 2026-09-27, on both streams.
+- **Surface**: the Director's settlement script (untracked); the shared-checkout clause of
+  `worktree-hygiene`; `.agent/hooks/policy.json` (both estates).
+- **Observed**: at 15:58Z the script switched OCE's primary to PR 265's branch between
+  Swallow holds Drift's commit and push; the push read the switched branch and moved nothing
+  (exit 1, up to date), and the seat pushed at 16:07Z. The rule reads
+  "Never switch or create a branch (`git checkout`, `git switch`, `checkout -b`) in a checkout you do not exclusively own without explicit approval";
+  the policy files block only the `git checkout --` and
+  `git checkout HEAD` forms, and a switch inside a script is out of the Bash guard's sight.
+- **Expected**: a push reads the branch its committer left.
+- **Candidate cure**: settlement and other Director scripts become tracked agent-tools commands
+  that run in their own worktree and refuse to switch the primary's branch outside the fold
+  rotation; a policy entry refuses `git switch` and `git checkout <branch>` in the primary
+  outside the fold; `merge-bot push` refuses when HEAD's branch is not the one the seat committed
+  on.
+- **Target surface**: agent-tools CLI (`merge-bot push`); hook policy.
+- **Status**: open; one instance, no work lost.
+- **Owner direction status**: standing
+
+### F-245 — the review-cost refusal names an owner raise where PDR-140 rebudgets by recorded decision (2026-09-27)
+
+- **Source**: comms events of 2026-09-27: the Director's owner-card line, a seat's question to the
+  owner, and the Director's withdrawal (event 3229a975).
+- **Surface**: the BUDGET-EXHAUSTED refusal in `agent-tools/src/review-cost/cost.ts` (line 179);
+  PDR-140's step-back clause.
+- **Observed**: PR 250's budget line blocked its sync and cure push; the Director put a raise to 4
+  on the owner card and a seat asked the owner, while PR 250's three reviewed cures sat
+  uncommitted in a worktree, until the Director withdrew the line and ruled the rebudget the
+  lane's recorded decision. The refusal reads "or the budget is raised on the pull request by the
+  owner"; PDR-140 says "rebudget by recorded decision (one further settlement push with its
+  reason in the working notes)".
+- **Expected**: the refusal names the route the PDR gives.
+- **Candidate cure**: the BUDGET-EXHAUSTED message names PDR-140's rebudget: the lane edits the
+  body's budget line and records its reason, once per PR on records-class work.
+- **Target surface**: agent-tools CLI (`review-cost`).
+- **Status**: open; one instance. JC has no review-cost gate.
+- **Owner direction status**: standing
+
+### F-246 — no tracked push re-requests reviews, so legs stay bound to the old head (2026-09-29)
+
+- **Source**: a seat's lesson of 2026-09-29 (OCE, PR 312), seen on the legs Monitor.
+- **Surface**: settlement pushes; the configured-legs passage of `pr-lifecycle`; `merge-bot`
+  (both estates).
+- **Observed**: a hand-written settlement script pushed without the Copilot and `@codex review`
+  re-requests, so both legs stayed bound to the old head until the seat saw it on the legs
+  Monitor. `pr-lifecycle` says Copilot "reviews the FIRST push and any tip the bot explicitly
+  requests it on"; no merge-bot source in either estate requests a review.
+- **Expected**: every settlement push re-requests each available configured leg on the new tip.
+- **Candidate cure**: the tracked push step of the door (the merge-bot front door or a settlement
+  command) re-requests every available configured leg on the new tip as the bot after it pushes;
+  the legs Monitor's bound-to-old-head reading stays as the check that it ran.
+- **Target surface**: agent-tools CLI (`merge-bot`).
+- **Status**: open, an observation (one instance).
+- **Owner direction status**: standing
+
+### F-247 — a template-filled broadcast posted with an unfilled placeholder token (2026-09-28)
+
+- **Source**: the Director's ROTATION line of 2026-09-28 00:37Z (JC), corrected by a follow-up
+  event.
+- **Surface**: `comms send` (`collaboration-state`, both estates); `coordination-fold` step 10.
+- **Observed**: the ROTATION line left `{BASE9}` where the successor's base sha belonged in its
+  second mention. The fold skill says "A broadcast filled from a template by substitution is
+  re-read whole before posting, not only at its placeholders"; the send path has no
+  template-token check in either estate.
+- **Expected**: a substituted broadcast cannot post with a hole.
+- **Candidate cure**: the comms send path refuses a body still carrying an unfilled
+  `{UPPER_CASE}` token and names it.
+- **Target surface**: agent-tools CLI (`collaboration-state` comms send).
+- **Status**: open, an observation (one instance).
+- **Owner direction status**: standing
+
+### F-248 — the landing slot is a posted line, so two holders can take it (2026-09-28)
+
+- **Source**: the Director's lesson (JC stream, check-in 64) and a seat's friction line (Nova
+  turns Penumbra, OCE), both 2026-09-28.
+- **Surface**: the slot turn of `pr-lifecycle` ("slot taken" to "slot released" on the
+  coordination stream), both estates; no landing-slot code in either estate's agent-tools
+  (`gate-slot` is the host gate limit).
+- **Observed**: two go-lines issued at once named no holder, so PRs 281 and 282 were both synced
+  (JC); after PR 291's release at 23:14:57Z, #293's take and 291's retake came 43 seconds apart,
+  both merges polling (OCE).
+- **Expected**: a second take is refused while the slot is held, naming the holder.
+- **Candidate cure**: a slot state the comms CLI computes from the stream's "slot taken" and "slot
+  released" lines, or an atomic claim, refusing a second take or go-line while one is unreleased.
+- **Target surface**: agent-tools CLI (`collaboration-state`); `pr-lifecycle`.
+- **Status**: open; two instances, one day.
+- **Owner direction status**: standing
+
+### F-249 — the Codex seat rules let `git commit -F m --no-verify` skip the hooks (2026-09-26)
+
+- **Source**: the Director's order of 2026-09-26 (event bce7a2ea); the merge-bot commit wrapper
+  design report of 2026-09-26; the Director's first-hand refutation of a Codex P2 on 2026-09-27.
+- **Surface**: `.codex/rules/seat-landing.rules` (OCE; JC has no `.codex/rules`).
+- **Observed**: a `prefix_rule` allows `["git", "commit"]`, and the forbidding rule matches
+  `--amend`, `--no-verify` or `-n` only in the third position, so `git commit -F message.txt
+  --no-verify` is allowed and skips every hook. The wrapper that would replace the allow,
+  `merge-bot commit`, is designed (`.agent/reports/agentic-engineering/` report of 2026-09-26,
+  its scrub table carrying `GIT_COMMON_DIR`) and unbuilt; `GIT_CONFIG` does not
+  redirect `core.hooksPath` (the report cites Git 2.43.0), so it stays out of the table. A later
+  `--amend` passes the same way. F-209 names the wrapper only as its trigger; CI's commitlint
+  there is the compensating control.
+- **Expected**: a Codex seat's commit runs the repository's hooks whatever the flag order.
+- **Candidate cure**: build `merge-bot commit` to the design, then the sync, stage and worktree
+  wrappers in the Director's order, each replacing its `git` allow rule.
+- **Target surface**: agent-tools CLI (`merge-bot`); `.codex/rules/seat-landing.rules`.
+- **Status**: open; the gap is live by the rules' text (read 2026-10-01), with no recorded use.
+- **Owner direction status**: standing
+
+### F-251 — the Bash guard's git entries match whitespace tokens, so a glued redirection hides a flag (2026-09-27)
+
+- **Source**: OCE's security-reviewed scanner cure in PR 261 (merged 2026-09-27); read against
+  both estates' live policy by security-expert on 2026-10-01.
+- **Surface**: `.agent/hooks/policy.json` and `agent-tools/src/hook-policy` (`blocked-patterns.ts`,
+  `shell-words.ts`), both estates; OCE's scanner under `agent-tools/src/shell`.
+- **Observed**: neither estate's `policy.json` has a `match: argv` entry, so `git reset --hard`
+  and its siblings are matched by a whitespace tokeniser (`tokenizeCommand`), where
+  `--hard>/dev/null` is one token and passes. JC's word scanner also keeps an unquoted `<` or `>`
+  inside the preceding word (its one-character operators are the pipe, the semicolon, the
+  ampersand, newline and the parentheses; unchanged since 2026-09-12). OCE cured its scanner in
+  PR 261, with a literal-last-character state after a security review, and its live guard does
+  not use that scanner either.
+- **Expected**: a flag glued to a redirection is matched as the flag.
+- **Candidate cure**: port PR 261's scanner to JC, then move the git entries to `match: argv` in
+  both estates (the same change as the nested-script entry), under a security-expert review.
+- **Target surface**: agent-tools hook policy; `policy.json`, both estates.
+- **Status**: open; the gap is live by the code (read 2026-10-01). Hardening: the matcher's own
+  doc calls it accident prevention.
+- **Owner direction status**: standing
+
+### F-252 — OCE's watcher lacks the `--poll-ms` bound and the fs-watch lint guard JC landed (2026-09-25)
+
+- **Source**: PR 190's queued watcher follow-ups, offered as a joint set by the exchange seats on
+  2026-09-25 (events 09f9a852 and c17c34d7); read against both estates on 2026-10-01.
+- **Surface**: `agent-tools/src/collaboration-state/cli-options.ts`; `agent-tools/eslint.config.ts`
+  (OCE).
+- **Observed**: JC bounds timer options at `MAX_TIMER_DELAY_MS = 2 ** 31 - 1` and restricts fs
+  watch imports in collaboration-state ("The collaboration-state runtime polls on a plain timer;
+  no fs watch."); OCE has neither, so a `--poll-ms` above 2^31-1, which Node clamps to 1 ms, spins
+  the loop, and a return of the fs-watch stall has no regression guard.
+- **Expected**: both estates carry the same watcher guards.
+- **Candidate cure**: port JC's bytes for both, with their tests; the wait-seam rename and the
+  remaining F-101 test from the same set follow as the exchange schedules them.
+- **Target surface**: agent-tools CLI and lint config (OCE).
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-254 — test files set global fake timers against `no-global-state-in-tests` (2026-09-25)
+
+- **Source**: the exchange seats' joint set K4, 2026-09-25 (OCE events 20cc0c88 and 252fb4ce);
+  counted in both estates on 2026-10-01.
+- **Surface**: `agent-tools/tests/collaboration-state/comms-watch-errors.unit.test.ts` and
+  `comms-watch-loop-deadlines.unit.test.ts` (both estates); in OCE also four
+  `packages/libs/logger` tests and three `packages/sdks/oak-curriculum-sdk` tests.
+- **Observed**: these files call `vi.useFakeTimers` or `vi.setSystemTime` (2 in JC, 9 in OCE),
+  which `no-global-state-in-tests` and the testing strategy forbid; by the source's read no lint
+  rule refuses either call.
+- **Expected**: time enters a test through an injected clock or scheduler.
+- **Candidate cure**: inject a clock in each file, each estate's change its own slice; then a
+  `no-restricted-properties` entry at error in the test preset.
+- **Target surface**: agent-tools tests; OCE's logger and SDK tests; the lint test preset.
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-255 — the merge-bot push credential helper is unscoped and admits ambient git config (2026-09-25)
+
+- **Source**: Swallow holds Drift's PR 239 dispositions, 2026-09-25 (events 0b9d9046 and
+  0f5b343d, condition 7), deferred to a credential-narrowing follow-up; read against both estates
+  on 2026-10-01.
+- **Surface**: `agent-tools/src/merge-bot/git-credential-chain.ts` (both estates);
+  `agent-tools/src/core/git-remote-url.ts` (both estates since JC.net pull request 279, 2026-10-01).
+- **Observed**: the push clears `credential.helper` and sets its own with no `github.com` scope,
+  so a `pushInsteadOf` can redirect the token; `http.*` config and `GIT_CONFIG_*` reach the push;
+  and remote URLs with default ports are refused, failing closed (its unit test expects
+  `ssh://git@github.com:22/acme/widgets.git` to read no repository).
+- **Expected**: the token reaches only github.com, and no ambient config steers the push.
+- **Candidate cure**: scope the helper to github.com; pin proxy, TLS verification and extra
+  headers on the push argv, since `http.*` and `url.*.pushInsteadOf` also live in config files;
+  drop `GIT_CONFIG_*`, `GIT_SSL_NO_VERIFY` and the proxy variables from the push environment;
+  compare the host of `git remote get-url --push` with github.com before the token file is
+  staged; accept default ports. One change in both estates under a security-expert review.
+- **Target surface**: agent-tools CLI (`merge-bot`, `core`).
+- **Status**: open; a review finding, no incident. It needs write access to git config or the
+  push environment on the host.
+- **Owner direction status**: standing
+
+### F-257 — the push secret scan's name-scoped exclusion trusts tracking refs fetched before a URL rewrite (2026-09-26)
+
+- **Source**: Copilot on OCE PR 257's synced head, 2026-09-26, pre-existing; dispositioned as a
+  follow-up for the secret-scan lane and carried by Swallow holds Drift's lane, which then closed
+  (events f007a5e7 and 4f858cd8).
+- **Surface**: `agent-tools/src/secret-scan/compute-push-scan-ranges.ts` (both estates).
+- **Observed**: the exclusion `--not --remotes=<name>` trusts a remote's tracking refs, so refs
+  fetched before a `remote.<name>.url` rewrite can exclude commits the new destination did not
+  receive, and those go unscanned. By the source's grep, only OCE's review-cost ledger row #257
+  and a thread record hold the finding.
+- **Expected**: the scan excludes only commits the destination holds.
+- **Candidate cure**: take the exclusion from the destination's live ref advertisement
+  (`git ls-remote` on the URL git passes the hook), excluding only advertised tips present
+  locally; a failed read prints the DEGRADED warning. Test first, the same bytes in both estates,
+  after JC takes OCE's URL scoping.
+- **Target surface**: agent-tools CLI (`secret-scan`).
+- **Status**: open; a review finding, no incident.
+- **Owner direction status**: standing
+
+### F-258 — the corpus-analysis checkpoint reader resolves a relative path against the working directory (2026-09-29)
+
+- **Source**: Codex's P1 on PR 311, 2026-09-29, reported by Nova turns Penumbra, judged not a
+  regression and named as a follow-up (JC event c8e26024; item 5 of JC's exchange register J8
+  row).
+- **Surface**: `agent-tools/src/corpus-analysis/post-run/checkpoint-io.ts` (both estates).
+- **Observed**: the file documents "A RELATIVE flag path resolves against the invocation working
+  directory", while core's `resolveReadPathWithinRepo` (`flag-path-resolve.ts`) anchors a
+  relative path at the repo root, as the other agent-tools CLIs do.
+- **Expected**: one resolution rule for relative flag paths across the CLIs.
+- **Candidate cure**: route `makeCheckpointReader` through `resolveReadPathWithinRepo`.
+- **Target surface**: agent-tools CLI (`corpus-analysis`).
+- **Status**: open; one review finding.
+- **Owner direction status**: standing
+
+### F-259 — tree-reading validators resolve their root through `CLAUDE_PROJECT_DIR`, scanning the primary from a worktree (2026-09-28)
+
+- **Source**: Copilot on JC PR 239, routed by Nova turns Penumbra (event e7afa526) and
+  acknowledged by the Director (event 488766da), 2026-09-28; the same seat's finding in OCE's
+  smoke runner that day.
+- **Surface**: `resolveRepoRoot` in `agent-tools/src/core/repo-root.ts` (both estates) and its
+  default callers.
+- **Observed**: `resolveRepoRoot` takes `CLAUDE_PROJECT_DIR` before walking up from the caller,
+  so a tree-reading gate run in a linked worktree by a session opened in the primary scans the
+  primary's tree and can report the wrong tree green. Each found site was cured locally with
+  `projectDir: undefined` (the smoke runner among them); 26 JC and 46 OCE source files still call
+  `resolveRepoRoot(import.meta.url)` with the default (counted 2026-10-01). The route reached only
+  an archived napkin.
+- **Expected**: a validator reads the tree it runs in.
+- **Candidate cure**: walk up from the caller's own file by default, with the harness leg an
+  explicit option for hooks; proven by a smoke with a decoy `CLAUDE_PROJECT_DIR`.
+- **Target surface**: agent-tools CLI (`core`, validators).
+- **Status**: open; two instances, one day.
+- **Owner direction status**: standing
+
+### F-261 — inline eslint rule-off comments pass unreported, and some workspaces compose no test shape (2026-09-25)
+
+- **Source**: a seat's review finding on JC PR 196 (OCE event 0a513742) and the OCE exchange
+  seat's acknowledgement (event cc15b5bf), 2026-09-25; config-expert found the OCE half that day.
+- **Surface**: the `no-eslint-disable` rule (JC `tooling/eslint/src/rules/`, OCE
+  `packages/core/oak-eslint/src/rules/`); JC's `jcdotnet/eslint.config.ts`; OCE's `oak-eslint`
+  and workspace-config self-bootstrap configs.
+- **Observed**: the rule's pattern matches only `eslint-disable` directives, so an inline
+  `/* eslint <rule>: "off" */` comment switches a rule off unreported, and neither estate sets
+  `noInlineConfig`. JC's site config composes no test-shape config, so no vitest skip, only or
+  todo rule reaches its tests (JC's plugin half was cured on 2026-09-25); by config-expert's
+  finding, OCE's self-bootstrap configs compose neither tier.
+- **Expected**: a rule is turned off only where a reviewed config says so, and every workspace's
+  tests meet the test-shape rules.
+- **Candidate cure**: the rule also reports `eslint` configuration comments, or the configs set
+  `linterOptions.noInlineConfig`; compose the test shape in JC's site config and in OCE's
+  self-bootstrap configs.
+- **Target surface**: lint configs and the `no-eslint-disable` rule, both estates.
+- **Status**: open; one review finding per estate.
+- **Owner direction status**: standing
+
+### F-262 — the Bash guard's default-mode git entries do not read a quoted `bash -c` script (2026-09-27)
+
+- **Source**: Nova turns Penumbra, OCE event 160ab4ab, 2026-09-27, recorded outside PR 261's
+  scope.
+- **Surface**: `agent-tools/src/hook-policy` (`argv-nested.ts`, `argument-matcher.ts`);
+  `.agent/hooks/policy.json` (both estates).
+- **Observed**: the argv mode re-reads an interpreter's script (`argument-matcher.ts`), but no
+  entry in either policy uses it. The git entries ("git push --force" and its siblings) carry no
+  mode, match by token subsequence over whitespace tokens, and miss `bash -c 'git push --force'`,
+  where the quotes stay on the tokens (read in the code 2026-10-01).
+- **Expected**: a git shape inside a nested script is refused as it is at top level.
+- **Candidate cure**: move the git entries to `match: argv`, giving one reader that also cures
+  the glued-redirection entry, after checking the argv tables cover every git entry, including
+  `git --no-verify` with no subcommand.
+- **Target surface**: agent-tools hook policy.
+- **Status**: open; one recorded gap, no incident.
+- **Owner direction status**: standing
+
+### F-263 — a merge-bot unit test runs the real `git check-ref-format` (2026-09-25)
+
+- **Source**: Swallow holds Drift, 2026-09-25 (OCE event 6fbf1cc5), named as later test debt
+  outside PR 239.
+- **Surface**: `agent-tools/src/merge-bot/push-args.unit.test.ts` (both estates).
+- **Observed**: the test runs git on purpose as the oracle for ref legality ("real `git
+  check-ref-format` runs here, unfaked"), so a unit test does IO.
+- **Expected**: unit tests do no IO; the oracle cases live in an integration test.
+- **Candidate cure**: keep the oracle cases as one integration test and give the unit tests an
+  injected ref-format check.
+- **Target surface**: agent-tools tests.
+- **Status**: open; known test debt.
+- **Owner direction status**: standing
+
+### F-265 — OCE's agent-tools lint runs without `--max-warnings 0`, so warnings ship (2026-09-28)
+
+- **Source**: a triage by Nova turns Penumbra, 2026-09-28 (event 0f809cae), graduating the flag
+  into the recovery lane.
+- **Surface**: the `lint` script in `agent-tools/package.json` (OCE `eslint .`; JC
+  `eslint --max-warnings 0 .`).
+- **Observed**: with the flag, lint fails on the `no-real-io-in-tests` warnings in five
+  integration test files (six counted by the seat, seven outside the allowlist in a later gate
+  log), so the flag waits on their cure; by the source's grep no plan file names that lane.
+- **Expected**: a warning fails the lint, as `no-warning-toleration` asks and JC's script does.
+- **Candidate cure**: cure the warnings and add the flag in one PR.
+- **Target surface**: `agent-tools/package.json`; the five test files.
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-266 — the merge door fails fast when its first poll reads `mergeable=UNKNOWN` (2026-09-24)
+
+- **Source**: Siren herds Rudder, 2026-09-24 (JC events 539272ad and 05528fd1); two instances.
+- **Surface**: `retryLabel` in `agent-tools/src/merge-bot/merge-cli.ts` (both estates).
+- **Observed**: right after main moved, the first merge call for PR 180 and for a later PR exited
+  1 with "mergeability not yet computed (mergeable=UNKNOWN)", and the re-run merged; the first
+  refusal was also lost behind a tail filter. `retryLabel` retries a `ReadingUnavailableError`
+  only when `poll > 1`, treating a first-poll failure as a broken environment, while the message
+  from `pr-watch/state-gh.ts` itself says "re-run in a few seconds".
+- **Expected**: an UNKNOWN mergeability reading retries within the poll budget on any poll.
+- **Candidate cure**: classify the UNKNOWN reading as a wait, retried from poll 1, leaving other
+  first-poll failures to fail fast.
+- **Target surface**: agent-tools CLI (`merge-bot`).
+- **Status**: open; two instances, one seat.
+- **Owner direction status**: standing
+
+### F-267 — the harness's auto-mode classifier refuses the persistent comms watcher (2026-09-29)
+
+- **Source**: a seat's comms events e2324698 (2026-09-29) and 30d92cfd (2026-09-30), JC; two
+  instances.
+- **Surface**: the all-channels watcher launch under Claude Code's auto-mode permission check;
+  `.claude/settings.json`, which names no allow rule for the watcher in either estate.
+- **Observed**: the classifier denied the watcher; the seat read the stream by hand at its
+  boundaries, the F-95 gate then refused `claims open`, and the lane ran claimless on broadcasts.
+- **Expected**: the watcher arms in auto mode.
+- **Candidate cure**: a project allow rule for the watcher's launch command, verified first-hand
+  in an auto-mode session.
+- **Target surface**: harness settings (`.claude/settings.json`).
+- **Status**: open; two instances, one seat.
+- **Owner direction status**: standing
+
+### F-268 — a reviewer's read-only brief does not bind its Bash tool (2026-09-25)
+
+- **Source**: a seat's disclosure, 2026-09-25 (OCE event ed4cd678); one instance.
+- **Surface**: the sub-agent templates' tool sets (`.agent/sub-agents/templates/
+  assumptions-expert.md` declares Read, Grep, Glob, Bash, WebFetch and WebSearch in both estates).
+- **Observed**: an assumptions-expert review dispatched under a read-only brief ran
+  `codex features list` on three releases and one logged-out `codex exec` that sent one
+  unauthenticated request to the vendor (401, no model turn); the seat judged it within the
+  owner's standing Codex permission. The template's "read-only review" mode disallows only Write,
+  Edit and NotebookEdit.
+- **Expected**: a review that is not to execute or reach the network says so in its tool set.
+- **Candidate cure**: a read-only declaration variant without Bash and the web tools, used when a
+  brief is read-only.
+- **Target surface**: sub-agent declarations and templates.
+- **Status**: open, an observation (one instance).
+- **Owner direction status**: standing
+
+### F-269 — OCE's transaction lock is not reclaimed when its holder died before writing `owner.json` (2026-09-24)
+
+- **Source**: the exchange seat's finding, 2026-09-24 (event 25512039; batch three's second
+  concept, event 309ae8fa); read against both estates on 2026-10-01.
+- **Surface**: `removeStaleLock` in `agent-tools/src/collaboration-state/transaction-lock.ts`
+  (OCE).
+- **Observed**: `removeStaleLock` returns when the owner metadata is unreadable, so a lock whose
+  holder died before writing it is not reclaimed at any age. JC's copy reads the lock directory's
+  modified time and passes it to `isStaleLock`, reclaiming an ownerless lock by age (the work of
+  JC's `commit-as-the-full-local-gate` plan).
+- **Expected**: an ownerless lock is reclaimed by age in both estates.
+- **Candidate cure**: take JC's bytes with their tests.
+- **Target surface**: agent-tools CLI (`collaboration-state`, OCE).
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-270 — the PreCompact log writer retightens a pre-existing file and then appends (2026-09-25)
+
+- **Source**: the exchange seats' agreed joint cure, 2026-09-25 (events 2a33cf89, 26fc7185 and
+  4aac9303), recorded only as a continuity line.
+- **Surface**: OCE `agent-tools/src/core/owner-only-append.ts` (step 6, `fchmod`); JC
+  `agent-tools/src/bin/claude-pre-compact-observe-hook.ts` (`fchmodSync`, then `appendFileSync`).
+- **Observed**: both writers set a pre-existing log to 0o600 and then write, so a descriptor
+  another account opened while the mode admitted it still reads the later bytes.
+- **Expected**: "before any byte is written, refuse or replace a pre-existing file whose mode
+  admits another account" (the joint cure's words).
+- **Candidate cure**: one writer. JC takes OCE's `core/owner-only-append.ts` and its hook calls
+  it (JC's writer has no no-follow flag and no owner, link-count or same-file check); the mode
+  refusal lands at the `fstat` step, refusing when `mode & 0o077` is non-zero, before `fchmod`.
+  Refuse; do not replace.
+- **Target surface**: agent-tools CLI (`core`, the PreCompact hook).
+- **Status**: open; a design finding, no incident.
+- **Owner direction status**: standing
+
+### F-271 — the schema-drift runner has no injectable seam and reads the live schema unbounded (2026-09-04)
+
+- **Source**: a seat's routing, 2026-09-04 (events 1a25c9fd and a77022b4), carried in the
+  2026-09-25 comms decision table.
+- **Surface**: `agent-tools/src/ci/ci-schema-drift-check.ts` (OCE; JC has no
+  `agent-tools/src/ci`).
+- **Observed**: the module calls `await main()` at top level (line 156), so no test reaches its
+  decisions, and reads the live schema with `response.json()` and no byte bound (line 109).
+- **Expected**: the runner's decisions are testable through injected ports, and the fetch is
+  bounded.
+- **Candidate cure**: give `main` injected fetch and output ports and cap the body at a declared
+  byte bound.
+- **Target surface**: agent-tools CLI (`ci`, OCE).
+- **Status**: open; no incident.
+- **Owner direction status**: standing
+
+### F-272 — merge-bot's `--expect` grammar admits the `unknown` login of a deleted account (2026-09-20)
+
+- **Source**: a security read of 2026-09-20 (event 9000d6ce), hardening items 2 to 4, carried in
+  the 2026-09-25 comms decision table.
+- **Surface**: `EXPECT_GRAMMAR` in `agent-tools/src/merge-bot/merge-args.ts` (both estates);
+  pr-watch's login reading.
+- **Observed**: the grammar accepts `unknown`, the login pr-watch gives a deleted account's
+  comment (`harvest-fields.ts` in JC, `state-fields.ts` in OCE), so an operator who
+  declared it would count such a comment; the same read named a `[bot]` suffix trap, Unicode
+  format characters passing the sanitiser, and a code-unit slice; those three were not re-read on
+  2026-10-01, and JC's `pr-watch/printable.ts` drops format characters today.
+- **Expected**: no expected-reviewer declaration can match a sentinel login.
+- **Candidate cure**: carry a deleted author as a value the login grammar cannot match (null or
+  a tagged variant), so no denylist is needed; the grammar refusing `unknown` is then defence in
+  depth. One lane, both estates.
+- **Target surface**: agent-tools CLI (`merge-bot`, `pr-watch`).
+- **Status**: open; a security read, no incident.
+- **Owner direction status**: standing
+
+### F-273 — a Copilot finding in the review body under "Findings: None" is invisible to a wait that counts threads (2026-10-01)
+
+- **Source**: Crucible binds Slag (OCE pull request 322, two rounds) and Hazel tracks Trunk
+  (JC.net pull request 281, rounds two and three), first-hand, 2026-10-01.
+- **Surface**: Copilot's review overview comment; `pr-watch` and the seats' wait scripts; the
+  merge door's grounds line.
+- **Observed**: the overview prints "Findings: None" and lists items under "Previously missed"
+  or in its summary sentence, with no review thread. A wait that counts unresolved threads
+  reports a clean round. The door prints "tally body findings (SKILL item 2) before reading
+  this round as zero-finding" and OCE's door does not read the body itself; JC.net's reads the tip-bound body for its headline verdict and suppressed count and holds on those (`suppressed-hold.ts`), and reads no "Previously missed" item.
+- **Expected**: a round's body items are counted with its threads.
+- **Candidate cure**: `pr-watch` reads the tip-bound review body for "Previously missed" and
+  file-and-line items and reports their count beside the thread count; the door refuses a
+  zero-finding reading while that count is above zero and no signed disposition names them.
+- **Target surface**: agent-tools CLI (`pr-watch`, `merge-bot`).
+- **Status**: open; four rounds on two pull requests, two seats.
+- **Owner direction status**: standing
+
+### F-274 — nothing flags a gendered pronoun for an agent at the moment it is written (2026-09-29)
+
+- **Source**: the owner's word of 2026-09-29, at the end of a compaction order, recorded in OCE's
+  estate-coordination thread and a handoff record: "STOP assigning gender to agents, I am sick
+  of having to say that".
+- **Surface**: `agents-default-no-gender` (both estates); the comms CLI, thread records, handoff
+  records and commit messages.
+- **Observed**: the rule was loaded and the owner still had to say it again; nothing reads the
+  text a seat writes about another seat.
+- **Expected**: the miswrite is caught at the write.
+- **Candidate cure**: a validator over agent-authored records that flags he, she, him, her, his
+  or hers in a sentence naming a registered seat identity (human referents stay out of scope),
+  run by the record-append tool and the commit-msg hook.
+- **Target surface**: agent-tools CLI (`collaboration-state`); `.husky/commit-msg`.
+- **Status**: open; homed and recurred.
+- **Owner direction status**: standing
+
+### F-275 — a turn can end on a question to the owner, or a block on the owner, with no card (2026-08-19)
+
+- **Source**: two owner words in OCE's records. Absorbed 2026-08-19: "never, EVER proclaim you
+  are not going to do anything because you are blocked on me without raising a user card". At
+  the end of a compaction order, 2026-09-17: "And when I say cards, I mean use the user question
+  UI".
+- **Surface**: `present-verdicts-not-menus` and `route-blocks-and-questions-to-director` (both
+  estates), which name the question tool; the harness's turn end.
+- **Observed**: both rules say a question reaches the owner as a card, never as prose, and
+  questions still end turns as prose. On 2026-10-01 the consolidation seat held fourteen
+  questions in report text with the owner away, because a card holds the turn until answered
+  and `unattended-seats-never-prompt` forbids stopping on a prompt; it sent one push
+  notification instead.
+- **Expected**: the turn end carries the rule: a card when the owner is present, a push
+  notification when the owner is away, and the question in the report text in both cases.
+- **Candidate cure**: a Stop hook that refuses to end a turn whose final text carries an
+  owner-directed question or a claim to be blocked on the owner when the turn made neither an
+  AskUserQuestion call nor a push notification.
+- **Target surface**: harness hooks; agent-tools hook policy.
+- **Status**: open; homed and recurred.
+- **Owner direction status**: standing
+
+### F-276 — a pull request can be readied, and a test change committed, with no expert verdict on record (2026-09-29)
+
+- **Source**: the owner's words of 2026-09-29 and 2026-09-30, recorded in JC.net's thread and
+  handoff records: "use the testing expert and code expert subagent reviewers, you have clearly
+  been decreasing the quality of the repo, breaking rules, creating rework and wasting time";
+  "nothing about that test information was new, it is ALL written down in directives, in rules,
+  in the test expert, so WHY were bad, wasteful tests written?"; and, of a test that pinned a
+  setting, "And we never test for configuration."
+- **Surface**: `invoke-code-experts`, `testing-strategy` and `test-immediate-fails` (both estates) and JC.net's `invoke-test-expert` (OCE has no such rule); the ready-for-review step of `pr-lifecycle`; the commit
+  path.
+- **Observed**: every rule the tests broke was loaded. Tests of configuration and of call
+  sequences were written and committed with no reviewer run, three times in two days in one
+  lane (2026-09-29 and 2026-09-30).
+- **Expected**: the reviewer rules fire where the work leaves the seat.
+- **Candidate cure**: the ready-for-review step, or a pull-request body check, refuses a body
+  with no code-expert verdict line, and no test-expert line where test paths changed; the
+  commit path refuses a commit staging test files, test helpers or test config whose message
+  carries no test-expert verdict line; the test-expert checklist names fakes that branch on
+  their own call arguments and assertions on our own configuration literals.
+- **Target surface**: agent-tools CLI (`commit-queue`, `pr-watch`); `pr-lifecycle`; the
+  test-expert template.
+- **Status**: open; homed and recurred. The no-IO half is the no-IO test boundary plan's lint
+  rule.
+- **Owner direction status**: standing
+
+### F-277 — OCE's merge door does not hold on Copilot's suppressed findings (2026-09-14)
+
+- **Source**: the owner's standing word, recorded in OCE's continuity records: "ALWAYS fetch and
+  analyse the suppressed Copilot comments along with the normal comments"; JC.net's hold landed
+  from the owner's card of 2026-09-14.
+- **Surface**: `pr-watch` and `merge-bot` (OCE); `pr-lifecycle`'s Copilot review policy.
+- **Observed**: JC.net's door holds a round as SUPPRESSED-FINDINGS-OPEN until each suppressed
+  finding carries a signed disposition. OCE's `pr-lifecycle` still says its door "does NOT yet
+  consume the tally or disposition state" (read 2026-10-01), so in OCE the harvest depends on
+  the skill passage being read.
+- **Expected**: a tip-bound review body's suppressed count holds the merge in both estates.
+- **Candidate cure**: port JC.net's hold (`suppressed-hold.ts`, the pr-watch state and its
+  tests) and the skill sentence to OCE.
+- **Target surface**: agent-tools CLI (`pr-watch`, `merge-bot`, OCE).
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-278 — nothing stops a commit or a push after the owner's stop word (2026-09-29)
+
+- **Source**: the owner's correction of 2026-09-29 to a Director, recorded in OCE's
+  estate-coordination thread: "I said acknowledge and stop, not do a bunch of jobs then commit".
+- **Surface**: `owner-signal-interpretation` §Stop Words Are Freezes (both estates); the Bash
+  guard.
+- **Observed**: the freeze reading was homed and the seat still ran jobs and committed after an
+  acknowledge-and-stop word.
+- **Expected**: the first write after a stop-class word meets the word.
+- **Candidate cure**: a PreToolUse check on `git commit` and `git push` that, when the owner's
+  latest prompt carries a stop-class instruction (acknowledge, stop, hold, pause), refuses once
+  with a message quoting that prompt.
+- **Target surface**: agent-tools hook policy.
+- **Status**: open; homed and recurred (one instance after the home).
+- **Owner direction status**: standing
+
+### F-279 — a handoff record can be written without the assumption ledger PDR-063 asks for (2026-09-25)
+
+- **Source**: the owner's word at two boundaries on 2026-09-25, recorded in OCE's handoff
+  records: "Identify assumptions and highlight them".
+- **Surface**: `session-handoff` (the record step) and the handoff record's shape, both estates;
+  PDR-063.
+- **Observed**: the ledger was written at those boundaries because the owner asked for it by
+  name; the PDR clause is not in front of the seat when the record is written.
+- **Expected**: the record's shape carries the ledger.
+- **Candidate cure**: the handoff record shape gains an assumption-ledger heading, and the
+  record step's check refuses a record without one.
+- **Target surface**: `session-handoff`; agent-tools CLI (`collaboration-state`).
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-280 — OCE's agent-tools smoke suites spawn processes and worktrees on every pre-push (2026-10-01)
+
+- **Source**: the owner's word of 2026-10-01 on the agent-tools smoke suites (the runner runs 31 `*.smoke.ts` files in OCE and 39 in JC.net, read 2026-10-01; the record gave 40 and 53, the directories' file counts), recorded in OCE's continuity record: "is not acceptable, make a note that we need to
+  move those into real tests with no IO and with DI".
+- **Surface**: `agent-tools/smoke-tests/` and the pre-push hook (OCE). JC.net's no-IO test boundary plan does not yet name the conversion: its step 3 takes `smoke-tests/` out of the rule's scope by location.
+- **Observed**: each push runs the suites, which create worktrees and child processes; OCE has
+  no plan node that owns their conversion.
+- **Expected**: each smoke is a no-IO test over injected fakes, or moves to validation.
+- **Candidate cure**: convert suite by suite, test first, the same shape as JC.net's plan step;
+  the owner assigned the code lanes to the implementer seat on 2026-10-01.
+- **Target surface**: agent-tools tests (OCE).
+- **Status**: open.
+- **Owner direction status**: standing
+
+### F-281 — the conformance run retains vendor output as it arrives; the redaction is decided and unbuilt (2026-09-11)
+
+- **Source**: the owner's card answer of 2026-09-12, recorded in OCE's estate-coordination
+  thread record: "redact at boundary, but do not touch any .env files".
+- **Surface**: the MCP conformance run's retained output (OCE).
+- **Observed**: the run keeps vendor output as it arrives. The decision is option C, redaction
+  at the retention boundary as a property of the output's shape; an implementation that reads
+  real secret values from env files to match against output is forbidden by the same word,
+  because it would make the redactor a second secret-handling surface. A filesystem-type
+  allowlist was refused.
+- **Expected**: retained output is redacted at the boundary.
+- **Candidate cure**: the delivery node the decision names. The owner paused it on 2026-09-12
+  until the issue recurs, and said not to author the node speculatively.
+- **Target surface**: agent-tools conformance tooling (OCE).
+- **Status**: decided, unbuilt, paused by the owner until a retention incident recurs.
+- **Owner direction status**: standing

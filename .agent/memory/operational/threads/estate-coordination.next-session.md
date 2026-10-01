@@ -1500,6 +1500,18 @@ write JC.net records from a separate worktree cut from `origin/main`.
 - Commit messages: header and body lines at most 100 characters, checked with awk before the
   commit; never pipe `git commit` through `tail`.
 
+### 2026-10-01 14:40Z — the 2026-09-29 branch folded as #299 (Crucible binds Slag, 7b999c, implementer at n = 2)
+
+- #299 merged into `engraph` as `SHA:972020417` at 14:40:27Z, by the bot through the merge door, on
+  three Copilot rounds with every finding dispositioned on the pull request. The folded branch is
+  retired, local and remote; the successor is named in `repo-continuity.md` §Next Safe Steps.
+- moved for teachers: nothing in this fold (the upstream releases 1.185.4 and 1.185.5 reached
+  `engraph` through #315 and #316) / moved for the Practice: the first two-estate consolidation's
+  doctrine and records, the nested-worktree convention's ignore rules, the continuity record trued
+  for two seats, the review cures twinned with JC.net's fold.
+- No Director is seated. The two seats and the order of work are in `repo-continuity.md` §Current
+  State and the 2026-10-01 pickup block.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight
@@ -1530,6 +1542,7 @@ instinct the rulings ledger (plan S2) formalises.
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-opus-5-5[1m] | 281e44 | Zephyr guards Leeward | Model moved to `claude-opus-5-5[1m]` on 2026-09-23 at the owner's word, from `claude-opus-5[1m]` by way of `claude-fable-5-1` (the continuity lane row records that step); one continuous seat, so the row's `model` moves (PDR-027 Amendment Log, 2026-07-08). Sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation; curator through the consolidation's folds #152, #153, #155 and #156, and this record's curation on 2026-09-20; the #159 and #169 folds and the three-estate exchange's opening on 2026-09-21 | 2026-09-14 | 2026-09-23 |
 | claude-code | claude-opus-5-5[1m] | 74fc02 | Marten mends Shadow | this estate's exchange seat of the three-estate Practice exchange, named at the owner's word as Zephyr guards Leeward's (281e44) successor; implementer of the exchange's owed lanes, each in its own worktree off `engraph` | 2026-09-24 | 2026-09-25 |
+| claude-code | claude-fable-5-1 | 7b999c | Crucible binds Slag | implementer at n=2 with Hazel tracks Trunk (7d8b9d, curator), both resident in JC.net: the fold of #299, the continuity record, the open lanes and the upstream sync, at the owner's word of 2026-10-01 | 2026-10-01 | 2026-10-01 |
 
 Prior Director seats predate this record; their identities and tenures are
 carried in the seat chain above, and their full identity tuples in the

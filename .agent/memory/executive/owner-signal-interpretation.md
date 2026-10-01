@@ -222,7 +222,9 @@ by a seat that read it softer:
 
 - **"Cold pause"** (2026-09-13): every owned process stops (each Monitor
   stopped, the heartbeat loop killed), no push, no comms, no question; it
-  binds until the owner lifts it, over any peer's word.
+  binds until the owner lifts it, over any peer's word. The owner's words:
+  "please cold pause until further notice", then, in the same session,
+  "cold pause requires stopping all monitors".
 - **"Prepare for compaction … then stop all processes"** (2026-09-25 and
   after): a freeze. Stop wakeups and monitors, start nothing until the
   compaction lands, run the wrap programme, write the re-arm recipe in the
@@ -234,7 +236,10 @@ by a seat that read it softer:
 - **A cadence the owner set in words** (45-minute check-ins, a suite
   cadence) changes only by the owner's word: a suite verdict or a plan
   note cannot thin it. A Director thinned one at suite 47 (2026-09-28) and
-  withdrew the change to a proposal. Ask, never change.
+  withdrew the change to a proposal. Ask, never change. The 45-minute
+  cadence as the owner gave it on 2026-09-24: "once every 45 minutes, check
+  in with all agents and make sure they are staying on track, correct them
+  if needed, and instruct them to run full Cricket suites".
 
 After a pause lifts, the recorded queue is a hypothesis: read the live
 state, send one message to the Director (or, at n=1, re-read the owner's
