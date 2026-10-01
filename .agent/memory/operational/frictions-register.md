@@ -3159,7 +3159,7 @@ commit SHA and the closing plan reference.
   both estates still call the policy "a substring-matcher" and say `git push --force-with-lease`
   "is blocked by the `--force` substring". JC's open case of the compound-command class is F-225.
 
-### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves, and the bot cannot re-run
+### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves
 
 - **Source**: check-in 21 (Director, 2026-09-25); PR 225's CI run `36185664112`.
 - **Surface**: the `CI` workflow's `build` job, step "Build (sdk-codegen + build)", running
@@ -3179,8 +3179,12 @@ commit SHA and the closing plan reference.
   the bot app the `actions: write` permission so `merge-bot` can re-run a failed job.
 - **Target surface**: `demos/oak-curriculum-hub` (its font import and build config); the
   GitHub App's permissions; `agent-tools` merge-bot (a `rerun` verb once the permission exists).
-- **Status**: open, a pattern at two instances (recorded 2026-09-25 as an observation; the
-  second instance read 2026-09-26). The second failure of the same step arrived on PR 240's
+- **Status**: open, six instances on docs-only heads (pull requests 225, 240, 264, 282, 272 and
+  288, 2026-09-25 to 2026-09-28). The re-run call was refused to the bot at the first instance
+  ("Resource not accessible by integration"); on 2026-09-28 the failed jobs re-ran as the bot
+  (run 36456432908), so whether the bot can re-run is to be confirmed at the next flake. No
+  live plan node names the hub's font cure. This line's history: recorded 2026-09-25 as an
+  observation, the second instance read 2026-09-26. The second failure of the same step arrived on PR 240's
   settlement push `c312a6930` (run `36193715549`, 2026-09-25 21:50Z): the hub build inside
   the `unit-tests` job failed on the Lexend Google-font module, on a docs-only PR, with no
   network error, and `run-quality-gates` went red behind it. The trigger this entry named has
@@ -3204,10 +3208,6 @@ commit SHA and the closing plan reference.
 - **Read 2026-10-01**: The seat routed a cure to the Director on 2026-09-28 (event 12d60f6d):
   vendor the Lexend faces through `next/font/local` in `demos/oak-curriculum-hub/app/layout.tsx`,
   which still imports Lexend from `next/font/google` (read 2026-10-01).
-- **Status read 2026-10-01**: the Status line ("a pattern at two instances") is out of date: six
-  instances are on record (PRs 225, 240, 264, 282, 272 and 288, 2026-09-25 to 2026-09-28); the
-  title's "the bot cannot re-run" stands against a bot re-run on 2026-09-28, which the next flake
-  can confirm; no live plan node names the hub's font cure (the source's grep).
 
 ### F-209 — no CI check runs commitlint over a pull request's commits
 
