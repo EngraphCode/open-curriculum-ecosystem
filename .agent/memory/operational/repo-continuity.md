@@ -37,6 +37,20 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-01T15:58Z: the Oak line's 1.185.6 carrier, #319, landed as `SHA:beceea25e`** (Crucible binds
+  Slag, 7b999c, at the owner's word "Main also needs merging into engraph"). `engraph` holds every commit of
+  the Oak line's `main` at `SHA:2a7773837`: seven commits, the Claude plugin's README wording (plugin 0.1.6)
+  and the release. #317, the unworked carrier at `SHA:050bf314c`, was closed and replaced by the
+  `cross-fork-integration` skill's step 1 when the Oak line moved one commit past it. The carrier's merge
+  `SHA:beaad99a9` has the tree `git merge-tree` wrote; no generator changed a file; the premise sweep found
+  nothing to re-true (recorded on #319). The three open lanes landed before it, one sync each: #313
+  `SHA:e453ff81a` (the Turbo remote cache optional everywhere), #309 `SHA:2691a8143` (the repair smoke
+  removed, the shellcheck gate's tracked lock, `validation-strategy.md` §Validators) and #310
+  `SHA:2e8892fed` (the bot's branch transfer retried with one token on GitHub's backoff). Every lane branch
+  and worktree of the four is gone, and the stale worktree of #312 with them. The Codex connector reviewed
+  #319 within five minutes of its ready-mark and none of the day's later heads of #299, #313 or #309: it
+  reviews at the ready-mark, so a seat declares it to the merge door wherever it has reviewed.
+
 - **2026-10-01T14:40Z: #299 folded into `engraph` as `SHA:972020417`** (Crucible binds Slag, 7b999c; the
   bot's merge through the merge door, three Copilot rounds, every finding dispositioned on the pull
   request). The folded branch is retired, local and remote. The fold entry with its gravity line is the
@@ -48,8 +62,7 @@ forward-asks remain.
   are resident in JC.net and work this estate non-resident. Hazel tracks Trunk (7d8b9d, curator) runs a
   second dedicated two-estate consolidation: read-only audit first, every tracked write on a lane cut from
   `engraph` after the fold, nothing on the coordination branch. Crucible binds Slag (7b999c, implementer)
-  holds the folds, this record, the open lanes #313, #309 and #310, and the upstream sync: `engraph` is
-  six commits behind the mirror branch `main` at `SHA:050bf314c`. #299 is the fold of the coordination
+  holds the folds, this record, the lanes and the upstream sync. #299 is the fold of the coordination
   branch cut on 2026-09-29; beside its records it carries the first consolidation's doctrine and the two
   code hunks it shares with JC.net's fold, each class declared in its description. The five claims that
   named seats closed on 2026-09-29 were adopted by the implementer on 2026-10-01. The first consolidation
@@ -324,26 +337,34 @@ Crucible binds Slag's order, from the owner's word in §Current State, in landin
 own fold is not a line here: its state lives in its pull request). The live coordination branch is
 `coordination/2026-10-01-972020`, cut from `SHA:972020417`:
 
-1. Land the three open lanes, one sync push each at its turn: #313 first (green at `SHA:7f7b2eb1a`, no
-   review threads), then #309 (one unresolved thread; its lane worktree holds commits the remote lacks)
-   and #310 (three unresolved threads, the Codex P1 first). The n=1 pickup's "310 to merged, then 309"
-   stands inside this item.
-2. The upstream sync: the carrier workflow opens the draft carrier for `SHA:050bf314c` at its next run,
-   and the seat takes it by the `cross-fork-integration` skill. Under the owner's limit on open pull
-   requests (one coordination pull request per repository, and as many others as there are implementer
-   seats, counted across both estates) the carrier's turn comes after the three lanes, unless the owner
-   puts it first.
+The three open lanes and the upstream sync that stood first in this order landed on 2026-10-01
+(§Current State). Under the owner's limit on open pull requests (one coordination pull request per
+repository, and as many others as there are implementer seats, counted across both estates) the lines
+below go one pull request at a time:
+
+1. arc-metrics to its pull request, from `oce-wt-arc-metrics` (claims 803d5d7d and abcd5ea9). Premise
+   recomputed first-hand on 2026-10-01: the tool is on JC.net's `main` and absent here, and JC.net has not
+   changed it since the port. The lane holds two local commits and no remote branch: `SHA:b84e3f0e6` (the
+   port) and `SHA:8e572d050` (the three files the exchange seat left uncommitted, read and run before the
+   commit; 104 tests in 13 files pass). Next: one sync with `engraph`, the push, the pull request.
+2. The J2 docs-validators port to its pull request, from `oce-wt-j2-docs-validators` (claim 4b82394b).
+   Premise recomputed first-hand on 2026-10-01: `cited-paths`, `cited-scripts` and `lineage-names` are on
+   JC.net's `main` and absent here. The work is uncommitted (two modified files and three new
+   directories, about 2,650 lines) and unread by this seat: read and run it before any commit.
 3. Routed from the code review, one twinned lane: Turbo's `globalDependencies` glob `**/.env.*local`
    walks into a lane's `.env.local` under `.claude/worktrees/` in both estates (the reviewer's reading of
    the dry run in JC.net; this estate's `turbo.json` carries the same glob); anchor it by depth, prove it
    with the dry run, and re-true the coverage sentence in `worktree-residency`.
-4. The two lane worktrees that hold work outside any pull request, each to its own pull request after
-   the three lanes land: arc-metrics (`oce-wt-arc-metrics`, one commit with no remote branch and three
-   uncommitted files; claims 803d5d7d and abcd5ea9) and the J2 docs-validators port
-   (`oce-wt-j2-docs-validators`, uncommitted; claim 4b82394b). The five claims that named closed seats
-   were adopted by Crucible binds Slag on 2026-10-01 (event e36d295b); the premise of these two is still
-   to recompute first-hand before any edit.
-5. Routed from the Copilot reviews of the two folds, each verified first-hand:
+4. The merge-bot's `retire` action, which JC.net has and this estate lacks: on 2026-10-01 every landed
+   branch here was deleted by hand after the same ancestry proofs (a REST delete of the ref as the bot,
+   then `git branch -d`). The exchange seat's order names it with B1's siblings.
+5. Owed to JC.net from two of the day's landings, each on its own pull request there: #309's twin (the
+   repair smoke's removal with `validation-strategy.md` §Validators, the same bytes) and #310's rework
+   (one token, GitHub's backoff, one settled commit; JC.net's `main` still mints a fresh token for each
+   attempt and reads HEAD again, the two defects the rework cures).
+6. The n=1 pickup's order from its third item on (the block below): the retrospective's quickest wins,
+   then the exchange's remaining stories, one pull request each.
+7. Routed from the Copilot reviews of the two folds, each verified first-hand:
    - To the second consolidation, which converges the shared skills: `pr-lifecycle` §Phase 7's
      landing-slot bullet says "every push opens a fresh review round", while the state machine says a
      pure sync opens none; JC.net's copy carries the same sentence and lacks the state machine's
