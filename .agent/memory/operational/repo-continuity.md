@@ -351,8 +351,20 @@ below go one pull request at a time:
    recomputed first-hand on 2026-10-01: the tool is on JC.net's `main` and absent here, and JC.net has not
    changed it since the port. The lane carries `SHA:b84e3f0e6` (the port), `SHA:8e572d050` (the three
    files the exchange seat left uncommitted, read and run before the commit) and one sync with `engraph`
-   at `SHA:beceea25e`; 104 tests in 13 files pass, and the built topic was run over real transcripts.
-   Its state is in the pull request.
+   at `SHA:beceea25e`, and `SHA:923786106`, the cures of a code review made before its ready-mark: the
+   line reader dropped every entry holding a Unicode line or paragraph separator (`node:readline` splits
+   on both), a named directory that does not exist reported no sessions, and nothing said that sub-agent
+   transcripts are not measured. Its state is in the pull request. Routed from that review, for both
+   estates, each after #320 lands:
+   - The same three cures are owed to JC.net's `main`, as the same bytes.
+   - Counting the sub-agent transcripts, which the vendor nests under each session: in the directory
+     measured they hold about two fifths of all model calls. It changes what the tool measures and needs
+     its own design.
+   - A failed call's synthetic entry counts as a model call with zero usage; a zero-byte transcript counts
+     as a session; unparseable lines are skipped without a count; a failed read exits 1 here and 2 in
+     two neighbouring topics.
+   - `codex-exec/cli.ts` reads its event lines through `node:readline` too, in both estates: the same
+     splitting on a second reader, which is when `split-lines.ts` moves to `core/`.
 2. The J2 docs-validators port to its pull request, from `oce-wt-j2-docs-validators` (claim 4b82394b).
    Premise recomputed first-hand on 2026-10-01: `cited-paths`, `cited-scripts` and `lineage-names` are on
    JC.net's `main` and absent here. The work is uncommitted (two modified files and three new
