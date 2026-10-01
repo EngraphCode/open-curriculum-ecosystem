@@ -139,7 +139,11 @@ takes exactly one of three verbs: FIX now; DELETE (out of scope is removal,
 never an open gap); or SEQUENCE, rarely, where a real plan position or
 blocking relation IS the mechanism. "Defer", "later", "follow-up" and
 "revisit" standing alone are ignoring with extra steps, and a Director
-hearing "deferred" asks which of the three verbs it actually is. Three
+hearing "deferred" asks which of the three verbs it actually is. "Owed" is
+the same word in another coat: of a register's count of rows labelled owed,
+the owner asked on 2026-09-28, "What does owed mean? That sounds liked
+parked, which is forbidden for very good reason." A row so labelled names no
+owner, position or mechanism until it takes one of the three verbs. Three
 sharpenings the owner paid for (2026-07-23/27): "until X lands" is not a
 schedule but an assignment to endless limbo — a cure that rides a condition
 has no owner and no sequence position, so any sentence shaped "A is
