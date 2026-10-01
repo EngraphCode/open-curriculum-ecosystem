@@ -1,3 +1,11 @@
+## [1.185.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.185.4...v1.185.5) (2026-10-01)
+
+
+### Bug Fixes
+
+* **plugin:** add listing links and point the repository at oak-ai-plugins (MCP-763) ([327cef0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/327cef0d4694691c87dd416fdea4a7827bc105b1))
+* **plugin:** keep the ChatGPT package's repository here and test the listing links (MCP-763) ([f2daa49](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f2daa4920e5f5361e06fe08bf841510ac57009a7))
+
 ## [1.185.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.185.3...v1.185.4) (2026-09-30)
 
 

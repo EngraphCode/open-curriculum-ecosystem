@@ -1,8 +1,36 @@
 # Oak National Academy
 
-Work with Oak National Academy's live curriculum graph: surface the pupil misconceptions Oak has documented for a topic, and audit a draft plan against how Oak sequences the same units and the prior knowledge each unit states it assumes. Includes Oak's six curriculum principles and its WCAG 2.2 AA accessibility guidance — grounded in real Oak data.
+Free, national curriculum-aligned Oak teaching resources.
 
-> **Experimental.** Output is AI-generated, not an official Oak resource, and has not been through Oak's editorial or quality-assurance process. Treat it as a starting point: check it against the current national curriculum and your own context, and have a teacher or subject expert sign it off before classroom or published use.
+Bring Oak National Academy's free, fully sequenced resources for England’s national curriculum into your conversations with Claude.
+
+When you connect Oak, Claude can draw on thousands of expertly sequenced curricula and teaching resources across 17 subjects and Key Stages 1 to 4. That includes keywords, common misconceptions, prior knowledge requirements, high-quality explanations, quiz questions, cross-phase topics and more.
+
+Oak is a publicly funded, independent body sponsored by the UK Department for Education. Oak’s content is written and quality-assured by subject experts, so Claude can work from a solid curriculum base rather than generating material from scratch.
+
+## Expertly sequenced, curriculum-aligned resources
+
+Use Claude to access Oak's extensive library of national curriculum-aligned lessons and resources, covering every national curriculum subject across Key Stages 1 to 4. It’s all planned for progression across these phases, with cross-curricular links between subjects.
+
+## Made by teachers, for teachers
+
+Oak’s resources are all made and quality-assured by subject experts.
+
+## Oak is completely free to use
+
+Every Oak resource is free to use and adapt for your pupils.
+
+## Safe and in your control
+
+Oak does not store your personal data or your pupils' information through this connection.
+
+Claude can draw on Oak's content, but will not always do this. Its outputs are AI-generated and not endorsed by Oak. You are the expert and know your pupils best. As with all resources, check carefully that what you create is right for your pupils and context.
+
+Oak content is licensed under the Open Government Licence v3.0 and requires attribution to Oak. A small amount of Oak’s content is not available through this Claude connector due to copyright and licensing restrictions.
+
+Explore the full library at thenational.academy.
+
+## Skills
 
 | Skill                                   | What it does                                                                                            |
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
