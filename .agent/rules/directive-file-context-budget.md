@@ -81,7 +81,7 @@ budget-gated edit, read every pending input that touches the same passage: one
 paragraph edited at 25 % was rewritten by a pull request read at 37 %
 (2026-09-24). An owner ruling on doctrine that is recorded outside the
 pending-graduations register (in a relay event, a branch or a handoff opener)
-does not land until the owner repeats it: one ruling of 2026-09-24 took three owner
+is easily lost: one ruling of 2026-09-24 took three owner
 words and had not landed after twenty-three hours, while a queued cure landed
 at the next drain (one seat's retrospective of 2026-09-25, in OCE's reports;
 one source). That seat proposed a cure that nothing has yet ratified: whoever
