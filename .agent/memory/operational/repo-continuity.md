@@ -506,6 +506,22 @@ below go one pull request at a time:
      branch name in the `pushed:` line and the `--json` outcome is written as git names it. Not closable in the push: the pre-push hook validates the files on disk, so a dirty
      tree or a HEAD that moves during the gate still passes it (cure is hook-side: the ref line's
      commit against HEAD, and a clean tree).
+   - **Found at the 20:5xZ boundary: #322 brought back two things this estate had deleted on
+     purpose.** Commit `SHA:2432ac462` (2026-09-29, #310's rework, reviewed by test-expert,
+     code-expert, assumptions-expert and security-expert) says so in its message: the pins of
+     configuration deleted, "The 4096-byte transcript bound is gone: the transcript is
+     classified whole, once", and "a constant mint in place of a fake that routed GitHub's two
+     mint endpoints; the RSA key it generated at load is gone". #322 kept the pins out. It
+     restored the bound (`REFUSAL_TRANSCRIPT_BOUND` and `keptForRefusal` in `push-attempts.ts`,
+     with their cases in `push-attempts.unit.test.ts`) and added
+     `push-cli-mint.integration.test.ts`, whose fetch fake routes the two mint endpoints and
+     whose key pair is generated at load. This seat ported from the second estate's bytes and
+     never read this estate's history for what it had removed; the three reviews before #322
+     opened were not given that history either. This seat's verdict, for the lane in the next
+     bullet: this estate's 2026-09-29 decision stands in both estates (the bound changes memory
+     and never behaviour; the mint is a port, and its production composition is a smoke's to
+     prove, which no smoke does today).
+     The owner may rule otherwise; nothing is changed on this verdict before that lane runs.
    - Routed from #322's test review, one lane, debt in tests #322 does not add:
      `push-args.unit.test.ts` asks the real git binary in five cases (15 processes, 19 filesystem
      probes) and so proves git's grammar; the cure is an injected oracle, the file renamed
