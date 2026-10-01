@@ -86,7 +86,9 @@ export const ARC_METRICS_HELP_TEXT = [
 
 /**
  * A positive whole number written in decimal digits. `Number` alone also reads
- * `0x10` as sixteen and `1e1` as ten, which no one typing a threshold means.
+ * `0x10` as sixteen and `1e1` as ten, which no one typing a threshold means;
+ * a run of digits too long for a number to hold exactly is refused after the
+ * conversion.
  */
 const POSITIVE_WHOLE_NUMBER = /^[1-9]\d*$/u;
 
@@ -122,14 +124,15 @@ export function parseArgs(argv: readonly string[]): ParseResult {
     return { ok: false, error: `--vendor is required\n\n${ARC_METRICS_HELP_TEXT}` };
   }
 
-  if (!POSITIVE_WHOLE_NUMBER.test(state.gapMinutes)) {
+  const gapMinutes = Number(state.gapMinutes);
+  if (!POSITIVE_WHOLE_NUMBER.test(state.gapMinutes) || !Number.isSafeInteger(gapMinutes)) {
     return {
       ok: false,
-      error: `--gap-minutes expects a positive whole number of minutes (got ${state.gapMinutes})`,
+      error: `--gap-minutes expects a positive whole number of minutes (got ${state.gapMinutes})\n\n${ARC_METRICS_HELP_TEXT}`,
     };
   }
 
-  return { ok: true, options: frozen(state, Number(state.gapMinutes)) };
+  return { ok: true, options: frozen(state, gapMinutes) };
 }
 
 function frozen(state: MutableOptions, gapMinutes: number): ArcMetricsOptions {

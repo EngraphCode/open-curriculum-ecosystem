@@ -1,3 +1,5 @@
+import { posix } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
 import { ARC_METRICS_HELP_TEXT } from './cli-options.js';
@@ -44,11 +46,13 @@ function fakeFs(files: Readonly<Record<string, readonly string[]>>): ArcMetricsF
   };
 }
 
+/** POSIX path rules on every host, so the paths below mean the same wherever the suite runs. */
 const baseInput = (argv: readonly string[], fs: ArcMetricsFileSystem): ArcMetricsCliInput => ({
   argv,
   cwd: '/ws/code/site',
   env: { HOME: '/h' },
   fs,
+  resolvePath: posix.resolve,
 });
 
 describe('runArcMetricsCli', () => {
@@ -169,28 +173,34 @@ describe('runArcMetricsCli', () => {
     });
   });
 
-  it('refuses an unsupported vendor with exit code 2', async () => {
+  it('refuses an unsupported vendor, naming the flag, the value and the supported set, with the help', async () => {
     const fs = fakeFs({});
 
     const result = await runArcMetricsCli(baseInput(['--vendor', 'cursor'], fs));
 
-    expect(result.exitCode).toBe(2);
-    expect(result.stderr).toContain('unsupported vendor: cursor');
+    expect(result).toEqual({
+      exitCode: 2,
+      stdout: '',
+      stderr: `--vendor does not support cursor (supported: claude)\n\n${ARC_METRICS_HELP_TEXT}\n`,
+    });
   });
 
-  it('refuses a non-numeric active-time threshold', async () => {
+  it('refuses a non-numeric active-time threshold, naming the value, with the help', async () => {
     const fs = fakeFs({});
 
     const result = await runArcMetricsCli(
       baseInput(['--vendor', 'claude', '--gap-minutes', 'soon'], fs),
     );
 
-    expect(result.exitCode).toBe(2);
-    expect(result.stderr).toContain('--gap-minutes');
+    expect(result).toEqual({
+      exitCode: 2,
+      stdout: '',
+      stderr: `--gap-minutes expects a positive whole number of minutes (got soon)\n\n${ARC_METRICS_HELP_TEXT}\n`,
+    });
   });
 
-  it.each(['0x10', '1e1', '5.0', '0', '-5'])(
-    'refuses the active-time threshold %s, which is not a positive whole number in digits',
+  it.each(['0x10', '1e1', '5.0', '0', '-5', '99999999999999999999'])(
+    'refuses the active-time threshold %s, which is not a positive whole number it can hold exactly',
     async (threshold) => {
       const fs = fakeFs({});
 

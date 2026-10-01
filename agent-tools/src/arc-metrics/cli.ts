@@ -37,6 +37,12 @@ export interface ArcMetricsCliInput {
   readonly cwd: string;
   readonly env: { readonly HOME?: string };
   readonly fs?: ArcMetricsFileSystem;
+  /**
+   * Resolves a named directory against the launch directory. The host's own
+   * path rule by default; injected so a test's paths mean the same on every
+   * host (on Windows the default gives a POSIX-looking path a drive letter).
+   */
+  readonly resolvePath?: (from: string, to: string) => string;
   readonly stdout?: Pick<NodeJS.WritableStream, 'write'>;
   readonly stderr?: Pick<NodeJS.WritableStream, 'write'>;
 }
@@ -66,7 +72,7 @@ export async function runArcMetricsCli(input: ArcMetricsCliInput): Promise<ArcMe
     return emit(input, {
       exitCode: 2,
       stdout: '',
-      stderr: `unsupported vendor: ${parsed.options.vendor} (supported: claude)\n`,
+      stderr: `--vendor does not support ${parsed.options.vendor} (supported: claude)\n\n${ARC_METRICS_HELP_TEXT}\n`,
     });
   }
 
@@ -106,8 +112,11 @@ function resolveDirectories(
   input: ArcMetricsCliInput,
 ): ResolvedDirectories {
   if (options.projectDirs.length > 0) {
+    const resolvePath = input.resolvePath ?? resolve;
     return {
-      paths: [...new Set(options.projectDirs.map((directory) => resolve(input.cwd, directory)))],
+      paths: [
+        ...new Set(options.projectDirs.map((directory) => resolvePath(input.cwd, directory))),
+      ],
       named: true,
     };
   }
