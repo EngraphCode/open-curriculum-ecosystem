@@ -28,7 +28,7 @@ import {
  * is not a boundary this transport can draw.
  *
  * The file also holds the read port the push settles its target with
- * (`PushGitReads`): three token-free git reads, answered raw, so the
+ * (`PushGitReads`): four token-free git reads, answered raw, so the
  * decisions stay in `push-target-branch.ts`.
  */
 
