@@ -37,9 +37,9 @@ found that later Director-transition and substrate-writing evidence
 strengthens the case for this PDR, but does not by itself authorize a
 status promotion. The promotion trigger below still requires fourth-
 instance worked validation in a distinct session, with refinements
-absorbed, or explicit owner ratification. Until that happens, agents
-should cite PDR-075 as Candidate doctrine with useful evidence, not as
-Proposed or Accepted doctrine.
+absorbed, or explicit owner ratification. Until the review of 2026-10-01
+below, agents cited PDR-075 as Candidate doctrine with useful evidence; from
+that review they cite it as Proposed.
 
 **2026-10-01 — Proposed.** Decided at this record's slow-lane review
 (PDR-130) by the curating seat of the second two-estate consolidation. The
@@ -261,8 +261,10 @@ worked validation under rotating-cast Director operation. The
 third worked instance is named below (the metacognition reframe
 broadcast immediately preceding Incandescent → Secret handoff). On
 fourth-instance worked validation in a session distinct from this
-one, with any refinements absorbed, PDR-075 moves to Proposed; on
-fifth instance, to Accepted.
+one, with any refinements absorbed, PDR-075 moves to Proposed. It
+moves to Accepted on a further instance that shows what the fifth
+worked instance says ratification hinges on, a successor's bootstrap
+from the stream alone, or on the owner's ratification.
 
 ## Consequences
 
