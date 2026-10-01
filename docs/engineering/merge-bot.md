@@ -346,3 +346,24 @@ ruleset on the default branch binds the bot, as this repository's does,
 GitHub refuses a direct push either way. An unreadable default branch
 fails the push rather than guessing (see
 [`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)).
+
+GitHub has refused a freshly minted token's push at its first request,
+before git runs the pre-push hook. The transcript is these two lines and
+nothing else:
+
+```text
+remote: Permission to <repo> denied to <bot>.
+fatal: unable to access '<url>': The requested URL returned error: 403
+```
+
+GitHub refuses a fresh installation token until it has replicated to every
+one of its edge caches, and advises retrying at increasing intervals
+(GitHub Support, as quoted in aws-amplify/amplify-hosting#4080). The push
+therefore mints one token and tries the transfer again with that same token
+after each wait in `PUSH_RETRY_WAITS_MS` (`agent-tools/src/merge-bot/push-attempts.ts`),
+naming each retry on stderr. A fresher token would only start the wait
+again. Every attempt pushes the same commit, settled from HEAD before the
+mint, so a commit made during the waits is never pushed in its place. When
+the waits run out, it reports an operational failure with every refusal
+shown. Any other failure is final at once, including a 403 after the hook
+ran: trying that again would run the whole gate again.

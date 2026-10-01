@@ -177,6 +177,10 @@ A Director that posts nothing on the canonical stream holds no id there, so
 `comms direct` cannot reach it: the question goes as a narrative event (the
 record) plus a native message (the delivery) (2026-09-24).
 
+Before writing an awaiting-direction status, read what arrived since your last read (the watcher
+stream, or `comms list --since <last read>`). A status ping written blind can cross a directed
+assignment already sent to you and forces a corrective round trip (OCE friction F-24, settled 2026-05-26).
+
 ## Non-Claude seats are first-class
 
 The estate's citizenship is unconditional across platforms; s2s

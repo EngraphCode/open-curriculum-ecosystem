@@ -223,6 +223,19 @@ Specialised rules are retained when they have unique activation
 metadata (e.g. a file-scoped glob) that cannot be expressed by the
 consolidated trigger.
 
+Consolidation runs one way. A projection from canonical roles to
+adapters preserves role multiplicity: where a canonical declaration
+names several roles of one template (a panel of four conscience roles
+at different efforts), the adapter set carries every role, one adapter
+per role per platform, and a generator that emits one wrapper per
+template has flattened the declaration (2026-09-13: four pinned roles
+became two generic wrappers, found only by a computed census). The
+census against the source of truth is the proof: count the roles the
+declaration names, count the adapters each platform carries, and read
+the difference; the per-platform omissions the declaration itself
+records (a platform that omits one role by design) are the only
+permitted gap.
+
 ### Command and skill naming discipline
 
 Canonical artefact IDs are mandatory. A canonical command, skill, or
@@ -333,6 +346,13 @@ Layer-2 artefact types.
   acceptance check against the installing session.
 - Canonical artefact IDs are stable across platforms. Aliases are
   forbidden; platform-native renaming is not.
+- A generator that produces a tracked artefact family (the adapter set,
+  a rules index, a projection) lands as a tracked tool before the
+  artefacts it produces, and every later regeneration runs it. A
+  generator that exists only in the session that first ran it is the
+  largest loss class a transplant meets: its artefacts are on disk with
+  no way to regenerate them (2026-09-12, two generators; the adapter
+  generator landed as an agent-tools bin at the closure).
 
 ### Forbidden
 
@@ -416,6 +436,14 @@ hydrations, the graduation would mark this PDR as `Superseded by
 <Core section>` and retain it as provenance.
 
 ## Amendment Log
+
+### 2026-09-29 — The inline-prompt copy is generated on this estate
+
+The check the 2026-09-24 amendment names as "a generator, or a comparison of
+each hand-kept copy with its template" is the generator: the sub-agent adapters
+are rendered from each template's declaration and recomputed byte for byte,
+the hand-copy comparison retires, and the template stays the prompt's one home
+(the host's record of the surfaces is its agent-artefact portability decision).
 
 ### 2026-09-24 — A role that cannot read files, or whose bounded turns belong to its task, carries its template's prompt
 

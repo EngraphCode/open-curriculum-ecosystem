@@ -188,6 +188,15 @@ are conserved in the evaluation record.
 - **No tags/schema on-channel.** Failure-mode tagging and watcher render
   tokens are unavailable; substance needing those belongs on the
   canonical stream.
+- **An open channel pins the primary working copy to the branch carrying
+  its file.** The channel file is tracked, so a branch switch in the
+  primary checkout to a branch without it removes the file from disk and
+  the switch back restores it; every `tail -F` follower reads that as a
+  rotation and replays the file, and a partner's append in the window
+  blocks the switch (2026-09-13: a channel committed on the records
+  branch vanished on a switch to a branch cut from `main` and replayed
+  on the return). While a channel is open, the primary stays on the
+  branch that carries it and other branches' work runs in worktrees.
 
 ## Maintenance clauses (standing)
 

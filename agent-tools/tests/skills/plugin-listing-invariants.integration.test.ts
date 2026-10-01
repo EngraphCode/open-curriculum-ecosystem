@@ -22,23 +22,38 @@ import {
  * ADR-078 helper-mediated committed-artefact reads.
  */
 
-const PLUGIN_ROOT = 'plugins/oak-open-curriculum';
+const PLUGIN_ROOT = 'claude/plugins/oak-national-academy';
 const README_PATH = `${PLUGIN_ROOT}/README.md`;
 const CLAUDE_MANIFEST_PATH = `${PLUGIN_ROOT}/.claude-plugin/plugin.json`;
 const MCP_CONFIG_PATH = `${PLUGIN_ROOT}/.mcp.json`;
-const CODEX_MANIFEST_PATH = 'plugins/oak-open-curriculum-chatgpt/.codex-plugin/plugin.json';
+const CODEX_MANIFEST_PATH = 'chatgpt/plugins/oak-national-academy/.codex-plugin/plugin.json';
 const CANONICAL_LOGO_PATH =
   'packages/design/oak-design-assets/assets/oak-national-academy-logo-512.png';
 const SKILL_ROOTS = [`${PLUGIN_ROOT}/skills`, `${PLUGIN_ROOT}/workflows`] as const;
 
+/**
+ * The public repository the plugin directory lists the Claude plugin from.
+ *
+ * @remarks
+ * This repository is too large for the directory to read, so each release is
+ * copied to oaknational/oak-ai-plugins and listed from there. Nothing else in
+ * this repository records that, so this test is the authority for the value.
+ */
+const PUBLISHED_REPOSITORY = 'https://github.com/oaknational/oak-ai-plugins';
+
+/** The listing fields the plugin directory reads from the Claude manifest. */
 const ClaudeManifestSchema = z.object({
   description: z.string().min(1),
+  repository: z.literal(PUBLISHED_REPOSITORY),
   icon: z.string().startsWith('./'),
   privacyPolicyUrl: z.url(),
+  termsOfServiceUrl: z.url(),
+  supportUrl: z.url(),
+  documentationUrl: z.url(),
 });
 
 const CodexManifestSchema = z.object({
-  interface: z.object({ privacyPolicyURL: z.url() }),
+  interface: z.object({ privacyPolicyURL: z.url(), termsOfServiceURL: z.url() }),
 });
 
 const McpConfigSchema = z.object({
@@ -95,13 +110,39 @@ describe('Claude plugin listing', () => {
     ).toBe(true);
   });
 
-  it('links one privacy policy from both manifests and the README', async () => {
+  it('links one Oak privacy policy from both manifests and the README', async () => {
     const claude = ClaudeManifestSchema.parse(await readJson(CLAUDE_MANIFEST_PATH));
     const codex = CodexManifestSchema.parse(await readJson(CODEX_MANIFEST_PATH));
     const readme = await readRepoDocument(README_PATH);
 
     expect(codex.interface.privacyPolicyURL).toBe(claude.privacyPolicyUrl);
-    expect(privacyLinks(readme)).toStrictEqual([claude.privacyPolicyUrl]);
+    // Other services' privacy policies may be linked too (the README links Anthropic's);
+    // only links on the manifest's own host must be the one declared policy.
+    const oakHost = new URL(claude.privacyPolicyUrl).host;
+    const oakPrivacyLinks = privacyLinks(readme).filter((url) => new URL(url).host === oakHost);
+    expect(oakPrivacyLinks).toStrictEqual([claude.privacyPolicyUrl]);
+  });
+
+  it('links one terms of service from both manifests', async () => {
+    const claude = ClaudeManifestSchema.parse(await readJson(CLAUDE_MANIFEST_PATH));
+    const codex = CodexManifestSchema.parse(await readJson(CODEX_MANIFEST_PATH));
+
+    expect(codex.interface.termsOfServiceURL).toBe(claude.termsOfServiceUrl);
+  });
+
+  it('names the public repository the directory lists the plugin from', async () => {
+    const { repository } = ClaudeManifestSchema.parse(await readJson(CLAUDE_MANIFEST_PATH));
+
+    expect(repository).toBe(PUBLISHED_REPOSITORY);
+  });
+
+  it('sets the support and documentation links the listing shows', async () => {
+    const { supportUrl, documentationUrl } = ClaudeManifestSchema.parse(
+      await readJson(CLAUDE_MANIFEST_PATH),
+    );
+
+    expect(new URL(supportUrl).protocol).toBe('https:');
+    expect(new URL(documentationUrl).protocol).toBe('https:');
   });
 
   it('names the MCP endpoints the plugin declares, and no others', async () => {

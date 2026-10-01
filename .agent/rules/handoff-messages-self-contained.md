@@ -132,6 +132,12 @@ until the owner priced the cure — re-minting is "the work of seconds". A
 handoff that transmits "hard" without the cure cost manufactures urgency
 the facts never carried.
 
+A constraint's breadth is repriced at the handoff as its hardness is: Sandpiper weaves Updraft found
+that a peer's constraint "turned out on the second look not to be a broken rule but an over-broad
+one" and had been "compressed from an interest into an action under closeout pressure", so the
+receiver reads the interest behind an inherited action before obeying it (the seat's lesson of
+2026-09-12, event 780b1462).
+
 ## Cross-references
 
 - Composes with [`start-right-team` SKILL §Continuation Pointer Contract](../skills/start-right-team/SKILL-CANONICAL.md) — that section covers the specific continuation-record-as-pointer case; this rule is the broader principle applied to every handoff message.

@@ -87,6 +87,12 @@ function signature.
   exports map while the second package the design relied on published wildcard subpaths,
   which falsified the claim at review.
 
+A fork record's null parent is not a visibility verdict: "GitHub returns a null parent both when the
+fork network is intact but the parent is not surfaced to the caller and when the parent is
+inaccessible to the token", and the Director's amended ruling holds that "the parent's visibility
+NOW is not derivable from the fork's record" (Jackal wakes Nocturne's first-hand read and the
+Director's amendment of 2026-09-06, events b9e9fc17 and 17f83196).
+
 ## Related Surfaces
 
 - [`read-before-asking.md`](read-before-asking.md) — sibling discipline

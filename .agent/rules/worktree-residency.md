@@ -48,43 +48,37 @@ location. An `EnterWorktree` permission rule or choosing 'don't ask
 again' doesn't suppress this prompt; only `bypassPermissions` mode
 skips it. Before v2.1.206, Claude could enter any existing worktree
 path without asking." New-worktree creation and paths under
-`.claude/worktrees/` do not prompt. This estate's lanes live in the
-sibling `-worktrees/` directory (§Platform mechanics says why), so a
-mid-session entry is an owner-present step by design, not a defect to
-configure away.
+`.claude/worktrees/` do not prompt. **This estate's lanes live in
+`.claude/worktrees/<lane>`, nested in the checkout (owner ruling
+2026-09-30: "Just switch to use local .claude/worktrees in both
+estates, and make sure that path is ignored by git and all test/check
+tools in the root checkout").** `.gitignore` ignores the directory's
+contents (only its placeholder `.gitignore` is tracked), the platform's
+own `.git/info/exclude` ignores it too, and every root check tool
+either reads the git index or carries the exclusion (`.claude/**` in
+markdownlint and dependency-cruiser, `.claude/worktrees/**` in the
+markdown-links validator, the `.git`-file skip in the fitness walkers,
+`claude-agent-ops`'s pathspec exclude); the per-package tools are rooted
+in their packages and never see it. So a mid-session entry never
+prompts, and the owner-away non-resident mode this clause once carried
+is retired: the entry is the lane's default shape whether or not the
+owner is at the keyboard.
 
-1. **Mid-session entry — `EnterWorktree` from the principal, only
-   with the owner at the prompt.** The typical estate workflow (owner
-   word, 2026-07-31) launches sessions in the principal checkout and
-   routes the lane afterwards. The sequence: create the worktree per
-   `worktree-hygiene` conventions (`git worktree add`, branch freshly
-   cut from the base branch, sibling `-worktrees/` directory), install
-   and build it, then — and only when the owner is known to be at the
-   keyboard — issue `EnterWorktree` with `path`. **Before issuing it,
-   say so** — a directed event to the Director naming the exact
-   invocation where a Director is live; in a solo session, the same
-   sentence in the reply the owner is reading, immediately before the
-   call — because the announcement is for whoever can see the prompt,
-   and the seat cannot: a seat cannot see its own prompt,
-   and a prompt nobody answers holds the seat indefinitely while its
-   heartbeat loop, a separate process, keeps reading fresh. Worked
-   instance 2026-09-07/08: an Implementer issued the entry at 21:08Z
-   with the owner away; the batch returned at 06:31Z the next morning,
-   nine hours later, against a worktree the Director had by then
-   removed after landing the lane by a declared default. When the
-   owner may be away, do not issue the entry: operate the lane
-   NON-RESIDENT from the principal instead (Director ruling
-   2026-09-08 — every git command carries `-C <worktree>`, every edit
-   an absolute worktree path, one plain command per call), or have the
-   lane launched resident (clause 2). Non-resident operation is not
-   residency: the session's cwd and doctrine load stay the
-   principal's, and the residency-dependent guarantees (arm-time
-   context at the worktree, isolation enforcement) do not apply — so
-   it is the bounded owner-away alternative to a held prompt, named as
-   such in the lane's team-start broadcast, never the lane's default
-   shape. The 2026-07-31 probe on 2.1.220 recorded "no approval friction"
-   for the same entry because the owner was present and answered it;
-   the seat recorded the absence of a prompt it could not see.
+1. **Mid-session entry — `EnterWorktree` with `path` from the
+   principal.** The typical estate workflow (owner word, 2026-07-31)
+   launches sessions in the principal checkout and routes the lane
+   afterwards. The sequence: create the worktree per `worktree-hygiene`
+   conventions — `git fetch origin && git worktree add
+   .claude/worktrees/<lane> -b <branch> origin/<base>` — install and
+   build it, then issue `EnterWorktree` with `path`. No prompt
+   follows (the path is under `.claude/worktrees/`), so no announcement
+   precedes the call and no owner presence is needed. Non-resident
+   operation from the principal (`-C <worktree>` on every git command,
+   absolute worktree paths on every edit) is no longer a lane shape
+   here; it remains the only shape for a worktree of a SIBLING
+   repository, since `EnterWorktree` enters worktrees of the session's
+   own repository alone (refused first-hand 2026-09-30 on an OCE
+   worktree from a jimcresswell.net session).
    Fresh-cut-from-the-base matters doubly under residency: the
    worktree becomes the session's working context, so a stale branch
    means stale doctrine. **Never let `EnterWorktree` fresh mode CREATE
@@ -102,33 +96,29 @@ configure away.
    branch `scrap/<name>-mis-based`, `git switch -c <ticket-branch>
    origin/<base>`, verify with `git merge-base --is-ancestor`; scrap
    branches await the owner's deletion.
-2. **Residency at launch — the prompt-free shape.** When the lane is
-   known before the session starts, launch inside the worktree: the
-   platform's own recipe for a worktree outside `.claude/worktrees/`
-   is the lane-cut skill's steps 1 to 3 in order — `git fetch origin`,
-   the cut from `origin/<base>`, the identity check, then
+2. **Residency at launch.** When the lane is known before the session
+   starts, launch inside the worktree: the lane-cut skill's steps 1 to
+   3 in order — `git fetch origin`, the cut from `origin/<base>` at
+   `.claude/worktrees/<lane>`, the identity check, then
    `pnpm --dir <path> install` and `pnpm --dir <path> build` (BEFORE
    the launch: a worktree built after its session opens shows no
    statusline for that session) — then `cd <path> && claude`; the skill
-   owns that ordering, this clause does not restate it. No entry
-   happens, so nothing prompts, and isolation enforcement is on from
-   the first turn. A coordinated lane launched resident arms its
-   canonical watcher INSIDE the worktree by the resident arm clause 4
-   verifies (the `cd` rooted at the worktree, the supervisor pid passed
-   as a literal), so the route is prompt-free for coordinated and
-   uncoordinated lanes alike; nothing in it exits to the principal or
-   re-enters. `claude --worktree
-   <name>` also launches resident but creates under
-   `.claude/worktrees/` on the `worktree.baseRef` base unless a
-   `WorktreeCreate` hook replaces creation (the hook receives the
-   `name` and must print the created directory; it may place the
-   worktree anywhere that is not reached through a symlink inside the
-   repository); without such a hook, `--worktree` is the nested,
-   setting-based shape §Platform mechanics rejects, so check for the
-   hook in the settings before choosing the flag.
+   owns that ordering, this clause does not restate it. Isolation
+   enforcement is on from the first turn. A coordinated lane launched
+   resident arms its canonical watcher INSIDE the worktree by the
+   resident arm clause 4 verifies (the `cd` rooted at the worktree, the
+   supervisor pid passed as a literal); nothing in it exits to the
+   principal or re-enters. `claude --worktree <name>` also launches
+   resident and creates under `.claude/worktrees/`, but on the
+   `worktree.baseRef` base unless a `WorktreeCreate` hook replaces
+   creation (the hook receives the `name` and must print the created
+   directory), and a `"head"` value in any settings layer bases it on
+   the launching checkout's HEAD; so the explicit cut above stays the
+   recipe unless the hook is in the settings.
 3. **`Shell cwd was reset` is a residency-violation signal, never
    noise.** Bash cwd persists only inside the project directory and
-   additional working directories; a `cd` into a sibling-directory
+   additional working directories; a `cd` into a worktree the session
+   does not reside in, or into a sibling-repository
    worktree is reset to the project directory by design (documented
    behaviour; reproduced first-hand 2026-07-31 on Claude Code 2.1.220).
    On seeing the line, stop and establish residency properly rather
@@ -235,6 +225,11 @@ configure away.
    commits across; history rewrite is hook-blocked on this estate),
    close the contaminated PR with a pointer, and open its successor.
 
+On 2026-09-06 the switch did not reproduce the kill: "a residency switch did NOT kill the
+primary-armed monitors this time (counter-instance to 2026-09-01)", so the kill is
+version-conditioned and the first-hand monitor check after any switch stands (Juno seeks Apogee's
+closeout of 2026-09-06, event 720bdd21).
+
 ## Platform mechanics (version-pinned)
 
 Verified against Claude Code 2.1.263 and its tools reference,
@@ -256,28 +251,32 @@ seat cannot observe a prompt shown to the human: "no friction" seen
 from inside a session is evidence about the human's presence, never
 about the platform.
 
-Three considered-and-rejected mechanics, recorded so they are not
-re-proposed: adding the sibling `-worktrees/` directory to
-`additionalDirectories` (the documentation says it grants file access
-only, and it would make a bare `cd` silently persist, hiding exactly
-the residency violations this rule exists to surface); relocating the
-lane convention into `.claude/worktrees/` (that directory is NESTED
-inside the principal checkout, and nested worktrees give false-clean
-dependency runs — Node resolution walks up into the parent's
-`node_modules`, the proven leak `worktree-hygiene` clause 8 records);
-and pre-approving `EnterWorktree` in `permissions.allow` (ineffective
-by the platform's design — the documentation states that neither a
-permission rule nor "don't ask again" suppresses the entry prompt;
-this estate carries the entry in its allow list and was held nine
-hours at that prompt regardless, 2026-09-07/08). `worktree.baseRef`
-is not a cure for fresh-mode's base: a `"head"` value in any settings
+The lane convention moved from a sibling `<repo>-worktrees/` directory
+into `.claude/worktrees/` by the owner's word of 2026-09-30, and the
+owner decides such placements, not this rule's record. What the record
+keeps: a nested worktree can give a false-clean dependency run (Node
+and TypeScript resolution walk up into the principal's `node_modules`
+when a package is missing from the nested one, the leak
+`worktree-hygiene` clause 8 records; with pnpm only the root package's
+direct dependencies and the public-hoisted set sit there), and CI's
+fresh install on every pull request is the fence — a local false-clean
+costs a review round, never the default branch. Two mechanics stay
+recorded as ineffective so they are not re-proposed: adding a worktree
+directory outside the checkout to `additionalDirectories` (the
+documentation says it grants file access only, and it would make a
+bare `cd` silently persist, hiding exactly the residency violations
+this rule exists to surface), and pre-approving `EnterWorktree` in
+`permissions.allow` (the documentation states that neither a permission
+rule nor "don't ask again" suppresses the entry prompt for a path
+outside `.claude/worktrees/`; this estate was held nine hours at that
+prompt on 2026-09-07/08 with the entry in its allow list). Under the
+nested convention that prompt no longer arises. `worktree.baseRef` is
+not a cure for fresh-mode's base: a `"head"` value in any settings
 layer bases every platform-created worktree on the launching
 checkout's HEAD, which is why Action clause 1's explicit start point
-holds regardless of configuration. A `WorktreeCreate` hook that
-places and bases worktrees by the estate's conventions is the one
-configuration-shaped cure the documentation supports for launch-time
-creation; it does not change the entry prompt, which belongs to the
-`EnterWorktree` tool.
+holds regardless of configuration; a `WorktreeCreate` hook that bases
+worktrees by the estate's conventions is the one configuration-shaped
+cure the documentation supports for launch-time creation.
 
 The worktree-isolation guard (Claude Code 2.1.25x, observed 2026-09-01,
 2026-09-02 and 2026-09-08) refuses a command it cannot prove stays
@@ -295,6 +294,16 @@ wrapper, run as one plain command, for env-prefixed commands; and the
 Edit tool for edits — a Bash-hook workaround must never generalise into
 scripted file editing (owner correction 2026-09-02, verbatim: "why are
 you writing python to edit files?").
+
+From a checkout under the platform's own worktree directory, EnterWorktree refuses a sibling path:
+"from inside a .claude/worktrees checkout EnterWorktree refuses sibling-directory worktrees", so a
+seat leaves that checkout with ExitWorktree before entering a sibling worktree (Kiln holds Slag's
+freeze record of 2026-09-02, event 944ab610).
+
+The resident entry prompt reads, from the owner's screenshot of 2026-09-08, "Entering
+worktree(<path>)" then "permission-root relocation to <path>" then "a model-supplied worktree
+outside .claude/worktrees/" then "Do you want to proceed?"; "The platform's own name for the class
+is permission-root relocation" (Altair spins Umbra's report of 2026-09-08, event 3168367d).
 
 ## Why a rule, not a PDR clause
 

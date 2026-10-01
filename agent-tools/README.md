@@ -199,6 +199,18 @@ pnpm agent-tools:collaboration-state comms direct \
   --active .agent/state/collaboration/active-claims.json
 ```
 
+The CLI owns its own mechanics: `--now` defaults to the wall clock, the sender identity derives from
+the platform session seed, and on `comms send`, `comms watch` and `comms validate` the registry and
+stream paths resolve to the primary coordination home, so an agent never copies timestamps, ids or
+registry paths between commands. On those commands the explicit flags stay for deterministic tests,
+recovery and replay, never as the normal path (OCE friction F-19, settled 2026-06-28). `comms
+direct` and `comms reply` still take `--active` and `--comms-dir` explicitly.
+
+To capture a command's output in a script, run the shortcut silently (`pnpm -s agent-tools:<topic>
+-- <command>`) or call `node agent-tools/dist/src/bin/agent-tools.js` directly; without `-s` the
+pnpm wrapper prints its script preamble ahead of the command's stdout and the captured value is
+polluted (OCE friction F-36, settled 2026-08-14).
+
 For directed messages (`comms direct` / `comms reply`), the body
 (whether inline or from file) must contain at least one non-
 whitespace character after trimming; an empty file is rejected as

@@ -851,3 +851,20 @@ its words and gains a reading through the ruling beside them, and the
 Forbidden list's restatement of that clause points at the reading. A seat
 messages the Director with a question, a request, a block, or an
 acknowledgement a route asks for, and nothing else.
+
+## Amendment (2026-10-01) — Two Director rulings of 2026-09-07, recorded with their decider
+
+Both rulings below were made by the Director seat of 2026-09-07 and relayed through OCE's comms
+stream (events 56ff8be5, dc3df033 and 2d3aef84, read 2026-09-30 by the two-estate consolidation).
+They are recorded here in the Director's voice, dated, as one instance each; the owner overrules at
+will. This record is Proposed, so the recording asks no card (owner's reading of 2026-10-01: only
+owner-ratified text changes on the owner's word).
+
+1. **The Director reads doctrine-class changes first-hand before their merge.** "The Director
+   reads any directive-class change before its merge (the directives are the estate's constitution
+   tier)"; "the landing seat's own first-hand read is the sensible requirement for an engineering
+   page; the Director reads doctrine-class changes (PDRs, rules, directives, skills doctrine)".
+   Attaches to §The Director role as a duty of the seat while a Director lane is open.
+2. **Owner-only decisions in an owner-absent pause.** "In an owner-absent pause, owner-only
+   decisions go on the record with a push notification, and the blocking card is raised at the
+   owner's first message in the Director's session." Attaches to §The routing contract.

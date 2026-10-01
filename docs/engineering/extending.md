@@ -108,12 +108,12 @@ parity required to keep `pnpm portability:check` green.
 
 User-facing plugin packages under `plugins/` are outside this recipe: they are
 product deliverables (ADR-125 §Skill classes and validation jurisdiction), and the ChatGPT/Codex package
-README (`plugins/oak-open-curriculum-chatgpt/README.md`) records how a shared
+README (`chatgpt/plugins/oak-national-academy/README.md`) records how a shared
 skill is copied there and gated.
 
 **Always create the canonical file first** under `.agent/`, then generate the
-platform adapters (`pnpm portability:fix` for a rule, `pnpm skills:generate` for
-a skill); the pre-push hook runs `pnpm portability:check` over the set. A
+platform adapters (`pnpm portability:fix` for a rule or a sub-agent,
+`pnpm skills:generate` for a skill); the pre-push hook runs `pnpm portability:check` over the set. A
 canonical rule names the ADR(s) or PDR(s) it operationalises in an
 "Operationalises …" line under its title (ADR-131's loop: new rules cite their
 source decision). A new rule is one authored file: the canonical

@@ -184,7 +184,7 @@ documentation.
 │   └── seat-landing.rules  # Exec-policy rules for the landing commands
 ├── hooks/
 │   └── practice-session-identity.mjs  # Thin SessionStart adapter
-└── agents/               # Thin per-role adapter TOMLs
+└── agents/               # Generated per-role adapter TOMLs (pnpm portability:fix)
     ├── code-expert.toml
     ├── test-expert.toml
     ├── ...
@@ -201,8 +201,11 @@ content guard.
 
 All reviewer adapters are registered in `config.toml`, alongside the
 non-expert helper agents `ground-truth-designer` and `subagent-architect`.
-Each `.toml` adapter in `agents/` is a self-describing project-scoped custom
-agent. It declares `name`, `description`, Codex execution settings, and
+Each `agents/*.toml` and each `[agents."<name>"]` block after `config.toml`'s hand-kept
+head is rendered by `pnpm portability:fix` from the template's frontmatter declaration
+(`.agent/sub-agents/README.md` §Declarations) and recomputed by `pnpm portability:check`;
+none is edited by hand. Each adapter is a self-describing project-scoped custom
+agent: it carries `name`, `description`, Codex execution settings, and
 `developer_instructions` that point to the canonical template in
 `.agent/sub-agents/templates/`. The architecture-expert variants additionally
 reference an individual persona component in

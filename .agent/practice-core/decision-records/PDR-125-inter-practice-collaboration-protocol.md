@@ -378,6 +378,22 @@ demand it:
 - Cross-machine coordination (the substrate stays per-machine).
 - Either estate implementing the other's phenotype.
 
+## Amendment Log
+
+### 2026-10-01 — two observations from the first exchange round (2026-09-24), recorded with their decider
+
+Two readings by the exchange seats of 2026-09-24, relayed through OCE's comms stream (events
+eb8f33f0 and 1b17b4be) and read by the two-estate consolidation of 2026-09-30; one instance each,
+recorded in their authors' voice, and the owner overrules at will.
+
+1. **A receiver's rejection is itself an offer.** "A receiver's stronger or leaner form is a
+   standard both estates align to, so each rejection is also an offer for goal two"; a rejected row
+   names the form the receiver holds. This reads clause 7's lifecycle states (integrated or
+   rejected) as symmetric.
+2. **A joint set is drafted whole by one session.** "K4 is one coherent text. Splitting it would
+   put two sessions' words into one joint set." When part of a joint set is directive-file work past
+   the PDR-052 line, the whole set goes to a fresh session with a written opener.
+
 ## Phenotype note (this estate)
 
 This estate's local phenotype: the `PRACTICE_COORDINATION_HOME`

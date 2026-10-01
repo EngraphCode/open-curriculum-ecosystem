@@ -7,7 +7,7 @@ import { readRepoDocument } from '../../src/collaboration-state/test-helpers/rep
  * The shipped plugin's MCP server binding must name the production endpoint.
  *
  * @remarks
- * MCP-302. `plugins/oak-open-curriculum/.mcp.json` is not repo configuration —
+ * MCP-302. `claude/plugins/oak-national-academy/.mcp.json` is not repo configuration —
  * it is the binding every installing user receives, so a non-production host
  * there points the public plugin at the wrong surface. The recorded
  * conformance fixtures stay on the hosts they were captured from (dated
@@ -28,27 +28,25 @@ import { readRepoDocument } from '../../src/collaboration-state/test-helpers/rep
 
 const CANONICAL_MCP_ENDPOINT = 'https://mcp.thenational.academy/mcp';
 
-const PLUGIN_MCP_CONFIG_PATH = 'plugins/oak-open-curriculum/.mcp.json';
+const PLUGIN_MCP_CONFIG_PATH = 'claude/plugins/oak-national-academy/.mcp.json';
 const MCP_ENABLED_SKILL_PATH =
-  'plugins/oak-open-curriculum/skills/oak-curriculum-principles-mcp-enabled/SKILL.md';
+  'claude/plugins/oak-national-academy/skills/oak-curriculum-principles-mcp-enabled/SKILL.md';
 
 /**
  * The server key the plugin registers; renaming it is a breaking change for installed users.
  *
  * @remarks
  * Renamed from `oak-curriculum` to `oak-open-curriculum` by owner decision
- * (MCP-536, 2026-08-10), accepting that break. The reason is accuracy, not
- * tidiness: what this plugin publishes is Oak's *open* curriculum, licensed
- * under the Open Government Licence — not Oak's copyrighted material — so the
- * key names the thing correctly and matches the plugin's own name.
+ * (MCP-536, 2026-08-10), then to `oak-national-academy` by owner decision
+ * (2026-09-30), each time accepting that break. The key matches the plugin's
+ * own name, which now matches its display name, "Oak National Academy": the
+ * key is what users see in approval prompts, `/mcp` and tool names.
  *
- * The key is not private to the plugin. It is duplicated in the landing page's
- * copy-paste config snippet (`create-snippet.ts`), which is the manual install
- * path, and anchored there as audited content item C354. A future rename must
- * move every surface together — renaming only one de-synchronises the two
- * installation routes, which is worse than the inconsistency it would fix.
+ * The key is not private to the plugin. The published copy in
+ * oaknational/oak-ai-plugins repeats it in its README's manual setup snippet
+ * and `claude mcp add` command, so a future rename must move both together.
  */
-const SERVER_KEY = 'oak-open-curriculum';
+const SERVER_KEY = 'oak-national-academy';
 
 const PluginMcpConfigSchema = z.object({
   mcpServers: z

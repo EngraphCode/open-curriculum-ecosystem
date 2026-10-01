@@ -87,6 +87,17 @@ participants both visible in the same owner-chat surface (or one
 chat-relayed via the owner). It exits to full SKILL protocol when
 a third agent joins, or terminates when both agents close out.
 
+### Operating default: open at two, widen on measured throughput
+
+A multi-seat arc opens at n=2 and widens only when measured throughput
+says the work is seat-bound: the route records seat-hours per merge at
+the current shape, and a third seat is added on that figure, never on a
+task count or a sense of urgency. The mode below is therefore the
+starting shape of every team, not a fallback from a larger one (owner's
+card, 2026-09-16, adopting the transplant arc's retrospective proposal
+6: four seats ran at 3.8 seat-hours per merge against 0.95 at two, and
+two of the four lanes handed most of their items back).
+
 ### What stays at n=2
 
 The following substrate is retained because its value is
@@ -368,6 +379,13 @@ consumer-presence generalisation reached two instances and graduated as
 described under Adoption.
 
 ## Amendment Log
+
+### 2026-09-30 — jimcresswell.net: open at two seats, widen on measured throughput
+
+Owner card (2026-09-16, adopting proposal 6 of the transplant arc's
+retrospective). §Decision gains the operating default: an arc opens at
+n=2 and widens only on measured seat-hours per merge. `start-right-team`
+§Choose Temporary Responsibilities carries the operational form.
 
 ### 2026-09-24 — the 120-second state line
 

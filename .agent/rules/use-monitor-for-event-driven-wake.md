@@ -22,6 +22,16 @@ Polling work — where the agent must intermittently re-check a surface — has
 no stream to notify from and remains the agent's responsibility, subject to
 the periodic-comms-check cadence rule.
 
+The owner's word (2026-09-29, verbatim): "Wherever reasonable we must use
+monitors instead of ad-hoc shell scripts in order to stay aware of events".
+It binds every wait, for all work: a wait on a pull request, a push, a gate
+or a CI run is a Monitor that emits its pass and fail lines and exits at the
+terminal state, never a scripted loop; a long command that must be watched
+runs as a Monitor too. Where a script is unavoidable it sets its own paths,
+locks itself, is syntax-checked (`bash -n`), and sends its failures to the
+stream, because five scratch scripts failed silently in four days
+(2026-09-25 to 29).
+
 ## Why
 
 Bash `run_in_background` writes stdout to a file and **delivers no

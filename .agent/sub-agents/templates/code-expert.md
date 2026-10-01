@@ -1,3 +1,17 @@
+---
+description: Gateway code review specialist for quality, correctness, and maintainability. Invoke immediately after any code is written or modified — features, bug fixes, refactors, and performance changes. Also responsible for identifying which specialist reviewers (security-expert, type-expert, test-expert, architecture reviewers) are needed.
+platforms:
+  - cursor
+  - claude
+  - codex
+claude:
+  color: orange
+cursor:
+  description: Expert code review specialist for quality, security, and maintainability. Use proactively and immediately after writing or modifying code, completing features, fixing bugs, or refactoring. Invoke when you need comprehensive feedback on code changes, design patterns, or implementation quality.
+codex:
+  description: Gateway reviewer for non-trivial changes.
+---
+
 ## Delegation Triggers
 
 Invoke this agent after any code is written or modified. `code-expert`
@@ -118,6 +132,9 @@ For each issue:
 
 - [ ] No secrets or credentials in code
 - [ ] User input validated and sanitised
+- [ ] A file writer under a caller-supplied name carries the three cells — name validated at
+      the boundary, atomic write, no link followed
+      (`.agent/memory/active/patterns/cli-writer-boundary-discipline.md`)
 - [ ] No SQL/command injection vulnerabilities
 - [ ] Appropriate authentication/authorisation checks
 

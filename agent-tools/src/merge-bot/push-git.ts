@@ -106,9 +106,12 @@ function pushEnv(
  * the destination is always the full branch ref, so git infers nothing from
  * the name and the refusals in `push-target-branch.ts` compare exactly the
  * branch that is written, and a configured `push.followTags` or submodule
- * recursion never adds another.
+ * recursion never adds another. The source is the commit settled before the
+ * mint, never `HEAD`, so every attempt pushes the same commit however long
+ * the retry waits. It is spelled `<commit>^{commit}`, which no ref name can
+ * be, so a local ref named like the commit never stands in for it.
  */
-function pushArgv(remote: string, branch: string): readonly string[] {
+function pushArgv(remote: string, commit: string, branch: string): readonly string[] {
   return [
     ...clearedCredentialConfig(),
     '-c',
@@ -117,7 +120,7 @@ function pushArgv(remote: string, branch: string): readonly string[] {
     '--no-follow-tags',
     '--recurse-submodules=no',
     remote,
-    `HEAD:refs/heads/${branch}`,
+    `${commit}^{commit}:refs/heads/${branch}`,
   ];
 }
 
@@ -130,6 +133,8 @@ function pushArgv(remote: string, branch: string): readonly string[] {
 export interface PushGitReads {
   /** The checked-out branch, unabbreviated; empty output when HEAD is detached. */
   readonly currentBranch: () => Promise<GitCommandResult>;
+  /** The full object name of the commit HEAD names. */
+  readonly headCommit: () => Promise<GitCommandResult>;
   /** Every URL origin fetches from, one per line, with `insteadOf` applied. */
   readonly originUrls: () => Promise<GitCommandResult>;
   /** The ref `refs/remotes/origin/HEAD` points at: origin's default branch. */
@@ -149,13 +154,14 @@ export function gitReadsFrom(
     git.exec(git.file, args, options);
   return {
     currentBranch: read(['branch', '--show-current']),
+    headCommit: read(['rev-parse', '--verify', 'HEAD^{commit}']),
     originUrls: read(['remote', 'get-url', '--all', 'origin']),
     originHead: read(['symbolic-ref', '--quiet', 'refs/remotes/origin/HEAD']),
   };
 }
 
 /**
- * Hand the whole transfer to git. The token reaches it only through a 0600
+ * Hand the whole transfer of the settled commit to git. The token reaches it only through a 0600
  * file in a fresh private directory whose path rides the environment; the
  * directory is removed whatever the push's outcome — even a git seam that
  * throws in breach of its value-returning contract — so the token outlives
@@ -168,11 +174,13 @@ export function gitReadsFrom(
  * pipe (R1; F-112). A long gate run is silent until it settles; the
  * transcript arrives whole, kernel-interleaved as a terminal would show it.
  */
-export async function pushHead(
+export async function pushCommit(
   git: GitContext,
   input: {
     readonly remote: string;
     readonly branch: string;
+    /** The full object name of the commit pushed, settled before the mint. */
+    readonly commit: string;
     readonly cwd: string;
     readonly token: string;
     readonly baseEnv: Readonly<Record<string, string | undefined>>;
@@ -188,7 +196,7 @@ export async function pushHead(
   let result: GitCommandResult;
   let warning: string | undefined;
   try {
-    result = await git.exec(git.file, pushArgv(input.remote, input.branch), {
+    result = await git.exec(git.file, pushArgv(input.remote, input.commit, input.branch), {
       cwd: input.cwd,
       env: pushEnv(staged.value.tokenPath, input.baseEnv),
       ...(input.onOutput === undefined ? {} : { onOutput: input.onOutput }),

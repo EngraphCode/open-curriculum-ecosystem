@@ -36,12 +36,18 @@ declaration states an intent; a list restates a fact.
    checker, not a hope.
 3. **Never** land a list with a comment saying "keep this in sync with X". The comment is the
    confession that the list should have been computed.
+4. **A check resolves against what the repository declares, never against what happens to be
+   on the machine.** Twice in one afternoon (2026-09-13) a leg was green here and red in CI: a
+   cited-paths validator found instance-tier state and a private boundary on this disk, and
+   dependency-cruise found a built output a warm checkout carried; neither exists on a fresh
+   checkout. Derive the closure from the tracked tree, the ignore rules and the manifests; a
+   check that reads the local disk proves the local disk.
 
 ## Worked instances
 
 - 2026-09-13, a transplant's first merge: the postinstall bootstrap built a hand-kept list of
   workspace packages; the ESLint plugin every config file imports was not on it, a warm local
-  build output masked the gap, and CI's cold checkout failed dependency-cruise. The lineage
+  build output masked the gap, and CI's cold checkout failed dependency-cruise. OCE
   had hit the same class twice before. Cure: the closure is derived from the workspace
   manifests at run time; `agent-tools/src/bootstrap/install-time-closure.ts` defines its
   membership.
