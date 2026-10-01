@@ -337,6 +337,15 @@ own fold is not a line here: its state lives in its pull request):
    (`oce-wt-j2-docs-validators`, uncommitted; claim 4b82394b). The five claims that named closed seats
    were adopted by Crucible binds Slag on 2026-10-01 (event e36d295b); the premise of these two is still
    to recompute first-hand before any edit.
+5. Routed from the Copilot reviews of the two folds, each verified first-hand:
+   - To the second consolidation, which converges the shared skills: `pr-lifecycle` §Phase 7's
+     landing-slot bullet says "every push opens a fresh review round", while the state machine says a
+     pure sync opens none; JC.net's copy carries the same sentence and lacks the state machine's
+     pure-sync text. Also clause 3 of `cross-estate-work-must-reduce-divergence` ("closes only when both
+     numbers are below the baseline") cannot be met from a baseline of zero.
+   - One small tooling lane for both estates: `comms direct` and `comms reply` require `--active` and
+     `--comms-dir` where `comms send` derives them; wire the same defaults into the directed commands.
+     The agent-tools README says which commands derive them.
 
 Not assigned to a seat: the capability-parity code lanes (the exchange register's rows L7 and L8, the
 commit queue in JC.net, the agent-tools smoke suites as tests with no IO, the divergence measure as a
