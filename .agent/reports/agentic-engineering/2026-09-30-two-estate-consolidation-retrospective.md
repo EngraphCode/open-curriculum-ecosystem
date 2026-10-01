@@ -116,9 +116,9 @@ Ordered by depth; each names its technical, process and meta root.
    first instance` (owner, 2026-06-27) asks for it; `permanent-doc-is-the-consolidation-record`
    forbids a ledger. Together they make rules accrete: `verify-dont-trust`, `worktree-residency`,
    `liveness-heartbeat-cron` and `comms-all-channels-watcher` each gained two or more paragraphs
-   today. Nothing in the skills compresses a rule after it has gained instances. This is the largest
-   direction question the next session should weigh: the estate has a graduation step and no
-   compaction step.
+   today. The question this raises is accuracy and findability, never volume: does a reader find the
+   lesson, and does each paragraph claim no more than its one instance? It is re-read under §The
+   owner's frame below.
 4. **HOMED verdicts accepted on a phrase match.** 104 rows across the four comms reports were
    HOMED; the seat checked each home file exists and the analyst's quoted phrase is in it, then read
    a handful. A wrong HOMED drops a lesson silently. The frame-challenger named this; the seat added
@@ -173,8 +173,8 @@ Ordered by depth; each names its technical, process and meta root.
     fences, written for one file and run on four. Both cured; found by the OCE-side leg.
 16. **No claim, no comms event, all day, either estate.** The seat worked both estates without the
     presence the collaboration rules require; a peer reading either estate's state could not have
-    seen it. Root: a session brief that named the work and not the ceremony, and a seat that read the
-    brief as the whole.
+    seen it. Weighed under §The owner's frame below: no peer was live in either estate, so the claim would
+    have served no one; the cheaper form that stays true is one line a peer who arrives can read.
 
 ## Counterfactual
 
@@ -199,11 +199,9 @@ before it launched.
 
 ## Proposals, each with warrant, falsifier and lane
 
-1. **A compaction step for rules that accrete.** When a rule or skill section has gained three or
-   more dated single-instance paragraphs since its last compaction, the next consolidation merges
-   them into one clause carrying the count and the earliest and latest dates, keeping the event ids.
-   Warrant: today's accretion in four rules. Falsifier: those rules are read whole and cited without
-   complaint for ten sessions. Lane: fast (a step in consolidate-docs).
+1. **Withdrawn (2026-10-01).** A count-triggered compaction step was proposed here; the owner's frame
+   below retires it. A merge of dated paragraphs is made only where it makes a lesson easier to find
+   and keeps every instance's specifics; length is never the reason.
 2. **Home the fan-out method.** The analyst frame (decider field; HOMED, SESSION-SCOPED, SUPERSEDED,
    MOVE, OWNER-CARD, OWED), the seat's verification (quoted phrases as substrings of the source, the
    home present, the text absent, the SUPERSEDED evidence read), the overrides file and the pilot-then-
@@ -233,9 +231,8 @@ thread records and its 1,773-line exchange pickup block in repo-continuity; the 
 privacy review of the three JC.net napkins under `unconsolidated/`; the JC.net comms stream's roughly
 840 substantive events, unread by any consolidation; the rule `cross-estate-work-must-reduce-divergence`
 for the owner's ratification and the `agent-tools` command its enforcement names; the three shared
-files still more divergent than at the open, named above with their reasons; and the two directions
-that are the owner's: whether the doctrine that accreted today should be compacted, and whether
-shared executive memory should stay identical across estates.
+files still more divergent than at the open, named above with their reasons; and the owner's eight
+decisions below.
 
 ## What five adversarial legs found
 
@@ -322,7 +319,8 @@ register entry for the seven owner cards was mis-homed: the register's own §Wha
 owner decision to `repo-continuity.md` §Open Owner-Decision Items; it is item 11 there now, and OCE's
 pending graduations read 0. `consolidate-docs` step 6b requires a whole-file snapshot when an archive
 move is non-contiguous; none existed, and `archive/frictions-register-pre-curation-2026-09-30.md` now
-holds the base file byte-identical. §H's preface claimed every owed row was re-addressed while fifteen
+holds the base file byte-identical (a duplicate of what the pre-move commit already preserves; see §The
+owner's frame). §H's preface claimed every owed row was re-addressed while fifteen
 carried no addressee and others named lanes with no heartbeat; the preface now states one rule for
 every row and names the five re-verdicts.
 
@@ -339,17 +337,18 @@ analysts' coverage and every count the seat reported. The register holds 130 ent
 unread by any consolidation; the archive's 55 index rows cut their disposition cell at an ellipsis,
 with the whole entry beside each in the archive.
 
-**Accepted, process.** The seat held no claim and posted no comms event in either estate all day
-(`register-active-areas-at-session-open`, `use-agent-comms-log`); its identity appears nowhere in either
-estate's collaboration state.
+**Weighed, not a defect as stated.** The seat held no claim and posted no comms event in either estate
+all day (`register-active-areas-at-session-open`, `use-agent-comms-log`); its identity appears nowhere in
+either estate's collaboration state. No peer was live to read either, so the ceremony had no purpose that
+day; see §The owner's frame.
 
 **Accepted, for the owner (decision 1).** Five sampled rule paragraphs (`never-disable-checks`,
 `plan-body-first-principles-check`, `verify-dont-trust`, `liveness-heartbeat-cron`, `lint-after-edit`)
 and five homed friction sentences are single-event, normative, name a seat or an event id, and state no
 count or falsifier; one was the seat's own day written into a rule the same day. The leg recommends
 reverting the rule paragraphs (about twenty in OCE, text conserved in §H and the reports) rather than
-compacting them; two legs now favour revert, the seat's recommendation stays compaction to dated
-observations, and the owner decides.
+compacting them. The owner's frame of 2026-10-01 settles it as neither: every paragraph stays where a
+seat reads, re-trued to its evidence in place.
 
 **Confirmed, already a decision.** `consolidate-until-done` step 1 asks the owner before a bulk act
 such as an archive lifecycle; the day's four bulk archives were made without the word. That is decision
@@ -438,41 +437,72 @@ owner's word instead; two said yes, one for JC.net's unread comms stream and one
 pass over the rules that accreted, run by a seat alone without a fleet. The seat's synthesis: the
 owner's brief is met at its own test (empty pending graduations bar the owner's cards, empty
 buffers by the buffer rule's reading), and the residue is of a different kind than the brief named:
-a decision on direction (compact or revert the single-event paragraphs; OCE-local evidence or
-role-and-date attribution in JC.net), three directive sentences under the context gate, five
+accuracy in place for the single-event paragraphs (no decision needed) and one evidence question
+(OCE-local event ids or role-and-date attribution in JC.net), three directive sentences under the context gate, five
 friction lessons, and the JC.net comms stream's roughly 840 substantive events, which is a separate
 question with a separate cost. None of that is a buffer drain; all of it fits the owner's word on
 what to do next. The OCE-side leg's verdict is in its own section above.
 
+## The owner's frame, after the handoff (2026-10-01)
+
+The handoff's first decision read "compact or revert the accreted paragraphs", with a line count beside
+it. The owner, verbatim: "just an illustrative example … we are not here to tidy things away or hit
+numerical goals, we are here to make sure that knowledge is preserved, discoverable and accessible. Where
+there is ceremony it is only permitted to exist where it serves practical purpose, the ceremony is there
+as a sometime required enabler, it has no value in its own right, but it does have cost." Read under
+that frame, this report's own findings re-sort:
+
+- The 400 net rule lines are not the problem and shrinking them is not the cure. A seat's single-event
+  ruling written as a universal norm misleads a reader about its weight; the cure is accuracy in place
+  (what happened, who decided, when, one instance), which `one-instance-is-an-observation` already
+  prescribes, and nothing leaves the surface a seat reads for length's sake. Reverting to §H would move
+  knowledge from where a seat looks to where none does. The compaction step (proposal 1) is withdrawn.
+- The per-user directories' file counts (78, 30) answer no knowledge question. Empty means no un-homed
+  knowledge, which holds; the files are the audit trail, and deleting them has a cost and no value. The
+  former decision 4 dissolves and the counts leave the reports.
+- The conserved analysts' reports stay whole; summarising them later is ceremony with no reader. The
+  former decision 10 dissolves.
+- The bulk archives: every moved entry is byte-identical and pointer-linked, and the settled frictions'
+  lessons stand at their cited homes, so the knowledge is preserved and more discoverable than in a
+  99-entry register. The skill's "ask before a bulk act" exists for knowledge safety; the form of the
+  move met that purpose, and the word not asked cost the owner's attention, not knowledge. The former
+  decision 2 becomes a notification.
+- The whole-file snapshot written at the retrospective (322 KB) duplicates what the commit before the
+  move preserves immutably: ceremony with cost. The seat recommends removing it and re-truing
+  `consolidate-docs` step 6b to name the pre-move commit instead, on the owner's word.
+- "No claim, no comms event all day" (problem 16) is weighed, not asserted: no peer seat was live in
+  either estate, so a claim would have served no one, and the next session's discoverability is served
+  by the thread record and this report directly. What stays true is the cheaper form: a seat that will
+  be alone still leaves one line a peer who arrives can read.
+- The divergence measure's numbers are evidence of alignment, never its goal: a shared file is unified
+  only where the two estates hold one lesson in two wordings, and a lower count bought by stripping an
+  estate's specifics would be a loss. The rule's enforcement paragraph now says so.
+- The 51 deferred rows and the 86 unread frictions stay as knowledge questions: each row is knowledge
+  or a decision not yet acted on, and each open friction may carry a lesson without a home.
+
 ## Decisions for the owner
 
-1. The 38 comms-table paragraphs and the 29 event-cited paragraphs in JC.net doctrine: compact each
-   to one dated observation sentence with n stated and no seat names, keep the quotations and event
-   ids in OCE's research tier only, or revert the JC.net copies. The seat recommends the first,
-   applied by one seat without a fleet, with the rules tier's line count read before and after as a
-   noticer only.
-2. The bulk archives of this session (55 frictions, two handoff states, 576 lines of continuity record),
-   made without the word `consolidate-until-done` step 1 requires: let them stand, or revert any (each a
-   single commit, byte-identical archives; the frictions register's whole pre-curation file is archived).
-3. The seven comms-table cards (OCE register) and the session-2 cards (JC.net register, or the
-   record of their 2026-09-14 answers).
-4. What "empty" covers for the per-user memory directories (78 and 30 files with markers, 1 and 5
-   live index lines): the buffer rule's reading, or a deletion word.
-5. The practice box; the privacy review of the three napkins under `unconsolidated/`; whether
-   JC.net's comms stream is a pass.
-6. Whether shared executive memory (the owner-signal record, ported whole from OCE into JC.net today)
-   should read identically across estates or carry estate-specific worked instances.
-7. Whether "lineage" stays as PDR-005's role word for a source Practice in a transplant.
-8. The rule `cross-estate-work-must-reduce-divergence`, written today on the owner's word: keep it as
-   a rule, or fold it into PDR-142 as a clause; and whether `.agent/prompts/dedicated-consolidation-session.md`
-   gains the two measurements beside the buffer counts.
-9. The shared files whose divergence is estate-specific by nature (`build-system.md`, the commit
-   skill's ceremony, `verify-data-supports-shape-before-building`'s worked instances): keep one file
-   with estate-named paragraphs, or split the estate-specific parts into estate-only surfaces.
-10. Whether the analysts' conserved reports and the seat's overrides under
-    `consolidation-2026-09-25/dispositions-2026-09-30/` stay in OCE's research tier or are summarised
-    once §H's owed rows are worked.
-11. The 51 deferred rows of §H: whether the next session decides each (do, drop, or the owner's call)
-    in one pass, as the 2026-09-28 word on "owed" asks, before any other consolidation work.
-12. The 86 frictions under OCE's §Routing Notes: the same analyst pass the 99 received, gated on the
-    owner's word before any archive move, or left as they stand.
+1. The event-cited paragraphs in JC.net doctrine quote OCE seats and event ids a JC.net reader cannot
+   open: keep that evidence as it stands, or carry role-and-date attribution in the JC.net copies with
+   the event ids in OCE's research tier only. Every paragraph stays; the seat re-trues each to its
+   evidence without a decision.
+2. The seven comms-table cards (OCE's continuity record, owner-decision item 11) and the session-2 cards
+   (JC.net's register, or the record of their 2026-09-14 answers).
+3. The practice box; the privacy review of the three napkins under `unconsolidated/`; whether JC.net's
+   comms stream (roughly 840 substantive events) receives the pass OCE's received.
+4. Whether shared executive memory (the owner-signal record, ported whole from OCE into JC.net) reads
+   identically across estates or carries estate-specific worked instances.
+5. Whether "lineage" stays as PDR-005's role word for a source Practice in a transplant.
+6. The shared files whose divergence is estate-specific by nature (`build-system.md`, the commit
+   skill's ceremony, the data-shape rule's worked instances): one file with estate-named paragraphs, or
+   estate-only surfaces for the estate-specific parts.
+7. The 51 deferred rows of §H: decided each (do, drop, or the owner's call) in one pass before other
+   consolidation work, as the 2026-09-28 word asks.
+8. The 86 open frictions under OCE's §Routing Notes: a reading pass for lessons without homes, with the
+   owner's word before any move.
+
+Notifications, no decision asked: the bulk archives stand (byte-identical, pointer-linked, each
+revertible by one commit if the owner wants them back); the whole-file snapshot is recommended for
+removal with step 6b re-trued; the rule `cross-estate-work-must-reduce-divergence` stands as a rule; the
+analysts' reports stay whole; the per-user directories are audit trails and their counts leave the
+reports.

@@ -180,6 +180,16 @@ theory expanding to fill the work is the named failure (owner-corrected
 2026-06-29, after simple asks began taking minutes and producing confusing
 changes).
 
+The owner restated the purpose and the test on 2026-10-01, after a handoff
+framed a knowledge question as tidying ("compact or revert the accreted
+paragraphs", beside a line count), verbatim: "we are not here to tidy things
+away or hit numerical goals, we are here to make sure that knowledge is
+preserved, discoverable and accessible. Where there is ceremony it is only
+permitted to exist where it serves practical purpose, the ceremony is there as a
+sometime required enabler, it has no value in its own right, but it does have
+cost." A count is a noticer; a ceremony without a reader or a purpose that day
+is dropped, not performed.
+
 **The owner decides; the estate rejects nothing.** A rule's considered-and-rejected
 paragraph is reasoning the owner may overrule, never the estate's verdict (owner,
 2026-09-30: "the estate doesn't reject anything, I am the one with authority"). A

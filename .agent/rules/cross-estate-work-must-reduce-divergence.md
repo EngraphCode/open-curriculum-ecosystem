@@ -59,6 +59,11 @@ two-estate activity whose close record lacks them is not closed. Owed: an `agent
 command that computes the measure from two roots, unit-tested on injected file maps and never
 on the live trees, so a seat runs one command instead of a script.
 
+The numbers are evidence of alignment, never its goal. A shared file is unified only where the two
+estates hold one lesson in two wordings; a lower count bought by stripping an estate's specifics is a
+loss, not a gain (owner, 2026-10-01: knowledge preserved, discoverable and accessible is the test, and
+ceremony or a count serves it or goes).
+
 ## Related surfaces
 
 - [`replace-dont-bridge`](replace-dont-bridge.md): the single-estate form.

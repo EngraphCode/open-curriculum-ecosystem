@@ -25,6 +25,17 @@ strict, persistent version of `dedicated-knowledge-curation`: keep working
 until the proof exists, or report the exact remaining owner decisions without
 calling the goal complete.
 
+The goal, in the owner's words (2026-10-01): "we are not here to tidy things
+away or hit numerical goals, we are here to make sure that knowledge is
+preserved, discoverable and accessible. Where there is ceremony it is only
+permitted to exist where it serves practical purpose, the ceremony is there as a
+sometime required enabler, it has no value in its own right, but it does have
+cost." Every count this skill reports (buffer entries, register entries, a
+fitness reading, the two-estate divergence measure) is a noticer for that goal
+and never the goal; every move answers where a seat will look for the knowledge
+afterwards; and every step this skill names is performed only where it serves a
+reader or a purpose that day.
+
 ## Conservation Invariant
 
 The value of this workflow is that knowledge and understanding come to **exist
@@ -279,6 +290,10 @@ Never do these to satisfy the goal:
   owner approval.
 - Redefine the goal around a smaller selected buffer once work has begun.
   Selection can order the pass; it cannot narrow the completion contract.
+- Perform a step this skill or a rule names when it has no reader and no purpose
+  that day (a whole-file snapshot of what the pre-move commit already preserves,
+  2026-09-30); a ceremony is an enabler with a cost, never a value in itself
+  (owner, 2026-10-01).
 
 Archive moves are allowed only as normal lifecycle cleanup after the item-level
 disposition already proves the source content is graduated, duplicate, or
