@@ -157,12 +157,19 @@ seam, extract a pure function, inject a dependency).
 22. **Test depends on test-execution order to pass.** Shared mutable
     state between tests is a correctness hazard. Each test must be
     self-contained.
+23. **Test asserts one host's spelling.** A POSIX path literal where the
+    code joins or resolves by host, or a POSIX-only capability (symlink
+    privilege, `O_NOFOLLOW`): assert host-neutrally (absolute, ending in
+    the expected segments) or name the forced host. Five instances,
+    2026-09-27 to 2026-09-29, all green on POSIX: four failed the Windows
+    job and one was a review finding. If one recurs with this item
+    loaded, it is not working.
 
 ## When to Apply
 
 - As the **first pass** on any test-expert invocation.
 - Before any deeper analysis of test value or TDD compliance.
-- Findings here block approval; all 22 items must be clean before
+- Findings here block approval; every item must be clean before
   the test suite is considered compliant.
 
 ## Fix Direction

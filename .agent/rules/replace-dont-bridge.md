@@ -97,6 +97,12 @@ boundary, not when they are disguising old/new coexistence.
   correct slice. Do not land an intermediate compatibility layer.
 - If you genuinely think the architecture requires both paths, pause
   and get an architecture or assumptions review before writing code.
+- When a record supersedes a surface, retire the instruction that
+  generates it in the same change. OCE's PDR-081 amendment of 2026-06-14
+  declared the curator's per-pass log superseded and left the skill step
+  that wrote it, so per-pass files were written for three more months;
+  OCE pull request 245 retired the sentence (one instance, recorded
+  2026-09-26).
 
 ## Why This Rule Is Strict
 

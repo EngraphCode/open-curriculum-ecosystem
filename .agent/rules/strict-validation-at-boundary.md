@@ -26,7 +26,10 @@ refusals, and a place-only design-token admission did the same in the same
 sitting (2026-08-19). An allowlist that deliberately admits along one axis (a
 string-only token allowlist; a path-only stale-invocation allowlist) binds
 that one axis and invents no other. Validate each axis the decision depends
-on, at the boundary the value crosses.
+on, at the boundary the value crosses. A lookup table keyed by input text is an admission
+predicate as well: an object-literal flag table admitted inherited names until it was held as a
+`Map`, so that `toString` or `__proto__` is an unknown flag (OCE pull request 304, 2026-09-29;
+one instance).
 
 Owner ruling on tool surfaces (2026-07-28): **"Strict, all the time,
 everywhere"** — every MCP tool carries proper input AND output schemas, with
