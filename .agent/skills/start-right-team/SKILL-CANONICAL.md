@@ -580,11 +580,12 @@ A multi-seat arc opens at two seats and widens only on measured throughput
 current shape achieves, and a third seat is added when that figure, not a
 task count, says the work is seat-bound (2026-09-15: four seats ran at 3.8
 seat-hours per merge against 0.95 at two, and two lanes handed most of their
-items back). Concurrent fix lanes are capped by the narrowest serial stage,
-the push slot, the review turnaround and the session budget (about three
-lanes; open fix pull requests at most four), never by host CPU; a lane
-finishes before the next starts, and when the same finding repeats across
-lanes the cure is the generator, not another lane (2026-09-26).
+items back). Concurrent fix lanes across the team are capped by the narrowest
+serial stage, the push slot, the review turnaround and the session budget
+(about three lanes; open fix pull requests at most four), never by host CPU;
+each seat holds one lane at a time in an estate and finishes it before it starts the next there,
+and when the same finding repeats across lanes the cure is the generator, not
+another lane (2026-09-26).
 
 When adding a top-level responsibility or keeping an existing one alive, name
 the seat cost as part of the route. Expensive top-level model seats should be
@@ -967,7 +968,12 @@ those use the two-moments shape below.
 Coordinator role transitions have two distinct moments per
 [PDR-064](../../practice-core/decision-records/PDR-064-coordinator-handoff-two-moments.md);
 conflating them creates a coordinator-less window the team cannot
-detect.
+detect. Inside the authority window, from Moment 2 of acquiring the role to
+Moment 1 of releasing it, what a coordinator holding the Director role
+writes to the stream as it happens is
+[PDR-075](../../practice-core/decision-records/PDR-075-director-substrate-writing-discipline.md)'s
+discipline: rulings and owner-decision answers go on the stream when they
+occur, so a successor reads the stream and the handoff record stays small.
 
 **Moment 1 — Pre-positioning (information transfer only).** The
 outgoing coordinator broadcasts a `narrative` event with the
