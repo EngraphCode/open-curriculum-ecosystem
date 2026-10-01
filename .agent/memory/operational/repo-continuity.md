@@ -37,6 +37,17 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-01T20:21Z: #322 landed as `SHA:30f5b4338`; the push starts each attempt inside its token's
+  life and on the settled commit** (Crucible binds Slag, 7b999c). Before every attempt, the first
+  included, `merge-bot push` stops when the token is within five minutes of its expiry or when HEAD
+  no longer names the commit it began with; with no `--branch`, a checkout that changes branch while
+  the target settles fails the push before the mint; an origin read over plain http is not trusted;
+  what a refusal quotes is printed without control or format characters. The push's tests are held
+  to the testing directive. Two findings on the push as it stood before, in both estates, are not
+  cured by it and are routed in §Next Safe Steps line 4: a seat whose git config rewrites
+  `https://github.com/` to ssh pushes as the signed-in human, and `GIT_TRACE_REDACT=0` with curl
+  tracing prints the credential.
+
 - **2026-10-01T17:37Z: arc-metrics is the same bytes in both estates; #321 landed as `SHA:9dae121c7`**
   (Crucible binds Slag, 7b999c). It carried the three cures Copilot named on JC.net's pull request 277
   (merged there as `SHA:ce3e0296` at 17:19Z): the splitter rescanned an unfinished line with every chunk,
@@ -440,17 +451,16 @@ below go one pull request at a time:
      `testing-strategy.md` §Philosophy and §Rules forbid. This estate's rework was right to drop
      them. JC.net's 279 had already removed the scope one for the same reason; the rest go in its
      twin of step two.
-   - Step two, here, is two pull requests. First the push product code: pull request #322 (opened
-     2026-10-01 19:52Z, lane `.claude/worktrees/push-converge`, branch
-     `fix/merge-bot-push-converge`, claim 48c023b5, `SHA:7da2c6816`). Three sub-agent reviews ran
-     before it opened (code, security, test) and changed it from a copy of JC.net's bytes in two
-     ways. Plain http is refused in the push's own origin check (`trustedOriginRepository`), on
+   - Step two, here, is two pull requests. First the push product code, landed: pull request #322
+     (`SHA:30f5b4338`, 2026-10-01 20:21Z; one settlement push, on a branch name a refusal quoted
+     raw). Three sub-agent reviews ran before it opened (code, security, test) and changed it from
+     a copy of JC.net's bytes in two ways. Plain http is refused in the push's own origin check (`trustedOriginRepository`), on
      the trimmed URL, and never in `core/git-remote-url.ts`: that parser has two more callers here,
      and refusing there would move the push secret scan to its unscoped exclusion for a plain-http
      remote. The tests are re-derived against the directive: each new behaviour at its own seam
      over constant fakes (`push-attempt-guards.integration.test.ts`, the `settleCommitFor` block,
-     `token-deadline.unit.test.ts`), no fake that answers in sequence, no pinned decision. Its
-     state is in the pull request. Then the `retire` action with what it needs (`github-fetch.ts`,
+     `token-deadline.unit.test.ts`), no fake that answers in sequence, no pinned decision. Then
+     the `retire` action with what it needs (`github-fetch.ts`,
      the `branch-retire` row of the scope table, the wiring in `cli.ts`, its smokes); `branch-arg.ts`
      and `test-helpers/result-failure.ts` arrive with #322. Until `retire` lands every landed
      branch here is deleted by hand after the same ancestry proofs (a REST delete of the ref as
@@ -468,14 +478,15 @@ below go one pull request at a time:
      read before the mint that fails when any such value prefixes the push URL, naming the key
      kind and never the base; `http.<url>.extraHeader` is the same class, not tested); an ambient
      `GIT_TRACE_REDACT=0` with `GIT_TRACE_CURL=1` prints the credential on stderr (cure: unset
-     `GIT_TRACE_REDACT` in `pushEnv`). Under the bar: a `--branch` value git calls legal that
-     holds C1 or format characters is echoed raw by the typed refusals, the `--json` outcome and
-     the `pushed:` line; `trustOrigin` drops whitespace-only lines before it counts URLs;
+     `GIT_TRACE_REDACT` in `pushEnv`). Under the bar: `trustOrigin` drops whitespace-only lines before it counts URLs;
      `REFUSED_FLAGS[flag]` is a plain-object lookup (`merge-bot push constructor` prints a function
      source) and an unknown action is echoed raw; `Date.parse` reads lenient forms of
      `expires_at`, throws a `RangeError` near the minimum date, and `deadlinePassed` answers false
      for a clock it cannot read; `AttemptGuards` holds the whole token where the deadline alone is
-     used. Not closable in the push: the pre-push hook validates the files on disk, so a dirty
+     used; the expiry the mint answers is quoted unsanitised by the push's and the merge's deadline
+     messages (Copilot's last review of #322; the cure is at the boundary, `expires_at` validated
+     as an ISO datetime in `mint-installation-token.ts`, which closes the lenient parse too); the
+     branch name in the `pushed:` line and the `--json` outcome is written as git names it. Not closable in the push: the pre-push hook validates the files on disk, so a dirty
      tree or a HEAD that moves during the gate still passes it (cure is hook-side: the ref line's
      commit against HEAD, and a clean tree).
    - Routed from #322's test review, one lane, debt in tests #322 does not add:
