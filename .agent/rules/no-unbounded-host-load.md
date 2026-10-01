@@ -100,7 +100,11 @@ again.**
    worktrees, 2026-09-06). The bound belongs at the gate's spawn path — a
    host-wide semaphore the full local gate acquires, limit 2, hard ceiling
    3, with a test — never a comms announcement, a claim role, or a
-   declared window. Owner ruling (2026-09-20, verbatim): "two parallel
+   declared window. That semaphore is built: `agent-tools gate-slot`
+   holds a host slot around each hook's turbo step (in JC.net from
+   2026-09-24, in OCE from 2026-09-29), so a push waits at the bound, and
+   `pnpm agent-tools:gate-slot status` is the reading, in place of
+   counting processes. Owner ruling (2026-09-20, verbatim): "two parallel
    gate runs are fine as long as they are in different work trees". So
    seats on one host run their gates side by side, each in its own
    worktree, up to this item's bound; inside one worktree gate runs are

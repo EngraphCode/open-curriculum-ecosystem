@@ -79,7 +79,13 @@ budget: read the pickup block, not the whole continuity file, before the first
 edit (a full team grounding stood at 37 % before any edit, 2026-09-24). Before a
 budget-gated edit, read every pending input that touches the same passage: one
 paragraph edited at 25 % was rewritten by a pull request read at 37 %
-(2026-09-24).
+(2026-09-24). An owner ruling on doctrine that is recorded outside the
+pending-graduations register (in a relay event, a branch or a handoff opener)
+waits for the owner to repeat it: one ruling of 2026-09-24 took three owner
+words and had not landed after twenty-three hours, while a queued cure landed
+at the next drain (one seat's retrospective of 2026-09-25, in OCE's reports;
+one source). That seat's proposal: whoever relays such a ruling writes its
+pending-graduations row, and any seat under 30 % executes it.
 
 ## Reading the Figure
 
