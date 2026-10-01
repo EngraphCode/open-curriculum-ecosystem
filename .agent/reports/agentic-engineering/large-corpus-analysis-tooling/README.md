@@ -28,7 +28,9 @@ judgment, deterministic aggregation, conserve-by-default) and feeds the conserva
 
 Each step: build the seeded artefact (validates the input checkpoints with the zod stage
 contracts — a partial map, a failed stage, or an incomplete merged disposition set is a typed
-refusal), launch it, then commit the returned result envelope as the next checkpoint.
+refusal), launch it, then commit the returned result envelope as the next checkpoint. Every
+checkpoint flag must name a file that resolves inside this checkout: a partition or result
+left in a temp or scratch directory is refused before it is read.
 
 ```bash
 # from agent-tools/; artefacts land in dist/corpus-analysis/workflows/ (gitignored)

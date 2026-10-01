@@ -17,7 +17,7 @@ import {
  * covers every copy-only skill the package holds, not a fixed list.
  *
  * @remarks
- * MCP-692. A copy-only skill is one under `plugins/oak-open-curriculum-chatgpt/skills/`
+ * MCP-692. A copy-only skill is one under `chatgpt/plugins/oak-national-academy/skills/`
  * with no same-named directory under the Claude plugin's `skills/`. Each must
  * derive from the same-named Claude workflow (whose "Delegate to" line names
  * the agent) and carry that agent's body byte-identical from its first `##`
@@ -37,10 +37,10 @@ import {
  * ADR-078 helper-mediated committed-artefact reads.
  */
 
-const CLAUDE_SKILLS_ROOT = 'plugins/oak-open-curriculum/skills';
-const AGENTS_ROOT = 'plugins/oak-open-curriculum/agents';
-const WORKFLOWS_ROOT = 'plugins/oak-open-curriculum/workflows';
-const SKILLS_ROOT = 'plugins/oak-open-curriculum-chatgpt/skills';
+const CLAUDE_SKILLS_ROOT = 'claude/plugins/oak-national-academy/skills';
+const AGENTS_ROOT = 'claude/plugins/oak-national-academy/agents';
+const WORKFLOWS_ROOT = 'claude/plugins/oak-national-academy/workflows';
+const SKILLS_ROOT = 'chatgpt/plugins/oak-national-academy/skills';
 
 /** The authored edits each merged skill declares; every copy-only skill must have an entry. */
 const DECLARED_EDITS = {
