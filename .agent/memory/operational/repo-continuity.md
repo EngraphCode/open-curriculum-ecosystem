@@ -37,11 +37,17 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-01T17:37Z: arc-metrics is the same bytes in both estates; #321 landed as `SHA:9dae121c7`**
+  (Crucible binds Slag, 7b999c). It carried the three cures Copilot named on JC.net's pull request 277
+  (merged there as `SHA:ce3e0296` at 17:19Z): the splitter rescanned an unfinished line with every chunk,
+  a missing directory was refused only after the directories before it had been read, and the threshold
+  was checked in minutes and not in the seconds it is compared in. The topic's files differ between the
+  estates only in three citation lines.
+
 - **2026-10-01T16:47Z: arc-metrics, #320, landed as `SHA:d6349ccb4`** (Crucible binds Slag, 7b999c). This
   estate measures an arc from its session transcripts with `pnpm agent-tools arc-metrics --vendor claude`.
   A code review before its ready-mark found three defects the ported bytes carried, and JC.net's `main`
-  with them; the cures went to JC.net as its pull request 277, where Copilot named three more, owed back
-  here as one small pull request (§Next Safe Steps line 1). No lane of the implementer seat is open here.
+  with them; the cures went to JC.net as its pull request 277. No lane of the implementer seat is open here.
   The J2 port is the one worktree left, `oce-wt-j2-docs-validators`: a code review of its uncommitted
   work returned NOT READY, and §Next Safe Steps line 2 holds what it needs.
 
@@ -363,11 +369,8 @@ below go one pull request at a time:
    transcripts are not measured. A settlement push made the CLI's tests hold on Windows (the path
    resolver is an input). Routed from it, for both estates:
    - The same cures went to JC.net as its pull request 277. Copilot's review there named three more
-     defects in the shared bytes, cured there in two settlement pushes: the splitter rescanned an
-     unfinished line with every chunk (quadratic on a long entry), a missing directory was refused only
-     after the directories before it had been read, and a threshold was checked in minutes and not in
-     the seconds it is compared in. **Owed here once 277 lands, one small pull request, the same
-     bytes:** `split-lines.ts`, `cli.ts`, `cli-options.ts` and two test files.
+     defects in the shared bytes, cured there in two settlement pushes and landed here as #321
+     (§Current State). Nothing of arc-metrics is owed in either direction.
    - Counting the sub-agent transcripts, which the vendor nests under each session: in the directory
      measured they hold about two fifths of all model calls. It changes what the tool measures and needs
      its own design.
@@ -413,13 +416,23 @@ below go one pull request at a time:
    walks into a lane's `.env.local` under `.claude/worktrees/` in both estates (the reviewer's reading of
    the dry run in JC.net; this estate's `turbo.json` carries the same glob); anchor it by depth, prove it
    with the dry run, and re-true the coverage sentence in `worktree-residency`.
-4. The merge-bot's `retire` action, which JC.net has and this estate lacks: on 2026-10-01 every landed
-   branch here was deleted by hand after the same ancestry proofs (a REST delete of the ref as the bot,
-   then `git branch -d`). The exchange seat's order names it with B1's siblings.
-5. Owed to JC.net from two of the day's landings, each on its own pull request there: #309's twin (the
-   repair smoke's removal with `validation-strategy.md` §Validators, the same bytes) and #310's rework
-   (one token, GitHub's backoff, one settled commit; JC.net's `main` still mints a fresh token for each
-   attempt and reads HEAD again, the two defects the rework cures).
+4. The merge-bot converges in two steps, read first-hand on 2026-10-01 by comparing the two
+   `agent-tools/src/merge-bot` trees. Each estate holds what the other lacks: this estate the push as #310
+   and its predecessor left it (one token on GitHub's backoff, one settled commit, the default branch
+   read from origin, `core/git-remote-url.ts`); JC.net the `retire` action, the `--branch` check the two
+   commands share (`branch-arg.ts`) and a bounded copy of the push's output for the refusal check (this
+   estate's push holds the whole transcript, the gate's output included).
+   - Step one, in JC.net, in hand: its push takes this estate's design and keeps the bound and the
+     shared check (its lane `fix/merge-bot-push-one-token`).
+   - Step two, here, after step one lands: this estate takes JC.net's `merge-bot` directory as the same
+     bytes, which brings `retire` and the bound. Until then every landed branch here is deleted by hand
+     after the same ancestry proofs (a REST delete of the ref as the bot, then `git branch -d`).
+   - Three readers of a remote URL then stand in JC.net beside the one parser (`secret-scan`, the
+     operator profile's keys, `retire`'s origin check); here `secret-scan` and the operator profile
+     already use it. Their move to the one parser is its own lane, and `retire`'s check moves when it
+     arrives here.
+5. Owed to JC.net from #309, on its own pull request there: its twin (the repair smoke's removal with
+   `validation-strategy.md` §Validators, the same bytes). #310's rework goes there as step one of line 4.
 6. The n=1 pickup's order from its third item on (the block below): the retrospective's quickest wins,
    then the exchange's remaining stories, one pull request each.
 7. Routed from the Copilot reviews of the two folds, each verified first-hand:
