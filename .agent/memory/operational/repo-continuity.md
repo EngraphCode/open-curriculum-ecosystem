@@ -47,9 +47,14 @@ forward-asks remain.
   `SHA:e453ff81a` (the Turbo remote cache optional everywhere), #309 `SHA:2691a8143` (the repair smoke
   removed, the shellcheck gate's tracked lock, `validation-strategy.md` §Validators) and #310
   `SHA:2e8892fed` (the bot's branch transfer retried with one token on GitHub's backoff). Every lane branch
-  and worktree of the four is gone, and the stale worktree of #312 with them. The Codex connector reviewed
-  #319 within five minutes of its ready-mark and none of the day's later heads of #299, #313 or #309: it
-  reviews at the ready-mark, so a seat declares it to the merge door wherever it has reviewed.
+  and worktree of the four is gone, and the stale worktree of #312 with them. The Codex connector signals a
+  review with no finding by a thumbs-up reaction on the pull request, not by a review or a comment: it
+  reacted within about three minutes of each head pushed to #299, #313, #309 and #310, and posted a review
+  only on #319, where it had a finding (rejected with evidence on its thread). This seat read the silence
+  as absence and wrote "unavailable" on the premises of #299, #313 and #309; each carries a signed
+  correction. The merge door's leg computation reads reviews and not the reaction, so a head on which the
+  connector found nothing cannot settle that leg through the door: a seat reads the pull request's
+  reactions before calling the connector absent, and the door's reading of the reaction is a tooling lane.
 
 - **2026-10-01T14:40Z: #299 folded into `engraph` as `SHA:972020417`** (Crucible binds Slag, 7b999c; the
   bot's merge through the merge door, three Copilot rounds, every finding dispositioned on the pull
@@ -342,11 +347,12 @@ The three open lanes and the upstream sync that stood first in this order landed
 repository, and as many others as there are implementer seats, counted across both estates) the lines
 below go one pull request at a time:
 
-1. arc-metrics to its pull request, from `oce-wt-arc-metrics` (claims 803d5d7d and abcd5ea9). Premise
+1. arc-metrics, pull request #320, from `oce-wt-arc-metrics` (claims 803d5d7d and abcd5ea9). Premise
    recomputed first-hand on 2026-10-01: the tool is on JC.net's `main` and absent here, and JC.net has not
-   changed it since the port. The lane holds two local commits and no remote branch: `SHA:b84e3f0e6` (the
-   port) and `SHA:8e572d050` (the three files the exchange seat left uncommitted, read and run before the
-   commit; 104 tests in 13 files pass). Next: one sync with `engraph`, the push, the pull request.
+   changed it since the port. The lane carries `SHA:b84e3f0e6` (the port), `SHA:8e572d050` (the three
+   files the exchange seat left uncommitted, read and run before the commit) and one sync with `engraph`
+   at `SHA:beceea25e`; 104 tests in 13 files pass, and the built topic was run over real transcripts.
+   Its state is in the pull request.
 2. The J2 docs-validators port to its pull request, from `oce-wt-j2-docs-validators` (claim 4b82394b).
    Premise recomputed first-hand on 2026-10-01: `cited-paths`, `cited-scripts` and `lineage-names` are on
    JC.net's `main` and absent here. The work is uncommitted (two modified files and three new
