@@ -29,6 +29,15 @@ starting the approach, and before declaring an examination or verification done:
 
 4. **Walk the in-scope set** before claiming done.
 
+A value the owner set is always OUT of a "fix the nits" or "tidy the metadata"
+scope: a licence field, a package name, a description, an author line. Changing
+one is a decision, never a nit, and it happens only on the owner's explicit word
+(owner, 2026-09-29, after a seat rewrote `UNLICENSED` and four other fields it
+read as inconsistent metadata). The tell to stop at is writing "the owner can
+veto it in the summary": that sentence marks a decision being taken in the
+owner's place; the check is a diff against the owner's version, never against
+the seat's intent.
+
 **Standing capabilities are in the IN set.** Everything that observes, guards, or
 serves today — every third-party integration, sink, allowlist, CI leg, permission —
 is part of the goal state, not background. A proposal that adds X and silently

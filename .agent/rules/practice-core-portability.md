@@ -115,6 +115,13 @@ Two gates in `docs-validators:check` enforce parts of this rule:
 - `validate-reference-direction` refuses a resolvable link from the
   Core to anything outside it.
 
+An automated reviewer does not know this rule: it reads a Core path or a
+Core-relative link as "does not exist in this repository" and proposes
+localising it (2026-03-06, and again at the 2026-09 transplant). Such a
+finding is triaged (`review-feedback-defaults-to-triage`) and rejected with
+this rule as the reason; it is never cured by writing a host path into the
+Core.
+
 The remaining clauses (host paths written as text, commit references,
 host-context sections) have no scanner yet. PDR-038 pairs every stated
 principle with a structural enforcement surface, so that scanner is

@@ -57,3 +57,8 @@ small PRs."*
 Related: `pr-lifecycle` §Phase 1 (the downstream check), `ticket-management`
 (one story per ticket), `proportionality` (the SCOPE axis), PDR-132 (round
 budgets bind at authoring time).
+
+A review tool's size cap is one more reason the PR is shaped small at design time: the owner's own
+/ultrareview on PR 66 "was refused by the tool ("too large: 21 files, 16,235 lines")", and the seat
+had to cut four subset fixtures to review it at all (Jackal wakes Nocturne's resume record of
+2026-09-06, event 13ed5809).

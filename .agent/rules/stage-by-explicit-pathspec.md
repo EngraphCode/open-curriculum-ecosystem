@@ -129,6 +129,14 @@ Three concrete consequences:
 | "Stage every file in this directory" | `git add packages/foo/.` | `git add packages/foo/file-a.ts packages/foo/file-b.ts` |
 | "I already added too much; I want only these paths in this commit" | `git reset` then re-stage | `git commit -F <msg> -- path/to/file` (commit-by-pathspec is the cleanest cure when peer-staged work sits in the index) |
 | "I need to stage MY hunk in a file that also carries a peer's uncommitted WIP" | `git add <file>` (sweeps their WIP) or discarding their edits | `git apply --cached <patch>` with a matching-HEAD-context patch of your hunk — stages your change into the index while leaving the peer's working-tree WIP untouched |
+| "Stage a large set of my own changes without listing each path by hand" | `git add -u -- . ':!path'` (the exclusion pathspec trips the wildcard-staging guard, and the refused command aborts the rest of its `&&` chain silently) | `git diff --name-only -z \| xargs -0 git add --` in a worktree where every dirty path is this seat's (an explicit list, computed; NUL-delimited, so a path with a space stays one path); in a shared checkout that list holds every seat's unstaged edits, a peer's in-flight work among them, so name the owned paths there instead; then the message file written in its own command, checked with `pnpm agent-tools:check-commit-message -F <file>`, then `git commit -F <file>` |
+
+A refused guarded command aborts the rest of its chain, so never write the
+commit-message file after a guarded command in the same chain: on 2026-09-12
+a refused `git add` skipped the heredoc that followed, the next `git commit -F`
+ran on a missing file, and the continuity commit swallowed the bundle. The
+message-file write is its own command; the commit skill's message-file step
+carries the same order.
 
 An owner exclusion ("commit everything except X's work") is **semantic, not
 path-based**: a shared append-only file that is normally yours to commit can
@@ -158,6 +166,10 @@ is, fix the settled files by name (`pnpm exec prettier --write --ignore-unknown 
 route the live file to its owner (`coordination-fold` precondition 2), since
 a fixer's rewrite races the peer's next write. Protect peers at the staging
 step.
+
+Records under `.agent/memory/` and `.agent/state/` are shared substrate: any seat may
+stage and commit them whatever seat or hook last wrote them (owner norm, 2026-06-30).
+The pathspec still names them; the sweep caution above never applies to them.
 
 ## Pre-Stage Re-Ground for Long Sessions
 

@@ -63,7 +63,16 @@ exactly where independent eyes are cheapest.
 
 Cheap fleets (a handful of legs, well-trodden shape) do not need this
 ceremony — the rule binds where the spend makes a design defect
-expensive.
+expensive. The earlier one-or-two-subagents limit was lifted by the owner
+on 2026-09-16 for all seats and all repositories; what stays is the
+identical-frame discipline (every leg gets the same six-field frame) and
+this review for expensive fleets. Estimate after scripting, never before:
+an estimate that paced agent work like hand work (26 to 40 hours) was
+overtaken when the first scripted hour delivered most of it (2026-09-12).
+A frame that asks for a report names the report's exact row shape (the
+field order, the delimiter, the heading per row): seven analysts given
+identical frames returned three formats, and the seat's join tooling read
+one (2026-09-30).
 
 ## Briefs centre the question, never the predecessor
 
@@ -131,6 +140,11 @@ at EVERY elaboration boundary, and check the current effort against the
 VERBATIM original ask. The review below starts from that block; a review
 that opens on the instrument has skipped the question that prices it.
 
+The landscape-survey post-mortem's headline: "internal instruments audit mechanics, only external
+reads audit warrants", so a fleet's own review legs test how the instrument runs and never whether
+the question was worth asking; the warrant block above is read by someone outside the fleet (Poppy
+lifts Bark's closeout of 2026-08-17, event 51008ab5).
+
 ## Tier every leg to its judgment weight
 
 Owner, 2026-07-26, on a seven-agent verification workflow whose every agent
@@ -195,3 +209,8 @@ leg on a cheaper tier with a twelve-call cap):
    review with its verdict. Runs report tokens, calls, mean and max per phase
    from the run record when they end (a tally row, as the Cricket tally does per
    leg).
+
+The measured 2026-09-07 fleet failures share one generator: "instruments about the object instead of
+contact with it; a mechanism modelled instead of measured", recorded with "thirteen fleet-design
+defects and nine process defects each with a cure" (Juno seeks Apogee's owner-directed measurement
+of 2026-09-07, event c8812df4).

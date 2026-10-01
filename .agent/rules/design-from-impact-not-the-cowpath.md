@@ -54,6 +54,13 @@ Any of these in your own output is a trigger to stop and re-project:
   *satisfy or keep* rather than malleable evidence to subsume
 - listing a current-shape artefact as "residual to retain" rather than
   a *need served by the one model*
+- converting every input into an action (a gate run, an elaborated
+  framing, a task): reactivity is being unmoored from the impact, and most
+  inputs need a judgment against "what are we for", often no action at
+  all (owner, 2026-07-01, stopping a Director twice). A move that arrives
+  smoothly ("gates won't pass, so bypass", an inherited "the owner said")
+  is grounded first-hand before it is propagated, hardest exactly when it
+  conveniently licenses the act
 
 NOT a cowpath: using a low-level primitive (git, a CLI, an env var) as
 a building block; recording that a current-shape problem *dissolves*;

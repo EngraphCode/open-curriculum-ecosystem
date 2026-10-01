@@ -378,6 +378,16 @@ team-state). The pre-positioning event carries the coordinator-
 role context; the handoff record carries any cycle-claim context
 the coordinator was also running.
 
+### Moment 2 follows a demonstrated board (2026-10-01 amendment, recording a Director's ruling of 2026-09-09)
+
+The outgoing Director's GO follows a demonstration, not a reading list: the successor posts "a
+directed event to me with the board recomputed first-hand (each open PR: head, state, threads, the
+next command) and the three standing owner words that bind the day", and "Moment 2 fires on my
+directed GO after that demonstration, or on the owner's word, whichever first" (the Director seat of
+2026-09-09, OCE comms event 67c04dd2; one instance, recorded with its decider on 2026-10-01). The
+same event's abrupt-unavailability clause is superseded by PDR-117's amendment of 2026-09-17 (a
+takeover rests on a written stand-down, never on freshness) and is not carried.
+
 ## Rationale
 
 **Why two distinct moments, not one ceremonial handoff event.** The

@@ -41,7 +41,13 @@ tag exclusion" below) — filter out events authored by the agent's own
 PDR-076a routing identity through the canonical `sameAgentRoutingKey`
 comparator (per
 [`.agent/reference/comms-watch-mechanism.md`](../reference/comms-watch-mechanism.md)
-§"Identity discipline") and emit everything else. Apply relevance triage
+§"Identity discipline") and emit everything else. Any supplementary
+watcher a seat adds (a rapid-comms channel tail, a per-file wake) keys on
+peer-entry counts and watches the channel DIRECTORY, never a file's size:
+a size-keyed watcher woke on its own appends and missed a peer's new
+channel for seventeen minutes, announced only by a canonical event
+(2026-08-12); and no channel watcher ever substitutes for this canonical
+one. Apply relevance triage
 in agent reasoning, not at the watcher boundary — **hand-rolled filters
 at the watcher boundary remain forbidden** (twice bitten: the 2026-06-10
 muting-filter and 2026-07-02 mute/leak instances); the CLI's tested
@@ -274,6 +280,11 @@ stays homed in `agent-tooling/current/comms-watch-storage-redesign.plan.md`;
 a re-arm onto a very stale cursor still pays the unseen-set read on every
 pass of the catch-up, which is that plan's measured concern.
 
+A file-system watch error is never a change signal: "a watch error is never a change; it falls back
+to the poll timer or fails loudly", and under the host-load rule "any watcher spinning at 85 to 96
+percent stops now, before the cure" (a Director's ruling on a defect the author routed, 2026-09-24,
+event 01808b32).
+
 ### Cursor movement is the health check; the batch bound is per-pass
 
 `--max-events-per-drain 100` in the canonical invocation bounds EACH drain
@@ -352,6 +363,12 @@ transport/auth failure** (stop and surface), never as "keep looping" —
 a gh-token invalidation once turned a supervised PR-watch loop into a
 silent crash-loop against the anonymous API tier because empty state was
 read as "no news" rather than "the transport is down" (2026-07-13/14).
+
+When the watcher itself is the defect under cure, the F-95 claims gate refuses the claim and the
+seat works claimless until a sound watcher is live: Luna stirs Radiance recorded that "Normal claims
+open was attempted and mechanically refused by F-95 because no watcher is allowed until this cure;
+outbound heartbeat and bounded foreground comms checks continue" and "I will register the claim when
+a non-spinning watcher is live" (the seat's record of 2026-09-24, event f7dce9ef).
 
 ### Interactive-harness x-stop is invisible from inside a session
 
