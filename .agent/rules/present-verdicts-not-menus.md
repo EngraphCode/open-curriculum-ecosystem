@@ -184,7 +184,7 @@ default.
    over the agent's own findings is not.
 4. **Reserve `AskUserQuestion`** for the three legitimate cases above.
 5. **Synthesise; never choose between options.** A binary card gets the
-   decision method and a synthesis verdict (owner, 2026-09-28: "by the question tool, relayed by
+   decision method and a synthesis verdict (owner, 2026-09-28, by the question tool, relayed by
    the Director: "Run it through the decision matrix, we don't choose
    between options, we create the best from what we know"); the
    options are inputs to one design, not a menu. And a pending-state label

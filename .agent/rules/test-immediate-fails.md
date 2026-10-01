@@ -169,7 +169,7 @@ seam, extract a pure function, inject a dependency).
 
 - As the **first pass** on any test-expert invocation.
 - Before any deeper analysis of test value or TDD compliance.
-- Findings here block approval; all 22 items must be clean before
+- Findings here block approval; every item must be clean before
   the test suite is considered compliant.
 
 ## Fix Direction

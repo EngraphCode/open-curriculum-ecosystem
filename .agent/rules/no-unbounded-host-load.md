@@ -102,7 +102,8 @@ again.**
    3, with a test — never a comms announcement, a claim role, or a
    declared window. That semaphore is built: `agent-tools gate-slot`
    holds a host slot around each hook's turbo step (in JC.net from
-   2026-09-24, in OCE from 2026-09-29), so a push waits at the bound, and
+   2026-09-24, in OCE from 2026-09-29), so a push's turbo step waits at the
+   bound while the hook's other checks run outside the slot, and
    `pnpm agent-tools:gate-slot status` is the reading, in place of
    counting processes. Owner ruling (2026-09-20, verbatim): "two parallel
    gate runs are fine as long as they are in different work trees". So
