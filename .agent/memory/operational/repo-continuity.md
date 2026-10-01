@@ -466,11 +466,28 @@ below go one pull request at a time:
      branch here is deleted by hand after the same ancestry proofs (a REST delete of the ref as
      the bot, then `git branch -d`). Not the whole directory: this seat wrote that earlier in this
      line and it was wrong.
-   - Owed to JC.net from #322, one twin pull request there: the http refusal moved from its parser
-     to its origin check; the push tests as #322's bytes; `printable` on the unknown-argument
-     echo; the help's sentence on what the HEAD guard delivers; the measurement in
-     `push-attempts.ts` worded to be true in both estates; "reaches stderr" in its merge-bot
-     document.
+   - The twin of #322 in JC.net is its pull request 280 (opened 2026-10-01 20:30Z, head
+     `SHA:5527d3c5` after one settlement push, its second review round requested at 20:40Z; its
+     state is in that pull request and in JC.net's `repo-continuity.md` line 4). It takes #322's
+     tests and product changes as the same bytes.
+   - Owed here from JC.net's 280, small, to arrive with the `retire` port: two source comments
+     (`push-attempts.ts` at `REFUSAL_TRANSCRIPT_BOUND`, and the header of `transferAndReport` in
+     `push-cli.ts`) say the push's output "streams to stderr as it arrives", and the file-backed
+     executor replays it when git ends (`git-executor.ts`; Copilot's finding on 280, cured there
+     in `SHA:5527d3c5`); `core/git-remote-url.ts` describes its scheme pattern as "`https://` or
+     `ssh://`" though it reads plain http too, and its unit test has no row for the http form
+     (JC.net's 280 carries both).
+   - The next lane here for this seat, not yet cut: the `retire` port, after 280 lands in JC.net.
+     Its dependency closure, read from JC.net's `main`: the `retire-*.ts` files (source and
+     tests), `github-fetch.ts` with `mint-for-config.ts` importing `realFetch` from it,
+     `githubHeaders` exported from `mint-installation-token.ts` (this estate's user-agent string
+     stays its own), `test-helpers/retire-cli-double.ts`, the `branch-retire` row of
+     `token-scopes.ts` with `permissionLevelsFor`, the `retire` wiring and `GitActionInput` in
+     `cli.ts`, `branch-arg.ts` restored to the second estate's header (it names both commands),
+     eight smoke files (`merge-bot-retire*.ts`, which import `hermetic-git-env`), and the
+     document's "Retiring a merged branch" section. The test review's verdicts on #322 apply to
+     those tests before they are taken: no fake that answers in sequence, no pinned decision,
+     no real git in a unit test.
    - Routed from #322's security review, one lane, each confirmed by probe on the base branch of
      both estates and untouched by #322. Over the bar: a `url.<base>.insteadOf` or
      `pushInsteadOf` value that prefixes `https://github.com/` carries the bot's push over ssh, as
