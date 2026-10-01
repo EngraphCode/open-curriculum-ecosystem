@@ -2267,10 +2267,7 @@ commit SHA and the closing plan reference.
   read as "still waiting" until a blocking wait timed out and a one-shot
   `pr-watch 149` showed 19 passed, 1 pending, 0 failed. Replaced by a
   background `gh pr checks 149 --watch --interval 60`, which ends with the
-  checks and returns their exit code. The pr-lifecycle SKILL prescribed the
-  `--watch` form as the supervised watch until the 2026-09-16 consolidation
-  (`63b544464`) replaced it with a compound GraphQL watch loop that ends only
-  on MERGED or CLOSED; the tool still wants correcting.
+  checks and returns their exit code. OCE's pr-lifecycle SKILL prescribed the `--watch` form as the supervised watch until its 2026-09-16 consolidation (`63b544464`, an OCE commit) replaced it with a compound GraphQL watch loop that ends only on MERGED or CLOSED; JC.net's copy of the skill still prescribes the `--watch` form (read 2026-10-01), and the tool still wants correcting.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a
@@ -2279,8 +2276,7 @@ commit SHA and the closing plan reference.
 - **Cause, read at the fifth instance, 2026-09-29** (Nova turns Penumbra): a Monitor on PR 311's
   `--watch` read zero lines in 30 minutes; `runPrWatchTopic` hands `runPrWatchCli` an
   `OutputBuffer` and returns its text at exit (`agent-tools-cli-topics.ts`, both estates).
-- **Read 2026-10-01**: The cure passes `process.stdout` and `process.stderr` when `--watch` is
-  set; the seat's workaround calls `runPrWatchCli` from dist with the real streams.
+- **Read 2026-10-01**: The candidate cure, unbuilt in both estates (the topic still hands the command an `OutputBuffer`), is to pass `process.stdout` and `process.stderr` when `--watch` is set; the seat's workaround calls `runPrWatchCli` from dist with the real streams.
 
 ### F-165 — `claims open` has no amend verb; a mis-named area path forces close + reopen
 
@@ -3159,11 +3155,7 @@ commit SHA and the closing plan reference.
   force-push or wildcard-staging shape as an argument to a checker, so an execpolicy transcript
   ran from a cases file as data; a `pgrep -f` after the push word was refused the same day.
 - **Status read 2026-10-01**: F-207 carries no Status line, and the scanner its Route names has
-  changed: in both estates it now segments a command line (`segmentCommand`, `blocked-patterns.ts`
-  line 93) and drops here-document bodies (OCE `agent-tools/src/shell/shell-words.ts`, last
-  changed 2026-09-27), and the archive rows for F-102 and F-107 record that cure verified on
-  2026-09-30, so this entry reads as addressed unless an instance after 2026-09-27 appears (the
-  2026-09-25 shapes were not re-run). Lines 8 and 122 of `hook-policy-substring-discipline` in
+  changed: the code can segment a command line (`segmentCommand`, `blocked-patterns.ts`) and drop here-document bodies, but only for policy entries declared `match: argv`, and neither estate's `policy.json` declares one: the git entries still match by token subsequence over the whole command, as F-225, F-251 and F-262 record. This entry is open. (An earlier reading here, and the archive rows for F-102 and F-107, called it addressed; a code read on 2026-10-01 corrected that.) Lines 8 and 122 of `hook-policy-substring-discipline` in
   both estates still call the policy "a substring-matcher" and say `git push --force-with-lease`
   "is blocked by the `--force` substring". JC's open case of the compound-command class is F-225.
 
@@ -3455,15 +3447,13 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 ### F-219 — a peer's comms event during the pre-push gate fails the push: the generated log is stale (2026-10-01)
 
 - **Source**: Crucible binds Slag, first-hand, the push of the coordination fold on 2026-10-01.
-- **Surface**: the pre-push `practice-substrate check`; `collaboration-state -- comms append`.
-- **Observed**: the check refuses a push when the generated `shared-comms-log.md` is older than
-  the newest event file. `comms append` writes an event without rendering the log, and any
+- **Surface**: JC.net's pre-push `practice-substrate check`, reached through `pnpm check` (in OCE the script `practice:substrate:check` exists and no hook calls it); `collaboration-state -- comms append`.
+- **Observed**: the check renders the comms log from the event files and refuses when the rendered text differs from `shared-comms-log.md` on disk (`live-shared-comms-log.ts`); it makes no age test. `comms append` writes an event without rendering the log, and any
   seat's event written during the ten-minute gate makes the log stale. Cost: one full gate run.
   Cure used: `comms render`, then push again, with the peer asked to hold comms writes.
 - **Expected**: a push does not depend on an untracked, generated file that another seat's
   write can invalidate mid-gate.
-- **Candidate cure**: the check renders the log itself before comparing (the repair is
-  deterministic), or reads the event files and not the rendered log; `comms append` renders.
+- **Candidate cure**: the check writes the rendered log back before comparing (the repair is deterministic), or the file on disk stops being an input; `comms append` renders.
 - **Target surface**: agent-tools CLI (`practice-substrate`, `collaboration-state`).
 - **Status**: open
 - **Owner direction status**: standing
@@ -3546,7 +3536,7 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   process table for "sleep 240" and signalled a sleep in the Director's pulse loop (one early
   tick). The 2026-09-29 kill was read from both sides; its napkin entry was owed to the successor.
 
-### F-224 — the branch-guard smoke's PATH is narrower than the trusted-git allowlist (2026-09-26)
+### F-224 — OCE's branch-guard smoke's PATH is narrower than the trusted-git allowlist (2026-09-26)
 
 - **Source**: a seat's first-hand confirmation on OCE PR 246, round 4 (Swallow holds Drift),
   2026-09-26; accepted as a follow-up when the settlement budget was spent.
@@ -3660,8 +3650,7 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   `merge-bot retire` (`agent-tools/src/merge-bot/retire-*.ts`); the harness classifier and the
   seat's Bash guard.
 - **Observed**: §6 deletes a branch that "landed by squash or is content-superseded" once its
-  content proof is recorded, but `git branch -d` refuses such a branch as not fully merged, and
-  the harness classifier and the seat's hook refuse `git branch -D` and `git update-ref -d`. In
+  content proof is recorded, but `git branch -d` refuses such a branch as not fully merged, and the harness's permission layer refuses `git branch -D` and `git update-ref -d` (OCE's `.claude/settings.json` deny list names both; neither estate's hook policy has such an entry). In
   five instances proven branches were held for the owner's word; one was cleared on 2026-09-28
   at the owner's word ("Delete it by the forced path on this word (Recommended)") by removing
   the loose ref file. JC's `merge-bot retire` deletes only a tip that is an ancestor of the
@@ -3713,7 +3702,7 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Surface**: `.husky/commit-msg` (commitlint), which git runs after `.husky/pre-commit`; the
   commit-queue workflow (`agent-tools/src/commit-queue/commit-workflow.ts`); the seats' records
   ceremony; `pnpm agent-tools:check-commit-message`.
-- **Observed**: the commit-queue workflow has no message stage before `git commit`, so a header
+- **Observed**: the commit-queue workflow runs the message check before `git commit` only as an advisory (`commit-workflow.ts` calls the advisory orchestrator, whose result does not block), so a header
   over length, a subject in the wrong case, or a body line opening with a word and a colon or a
   hash-prefixed PR number (read as a footer) is refused after the full gate. A push then carried
   only another seat's commit (2026-09-26), and a records ceremony ended exit 2 at an unchanged
@@ -3847,7 +3836,7 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 ### F-241 — a machine-local path written into a channel file blocks another seat's commit (2026-09-25)
 
 - **Source**: seats' comms events of 2026-09-25 (OCE, 11:23Z and 15:24Z) and 2026-09-26.
-- **Surface**: tracked ARC channel files; `validate-no-machine-local-paths` in the commit hook;
+- **Surface**: tracked ARC channel files; `validate-no-machine-local-paths` (OCE's pre-commit hook; in JC.net it runs at pre-push through `pnpm check`);
   the comms concept gate's path-scoped `machine-local-path` concept (`comms-concept-gate.ts`,
   both estates).
 - **Observed**: temporary-directory prefixes written into a pairing channel by two seats sat in
@@ -4071,17 +4060,17 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   0f5b343d, condition 7), deferred to a credential-narrowing follow-up; read against both estates
   on 2026-10-01.
 - **Surface**: `agent-tools/src/merge-bot/git-credential-chain.ts` (both estates);
-  `agent-tools/src/core/git-remote-url.ts` (OCE only).
+  `agent-tools/src/core/git-remote-url.ts` (both estates since JC.net pull request 279, 2026-10-01).
 - **Observed**: the push clears `credential.helper` and sets its own with no `github.com` scope,
   so a `pushInsteadOf` can redirect the token; `http.*` config and `GIT_CONFIG_*` reach the push;
-  and in OCE remote URLs with default ports are refused, failing closed (its unit test expects
+  and remote URLs with default ports are refused, failing closed (its unit test expects
   `ssh://git@github.com:22/acme/widgets.git` to read no repository).
 - **Expected**: the token reaches only github.com, and no ambient config steers the push.
 - **Candidate cure**: scope the helper to github.com; pin proxy, TLS verification and extra
   headers on the push argv, since `http.*` and `url.*.pushInsteadOf` also live in config files;
   drop `GIT_CONFIG_*`, `GIT_SSL_NO_VERIFY` and the proxy variables from the push environment;
   compare the host of `git remote get-url --push` with github.com before the token file is
-  staged; accept default ports in OCE. One change in both estates under a security-expert review.
+  staged; accept default ports. One change in both estates under a security-expert review.
 - **Target surface**: agent-tools CLI (`merge-bot`, `core`).
 - **Status**: open; a review finding, no incident. It needs write access to git config or the
   push environment on the host.
@@ -4335,7 +4324,7 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Observed**: the overview prints "Findings: None" and lists items under "Previously missed"
   or in its summary sentence, with no review thread. A wait that counts unresolved threads
   reports a clean round. The door prints "tally body findings (SKILL item 2) before reading
-  this round as zero-finding" and does not read the body itself.
+  this round as zero-finding" and OCE's door does not read the body itself; JC.net's reads the tip-bound body for its headline verdict and suppressed count and holds on those (`suppressed-hold.ts`), and reads no "Previously missed" item.
 - **Expected**: a round's body items are counted with its threads.
 - **Candidate cure**: `pr-watch` reads the tip-bound review body for "Previously missed" and
   file-and-line items and reports their count beside the thread count; the door refuses a
@@ -4391,8 +4380,7 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   "nothing about that test information was new, it is ALL written down in directives, in rules,
   in the test expert, so WHY were bad, wasteful tests written?"; and, of a test that pinned a
   setting, "And we never test for configuration."
-- **Surface**: `invoke-code-experts`, `invoke-test-expert`, `testing-strategy` and
-  `test-immediate-fails` (both estates); the ready-for-review step of `pr-lifecycle`; the commit
+- **Surface**: `invoke-code-experts`, `testing-strategy` and `test-immediate-fails` (both estates) and JC.net's `invoke-test-expert` (OCE has no such rule); the ready-for-review step of `pr-lifecycle`; the commit
   path.
 - **Observed**: every rule the tests broke was loaded. Tests of configuration and of call
   sequences were written and committed with no reviewer run, three times in two days in one
@@ -4459,11 +4447,9 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 
 ### F-280 — OCE's agent-tools smoke suites spawn processes and worktrees on every pre-push (2026-10-01)
 
-- **Source**: the owner's word of 2026-10-01 on the agent-tools smoke suites (40 in OCE, 53 in
-  JC.net), recorded in OCE's continuity record: "is not acceptable, make a note that we need to
+- **Source**: the owner's word of 2026-10-01 on the agent-tools smoke suites (the runner runs 31 `*.smoke.ts` files in OCE and 39 in JC.net, read 2026-10-01; the record gave 40 and 53, the directories' file counts), recorded in OCE's continuity record: "is not acceptable, make a note that we need to
   move those into real tests with no IO and with DI".
-- **Surface**: `agent-tools/smoke-tests/` and the pre-push hook (OCE). JC.net's half is step 3
-  of its no-IO test boundary plan.
+- **Surface**: `agent-tools/smoke-tests/` and the pre-push hook (OCE). JC.net's no-IO test boundary plan does not yet name the conversion: its step 3 takes `smoke-tests/` out of the rule's scope by location.
 - **Observed**: each push runs the suites, which create worktrees and child processes; OCE has
   no plan node that owns their conversion.
 - **Expected**: each smoke is a no-IO test over injected fakes, or moves to validation.
