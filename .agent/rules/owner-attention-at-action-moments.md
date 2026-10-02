@@ -169,7 +169,7 @@ corrected option, then let the owner re-decide.
   `agent-state-observable.md`).
 
 An answer the owner gave on a premise that changed within minutes is asked again with the new
-premise. It is neither overridden nor obeyed blind (a lesson from a handoff record).
+premise. It is neither overridden nor obeyed blind.
 
 ## Why this rule exists
 

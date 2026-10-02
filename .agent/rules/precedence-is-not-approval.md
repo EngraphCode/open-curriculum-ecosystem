@@ -81,7 +81,7 @@ execution past them, never flat refusal.
 
 A question is not a grant either. An owner's questions about the value or the risk of
 publishing something are not permission to publish it: publishing local evidence needs the
-owner's explicit approval (a decision from a handoff record).
+owner's explicit approval.
 
 ## The Cure
 

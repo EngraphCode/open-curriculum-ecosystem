@@ -60,7 +60,7 @@ sharpens; **and the moment of declaring "done".**
 stale or wrong state, and nothing relevant to the goal is left unwalked.*
 
 Under an instruction to fix, or to fix the nits, a value the owner typed is out of scope unless
-an agreed line puts it in: a licence, a name, a description. Leave it and say what was noticed
+the owner's explicit word puts it in: a licence, a name, a description. Leave it and say what was noticed
 (owner ruling, 2026-09-29, after a licence field the owner had set was changed to agree with
 another file). The check is a diff of the file against the owner's version, never against the
 seat's intent: the intent always agrees with itself.
