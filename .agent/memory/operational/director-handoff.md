@@ -355,7 +355,16 @@ and the two watchers only. Addendum, 20:5xZ: Hazel tracks Trunk stopped at the u
 pull request 302 open at `SHA:25a385cc` (slice 2x, six files, Copilot requested, no watch on it), slices 2y
 and 2z drafted in her lane worktrees and the rotation's records commit not made; her offer to run 340's
 fold with her scripts lapsed with her turn. All three seats stood down within three minutes; every
-pull request open at the stop (302 here-and-there, 340 at its door) waits for a seated agent or the owner's hand.
+pull request open at the stop (302 here-and-there, 340 at its door) waits for a seated agent or the owner's hand. Addendum, 21:0xZ: the ledger's first pass is complete in six
+files under that measure directory (`ledger-read-{directives-hooks-core,rules,skills,reviewers-and-rest,
+one-sided,clean-merges}.md`): the 72 clean merges read 29 landing merged, 37 host-bound inside, 6
+contradictions with joint cures named (PDR-075, PDR-089, capability-landing-decision-procedure,
+use-result-pattern, free-play, retrospective); the 105 one-sided files read 45 capability-gap files in 13
+carries (5 JC.net to OCE, 8 OCE to JC.net), 26 host-local, 21 host binding, 13 same meaning. About 23
+carries before deduplication across the six reads, above the node's twenty, so the assembled ledger
+reopens the node with the owner, with the count and the closures, unless deduplication brings it under.
+Next: fold 340 then 300 (an implementer-class task), assemble the ledger as one document with a closer
+script and open it per estate, the owner reading the rows.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
