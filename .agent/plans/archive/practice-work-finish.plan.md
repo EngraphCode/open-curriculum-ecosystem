@@ -6,7 +6,8 @@ overview: >-
   Bring the Practice work in both repositories to a measurable end: the
   knowledge safe, nothing outside a default branch, the extraction's input
   written, the test census counted, and the product work in OCE begun.
-status: sketch
+status: superseded
+superseded_by: practice-parity-for-extraction
 ratified_by: null
 ratified_date: null
 ratified_where: null
