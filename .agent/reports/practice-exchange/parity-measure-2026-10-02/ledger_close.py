@@ -98,7 +98,11 @@ b_reading = Counter(r[1] for r in b)
 # (c) the one-sided files
 c = [r for r in table_rows(secs["c"]) if len(r) == 5 and r[2] in READINGS]
 c_reading = Counter(r[2] for r in c)
-c_side = Counter("JC.net" if r[1].startswith("JC.net") else "OCE" for r in c)
+SIDES = {"JC.net": "JC.net", "JC.net (at the report)": "JC.net", "OCE": "OCE"}
+unknown_sides = sorted({r[1] for r in c} - set(SIDES))
+if unknown_sides:
+    raise SystemExit(f"one-sided rows with a side outside the label set: {unknown_sides}")
+c_side = Counter(SIDES[r[1]] for r in c)
 
 # (d) the carries
 d = [r for r in table_rows(secs["d"]) if len(r) == 7 and re.fullmatch(r"C\d+", r[0])]
