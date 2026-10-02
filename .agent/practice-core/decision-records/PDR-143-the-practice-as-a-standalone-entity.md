@@ -63,20 +63,8 @@ and conjugation (two live seats repairing each other's drift).
 
 ### What two instances showed
 
-Two Practice-bearing repositories under one owner, on one language and one package manager, were
-measured on their coordination branches of 2026-10-02 (a whitespace-insensitive file-level
-comparison of each surface): of the rules, 82 of 134 files differ and 33 exist in one estate only;
-of the skills, 35 differ and 32 are in one only; of the reviewer templates, 21 of 27 differ and 11
-are in one only; both hook files differ; of the directives, 12 of 17 differ and 6 are in one only;
-of the decision records, 15 of 144 differ; of the agent tooling's source, 499 of 1,027 files
-differ and 324 entries (files or whole directories) are in one only. At the close of the dedicated
-consolidation of 2026-09-30, 147 of 388 shared paths differed by 7,204 lines (the cross-estate
-divergence rule's worked instance). One subsystem ported deliberately, the arc-metrics tool,
-differs between the estates in three lines after its landings of 2026-10-01: an estate's name, a
-retrospective's attribution and one citation (one instance, an observation). Convergence is
-bought by hand, one twin lane at a time: one change, two pull requests, two reviews, the second
-estate owing the first's settlement cures after each landing, and drift whenever a port misses
-what the other estate decided (two instances on 2026-10-01, in the cross-estate divergence rule).
+The two instances were measured on 2026-10-02; the counts are in each estate's Practice inventory
+report of that date, which the delivery node `practice-parity-for-extraction` names.
 
 Code travelled between the estates in those lanes as copied bytes under the Director's ruling on
 shared changes (three changes carried by seven pull requests, one seat, one day; an observation,
@@ -165,14 +153,6 @@ and how a distilled claim reaches the entity, and nothing else about the loop.
   two installed Practices, or one owner ruling, changes the entity; one installation's extension
   stays an observation (one instance is an observation). The entity changes only from distilled
   claims and owner rulings; it has no life of its own.
-- **The bump is the consolidation moment.** Taking a new revision of the entity into a repository
-  triggers a consolidation whose corpus is that installation's distilled claims and extensions
-  since its last pin, and the Practice Box's integration flow runs at the entity over what each
-  installation sends.
-- **The fold's latency bounds the learning rate.** Today a lesson becomes canonical in one pull
-  request in the same repository. The extraction keeps that: the seat that distils a Practice-wide
-  claim opens the entity's change and the repository's bump together, and a repository pins a
-  revision, not a release, so no ceremony sits on the critical path.
 - **No silent fork.** The installed Practice is a committed render of the pinned revision beside
   the repo-local content, and a check fails when the render drifts from the pin. The edit that
   used to be learning in place fails loudly and routes to the entity, which is the discipline
@@ -185,11 +165,9 @@ and how a distilled claim reaches the entity, and nothing else about the loop.
 
 Entry points, the pin, the repo-local authored content and the instances are authored in the
 repository; the canonical content and the platform adapters are rendered from the pinned revision,
-committed, and checked against the pin at every gate, the pattern the platform adapters already
-follow. The render is committed because readers of the tree as it is exist: the review bot that
-reads a repository's doctrine during a review runs no install step, and a cold clone is read
-before one. A committed render costs a diff in every repository at every revision of the entity;
-the check is what keeps that diff a render and never an edit.
+committed, and checked against the pin. The render is committed because readers of the tree as it
+is exist: the review bot that reads a repository's doctrine during a review runs no install step,
+and a cold clone is read before one.
 
 ### 5. What this record does not decide
 
@@ -231,7 +209,8 @@ entity within one lane's time.
 Falsifiers, each reopening the clause it names with the owner:
 
 - An extension awaits promotion for longer than a coordination branch's lifetime (24 hours) while a
-  second installation has grown the same shape: the fold's latency has become the bound (§3).
+  second installation has grown the same shape: the fold's latency has become the bound (§3's
+  promotion rule; the fold-latency mechanics it tests are held in the parity node's §Inputs).
 - A repo-local need that is neither configuration nor an additive extension, one that requires the
   canonical to mean different things per host: the content is not Practice at all, or the entity
   is missing a parameter (§1, §2).
@@ -257,4 +236,23 @@ bytes in both estates.
 
 ## Amendment Log
 
-None.
+### 2026-10-02 — trimmed under PDR-019's amendment of the same date
+
+**Context.** PDR-019, amended 2026-10-02 on the owner's word, holds that a decision record carries
+the decision, its context and its consequences, and that a plan node carries sequence, size and
+proof. Read under it, three passages of this record were planning: in §Context "What two instances
+showed", the paragraph of measured counts (a load-bearing number in a record is a moving target);
+in §3, the bullets "The bump is the consolidation moment" and "The fold's latency bounds the
+learning rate"; in §4, the gate placement ("at every gate, the pattern the platform adapters
+already follow") and the per-revision cost ("A committed render costs a diff in every repository
+at every revision of the entity; the check is what keeps that diff a render and never an edit").
+
+**Decision.** The three passages leave this record and are held verbatim in the delivery node
+`practice-parity-for-extraction`, §Inputs, until the extraction's design node takes them; the
+counts become one dated line pointing at the inventory report. The record's status and its
+decision are unchanged: the direction, the scopes, the membership tests, §3's constraints and its
+installed-in-itself decision, §4's committed and checked render, and §5 stand as written.
+
+**Falsifier.** A reader applying §3 or §4 needs one of the moved passages to know what is decided,
+or the design node is authored without them: then the trim cut a decision, not planning, and the
+passage returns here with this log saying so.

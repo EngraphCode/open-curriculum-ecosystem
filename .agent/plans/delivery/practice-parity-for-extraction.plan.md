@@ -151,7 +151,56 @@ directories hold definitions beside instances (`memory`, `collaboration`, `state
 `reports`), recorded in the notebook on 2026-10-02 and read by the survey's per-file rule,
 whose cure (a directory contract standing on PDR-105 axis 1 and PDR-007, and the moves) is the
 design's first decision; the owner's word of 2026-09-28 that the review splits core skills
-from extension packs per domain; and PDR-143's moved mechanics and materialisation.
+from extension packs per domain; and PDR-143's moved mechanics and materialisation, held verbatim
+below.
+
+### PDR-143's moved passages, held verbatim (2026-10-02)
+
+Trimmed from PDR-143 under PDR-019's amendment of 2026-10-02 (PDR-143 Amendment Log, the entry of
+that date). Each is held here as the record carried it, until the extraction's design node takes
+it. The counts are also in each estate's Practice inventory report of 2026-10-02, beside its
+generator in that estate's Practice reports directory.
+
+From §Context, "What two instances showed", the paragraph of measured counts:
+
+> Two Practice-bearing repositories under one owner, on one language and one package manager, were
+> measured on their coordination branches of 2026-10-02 (a whitespace-insensitive file-level
+> comparison of each surface): of the rules, 82 of 134 files differ and 33 exist in one estate only;
+> of the skills, 35 differ and 32 are in one only; of the reviewer templates, 21 of 27 differ and 11
+> are in one only; both hook files differ; of the directives, 12 of 17 differ and 6 are in one only;
+> of the decision records, 15 of 144 differ; of the agent tooling's source, 499 of 1,027 files
+> differ and 324 entries (files or whole directories) are in one only. At the close of the dedicated
+> consolidation of 2026-09-30, 147 of 388 shared paths differed by 7,204 lines (the cross-estate
+> divergence rule's worked instance). One subsystem ported deliberately, the arc-metrics tool,
+> differs between the estates in three lines after its landings of 2026-10-01: an estate's name, a
+> retrospective's attribution and one citation (one instance, an observation). Convergence is
+> bought by hand, one twin lane at a time: one change, two pull requests, two reviews, the second
+> estate owing the first's settlement cures after each landing, and drift whenever a port misses
+> what the other estate decided (two instances on 2026-10-01, in the cross-estate divergence rule).
+
+From §3, two bullets:
+
+> - **The bump is the consolidation moment.** Taking a new revision of the entity into a repository
+>   triggers a consolidation whose corpus is that installation's distilled claims and extensions
+>   since its last pin, and the Practice Box's integration flow runs at the entity over what each
+>   installation sends.
+> - **The fold's latency bounds the learning rate.** Today a lesson becomes canonical in one pull
+>   request in the same repository. The extraction keeps that: the seat that distils a Practice-wide
+>   claim opens the entity's change and the repository's bump together, and a repository pins a
+>   revision, not a release, so no ceremony sits on the critical path.
+
+From §4, its first sentence as it was (the words after "checked against the pin" are the ones
+removed):
+
+> Entry points, the pin, the repo-local authored content and the instances are authored in the
+> repository; the canonical content and the platform adapters are rendered from the pinned revision,
+> committed, and checked against the pin at every gate, the pattern the platform adapters already
+> follow.
+
+And its last sentence:
+
+> A committed render costs a diff in every repository at every revision of the entity; the check is
+> what keeps that diff a render and never an edit.
 
 ## Size and order
 

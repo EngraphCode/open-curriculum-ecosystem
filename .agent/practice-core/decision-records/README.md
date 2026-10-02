@@ -88,6 +88,10 @@ Each PDR follows a stable shape inherited from the ADR convention:
 - **Notes** (optional) — self-reference, migration implications,
   follow-ups.
 
+A record carries a decision with its context and consequences;
+sequence, size and proof are a plan's
+([PDR-019](PDR-019-adr-scope-by-reusability.md), amended 2026-10-02).
+
 ## Portability Constraint
 
 PDRs are portable content. They MUST NOT depend on host-repo
@@ -149,7 +153,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-016](PDR-016-claim-propagation-and-reference-quality.md) | Claim Propagation and Reference Quality | Accepted |
 | [PDR-017](PDR-017-workaround-hygiene-and-fix-discipline.md) | Workaround Hygiene and Fix-at-Source Discipline | Accepted |
 | [PDR-018](PDR-018-planning-discipline.md) | Planning Discipline — End Goals and Workflow Contracts | Accepted |
-| [PDR-019](PDR-019-adr-scope-by-reusability.md) | ADR Scope by Reusability, Not Diff Size | Accepted (amended 2026-04-21) |
+| [PDR-019](PDR-019-adr-scope-by-reusability.md) | ADR Scope by Reusability, Not Diff Size | Accepted (amended 2026-04-21, 2026-10-02) |
 | [PDR-020](PDR-020-check-driven-development.md) | Check-Driven Development — Gates as Assertions | Accepted |
 | [PDR-021](PDR-021-test-validity-discipline.md) | Test Validity Discipline — Circular Justification and Claim-Assertion Parity | Accepted |
 | [PDR-022](PDR-022-governance-enforcement-scanners.md) | Governance Enforcement Requires a Scanner | Accepted |

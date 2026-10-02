@@ -3,7 +3,8 @@ id: practice-two-way-exchange
 node_type: delivery
 name: "The two-way Practice exchange with the second estate"
 overview: "Each text the owner ratifies in the exchange opened with the second estate on 2026-09-21 lands in this estate as the second estate's bytes where they carry the concept, or in this estate's words with the context difference named; the node closes when every text offered in that exchange is dispositioned."
-status: sketch
+status: superseded
+superseded_by: practice-parity-for-extraction
 serves: best-of-each-practice
 impact_areas:
   - practice-and-estate
@@ -13,6 +14,14 @@ last_updated: 2026-10-02
 ---
 
 # The two-way Practice exchange with the second estate
+
+Superseded on 2026-10-02 by the delivery node `practice-parity-for-extraction`, after the
+exchange register (the second estate's) closed 79 of 79 against the Practice inventory of that
+date. The owner's rulings recorded below stand as the historical record; the five rulings of the
+second estate's node that still govern and had no record home (its 9, 11, 12, 36 and 45) are
+carried by PDR-142's Amendment Log entries of 2026-10-02. The second estate's castr criterion is
+dead as written, castr having moved into this estate by that node's ruling 13; this node carried
+no castr criterion.
 
 ## Goal
 
