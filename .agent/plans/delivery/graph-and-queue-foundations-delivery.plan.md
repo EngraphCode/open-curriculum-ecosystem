@@ -184,9 +184,14 @@ instruments declared in a working-notes comment at open: the round tally, and th
 PDR-140 intake contract where the changeset carries prose. Each body names the
 stage row, the bar items its evidence satisfies, and the proof below. Every pull
 request takes `origin/engraph` by merge, never rebase, before it opens (the owner's
-ruling of 2026-10-02). The first pull request opens at this node's ratification
-word and no earlier (the plan skill's born-sketch rule); the seat's other bounded
-work runs meanwhile, so nothing waits on that word.
+ruling of 2026-10-02). The word this delivery works under is the programme's: the
+strategic node `reliable-atoms-programme` is ratified (2026-09-08) and names this
+target by name, with delivery nodes "authored by their implementers at pickup"; the
+delivery stamp on this node is the owner's to add whenever they read it, and it
+gates nothing (the Director's reading of 2026-10-02 under the owner's ruling that
+nothing is blocked on the owner, reported to the owner with this node). Todo 1
+opens as this repository's next pull request after the consolidation slices merge,
+or sooner if the owner says the product goes first.
 
 1. **Bind the workspace and prove the first law** (stage 0a, and the minimum
    executable proof of 0b). A new workspace under `packages/core/` (ADR-041's tier
@@ -273,14 +278,16 @@ work runs meanwhile, so nothing waits on that word.
     instrument; the substitution passes the todo 9 model suite; every Size row
     carries its merge SHA; the lane stops before stable-queue policy work.
 
-## Later scope disposition
+## Out of scope, with homes
 
-The earlier [graph delivery record](../../../docs/architecture/foundations/graph-library-review-and-delivery-2026-09-08.md)
-retains W01–W09 as graph-programme design, not prerequisites for this first build.
-W01's independent core laws are selected only when required by the current closure;
-its graph contracts and W02–W09 remain later comprehensive graph work. The
+The [graph delivery record](../../../docs/architecture/foundations/graph-library-review-and-delivery-2026-09-08.md)
+is the home of W01–W09 as graph-programme design, not prerequisites for this first
+build. W01's independent core laws are selected only when required by the current
+closure; its graph contracts and W02–W09 are the graph programme's own work, homed
+there. The
 [stable priority queue](../../../docs/architecture/foundations/oce-queue-reliable-atom-2026-09-08.md)
-is a later composed capability adding captured priority and stable-tie policy.
+is the home of the composed capability adding captured priority and stable-tie
+policy.
 
 API adoption is a separate operation-specific dependency graph. It can use suitable
 native providers and selected completed contracts without waiting for unrelated heap,
