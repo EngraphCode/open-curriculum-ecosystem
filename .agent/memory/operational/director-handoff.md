@@ -392,6 +392,15 @@ starts before that word. Two lessons of this seat tonight: a trailing grep in a 
 failed stage step and a false landing line followed (`exit-codes-in-band-never-piped`); a commit on a
 shared primary without a pathspec swept a peer's staged file into the Director's commit (commit by
 pathspec on a shared primary, always).
+§BOARD, 23:3xZ: JC.net's fold of 300 done (`SHA:24fc052e9`, successor `coordination/2026-10-02-24fc05`, draft
+305, the Director's records with the node's re-sized estimate on it at `SHA:c2a593b3`); the ledger is open
+in both estates at the same bytes (306 there, #344 here), each at full condition and held for the owner's
+row reading, both settlement pushes spent. In flight: JC.net's step 2 carry (the host-tagged amendment
+entries to a host record with the Core validator; Hazel tracks Trunk, about fifty minutes), OCE's #345 (the
+twins of 302 to 304 as three twin commits, proved line by line by the Director), then the carry's OCE copy.
+A reading of the owner's limit recorded for the seats: a pull request held at its door for the owner is a
+review surface, not work in progress, so one in-progress pull request beside it is the shape. Nothing of
+the ledger's queue starts before the owner's word on O10.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
