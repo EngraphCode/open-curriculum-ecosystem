@@ -1,7 +1,6 @@
 import { delay } from '../core/delay.js';
 
-import type { BranchArgSeams } from './branch-arg.js';
-import type { GitExecutor } from './git-executor.js';
+import type { GitActionInput } from './git-action-input.js';
 import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
 import { guardedAttempt, type AttemptGuards } from './push-attempt-guards.js';
 import {
@@ -21,15 +20,11 @@ import {
   type PushGitReads,
   type TokenFileStore,
 } from './push-git.js';
-import { mintPushToken, type PushMint } from './push-mint.js';
+import { mintPushToken } from './push-mint.js';
 import { writePushed, writeRefusal } from './push-report.js';
 import { settleCommitFor, settleTargetBranch } from './push-target-branch.js';
 import { RefFormatOracleUnavailableError } from './ref-format.js';
-import {
-  resolveBotIdentity,
-  type BotIdentity,
-  type MergeBotResolveInput,
-} from './resolve-identity.js';
+import { resolveBotIdentity, type BotIdentity } from './resolve-identity.js';
 
 /**
  * The `merge-bot push` action: the bot-identity push at the front door (argv
@@ -47,36 +42,16 @@ import {
  * pass-through: a bypass would be built value, and this one is never built.
  */
 
-/** The action's composition surface; cli.ts forwards its injection seams and composes the mint. */
-export interface PushActionInput {
-  readonly identityInput: MergeBotResolveInput;
-  /** The invoking repository's root — the cwd every git call runs in. */
-  readonly repoRoot: string;
-  readonly stdout: Pick<NodeJS.WriteStream, 'write'>;
-  readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
-  /** The mint the push's one token comes from (`push-mint.ts`). */
-  readonly mint: PushMint;
+/** The action's composition surface: the seams every git action shares (`git-action-input.ts`), and the push's own. */
+export interface PushActionInput extends GitActionInput {
   /** The wait before a refused push is tried again. */
   readonly sleepImpl?: (ms: number) => Promise<void>;
   /** The wall clock each attempt is checked against (`push-attempt-guards.ts`). */
   readonly nowIsoImpl?: () => string;
-  /** Git seams: the executor, and the binary path (defaults to the trusted absolute path). */
-  readonly gitExecutor?: GitExecutor;
-  readonly gitPath?: string;
-  /**
-   * Base environment for the git child. Defaults to `process.env` at the leaf
-   * (the default-seam pattern `merge.ts`'s `readEnv` records): Node
-   * REPLACES a provided child env rather than merging it, so injecting the
-   * token-file path forces constructing the whole environment, and git needs
-   * PATH and friends underneath.
-   */
-  readonly baseEnv?: Readonly<Record<string, string | undefined>>;
   /** The token file's lifecycle (mkdtemp/write/remove); tests inject a recording fake. */
   readonly tokenFiles?: TokenFileStore;
   /** git's answers about HEAD and origin; defaults to the git binary's. */
   readonly gitReads?: PushGitReads;
-  /** The `--branch` check's seams (`branch-arg.ts`); its oracle defaults to asking the git binary. */
-  readonly branchArgSeams?: BranchArgSeams;
 }
 
 /** Everything settled before a token is minted: identity, git, the target branch, the commit and the child env. */
