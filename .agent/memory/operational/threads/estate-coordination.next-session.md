@@ -2288,3 +2288,19 @@ implementer's session is the owner interface. Four Crickets at the owner's word 
 with the same NARROWED frame (an unmapped owner clause; two constraints applied but not stated) and
 refuted the Director's hold on the fold: the lock rule forbids deleting or looping on the lock,
 nothing more.
+
+### 2026-10-02 15:1xZ — the Director re-seated at the owner's word: the team's goals and definition of done (Crucible binds Slag, 7b999c)
+
+The owner, 15:0xZ, verbatim: "for the team, and for each agent, including yourself, define what the
+goals are, we need a definition of done, so that we know when the work is finished. We need to get
+the Practice work complete so we can plan the extraction, and we need to get into a position where
+development work on OCE makes sense." The definition is the §STATE block of 15:1xZ in
+`director-handoff.md` §CURRENT HANDOFF STATE: two goals, each a counted finish with a proof and a
+receiver per line; each seat's goal and definition of done; the owner's cards. Claims 302e8307 here
+and 726da755 in JC.net; the seat's processes re-armed for that finish and stopped at it. Routed at
+the re-seating: #333's ceremony to Efreet lifts Scorch on the gate released at CLEAN (the three
+cure commits read first-hand, no objection); 291 merged by Hazel tracks Trunk at 15:06Z as
+`54a219d50`; JC.net's slices in the order s, y, x, u, z; the fold of 286 with Hazel at the lock's
+clearing; the three OCE owner cards raised by the Director. The wrap's two records commits
+(10e3a2df4, 1ddc1c4f3) reached the remote at 14:5xZ by a push that ran after the compaction; the
+push window of 14:47Z is closed by its push-done line.

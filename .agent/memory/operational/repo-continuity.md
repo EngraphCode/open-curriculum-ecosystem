@@ -37,6 +37,23 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T15:1xZ: the Director seat is re-taken at the owner's word; the team's goals and
+  definition of done are recorded** (Crucible binds Slag, 7b999c). The owner's word, verbatim: "for
+  the team, and for each agent, including yourself, define what the goals are, we need a definition
+  of done, so that we know when the work is finished. We need to get the Practice work complete so we
+  can plan the extraction, and we need to get into a position where development work on OCE makes
+  sense." Goal 1, the Practice work complete so the extraction can be planned: seven counted lines in
+  `director-handoff.md` §STATE 15:1xZ (nothing of the Practice outside a default branch; the
+  consolidation's finish list empty with the counts at 0; the exchange at N of N by the computed
+  delta; capability parity inventoried and landed or decided; the residual divergence classified;
+  the agent-tools test census sized; PDR-143 before the owner). Goal 2, a position where development
+  work here makes sense: this estate's fix slot drained of Practice pull requests and #332 folded;
+  the first product lane named (the Director's verdict: the programme's first target under the
+  adoption profile; the owner confirms or redirects); the owner's gating decisions carded once; the
+  gates bounded; the Capability Foundations pull request as intake on arrival. Each seat's
+  definition of done and the owner's cards are in the same block. 291 merged in JC.net at 15:06Z;
+  #333's ceremony runs on Efreet lifts Scorch's verdict at CLEAN.
+
 - **2026-10-02T14:4xZ: the Director seat stopped at the owner's compaction-and-stop word; the
   retire port is open as #333 and read; the fold of JC.net's 286 is held by a stale lock there**
   (Crucible binds Slag, 7b999c). The owner's word, verbatim: "you are working on a bounded task, not
@@ -413,6 +430,16 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+STATE, 2026-10-02T15:1xZ (Crucible binds Slag, 7b999c, the Director seat re-taken): the order of
+11:1xZ below stands inside the finish defined in `director-handoff.md` §STATE 15:1xZ. Here, one pull
+request at a time in the fix slot: #333 (Efreet lifts Scorch, the ceremony running), then nb, r, v,
+w, u, q, s (u takes `origin/engraph` by merge, never rebase; r, q, s take their second-commit
+scripts first), then y after JC.net's copy settles, then the J2 port as one pull request that runs
+here or its removal by the owner's decision; #332 folds at the rollover. Then the first product lane
+(Goal 2 item 2 of the block). The security, test-shape and GitHub-port seam lanes and the no-IO
+census are routed by the Director as slots free; none opens while a pull request of its seat is
+pending.
 
 STATE, 2026-10-02T11:1xZ (Crucible binds Slag, 7b999c, the Director seat): the pickup block below
 stands, with these changes. PDR-143 records the extraction's direction (§Current State); until the
