@@ -79,12 +79,14 @@ work this content describes?". Two dispositions:
    finished history moves whole to a dated archive beside the surface
    (`archive/<surface>-YYYY-MM-DD.md`; a second archive of one surface on one
    day takes a letter suffix, `-YYYY-MM-DDb.md`, and an existing archive is
-   never overwritten), proven byte-identical to the moved
+   never overwritten), its body proven byte-identical to the moved
    range against the committed blob, as the napkin rotation proves its
-   archive (where the finished ranges are not contiguous, each range moves
-   whole in file order and is proven the same way, and the archive's first line
-   names the commit that holds the whole pre-curation file; no snapshot of the
-   whole file is written, because that commit already preserves it); and the
+   archive (the body is everything after the archive's own frontmatter, where
+   it carries one; where the finished ranges are not contiguous, each range
+   moves whole in file order with nothing between them, and the body is
+   compared with the same ranges cut from the pre-move blob and joined in that
+   order; no snapshot of the whole file is written, because the move commit's
+   parent already holds it); and the
    live surface
    keeps only the live state and a one-line pointer to the archive (the path
    written inline as code: the link validator's target set excludes archive
@@ -149,9 +151,10 @@ embedded here in the doctrine it enacts; indexed in
    absent (2026-09-21, one fact hand-restated across five surfaces and
    drifting).
 3. **Verify losslessness mechanically** (after the rewrite, before committing): the
-   archive file's blob equals the moved range's bytes (for ranges that are not
-   contiguous, each range against its bytes in the blob of the commit the archive
-   names); every live-pointer token from
+   archive's body (everything after its own frontmatter, where it carries one)
+   equals the moved range's bytes in the pre-move blob, the surface at the move
+   commit's parent (for ranges that are not contiguous, the same ranges cut from
+   that blob and joined in file order); every live-pointer token from
    the pre-curation file still appears in the live surface (`grep -F` each); every
    curated passage's statement about a neighbour is re-read against the neighbour (a
    passage saying an "UNCOMMITTED" block had since been committed was the only place
