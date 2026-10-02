@@ -132,6 +132,7 @@ per landing in JC.net and 15 in OCE, review rounds included.
 | 3 | the generator run, the classification pass, the register close | about four hours, one seat, one pull request per repository | JC.net's seat after 1 |
 | 4 | the census in both repositories | about one hour per repository, one records commit each | with 3 |
 | 5 | the product node; its first pull request | about one hour; then per the node | OCE's seat between doors, then the slot |
+| 1 and 2 | the first-batch skills residue found by the omnibus branch's content proof: six skill and tooling files in OCE, two in JC.net (the other four already carry their lessons on main in later words), two records passages, one directive passage | one pull request per repository (six files in OCE, two in JC.net), one records commit, one directive edit per repository under the context floor | after 1's slices, before the inventory |
 
 Finish: every row done within one day of authoring; the Director reports the counts at each
 cadence and stops the seat when all five hold.
