@@ -319,3 +319,107 @@ useful that one has must make it to the other." The sentence this record carries
 direction: when one estate holds a useful capability the other lacks, the question is how and in
 what order it travels, never whether; the exchange register opens the row and the lane. The same day
 the owner set the next session's shape to capability parity, both ways.
+
+### 2026-10-02 — the goal's three moves, confirmed by card (ruling 9 of the exchange node)
+
+**Context.** The exchange's delivery node in the second estate, `practice-two-way-exchange`,
+closed 79 of 79 against the Practice inventory on 2026-10-02 and was superseded by the delivery
+node `practice-parity-for-extraction`. Five of its owner rulings still govern and had no record
+home; under PDR-019 as amended that day a plan carries sequence, size and proof and a record
+carries decisions, so each takes an entry here, quoting the owner's words whole as the node
+records them. Ruling 9, the owner's opening words of 2026-09-21 at 06:20Z, heard first-hand in
+chat by the exchange seat Brazier spins Temper (c70341), who recorded them: "We need to bring
+each Practice instance up to the highest standards and best capabilities of each", and of the
+third estate, "some of which needs replacing, and some bad ideas need removing". By card in the
+same session the owner confirmed the reading the node records: each estate gets what the other
+holds, every estate takes the higher of two, and the bad is removed everywhere, the owner's own
+rulings only by the owner's word.
+
+**Decision.** The three moves of §The owner's sentence are the owner's confirmed reading, not a
+seat's: each estate gets what the other holds; where two encodings of one thing compete, every
+estate takes the higher; what is bad is removed in every estate that carries it; and what rests
+on the owner's word is removed only by the owner's word.
+
+**Falsifier.** An estate keeps an element the other holds with no recorded decline, or a text
+resting on the owner's word is removed on a seat's judgement. One such instance reopens this
+entry with the owner, and this log says so.
+
+### 2026-10-02 — a ruling about the Practice reaches every estate (ruling 11 of the exchange node)
+
+**Context.** Later on 2026-09-21, in chat and by card in the same session, the owner answered the
+question of how far a ruling about the Practice given in one estate reaches; heard first-hand and
+recorded by the exchange seat Brazier spins Temper (c70341), verbatim: "Everywhere for now, and
+later we will explore some kind of centralisation of the Practice, the distributed model creates
+too much overhead". §How we judge carries the first two words; this entry carries the sentence
+whole, with the direction it foresaw.
+
+**Decision.** A ruling about the Practice, given in any estate, reaches every estate; the seat
+that receives it records it verbatim with its context and tells the other seats, and each lands
+it under its own gates (§How each kind travels). The centralisation the owner foresaw is the
+direction PDR-143 records; until the entity exists, this clause is how a ruling travels.
+
+**Falsifier.** A ruling about the Practice given in one estate that the other does not carry at
+its next fold, with no decline recorded against it. One such instance reopens this entry with the
+owner, and this log says so.
+
+### 2026-10-02 — full alignment first; nothing waits on the extraction (ruling 12 of the exchange node)
+
+**Context.** On 2026-09-21, in chat and by card in the same session, the owner set the sequence
+between the alignment and the extraction; heard first-hand and recorded by the exchange seat
+Brazier spins Temper (c70341), verbatim: "Full alignment first, we are defining excellent, this is
+absolutely the right choice, nothing is delayed or avoided because of the future extraction". On
+the rulings that were expensive in the second estate (the absolute no-IO test invariant and the
+commit as the full local gate among six), asked again because an earlier click had collided with
+those words, the owner answered: "All six here now". §The owner's sentence quotes part of the
+first sentence; this entry carries both whole.
+
+**Decision.** The alignment of the instances precedes the extraction, and no lane is sized,
+deferred or declined against the extraction; the six rulings the second estate found expensive
+land there now, not after the entity exists. A seat that finds a landing expensive raises the cost
+with the owner; it does not wait for the package.
+
+**Falsifier.** A lane deferred or cut on the ground that the entity will make it moot, with no
+owner word on that lane. One such instance reopens this entry with the owner, and this log says
+so.
+
+### 2026-10-02 — records stay local; the lessons learned from them travel (ruling 36 of the exchange node)
+
+**Context.** On 2026-09-24 the owner spoke in chat to the exchange seat Brazier spins Temper
+(c70341), who recorded the words, verbatim: "the memories and records of this repo are local to
+this repo, but the lessons learned from them are not". §How each kind travels says memories,
+state and records never travel and are cited as instances; it did not say what travels in their
+place.
+
+**Decision.** The lessons an estate learns from its own memories and records travel as
+self-contained lessons, carried with their instance counts and cited back to the records that
+stay where they were made; a lesson is offered like any other text, and a record is never
+copied to carry one.
+
+**Falsifier.** A lesson distilled in one estate that reaches the other only by copying the
+record that holds it, or a record copied across estates to carry a lesson. One such instance
+reopens this entry with the owner, and this log says so.
+
+### 2026-10-02 — core skills and extension skills per domain (ruling 45 of the exchange node)
+
+**Context.** On 2026-09-28 at about 20:5xZ the owner answered, through the question tool, the
+Director seat of the second estate (Wick binds Temper, ed7b48), on a review finding that a domain
+skill family (design) carried one host's context; the node's Review dispositions row of that date
+records the words whole, in two parts: "Leave it until the review, the fundamental design skills
+need extracting from the context specific design skills. Ultimately the Practice serves any
+Practice repo"; then "perhaps some skills belong in the Practice, and some belong as Practice
+extension skills, plug in innovation building blocks with skills that cover certain domains, such
+as UI design, API design, etc". Ruling 45 restates them from a seat's per-user memory at the
+consolidation of 2026-09-30 (Hawthorn binds Bracken): the family stays as it is until the inbound
+review, which splits the portable fundamentals from the context-specific layers, because the
+Practice serves any repository.
+
+**Decision.** A skill family that serves one domain is read at the review in two layers: the
+fundamentals, which are Practice-wide and belong to the core, and the context-specific layers,
+which are extension skills, plug-in building blocks per domain (user-interface design, API design
+and their like) that an installation takes as it needs. Until that review the family stays as it
+is. This is an input to the extraction's design: the review splits core skills from extension
+packs per domain.
+
+**Falsifier.** A domain skill whose fundamentals cannot be separated from one host's layer
+without losing the skill, or an entity install that carries one host's layer as canonical. One
+such instance reopens this entry with the owner, and this log says so.

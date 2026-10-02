@@ -2874,3 +2874,46 @@ commit's push is unread; the four readers' reports are conserved only as the ver
 twelfth entry and the sentences in the node. Fence sweep: no tracked line of this window quotes the
 one owner-private phrase; the archived copy's omission is named, never quoted. A further pass would
 re-find only the session directory's buffer, named above and in the node; the recursion closes here.
+
+### 2026-10-02 19:40Z — the 2026-10-02-9fd05e branch folded as #332 (Efreet lifts Scorch, 7adb15, implementer at n = 3)
+
+- #332 merged into `engraph` as `SHA:2b25ced1b` at 19:40:19Z, by the bot at the fetched head
+  `c03489a47`, at the owner's word of 19:2xZ ("finish the fold, then go into cold pause"), ahead of
+  the rollover. Three review legs on the ready-mark: nine code-quality, two Copilot and three Codex
+  findings, all on the four report generators of `SHA:8e2b84150`; the review-cost gate read the fold
+  as budget-exhausted (settlement cost 57.83 of 40 after one settlement push), so no cure landed on
+  it. The owner's word of 20:0xZ, relayed by the Director: triage per finding by risk, cost and
+  value; all fourteen are absorbed into the parity node's measure step
+  (`practice-parity-for-extraction`), one pull request per repository; the dispositions are on the
+  pull request. The folded branch is deleted, remote (read back gone) and local; the successor is
+  `coordination/2026-10-02-2b25ce`, cut from `SHA:2b25ced1b`, with the Director's parity records
+  (`c0258facf`, unpushed at the fold) carried in by a two-parent merge as its first commit
+  (`SHA:55fe52d00`).
+- moved for teachers: nothing in this fold / moved for the Practice: seven consolidation slices
+  landed into `engraph` (#333 to #339: the merge-bot retire port, the lessons cures, the rules and
+  templates, the plan routes one and two, the Practice Core records, the rules two); the first
+  product delivery node trued with its value line, size and todos; the parity node replacing the
+  finish node; the Practice inventory with the exchange register closed against it and the agent
+  tooling's IO census, each with its generator beside it; seven review-cost rows; the formation
+  letter.
+- Surprise at the cut: within a minute of the successor's merge commit the primary's index held the
+  reverse of `c0258facf` (the parity node staged as deleted, the finish node staged back) while
+  every file on disk matched HEAD by blob id; no lock, no stash, no writer found. Repaired by
+  re-reading the index from HEAD (the working tree untouched). Cause unknown; one instance.
+- Hazel tracks Trunk's cured bytes for the fourteen findings (the four generators, the inventory and
+  the census regenerated at JC.net main `ba5ad39a8` and OCE engraph `d51669d2f`) sit in OCE's synced
+  session directory (`comms-analysis-2026-10-01/session-7d8b9d/cures-332/`, gitignored) for the
+  measure step to read.
+
+### 2026-10-02 20:0xZ — compaction: one plan node, the owner's rulings of the evening, the measure's first numbers (Crucible binds Slag, 7b999c)
+
+Counts first. Pending graduations: 0 inline in either register. Buffers: the sibling estate's
+notebooks move after the write-list table, under the node's step 1. The record of this boundary is
+the Director handoff's §STATE 20:0xZ, which names the goal in the owner's words, the plan as one
+node (`practice-parity-for-extraction`, superseding `practice-work-finish`), the rulings verbatim,
+the state of every tree, the measure's first numbers (4,580 survey rows; 445 shared Practice-wide
+files, 72 merging clean, 89 in conflict over 207 hunks, 105 one-sided) and the next session's order.
+Landed since 18:4xZ: here #339 (q) `SHA:d51669d2f`, 332 merged `SHA:2b25ced1b` and the successor
+cut carrying the node; there 298 `SHA:a35b5f325`, the node `SHA:3f1445b4` and its trued sizes
+`SHA:766c6c0e` on the recreated coordination branch, folding as 299. The owner's word on the
+finish: "We WILL finish the Practice work in the next few hours, make sure of it."

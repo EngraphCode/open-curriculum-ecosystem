@@ -21,7 +21,8 @@ last_updated: 2026-10-02
 
 # The write list's residue and the notebook close — criterion 1 and 2 of the finish
 
-The governing node is `practice-work-finish` (the Director's, 2026-10-02): its criterion 1 (the
+The governing node is `practice-parity-for-extraction` (the Director's, 2026-10-02, which
+superseded `practice-work-finish`); the finish's criterion 1 (the
 write list at zero open items, the notebooks processed and archived, the counters at zero) and
 criterion 2 (no consolidation branch left in either repository). This node is the last step of
 that node's first todo in JC.net and the matching residue in OCE, sized from the audit of
@@ -199,8 +200,8 @@ About five seat-hours in all; finished within one day of the resume.
 
 - W33 (the Sonar disposition policy port into JC.net; the author-skills and deslop skills into
   OCE) and W44 (the form of the ADR-187 port): difference rows of the register and the inventory,
-  sequenced into the extraction plan under PDR-143, whose §4 materialisation decides where a
-  Practice-wide decision made in one repository lives.
+  read by the parity ledger of `practice-parity-for-extraction` as capability rows; where a
+  Practice-wide decision made in one repository lives is the extraction design's decision.
 - OCE's remaining consolidation slices (s, 2fb, y) and the folds at the rollover: end state 1
   and 2 of the finish node, the implementer's and the Director's.
 - The conversion of the smoke suites to no-IO tests: its own node, sized by end state 4.
