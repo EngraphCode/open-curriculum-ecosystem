@@ -1863,3 +1863,115 @@ ledger; the napkins; platform memory; the sixteen unread machine-local plans; ex
 the pattern gap (OCE 247, JC.net 16: the transplant record says the pattern files "did not
 travel", the exchange register's rows L27 and C18 say "compare by name, then bring the absent",
 and no JC.net commit ever deleted a pattern file).
+
+### 2026-10-02 02:14Z — the buffer stage, second record: a correction, more drains, and the order re-planned (Hazel tracks Trunk, 7d8b9d)
+
+**Correction to the entry before this one.** That entry says the seat was above PDR-052's floor
+and quotes a meter reading of 63.9 % at 01:33Z. The reading was stale: the compaction of 01:28Z
+had already happened and the meter still described the transcript before it. The next read gave
+28.9 %. After a compaction, read the meter again after a few tool calls before queuing directive
+work on its first answer.
+
+**The held pull request is released.** The cure for OCE's pull request 329 was applied at 29.5 %
+(read immediately before), after its proof recipe was run once on a real archive. The text now
+states one proof: the archive's body, after any frontmatter of its own, equals the moved range's
+bytes in the pre-move blob (the surface at the move commit's parent); ranges that are not
+contiguous are cut from that blob and joined in file order; nothing is added to the archive. It is
+pushed (`6503a286e`), both threads are answered and resolved, and a monitor waits for the merge
+condition. JC.net's twin of the same cure is NOT applied: the meter read 30.0 % immediately
+before, so it waits for the next compaction (the script is `a71b` in the session's state
+directory; JC.net's prepared directive patch is staged in its lane's working tree, uncommitted).
+
+**More drains, with what each one is and is not.**
+
+- Frictions, both directions. OCE to JC.net: as the entry before this one says. JC.net to OCE:
+  eight entries were absent from OCE; two apply to OCE's code and are ported with a check each
+  (F-225, F-239); six describe JC.net alone. OCE's F-207 and F-191 gained a note that JC.net
+  holds the cure.
+- Patterns. The exchange register decided "compare by name, then bring the absent" (rows L27
+  and C18) and never executed it; the transplant record says the pattern files "did not travel";
+  no JC.net commit ever deleted one. 231 files are now in JC.net as OCE's text (twelve links to
+  absent targets made plain, the index regenerated at 246, validators passing). Every ported
+  file's use-this-when statement was read; each states a general condition. 38 cite OCE product
+  code as the proving instance, and JC.net's patterns README now says where such a path lives.
+  The twelve files both estates held with different text are converged in JC.net.
+- OCE's Director rulings ledger: a queue of the pending-graduations kind under another name (9
+  unhomed, 11 thin homes, 2 addenda, dated August; its plan step never ran). All 22 are read:
+  ten homed or tracked, four expired or executed, seven need a write (W70 to W75 and W77
+  below), and one (the content boundary of a lane classified private) needs a read of the
+  privacy directive before anything is written.
+- Handoff archives: none of the seven archive files was in the record source. All are now read
+  for owner words. The standing rulings found are homed, or are W84 to W88 below.
+- Machine-local plans: sixteen files dated after the 2026-08-14 triage, read by heading and by
+  their reflective sections; two landed whole, two belong to a third estate, twelve are executed
+  session plans; three lessons extracted (W67 to W69).
+- Platform memory: every graduation marker in the Claude per-user directories names a path that
+  exists; four entries marked graduated; five stay by decision (four owner-private, one machine
+  configuration). The 56-entry directory under OCE's former checkout name was read by name and
+  each entry probed; it carries a retirement note that says so. Codex's memory is vendor-generated
+  task summaries, read by heading. Three lessons extracted (W80, W81, W83) and two product ideas
+  with triggers (graph sub-setting at the graph resource factory; a component workbench when a
+  second widget arrives), which join OCE's product backlog at the list's close.
+- Live napkins: the entries other seats wrote are read; each names its home, bar two lessons
+  (W91, W92). The three unconsolidated napkins were extracted into register candidates on
+  2026-09-13 and 14; their archive waits on the owner's privacy review.
+- NOT yet drained: the experience files written since 2026-09-14 (27 in JC.net, 28 in OCE; to be
+  read whole at the seat); this seat's own napkin entries (each to a home or a write).
+
+**Write-list items W66 to W92** (W1 to W65 are in the entries of 01:10Z and after):
+
+- W66 and W67, tool facts: Copilot's automatic review may not bind a merge-only tip; the Claude
+  Bash sandbox can return empty reads under `.agent/memory/`; a worktree's local default branch
+  can sit behind the remote, so cut from `origin/<default>`.
+- W68, the validators rule: an instrument's evidence is taken at the moment and on the bytes it
+  describes; test an instrument for evidence integrity as well as function.
+- W69, the fleet design review rule: a call cap bounds calls, not results; price each leg from
+  what it reads.
+- W70, the worktree-hygiene rule: system residue (`.DS_Store` and its kind) is gitignored and
+  deleted on find (owner, 2026-08-02).
+- W71, the verdicts rule: a fixed external thing at risk gets a mobilisation verdict, never the
+  decision re-offered as options (owner, 2026-07-29).
+- W72 and W73, tool facts: CI can drop webhook events under throttle and a push re-fires them;
+  seats of one session share one scratchpad directory, so a distinguishing token goes in every
+  scratchpad filename.
+- W74, the handoff rule: owner rulings, deliberate oddities and recorded mistakes are
+  inheritable; lane and pull-request state are recomputed.
+- W75, the ESM rule: zero `require`; a dynamic import is an error unless it carries a recorded
+  exemption (owner, 2026-08-09).
+- W76, home chosen at the rules slice: additions never silently subtract standing capabilities,
+  and omissions bear the burden of proof (owner, 2026-07-29).
+- W77 and W86, the ticket-management skill: work that spans two projects carries a linked ticket
+  in each; milestones are simple, completable and reflect externally visible changes, and themes
+  are labels (owner).
+- W80, tool facts: download external data once to a scratch file and read it locally.
+- W81, the napkin skill: an entry marked blocking or deferred carries a resolution annotation
+  before the napkin rotates.
+- W83 and W84, the pull-request lifecycle skill: a superseded source pull request closes only
+  when every surviving delta has a merged successor or an evidenced supersession; every read of
+  reviews is the bare list, never a filtered one, and a Copilot request is an ordinary call any
+  seat may make (owner; JC.net's copy lacks both).
+- W87 and W88, to check at the skills slice: "do not assume the plan is correct or useful"
+  (owner) in the plan skill; Cricket in pairs, one normal and one adversarial (owner) in the
+  Cricket skill.
+- W91, the cross-estate rule: "the same bytes" is a goal for the outcome; before the bytes move,
+  grep the importers of every shared module the port changes in each estate.
+- W92, testing recipes: a fake that answers in sequence, or a clock keyed to a count of the
+  product's reads, is forbidden; move the proof to the seam where the state is a constant, or
+  change the world on what the product writes.
+- (W78, W79, W82, W85, W89 and W90 were opened and closed in the same pass: each was found homed
+  or released on a second probe.)
+
+**The order, re-planned after two review legs.** Both legs found that slices were ordered ahead
+of undrained buffers and that "read" was claimed where the seat had sampled. The order now:
+finish the drains (the experience files, the seat's own napkin entries); close and dedupe the
+write list; then land it grouped by home surface. Memory-surface writes ride the coordination
+branches. Doctrine goes by pull request, ten files or fewer, the same bytes in both estates, one
+pull request at a time, with drains continuing in review waits. Two items the previous seat
+named get a step at the list's close: converge the three shared files after the slices that edit
+them, and re-true the event-cited paragraphs.
+
+**For the owner, from these drains:** nine foreign-estate files in the machine-local plans
+directory (seven of 2026-08-14 and two more): delete or keep? One lane's work is on disk only:
+OCE's J2 docs-validators worktree holds two modified files and three untracked directories, 153
+commits behind its base; it is the partner seat's lane and is recorded in OCE's continuity
+record.
