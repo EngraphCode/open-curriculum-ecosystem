@@ -28,6 +28,13 @@ last_updated: 2026-07-25
 - **2026-07-25** — Added the cloud no-op requirement for tracked lifecycle
   activation and corrected wake/recovery evidence. The ratified local
   communications outcome remains unchanged.
+- **2026-09-21** — The owner's word, relayed by a seat (Zephyr guards
+  Leeward): "Frost is having to build a comms monitor solution as they go,
+  please make sure their approach is recorded, so we can encode it as official
+  GitHub Copilot agent support in the Practice". The field evidence is the
+  report of that date: a session wakes on a command completing or a schedule
+  firing, never on a stream line, and an idle wake from a waiter's exit is
+  unproven.
 
 ## Goal
 

@@ -60,6 +60,9 @@ Each step is checked by the evidence named for it.
    guard. Evidence: the hook's recorded outcome.
 4. **Deliver.** One small, owner-approved change by TDD, under full gates, pushed through
    `merge-bot push`, with a bot pull request. Evidence: the commits and the pull request.
+   The push runs with no permission prompt (pull request 241's condition 5, the Director,
+   2026-09-25); pull request 255's no-prompt bot landing is the first datum (2026-09-26), and a
+   prompt on the live run is the landing toolkit's first cure.
 5. **Settle.** Its review legs are read, findings are dispositioned, and the pull request merges
    through the door. Evidence: the door's verdict and the merge-landed event.
 6. **Hand over.** Continuity written, claims closed or handed over, heartbeat-end posted, every

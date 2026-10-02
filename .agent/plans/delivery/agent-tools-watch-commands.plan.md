@@ -223,6 +223,12 @@ The original ordering was surfaced on the ratification card
 first"; the 2026-08-06 owner word "finish 1, 2, 3; create
 discoverable plans for 4 and 5" produced this amendment.
 
+Routed here on 2026-10-01 from the walk of both comms streams (four
+reports): the leg wait as an agent-tools command, the `wait-legs.sh`
+shape F-211 names, that reads issue comments and reviews unfiltered for
+the tip and emits its completion as a comms event, so no seat hand-writes
+a login-filtered wait.
+
 ## Review dispositions
 
 One dated row per routed finding (PDR-140 ledger surface). A row here is a

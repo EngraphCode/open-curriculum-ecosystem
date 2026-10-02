@@ -428,6 +428,11 @@ a dated supersession note in
   semantics + porting contract, ADR-167 note, matrix, research note,
   Copilot-plan supersession) + `claude_code` row re-ground; then D8
   probes + A9, recorded before merge.
+- **Probe evidence relocation (routed 2026-10-01; a Director's ruling,
+  event 9a2943d9)** — `worktree-residency.md`'s Claude Code
+  version-and-date probe evidence (2.1.206 to 2.1.263) moves into a dated
+  reference record under this node's freshness metadata, leaving the rule
+  naming behaviours, not versions, in both estates.
 
 ## Out of scope
 

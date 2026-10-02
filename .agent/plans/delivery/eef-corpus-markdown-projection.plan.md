@@ -183,3 +183,9 @@ with their tests, the writer script, the knip entry.
   snapshot; the position stays "provenance pending clarification" in the data itself.
 - A strategic home for open-evidence work: the strategy choice this projection serves has no
   strategic node; this node serves the seam node and re-parents in one line if one is minted.
+- Concurrent modification of the output tree during a run: another process swapping a checked
+  ancestor directory for a symbolic link between the containment check and the open (a
+  check-then-open race; `O_NOFOLLOW` covers only the final component, and `node:fs` offers no
+  `openat`) is outside the writer's closed contract, which states what a target may be, not
+  what other processes do to the tree; dispositioned by signed reply at #58's round six,
+  recorded here as the Director ruled on 2026-09-07 (eb793bad).
