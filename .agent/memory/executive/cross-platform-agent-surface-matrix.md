@@ -287,6 +287,51 @@ Failure semantics:
 | Gemini CLI             | `GEMINI.md` → `AGENT.md`                       |
 | Linear coding sessions | `skills.md` → `AGENT.md`                       |
 
+## Codex CLI: observed behaviour (from the records, 2026-07-31 to 2026-09-27)
+
+Each line names the version it was read on. A line is an observation at that version, never a
+contract: re-read it against the running CLI before a design rests on it.
+
+- **Collaboration tools come in two surfaces** (the vendor's source, read 2026-07-31). V1 is
+  `spawn_agent`, `send_input`, `resume_agent`, `wait_agent` and `close_agent`, deferrable under
+  tool search. V2 is a direct `spawn_agent`, `send_message`, `followup_task`, `wait_agent`,
+  `close_agent`, `list_agents` and `interrupt_agent`. With no explicit override, the model
+  catalogue's `multi_agent_version` decides. A fresh `codex exec` root on CLI 0.146.0 showed V2
+  and no `tool_search` (one probe; a session opened interactively was not probed). Two reported
+  failure modes: a resumed thread keeps its older tool surface, and deferred V1 tools are
+  unreachable where `tool_search` is unavailable. The vendor's public docs name only the V1
+  vocabulary.
+- **Config precedence** (0.156.1 source). A trusted project `.codex/config.toml` beats
+  `~/.codex/config.toml`; only CLI flags and `-c` override it; there is no local override
+  file, include or environment pointer. The project file applies only where the user config
+  trusts the repository path. Each project hook needs a per-user `trusted_hash` in the user
+  config. Only an MCP always-allow on a project server and `/import` write the project file,
+  and `/import` re-emits the whole file.
+- **`on-failure` is not a distinct approval policy** (0.156.1): `protocol.rs` reads it only as
+  a deserialisation alias of `on-request`.
+- **Rollout shapes** (codex-cli 0.157.1). Every successful function-tool output opens with the
+  harness's header. An unfinished turn followed by a new one is the harness's normal shape
+  (`TurnAborted`), not a defect. A sandbox denial detected after the process has exited emits
+  no `CommandExecution` item (one instance). A reader whose record union was captured on
+  0.157.0 failed closed on 0.157.1's `response_item.function_call`: an evidence reader follows
+  the runtime's version.
+- **The patch tool is offered under a read-only sandbox** (one recorded `codex exec` turn): the
+  model may attempt `apply_patch`, and the refusal comes from Codex's policy check in the tool
+  router, a layer a sandbox test does not exercise.
+- **TUI queue behaviour without a daemon** (0.157.0, one run each, 2026-09-25): an idle TUI
+  wakes on a queued message; typed input runs before a queued one; a message queued during an
+  active turn runs after it; a queue to a killed TUI is accepted and runs only on an explicit
+  resume. In managed-daemon mode, a sandbox denies the PID-recording `ps` call and the daemon
+  cannot start; outside a sandbox the daemon was healthy and the TUI exited within 25 seconds
+  with no rollout. Desktop and editor-terminal hosts are unproven.
+- **Codex's automatic approval reviewer can refuse a push**: the push then waits on the
+  owner's explicit approval in that Codex session (one instance, September 2026).
+- **The bounded-poll challenge** (a convention seats used with a Codex peer; from the comms
+  record). To show that a Codex seat hears the stream, a peer posts an event carrying a nonce.
+  The Codex seat must find it by its own declared foreground polling, with no relay. Its reply
+  records the nonce, the timestamps, the command, the cadence, the state of its turn and what
+  it did after its final message.
+
 ## Notes
 
 - `.agents/skills/` and `.agents/rules/` are portable skill/command and
@@ -307,6 +352,9 @@ Failure semantics:
   local overrides are additive where the platform supports them.
 - Unsupported states are written down explicitly rather than inferred
   from missing files.
+- A rule adapter's `@` import path is written as the vendor documents it, relative to the
+  importing file. Whether the platform expands it at launch stays a prediction until a fresh
+  session has been seen to do so; record that observation with its date.
 - Linear coding sessions run through Claude Code or Codex and inherit
   those entry-point chains; the root `skills.md` is supplementary
   guidance Linear Agent can use during a delegated session (per

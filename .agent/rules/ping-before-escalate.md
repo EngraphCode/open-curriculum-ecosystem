@@ -65,6 +65,13 @@ for a response with a short bounded deadline (≤4 minutes — one
 heartbeat cycle). The retirement broadcast lands only after the
 ping deadline expires with no response.
 
+When the seat that routes is the silent one, the next reader is the owner. Send one notice by
+the owner-audience lane the channels contract names (Slack via the Watcher, the
+`talk-to-slack-watcher` skill), never left on an agent-facing surface: a plain statement of
+the state, not a question. A report left in the
+terminal waited nine hours to be read while a ready pull request sat behind a held slot
+(2026-09-27).
+
 ## Worked Instance
 
 During the 2026-05-24 director session, an agent broadcast two

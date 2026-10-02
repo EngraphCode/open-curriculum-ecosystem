@@ -693,10 +693,11 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **`comms send --body` is refused over 1,500 characters**, before anything is written (exit
   2; `MAX_COMMS_BODY_LENGTH` in the CLI, read in both estates on 2026-10-02). Pass a longer
   body with `--body-file`.
-- **Pass the registered `--model` on every comms call that resolves an identity** (`send`,
-  `watch`): the send binds the seat's registered platform and model, and a mismatch refusal
-  reads like an identity collision (2026-07-29). The read-only `comms list` takes no identity
-  and refuses the option.
+- **Pass the registered `--model` on every comms call that resolves an identity**: the
+  command's `--help` says whether it takes `--platform` and `--model` (the sending, watching,
+  inbox and reply commands do; the read-only `comms list` and `claims heartbeat` refuse
+  them). The call binds the seat's registered platform and model, and a mismatch refusal
+  reads like an identity collision (2026-07-29).
 - **`comms send` can exit 1 after a durable write, or print usage and write nothing**: read
   `comms list --since` before any retry, never the exit code alone (2026-07-30).
 - **macOS's `patch` with no terminal reverses a hunk the target already holds**: its prompt

@@ -5,15 +5,15 @@ import { printable } from '../pr-watch/printable.js';
 import { isLegalBranchName, realRefFormatOracle, type RefFormatOracle } from './ref-format.js';
 
 /**
- * The `--branch <name>` contract of `merge-bot push`: given exactly once,
- * never flag-shaped, and legal by git's own ref grammar (asked of git through
- * the oracle).
+ * The `--branch <name>` contract `merge-bot push` and `merge-bot retire`
+ * share: given exactly once, never flag-shaped, and legal by git's own ref
+ * grammar (asked of git through the oracle).
  */
 
 /**
- * The default branch names `merge-bot push` never pushes to: the
- * never-commit-to-main rule as behaviour. It compares them in any case,
- * because a case-insensitive filesystem resolves `Main` to `main`.
+ * The default branch names no merge-bot command pushes to or retires: the
+ * never-commit-to-main rule as behaviour. Both commands compare them in any
+ * case, because a case-insensitive filesystem resolves `Main` to `main`.
  */
 export const DEFAULT_BRANCH_NAMES: ReadonlySet<string> = new Set(['main', 'master']);
 

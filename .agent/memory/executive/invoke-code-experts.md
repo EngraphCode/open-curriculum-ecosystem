@@ -429,6 +429,10 @@ Before marking the work complete, record:
 - which specialists were not needed and why
 - which reviewers ran `focused` versus `deep`
 - whether any delegated review result still needs reintegration
+- whether any required review could not run (an owner's stop on new subagents, a reviewer out
+  of credit, a missing tool): that gate is not obtained, never discharged, and the record says
+  so (one instance, 2026-09-25: an assumptions pass went unrun under a stop and the handoff
+  named it as the cheapest outside check not made)
 - whether each new capability has an observability loop across each
   applicable axis (engineering, product, usability, accessibility,
   security) per [ADR-162](../../../docs/architecture/architectural-decisions/162-observability-first.md).
