@@ -18,7 +18,7 @@ depends_on:
   - plan: copilot-cli-practice-projections
     kind: beneficial
 owner_gates: []
-last_updated: 2026-07-25
+last_updated: 2026-10-02
 ---
 
 # Copilot CLI local communications and lifecycle

@@ -17,7 +17,7 @@ depends_on:
   - plan: codex-pretooluse-guard-parity
     kind: blocking
 owner_gates: []
-last_updated: 2026-09-24
+last_updated: 2026-10-02
 ---
 
 # A live Codex seat runs the whole team journey

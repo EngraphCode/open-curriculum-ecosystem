@@ -14,7 +14,7 @@ tickets:
   - MCP-508
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-10
+last_updated: 2026-10-02
 ---
 
 # Agent-tools watch commands: the recurring watch patterns as front-door CLI

@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-28
+last_updated: 2026-10-02
 ---
 
 # Landing instruments: read the evidence that exists, and ask when nobody has

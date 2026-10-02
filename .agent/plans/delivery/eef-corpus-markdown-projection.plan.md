@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-06
+last_updated: 2026-10-02
 ---
 
 # EEF corpus markdown projection

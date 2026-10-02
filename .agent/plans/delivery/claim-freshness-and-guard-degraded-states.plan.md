@@ -15,7 +15,7 @@ tickets:
   - MCP-477
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-11
+last_updated: 2026-10-02
 ---
 
 # Claim freshness pilot and guard degraded-state evolution

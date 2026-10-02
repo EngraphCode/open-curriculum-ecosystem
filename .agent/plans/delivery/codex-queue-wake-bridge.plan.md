@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-25
+last_updated: 2026-10-02
 ---
 
 # Codex seat wake through the vendor's queue
