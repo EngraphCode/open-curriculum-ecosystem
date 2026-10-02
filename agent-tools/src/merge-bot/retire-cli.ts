@@ -95,7 +95,8 @@ async function originMismatch(
 /**
  * The injected port, or real git in the invoking repository with prompting
  * turned off and no askpass program in its environment (the push's scrub,
- * `git-credential-chain.ts`), and with replacement refs and grafts turned off: either can
+ * `git-credential-chain.ts`; the runner clears the config arm on each call),
+ * and with replacement refs and grafts turned off: either can
  * give a commit parents it does not have, and `merge-base` follows them, so a
  * planted one would make an unmerged tip read as merged.
  */

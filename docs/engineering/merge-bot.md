@@ -424,17 +424,12 @@ pnpm agent-tools merge-bot retire --branch <name>
   made since the proof keeps its section. The window between that read and
   the removal is git's own: `git branch -d` has it too, since git keeps refs
   and config in two stores with no joint write.
-- It refuses (exit 3, nothing deleted): `main`, `master`, `HEAD` and the
-  default branch in any case; a tip that is not an ancestor of the default;
-  a branch checked out, or mid-rebase or bisect, in any worktree; a symbolic
-  local or tracking ref; a name another ref matches when case is ignored; an
-  `origin` that is not the bot identity's repository; a remote or default
-  branch GitHub reads at the mint as moved after its proof. It does not look
-  for open pull requests: that a branch is merged and unwanted is the
-  caller's judgement. The coordination fold's folded-branch step here has
-  done these proofs and deletes by hand (`git merge-base --is-ancestor`
-  twice, a REST delete as the bot, `git branch -d`); this command is that
-  recipe with its proofs made structural.
-- `--json` puts exactly the outcome object on stdout, with diagnostics on
-  stderr. The exit map and the full list of refusals are the command's own
-  to state: `merge-bot retire --help`.
+- It refuses (exit 3, nothing deleted) a branch not proven merged, in use by
+  a worktree, or whose name or `origin` git could resolve to another ref or
+  repository; the list, the `--json` output and the exit map are the
+  command's own to state: `merge-bot retire --help`. It does not look for
+  open pull requests: that a branch is merged and unwanted is the caller's
+  judgement. The `coordination-fold` skill's cut step here has done these
+  proofs and deletes by hand (`git merge-base --is-ancestor` twice, a REST
+  delete as the bot, `git branch -d`); this command is that recipe with its
+  proofs made structural.

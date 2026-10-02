@@ -207,7 +207,7 @@ export const TOKEN_SCOPES = {
    *
    * A live probe in the sibling estate where this row was authored, under a
    * token minted with this row alone: the bot created a throwaway branch at
-   * main's tip (REST `POST git/refs`), then deleted it with GraphQL
+   * its default branch's tip (REST `POST git/refs`), then deleted it with GraphQL
    * `updateRefs`. A stale `beforeOid` left the ref in place, answered by a
    * generic GraphQL error ("Something went wrong while executing your
    * query"), not a named mismatch; the right `beforeOid` deleted it, and a

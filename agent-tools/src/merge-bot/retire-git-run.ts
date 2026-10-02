@@ -1,4 +1,5 @@
 import type { GitCommandResult } from './git-executor.js';
+import { clearedAskPassConfig } from './git-credential-chain.js';
 import { describeGitChildEnd, type GitContext } from './push-git.js';
 import { gitWords } from './retire-parse.js';
 
@@ -11,13 +12,15 @@ import { gitWords } from './retire-parse.js';
  *
  * Every call runs under the operator's own `origin` credential: the reads
  * are reads, and the deletes are of refs the operator holds, so the
- * bot-identity rule does not apply. Prompting is off as far as git's reach
- * goes (the environment carries `GIT_TERMINAL_PROMPT=0` and
- * `GCM_INTERACTIVE=never` and no askpass program), so over https an
- * unattended seat fails rather than asks; a prompt from ssh itself is
- * outside that reach, and the network bound below ends it. Output volume is
- * git's answer to a named query, which the command bounds, so the capturing
- * arm is sound.
+ * bot-identity rule does not apply, and the `credential.helper` arm stays
+ * open. Every prompting arm of git's credential chain is closed: the
+ * environment carries `GIT_TERMINAL_PROMPT=0` and `GCM_INTERACTIVE=never`
+ * and no `GIT_ASKPASS` or `SSH_ASKPASS`, and every call clears `core.askPass`
+ * on its own command line (`clearedAskPassConfig`, derived from the one
+ * chain table). So over https an unattended seat fails rather than asks; a
+ * prompt from ssh itself is outside git's reach, and the network bound below
+ * ends it. Output volume is git's answer to a named query, which the command
+ * bounds, so the capturing arm is sound.
  */
 
 /** The git binary, its cwd, and the child environment for every retire read and write. */
@@ -41,7 +44,7 @@ export async function runGit(
   args: readonly string[],
   network = false,
 ): Promise<GitCommandResult> {
-  return retire.git.exec(retire.git.file, args, {
+  return retire.git.exec(retire.git.file, [...clearedAskPassConfig(), ...args], {
     cwd: retire.cwd,
     env: retire.env,
     ...(network ? { timeoutMs: NETWORK_TIMEOUT_MS } : {}),
