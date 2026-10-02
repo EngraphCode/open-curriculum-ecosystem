@@ -130,8 +130,10 @@ inherited board and assumptions register A1–A15.
   design lessons and play seeds; consolidation-surface routing.
 - S7 (routed 2026-10-01): the homed-or-not check over the numbered owner
   rulings (about 42) in
-  `archive/director-handoff-current-handoff-state-2026-09-08.md`, each read
-  against the rule, PDR or skill that should carry it, with one
+  `archive/director-handoff-current-handoff-state-2026-09-08.md`, limited
+  to the rulings the S2 ledger does not already record as homed (verified
+  homes govern and are not re-read, per the out-of-scope line below), each
+  read against the rule, PDR or skill that should carry it, with one
   rulings-ledger row per ruling; the archive stays as the literal record.
 
 ## Out of scope

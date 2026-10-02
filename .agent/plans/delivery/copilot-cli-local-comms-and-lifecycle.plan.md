@@ -32,9 +32,10 @@ last_updated: 2026-10-02
   Leeward): "Frost is having to build a comms monitor solution as they go,
   please make sure their approach is recorded, so we can encode it as official
   GitHub Copilot agent support in the Practice". The field evidence is the
-  report of that date: a session wakes on a command completing or a schedule
-  firing, never on a stream line, and an idle wake from a waiter's exit is
-  unproven.
+  report of that date: a scheduled prompt starts reasoning (observed); a
+  tracked command's completion delivers a notification (observed), and
+  whether that notification starts reasoning from idle is a separate claim,
+  unproven for the waiter; a stream line wakes nothing.
 
 ## Goal
 
