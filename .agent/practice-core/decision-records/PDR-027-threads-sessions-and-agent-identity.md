@@ -60,7 +60,12 @@ discipline binds to this PDR's tuple format).
   assumption stays available by design through `--seed`, `--agent-name` and a
   hand-set Practice variable. The general form, that the seeds a seat reads
   are its platform's own, waits on a second nesting instance. A joint cure
-  with the second estate (its answer of 2026-09-25), the same design in both.
+  with the second estate (its answer of 2026-09-25), the same design in both. A
+  subagent's collaboration write is its parent's: a Claude Code subagent's
+  shell carries the parent's session id and no environment signal separates
+  the two, so its comms and claims writes derive the parent's identity and
+  the parent answers for them (accepted by both estates' exchange seats the
+  same day; one instance).
 
 - **2026-08-24 — cloud seats seed from the platform session id; hooks never
   pin a display name.** On a cloud seat two ids coexist: the harness-internal

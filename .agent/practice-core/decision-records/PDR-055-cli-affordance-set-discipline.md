@@ -151,8 +151,8 @@ requirement, not a coordination-surface concern. All clauses are portable.
 
 **Host-architectural concerns**: the specific build-isolation mechanism
 (separate build step? watch-then-built dist? compiled binary?) is
-host-architectural and lives in a host ADR. The host's agent-tools
-build-isolation decision carries this repo's choice.
+host-architectural and lives in a host ADR. Each adopting host records
+its own choice in its agent-tools build-isolation decision.
 
 **Not in scope**: feature additions beyond the affordance triple
 (retention policies, analytics, archive views). Those are host concerns
