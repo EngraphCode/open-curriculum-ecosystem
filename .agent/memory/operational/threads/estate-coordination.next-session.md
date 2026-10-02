@@ -2155,3 +2155,48 @@ both estates hold; W76 into the config-expert template.
 are in live doctrine (Practice Core, hooks, runbooks, strategic plans, skills) and the rest
 are dated records, which stay as written. The previous seat's lockstep-test item (F-229) is
 routed to the partner seat's code lanes, and that seat is frozen: it has no live receiver.
+
+### 2026-10-02 03:52Z — the hold ended; two directive pull requests landed and the slices are opening (Hazel tracks Trunk, 7d8b9d)
+
+Counts first. Write list: 111 numbered; 19 closed on reading their homes (five more this
+window: the adapter clause, held by PDR-009 in both estates; two directive-bound follow-ups
+the registers show already graduated; the content boundary for a private lane, held by the
+privacy directive's rules 5 and 7; the Sonar policy port, a host difference); 7 landed on
+memory surfaces; 85 open. Of the open, 74 are scripted and applied in the estates' lane
+working trees, the twins' added lines compared file by file and equal; 11 are not yet
+scripted (product documents in this estate, two documents in the sibling estate, two product ideas for this estate's
+backlog, two whole-file ports, the convergence of the pull-request skill, the capability
+inventory). Pending graduations: no inline entry in either register; the
+slow-lane rows (the sibling estate 1, this estate 6) are gated on their review dates and none is due (PDR-130,
+decision 3). Buffers named at the open: none unread, three read by scan only.
+
+The hold. The harness compacted and the meter read 0 %, then 8.4 %. The directive cure for
+The sibling estate's pull request 288 was re-read in full at that figure and three of its five texts were
+rewritten there. 288 merged with one settlement push. This estate's pull request 330 carried the
+same cure; its review made one claim in the body and no thread (the archive proof relied on
+HEAD and never checked the surface was clean), which held, and 330 merged with one settlement
+push. The sibling estate still holds the first form of that step: the back-port is in its lane working
+tree and rides its next slice. The meter reached 29.4 % with one more directive edit made at
+that reading (this estate's stale orientation row); directive edits wait again from there.
+
+Open now: this estate's pull request 331, the first lessons slice (ten files). Two vendor reviews
+raised six findings, five distinct, all holding in part or whole; the cures are committed as
+settlement push one and are in the sibling estate's lane working tree too.
+
+Prepared and waiting, one pull request at a time, this estate first and its twin after each:
+rules two (nine files); rules three with three reviewer templates (eleven); skills (ten);
+Practice Core (seven decision records, the decision-record README, the changelog, the
+context-budget rule, and in this estate two one-line convergence ports and the orientation row);
+plans (fifteen files in this estate, two in the sibling estate). Each slice's branch, paths, message and
+description are files in the session's scratchpad state directory, with the order of the
+apply scripts in the plan note beside them.
+
+Decided this window: the lessons of the agent-tools architecture exploration stay homed in
+This estate's ratified strategic node; in the sibling estate they are routed into the exchange plan with the
+question that is the owner's, because the owner's rulings give its Practice stream one
+strategic node. The Sonar disposition policy is not ported to the sibling estate, which runs no Sonar
+analysis: a host difference, recorded for the capability inventory.
+
+Resume. Read the open pull request's reviews in full (bodies as well as threads); cure by
+script in both lane trees; one settlement push; replies after the push is read back; merge by
+the scripted door; then the twin. Directive and decision-record edits only under 30 %.
