@@ -122,7 +122,11 @@ The split, in one line each:
 A ruling another seat must cite is an event on the stream; a direct message may carry it as
 the tap on the shoulder (the mirroring obligation below), never as its only copy. A ruling
 sent by direct message alone could not be found on either stream by the seat that had to
-cite it, which then waited on a relay (2026-09-29).
+cite it, which then waited on a relay (2026-09-29). The ruling lands in its canonical home
+where one exists (the registry, a conversation, the attention surface), and the stream event
+is its citable copy. A peer's bare name from the session listing may not resolve for
+`SendMessage`; reply with the socket path carried in the incoming message's sender attribute,
+which always does (2026-10-02).
 
 ## The behaviours
 

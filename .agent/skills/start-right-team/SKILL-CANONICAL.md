@@ -202,7 +202,14 @@ the special case. Run both unless that exemption applies.
    "Register Presence" section that owns the broadcast format AND the
    coordination rules; the broadcast declares identity, foundation
    status, intended boundary, inherited working-tree status, heartbeat
-   cron status, and any preferred cycle).
+   cron status, and any preferred cycle). The boundary the report states
+   is derived from the owner's words, whatever channel delivered them (a
+   coordinator's relay of the owner's directive carries the owner's
+   authority and is the standing default, PDR-064 §Relayed directives), and
+   from nothing else: a peer's own routing can narrow that boundary, never
+   widen it, and a peer confirming a seat's reading of the owner's words is
+   not evidence for the reading (a seat spent fifteen minutes on a widened
+   reading a peer had confirmed, 2026-10-02).
 4. **Wait for peer team-starts** to surface, then coordinate cycle /
    boundary assignment via comms (§1 cycle-overlap coordination rule
    and singleton-lane coordination rule).
@@ -278,7 +285,10 @@ Before bundling work into one queue intent, commit, or push window, apply
 [`ship-independent-coordinate-dependent`](../../rules/ship-independent-coordinate-dependent.md):
 independently shippable fixes should land and expose their impact artefact
 before coordination-dependent substance, unless the owner explicitly asks to
-optimise for a combined push.
+optimise for a combined push. Where push-window hold lines are in use, a hold
+stands on the line alone until its push-done or release, even when the holder
+has stopped; and a report written for a live peer is recomputed at the moment
+of posting, never at drafting (2026-10-02).
 
 ### 1. Register Presence
 

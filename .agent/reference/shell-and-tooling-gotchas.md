@@ -776,3 +776,15 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **A watch whose ready condition needs "no review request pending" never fires where a
   person's request stands**: count only the vendor reviewers' requests, and read each
   condition of a new watch against one live sample before trusting its silence (2026-10-02).
+
+## 2026-10-02 consolidation batch (from the live notebook's rotation; each searched for in the permanent surfaces first)
+
+- **A `\uXXXX` escape written in an Edit or Write parameter can reach the file as the raw
+  character** (U+202E did, twice, 2026-10-01): write the brace form `\u{202e}`, which no layer
+  decodes, and grep the file for the raw bytes afterwards.
+- **A gitignored directory is still inside knip's reach**: a scratchpad sync that carried code
+  into the state directory failed the push on knip (2026-10-02); exclude code from the sync
+  (`--exclude '*.ts' --exclude '*.js'` and kin).
+- **Run `git check-ignore -v <path>` before adding a file under a state directory**: the
+  handoffs directory is gitignored in both estates, so `git add` of a record there fails
+  (2026-10-02).

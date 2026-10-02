@@ -169,7 +169,14 @@ false-green, so exclusions are expressed positively only.
 
 The root Markdown gate lints tracked files only (`repo-check markdownlint-tracked`), so a gitignored
 transient under `.agent/state/` can never block a push; lint scope follows the tracked surface,
-never the filesystem glob (OCE friction F-103, settled 2026-09-27).
+never the filesystem glob (OCE friction F-103, settled 2026-09-27). The same holds for every
+validator of an AUTHORED repository surface (Markdown, links, lint, docs): its universe is the
+tracked tree (`git ls-files`), never a disk walk; a link validator that walked a gitignored
+session directory refused commits on scratch copies (OCE F-295, 2026-10-02), so the lesson
+written once for the Markdown gate binds each later such validator at its second consumer.
+State-integrity validators of the live tier (collaboration state, the practice substrate's
+instance JSON) read their untracked state by design (`important-state-not-in-temp-files`) and
+are outside this clause.
 
 ## Scope and exceptions
 

@@ -2,7 +2,15 @@
 
 Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
-Practice Core package.
+Practice Core package. A joint change carries the writing seat's repository
+tag in both repositories; the other repository's slug is never written here
+(the write hook refuses it, 2026-10-02).
+
+## [jimcresswell.net] 2026-10-02 — the changelog's own convention for joint changes
+
+- The header states how a joint change is tagged (the writing seat's repository, in
+  both repositories), a convention that lived only inside one entry; lands as the same
+  bytes in both estates.
 
 ## [jimcresswell.net] 2026-10-02 — PDR-143 records the owner's direction to extract the Practice as a standalone entity
 
