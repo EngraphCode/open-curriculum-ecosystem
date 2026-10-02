@@ -372,8 +372,10 @@ Each line is a lesson from the review of a test that had passed its gates.
   contract. A smoke asserts the estate's operator-facing messages, never a library's.
 - **A surviving mutant marks a deletion candidate only when removing the code it touches
   leaves every required result unchanged**; one that varies our own configuration or an
-  implementation choice is neither dead code nor a missing test (`testing-strategy` §Prove
-  the guard bites).
+  implementation choice and leaves every required result as it was is neither dead code nor
+  a missing test; one that alters a required result (a status code, a retry limit) is a gap,
+  however the value is written (`testing-strategy` §Rules, "Assert relations to injected
+  inputs, never literals of our own").
 - **A mutant can survive because an earlier layer answers first.** Dropping an empty-token
   backstop survived until the token mint became an injected port: the mint's own schema had
   rejected the empty token before the backstop ran.
