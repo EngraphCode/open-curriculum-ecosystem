@@ -282,3 +282,17 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   a dead one by its output; twice today its silence was read as "no window closed". A watcher that
   wrote its own "still watching" line every few minutes would separate silence from death; until
   then the one-shot `comms list` is the liveness check for the watcher as well as for the stream.
+- **Mistake (own, 19:31Z):** the beat loop was re-armed at the resume without a one-shot stream read
+  for an open hold first; its stream leg fired inside the Director's push window (19:29Z to 19:31Z).
+  The read before the hold line is the rule in both directions: before posting a hold, and before
+  arming anything that writes to the stream.
+- **Observation (19:41Z, the fold's cut):** the primary's index was rewritten to a stale image (the
+  reverse of the Director's `c0258facf`) within a minute of the successor's merge commit, with
+  every file on disk equal to HEAD by blob id and no lock or stash; `git reset` (mixed) from HEAD
+  repaired it with nothing touched on disk. Writer unknown; one instance; a shared primary's index
+  is read back by name (`git ls-files -s` against `git ls-tree HEAD`) before any commit there.
+- **Surprise (19:3xZ):** the review-cost gate refused the Director's push of a records commit
+  because the FOLD pull request's settlement budget was exhausted: a records commit on a
+  coordination branch whose draft is marked ready is a settlement push of that pull request, so an
+  exhausted fold freezes every seat's records until the fold merges. Fold early, or fold before the
+  ready-mark's review legs run.
