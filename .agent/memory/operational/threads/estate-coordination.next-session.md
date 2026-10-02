@@ -2289,6 +2289,57 @@ with the same NARROWED frame (an unmapped owner clause; two constraints applied 
 refuted the Director's hold on the fold: the lock rule forbids deleting or looping on the lock,
 nothing more.
 
+### 2026-10-02 14:48Z — compaction freeze at the owner's word: what finishes this pass, what stands, how the resume re-arms (Hazel tracks Trunk, 7d8b9d)
+
+Counts first. Pending graduations: none inline in either register; the slow-lane rows (the sibling
+estate 1, this estate 6) are gated on their review dates. Buffers: the three unconsolidated napkins
+in the sibling estate are read whole and archive by proof once the skills slice merges in both
+estates and the owner rules on one line (owner-private, chat only); the sibling estate's live napkin
+is 582 lines and rotates at the next drain step; this estate's is 232. Write list: 116 numbered, 26
+closed on reading, 7 on memory surfaces, 83 open, of which 19 are merged in both estates (two
+slices), 64 are committed on lane branches (five in the sibling estate after this window, seven in
+this estate, handed to the estate's implementer by a PDR-063 record), and none is unscripted.
+
+The owner's words this window, verbatim: "prepare compaction … then stop all processes — and
+remember, you are working on a bounded task, not open ended, we must always understand the goal so
+that we are able to finish." The correction absorbed: a drain pass has a finish list, and a front
+not on the list does not open. This afternoon three audits ran in parallel (the owner-decision
+items, the set-aside defects, the "lineage" wording) beside the slice work; each is on the list
+below, and each was also the shape by which a loop grows its surface.
+
+What finishes this pass (the finish list, counted): (1) six the sibling estate slices land by pull
+request, one at a time in the estate's fix slot (the rules-and-templates slice is open at its first
+settlement push, 0 threads; then skills, Practice Core, plans, the method and twin, the "lineage"
+wording); (2) seven this estate slices land by the estate's implementer in the order nb, r, v, w, u,
+q, s, with the two prepared cure scripts (a125 for q, a132 for r) and the napkin-writes script (a122
+for s) applied first; (3) one records commit lands on the sibling estate's coordination branch once
+the stale index lock in its primary is cleared (eight dirty, linted files: the thread record with
+its seventh and this eighth entry, the napkin, the memory README, the WS-8 synthesis header, three
+patterns' scope rename, the register's nine entries); (4) the three unconsolidated napkins archive
+by proof after (1) and the owner's word on the one line; (5) three owner cards on this estate's
+re-trued decision items are raised by the Director; (6) two directive lines and the monitor rule's
+one-shot carve-out are edited in a window under the context meter's floor; (7) the sibling estate's
+napkin rotates. Nothing else is in this pass.
+
+What stands. Both default branches hold the first two lessons slices and PDR-143. The sibling
+estate's pull request 291 is at its first settlement push with its five findings cured and replied
+to; its door opens on green and the merge ceremony is the resume's first act. This estate's
+coordination branch carries this seat's seventh record, the ten owner-decision items re-trued
+against the estate (verified line by line), and frictions entries F-286 to F-294 with a dated note
+on F-174 — the same entries sit in the sibling estate's register awaiting its records commit.
+Divergence at the default branches: 144 files and 7,154 lines on the comparable prefixes (from 146
+and 7,167 at the day's start); 157 and 7,508 with the pattern files now in the instrument. The
+scripts, slice definitions, replies, analyses and verification reads are in the session's state
+directory, synced into both estates.
+
+The resume re-arms as if nothing survived, verifying by id first: the two comms watchers
+(`run/comms-watch.sh <estate-root> "$PPID"`, one per estate), the two heartbeats (`run/heartbeat.sh
+<estate-root> <claim-id> consolidation-2 <branch> <label>`), the lock watch (`run/wait-gone.sh
+<primary>/.git/index.lock 2`) while the lock stands, and the pull-request watch (`run/pr-terminal.sh
+<root> jimCresswell jimcresswell.net 291 <head>`); then reads the Director's stream lines since
+14:4xZ before any write. Claims the sibling estate 009bbaea and this estate 08f94e2a stay this
+seat's with handoff pointers; the one open pull request's claim is retained until it merges.
+
 ### 2026-10-02 15:1xZ — the Director re-seated at the owner's word: the team's goals and definition of done (Crucible binds Slag, 7b999c)
 
 The owner, 15:0xZ, verbatim: "for the team, and for each agent, including yourself, define what the
@@ -2304,3 +2355,53 @@ cure commits read first-hand, no objection); 291 merged by Hazel tracks Trunk at
 clearing; the three OCE owner cards raised by the Director. The wrap's two records commits
 (10e3a2df4, 1ddc1c4f3) reached the remote at 14:5xZ by a push that ran after the compaction; the
 push window of 14:47Z is closed by its push-done line.
+
+### 2026-10-02 15:18Z — the resume at the owner's routing word: the Director's definition of done, 291 landed, 292 open (Hazel tracks Trunk, 7d8b9d)
+
+Counts first. Pending graduations: none inline in either register; the slow-lane rows (the sibling
+estate 1, this estate 6) are gated on their review dates. Buffers: the three unconsolidated napkins
+in the sibling estate are read whole and archive by proof once the skills slice merges in both
+estates and the owner rules on one line (owner-private, chat only); the sibling estate's live napkin
+carries three seats' blocks since the freeze and rotates at the list's seventh item; this estate's
+is 232 lines. Write list: 116 numbered, 26 closed on reading, 7 on memory surfaces, 83 open, of
+which 19 are merged in both estates, the rules-and-templates lessons are merged in the sibling
+estate (pull request 291) and committed in this estate (slice r, with the estate's implementer), the
+skills lessons are open in the sibling estate (292) and committed in this estate (slice s), and the
+rest are committed on lane branches in both estates.
+
+The owner's word at the resume, verbatim: "The Director will tell you what needs doing, prepare a
+report for them." The seat re-armed first (two watchers, two heartbeats, a lock watch, every one a
+Monitor, verified by id: nothing had survived the compaction), recomputed every figure, and wrote
+the report (`coord/report-director-1500.md` in the session's state directory, synced to both
+estates) before any act on the finish list. The Director's routing followed by session message: this
+seat's definition of done is the finish list of the eighth entry, the sibling estate's side, with
+two reassignments: the seven this estate slices (item 2) are the estate's implementer's by the
+PDR-063 record, and the three this estate owner cards (item 5) are the Director's to raise. After
+the list: the exchange register's recount at the current heads, then twin lanes in the sibling
+estate's fix slot as the Director routes them. The order after 291 is s, y, x, u, z (u after the
+fold of 286, or with main merged in, never rebased, because its changelog and catalogue rows collide
+with PDR-143's; z last so the "lineage" rewrite does not race u's text). Rules of the window: one
+open pull request per estate; a seat with a pending pull request builds nothing new; "parked" is
+refused as indefinite-deferral vocabulary, a lane names its gate.
+
+What landed. Pull request 291 (eight rules, three reviewer templates) merged by this seat's door at
+CLEAN at 15:06Z as SHA:54a219d50: eleven checks green, zero unresolved threads, one review round of
+five findings, all cured; the head proved an ancestor of main; the branch retired remote and local.
+Pull request 292 (slice s: eleven skills in two commits, the ten skills' lessons twinned from this
+estate's merged slice and the three napkin writes of a122) opened at SHA:ba67b4704 behind a hold
+line, its description re-trued to the second commit before it opened; Copilot requested at 15:12Z; a
+dry-run merge against main after 291 produced one tree and no conflict. The PDR-063 step-4 directed
+event for the this estate slices hand-off went to the implementer on this estate's stream and was
+absorbed within a minute; this estate's resume line carries the eighth entry's rendering for the
+next records commit there and names slice y as opening in the sibling estate first.
+
+What stands. The zero-byte index lock in the sibling estate's primary (10:56Z, no holder) still
+stands; the records commit (the thread record's eighth and this ninth entry, the napkin with three
+seats' blocks, the memory README, the WS-8 synthesis header, three patterns, the register's nine
+entries, two formation letters) and the fold of 286 wait on it, the fold with the rotation. Two
+lessons of the resume: a push-window hold line whose holder has stopped is honoured on the line
+alone until its push-done or release (the Director's window of 14:47Z closed by their line at 15:01Z
+after the push ran post-compaction), and a report for a live peer is recomputed at the moment of
+posting, not of drafting; and every commit SHA in a collaboration surface is written with the `SHA:`
+prefix the gitleaks allowlist reads (the rule surfaced on this resume; earlier lines of this seat
+carry bare SHAs).
