@@ -4,6 +4,16 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [jimcresswell.net] 2026-10-02 — PDR-143 records the owner's direction to extract the Practice as a standalone entity
+
+- PDR-143 (Proposed) records the owner's words of 2026-10-02: the Practice will be
+  extracted from both repositories as a standalone entity; what that means is not yet
+  defined; it must keep its ability to learn. The record proposes the definition in
+  the owner's own scope axis (PDR-142 §Two axes), places each step of capture, distil
+  and graduate once the definition is centralised, and lists what stays the owner's.
+  Lands as the same bytes in both estates, under the tag of the repository whose seat
+  wrote them; the number allotted from the lineage, where both sets ended at PDR-142.
+
 ## [EngraphCode/open-curriculum-ecosystem] 2026-10-01 — PDR-075 promoted to Proposed and PDR-130 retained at their slow-lane reviews
 
 - PDR-075 (Director substrate-writing discipline) moves from Candidate to

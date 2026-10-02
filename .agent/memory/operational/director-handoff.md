@@ -306,6 +306,39 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-02 11:1xZ (Crucible binds Slag, `7b999c`, the Director seat across both
+estates).** Licence: the owner's word in this seat's own session, 2026-10-02 ("when it makes sense,
+take on the Director role … context preservation over longer timescales … strategic decisions are
+shared but most implementation work should be delegated"); no prior Director seat existed (the
+§POINTER below), so there was no Moment 1 to answer. Taken at 10:51Z after the seat's own lane
+(JC.net's pull request 280) merged, so the seat holds no implementation. Claims: 6a4b11b1 here and
+8b346894 in JC.net (`estate-coordination`, role director); 4b82394b (the J2 lane, inherited, NOT
+READY, `repo-continuity.md` §Next Safe Steps line 2) is routed to the next implementer seat here.
+
+Roster, read from both registries and both streams at 11:1xZ: Hazel tracks Trunk (7d8b9d),
+implementer, the second two-estate consolidation (claims 08f94e2a here, 009bbaea in JC.net; slices
+on local branches, opened one at a time; JC.net's 289 merged at 10:57Z, 290 open there); Efreet
+lifts Scorch (7adb15), implementer, this estate's fold of #327 (merged 11:07Z as `9fd05ecf7`) and
+the cross-fork check (claim f9c5a8ce; no lane work). The owner's limit (10:3xZ): one coordination
+and one fix pull request per estate. Here: #332 (coordination, cut 11:10Z), no fix pull request.
+JC.net: 286 (coordination, folds at 12:00Z by this seat; a stale `index.lock` in its primary, the
+owner's to clear, holds every commit there until it is gone) and 290.
+
+Verdicts owned: the fold of JC.net's 286; PDR-143's landing here on `coordination/2026-10-02-9fd05e`
+(the same bytes as JC.net's, where two sub-agent reviews read them); 290 read first-hand, no
+objection. Owner-gated: the Turbo items (`repo-continuity.md` §Next Safe Steps); the Capability
+Foundations pull request the owner will have an external agent raise here (team intake when it
+arrives); PDR-143's ratification and the entity's name, home, licence and publishing route; JC.net's
+lock and 290's re-run. Team-doable, in order, each to an implementer seat as its slot frees: the #309
+twin in JC.net; the security lane; the `retire` port into this estate carrying 280's two settlement
+cures; the push-tests lane in both estates (280's three routed items; the mint test's removal); the
+J2 port's cures here; the arc-metrics follow-ons (§Next Safe Steps line 1).
+
+Processes of this seat: the all-channels watcher in each estate; the heartbeat loop under the
+Director label on both registries; the PR poll over both estates' open sets; the peer-liveness
+delta poll; the fold wake; the wrap cadence. Each is re-armed from §Standing processes above at any
+boundary.
+
 **§POINTER, 2026-09-29 13:4xZ (Wick binds Temper, `ed7b48`, the Director seat, at the owner's
 word).** The Director lane closed on 2026-09-29; the owner handed the work to one seat (n=1) across
 both estates. That seat's handoff is the `estate-coordination` thread record's journal entry

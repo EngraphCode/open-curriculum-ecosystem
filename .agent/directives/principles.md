@@ -296,7 +296,12 @@ scope confirmed 2026-09-09 as that class, not the estate): "select the
 best, permissively licenced libraries, and use their code as inspiration
 to create Reliable Atoms and composition layers tailored to our needs and
 created to our deliberately very high quality standards" — the estate
-authors them. The governing policy ADR-230 cites bounds the class
+authors them. The concept the quotation names as Reliable Atoms is now
+named Capability Foundations (the owner, 2026-10-02, verbatim: "the
+Reliable Atoms concept has been replaced by the Capability Foundations
+concept"; OCE's foundations records under its architecture docs define
+the concept and carry the owner's September 2026 direction); the
+quotation stands as spoken. The governing policy ADR-230 cites bounds the class
 (language/runtime, protocol, storage, transport and platform capabilities
 and standards conformance stay under the sentence above), owns the
 provenance discipline that keeps learning distinct from adapting, and

@@ -37,6 +37,35 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T11:1xZ: the owner's direction on the Practice's extraction is recorded as PDR-143,
+  Proposed; the Reliable Atoms concept is named Capability Foundations; JC.net's pull request 280
+  landed; the Director seat is taken** (Crucible binds Slag, 7b999c). The owner's words of 2026-10-02
+  are in PDR-143 §Context verbatim: the Practice will be extracted from both repos as a standalone
+  entity; what that means is undefined; it must preserve the ability to learn once it is one canonical
+  definition. The record proposes the definition in the owner's own scope axis (PDR-142 §Two axes) with
+  one added split (the installed Practice against the host), places capture at the edge and distil and
+  graduate at the entity, and lists what stays the owner's; until the entity exists PDR-142 governs.
+  `principles.md` gains one sentence after the 2026-09-08 quotation naming the concept Capability
+  Foundations (the owner, 2026-10-02, verbatim: "the Reliable Atoms concept has been replaced by the
+  Capability Foundations concept"), the quotation standing as spoken; the concept's definition is
+  `docs/architecture/foundations/capability-foundations-adoption.md`. The owner will have an external
+  agent raise a pull request here detailing the concept: it is team intake when it arrives, and no seat
+  opens a rename lane for the Reliable Atoms residue ahead of it (43 markdown files under `docs` and
+  `.agent` name the old concept at 10:58Z, this record among them). The same bytes landed in JC.net on
+  its coordination branch at 10:5xZ, read by two sub-agent reviewers there; here they ride
+  `coordination/2026-10-02-9fd05e` as prose-class intake for its fold. JC.net's pull request 280 (#322
+  is its twin here) landed there as `SHA:e5c9c1e4` at 10:48Z after three review rounds; this estate
+  owes its two settlement pushes (two comment corrections, three test changes, the parser's scheme
+  comment and its http row), routed with the `retire` port in §Next Safe Steps; the third round's three
+  items (two-state guard fakes in two test files; the mint test's branching fake) go to the push-tests
+  lane in both estates. The Director seat is taken across both estates at the owner's word of
+  2026-10-02 (claims 6a4b11b1 here and 8b346894 in JC.net; the Moment-2 line on both streams at 10:51Z;
+  the state block in `director-handoff.md`). The owner's limit of the same morning, verbatim: "work is
+  not safe until merged into the default branch"; with two Implementers, one coordination and one fix
+  pull request per estate. JC.net at 11:1xZ: a stale `index.lock` in its primary (0 bytes, 10:56Z, no
+  holder) refuses every commit there, its 12:00Z fold included, and is the owner's to clear; its pull
+  request 290 (the consolidation's slice q) waits on the owner's re-run of one timed-out smoke.
+
 - **2026-10-02T11:07Z: #327 folded into `engraph` as `SHA:9fd05ecf7`** (Efreet lifts Scorch, 7adb15;
   the bot's merge at the pinned head `dc23b7a16`, on two pushes (the merge of engraph, then the
   records pass's seven cures) and one Copilot round with no thread, its overview dispositioned on
@@ -370,6 +399,29 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+STATE, 2026-10-02T11:1xZ (Crucible binds Slag, 7b999c, the Director seat): the pickup block below
+stands, with these changes. PDR-143 records the extraction's direction (§Current State); until the
+entity exists PDR-142 governs every two-estate lane, and nothing is delayed or avoided because of the
+future extraction (the owner's ratified word in PDR-142). The owner's limit of 2026-10-02, verbatim:
+"work is not safe until merged into the default branch … With two Implementers the limits are one
+coordination and one in-progress feature/fix PR per estate". In order, one pull request per estate at
+a time: (a) #327 folded at 11:07Z; the successor `coordination/2026-10-02-9fd05e` (draft #332) carries
+PDR-143 and the Capability Foundations sentence as prose-class intake for its own fold; (b) in JC.net,
+the fold of its 286 at 12:00Z (this seat; held while the stale lock stands) and the consolidation's
+slice q (290); (c) the #309 twin in JC.net; (d) no seat opens a Capability Foundations rename lane
+here: the owner, 2026-10-02 about 10:4xZ, verbatim, "I am not sure when yet, but I will have an
+external agent create an OCE PR detailing the Capability Foundation concept that replaces, or perhaps
+displaces, the Useful Atoms concept" (the concept this estate names Reliable Atoms); that pull request
+is team intake when it arrives (checked out, gated, evaluated, worked as normal; it counts toward the
+limit), and the residue of the old name in the architecture docs, plans and research is read against
+it then; (e) the security lane (line 4); (f) the `retire` port into this estate (line 4), carrying
+280's two settlement cures (JC.net's `SHA:5527d3c5` and `SHA:4efc2f86`); (g) the push-tests lane in
+both estates (line 4): the guard cases where the HEAD read or the sleep moves the instant the clock
+returns, two collaborators coupled through one mutable value, re-expressed with the instants as inputs
+to a pure guard seam; and the mint test's branching, counting fake, removed with the test per this
+estate's 2026-09-29 decision; (h) the J2 port's cures (line 2). Each goes to an implementer seat as its
+slot frees; the Director routes and does not execute.
 
 ### PICKUP, 2026-10-01 13:2xZ — the implementer seat at n=2 (supersedes the blocks below where they differ)
 
