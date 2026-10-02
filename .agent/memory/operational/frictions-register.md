@@ -4578,3 +4578,43 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: hook policy (advisory), tool-facts reference.
 - **Status**: open.
 - **Owner direction status**: unsolicited
+
+### F-284 — an SDK comment says an empty zod shape closes a tool's input schema; the conversion's default mode says otherwise (2026-10-02)
+
+- **Source**: the consolidation seat on 2026-10-02, while curing a review finding on OCE's
+  TypeScript gotchas.
+- **Surface**: OCE's curriculum SDK, the no-input tool's definition module
+  (`aggregated-curriculum-model/definition.ts`), and the MCP TypeScript SDK's zod
+  compatibility module.
+- **Observed**: the definition's TSDoc says an empty `ZodRawShape` produces
+  `{ "type": "object", "additionalProperties": false }` through the SDK's `z.toJSONSchema()`. A
+  probe on the workspace's zod 4.4.3 emits `additionalProperties: false` for an empty object
+  with `io: 'output'` and omits it with `io: 'input'`. The MCP SDK's compatibility module
+  passes `io: opts?.pipeStrategy ?? 'input'`. The served schema was not read.
+- **Expected**: the comment states what the wire carries, proven by one observation of the
+  served `tools/list`.
+- **Candidate cure**: read the served `inputSchema` of the no-input tool once; if it is open,
+  make the shape strict or true the comment.
+- **Target surface**: OCE's curriculum SDK (a code lane).
+- **Status**: open; routed to the code lanes.
+- **Owner direction status**: unsolicited
+
+### F-285 — the review-cost gate did not list the last settlement head of two pull requests (2026-10-02)
+
+- **Source**: the consolidation seat on 2026-10-02, reading the gate after three merges to
+  write their ledger rows.
+- **Surface**: OCE's review-cost gate (the agent-tools topic that prices a pull request's
+  rounds).
+- **Observed**: for pull request 329 the gate reported "rounds 2 (opening plus 1 settlement)"
+  and listed two heads, where the pull request has three commits and its third was the second
+  settlement push. For 330 it reported "rounds 1 (opening plus 0 settlement)" and listed one
+  head, where a second commit was its one settlement push. For 331 it listed all three heads.
+  In both missed cases the last push changed directive files only; whether that is the cause
+  was not read from the gate's code.
+- **Expected**: every pushed head after the opening is a priced round, or the gate says which
+  heads it leaves out and why.
+- **Candidate cure**: read the gate's round enumeration against these two pull requests; cure
+  the enumeration or document the exclusion in its output.
+- **Target surface**: OCE's agent-tools review-cost gate (a code lane).
+- **Status**: open; routed to the code lanes. Two instances.
+- **Owner direction status**: unsolicited
