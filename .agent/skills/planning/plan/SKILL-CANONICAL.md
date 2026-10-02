@@ -377,7 +377,11 @@ are the yardstick), put the bound to the owner with the widened scope, and
 record the owner's decision with that bound (owner's card, 2026-09-16: the
 transplant closure took sixteen ruling rounds and eight closure items with
 no restated cost, about sixty agent-hours against an opening estimate of
-one).
+one). A landing rate measured under ceremony (review rounds on wording, hold
+lines, heartbeat pauses, a records commit per event) is not the rate of the
+work: separate the two before an estimate is stated, and size a tested
+module copied with its tests in minutes, not as fresh code (an estimate of
+eight to ten seat-days against the owner's bound of two hours, 2026-10-02).
 
 ## Completion and Archival
 
@@ -393,7 +397,10 @@ architecture it settled (a boundary, a contract, a source-of-truth choice)
 is mined into an ADR, and the plan cites the record: a plan is safe to
 delete only when no decision lives solely in it (2026-03-08: a
 platform-integration plan settled reusable architecture that reached no
-ADR until a later pass).
+ADR until a later pass). A family of plans that tests a boundary (a package
+extraction, a workspace split) needs an executable losing path: a dated FAIL
+that keeps the module well bounded and creates no placeholder workspace is a
+successful disposition, recorded as such, never incomplete work (2026-08-12).
 Archival is a multi-surface move: the markdown-links validator treats
 `**/archive/**` as non-live, so every inbound link to the old path breaks
 and a re-point to the archive path is refused too — sweep inbound links to

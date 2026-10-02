@@ -277,7 +277,11 @@ merged on 2026-09-21).
 
 **Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
-selective (important-or-risky only). Cadence is at-open plus
+selective (important-or-risky only). Selective means by risk, never by
+class: on 2026-10-02 every vendor round on seat-written doctrine found a
+true defect, including bytes the twin estate had merged unreviewed, so a
+docs-only pull request that changes a rule or a skill requests the
+review. Cadence is at-open plus
 substance-triggered (a reshaped diff), never per intermediate cure push;
 on a code pull request the last push that changes the pull request's own
 diff carries the request (under the held-cure shape that is the slot's one
@@ -649,7 +653,10 @@ once. A patch to one region is read against the untouched text and the sibling f
 opens: five of one records pull request's eight rounds were contradictions with text the
 patch had not touched. And where a cure is cheaper than the argument against it, cure; a
 second raising by an independent reviewer tips any disposition to a cure (three lessons from
-one handoff record).
+one handoff record). The working read is section by section through each touched file in
+the merged tree (`git diff <default> <merge-tree> -- <paths>` with context, then each
+section's other clauses), never the diff alone, which cannot show the clause the patch now
+contradicts (2026-10-02).
 
 ## Phase 5 — Wait without burning budget: the SUPERVISED terminal-condition watch
 
@@ -1953,21 +1960,34 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     list of what remains for an execution-capable host becomes its todo, its
     content is evaluated as a peer's PR, and its ready-mark is the owner's or
     follows the owner's stated acceptance.
-  - While the count is full, a seat prepares without a worktree or a commit
-    (reading, planning, reviewing a peer's PR), because `worktree-hygiene`
-    allows no worktree to hold work without a PR; its landing turns and any
-    cure that frees the count come first. The owner's word of 2026-09-29,
+  - The limit counts OPEN pull requests (the owner's word, 2026-10-02:
+    "work is not safe until merged into the default branch. That is one of
+    the reasons for maintaining strict WIP limits, and strict PR limits.
+    With two Implementers the limits are one coordination and one
+    in-progress feature/fix PR per estate"). While the count is full a seat
+    prepares its next slice as local commits on an unpublished branch, so
+    the work is git-durable, and opens no pull request until a slot is free
+    (the reading that forbade local commits left 66 applied lessons
+    uncommitted in two working trees for seven hours, 2026-10-02); its
+    landing turns and any cure that frees the count come first. This reading
+    supersedes, as of 2026-10-02 and with the same dated clause in each, the
+    absolute of `worktree-hygiene` §1 (a committed worktree with no pull
+    request) and the first-push timing of `no-parallel-long-lived-branches`:
+    the first PUSH still opens the draft at once, and the push waits for the
+    slot. The owner's word of 2026-09-29,
     relayed verbatim by the Director: "the entire team is supposed to have
     been instructed NOT to create new PRs while waiting for old ones, that is
     how WIP is managed... if you move on while the older work is still pending
     you create an ever growing tail" and "We are aiming for trend to zero open
     PRs". So an ordered "then" means after the earlier pull request lands, a
-    seat with an open PR cuts its next worktree after that PR merges, and a
-    seat holding two opens nothing until both land (the Director's readings
-    that day). It recurred with this bullet loaded: a seat built its next
+    seat with an open PR opens its next pull request after that PR merges, and
+    a seat holding two opens nothing until both land (the Director's readings
+    that day). It recurred with this bullet loaded: a seat PUSHED its next
     branch while its PR waited (2026-09-29), and the consolidation seat cut
-    and pushed two branches while its PR was open (2026-10-01). The cure is a
-    check at the first push, in the frictions register, and not this sentence.
+    and pushed two branches while its PR was open (2026-10-01); the recurrence
+    is the push and the second pull request, never the local commit. The cure
+    is a check at the first push, in the frictions register, and not this
+    sentence.
   - **The owner lands small green pull requests by hand, in changed-file
     order** (owner, 2026-09-26: "I can make judgements that allow me to merge
     small PRs many, many times faster than Practice agents"). Never hold a

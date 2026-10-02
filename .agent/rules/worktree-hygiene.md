@@ -68,7 +68,11 @@ to its durable home: it makes the work **visible** (it appears on the PR list, n
 a branch somewhere"), **reviewable**, and **on a committed, trackable path to `main`**.
 A worktree carrying commits with no PR is an orphan by construction. A draft PR is
 low-cost — it requests no review until marked ready. **There is no acceptable state in
-which a worktree holds work and has no PR.**
+which a worktree holds PUSHED work and has no PR.** One state is sanctioned before the
+push (owner, 2026-10-02, the work-in-progress limit in `pr-lifecycle`): while the
+estate's count of open pull requests is full, the next slice waits as local commits on an
+unpublished branch, git-durable, and its first push opens the draft the moment a slot is
+free.
 
 This absoluteness is deliberate. A read-only investigation checkout holds no committed
 work and is outside this clause — but a genuinely throwaway spike is **not** an

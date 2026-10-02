@@ -46,6 +46,9 @@ behaviour regression is the constraint. The method was proven on the
   check in its own output), the first move is the upgrade cycle, not a local
   workaround: a workaround written over a known-stale version is debt the next
   pass unwinds, and it hides the signal that priced the upgrade (2026-08-12).
+  When a hold or the cooldown governs, the stale signal is recorded against the
+  hold and a workaround, if any, names it; the upgrade cycle is otherwise the
+  first move.
 
 ## Workflow
 

@@ -41,6 +41,10 @@ discipline held for expensive chains gets skipped.
   verify the effect landed (the event on the stream, the ref moved, the
   registry row changed) — a grep filter over a failed send returns empty
   and reads as quiet success, not as failure.
+- A landing proof is a NEW commit on the remote beyond the head read
+  before the commit; head equal to remote proves nothing (a pathspec commit
+  refused whole over one untracked path left head equal to remote, and the
+  chain pushed a no-op and posted a false push-done, 2026-10-02).
 - **The false-silence twin, on WRITES: on any ambiguous outcome, READ THE
   STATE before retrying — a retry is itself a write.** A piped grep over a
   successful write can match nothing (the CLI emits prose, not the JSON the

@@ -50,6 +50,11 @@ shrinks things is expediency with better manners.
 | **Instrument** | Is the tool matched to the question? | **Too heavy** → re-tier (an inline check over a fleet; a cheaper model tier; a probe over a plan). **Too light** → escalate the instrument; a cheap check on an irreversible call is false economy |
 | **Level** | Whose decision is this? | **Wrong level** → route it: owner, Director, or resolve at the seat. A decision already covered by standing word is not an escalation |
 
+A plan written under a "finish" word makes its value step the first todo and lets the measure
+serve it: instruments (a survey, a ledger, a records pass) placed before the first value step
+are meta-work, and the instrument axis reads them as too heavy for the question (four
+corrections on one plan, 2026-10-02).
+
 ### Step back and be sensible
 
 The owner's own phrasing of the instrument axis (2026-07-19, after a session
