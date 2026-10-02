@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-28
+last_updated: 2026-10-02
 ---
 
 # Landing instruments: read the evidence that exists, and ask when nobody has
@@ -91,7 +91,11 @@ the two repositories are peer forks of OCE that merge back, not an upstream and 
 a finding on carried code is cure-worthy HERE. Only the PRICING claim survives, and it survives
 because the seat did not AUTHOR the import, never because the findings belong to someone else. And `BUDGET-EXHAUSTED` names the
 smallest declared budget that would admit the next push, which the owner and the seat
-currently derive by hand from an unstated unit weight.
+currently derive by hand from an unstated unit weight. A base sync that resolves a conflict
+prices as a full settlement push (pull request 250, 2026-09-27: 179.23 of 40, and the pre-push
+gate refused the sync; the Director routed it as a tool defect), so the sync test admits a
+base merge whose tree differs from git's automatic merge only on the conflicted paths, and
+the gate prices only those resolution lines.
 
 **5. The watch exit predicate.** `pr-watch --watch` exits ALL-GREEN on a pull request that
 is CONFLICTING with a standing change-request (F-162, F-164, three recorded instances). The

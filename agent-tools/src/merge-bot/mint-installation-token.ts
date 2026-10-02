@@ -142,7 +142,8 @@ async function githubErrorDetail(response: {
   return parsed.success ? ` — ${parsed.data.message}` : '';
 }
 
-function githubHeaders(bearer: string): Readonly<Record<string, string>> {
+/** The headers every bot call to GitHub's API sends: the media type, the bearer, a user agent, the pinned API version. */
+export function githubHeaders(bearer: string): Readonly<Record<string, string>> {
   return {
     accept: 'application/vnd.github+json',
     authorization: `Bearer ${bearer}`,

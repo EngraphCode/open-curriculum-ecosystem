@@ -133,8 +133,9 @@ agent-tooling backlog.)
 ## Worked instances — proofs that checked something else
 
 - A strict-YAML round trip proved the container valid, not the values: a comma splitter had
-  broken brace groups and the round trip still passed. A proof script that re-implements the
-  parser proves the re-implementation and repeats its bugs.
+  broken brace groups and the round trip still passed. A proof script that copies the parser's
+  own logic proves the copy and repeats its bugs; a derivation that reaches the values by
+  another route is the oracle this rule asks for.
 - A census validator's contract put the run's provenance (`generatedAt`, `sourceCommit`)
   inside the payload it compared with a fresh derivation, so it could never pass across two
   runs. Provenance sits outside the compared payload.
