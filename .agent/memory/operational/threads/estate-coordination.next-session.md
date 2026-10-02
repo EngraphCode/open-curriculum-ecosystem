@@ -1975,3 +1975,104 @@ directory (seven of 2026-08-14 and two more): delete or keep? One lane's work is
 OCE's J2 docs-validators worktree holds two modified files and three untracked directories, 153
 commits behind its base; it is the partner seat's lane and is recorded in OCE's continuity
 record.
+
+### 2026-10-02 02:32Z — the buffer stage, third record: the experience files, and the write list closed and grouped (Hazel tracks Trunk, 7d8b9d)
+
+**Counts.** Pending graduations: no entry of the counted shape in either register; slow-lane rows
+1 (JC.net) and 6 (OCE), none at its review date. Write list: W1 to W111, six closed on a second
+probe, one (W59) closed as already homed; **104 open, none landed in doctrine**; the
+memory-surface group lands with this record. The list is itself a buffer until it lands (Cricket
+suite 14, both legs).
+
+**Drains since the second record, with their true labels.**
+
+- Experience files dated from 2026-09-14: 55 read whole at the seat (JC.net 27, OCE 28). 48
+  lessons were probed in both estates' doctrine; 13 had no home and are W93 to W105.
+- This seat's own napkin entries of this session: each line mapped to a home, a prepared script or
+  a write (W106 to W111).
+- Scans, not whole reads: the handoff archives (seven files, read by a scan for owner words);
+  the ported patterns (each file's `use_this_when` line; ten files and the twelve that differed
+  read whole); the three unconsolidated napkins were extracted by an earlier seat on 2026-09-13
+  and 14 and were not re-read; their archive waits on the owner's privacy review.
+
+**Shapes that recur across seats in the experience files** (each already a pattern, a rule or a
+decision record; the count is the evidence that the home does not fire by being read):
+
+1. A lesson its author has just written does not fire for that author; a gate or a script step
+   does (at least twelve letters, six seats).
+2. The nearest surface read as the thing: a summary, a label, a count, a seat's line, a field
+   whose name resembles the concept (at least fifteen letters).
+3. After a compaction a seat is fluent, not informed: numbers are written that no file holds, and
+   the first context-meter read describes another moment (four seats, and this seat twice today:
+   63.9 % and 0 %).
+4. A review loop whose rounds do not shrink names a generator, not instances (five seats).
+5. Stopping is not safety: a seat that cannot trigger its own compaction achieves nothing by
+   waiting for it (the owner, twice).
+6. Under a work-in-progress limit "then" means "after this one lands" (the owner, 2026-09-29).
+7. Agreement among readers of one model is weak evidence; a reader from outside the frame, not
+   told which line worries the author, finds what five same-frame checks pass (three seats).
+8. A hold with a condition and no sensor waits forever looking healthy (two seats, and this seat
+   today: a monitor that needed "no review request pending" beside the owner's standing request).
+9. A count whose unit the counter can slice is a story (one seat). It bears on this list's count.
+
+**The write list, W93 to W111.**
+
+- W93 tool facts: a process's lifetime CPU average is not its load now; sample over a few seconds.
+- W94 rule `ping-before-escalate`: when the routing seat is the silent one, send the owner one
+  notice, a plain state report and not a question.
+- W95 rule `channel-by-audience-lifetime-and-consumer`: a ruling another seat must cite is an
+  event on the stream, not a direct message.
+- W96 testing recipes: when the doctrine refuses the test you want, the property lives in the
+  structure (a type, the place of a call); a port's own failure is the probe.
+- W97 rule `consolidate-at-second-consumer`: before writing a parser, matcher, validator, kill,
+  sweep, retry or lock, ask what in the repository already does it, on the stream.
+- W98 testing recipes: a test that fails under load is a measurement first.
+- W99 handoff rule: a recorded decision names who will do it; if nobody, it says "nobody".
+- W100, W101 inter-practice skill: open your own estate's home for the concept before amending a
+  peer's joint text; hold the twin's door until both copies' review legs have settled.
+- W102 rule `important-state-not-in-temp-files`: when a placement feels easy under a sensitivity
+  constraint, search the tree for the thing being protected first.
+- W103 pr-lifecycle skill: the scope a change causes is in scope whatever the description
+  declares; each "counted", "never" or "only" in a description is held by an assertion.
+- W104 coordination-fold skill, JC.net: a change never describes its own state in the files it
+  merges (OCE's skill holds it).
+- W105 commit skill, JC.net: `git merge` takes no `--author` (OCE's skill holds it).
+- W106 consolidate-docs step 7: before a record's status changes, find every condition the record
+  puts on that status and answer each.
+- W107 tool facts: `open(p, 'w').write(compute())` truncates before `compute()` runs.
+- W108 tool facts: a computed listing printed into a seat's context gets a bound.
+- W109 inter-practice skill: the second estate's review is a second reading of the first estate's
+  merged bytes; plan the first estate's follow-up before opening the twin.
+- W110 frictions register how-to: landed with this record.
+- W111 cross-estate rule: small differences are of three kinds (host anchors; wording one estate
+  holds host-neutral; content one estate lacks, which is knowledge at risk); measure divergence at
+  the close of a pair.
+- Two more from the record items: a property test for a renderer that prints by allowlist (a
+  nonce at every position never appears unless its token is in the closed vocabulary) goes to the
+  testing recipes; the strictness method (flags measured per target, zero-cost flags in one pull
+  request, costly ones in ten-file slices fixed by meaning) goes to the TypeScript tool facts.
+
+**How the list lands, grouped by home surface.** A: memory surfaces on the coordination branches,
+no pull request (landed with this record: the frictions how-to, the surface matrix's two notes,
+the CLI-writer pattern's bullet, OCE's review-cost ledger rows; still to do: register curation
+of four duplicate groups and 43 entries without a Status line). B: tool facts, one pull request
+per estate. C: rules, three. D: skills, two. E: Practice Core, one. F: directives, one (context
+under 30 % at the edit). G: docs, plans and templates, two. H: whole-file ports, one. At most
+eleven per estate, one open at a time across both, OCE first so the twin carries its review's
+cures. The item-to-group table is in the gitignored analysis directory (`homed/landing-plan.md`
+under the session directory) and is rebuilt from this record's three write-list entries.
+
+**The directive slice (OCE pull request 329) took a second cure.** Its merge door computed open
+by name. The seat asked Copilot to read the cured tip first. The review opened no thread; its
+overview alone said conflicts remained in `principles.md` and `testing-strategy.md` and named
+none. Read against their neighbours, three sentences the slice had added were wider than their
+sources: a "records are not rewritten" sentence inside the bullet that says to repair historical
+data in place; a seat's reading of a testing word given as the owner's rule, with "default" in
+two senses; and an "ordering claim" sentence after text that says order is implementation. Each
+was narrowed in both estates' lanes (context 20.9 % at the edit). JC.net's lane working tree also
+holds the archive-proof cure of the first round (applied at 17 %), with no branch and no commit
+until 329 merges.
+
+**Cricket suite 14** (02:26Z frame): both legs DRIFTING, both frames NARROWED. Taken: the list's
+open and landed counts lead every report; the memory-surface group lands now; 329 merges at its
+next open door with no further round; scans are labelled as scans.

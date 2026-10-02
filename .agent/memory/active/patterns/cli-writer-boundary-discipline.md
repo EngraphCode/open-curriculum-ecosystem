@@ -64,6 +64,10 @@ its first pull request.
 - Widening where a write fires multiplies any latent defect in the write. When a config removal
   that fired on one decision was made to fire on an absent decision too, the write itself was
   re-read before the change (2026-09-28).
+- After a call that cannot be undone (a durable write, a send, a merge), every answer that does
+  not confirm it is indeterminate, not a failure: read the state back before a retry or a
+  refusal message. Each failure arm added after a mutation is audited for reporting a completed
+  write as failed (a comms send that exits 1 after its durable write, September 2026).
 
 ## Relationship
 

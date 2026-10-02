@@ -56,6 +56,11 @@ agent-observed friction is first-class user feedback."*
 Keep entries terse. Long-form analysis belongs in the napkin or in a
 dedicated plan that this entry points to.
 
+An entry that states what code does is a claim: read the code first, and say in the entry what
+was read. An entry that names an incident is asked the disclosure question before it is written:
+would this be the first tracked pointer to private material? (2026-10-01: a security review of
+drafted entries found one such pointer and five claims the code did not bear out.)
+
 From F-218 the two estates (JC.net and OCE) share one id space: a new entry takes
 the next number after the highest in either register, so an entry both estates
 carry has one id and the same bytes.

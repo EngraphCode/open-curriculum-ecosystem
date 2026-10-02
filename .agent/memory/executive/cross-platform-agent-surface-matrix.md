@@ -326,6 +326,11 @@ contract: re-read it against the running CLI before a design rests on it.
   with no rollout. Desktop and editor-terminal hosts are unproven.
 - **Codex's automatic approval reviewer can refuse a push**: the push then waits on the
   owner's explicit approval in that Codex session (one instance, September 2026).
+- **The bounded-poll challenge** (a convention seats used with a Codex peer; from the comms
+  record). To show that a Codex seat hears the stream, a peer posts an event carrying a nonce.
+  The Codex seat must find it by its own declared foreground polling, with no relay. Its reply
+  records the nonce, the timestamps, the command, the cadence, the state of its turn and what
+  it did after its final message.
 
 ## Notes
 
@@ -347,6 +352,9 @@ contract: re-read it against the running CLI before a design rests on it.
   local overrides are additive where the platform supports them.
 - Unsupported states are written down explicitly rather than inferred
   from missing files.
+- A rule adapter's `@` import path is written as the vendor documents it, relative to the
+  importing file. Whether the platform expands it at launch stays a prediction until a fresh
+  session has been seen to do so; record that observation with its date.
 - Linear coding sessions run through Claude Code or Codex and inherit
   those entry-point chains; the root `skills.md` is supplementary
   guidance Linear Agent can use during a delegated session (per

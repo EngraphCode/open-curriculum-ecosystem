@@ -146,3 +146,28 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   itself; nothing needed waiting for.
 - **Mistake:** the write-list entry's heading carried a typed time five minutes ahead of its own
   commit. Times come from the clock, inside the command that writes them.
+
+### 2026-10-02 02:32Z, the consolidation's second night, continued (Hazel tracks Trunk, 7d8b9d)
+
+- **Mistake:** the context meter's first read after a compaction described another moment, twice
+  (63.9 % at 01:33Z, then 0 % after the next compaction; the true reads were 28.9 % and 17 %). A
+  thread-record entry carried the first stale figure. Read the meter twice, a few calls apart,
+  before anything is priced on it.
+- **Mistake:** the frictions port skipped the seat's own gate: 101 entries entered with "checked
+  against this estate's code: not yet". Both Cricket legs named it; four scripted passes then
+  wrote what was read into each provenance line.
+- **Surprise:** a monitor whose READY needed "no review request pending" never fired, because the
+  owner's standing review request is always pending. Read a sensor's conditions against one live
+  sample before trusting its silence.
+- **Surprise:** Copilot's review of a cured tip opened no thread and said only, in its overview,
+  that conflicts remained in two files. Reading the pull request's own additions against their
+  neighbours found three true contradictions. A sentence in a review body under "Findings: None"
+  is a finding to test (the review-cost ledger's row for OCE 322 is the first instance).
+- **Mistake:** two unbounded reads (a ledger of long rows, about 28k tokens; a 48-line plan block)
+  hours after writing that every listing gets a bound. A line count or a heading list first.
+- **Observation:** 55 experience letters read whole cost about 6 % of context and gave 13 lessons
+  with no home and nine shapes that recur across seats. The whole read the consolidation skill
+  asks for is cheap; the synthesis is in the thread record's third buffer-stage entry.
+- **Observation (Cricket suite 14):** a closed, grouped write list of 104 items with none landed
+  is itself the buffer. Group by home surface early, and land the memory-surface group first: it
+  needs no pull request.
