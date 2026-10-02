@@ -70,8 +70,9 @@ modes serve this node:
   (event decbef38), verbatim: "I am deprioritising Codex support for now, we
   have made progress, we will come back to it later." The Director's record of
   the same day reads the Codex goal as paused until the owner returns to it,
-  its nodes ratified and unseated (codex-queue-wake-bridge,
-  codex-pretooluse-guard-parity, codex-live-acceptance-seat). One instance.
+  its nodes unseated: codex-queue-wake-bridge (ratified), and
+  codex-pretooluse-guard-parity and codex-live-acceptance-seat (sketches,
+  not ratified; a pause authorises nothing in them). One instance.
 
 ## The first fully-worked instance: GitHub Copilot CLI
 
