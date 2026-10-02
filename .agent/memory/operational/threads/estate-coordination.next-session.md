@@ -2418,3 +2418,38 @@ the fold of 286, which still waits on the owner's lock; the two Codex cures from
 JC.net as one small slice after u. Eleven peer push windows this hour, each holding the estate's
 comms writes under F-219 and pausing every heartbeat loop on that estate: the cost the register
 entry routed at 14:4xZ names, now counted.
+
+### 2026-10-02 16:49Z — five of the sibling estate's slices landed in one afternoon; the sixth open with main merged in; what remains of the list (Hazel tracks Trunk, 7d8b9d)
+
+Counts first. Pending graduations: none inline in either register; the slow-lane rows (the sibling
+estate 1, this estate 6) are gated on their review dates. Buffers: the three unconsolidated napkins
+in the sibling estate are read whole and archive by proof once the skills slice merges in both
+estates (the sibling estate's did at 15:41Z; this estate's is last in the implementer's order) and
+the owner rules on one line (owner-private, chat only); the sibling estate's live napkin carries
+four seats' blocks and rotates after the records commit; this estate's is 232 lines. Write list: 116
+numbered, 26 closed on reading, 7 on memory surfaces, 83 open, of which 19 were merged in both
+estates at the day's start, and since then every lane slice of the sibling estate but one has merged
+(291 rules and templates, 292 skills, 293 the method and twin, 294 plans and ports, 295 the lineage
+wording) with the Practice Core slice open, while this estate's implementer has merged the retire
+port and three slices (nb, r with 291's cures, and v at its door) with w, u, q, s and y to go.
+
+The afternoon's shape, by the Director's definition of done (15:1xZ): one open pull request per
+estate, the door read at CLEAN by name, every review finding dispositioned within a budget of two
+settlement pushes, the branch retired on proof. Twelve findings over five slices, every one holding
+in whole or in part, every one cured: seven in-file contradictions on the skills slice, one on the
+method (a control term proves reach, not absence), two frontmatter dates, four wrapped articles.
+Three cures found by this seat's own pre-open read in the merged tree (a clause on y; a wrapped
+phrase in PDR-132; the plans-and-ports description re-trued) cost no round. The cure scripts for
+this estate's copies (a135, a136 for s; a137, a138 for y) are in the synced session directory and
+announced on this estate's stream.
+
+What stands. The Practice Core slice took main by merge, never a rebase, before it opened, its one
+collision (two changelog entries at the head) kept newest first; it runs its round now. The
+zero-byte index lock in the sibling estate's primary (10:56Z) still stands, so the records commit
+(the thread record's eighth, ninth and this tenth entry, the napkin with four seats' blocks, the
+memory README, the WS-8 synthesis header, three patterns, the register's nine entries, two formation
+letters) and the fold of 286 wait on it; the Director routed the slices around it so the fix slot
+never idled. The two directive lines wait for a window under the context meter's floor (the meter
+read 60 % at 16:45Z); the pattern files take the same naming by the records channel. After the list:
+Goal 1 item 3, the exchange register's recount at the current heads and the computed path delta
+between the two default tips.
