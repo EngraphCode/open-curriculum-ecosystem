@@ -151,13 +151,15 @@ embedded here in the doctrine it enacts; indexed in
    landed, how many rounds) and the others link, so a restatement is derived or
    absent (2026-09-21, one fact hand-restated across five surfaces and
    drifting).
-3. **Verify losslessness mechanically** (after the rewrite, before committing): the
+3. **Verify losslessness mechanically.** Before the rewrite, confirm that the
+   surface has no uncommitted change (`git diff --quiet HEAD -- <surface>` exits
+   0; a pending change is committed first), so that `HEAD` holds the whole
+   pre-move surface. After the rewrite, before committing: the
    archive's body (everything after its own frontmatter, where it carries one)
    equals the moved range's bytes in the pre-move blob, `git show HEAD:<surface>`
-   (the move starts from a surface with no uncommitted change, so `HEAD` holds
-   the whole pre-move surface while the proof runs and becomes the move commit's
-   parent; for ranges that are not contiguous, the same ranges are cut from that
-   blob and joined in file order); every live-pointer token from
+   (that `HEAD` becomes the move commit's parent; for ranges that are not
+   contiguous, the same ranges are cut from that blob and joined in file order);
+   every live-pointer token from
    the pre-curation file still appears in the live surface (`grep -F` each); every
    curated passage's statement about a neighbour is re-read against the neighbour (a
    passage saying an "UNCOMMITTED" block had since been committed was the only place
