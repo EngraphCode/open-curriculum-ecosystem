@@ -1,9 +1,9 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { parseGitRemoteUrl, type GitRemoteRepository } from '../core/git-remote-url.js';
 import { printable } from '../pr-watch/printable.js';
 import { DEFAULT_BRANCH_NAMES } from './branch-arg.js';
 import type { GitCommandResult } from './git-executor.js';
+import { namesGithubRepository, trustedOriginRepository } from './origin-repository.js';
 import { describeGitChildEnd, type PushGitReads } from './push-git.js';
 import type { BotIdentity } from './resolve-identity.js';
 
@@ -90,19 +90,6 @@ function originReadFailure(result: GitCommandResult, cure: string): Error {
       );
 }
 
-/**
- * The repository origin's one URL names, when it is read over a transport the
- * push trusts. What a remote advertises over plain http, its default branch
- * included, is not trusted; the parser reads that form all the same, for
- * callers that need only the repository a URL names.
- */
-function trustedOriginRepository(urls: readonly string[]): GitRemoteRepository | undefined {
-  const url = urls[0]?.trim();
-  return urls.length !== 1 || url === undefined || url.startsWith('http://')
-    ? undefined
-    : parseGitRemoteUrl(url);
-}
-
 /** Whether origin's one URL names the configured repository on github.com, over https or ssh. */
 function trustOrigin(result: GitCommandResult, repository: Repository): Result<undefined, Error> {
   const repo = `github.com/${repository.owner}/${repository.repoName}`;
@@ -111,12 +98,7 @@ function trustOrigin(result: GitCommandResult, repository: Repository): Result<u
     return err(originReadFailure(result, cure));
   }
   const urls = result.stdout.split('\n').filter((line) => line.trim() !== '');
-  const remote = trustedOriginRepository(urls);
-  const names =
-    remote?.host.toLowerCase() === 'github.com' &&
-    remote.owner.toLowerCase() === repository.owner.toLowerCase() &&
-    remote.repoName.toLowerCase() === repository.repoName.toLowerCase();
-  return names
+  return namesGithubRepository(trustedOriginRepository(urls), repository)
     ? ok(undefined)
     : err(
         new Error(

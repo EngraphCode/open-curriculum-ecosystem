@@ -84,7 +84,7 @@ describe('guardedAttempt', () => {
     expect(run.text()).toContain(MOVED);
   });
 
-  it('ends the push when HEAD cannot be read, with git own account of it', async () => {
+  it("ends the push when HEAD cannot be read, with git's own account of it", async () => {
     const unreadable: GitCommandResult = {
       status: 128,
       signal: null,
