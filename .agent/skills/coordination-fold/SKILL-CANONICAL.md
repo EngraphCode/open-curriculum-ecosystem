@@ -231,14 +231,16 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
    (`worktree-hygiene` §3). If the default branch moves again during or just after the ceremony (a
    lane PR merging mid-rotation), merge `origin/<default>` in and rebuild promptly: until
    that merge, the primary's dist and its generated read models run the
-   pre-merge contract, and a rule, hook or plan landed on the default branch
-   reaches seats in the primary only after the fold re-cuts the coordination
-   branch and dist is rebuilt (a `PreCompact` hook landed on the default branch
-   was absent from the primary at that day's compaction, 2026-09-25), so every seat's primary-dist tooling (renders,
-   watchers, sends) is one contract behind — cosmetic for render-time
-   formats, load-bearing the day a change alters event files (worked
-   instance 2026-08-01: cross-branch format skew read as read-model
-   drift).
+   pre-merge contract. Two things reach the primary at different moments: a
+   rule, plan or hook command is read from source and arrives with the merge of
+   the default branch (step 4, or a quiet window between folds, which the
+   lifetime rule allows), while compiled tooling arrives only with the rebuild
+   after it (a `PreCompact` hook registered on the default branch was absent from
+   the primary at that day's compaction, 2026-09-25, because the default branch
+   had not been merged in there); until the rebuild every seat's primary-dist
+   tooling (renders, watchers, sends) is one contract behind — cosmetic for
+   render-time formats, load-bearing the day a change alters event files (worked
+   instance 2026-08-01: cross-branch format skew read as read-model drift).
 10. **Refresh every branch-labelled surface**: stop and re-arm the
     heartbeat loop with the new `--branch` label; append the fold entry
     (with the same product-gravity line) to the Director seated block AND
