@@ -148,7 +148,15 @@ the first comms write, claim, or registration).
    name is often not in its content): it may have been removed
    on purpose, with the reason in the commit (one instance, 2026-10-01: a
    port made from a diff met a deletion made two days earlier on four
-   reviewers' verdicts).
+   reviewers' verdicts). A slice prepared
+   for both estates is applied by one script in each estate's lane, committed on a
+   local branch in each, and opened one estate at a time; the second copy carries
+   the first review's cures as a second commit before it opens, and a cure to bytes
+   the other estate has already merged travels back as its own small slice (three
+   instances, 2026-10-01 to 02). A napkin or register entry is the capture of an
+   observation at the estate where it arose (one made in both estates is captured in
+   both) and is never copied across as a capture; the knowledge it yields lands as the
+   same bytes in both estates' homes.
 2. **Declare the coordination home.** One substrate owns the
    arrangement's coordination state. Resolution order: explicit CLI
    flag, then `PRACTICE_COORDINATION_HOME`, then git-native
