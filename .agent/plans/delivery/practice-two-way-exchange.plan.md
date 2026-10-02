@@ -9,7 +9,7 @@ impact_areas:
   - practice-and-estate
 tickets: []
 owner_gates: []
-last_updated: 2026-09-28
+last_updated: 2026-10-02
 ---
 
 # The two-way Practice exchange with the second estate
@@ -191,6 +191,14 @@ template gains (Myrtle, after the docs pull request); the strictness units measu
 todo 7's re-pin on JC.net (Siren); at the finish the settling and decline rows, the lessons batch
 into the Box, the JC.net fold, the prose-class close pull request with the owner's word, the
 lineage fold, and the verification.
+
+**Routed here on 2026-10-01** from the walk of both comms streams, each one piece of parity
+work with no other home: wire `practice:substrate:check` into `repo-validators:check` (it exits
+0 on a fresh worktree since pull request 205, merged 2026-09-25) and dispose of that pull
+request's five other body follow-ups; port PDR-082's dialogue-channel bullet (JC.net, amended
+2026-09-13, owner-directed), naming this estate's channel home (`comms-channels`) in place of
+JC.net's channel rule; take JC.net's `cricket-procedure.md` bytes for F1 and F5 to F7 and
+re-render the adapters.
 
 **Amended 09:4xZ on the owner's words** (given in Siren's session, relayed verbatim on both
 streams): "the entire team is supposed to have been instructed NOT to create new PRs while

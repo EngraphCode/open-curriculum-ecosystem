@@ -1,12 +1,14 @@
 /**
  * A git remote URL, read as the host and the `owner/repo` path it names. Pure.
  *
- * The one parser for three of the forms git accepts: `https://host/owner/repo`,
- * scp-style `user@host:owner/repo` and `ssh://user@host/owner/repo`, each with
- * or without `.git`; any other form reads as no repository. A slash after the host needs a scheme, since git reads
- * `host/owner/repo` as a local path. Callers decide what the parts mean: the
- * operator profile keys a repository by owner and name on any host, and
- * `merge-bot push` trusts an origin only when the host is github.com.
+ * The one parser for three of the forms git accepts: `https://host/owner/repo`
+ * (and the same over plain `http://`), scp-style `user@host:owner/repo` and
+ * `ssh://user@host/owner/repo`, each with or without `.git`; any other form
+ * reads as no repository. A slash after the host needs a scheme, since git reads
+ * `host/owner/repo` as a local path. Callers decide what the parts mean, and
+ * whether to trust the transport: the operator profile keys a repository by
+ * owner and name on any host, and `merge-bot push` trusts an origin only when
+ * the host is github.com and the URL is not plain http.
  */
 
 /** The repository a remote URL names, and the host it is on. */
@@ -16,7 +18,7 @@ export interface GitRemoteRepository {
   readonly repoName: string;
 }
 
-/** `https://` or `ssh://`, an optional user, the host, then the path after a slash. */
+/** `https://`, `http://` or `ssh://`, an optional user, the host, then the path after a slash. */
 const SCHEME_URL = /^(?:https?|ssh):\/\/(?:[A-Za-z0-9._-]+@)?([^/:@]+)\/(.*)$/u;
 
 /** scp-style: an optional user, the host, then the path after a colon. */

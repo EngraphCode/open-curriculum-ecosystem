@@ -40,9 +40,9 @@ const GIT_FATAL = 128;
  * 224 characters, all ASCII, as GitHub printed them on 2026-09-28 for the
  * repository this bound was set in; the bound holds over eighteen times that,
  * for a longer repository or bot name, and a longer transcript cannot be the
- * refusal. The
- * push's output still streams to stderr in full as it arrives, so the check
- * keeps a bounded copy and loses nothing (R1).
+ * refusal. The push's output is still written to stderr in full, once the
+ * executor replays it when git ends, so the check keeps a bounded copy and
+ * loses nothing (R1).
  */
 export const REFUSAL_TRANSCRIPT_BOUND = 4096;
 

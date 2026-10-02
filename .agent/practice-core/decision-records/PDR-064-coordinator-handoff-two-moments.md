@@ -278,6 +278,21 @@ not closed until that change set lands. (Owner-standing direction,
 2026-06-12; the host's team-session-opener surface is the operational
 home — this clause is the portable contract it realises.)
 
+What a succession record transmits is where Director tenures fail. Five
+Directors in about fifty hours left five error signatures, each a failure
+of transmission and none of capability: absorption into execution;
+confabulation from a compressed context; trusting the tenure's own
+descriptions; answering the owner process-first; and drift in the
+tenure's description of itself (the cross-tenure synthesis of a
+succession record, 2026-07-26). The cure enacted then has three parts:
+the owner-channel contract is first-class state in the tracked brief; the
+formation letter carries it as story; and the succession record is
+checked by another reader before it is transmitted (the first such check
+was owner-ordered and found real defects). Its falsifier stands: if the
+next tenure's first owner correction is still of the owner-channel class,
+the cure belongs in structure (an answer-first tripwire), not in more
+prose.
+
 ### Partial / Slice-Scoped Coordinator Transfer
 
 The full-session coordinator role is one shape of coordinator

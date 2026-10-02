@@ -125,6 +125,7 @@ are defined in `agent-tools/src/merge-bot/token-scopes.ts`:
 | `code-scanning-alerts`     | `security_events: read`                                       | reading code-scanning alerts                                                                                                                                          |
 | `workflow-dispatch`        | `actions: write`                                              | dispatching the upstream carrier workflow; re-running a failed job                                                                                                    |
 | `upstream-mirror-dispatch` | `actions: write`, `contents: write`                           | dispatching the upstream mirror workflow: a dispatched run's own token is capped at the dispatching token's permissions, and the mirror run moves a reference with it |
+| `branch-retire`            | `contents: write`                                             | deleting one merged branch ref (what `merge-bot retire` mints itself, and only when its proof has planned a remote delete)                                            |
 
 That table is a **mirror**, kept inline because a reader choosing a scope
 needs the read/write levels in front of them. `token-scopes.ts` is
@@ -385,3 +386,50 @@ as an operational failure:
 - HEAD still names the settled commit. The pre-push hook validates the
   checkout, never the commit git is handed, so an attempt made after HEAD
   moved would land a commit the gate did not run on.
+
+## Retiring a merged branch
+
+`merge-bot retire` deletes every name a merged branch has: the local
+branch, its cached `origin` tracking ref and the remote branch. It deletes
+them only once each is proven an ancestor of the remote default branch's tip:
+
+```bash
+pnpm agent-tools merge-bot retire --branch <name>
+```
+
+- Every proof runs before any delete. No read writes a ref the command may
+  delete: a remote branch's objects arrive by an objects-only fetch.
+- Every read and write of the branch's names and commits runs with
+  replacement refs and grafts off (`GIT_NO_REPLACE_OBJECTS=1`,
+  `GIT_GRAFT_FILE=/dev/null`). Either can give a commit parents it does not
+  have, and a planted one would make an unmerged tip read as merged. The two
+  git reads before those, the `--branch` check's ref-format oracle and the
+  primary-checkout lookup, read no commit.
+- The remote branch goes first, as the bot, through GraphQL `updateRefs`
+  with the proven sha as `beforeOid`. That is a compare-and-swap on the
+  server, so a push landing after the proof is kept. The token is minted
+  only when a remote delete is due, with the `branch-retire` scope.
+- At the mint, GitHub must read the branch tip, and the default branch's
+  name and tip, in the bot's repository exactly as they were proven. This
+  binds the proofs to the repository the delete lands in, even when git's
+  traffic to `origin` is rewritten (`insteadOf`).
+- The remote delete's outcome is read back through GitHub, never taken from
+  GitHub's answer to the delete. The local names are deleted by
+  compare-and-swap (`update-ref --no-deref`) only once the remote reads back
+  absent, so a failure part-way leaves a state a re-run finishes. The
+  branch's config section goes once the branch has no local ref, as
+  `git branch -d` removes it; a section a failed removal left goes on the
+  re-run. The local name is read again just before the removal, once and
+  raw (`show-ref --exists`, so a dangling symbolic name counts), and a name
+  made since the proof keeps its section. The window between that read and
+  the removal is git's own: `git branch -d` has it too, since git keeps refs
+  and config in two stores with no joint write.
+- It refuses (exit 3, nothing deleted) a branch not proven merged, in use by
+  a worktree, or whose name or `origin` git could resolve to another ref or
+  repository; the list, the `--json` output and the exit map are the
+  command's own to state: `merge-bot retire --help`. It does not look for
+  open pull requests: that a branch is merged and unwanted is the caller's
+  judgement. The `coordination-fold` skill's cut step here has done these
+  proofs and deletes by hand (`git merge-base --is-ancestor` twice, a REST
+  delete as the bot, `git branch -d`); this command is that recipe with its
+  proofs made structural.
