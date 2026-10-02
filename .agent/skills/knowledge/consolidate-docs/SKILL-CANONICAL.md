@@ -637,9 +637,10 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     proven byte-identical against the committed blob (the comparison takes the
     archive's body, after any frontmatter of its own; finished ranges that are
     not contiguous move whole in file order with nothing between them and are
-    compared with the same ranges cut from the pre-move blob and joined in that
-    order; no whole-file snapshot is written, because the move commit's parent
-    holds the whole pre-curation file); the runbook's token and
+    compared with the same ranges cut from the pre-move blob (the surface as
+    committed at `HEAD` before the move) and joined in that order; no whole-file
+    snapshot is written, because that commit, the move commit's parent, holds
+    the whole pre-curation file); the runbook's token and
     neighbour checks run; the live surface left with its live state and a
     one-line pointer. This is the trigger the continuity surfaces lacked
     until 2026-09-17, when only the napkin had one. Archiving happens only after
