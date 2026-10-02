@@ -1075,4 +1075,8 @@ homes for this workflow. Regenerate adapters with `pnpm skills:generate`
 `--prefix=oak-`) and verify with `pnpm skills:check` or
 `pnpm portability:check` after canonical changes. The workspace-filtered
 form now also works (its script anchors at the repo root and pins the
-prefix; the 2026-07-02 wrong-cwd failure is cured at the script).
+prefix; the 2026-07-02 wrong-cwd failure is cured at the script). A body-only
+edit needs no render; a description change does, since the rendered adapters
+carry the description and the path: run `pnpm skills:generate` then
+`pnpm skills:check` before the commit (a description change that skipped the
+render failed the push in the sibling estate, 2026-10-02).
