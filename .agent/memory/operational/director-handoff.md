@@ -318,6 +318,41 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-02 20:5xZ (Crucible binds Slag, `7b999c`, the Director: stopped by the usage
+limit; the next seat opens the parity node and this block, nothing else first).** The owner's words
+of the evening bind: slow and steady, quality over speed, the two hours a yardstick, keep the plan
+current, use the Crickets, delegate and keep the Director's context for the implementers' course;
+the owner is reachable, not absent. Done tonight, read first-hand: the parity node is ratified with
+its evidence and its size section carries the owner's word and the estimate; the parent node carries
+the dated entry licensing the copy carries until the entity exists; PDR-019 is amended (records carry
+decisions, plans carry planning), PDR-143 trimmed with its moved passages held in the node's §Inputs,
+the exchange node archived and its five rulings on PDR-142; all of it as records commits on both
+coordination branches (here `coordination/2026-10-02-2b25ce` at `SHA:c3db78228` and `SHA:77b87698b`;
+JC.net `coordination/2026-10-02-f19bed` at `SHA:9a854a92` and the second commit whose subject begins
+"docs(practice-core): records carry decisions"). JC.net: 299 folded (`SHA:f19bed6d5`), 301 merged
+(`SHA:eb6fbdbc9`); Hazel tracks Trunk on the node's step 1 (slice 2x, then three slices of the
+rotation's lessons, then the notebooks' move), then the amendment-entries carry with its Core
+validator. Here: the tail landed as #341 (`SHA:518e48544`); the fold of #340 stands at its door at
+`SHA:b5a7175e5` with engraph merged in, Efreet lifts Scorch stopped by the usage limit: the merge,
+the successor cut, the fold entry and the registry carry remain (the carry branch
+`feat/parity-window-registry-rows` is pushed at `SHA:a47abbaf2`; its pull request opens only after
+the fold carries the parent node's entry to engraph). The ledger's first pass is in JC.net's synced
+session directory `comms-analysis-2026-10-01/session-7b999c/measure/` as six reader files: four
+done over the 207 conflict hunks (133 same meaning, 39 host binding, 28 capability-gap hunks
+resolving to about ten carries, 7 host-local; a Director sample of twelve same-meaning rows read
+true), two running at the stop (the 105 one-sided files, the 72 clean merges), each writing
+`ledger-read-*.md` there. Two rows are the owner's: the architecture-reviewer persona model
+(OCE's four generic lenses or JC.net's four site lanes, and whether the entity carries a generic
+structural reviewer) and whether the owner's word of 2026-09-13 on the measured round boundary was
+Practice-wide; the skill-evals runner (into JC.net, two to three pull requests) and the docs
+validators (into OCE) are sized rows for the owner's reading on the ledger. Next, in order: finish
+the fold of #340 and open the registry carry; assemble the ledger as one document, the same bytes
+in both estates, with a closer script that recomputes its counts, the measure's scripts beside it,
+and open it as one pull request per estate (JC.net from Hazel's cures tip `SHA:92644157` with main
+merged in; here from the post-fold tip); the dry-run merge rerun at the folded tips; then the
+carries in closure order. Processes: all died at the limit; re-arm the two registry-only heartbeats
+and the two watchers only.
+
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
 Read this block, then the node, then nothing else before acting.
