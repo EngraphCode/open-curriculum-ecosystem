@@ -56,6 +56,11 @@ agent-observed friction is first-class user feedback."*
 Keep entries terse. Long-form analysis belongs in the napkin or in a
 dedicated plan that this entry points to.
 
+An entry that states what code does is a claim: read the code first, and say in the entry what
+was read. An entry that names an incident is asked the disclosure question before it is written:
+would this be the first tracked pointer to private material? (2026-10-01: a security review of
+drafted entries found one such pointer and five claims the code did not bear out.)
+
 From F-218 the two estates (JC.net and OCE) share one id space: a new entry takes
 the next number after the highest in either register, so an entry both estates
 carry has one id and the same bytes.
@@ -69,6 +74,9 @@ section until a consolidation pass moves them; §Settled entries, archived, belo
 index row per moved id so citations resolve, and the archive keeps the text. The 2026-09-30 move by
 the two-estate consolidation is `archive/frictions-register-settled-2026-09-30.md`, 55 entries, each
 verified in the tree by an analyst and re-read by the seat.
+
+An entry with no Status line is open: no cure is recorded for it. Where an entry's own text
+records a cure, its Status line says so.
 
 ### F-07 — No `comms list/show` CLIs (no `comms watch` either)
 
@@ -302,6 +310,8 @@ verified in the tree by an analyst and re-read by the seat.
   discoverable plan surface").
 - **Review 2026-09-30**: LIVE: the owner-directed plan home for the deferred `--event-spec` and
   sanitisation options exists under neither `.agent/plans/` nor the agent-tooling backlog.
+- **Same friction**: also filed as F-48, F-149, F-152 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-37 — Shipped skills generator diverges from PDR-051 §Required
 
@@ -436,6 +446,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Status**: partially-addressed (`--body-file` delivered for comms bodies;
   pattern/glob args remain).
 - **Owner direction status**: standing.
+- **Same friction**: also filed as F-32, F-149, F-152 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-51 — Worktree vocab-gen needs the gitignored bulk-downloads (symlink setup)
 
@@ -555,6 +567,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Status**: open (trigger: a viable low-false-positive detector design OR owner
   direction).
 - **Owner direction status**: standing.
+- **Same friction**: also filed as F-154 (the negation-contrast tombstone has no structural detector); read them together, and
+  count them once.
 
 ### F-66 — BSD `sed -i ''` transient siblings race directory watchers
 
@@ -652,6 +666,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
+- **Same friction**: also filed as F-92 (the heartbeat mode requires a title its help does not name); read them together, and
+  count them once.
 
 ### F-78 — `check-commit-message` is not an `agent-tools` subcommand; only reachable via the pnpm script
 
@@ -707,6 +723,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Target surface**: `agent-tools/src/collaboration-state/` comms-send heartbeat-mode arg handling + help text; `.agent/rules/liveness-heartbeat-cron.md` §Loop hygiene / §Canonical invocation
 - **Status**: open
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
+- **Same friction**: also filed as F-76 (the heartbeat mode requires a title its help does not name); read them together, and
+  count them once.
 
 ### F-93 — `comms send --body` 1500-char limit has no clean home for a long directed coordination steer
 
@@ -976,7 +994,7 @@ verified in the tree by an analyst and re-read by the seat.
 - **Target surface**: `agent-tools/src/pr-watch/`.
 - **Status**: open.
 
-### F-181 — a relative `OAK_STATUSLINE_LOG_FILE` follows the seat's cwd into foreign repositories
+### F-181 — a relative `PRACTICE_STATUSLINE_LOG_FILE` (earlier `OAK_STATUSLINE_LOG_FILE`) follows the seat's cwd into foreign repositories
 
 - **Source**: Sandpiper weaves Updraft (`a96287`) 2026-09-12, found by free-play
   over the session's own material, then verified first-hand
@@ -1010,9 +1028,12 @@ verified in the tree by an analyst and re-read by the seat.
   alternative; it is an opt-in diagnostic, not a required surface.
 - **Target surface**: the statusline log-path resolution (adapter), plus the
   machine-local settings entry that supplies it
-- **Status**: open — the settings file is machine-local and untracked, so the
-  one-line change is the OWNER'S to make deliberately; this row is the
-  disposition, not a request
+- **Status**: open (read 2026-10-01). The variable is now `PRACTICE_STATUSLINE_LOG_FILE`, and the
+  tracked resolver (`resolveDebugLogConfig` in `agent-tools/src/claude/statusline-debug-log.ts`,
+  both estates) returns any `*.log` value as the path unresolved. The cure is the estate's change
+  and does not wait on the owner's settings edit: resolve a relative value against the payload's
+  `project_dir`, or refuse it with the existing invalid-config warning. F-217 records the same
+  defect from its other side (the `.logs` directories it plants).
 - **Owner direction status**: unsolicited
 - **Instance, 2026-09-24** (Zephyr guards Leeward, `281e44`; Marten mends Shadow,
   `74fc02`): the statusline's relative log path wrote `.logs/statusline.log` inside
@@ -1022,13 +1043,6 @@ verified in the tree by an analyst and re-read by the seat.
 - **Instances, 2026-09-29** (the Director): the relative log path planted `.logs` under
   `.agent/rules` and `.agent/skills`, and two push validators refused them; both are recorded
   whole as F-217, which is this entry's class.
-- **Status read 2026-10-01**: the Surface and Status lines are out of date: the variable is now
-  `PRACTICE_STATUSLINE_LOG_FILE`, and the tracked resolver (`resolveDebugLogConfig` in
-  `agent-tools/src/claude/statusline-debug-log.ts`, both estates, read 2026-10-01) returns any
-  `*.log` value as the path unresolved, so the cure need not wait on the owner's settings edit:
-  resolving a relative value against the payload's `project_dir`, or refusing it with the existing
-  invalid-config warning, is the estate's change. F-217 duplicates this entry and can fold into
-  it.
 
 ### F-182 — instruments that answer about themselves rather than about their input
 
@@ -1934,14 +1948,12 @@ commit SHA and the closing plan reference.
   hook-materialisation (hooksPath resolves + `_` shims present) so a hookless
   working copy cannot read green; (c) CI remains the backstop but is not the
   cure — the contract is local-gates-bind.
-- **Status**: open (mitigated in the originating lane only).
+- **Status**: open. Cure (a) is a step of `set-up-worktree-lane` in both estates (its `.husky/_`
+  check). Cure (b), a recomputing check on the commit and push path, exists in neither estate's
+  agent-tools (no `hooksPath` reader found; read 2026-10-01).
 - **Instance, 2026-09-27** (a seat, JC PR 231's first push): a fresh worktree's first install
   failed at postinstall and the second ran no husky prepare, so `.husky/_` was absent and the push
   ran ungated; the pre-open review widened cure (b) to git's own HEAD, objects and refs tests.
-- **Status read 2026-10-01**: "mitigated in the originating lane only" is out of date: cure (a) is
-  a step of `set-up-worktree-lane` in both estates (its `.husky/_` check), while cure (b), a
-  recomputing check on the commit and push path, exists in neither estate's agent-tools (no
-  `hooksPath` reader found).
 
 ### F-148 — a suspended session's heartbeat Monitor keeps emitting: false liveness from an autonomous emitter
 
@@ -1979,6 +1991,8 @@ commit SHA and the closing plan reference.
   a fix-instruction pointing at `--body-file` (fail-loud at the boundary instead
   of downstream), and prints the written `event_id` on every send path
   (`comms direct` currently prints none).
+- **Same friction**: also filed as F-32, F-48, F-152 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-186 — `turbo run lint` returns a cached green that never ran the new linter
 
@@ -2057,6 +2071,8 @@ commit SHA and the closing plan reference.
   pnpm arg forwarding vs CLI parsing); then either fix the intake or add
   the named refusal. Route: agent-tooling backlog; evidence lives in this
   entry's three instances and the two seats' napkin notes.
+- **Same friction**: also filed as F-32, F-48, F-149 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-153 — first new-shape comms event poisons all stale-dist readers (strict parsers + poison-pill drain)
 
@@ -2115,6 +2131,8 @@ commit SHA and the closing plan reference.
 - **Status**: OPEN. The rule's §Why This Rule Is Strict now points here;
   a future drain of any register this row migrates to re-trues that
   pointer first (the generator this row's own history proves).
+- **Same friction**: also filed as F-63 (the negation-contrast tombstone has no structural detector); read them together, and
+  count them once.
 
 ### F-155 — the prose-width hard limit fires on markdown headings, which are structurally unwrappable
 
@@ -2500,6 +2518,7 @@ commit SHA and the closing plan reference.
 - **Route**: agent-tooling backlog (content-audit); until then a merge that
   touches two review modules greps the pinned paths for duplicates before
   trusting a green validator.
+- **Status**: addressed (the entry's own text: cured by one owner per path).
 
 ### F-176 — workflow fan-outs launch without a per-stage budget or a pilot measurement
 
@@ -2633,9 +2652,9 @@ commit SHA and the closing plan reference.
 - **Instances, 2026-09-25 and 2026-09-27** (seats, OCE): agent-tools test tasks omitted
   `.husky/refuse-commit-on-main.sh` and `.agent/hooks/policy.json`, so an edit to either alone
   replayed a cached pass; each was cured by one `$TURBO_ROOT$` input line (PR 272 for the policy).
-- **Status read 2026-10-01**: this entry's own file is still absent: `turbo.json` (last changed
-  2026-09-30) lists `.agent/hooks/policy.json` for `agent-tools#test` and `#test:e2e` and the
-  commit guard for `#test:e2e`, but no `$TURBO_ROOT$/RULES_INDEX.md`, so the entry stays open;
+- **Status**: open (read 2026-10-01): this entry's own file is still absent: `turbo.json` (last
+  changed 2026-09-30) lists `.agent/hooks/policy.json` for `agent-tools#test` and `#test:e2e` and
+  the commit guard for `#test:e2e`, but no `$TURBO_ROOT$/RULES_INDEX.md`, so the entry stays open;
   three root files in one class point to a check that fails when a cached task's tests read a root
   path its inputs omit (JC's agent-tools test tasks are `cache: false`).
 
@@ -2812,15 +2831,19 @@ commit SHA and the closing plan reference.
   Pewter, 2026-09-25); the registry's nearest row is `claude-fable-5` at 200,000.
 - **Status**: partially-addressed. `claude-fable-5-1` is registered at 1,000,000 in
   `agent-tools/src/session-metadata/window-registry.ts` (2026-09-30). The Opus 5 rows
-  (`claude-opus-5`, `claude-opus-5[1m]`, `claude-opus-5-5[1m]`) are in JC.net's registry and not
-  in this one. The second observation (the compaction call's usage line) has not been re-read.
+  (`claude-opus-5`, `claude-opus-5[1m]`, `claude-opus-5-5[1m]`) are in JC.net's registry and not in
+  this one. The second observation (the compaction call's usage line) has not been re-read. Neither
+  estate registers the bare `claude-opus-5-5` (JC.net has `claude-opus-5`, `claude-opus-5[1m]` and
+  `claude-opus-5-5[1m]`; OCE has none of the three), so a seat on that id is refused in both (read
+  2026-10-01).
 - **Sixth instance, 2026-09-28** (Myrtle turns Canopy): `session-metadata` printed nothing for
   `claude-fable-5-1`, so the directive context-budget check rested on an estimate (about 357k
   tokens of a window of at least 1M); the model was registered two days later.
-- **Status read 2026-10-01**: the Status line is true as read on 2026-10-01, with one gap it does
-  not name: neither estate registers the bare `claude-opus-5-5` (JC has `claude-opus-5`,
-  `claude-opus-5[1m]` and `claude-opus-5-5[1m]`; OCE has none of the three), so a seat on that id
-  is refused in both.
+
+- **Second estate (2026-10-02)**: JC.net's window registry registers both the Fable 5.1 and the
+  Opus 5 windows; this estate's registers Fable 5.1 (beside its Fable 5, Opus 4.x, Sonnet 4.6 and
+  Haiku 4.5 rows) and none of the Opus 5 ids (checked at the fold, 2026-10-02, Efreet lifts Scorch,
+  7adb15).
 
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
@@ -2909,12 +2932,6 @@ commit SHA and the closing plan reference.
   commit pass in ninety seconds; that evening the owner ruled fsmonitor OFF for the
   shared clone (`core.fsmonitor=false` in the clone config, two daemons stopped). Plain
   `git status` is instant since.
-- **Status read 2026-10-01**: the heading's "the cause is supported, not proven" is untrue: the
-  body records "The measurement that settled it" (cure of 2026-09-19) and the owner's ruling of
-  2026-09-23 turning fsmonitor off for the shared clone; a heading true to the body is "git hung
-  on the fsmonitor socket while installs churned ignored trees; cause measured 2026-09-19, monitor
-  off for the shared clone by the owner's ruling of 2026-09-23", with the body and its Status line
-  unchanged.
 
 ### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
 
@@ -3001,11 +3018,11 @@ commit SHA and the closing plan reference.
 - **Summary-comment instances, 2026-09-27 and 2026-09-28** (seats, OCE; the Director): the doors
   of OCE PRs 267, 268 and 264 held because Codex recorded each clean run only by editing its
   summary comment, posting a review object only with findings; 264 landed after PR 274's cure.
-- **Status read 2026-10-01**: the summary-comment arm is cured in OCE by `SHA:c85d4d8e8`
+- **Status**: open (read 2026-10-01): the summary-comment arm is cured in OCE by `SHA:c85d4d8e8`
   (2026-09-28, PR 274, "the connector's own edit of its summary is its report"; OCE `pr-lifecycle`
-  reads "unedited or last edited by its author"); JC's pr-watch and merge-bot carry no
-  editor-aware reading (read 2026-10-01), so the arm stays open there; the quota-notice-as-comment
-  arm and the reaction arm of the 2026-10-01 instance stay open in both.
+  reads "unedited or last edited by its author"); JC's pr-watch and merge-bot carry no editor-aware
+  reading (read 2026-10-01), so the arm stays open there; the quota-notice-as-comment arm and the
+  reaction arm of the 2026-10-01 instance stay open in both.
 
 ### F-199 — the commit queue's `commit` command runs `git commit` without `--author`, so a ceremony commit on the primary is bot-authored
 
@@ -3154,10 +3171,22 @@ commit SHA and the closing plan reference.
 - **Instance, 2026-09-25** (a seat, OCE): the guard refused a command whose text held a
   force-push or wildcard-staging shape as an argument to a checker, so an execpolicy transcript
   ran from a cases file as data; a `pgrep -f` after the push word was refused the same day.
-- **Status read 2026-10-01**: F-207 carries no Status line, and the scanner its Route names has
-  changed: the code can segment a command line (`segmentCommand`, `blocked-patterns.ts`) and drop here-document bodies, but only for policy entries declared `match: argv`, and neither estate's `policy.json` declares one: the git entries still match by token subsequence over the whole command, as F-225, F-251 and F-262 record. This entry is open. (An earlier reading here, and the archive rows for F-102 and F-107, called it addressed; a code read on 2026-10-01 corrected that.) Lines 8 and 122 of `hook-policy-substring-discipline` in
-  both estates still call the policy "a substring-matcher" and say `git push --force-with-lease`
-  "is blocked by the `--force` substring". JC's open case of the compound-command class is F-225.
+- **Status**: open (read 2026-10-01): the scanner its Route names has changed: the code can segment
+  a command line (`segmentCommand`, `blocked-patterns.ts`) and drop here-document bodies, but only
+  for policy entries declared `match: argv`, and neither estate's `policy.json` declares one: the
+  git entries still match by token subsequence over the whole command, as F-225, F-251 and F-262
+  record. This entry is open. (An earlier reading here, and the archive rows for F-102 and F-107,
+  called it addressed; a code read on 2026-10-01 corrected that.) Lines 8 and 122 of
+  `hook-policy-substring-discipline` in both estates still call the policy "a substring-matcher" and
+  say `git push --force-with-lease` "is blocked by the `--force` substring". JC's open case of the
+  compound-command class is F-225.
+
+- **Second estate (2026-10-02)**: JC.net's hook policy handles heredoc bodies (14 lines of its
+  `agent-tools/src/hook-policy` name them). This estate's `agent-tools/src/hook-policy/` names none,
+  but its `agent-tools/src/shell/shell-words.ts` carries the heredoc scan (`skipHeredocBodies`,
+  `readHeredocOperator`, `scanHeredoc`), reached only through `match: argv` entries, of which
+  `policy.json` declares none (checked at the fold, 2026-10-02, Efreet lifts Scorch, 7adb15): the
+  gap is policy configuration, not missing code.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves
 
@@ -3274,9 +3303,9 @@ commit SHA and the closing plan reference.
   relying on the harness's task notification alone.
 - **Target surface**: `.agent/rules/liveness-heartbeat-cron.md`, PDR-078 §4, the landing-slot
   bullet in `pr-lifecycle` §Phase 7, the seats' wait scripts (`wait-legs.sh` shapes).
-- **Status**: open, an observation with one instance (recorded 2026-09-27); for the Director's
-  routing. The wait scripts of this seat can take cure (b) without doctrine: emit a comms event
-  on completion.
+- **Status**: open, an observation with one instance of the stall (recorded 2026-09-27). Cure (b), a
+  comms event on completion, is practice in several seats' wait scripts (not in agent-tools); cure
+  (a) is unapplied in both estates' landing-slot bullet (read 2026-10-01).
 - **Owner direction status**: session-scoped (this seat's own record).
 - **Cure (b) in use, 2026-09-28**: a seat's own leg wait for PR 282 emitted its result as a
   comms event so the watcher woke the seat (Myrtle turns Canopy). It lives in that seat's wait
@@ -3284,9 +3313,6 @@ commit SHA and the closing plan reference.
 - **Further cure (b) instances, 2026-09-27 to 2026-09-29** (seats, OCE): leg and eval waits
   emitted their own completion events in at least seven runs; cure (a) is unapplied, as both
   `pr-lifecycle` copies free a slot only when "heartbeat and state lines stop for twenty minutes".
-- **Status read 2026-10-01**: the Status line's single instance holds for the stall itself; its
-  note that cure (b) needs no doctrine is now practice in several seats' wait scripts (not
-  agent-tools), and cure (a) is unapplied in both estates' landing-slot bullet (read 2026-10-01).
 
 ### F-212 — agent-tools' test:e2e rebuilds `dist` while lint and type-check may read it
 
@@ -3444,13 +3470,11 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   board item of 2026-09-13): `atomic-file.ts` has three product importers in both estates, so
   the no-follow seam lands with its move to `core/`, a test and a header, one same-bytes change.
 
-### F-219 — a peer's comms event during the pre-push gate fails the push: the generated log is stale (2026-10-01)
+### F-219 — a comms event written without a render during the pre-push gate fails the push: the generated log is stale (2026-10-01)
 
 - **Source**: Crucible binds Slag, first-hand, the push of the coordination fold on 2026-10-01.
 - **Surface**: JC.net's pre-push `practice-substrate check`, reached through `pnpm check` (in OCE the script `practice:substrate:check` exists and no hook calls it); `collaboration-state -- comms append`.
-- **Observed**: the check renders the comms log from the event files and refuses when the rendered text differs from `shared-comms-log.md` on disk (`live-shared-comms-log.ts`); it makes no age test. `comms append` writes an event without rendering the log, and any
-  seat's event written during the ten-minute gate makes the log stale. Cost: one full gate run.
-  Cure used: `comms render`, then push again, with the peer asked to hold comms writes.
+- **Observed**: the check renders the comms log from the event files and refuses when the rendered text differs from `shared-comms-log.md` on disk (`live-shared-comms-log.ts`); it makes no age test. `comms send` appends and then renders (`cli-comms-send.ts`, both estates), so a send leaves the log current. The log goes stale for a writer that does not render (`comms append`) and in a race between two renders (the instances of 2026-09-26 and 2026-09-27 below). Which writer made the 2026-10-01 instance stale was not read. Cost: one full gate run. Cure used: `comms render`, then push again. Asking peers to hold `comms send` during a gate is not needed (a reviewer's finding on OCE's pull request 318, verified in the code).
 - **Expected**: a push does not depend on an untracked, generated file that another seat's
   write can invalidate mid-gate.
 - **Candidate cure**: the check writes the rendered log back before comparing (the repair is deterministic), or the file on disk stops being an input; `comms append` renders.
@@ -3550,6 +3574,27 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: agent-tools smoke tests.
 - **Status**: open
 - **Owner direction status**: standing
+
+### F-225 — the Bash policy reads a force push across a whole compound command (2026-10-01)
+
+- **Source**: Crucible binds Slag, first-hand, 2026-10-01.
+- **Surface**: the PreToolUse Bash policy in JC.net (`agent-tools/src/hook-policy`); OCE's twin
+  is not checked.
+- **Observed**: a compound command holding `gh api graphql -f query=…`, the word "push" inside
+  a pull request title, and "git" in prose was refused as a force push. No push was present.
+  Cure used: the text goes in files and `-F query=@file` replaces `-f query=`.
+- **Expected**: the matcher judges one simple command at a time
+  (`hook-policy-substring-discipline`).
+- **Candidate cure**: split the command line into simple commands before matching, and match
+  `-f` only as an argument of a `git push`.
+- **Target surface**: agent-tools hook policy.
+- **Status**: open
+- **Owner direction status**: standing
+- **Ported**: from JC.net's register on 2026-10-02; the entry above is JC.net's reading at its own
+  date. Checked against this estate's code on 2026-10-02: OCE's hook policy carries the force-push
+  patterns and has the segmenting step (`segmentCommand` in `shell/shell-words.ts`, argv mode), but
+  no `match: argv` entry in `policy.json` engages it (checked at the fold, 2026-10-02, Efreet lifts
+  Scorch, 7adb15); the refusal was not re-run. See F-207 for the same matcher reading prose.
 
 ### F-227 — four real-filesystem integration tests time out at five seconds on the Windows job (2026-10-01)
 
@@ -3813,6 +3858,29 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: agent-tools CLI; `cricket`.
 - **Status**: open; three instances, one seat, one day.
 - **Owner direction status**: standing
+
+### F-239 — the pre-push chain reads no commit message or added path against the privacy directive (2026-10-01)
+
+- **Source**: a privacy review of the push path, read against the code on 2026-10-01.
+- **Surface**: `.husky/pre-push`; `privacy.md` rule 1, rule 7 and §Private editorial material.
+- **Observed**: `.husky/pre-push` runs `pnpm check` and the site's end-to-end suite; no step reads
+  the pushed range's commit messages or added paths against the privacy directive. Rule 1 names
+  commit messages as a carrier; rule 7's whole-document read names plans and records, not commit
+  messages. A branch's first push publishes its commits and their messages, and under merge
+  commits a later commit leaves an earlier one in history.
+- **Expected**: a pushed range's commit messages and added paths are read against the privacy
+  directive before a branch's first push.
+- **Candidate cure**: rule 7 extends to the pushed range's commit messages; a pre-push check
+  refuses an added path under the ignored private boundaries and holds the first push of a branch
+  adding files under `linkedin/` until a recorded privacy-review line exists. The check carries
+  path families only, never a term list: a list of private names in a public hook identifies
+  what it guards, and no scan reads meaning.
+- **Target surface**: `.husky/pre-push`; agent-tools CLI; `privacy.md`.
+- **Status**: open.
+- **Owner direction status**: standing
+- **Ported**: from JC.net's register on 2026-10-02; the entry above is JC.net's reading at its own
+  date. Checked against this estate's code on 2026-10-02: OCE's `.husky/pre-push` has no step that
+  reads commit messages or added paths against the privacy directive.
 
 ### F-240 — nothing makes a ruling name the primary surface it read (2026-09-28)
 
@@ -4444,6 +4512,10 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: `session-handoff`; agent-tools CLI (`collaboration-state`).
 - **Status**: open.
 - **Owner direction status**: standing
+- **Instance, read 2026-10-01**: neither estate holds a `handoff-record.schema.json` or a worked
+  example: the second tranche of the handoff-record decision (OCE's ADR-182), which was to land
+  them, never landed, so PDR-063's four sections are the only statement of the record's shape and no
+  check reads a record against it.
 
 ### F-280 — OCE's agent-tools smoke suites spawn processes and worktrees on every pre-push (2026-10-01)
 
@@ -4475,3 +4547,80 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: agent-tools conformance tooling (OCE).
 - **Status**: decided, unbuilt, paused by the owner until a retention incident recurs.
 - **Owner direction status**: standing
+
+### F-282 — the context meter's first read after a compaction describes the compaction call (2026-10-02)
+
+- **Source**: this session's own readings on 2026-10-02 (63.9 % then 28.9 %; 0 % then 17 %), and
+  `agent-tools/src/session-metadata/usage.ts`, read the same day in both estates.
+- **Surface**: `agent-tools session-metadata`.
+- **Observed**: `parseLatestUsage` returns the input and cache tokens of the latest transcript
+  line that carries a usage object. A read made inside a turn therefore reports the previous
+  assistant message, and the first read after a compaction reports the compaction call itself
+  (the whole pre-compaction context) or a line with zero input. A thread-record entry carried
+  63.9 % as the seat's context when the true figure was under 30 %, and a directive edit was
+  nearly priced on it.
+- **Expected**: a read that cannot describe the present context says so.
+- **Candidate cure**: ignore usage lines at or before the transcript's latest compaction
+  boundary and zero-sum usage lines, and print "no reading since the compaction" with a
+  distinct exit until an assistant turn has been recorded after it. Until then the seat reads
+  the meter twice, a few calls apart (PDR-052 directive floor).
+- **Target surface**: agent-tools session-metadata (both estates).
+- **Status**: open.
+- **Owner direction status**: unsolicited
+
+### F-283 — nothing sizes a file before a seat reads it whole (2026-10-02)
+
+- **Source**: this session on 2026-10-02: a ledger of long rows, a plan block and two
+  directory and grep listings were read unbounded within two hours of the seat writing "every
+  listing gets a bound" into its napkin.
+- **Surface**: the harness's file read and shell tools; the seat's habit.
+- **Observed**: the read tool stopped the ledger read at its cap of 25,000 tokens, which is
+  itself 2.5 % of the seat's context for one call; a directory listing and a grep for file
+  names have no cap. The written lesson did not change the next read.
+- **Expected**: a seat learns a file's size before it spends context on it.
+- **Candidate cure**: a PreToolUse advisory that prints a file's byte size when a whole-file
+  read is asked of a file over a threshold, and a shell habit the tool-facts reference now
+  states (a line count or a heading list first).
+- **Target surface**: hook policy (advisory), tool-facts reference.
+- **Status**: open.
+- **Owner direction status**: unsolicited
+
+### F-284 — an SDK comment says an empty zod shape closes a tool's input schema; the conversion's default mode says otherwise (2026-10-02)
+
+- **Source**: the consolidation seat on 2026-10-02, while curing a review finding on OCE's
+  TypeScript gotchas.
+- **Surface**: OCE's curriculum SDK, the no-input tool's definition module
+  (`aggregated-curriculum-model/definition.ts`), and the MCP TypeScript SDK's zod
+  compatibility module.
+- **Observed**: the definition's TSDoc says an empty `ZodRawShape` produces
+  `{ "type": "object", "additionalProperties": false }` through the SDK's `z.toJSONSchema()`. A
+  probe on the workspace's zod 4.4.3 emits `additionalProperties: false` for an empty object
+  with `io: 'output'` and omits it with `io: 'input'`. The MCP SDK's compatibility module
+  passes `io: opts?.pipeStrategy ?? 'input'`. The served schema was not read.
+- **Expected**: the comment states what the wire carries, proven by one observation of the
+  served `tools/list`.
+- **Candidate cure**: read the served `inputSchema` of the no-input tool once; if it is open,
+  make the shape strict or true the comment.
+- **Target surface**: OCE's curriculum SDK (a code lane).
+- **Status**: open; routed to the code lanes.
+- **Owner direction status**: unsolicited
+
+### F-285 — the review-cost gate did not list the last settlement head of two pull requests (2026-10-02)
+
+- **Source**: the consolidation seat on 2026-10-02, reading the gate after three merges to
+  write their ledger rows.
+- **Surface**: OCE's review-cost gate (the agent-tools topic that prices a pull request's
+  rounds).
+- **Observed**: for pull request 329 the gate reported "rounds 2 (opening plus 1 settlement)"
+  and listed two heads, where the pull request has three commits and its third was the second
+  settlement push. For 330 it reported "rounds 1 (opening plus 0 settlement)" and listed one
+  head, where a second commit was its one settlement push. For 331 it listed all three heads.
+  In both missed cases the last push changed directive files only; whether that is the cause
+  was not read from the gate's code.
+- **Expected**: every pushed head after the opening is a priced round, or the gate says which
+  heads it leaves out and why.
+- **Candidate cure**: read the gate's round enumeration against these two pull requests; cure
+  the enumeration or document the exclusion in its output.
+- **Target surface**: OCE's agent-tools review-cost gate (a code lane).
+- **Status**: open; routed to the code lanes. Two instances.
+- **Owner direction status**: unsolicited
