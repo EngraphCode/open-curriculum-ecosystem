@@ -40,6 +40,10 @@ curation practice that keeps it navigable by someone who did not write it.
   freezes ("we want that ability to turn things on and off, not feature freeze, this isn't a
   CAB") — audit milestone names and descriptions for freeze vocabulary.
 
+Milestones are simple and completable, and reflect changes visible outside the team; a theme
+is a label, never a milestone (owner: "milestones should be simple and completable, and they
+should reflect externally visible changes", and of themes, "we have labels for that").
+
 ## The repo holds the knowledge; the ticket holds the work
 
 Owner ruling, 2026-07-31, verbatim substance: *"all long-term important
@@ -81,6 +85,9 @@ still be found.
   ticket at the moment of routing, with the thread reference in the ticket and the ticket
   reference in the closed thread — the pair is the audit trail.
 
+Work that spans two projects carries a linked ticket in each (owner, 2026-07-29): the edge is
+authored in both, so neither project's board hides the other half.
+
 ## Curation — the standing sweep
 
 The graph decays without tending: blockers discharge silently, scopes drift, deferred chains
@@ -96,6 +103,10 @@ lose their carriers. Curation is a periodic, deliberate pass — Director-owned 
    comment on the root ticket.
 4. **Duplicates**: same finding from different reviewers converges on one ticket with the second
    source cited (worked instance: MCP-199 absorbing a duplicate finding without a new ticket).
+
+A ticket a retired seat left In Progress is re-labelled at the next seat's spin-up, by the seat
+that takes the work. It is not churned in between: a status changed with nobody working the
+ticket is a false signal.
 
 ## Linear Platform Behaviours (operational facts, recorded 2026-07-31)
 

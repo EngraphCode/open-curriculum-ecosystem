@@ -148,7 +148,15 @@ the first comms write, claim, or registration).
    name is often not in its content): it may have been removed
    on purpose, with the reason in the commit (one instance, 2026-10-01: a
    port made from a diff met a deletion made two days earlier on four
-   reviewers' verdicts).
+   reviewers' verdicts). A slice prepared
+   for both estates is applied by one script in each estate's lane, committed on a
+   local branch in each, and opened one estate at a time; the second copy carries
+   the first review's cures as a second commit before it opens, and a cure to bytes
+   the other estate has already merged travels back as its own small slice (three
+   instances, 2026-10-01 to 02). A napkin or register entry is the capture of an
+   observation at the estate where it arose (one made in both estates is captured in
+   both) and is never copied across as a capture; the knowledge it yields lands as the
+   same bytes in both estates' homes.
 2. **Declare the coordination home.** One substrate owns the
    arrangement's coordination state. Resolution order: explicit CLI
    flag, then `PRACTICE_COORDINATION_HOME`, then git-native
@@ -247,7 +255,11 @@ the first comms write, claim, or registration).
    because by the owner's word one shared form is higher than two;
    until they do, change only what the gate refuses and
    declare each change in the integrating commit body as a debt to that
-   alignment. Where the donor's text is false
+   alignment. A migration of a local file to the shared format states,
+   before it runs, the exact local invariant it preserves (which values,
+   in which order, read by which consumers), and its diff is judged against
+   that sentence rather than against the migrator's memory of the file
+   (2026-08-12). Where the donor's text is false
    here, take the remedies in PDR-142's order: raise the standard the
    receiver lacks, cure a donor-local fact at its source, cure a shared
    contradiction jointly, and write the concept in the receiver's words
@@ -262,6 +274,20 @@ the first comms write, claim, or registration).
    to verify first-hand; a peer's "not found" is a claim about their
    search; version or schema mismatches are typed refusals to
    surface, never best-effort parses.
+
+**Porting and joint text, five lessons.** A port is cut from a diff of normalised files (the
+package scope renamed, host anchors set aside), never from the other estate's raw patch: a
+lenient `patch` run reversed a hunk the target already held (2026-10-02). Estate-local
+self-references are rewritten, with the source attributed so it stays checkable. Before
+amending a peer's joint text, open your own estate's home for the same concept: a sentence
+about fakes was tightened from memory against a section that said the opposite (2026-09-24).
+Where both copies are open at once, hold each door until both copies' review legs have
+settled: where one copy merged at round two and the other was then reviewed, seven further
+findings landed on shared bytes and the merged copy had to be re-taken (2026-09-26). Where
+one seat's single slot makes the copies sequential, the second estate's review is a second
+reading of the first estate's bytes, so plan the first estate's follow-up before the twin
+opens (2026-10-02: one estate's review found five true defects in a slice, the other's found
+three more in the same text).
 
 ## Leaving
 

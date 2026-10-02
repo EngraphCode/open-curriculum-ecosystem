@@ -110,6 +110,13 @@ too. Write to it whenever you learn something worth recording:
 - **You re-read the napkin mid-task** because you are about to
   do something you have gotten wrong before. Good. Do this.
 
+On a primary checkout that several seats share, capture stays immediate
+(the file is the buffer) and the commit stays batched: a candidate rides
+whichever seat's records commit next stages the file by pathspec, and
+that commit's message names the blocks it carries with their authors,
+the committing seat's own and its peers' alike. Lint the append before a
+push (one unlinted append stopped a fold's push, 2026-09-27).
+
 ## What to Log
 
 Log anything that would change your behaviour if you read it
@@ -226,6 +233,10 @@ When the napkin exceeds ~500 lines, follow step 6 of the
 [`consolidate-docs` skill](../consolidate-docs/SKILL-CANONICAL.md) to
 extract high-signal content into `distilled.md`, archive the
 napkin, and start fresh.
+
+An entry marked blocking or deferred carries a resolution annotation before the napkin
+rotates: what resolved it and where, or where it is now carried. An open marker that rotates
+into an archive is a promise nobody will read again.
 
 ## Example
 

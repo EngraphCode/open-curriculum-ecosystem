@@ -279,6 +279,16 @@ Anything else is `pending` or `partial slice landed`, not complete.
 
 Never do these to satisfy the goal:
 
+- Substitute orchestration for curation. Curation is first-hand cognition: a mind reads the
+  raw material and understands it. A layer of orchestration over it (sub-agents sent to
+  discover, filing systems read before anything is found, placement decided before any insight
+  exists) yields plausible artefacts that no mind has understood. The owner stopped a
+  consolidation session over this on 2026-06-16, after three corrections had each changed the
+  output and left the reflex, and affirmed the lesson. A rich harness invites orchestration,
+  so the first act of a consolidation is to open one raw source and read it. Where the owner
+  asks for a fleet, the seat still reads raw sources itself, checks every leg's verdicts back
+  against the source, and writes each lesson in its own words.
+
 - Move content to an archive, backup, split file, shard, or differently named
   surface merely to change the fitness report.
 - Treat a softer fitness report as proof that curation happened.
@@ -298,6 +308,16 @@ Never do these to satisfy the goal:
 Archive moves are allowed only as normal lifecycle cleanup after the item-level
 disposition already proves the source content is graduated, duplicate, or
 rejected.
+
+A capture surface that accepts appends is a buffer from its birth: name its drain when it is
+created. (An append-only record kept as evidence, a diagnostics trace or a provenance log
+whose lifecycle the substrate manifest declares as retention, is not a buffer and needs no
+drain.) That holds for the consolidation's own working lists. A list of writes still to make is a
+buffer, and a session that ends with the list closed, grouped and unlanded has moved the
+knowledge from one buffer to another. Count the list's open and landed items first in every
+report, and land the memory-surface items as they are found: they need no pull request of
+their own, since a records commit on the coordination branch rides its fold (2026-10-02, a list
+of 105 with none landed).
 
 ## Pre-Archive Verification Gate
 
