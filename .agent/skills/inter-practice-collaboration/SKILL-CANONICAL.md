@@ -227,7 +227,8 @@ the first comms write, claim, or registration).
    Lifecycle threads on the comms stream: delivered → acknowledged →
    integrated or rejected — every bundle receipted both ways. After joint
    text lands, the receipt names the merge commit and each joint file's blob
-   id (`git hash-object`) at the merged head, so the receiving estate
+   id in that commit's tree (`git rev-parse <merge>:<path>`; `git hash-object`
+   hashes the working-tree file, which may have moved), so the receiving estate
    byte-checks a wholly joint file and diff-checks one where only pieces are
    joint (the exchange seats' practice on three receipts, 2026-09-26; a
    convention, not a ruling). A twin found divergent after such a receipt
