@@ -227,15 +227,16 @@ the measure, the records, then the carries.
 
 The owner's word of 2026-10-02 20:0xZ, verbatim, on the bound above: "I am going to bed. Take it slow, stay thoughtful, keep the plan up to date and use the Crickets. Slow and steady is better than fast and wrong every time. The two hour goal is a yarstick not a deadline, quality matters far more than speed, esimate remaining time as you go, and if it looks like it is going to hit four hours there may be an issue, apply all appropriate planning and cognitive skills".
 Estimate, kept current here by the Director at each boundary (its history is this file's): at
-20:2xZ with three seats (the OCE seat on the tail as one pull request of three twin commits, the
-jimcresswell.net seat on the write-list table and the notebooks then the amendment-entries
-carry, the Director on the records and the ledger), the measure and the records are on both
-default branches at about 00:00Z of 2026-10-03, four hours from the seats' start, and the
-carries follow. The long pole is the ledger's reading of about 175 conflict hunks first-hand
-(the tail's files are read after they land), which is the work and not ceremony. The four-hour
-signal is noted, and the planning applied to it: the tail as one pull request (PDR-132 §Decision
-item 7), the records on the coordination branches rather than pull requests of their own, the
-carry queue held until the parent node's entry lands, a Cricket check at each boundary.
+22:5xZ on 2026-10-02 the tail is landed in OCE and three of its four slices in jimcresswell.net, the
+first carry (the registry rows) is merged and demonstrated, the records are on both coordination
+branches, and the ledger is assembled over 384 items with its closer script and pushed as a lane in
+each repository, held at its door for the owner's reading. It derives 28 carries (at most 22 pull
+requests; 13 owner rows), above this node's twenty, so the node is reopened with the owner on row
+O10: the queue runs as sized, is cut by declines, or the node is re-sized. To the finish from here:
+the jimcresswell.net fold tonight, the ledger's merge after the owner's word, then the carries at
+about twenty minutes each for the small ones (fourteen under four files) and one to two hours each for
+the four large ones, across two implementer seats: about five seat-hours after the owner's reading.
+The reading was the long pole and is done; the fix slots serialise what remains.
 
 ## Out of scope
 

@@ -374,6 +374,14 @@ failed (the exchange node's old path was already gone from the index) and a trai
 masked the exit code (`exit-codes-in-band-never-piped`, violated by this seat). Landed on the resume as
 `SHA:7c868467` on `coordination/2026-10-02-f19bed`, the same bytes as here. Both implementers re-seated at
 22:1xZ on the Director's word; Efreet lifts Scorch on the fold of #340, Hazel tracks Trunk on 302 then the tail.
+§BOARD, 22:5xZ: #340 folded (`SHA:209b2674b`, successor `coordination/2026-10-02-209b26`, draft #342); the
+first carry #343 merged (`SHA:41b394ed9`); JC.net 302 and 303 merged, 2z open, then the rotation's records
+commit and the fold of 300 (Hazel tracks Trunk); the two Core portability findings on 340 cured in both
+estates (`SHA:5a328e05d` here, `SHA:43df9095` there). The ledger is assembled: 384 items, 28 carries, 13
+owner rows, closer script green, on lane `docs/parity-measure` in each repository (here `SHA:f662f982c`,
+there `SHA:05e6e1904`), pushed as the bot, to open as one pull request per estate in the implementers'
+slots and held at the door for the owner's row reading; the carry count reopens the node with the owner
+(row O10). The whole-finish estimate is on the node's §Size.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
