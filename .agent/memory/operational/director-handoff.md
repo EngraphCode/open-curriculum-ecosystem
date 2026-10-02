@@ -427,6 +427,28 @@ file, verbatim; Hazel's four items of 14:1xZ as her record names them (the monit
 clause; "homes twin, buffers do not"; the privacy line; the test-expert gate's cost); the one line
 on the 2026-03-08 napkin (per-user memory, chat only).
 
+**§BOARD, 2026-10-02 16:4xZ (the wrap cadence's first recomputation against the definition
+above).** Work safety: both primaries equal their remotes; this estate clean; JC.net's ten dirty
+paths are records behind the lock (zero bytes, 10:56Z, standing at 16:42Z). Goal 1 line 1: JC.net
+has five of Hazel's six slices on `main` (291 `54a219d50`, 292 `a1b4e393f`, 293 `4a9a0d04c`, 294
+`541fb1981`, 295 `9365ab74a`, each read first-hand), u opening last with `main` merged in, the
+stale routed-cures and the merged 2a branches still local; here, #333 `134c2fb6f`, #334 (nb)
+`f45aaeca4` and #335 (r) `576d8924d` are on `engraph`, #336 (v) is open at its second round, w, u,
+q, s and y are local on their lane branches, the stale routed-cures branch stands, and the J2 port
+is uncommitted (five paths). Lines 2 to 6: in progress or not started (the consolidation's list
+lands slice by slice; the exchange recount, the parity rows, the divergence classification and the
+test census open after it). Line 7: PDR-143 is before the owner since the report of 15:2xZ,
+unanswered. Goal 2: line 1 in progress (three Practice pull requests landed here this hour, six
+slices and J2 to go; #332 reads BEHIND and folds at the rollover by merge); lines 2 and 3 carded
+at 15:2xZ, unanswered; lines 4 and 5 not started. Routes given in the hour: z before u in JC.net,
+u by merge from `main` with no wait on the fold (Hazel's question, 16:0xZ, absorbed); the two
+Codex cures from #334 back to JC.net as one small slice after u. Processes verified by id at the
+cadence: two watchers (re-armed at their expiry), two heartbeat loops (paused per peer push window
+under F-219 and re-armed at each push-done, eleven windows this hour), two polls, two scheduled
+prompts (the fold wake at the rollover, this cadence). Owner items held for the record, unchanged
+from the report of 15:2xZ: the lock; PDR-143; the first product lane; the no-IO conversion's
+place; the ten re-trued OCE items; Hazel's items; the one private line.
+
 The §STATE block of 14:4xZ below stands as the record of the stop; its routes are absorbed above.
 
 **§STATE, 2026-10-02 14:4xZ (Crucible binds Slag, `7b999c`, the Director seat stopped at the

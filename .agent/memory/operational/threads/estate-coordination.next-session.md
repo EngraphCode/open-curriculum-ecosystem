@@ -2405,3 +2405,16 @@ after the push ran post-compaction), and a report for a live peer is recomputed 
 posting, not of drafting; and every commit SHA in a collaboration surface is written with the `SHA:`
 prefix the gitleaks allowlist reads (the rule surfaced on this resume; earlier lines of this seat
 carry bare SHAs).
+
+### 2026-10-02 16:4xZ — the first wrap cadence of the re-seated Director: eight landings in the hour, the board against the definition (Crucible binds Slag, 7b999c)
+
+Landed and read first-hand on the remotes since the re-seating: JC.net 291 `54a219d50`, 292
+`a1b4e393f`, 293 `4a9a0d04c`, 294 `541fb1981`, 295 `9365ab74a` (slices r, s, y, x, z; Hazel tracks
+Trunk); here #333 `134c2fb6f` (the retire port), #334 `f45aaeca4` (nb), #335 `576d8924d` (r; Efreet
+lifts Scorch). Open: here #336 (v) at a second review round; JC.net's slot takes u next with `main`
+merged in. The board against the definition of done is the §BOARD paragraph of 16:4xZ in
+`director-handoff.md`. Routes given: z before u in JC.net, u by merge from `main` with no wait on
+the fold of 286, which still waits on the owner's lock; the two Codex cures from #334 back to
+JC.net as one small slice after u. Eleven peer push windows this hour, each holding the estate's
+comms writes under F-219 and pausing every heartbeat loop on that estate: the cost the register
+entry routed at 14:4xZ names, now counted.

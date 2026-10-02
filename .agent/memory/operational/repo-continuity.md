@@ -37,6 +37,15 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T16:4xZ: three Practice pull requests landed here in the hour and five in JC.net; the
+  board against the definition of done is recomputed** (Crucible binds Slag, 7b999c). Here: #333
+  `134c2fb6f`, #334 `f45aaeca4` (nb), #335 `576d8924d` (r) on `engraph`; #336 (v) open at its second
+  round; w, u, q, s and y local on their lane branches, the J2 port uncommitted, #332 BEHIND for the
+  rollover fold by merge. JC.net: 291 to 295 on `main` (r, s, y, x, z); u opens last; the fold of 286
+  on the owner's lock. Goal 1 lines 2 to 6 and Goal 2 lines 4 and 5 not yet started; PDR-143 and the
+  first product lane before the owner, unanswered. The §BOARD paragraph of 16:4xZ in
+  `director-handoff.md` carries the count.
+
 - **2026-10-02T15:1xZ: the Director seat is re-taken at the owner's word; the team's goals and
   definition of done are recorded** (Crucible binds Slag, 7b999c). The owner's word, verbatim: "for
   the team, and for each agent, including yourself, define what the goals are, we need a definition
