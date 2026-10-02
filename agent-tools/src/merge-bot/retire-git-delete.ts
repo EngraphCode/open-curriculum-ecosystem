@@ -15,7 +15,10 @@ import { describeGitChildEnd } from './push-git.js';
  * and the delete (the decision refuses the symbolic refs it reads). git
  * exits 1 when the ref is already gone, when it has moved and when it cannot
  * be locked, so a failed delete is classified by re-reading the exact ref,
- * never by git's text.
+ * never by git's text. A name that lists no object but still exists is a
+ * symbolic ref whose target is gone, made after the proof: `for-each-ref`
+ * omits it and `show-ref --exists` finds it. It is never read as absent; the
+ * delete fails and the name is kept.
  */
 
 /** Delete one planned ref by compare-and-swap, and report what it left. */
@@ -39,6 +42,22 @@ export async function deletePlannedRef(
     return err(gitFailure(`re-reading ${target.ref} after its delete failed`, reread));
   }
   const rereadSha = parseRefListing(reread.stdout).get(target.ref)?.sha;
+  if (rereadSha === undefined) {
+    const exists = existsReading(
+      await runGit(retire, ['show-ref', '--exists', target.ref]),
+      target.ref,
+    );
+    if (!exists.ok) {
+      return err(exists.error);
+    }
+    if (exists.value) {
+      return err(
+        new Error(
+          `${target.ref} still exists after its delete failed but lists no object: a symbolic ref whose target is gone, made after the proof; it is kept, retire it by hand (${detail})`,
+        ),
+      );
+    }
+  }
   return ok(classifyCasOutcome(target, { exitedClean: false, rereadSha, detail }));
 }
 

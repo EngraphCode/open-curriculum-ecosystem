@@ -7,6 +7,7 @@ import {
   GIT,
   git,
   mergedBranch,
+  outcomeOf,
   refAt,
   retire,
   withRig,
@@ -38,7 +39,7 @@ async function expectRefused(
   branch: string,
   refs: readonly string[],
   reason: RegExp,
-): Promise<void> {
+): Promise<{ readonly out: string; readonly err: string }> {
   const before = snapshot(rig, refs);
   const github = fakeGithub(rig);
   const run = await retire(rig, branch, github.fetchImpl);
@@ -50,6 +51,7 @@ async function expectRefused(
   assert.match(run.out, reason);
   // A worktree is named by its basename: a report can be pasted into a tracked record.
   assert.ok(!`${run.out}${run.err}`.includes(rig.root), 'the output carries a rig path');
+  return run;
 }
 
 const OWN_REFS = [`refs/heads/${BRANCH}`, `refs/remotes/origin/${BRANCH}`];
@@ -66,6 +68,17 @@ async function refusesABranchCheckedOutInAWorktree(): Promise<void> {
     mergedAndTracked(rig);
     git(rig, rig.work, 'worktree', 'add', '-q', join(rig.root, 'lane'), BRANCH);
     await expectRefused(rig, BRANCH, OWN_REFS, /lane/u);
+  });
+}
+
+/** A worktree whose directory name carries a control character: the refusal names it with none. */
+async function namesAWorktreeWithNoControlCharacters(): Promise<void> {
+  await withRig(async (rig) => {
+    mergedAndTracked(rig);
+    git(rig, rig.work, 'worktree', 'add', '-q', join(rig.root, 'lane\u001b[31mred'), BRANCH);
+    const run = await expectRefused(rig, BRANCH, OWN_REFS, /lane\[31mred/u);
+
+    assert.ok(!`${run.out}${run.err}`.includes('\u001b'), 'the output carries the escape');
   });
 }
 
@@ -195,14 +208,43 @@ async function keepsMainWhenTheBranchTurnsSymbolic(): Promise<void> {
   });
 }
 
+/**
+ * The local name turns into a symbolic ref whose target is gone after the
+ * proof: `for-each-ref` lists no object for it, so the failed swap is never
+ * read as absent; the name is kept and reported unknown, with the remote
+ * already gone.
+ */
+async function keepsALateDanglingSymbolicRef(): Promise<void> {
+  await withRig(async (rig) => {
+    mergedAndTracked(rig);
+    const target = 'refs/heads/gone-after-the-proof';
+    const dangle = (): string => git(rig, rig.work, 'symbolic-ref', `refs/heads/${BRANCH}`, target);
+    const run = await retire(rig, BRANCH, fakeGithub(rig, { onMint: dangle }).fetchImpl);
+
+    assert.equal(run.exit, 1, run.err);
+    const outcome = outcomeOf(run);
+    assert.equal(outcome.kind, 'partial');
+    assert.equal(outcome.names?.local.state, 'unknown');
+    assert.match(outcome.reason ?? '', /symbolic ref whose target is gone/u);
+    assert.equal(
+      git(rig, rig.work, 'symbolic-ref', `refs/heads/${BRANCH}`),
+      target,
+      'the dangling symbolic name was deleted or followed',
+    );
+    assert.equal(refAt(rig, rig.origin, `refs/heads/${BRANCH}`), undefined, 'the remote stayed');
+  });
+}
+
 await refusesABranchCheckedOutInAWorktree();
+await namesAWorktreeWithNoControlCharacters();
 await refusesABranchUnderBisectInThisCheckout();
 await keepsMainWhenTheBranchTurnsSymbolic();
+await keepsALateDanglingSymbolicRef();
 await failsOnAMovedWorktreeMidRebase();
 await refusesABranchUnderBisect();
 await refusesACaseCollision();
 await refusesASymbolicRefToTheDefault();
 await refusesTheDefaultByName();
 process.stdout.write(
-  'merge-bot retire in-use smoke: OK (six refusing states, a moved worktree, and main kept past a late symbolic ref)\n',
+  'merge-bot retire in-use smoke: OK (seven refusing states, a moved worktree, main kept past a late symbolic ref, and a late dangling one kept)\n',
 );

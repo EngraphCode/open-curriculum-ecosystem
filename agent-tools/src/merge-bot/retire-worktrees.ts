@@ -3,6 +3,7 @@ import { basename } from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { printable } from '../pr-watch/printable.js';
 import { gitFailure, runGit, type RetireGit } from './retire-git-run.js';
 import { parseWorktrees, type WorktreeEntry } from './retire-parse.js';
 
@@ -23,10 +24,14 @@ const WORKTREE_STATE_PATHS = [
 
 /**
  * Reads a file's text: undefined when it does not exist, a failure when it
- * exists and cannot be read. An unreadable state file is never read as "not
- * in use": that would let a delete through on a question left unanswered.
+ * exists and cannot be read, or when a directory on its path is a file
+ * (ENOTDIR). An unreadable state file is never read as "not in use": that
+ * would let a delete through on a question left unanswered.
  */
 type ReadOptionalFile = (path: string) => Promise<Result<string | undefined, Error>>;
+
+/** A path's last part, with no control or format characters: a report can be pasted into a tracked record. */
+const nameOf = (path: string): string => printable(basename(path));
 
 /** The real state-file reader: a missing file is undefined; any other failure is a failure. */
 const readOptionalFile: ReadOptionalFile = async (path) => {
@@ -34,11 +39,11 @@ const readOptionalFile: ReadOptionalFile = async (path) => {
     return ok(await readFile(path, 'utf8'));
   } catch (cause) {
     const code = cause instanceof Error && 'code' in cause ? cause.code : undefined;
-    if (code === 'ENOENT' || code === 'ENOTDIR') {
+    if (code === 'ENOENT') {
       return ok(undefined);
     }
     // The basename and the code only: a node error message carries the full path.
-    return err(new Error(`reading worktree state file ${basename(path)}: ${String(code)}`));
+    return err(new Error(`reading worktree state file ${nameOf(path)}: ${String(code)}`));
   }
 };
 
@@ -66,7 +71,7 @@ export async function worktreesUsing(
       return inState;
     }
     if (inState.value) {
-      using.push(basename(entry.path));
+      using.push(nameOf(entry.path));
     }
   }
   return ok(using);
@@ -87,7 +92,7 @@ async function stateOfListedWorktree(
   if (entry.prunable) {
     return err(
       new Error(
-        `worktree ${basename(entry.path)} is prunable, so its rebase and bisect state cannot be read; if it was moved, run \`git worktree repair <its new path>\`; prune it only if it was deleted (pruning drops a rebase in progress); then re-run`,
+        `worktree ${nameOf(entry.path)} is prunable, so its rebase and bisect state cannot be read; if it was moved, run \`git worktree repair <its new path>\`; prune it only if it was deleted (pruning drops a rebase in progress); then re-run`,
       ),
     );
   }
@@ -100,7 +105,7 @@ async function stateOfListedWorktree(
   ]);
   if (paths.status !== 0) {
     return err(
-      gitFailure(`reading the rebase and bisect state of worktree ${basename(entry.path)}`, paths),
+      gitFailure(`reading the rebase and bisect state of worktree ${nameOf(entry.path)}`, paths),
     );
   }
   const names = new Set([branch, `refs/heads/${branch}`]);

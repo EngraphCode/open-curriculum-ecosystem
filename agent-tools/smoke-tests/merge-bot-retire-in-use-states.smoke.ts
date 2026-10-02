@@ -151,6 +151,17 @@ async function failsOnAnUnreadableStateFile(): Promise<void> {
   });
 }
 
+/** A state directory that is a regular file: git refuses the path itself, the question is unanswered, the run fails. */
+async function failsOnAStateDirectoryThatIsAFile(): Promise<void> {
+  await withRig(async (rig) => {
+    mergedAndTracked(rig);
+    const lane = join(rig.root, 'notdir');
+    git(rig, rig.work, 'worktree', 'add', '-q', '--detach', lane, 'main');
+    writeFileSync(gitPath(rig, lane, 'rebase-merge'), '');
+    await expectKept(rig, 1, /head-name.*Not a directory/u);
+  });
+}
+
 /**
  * A detached linked worktree whose `.git` file is garbage: git does not mark
  * it prunable, but cannot answer where its state is. Detached, because a
@@ -205,7 +216,8 @@ await refusesABranchMidApplyRebase();
 await refusesABranchARebaseWillUpdate();
 await refusesASymbolicTrackingRef();
 await failsOnAnUnreadableStateFile();
+await failsOnAStateDirectoryThatIsAFile();
 await failsOnAWorktreeThatCannotBeAsked();
 process.stdout.write(
-  'merge-bot retire in-use states smoke: OK (a dangling symbolic ref, three rebases that name the branch, a symbolic tracking ref, two worktrees that cannot be read)\n',
+  'merge-bot retire in-use states smoke: OK (a dangling symbolic ref, three rebases that name the branch, a symbolic tracking ref, three worktrees that cannot be read)\n',
 );
