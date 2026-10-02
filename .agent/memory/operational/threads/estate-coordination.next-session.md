@@ -2076,3 +2076,47 @@ until 329 merges.
 **Cricket suite 14** (02:26Z frame): both legs DRIFTING, both frames NARROWED. Taken: the list's
 open and landed counts lead every report; the memory-surface group lands now; 329 merges at its
 next open door with no further round; scans are labelled as scans.
+
+### 2026-10-02 02:52Z — landing begins: one slice merged, one open with a queued cure, five prepared (Hazel tracks Trunk, 7d8b9d)
+
+**Counts.** Pending graduations: no entry of the counted shape in either register. Write list:
+111 numbered; 13 closed on a second reading (the six earlier, W7, W24, W59, W60, W65, W88, and
+the strictness method as tracked); 5 landed on memory surfaces; **93 open, of which 55 are
+scripted and applied in OCE's lane working tree** awaiting their slices.
+
+**Landed.** OCE's directive slice merged as `091d24825` (pull request 329, two settlement
+pushes, the bot's REST merge at the pinned head, the door recomputed by name). The
+memory-surface group is on both coordination branches.
+
+**Open.** JC.net pull request 288 is the directive twin (six files, head `595ab3af2`). Copilot's
+first review raised four findings. One was a citation it resolved to another repository: the
+description now says the citation is provenance only, and the thread is answered and resolved.
+Three are true and over the bar, and all three also hold for the text OCE merged:
+
+1. The archive proof names "the move commit's parent" at a step that runs before the commit
+   exists. The pre-move blob is the surface as committed at `HEAD` when the proof runs.
+2. The surviving-mutant sentence covered any literal. A literal that is observable behaviour (a
+   status code, a retry limit) is not configuration, and its surviving mutant is a gap.
+3. "Order is never itself the claim" contradicts the output-port sentences before it; it is
+   true of the queries of input ports only.
+
+**Queued, and why.** The cure edits two directives. This seat's context read 49 % when the
+review arrived, and a directive is edited only under 30 % (PDR-052), so the cure is drafted
+(anchors proven by dry run in both lanes) and is the first act after the seat's next
+compaction: apply, settlement push one of two, replies after the read-back, merge at the door.
+OCE takes the same three-file cure as its own slice straight after.
+
+**Prepared, not yet a pull request** (one open at a time across both estates). In OCE's lane
+working tree, lint-clean, with no branch and no commit: tool facts and the first rules batch
+(ten files); the second rules batch (nine); the third (eight); the first skills batch (five).
+JC.net takes each as a twin after OCE's review, so the twin carries OCE's cures.
+
+**Still to script.** The second skills batch; six JC.net-only ports; Practice Core; the
+remaining directive items (under 30 %); docs, plans and templates; whole-file ports (the channel
+rule to OCE among them); register curation (four duplicate groups, 43 entries without a Status
+line); then the capability inventory, the audits, the divergence measure and the closeout.
+
+**One lesson of this hour for the next seat.** Two estates' vendor reviews of the same bytes
+found different true defects: OCE's found two threads and three contradictions behind one
+overview sentence; JC.net's found three more. A twin is a second reading, and it is worth
+having before either copy is called settled.
