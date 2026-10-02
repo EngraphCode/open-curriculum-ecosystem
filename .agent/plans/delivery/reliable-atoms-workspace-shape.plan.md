@@ -180,10 +180,11 @@ compiler and source set; inheritance must not add ambient APIs, aliases, framewo
 settings or declaration-checking omissions. Preserve the base's `strict`,
 `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns` and
 `noFallthroughCasesInSwitch`, and add `noUncheckedIndexedAccess`,
-`exactOptionalPropertyTypes`, `noPropertyAccessFromIndexSignature`,
-`noImplicitOverride`, `verbatimModuleSyntax` and `isolatedDeclarations` (an
-explicit type on every export — the clarity constraint that also makes the
-committed API report of bar element 4 a pure projection). Keep tests/tooling
+`exactOptionalPropertyTypes`, `noImplicitOverride`, `verbatimModuleSyntax` and
+`isolatedDeclarations` (an explicit type on every export — the clarity
+constraint that also makes the committed API report of bar element 4 a pure
+projection); `noPropertyAccessFromIndexSignature` is not added, the owner's
+ruling excludes it (the routed note below). Keep tests/tooling
 configuration separate; source checking, native execution and distribution
 emission require distinct evidence. The profile's options are not a claim that
 the current base already supplies them.
