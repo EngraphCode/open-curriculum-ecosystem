@@ -168,6 +168,9 @@ corrected option, then let the owner re-decide.
 - Inter-peer comms — those have their own observability discipline (see
   `agent-state-observable.md`).
 
+An answer the owner gave on a premise that changed within minutes is asked again with the new
+premise. It is neither overridden nor obeyed blind.
+
 ## Why this rule exists
 
 Without the rule, agents default to one of two failure modes:

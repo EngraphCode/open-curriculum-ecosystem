@@ -88,6 +88,19 @@ here.
 - Any tail-of-log surface where the agent's next reaction is keyed
   to a specific log line.
 
+A watching role watches every surface it answers for. A seat that answers for a pull request
+watches its checks, its threads and its merge state, not the comms stream alone: a comms-only
+watcher was blind to all three. A pull-request watch emits on change of the compound state it
+answers for (the head, the merge state, the check rollup, the unresolved threads, the tip-bound
+reviews), on every state that means stuck, and on the terminal states, merged and closed
+(`pr-lifecycle`, the compound watch loop); a ticker that repeats an unchanged count spends
+context and tells the seat nothing it can act on.
+
+Before a new watch's silence is trusted, see it emit once, and read each of its conditions
+against one live sample. A watch run through a buffering entrypoint said nothing for half an
+hour while two reviews landed (2026-09-29); a ready condition that needed "no review request
+pending" never fired beside a person's standing request (2026-10-02).
+
 ## When the Rule Does Not Fire
 
 - One-shot "wait until this completes" — use Bash with
