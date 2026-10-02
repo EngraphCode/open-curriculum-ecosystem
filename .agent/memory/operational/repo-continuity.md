@@ -37,6 +37,113 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T20:0xZ: the compaction record; the plan is one node, `practice-parity-for-extraction`,
+  the same bytes in both estates** (Crucible binds Slag, 7b999c). The owner's goal restated (two
+  equally capable Practices, then the entity; the OCE product work excluded), the evening's
+  rulings (PDRs carry decisions; mixed directories are a design fault; heartbeats never pause;
+  feedback triaged by risk, cost and value; a spent budget means decide; the two-hour bound), the
+  state of every tree, the measure's first numbers and the next session's order are in the
+  Director handoff's §STATE 20:0xZ; the measure's scripts are in the synced session directory
+  `comms-analysis-2026-10-01/session-7b999c/measure/`. Here: 332 merged `SHA:2b25ced1b`, the
+  successor `coordination/2026-10-02-2b25ce` carries the node; the first carry sits unpushed in
+  `oce-wt-parity-carries` at `SHA:ad5528b52`.
+- **2026-10-02T18:4xZ: end states 3 and 4 of the finish node read first-hand; six landings here and
+  seven in JC.net** (Crucible binds Slag, 7b999c). Here #338 (u) `SHA:38342e038`; #339 (q) at its
+  settlement round; the inventory's copy and the IO census with their scripts `SHA:8e2b84150`. In
+  JC.net 297 `SHA:f4a1c7496` (no slice branch left there) and 298 (the inventory, generators beside
+  the report after the Director's finding) `SHA:6425f0d81`. The inventory copies `cmp` equal and the
+  generator rerun reproduces 3,555 rows; the census rerun reproduces both tables (JC.net 500/70,
+  OCE 719/83). Left: s, 2fb, y here; 298's door and the twelfth-entry records commit there; the
+  rollover folds; the port's sizing. The Director handoff's §STATE 18:4xZ carries the counts.
+- **2026-10-02T18:0xZ: five Practice landings here and six in JC.net today; the finish node's size row
+  in both estates as the same bytes; the board against the node's five end states** (Crucible binds
+  Slag, 7b999c). Here #337 (w) `SHA:b6fe01c9d` on `engraph`; the ten stale owner items retired
+  `SHA:b9ad01a26`; the size row `SHA:d39c606a6` (JC.net's copy `SHA:85f8edd4` by the worktree route,
+  the two remotes' copies `cmp` equal). To land here: u, q, s, 2fb, y, one at a time; in JC.net 297
+  (2fb) at its door. End state 2: no slice branch on this remote; #332 BEHIND and 286 DIRTY for the
+  rollover folds; the J2 port sized after y. End states 3 and 4 not started (JC.net's seat after
+  297); end state 5's node exists and validates, its first pull request opens at y's merge. The
+  Director handoff's §STATE 18:0xZ carries the counts and the three tool facts of the hour.
+- **2026-10-02T16:4xZ: three Practice pull requests landed here in the hour and five in JC.net; the
+  board against the definition of done is recomputed** (Crucible binds Slag, 7b999c). Here: #333
+  `SHA:134c2fb6f`, #334 `SHA:f45aaeca4` (nb), #335 `SHA:576d8924d` (r) on `engraph`; #336 (v) open at its second
+  round; w, u, q, s and y local on their lane branches, the J2 port uncommitted, #332 BEHIND for the
+  rollover fold by merge. JC.net: 291 to 295 on `main` (r, s, y, x, z); u opens last; the fold of 286
+  on the owner's lock. Goal 1 lines 2 to 6 and Goal 2 lines 4 and 5 not yet started; PDR-143 and the
+  first product lane before the owner, unanswered. The §BOARD paragraph of 16:4xZ in
+  `director-handoff.md` carries the count.
+
+- **2026-10-02T15:1xZ: the Director seat is re-taken at the owner's word; the team's goals and
+  definition of done are recorded** (Crucible binds Slag, 7b999c). The owner's word, verbatim: "for
+  the team, and for each agent, including yourself, define what the goals are, we need a definition
+  of done, so that we know when the work is finished. We need to get the Practice work complete so we
+  can plan the extraction, and we need to get into a position where development work on OCE makes
+  sense." Goal 1, the Practice work complete so the extraction can be planned: seven counted lines in
+  `director-handoff.md` §STATE 15:1xZ (nothing of the Practice outside a default branch; the
+  consolidation's finish list empty with the counts at 0; the exchange at N of N by the computed
+  delta; capability parity inventoried and landed or decided; the residual divergence classified;
+  the agent-tools test census sized; PDR-143 before the owner). Goal 2, a position where development
+  work here makes sense: this estate's fix slot drained of Practice pull requests and #332 folded;
+  the first product lane named (the Director's verdict: the programme's first target under the
+  adoption profile; the owner confirms or redirects); the owner's gating decisions carded once; the
+  gates bounded; the Capability Foundations pull request as intake on arrival. Each seat's
+  definition of done and the owner's cards are in the same block. 291 merged in JC.net at 15:06Z;
+  #333's ceremony runs on Efreet lifts Scorch's verdict at CLEAN.
+
+- **2026-10-02T14:4xZ: the Director seat stopped at the owner's compaction-and-stop word; the
+  retire port is open as #333 and read; the fold of JC.net's 286 is held by a stale lock there**
+  (Crucible binds Slag, 7b999c). The owner's word, verbatim: "you are working on a bounded task, not
+  open ended, we must always understand the goal so that we are able to finish". The Director's
+  claims are closed, its processes stopped, and no Director seat exists; the routes and receivers
+  are the §STATE block of 14:4xZ in `director-handoff.md`, and each implementer's session is the
+  owner interface meanwhile. #333 (Efreet lifts Scorch, claim 006c79ad, the retire port carrying
+  JC.net 280's cures) was read first-hand by the Director at 14:3xZ with no objection and lands at
+  green by its seat; the nb back-port then Hazel's six slices follow it here, one at a time. JC.net's
+  286 (PDR-143 and the morning's records) folds once the owner clears the zero-byte `.git/index.lock`
+  in its primary (10:56:56Z, no holder), by the seat holding that estate's slot or at the rollover
+  DUE. This branch (332) carries PDR-143, the Capability Foundations sentence, Hazel's re-trued owner
+  items and frictions entries, and folds at the rollover.
+
+- **2026-10-02T11:1xZ: the owner's direction on the Practice's extraction is recorded as PDR-143,
+  Proposed; the Reliable Atoms concept is named Capability Foundations; JC.net's pull request 280
+  landed; the Director seat is taken** (Crucible binds Slag, 7b999c). The owner's words of 2026-10-02
+  are in PDR-143 §Context verbatim: the Practice will be extracted from both repos as a standalone
+  entity; what that means is undefined; it must preserve the ability to learn once it is one canonical
+  definition. The record proposes the definition in the owner's own scope axis (PDR-142 §Two axes) with
+  one added split (the installed Practice against the host), places capture at the edge and distil and
+  graduate at the entity, and lists what stays the owner's; until the entity exists PDR-142 governs.
+  `principles.md` gains one sentence after the 2026-09-08 quotation naming the concept Capability
+  Foundations (the owner, 2026-10-02, verbatim: "the Reliable Atoms concept has been replaced by the
+  Capability Foundations concept"), the quotation standing as spoken; the concept's definition is
+  `docs/architecture/foundations/capability-foundations-adoption.md`. The owner will have an external
+  agent raise a pull request here detailing the concept: it is team intake when it arrives, and no seat
+  opens a rename lane for the Reliable Atoms residue ahead of it (43 markdown files under `docs` and
+  `.agent` name the old concept at 10:58Z, this record among them). The same bytes landed in JC.net on
+  its coordination branch at 10:5xZ, read by two sub-agent reviewers there; here they ride
+  `coordination/2026-10-02-9fd05e` as prose-class intake for its fold. JC.net's pull request 280 (#322
+  is its twin here) landed there as `SHA:e5c9c1e4` at 10:48Z after three review rounds; this estate
+  owes its two settlement pushes (two comment corrections, three test changes, the parser's scheme
+  comment and its http row), routed with the `retire` port in §Next Safe Steps; the third round's three
+  items (two-state guard fakes in two test files; the mint test's branching fake) go to the push-tests
+  lane in both estates. The Director seat is taken across both estates at the owner's word of
+  2026-10-02 (claims 6a4b11b1 here and 8b346894 in JC.net; the Moment-2 line on both streams at 10:51Z;
+  the state block in `director-handoff.md`). The owner's limit of the same morning, verbatim: "work is
+  not safe until merged into the default branch"; with two Implementers, one coordination and one fix
+  pull request per estate. JC.net at 11:1xZ: a stale `index.lock` in its primary (0 bytes, 10:56Z, no
+  holder) refuses every commit there, its 12:00Z fold included, and is the owner's to clear; its pull
+  request 290 (the consolidation's slice q) waits on the owner's re-run of one timed-out smoke.
+
+- **2026-10-02T11:07Z: #327 folded into `engraph` as `SHA:9fd05ecf7`** (Efreet lifts Scorch, 7adb15;
+  the bot's merge at the pinned head `dc23b7a16`, on two pushes (the merge of engraph, then the
+  records pass's seven cures) and one Copilot round with no thread, its overview dispositioned on
+  the pull request; the Codex connector's reaction read as its no-finding transport, so the landing
+  went through the REST door under the docs-only class; a read-only records pass before the
+  ready-mark, seven cures). The successor is `coordination/2026-10-02-9fd05e`, cut from the merged
+  tip. The upstream mirror `main` (`SHA:2a7773837`, 1.185.6) read as an ancestor of `engraph`
+  through #319; no carrier open or due. Three seats at the owner's word: Crucible binds Slag
+  (7b999c), the Director across both estates from 10:51Z (claim OCE 6a4b11b1); Hazel tracks Trunk
+  (7d8b9d, implementer, the consolidation's slices); this seat (implementer, the fold).
+
 - **2026-10-01T20:21Z: #322 landed as `SHA:30f5b4338`; the push starts each attempt inside its token's
   life and on the settled commit** (Crucible binds Slag, 7b999c). Before every attempt, the first
   included, `merge-bot push` stops when the token is within five minutes of its expiry or when HEAD
@@ -360,11 +467,54 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
+STATE, 2026-10-02T17:2xZ (Crucible binds Slag, 7b999c): the order below stands inside the delivery
+node `practice-work-finish` (`.agent/plans/delivery/`, the same bytes in both estates), which is
+the finish of the Practice work under the owner's rulings of 17:0xZ and 17:1xZ (`director-handoff.md`
+§STATE 17:2xZ, verbatim). Here, one pull request at a time: the four remaining slices (u by merge
+from `engraph`, q, s with their cure scripts first, then y), the product node authored between
+doors, the port's sizing run, the fold at the rollover, the product lane's first pull request, the
+census. The security lane is deleted from the queue until it carries criteria, size and value; the
+ten owner-decision items below are retired by the triage taxonomy in the next records commit.
+
+STATE, 2026-10-02T15:1xZ (Crucible binds Slag, 7b999c, the Director seat re-taken): the order of
+11:1xZ below stands inside the finish defined in `director-handoff.md` §STATE 15:1xZ. Here, one pull
+request at a time in the fix slot: #333 (Efreet lifts Scorch, the ceremony running), then nb, r, v,
+w, u, q, s (u takes `origin/engraph` by merge, never rebase; r, q, s take their second-commit
+scripts first), then y after JC.net's copy settles, then the J2 port as one pull request that runs
+here or its removal by the owner's decision; #332 folds at the rollover. Then the first product lane
+(Goal 2 item 2 of the block). The security, test-shape and GitHub-port seam lanes and the no-IO
+census are routed by the Director as slots free; none opens while a pull request of its seat is
+pending.
+
+STATE, 2026-10-02T11:1xZ (Crucible binds Slag, 7b999c, the Director seat): the pickup block below
+stands, with these changes. PDR-143 records the extraction's direction (§Current State); until the
+entity exists PDR-142 governs every two-estate lane, and nothing is delayed or avoided because of the
+future extraction (the owner's ratified word in PDR-142). The owner's limit of 2026-10-02, verbatim:
+"work is not safe until merged into the default branch … With two Implementers the limits are one
+coordination and one in-progress feature/fix PR per estate". In order, one pull request per estate at
+a time: (a) #327 folded at 11:07Z; the successor `coordination/2026-10-02-9fd05e` (draft #332) carries
+PDR-143 and the Capability Foundations sentence as prose-class intake for its own fold; (b) in JC.net,
+the fold of its 286 at 12:00Z (this seat; held while the stale lock stands) and the consolidation's
+slice q (290); (c) the #309 twin in JC.net; (d) no seat opens a Capability Foundations rename lane
+here: the owner, 2026-10-02 about 10:4xZ, verbatim, "I am not sure when yet, but I will have an
+external agent create an OCE PR detailing the Capability Foundation concept that replaces, or perhaps
+displaces, the Useful Atoms concept" (the concept this estate names Reliable Atoms); that pull request
+is team intake when it arrives (checked out, gated, evaluated, worked as normal; it counts toward the
+limit), and the residue of the old name in the architecture docs, plans and research is read against
+it then; (e) the security lane (line 4); (f) the `retire` port into this estate (line 4), carrying
+280's two settlement cures (JC.net's `SHA:5527d3c5` and `SHA:4efc2f86`); (g) the push-tests lane in
+both estates (line 4): the guard cases where the HEAD read or the sleep moves the instant the clock
+returns, two collaborators coupled through one mutable value, re-expressed with the instants as inputs
+to a pure guard seam; and the mint test's branching, counting fake, removed with the test per this
+estate's 2026-09-29 decision; (h) the J2 port's cures (line 2). Each goes to an implementer seat as its
+slot frees; the Director routes and does not execute.
+
 ### PICKUP, 2026-10-01 13:2xZ — the implementer seat at n=2 (supersedes the blocks below where they differ)
 
 Crucible binds Slag's order, from the owner's word in §Current State, in landing order (this estate's
 own fold is not a line here: its state lives in its pull request). The live coordination branch is
-`coordination/2026-10-01-972020`, cut from `SHA:972020417`:
+`coordination/2026-10-02-9fd05e`, cut from `SHA:9fd05ecf7` (the 2026-10-01 and 2026-10-02-73668b
+branches folded as #318 and #327):
 
 The three open lanes and the upstream sync that stood first in this order landed on 2026-10-01
 (§Current State). Under the owner's limit on open pull requests (one coordination pull request per
@@ -2606,40 +2756,45 @@ this section; create a thread record when execution is scheduled.
 
 ## Open Owner-Decision Items
 
-1. MCP product analytics has no open implementation-shape decision. MCP-63
-   proceeds from the ratified plan on PR #568; the remaining owner-held decision
-   is October public-beta enablement after MCP-173's evidence is complete.
-2. Monorepo workspace topology is held by owner decision (2026-05-09) until after
-   the graph MVP implementation tranche, unless the owner reopens it.
-3. MCP launch-readiness: ratify the impact-first Stage 1–4 ladder (assessment report §8) →
-   promote the launch-readiness-and-milestone-redefinition stub. K1–K3 keystones are ratified
-   and absorbed by the strategy corpus.
-4. External-facing capability corpus: decide source-of-truth topology and first-tranche scope
-   — these gate Direction A `t0` / plugin-package `w0`
-   ([`external-facing-capability-distribution.plan.md`](../../plans-backlog-2026-07/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md)).
-5. Native-MCP-auth build-vs-buy: adopt / adopt-partial decision on the
-   [spike](../../plans-backlog-2026-07/security-and-privacy/future/native-mcp-sdk-auth-build-vs-buy.md).
-6. Upstream/SDK forks: endpoint-style cross-refs in MCP tool descriptions; Q-010 (repair vs
-   retire the orphaned `oak-curriculum-sdk` typedoc estate).
-7. Curriculum graph estate — single-team proposal: whether to bring the Open Curriculum Ecosystem,
-   the Open Curriculum API, the Curriculum Ontology, and Atomic Concepts under one team for ~6 months.
-   See [`curriculum-graph-estate-synthesis-2026-06-22.md`](../../reports/curriculum-graph-estate-synthesis-2026-06-22.md);
-   an SLT brief is held local (reference-local, not version-controlled).
-8. **Corpus-generalisation Phase 0 scheduling** (posed 2026-07-03): when/what shape — recommended
-   soon, fresh-seat, allowed to span multiple sittings (seventeen-question agenda; absorbs salvage
-   ws2). The plan's promotion trigger; nothing else blocks on it.
-9. **Comms forensics depth + live-event PII posture** (posed 2026-07-03): (a) how much further
-   effort on the unexplained untracked-tier removal — recommended accept-and-rely-on-the-watermark-
-   cure (data recoverable at `255117a43^`); (b) the 21+ live comms events embedding machine-local
-   paths — recommended rely on the mandatory pre-fan-out PII screen rather than mutating immutable
-   event records (a redact and/or write-time-guard option was offered).
-10. **Estate-wide markdown→graph inversion ADR timing** (posed 2026-07-03): a Proposed ADR
-    generalising ADR-200 + PDR-119 (surface-class taxonomy; PDR-122-bound reconciler) —
-    recommended a dedicated authoring session soon; alternatives: after Phase 0, or after ADR-200
-    WS2/WS4. Evidence: the research report §Further research (markdown→graph subsection). Decision
-    input landed 2026-07-05: ADR-173 §"The estate is plural by design" carries the owner-corrected
-    graphs-are-a-method doctrine (data-layer SSOT; deliberate plurality above; integration at
-    source and surface) that the authoring session must honour.
+None. The ten items this section carried until 2026-10-02 were re-trued against the estate on
+2026-10-02 14:2xZ (each read first-hand at its paths) and retired the same day under the owner's
+rulings of 17:0xZ and 17:1xZ ("NOTHING is blocked on me"; nothing is worked on without completion
+criteria, a size and a ratified-value line; all of it bounded and finished soon), by the Director's
+routing to the consolidation seat. Each took one verb of the owner's triage taxonomy:
+
+1. MCP product analytics: DELETE as overtaken. PR #568 merged 2026-07-26, the public beta was
+   publicised 2026-09-06, the implementation thread is paused under the fork ruling, and MCP-173's
+   evidence is not in this estate; the October-enablement question has no criteria, size or value
+   line here and reopens only as a node carrying all three.
+2. Monorepo workspace topology: DELETE as overtaken. ADR-227 (Accepted 2026-09-03) and the
+   ratified census and config-isolation plans cover the parked ADR's scope; a supersession note,
+   if wanted, is a one-line edit on the parked plan, not a decision.
+3. MCP launch-readiness ladder: DELETE as overtaken. `first-major-release` is ratified and the
+   beta is live; no live document cites the stub, which stays `future` by its own status.
+4. External-facing capability corpus: DELETE as overtaken. A plugin shipped (PR #999,
+   2026-10-01); the corpus map's two questions were answered by what shipped, and the next
+   tranche is a node with criteria, size and value when one is wanted.
+5. Native-MCP-auth build-vs-buy: DELETE. The spike is a strategic brief of 2026-06-16 with no
+   criteria, size or value line on record; it reopens only as a node carrying all three.
+6. Upstream and SDK forks: DELETE as decided. Q-010 was owner-ratified 2026-06-15 and executed
+   2026-07-03; the cross-refs half has no owner, criteria or value line on record and is not
+   work.
+7. Curriculum graph estate, single-team proposal: DELETE as outside this line. The addressee is
+   outside this fork under the fork ruling of 2026-09-06; the synthesis report stands complete as
+   a report; the brief stays out of version control.
+8. Corpus-generalisation Phase 0 scheduling: DELETE as decided and run (2026-07-05). The restart
+   and the PDR-122 landing set carry no criteria, size or value line and reopen only as a node.
+9. Comms forensics depth and live-event path posture: DELETE. The removal's forensics has no
+   criteria or value line, and the recovery point (the parent of SHA:255117a43) resolves and is
+   named in this record; the path-bearing events are untracked, and the validator and the write
+   hook forbid new ones, so the tracked estate has no exposure and nothing to decide.
+10. Markdown→graph inversion ADR timing: DELETE. A sequencing note on an unauthored ADR is not a
+    decision; ADR-221 (Accepted 2026-07-31) is the current refinement of ADR-200, and a
+    surface-class ADR, if wanted, is a node with criteria, size and value.
+
+The re-truing's evidence paths are in this record's history at the commit before this rewrite; the
+fork ruling (2026-09-06: no upstream-organisation surface is reached from this line) stands in
+§Repo-Wide Invariants.
 
 ## Repo-Wide Invariants / Non-Goals
 
