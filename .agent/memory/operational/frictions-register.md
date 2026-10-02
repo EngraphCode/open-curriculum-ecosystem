@@ -2815,6 +2815,9 @@ commit SHA and the closing plan reference.
   `claude-fable-5-1`, so the directive context-budget check rested on an estimate (about 357k
   tokens of a window of at least 1M); the model was registered two days later.
 
+- **Second estate (2026-10-02)**: JC.net's window registry registers both the Fable 5.1 and the
+  Opus 5 windows; this estate's registers Fable 5.1 only.
+
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
 - **Observed**: 2026-09-17 ~18:36Z. The owner switched this seat's model from Opus 5 to
@@ -3150,6 +3153,10 @@ commit SHA and the closing plan reference.
   `hook-policy-substring-discipline` in both estates still call the policy "a substring-matcher" and
   say `git push --force-with-lease` "is blocked by the `--force` substring". JC's open case of the
   compound-command class is F-225.
+
+- **Second estate (2026-10-02)**: JC.net's hook policy handles heredoc bodies (14 lines of its
+  `agent-tools/src/hook-policy` name them; this estate's code names none). The cure can be ported
+  from there.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves
 
@@ -3538,6 +3545,26 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Status**: open
 - **Owner direction status**: standing
 
+### F-225 — the Bash policy reads a force push across a whole compound command (2026-10-01)
+
+- **Source**: Crucible binds Slag, first-hand, 2026-10-01.
+- **Surface**: the PreToolUse Bash policy in JC.net (`agent-tools/src/hook-policy`); OCE's twin
+  is not checked.
+- **Observed**: a compound command holding `gh api graphql -f query=…`, the word "push" inside
+  a pull request title, and "git" in prose was refused as a force push. No push was present.
+  Cure used: the text goes in files and `-F query=@file` replaces `-f query=`.
+- **Expected**: the matcher judges one simple command at a time
+  (`hook-policy-substring-discipline`).
+- **Candidate cure**: split the command line into simple commands before matching, and match
+  `-f` only as an argument of a `git push`.
+- **Target surface**: agent-tools hook policy.
+- **Status**: open
+- **Owner direction status**: standing
+- **Ported**: from JC.net's register on 2026-10-02; the entry above is JC.net's reading at its own
+  date. Checked against this estate's code on 2026-10-02: OCE's hook policy carries the force-push
+  patterns and has no step that splits a compound into simple commands; the refusal was not
+  re-run. See F-207 for the same matcher reading prose.
+
 ### F-227 — four real-filesystem integration tests time out at five seconds on the Windows job (2026-10-01)
 
 - **Source**: Crucible binds Slag, first-hand, the fold of 2026-10-01.
@@ -3800,6 +3827,29 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: agent-tools CLI; `cricket`.
 - **Status**: open; three instances, one seat, one day.
 - **Owner direction status**: standing
+
+### F-239 — the pre-push chain reads no commit message or added path against the privacy directive (2026-10-01)
+
+- **Source**: a privacy review of the push path, read against the code on 2026-10-01.
+- **Surface**: `.husky/pre-push`; `privacy.md` rule 1, rule 7 and §Private editorial material.
+- **Observed**: `.husky/pre-push` runs `pnpm check` and the site's end-to-end suite; no step reads
+  the pushed range's commit messages or added paths against the privacy directive. Rule 1 names
+  commit messages as a carrier; rule 7's whole-document read names plans and records, not commit
+  messages. A branch's first push publishes its commits and their messages, and under merge
+  commits a later commit leaves an earlier one in history.
+- **Expected**: a pushed range's commit messages and added paths are read against the privacy
+  directive before a branch's first push.
+- **Candidate cure**: rule 7 extends to the pushed range's commit messages; a pre-push check
+  refuses an added path under the ignored private boundaries and holds the first push of a branch
+  adding files under `linkedin/` until a recorded privacy-review line exists. The check carries
+  path families only, never a term list: a list of private names in a public hook identifies
+  what it guards, and no scan reads meaning.
+- **Target surface**: `.husky/pre-push`; agent-tools CLI; `privacy.md`.
+- **Status**: open.
+- **Owner direction status**: standing
+- **Ported**: from JC.net's register on 2026-10-02; the entry above is JC.net's reading at its own
+  date. Checked against this estate's code on 2026-10-02: OCE's `.husky/pre-push` has no step that
+  reads commit messages or added paths against the privacy directive.
 
 ### F-240 — nothing makes a ruling name the primary surface it read (2026-09-28)
 
