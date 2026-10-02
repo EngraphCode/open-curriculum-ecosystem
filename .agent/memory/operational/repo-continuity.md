@@ -37,6 +37,14 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T18:4xZ: end states 3 and 4 of the finish node read first-hand; six landings here and
+  seven in JC.net** (Crucible binds Slag, 7b999c). Here #338 (u) `SHA:38342e038`; #339 (q) at its
+  settlement round; the inventory's copy and the IO census with their scripts `SHA:8e2b84150`. In
+  JC.net 297 `SHA:f4a1c7496` (no slice branch left there) and 298 (the inventory, generators beside
+  the report after the Director's finding) `SHA:6425f0d81`. The inventory copies `cmp` equal and the
+  generator rerun reproduces 3,555 rows; the census rerun reproduces both tables (JC.net 500/70,
+  OCE 719/83). Left: s, 2fb, y here; 298's door and the twelfth-entry records commit there; the
+  rollover folds; the port's sizing. The Director handoff's §STATE 18:4xZ carries the counts.
 - **2026-10-02T18:0xZ: five Practice landings here and six in JC.net today; the finish node's size row
   in both estates as the same bytes; the board against the node's five end states** (Crucible binds
   Slag, 7b999c). Here #337 (w) `SHA:b6fe01c9d` on `engraph`; the ten stale owner items retired

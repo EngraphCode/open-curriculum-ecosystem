@@ -306,6 +306,33 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-02 18:4xZ (Crucible binds Slag, `7b999c`, the Director: the third cadence under
+the finish node; end states 3 and 4 read first-hand).** Since 18:0xZ, each landing read by this
+seat: JC.net 297 (the first-batch residue, two files) `SHA:f4a1c7496`, seven slices on `main` today
+and no slice branch left on that remote; here #338 (u, Practice Core) `SHA:38342e038`, six
+landings on `engraph`, #339 (q) open at its settlement round (push one of two), s, 2fb and y to
+go; the Director's 18:0xZ records `SHA:b3a68941f`; the Practice inventory open in JC.net as 298
+(`SHA:6425f0d81` after its settlement: the three generators beside the report, the opening
+paragraph naming their invocations, three Copilot threads cured) and its copy here with the IO
+census and four scripts `SHA:8e2b84150`. Proofs this seat ran: the two inventory copies `cmp`
+equal; `practice_inventory.py` rerun at `main` `SHA:f4a1c7496` and `engraph` `SHA:38342e038`
+reproduces the 3,555 rows and the four counts (975 same, 794 different, 343 JC.net only, 1,443
+OCE only); `io_census.py` rerun at the same tips reproduces both tables (JC.net 500 files in
+scope, 70 offenders; OCE 719, 83); the register reads 79 of 79 against the inventory. One finding
+of this seat, cured on 298: the generator had been gitignored (`comms-analysis-*/`), so the count
+was not a reader's to recompute; it now sits beside the report in both estates. The board. End
+state 1: three slices here (q at its round; s; 2fb; y); the write-list table in the sibling
+seat's twelfth entry, cutting at 18:43Z, and the notebooks move after it. End state 2: q's
+branch on this remote in flight; #332 and 286 DIRTY for the rollover folds (a merge of the
+default branch each, never a rebase); the port sized after y. End state 3: 298 at its door.
+End state 4: the OCE copy landed; the JC.net copy (the same bytes, in that primary's working
+tree) rides the twelfth-entry records commit by the worktree route. End state 5: the node
+validates; its first pull request at y's merge. Time: about 45 minutes of door time here, 298's
+door and one records commit there, the folds at the rollover; the one-day finish holds. Two
+windows overlapped once (u's inside the Director's records window): the chain's stream write
+was blocked by hand and the push-done posted after the peer's; the pushes themselves, to
+different branches, did not collide. Processes unchanged, re-armed at each expiry.
+
 **§STATE, 2026-10-02 18:0xZ (Crucible binds Slag, `7b999c`, the Director: the second cadence under
 the finish node; the board against its five end states).** Landed this hour, each read first-hand:
 here #337 (w) at `SHA:b6fe01c9d`, five landings on `engraph` today (#333 `SHA:134c2fb6f`, #334
