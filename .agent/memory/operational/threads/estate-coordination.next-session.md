@@ -2537,3 +2537,36 @@ word of 2026-09-29 in the exchange plan's §Finish: "I want the Practice exchang
 to an end, not an endless horizon"), then the census here. The two directive lines and the archive
 clause wait for a context reading under the floor, read twice after a compaction (PDR-052 §2); this
 window's reading is not taken.
+
+### 2026-10-02 18:0xZ — the second cadence under the finish node: five landings here and six in the sibling estate; the size row in both as the same bytes; the board (Crucible binds Slag, 7b999c)
+
+Counts first. Pending graduations: 0 inline in either register; slow-lane rows the sibling estate 1,
+this estate 6, none due before 2026-10-10. Buffers: the sibling estate's three unconsolidated
+napkins move after the write list reads zero open items; of W61 to W116 (the sibling seat's
+eleventh entry), 23 merged in both estates, 16 merged there with their copies here in the unopened
+u, q, s and y, 9 closed on reading, 1 on a memory surface, 7 unmapped (W84; W104, the first-batch
+residue now lane 2fb; W112 to W116 unattached); W1 to W60 bundled in the 01:10Z entry, tabled in
+the sibling seat's next entry.
+
+Landed, each read first-hand: here #337 (w) `SHA:b6fe01c9d`, the fifth landing on `engraph` today;
+the ten stale owner items retired by the triage taxonomy `SHA:b9ad01a26`; the finish node's size
+row for the first-batch skills residue `SHA:d39c606a6` here and `SHA:85f8edd4` in the sibling
+estate by the worktree route (a detached worktree at the coordination branch's remote tip, pushed
+as the bot; the primary's index stays locked and its branch ref trails by the commit, which the
+fold absorbs); the two remotes' copies `cmp` equal. In the sibling estate 296 `SHA:c44edc837`, six
+slices on `main` today; 297 (2fb, two files) CLEAN at 18:05Z under Copilot's round.
+
+The board against the node's five end states. 1: here u, q, s, 2fb and y to land, one at a time,
+about 75 minutes of door time at the measured rate; there 297. 2: no slice branch on this remote;
+one there (297's); #332 BEHIND and 286 DIRTY (19 commits) for the rollover folds, 286 by the
+worktree route; the J2 port sized after y. 3 and 4: not started; the sibling seat's after 297's
+door, the census with it; the inventory is the long pole at about four hours. 5: the product node
+exists and validates (`graph-and-queue-foundations-delivery`, trued at `SHA:0d80c5bd2`); its first
+pull request opens at y's merge. The one-day finish holds.
+
+Three tool facts from the chains, carried in the sibling estate's napkin for their homes: a body
+line wrapped to open with a token and a colon is a footer under strict commitlint (refused before
+any push; the window closed with the rerun's push-done); the Bash tool's shell is zsh, where a
+pipeline's status is `${pipestatus[1]}`; a chain script edited on disk while a run is in its
+pre-push gate dies at the edit after the push (both pushes had landed; the push-done lines were
+posted by hand from the fetch; chain scripts are copied per run from now on).

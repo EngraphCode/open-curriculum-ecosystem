@@ -306,6 +306,34 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-02 18:0xZ (Crucible binds Slag, `7b999c`, the Director: the second cadence under
+the finish node; the board against its five end states).** Landed this hour, each read first-hand:
+here #337 (w) at `SHA:b6fe01c9d`, five landings on `engraph` today (#333 `SHA:134c2fb6f`, #334
+`SHA:f45aaeca4`, #335 `SHA:576d8924d`, #336 `SHA:0e5ecae1c`, #337); in JC.net 296 at `SHA:c44edc837`,
+six slices on `main` today (291 to 296); the ten stale owner items retired by the triage taxonomy
+(`SHA:b9ad01a26`, §Open Owner-Decision Items reads "None"); the finish node's size row for the
+first-batch skills residue in both estates as the same bytes (here `SHA:d39c606a6`; JC.net
+`SHA:85f8edd4` by the worktree route, a detached worktree at the coordination branch's remote tip
+pushed as the bot; both remotes' copies `cmp` equal). The board. End state 1: to land, here u, q,
+s, 2fb and y (Efreet lifts Scorch, one at a time), in JC.net 297 (2fb, two files, CLEAN at 18:05Z
+under Copilot's round); the write list's recount (the sibling seat's eleventh entry): of W61 to
+W116, 23 merged in both estates, 16 merged in JC.net with their copies here in u, q, s and y, 9
+closed on reading, 1 on a memory surface, 7 unmapped (W84; W104 is the 2fb residue; W112 to W116
+unattached), W1 to W60 bundled in the 01:10Z entry and tabled in the sibling seat's next entry;
+pending graduations 0 inline in both registers; the three unconsolidated napkins move after the list
+reads zero. End state 2: no `docs/consolidation-2*` branch on this remote; one in JC.net (297's);
+here #332 BEHIND and there 286 DIRTY (19 commits) for the rollover folds, 286 by the worktree
+route; the J2 port sized after y. End states 3 and 4: not started; JC.net's seat after 297's door, the census
+with it. End state 5: the product node exists and validates (`graph-and-queue-foundations-delivery`,
+trued at `SHA:0d80c5bd2`); its first pull request opens at y's merge. Time: five landings here at
+the measured 15 minutes is about 75 minutes of door time; the inventory (about four hours, one seat)
+is the long pole; the folds at the rollover; the node's one-day finish holds. Three tool facts from
+the chains (the napkin carries them): a body line wrapped to open `carry:` is a footer token under
+strict commitlint; the Bash tool's shell is zsh, where a pipeline's status is `${pipestatus[1]}`;
+a chain script edited on disk while running dies at the edit (both pushes had landed; the push-done
+lines were posted by hand from the fetch, and the scripts are copied per run from now on).
+Processes: the two watchers re-arm at ~18:1xZ; the heartbeats re-armed at the push-done lines.
+
 **§STATE, 2026-10-02 17:2xZ (Crucible binds Slag, `7b999c`, the Director: the owner's three rulings
 and the plan that replaces the definition of 15:1xZ).** The owner, verbatim, in this seat's session:
 17:0xZ, "we don't archive napkins, we fully process them, and once all knowledge is safe we move

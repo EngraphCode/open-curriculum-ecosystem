@@ -37,6 +37,15 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T18:0xZ: five Practice landings here and six in JC.net today; the finish node's size row
+  in both estates as the same bytes; the board against the node's five end states** (Crucible binds
+  Slag, 7b999c). Here #337 (w) `SHA:b6fe01c9d` on `engraph`; the ten stale owner items retired
+  `SHA:b9ad01a26`; the size row `SHA:d39c606a6` (JC.net's copy `SHA:85f8edd4` by the worktree route,
+  the two remotes' copies `cmp` equal). To land here: u, q, s, 2fb, y, one at a time; in JC.net 297
+  (2fb) at its door. End state 2: no slice branch on this remote; #332 BEHIND and 286 DIRTY for the
+  rollover folds; the J2 port sized after y. End states 3 and 4 not started (JC.net's seat after
+  297); end state 5's node exists and validates, its first pull request opens at y's merge. The
+  Director handoff's §STATE 18:0xZ carries the counts and the three tool facts of the hour.
 - **2026-10-02T16:4xZ: three Practice pull requests landed here in the hour and five in JC.net; the
   board against the definition of done is recomputed** (Crucible binds Slag, 7b999c). Here: #333
   `SHA:134c2fb6f`, #334 `SHA:f45aaeca4` (nb), #335 `SHA:576d8924d` (r) on `engraph`; #336 (v) open at its second
