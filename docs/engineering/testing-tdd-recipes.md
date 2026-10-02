@@ -361,9 +361,11 @@ runtime validators belong in a workspace-owned command surface such as
 
 Each line is a lesson from the review of a test that had passed its gates.
 
-- **A fake that reads the caller's arguments to decide its output is call inspection.** A test
-  whose fake read a dry run's argv to choose what to print was deleted. The flag is guaranteed
-  by construction and proven by one observation of the real tool.
+- **A fake that branches on an incidental argument is call inspection.** A test whose fake
+  read a dry run's argv to choose what to print was deleted: the flag was a detail of how the
+  product called the tool, not contract data flowing through the seam, which is the only kind
+  of parameter the testing strategy admits a parametric fake for. The flag is guaranteed by
+  construction and proven by one observation of the real tool.
 - **A test pins the estate's behaviour, never the runtime's.** A case that passed only because
   `localeCompare` handles a non-BMP character on one Node version pinned the implementation
   and was removed. Two assertions on Node's own `TypeError` became assertions on the helper's

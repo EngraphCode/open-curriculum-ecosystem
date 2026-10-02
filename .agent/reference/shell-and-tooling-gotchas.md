@@ -693,12 +693,16 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **`comms send --body` is refused over 1,500 characters**, before anything is written (exit
   2; `MAX_COMMS_BODY_LENGTH` in the CLI, read in both estates on 2026-10-02). Pass a longer
   body with `--body-file`.
-- **Pass the registered `--model` on every comms call**: the send binds the seat's registered
-  platform and model, and a mismatch refusal reads like an identity collision (2026-07-29).
+- **Pass the registered `--model` on every comms call that resolves an identity** (`send`,
+  `watch`): the send binds the seat's registered platform and model, and a mismatch refusal
+  reads like an identity collision (2026-07-29). The read-only `comms list` takes no identity
+  and refuses the option.
 - **`comms send` can exit 1 after a durable write, or print usage and write nothing**: read
   `comms list --since` before any retry, never the exit code alone (2026-07-30).
-- **`patch` with no terminal reverses a hunk the target already holds**: it asks "assume
-  -R?" and takes yes. Pass `-N`. After any port, scan the changed files for a three-line run
+- **macOS's `patch` with no terminal reverses a hunk the target already holds**: its prompt
+  "Assume -R? [y]" defaults to yes (patch 2.0-12u11-Apple; GNU patch defaults to no and skips
+  the hunk). Pass `-N` on either: probed on 2026-10-02, bare and `-t` reversed the hunk, `-f`
+  applied it a second time, `-N` ignored it and exited 1. After any port, scan the changed files for a three-line run
   that occurs twice: a port made from the other estate's raw diff reversed one hunk and
   duplicated three passages (2026-10-02).
 - **`git log` `%cI` moves on a rebase, cherry-pick or amend with no content change; `%aI` does
