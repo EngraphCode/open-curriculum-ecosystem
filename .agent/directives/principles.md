@@ -365,6 +365,15 @@ this way produces cleaner boundaries and simpler classification.
   command MUST target the canonical surface and fail loudly when that
   surface is absent or invalid; it must not quietly scan an old location,
   skip a missing canonical directory, or keep a migration path alive.
+  Historical data here is state a live reader still consumes. A dated
+  record that nothing reads as live state (a closed channel document, an
+  archive) is history: when the validator of a new shape obligation
+  refuses it, the validator's declared reach is corrected and the record
+  is not rewritten (owner, 2026-07-20, of channel records a new validator
+  refused: "no, we don't fix the old channel docs, we just update the
+  system"). A prohibition on content is a different class and reaches
+  every tracked file whatever its date, as the machine-local path ruling
+  does (the No machine-local paths bullet below: whole-repo, retroactive).
 - **No timing dependence** - nothing we build relies on timing, ordering
   luck, or a race being unlikely (owner principle, 2026-08-17, verbatim:
   "nothing we do should ever, ever rely on timing or races, we build

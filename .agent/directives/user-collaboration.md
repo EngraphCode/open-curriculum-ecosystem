@@ -171,6 +171,11 @@ Agents must:
   actual scope landed
 - match workflow scope to continuity scope: session-scoped workflows act on
   session-scoped artefacts, thread-scoped workflows on thread-scoped artefacts
+- read the owner's repeated ask as the original ask still standing, never as
+  an override or as consent to a narrower offer made in between (owner,
+  2026-08-07, of a record that said "owner override, bounded slice ratified":
+  "No. I restated what I already asked for, in the face of an unreasonable
+  response.")
 
 When a plan is blocking a merge, simplify ruthlessly to the minimum correct
 change that unblocks the merge, and route the rest to a named future or current

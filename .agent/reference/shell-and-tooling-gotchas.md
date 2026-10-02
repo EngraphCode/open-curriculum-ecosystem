@@ -601,9 +601,12 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **Prettier reads nothing under `.agent/`**: `.prettierignore` lists the directory in both
   estates, so `prettier --check` on a rule, skill or directive prints "All matched files use
   Prettier code style!" having read no file (`prettier --file-info <path>` says
-  `"ignored": true`). An evidence line cites only checks that read the file: for `.agent/`
-  that is markdownlint and the docs validators (first recorded 2026-09-28; the same false
-  evidence line was written into eight pull-request bodies on 2026-10-01).
+  `"ignored": true`). An evidence line cites only checks that read the file. markdownlint's
+  config ignores part of `.agent/` as well (`.agent/reference/` and `.agent/reports/` among
+  others, in both estates), so cite it only for the files its run counts as linted, beside the
+  docs validators (first recorded 2026-09-28; the same false evidence line was written into
+  eight pull-request bodies on 2026-10-01, and a markdownlint line over two ignored files
+  the day after).
 - **A review thread is a review comment with no `in_reply_to_id`**: read them with
   `gh api repos/<owner>/<name>/pulls/<n>/comments --paginate` and recompute the count before
   writing it into a record (2026-09-27).
@@ -652,3 +655,38 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **A seat's scripts take the repository root as an argument and never `cd`**: a foreground
   `cd` moves the session's working directory for every later command (2026-09-27, and again
   2026-10-01).
+- **Copilot's review can start by itself**: GitHub requests it when a pull request is marked
+  ready, and some pushes start one. Read the pull request's reviews and requested reviewers
+  before requesting a leg: an explicit request after an automatic one returns HTTP 422, and a
+  duplicate can cost a review round (four records, September 2026).
+- **A workflow re-run keeps the original `github.actor`** and that actor's privileges; it does
+  not take the identity of whoever re-ran it (GitHub's contexts reference, read 2026-09-29).
+- **A workflow run dispatched with the bot's token is capped at that token's permissions**, so
+  the mint scope for a dispatch names every permission the dispatched run needs (2026-09-20).
+- **Array expansion hides a flag from a text-matching security analyser**: a `curl --proto`
+  built into an array is invisible to it. Write the flag and the URL literally at every call
+  site the analyser must see (ten literal sites were flagged and six variable ones were not;
+  2026-09-02).
+- **A registry audit cannot see repository advisories**: a dependency gate built on the
+  registry's audit misses an advisory published only on the package's repository (one resolved
+  version sat inside two such advisories; September 2026).
+- **Owner-only file modes do not hold on a mount that ignores modes** (WSL `/mnt/c`, CIFS,
+  vfat): read the mode back after setting it, and refuse or replace a file whose mode admits
+  another account (2026-09-25).
+- **The comms watcher's event line truncates a long body**: read the full body from the event
+  file in the comms store before acting on it (a freeze message was cut, 2026-09-29).
+- **`comms send` prints an `event_id` JSON on success, and echoes the body**: test for the id or
+  the exit code, never by searching the output for the word "error" (a misread result caused
+  duplicate events; 2026-09-25).
+- **`claims open` can refuse as blind to comms while a gate runs**: under gate load the
+  watcher's heartbeat lags past its 90-second bound. Re-run after the gate (2026-09-25).
+- **The cited-paths validator checks paths, not record numbers**: a citation of a decision
+  record by number is verified by reading the record's title at the target (2026-09-13).
+- **The pending-graduations counter reads one entry shape**: only an inline-bracket entry is
+  counted; an entry filed under a heading with bullets is neither counted nor flagged, so the
+  register reads empty while holding it (found 2026-09-13).
+- **`comms send --tag heartbeat-end` is refused**: the tag namespace is `failure-mode`,
+  `behaviour-note` and `heartbeat`. Put `heartbeat-end:` at the start of the title (found by a
+  spot check on 2026-10-02 to be stated in neither estate).
+- **`gh pr create` needs the head branch on the remote**: push first, and read the push back,
+  before the create call (a thread record of September 2026).

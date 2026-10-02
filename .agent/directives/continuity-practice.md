@@ -79,15 +79,19 @@ work this content describes?". Two dispositions:
    finished history moves whole to a dated archive beside the surface
    (`archive/<surface>-YYYY-MM-DD.md`; a second archive of one surface on one
    day takes a letter suffix, `-YYYY-MM-DDb.md`, and an existing archive is
-   never overwritten), proven byte-identical to the moved
+   never overwritten), its body proven byte-identical to the moved
    range against the committed blob, as the napkin rotation proves its
-   archive (where the finished ranges are not contiguous, the archive is a
-   snapshot of the whole pre-curation file, proven byte-identical to its
-   committed blob, and the live file is then curated); and the live surface
+   archive (the body is everything after the archive's own frontmatter, where
+   it carries one; where the finished ranges are not contiguous, each range
+   moves whole in file order with nothing between them, and the body is
+   compared with the same ranges cut from the pre-move blob and joined in that
+   order; no snapshot of the whole file is written, because the move commit's
+   parent already holds it); and the
+   live surface
    keeps only the live state and a one-line pointer to the archive (the path
    written inline as code: the link validator's target set excludes archive
-   directories, and the commit gate refuses a markdown link into one). Git retains the literal record either way; the
-   archive keeps it readable without a checkout of history.
+   directories, and the commit gate refuses a markdown link into one). Git retains the literal
+   record either way; the archive keeps it readable without a checkout of history.
 
 "Appropriate handling" of a record has three outcomes, not one: curated
 (disposition 2 run to its end), left live with the verdict recorded on the
@@ -138,8 +142,8 @@ embedded here in the doctrine it enacts; indexed in
    archive, but *verify the home holds it first* (the `verify-dont-trust` rule; "it's
    all homed" is a convenient claim to check, not trust). Finished and un-homed → route
    the insight to its permanent home, *then* add it to the range. Live → keep,
-   compacted (a compact pointer, not the landing narrative). Compact bloated index-table cells to the index shape — lane state
-   lives in the thread record, not here.
+   compacted (a compact pointer, not the landing narrative). Compact bloated index-table cells to
+   the index shape — lane state lives in the thread record, not here.
    A curated record points at its plan and never restates the sequence: the join
    between a lane's record and its plan is where the record's next step lives
    on. One surface owns each volatile fact (which pull request is live, what
@@ -147,8 +151,10 @@ embedded here in the doctrine it enacts; indexed in
    absent (2026-09-21, one fact hand-restated across five surfaces and
    drifting).
 3. **Verify losslessness mechanically** (after the rewrite, before committing): the
-   archive file's blob equals the moved range's bytes (for a whole-file snapshot, the
-   pre-curation file's committed blob); every live-pointer token from
+   archive's body (everything after its own frontmatter, where it carries one)
+   equals the moved range's bytes in the pre-move blob, the surface at the move
+   commit's parent (for ranges that are not contiguous, the same ranges cut from
+   that blob and joined in file order); every live-pointer token from
    the pre-curation file still appears in the live surface (`grep -F` each); every
    curated passage's statement about a neighbour is re-read against the neighbour (a
    passage saying an "UNCOMMITTED" block had since been committed was the only place
@@ -201,7 +207,7 @@ It does not imply full review, commit, push, or deep convergence.
 
 ### Deep Consolidation Loop
 
-Use `oak-consolidate-docs` only when deep convergence is due.
+Use `consolidate-docs` only when deep convergence is due.
 
 Triggers include:
 
@@ -274,7 +280,7 @@ Use it after `start-right-quick` when:
 `GO` starts from the session-start workflow, `repo-continuity.md`,
 the relevant thread record, and the active plan set. Close every
 session with `wrap` (which runs `session-handoff`). Use
-`oak-consolidate-docs` only when the trigger checklist says deep
+`consolidate-docs` only when the trigger checklist says deep
 convergence is due.
 
 ## Surprise Pipeline
