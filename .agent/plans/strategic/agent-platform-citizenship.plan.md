@@ -18,7 +18,7 @@ tickets:
   - MCP-154
   - MCP-155
   - MCP-156
-last_updated: 2026-08-01
+last_updated: 2026-10-02
 ---
 
 # Agent-platform Practice citizenship

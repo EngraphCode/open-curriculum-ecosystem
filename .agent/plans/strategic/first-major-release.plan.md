@@ -20,7 +20,7 @@ gate_expiry_default: P3D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-09-01
+last_updated: 2026-10-02
 ---
 
 # First major release — Oak distribution-ready in AI assistants

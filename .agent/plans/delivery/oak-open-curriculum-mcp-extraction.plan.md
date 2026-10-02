@@ -52,7 +52,7 @@ owner_gates:
       or shared; the scaffold step asserts the repository exists at its
       start, and the cut-over step's own node carries the deploy-target gate.
     expires: 2026-10-10
-last_updated: 2026-09-08
+last_updated: 2026-10-02
 ---
 
 # Design the extraction of the MCP app product into oak-open-curriculum-mcp

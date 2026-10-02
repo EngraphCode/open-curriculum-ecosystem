@@ -9,7 +9,7 @@ impact_areas:
   - practice-and-estate
 tickets: []
 owner_gates: []
-last_updated: 2026-09-28
+last_updated: 2026-10-02
 ---
 
 # The two-way Practice exchange with the second estate

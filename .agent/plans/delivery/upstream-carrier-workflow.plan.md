@@ -15,7 +15,7 @@ depends_on:
   - plan: upstream-mirror-workflow
     kind: beneficial
 owner_gates: []
-last_updated: 2026-09-20
+last_updated: 2026-10-02
 ---
 
 # Upstream carrier workflow
