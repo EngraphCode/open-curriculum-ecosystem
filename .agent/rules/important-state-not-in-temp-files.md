@@ -87,7 +87,7 @@ napkin entry references /tmp/synthesis.md for follow-on author      ❌
 comms event references /tmp/handover.md as the handover record      ❌
 plan file references /tmp/cycle-evidence.md as substrate            ❌
 .agent/ surface points at /tmp/ for ongoing context                 ❌
-curator-pass log names /tmp/ as load_bearing_working_artefact       ❌
+curator pass closes with its substance still only at /tmp/          ❌
 handoff record body asks the next agent to read /tmp/...md          ❌
 ```
 
@@ -215,9 +215,9 @@ curator-pass's own surface survey.
   after a reboot, will not have it.
 - "I'll move it later" pointers. The migration is the rule's whole
   cure — defer it and the substrate decays.
-- Curator-pass log files whose `load_bearing_working_artefact`
-  pointer remains at `/tmp/` after the pass closes. The pass-close
-  step is where the migration completes.
+- A curator pass that closes with its survey or working artefact
+  still only at `/tmp/`. The pass-close step is where the migration
+  completes.
 - Substrate-bridge files left at `/tmp/` after the agent who composed
   them retires. The bridge artefact is durable substrate by purpose;
   its home is `.agent/state/collaboration/handoffs/`.

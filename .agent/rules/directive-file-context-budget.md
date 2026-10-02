@@ -105,7 +105,8 @@ is the estate's own instrument and the only one; a context that reads over
 the line keeps working in bounded pieces with its records current and makes
 the directive edits in the context after the compaction (2026-09-16). A seat
 left with only directive edits that the check holds reports the queued edit, the
-reading, and that a compaction releases it (PDR-052, corollary 2).
+reading, and that the edit waits for the next compaction and the repeated reading
+below the threshold (PDR-052, corollary 2).
 
 ## The 30% Threshold Is Load-Bearing
 

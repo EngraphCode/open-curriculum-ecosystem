@@ -71,7 +71,14 @@ either speed carries a prediction**.
    **only at review, only if the prediction held**; a fired falsifier
    kills the entry with its reasoning retained (the estate's conservation
    doctrine — the kill is recorded, not erased). There is no third
-   outcome and no undated holding state.
+   outcome and no undated holding state. Before a review changes a
+   record's status, the reviewer searches the record for every condition
+   it puts on that status ("hinges", "requires", "until", "ratified
+   when") and answers each in the decision: on 2026-10-01 one record was
+   promoted on its ladder alone and stepped back when a review quoted the
+   record's own sentence on what its ratification hinges on. A verdict
+   that favours the reviewer's own edit is the one to check against the
+   text.
 3. **Register home**: a `## Slow lane` section of the pending-graduations
    register — the existing graduation register, one home for both speeds.
    Slow-lane rows are NOT decision-debt in the register's drain metric:
