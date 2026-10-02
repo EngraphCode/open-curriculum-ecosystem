@@ -976,7 +976,7 @@ verified in the tree by an analyst and re-read by the seat.
 - **Target surface**: `agent-tools/src/pr-watch/`.
 - **Status**: open.
 
-### F-181 — a relative `OAK_STATUSLINE_LOG_FILE` follows the seat's cwd into foreign repositories
+### F-181 — a relative `PRACTICE_STATUSLINE_LOG_FILE` (earlier `OAK_STATUSLINE_LOG_FILE`) follows the seat's cwd into foreign repositories
 
 - **Source**: Sandpiper weaves Updraft (`a96287`) 2026-09-12, found by free-play
   over the session's own material, then verified first-hand
@@ -1010,9 +1010,12 @@ verified in the tree by an analyst and re-read by the seat.
   alternative; it is an opt-in diagnostic, not a required surface.
 - **Target surface**: the statusline log-path resolution (adapter), plus the
   machine-local settings entry that supplies it
-- **Status**: open — the settings file is machine-local and untracked, so the
-  one-line change is the OWNER'S to make deliberately; this row is the
-  disposition, not a request
+- **Status**: open (read 2026-10-01). The variable is now `PRACTICE_STATUSLINE_LOG_FILE`, and the
+  tracked resolver (`resolveDebugLogConfig` in `agent-tools/src/claude/statusline-debug-log.ts`,
+  both estates) returns any `*.log` value as the path unresolved. The cure is the estate's change
+  and does not wait on the owner's settings edit: resolve a relative value against the payload's
+  `project_dir`, or refuse it with the existing invalid-config warning. F-217 records the same
+  defect from its other side (the `.logs` directories it plants).
 - **Owner direction status**: unsolicited
 - **Instance, 2026-09-24** (Zephyr guards Leeward, `281e44`; Marten mends Shadow,
   `74fc02`): the statusline's relative log path wrote `.logs/statusline.log` inside
@@ -1022,13 +1025,6 @@ verified in the tree by an analyst and re-read by the seat.
 - **Instances, 2026-09-29** (the Director): the relative log path planted `.logs` under
   `.agent/rules` and `.agent/skills`, and two push validators refused them; both are recorded
   whole as F-217, which is this entry's class.
-- **Status read 2026-10-01**: the Surface and Status lines are out of date: the variable is now
-  `PRACTICE_STATUSLINE_LOG_FILE`, and the tracked resolver (`resolveDebugLogConfig` in
-  `agent-tools/src/claude/statusline-debug-log.ts`, both estates, read 2026-10-01) returns any
-  `*.log` value as the path unresolved, so the cure need not wait on the owner's settings edit:
-  resolving a relative value against the payload's `project_dir`, or refusing it with the existing
-  invalid-config warning, is the estate's change. F-217 duplicates this entry and can fold into
-  it.
 
 ### F-182 — instruments that answer about themselves rather than about their input
 
@@ -1934,14 +1930,12 @@ commit SHA and the closing plan reference.
   hook-materialisation (hooksPath resolves + `_` shims present) so a hookless
   working copy cannot read green; (c) CI remains the backstop but is not the
   cure — the contract is local-gates-bind.
-- **Status**: open (mitigated in the originating lane only).
+- **Status**: open. Cure (a) is a step of `set-up-worktree-lane` in both estates (its `.husky/_`
+  check). Cure (b), a recomputing check on the commit and push path, exists in neither estate's
+  agent-tools (no `hooksPath` reader found; read 2026-10-01).
 - **Instance, 2026-09-27** (a seat, JC PR 231's first push): a fresh worktree's first install
   failed at postinstall and the second ran no husky prepare, so `.husky/_` was absent and the push
   ran ungated; the pre-open review widened cure (b) to git's own HEAD, objects and refs tests.
-- **Status read 2026-10-01**: "mitigated in the originating lane only" is out of date: cure (a) is
-  a step of `set-up-worktree-lane` in both estates (its `.husky/_` check), while cure (b), a
-  recomputing check on the commit and push path, exists in neither estate's agent-tools (no
-  `hooksPath` reader found).
 
 ### F-148 — a suspended session's heartbeat Monitor keeps emitting: false liveness from an autonomous emitter
 
@@ -2633,9 +2627,9 @@ commit SHA and the closing plan reference.
 - **Instances, 2026-09-25 and 2026-09-27** (seats, OCE): agent-tools test tasks omitted
   `.husky/refuse-commit-on-main.sh` and `.agent/hooks/policy.json`, so an edit to either alone
   replayed a cached pass; each was cured by one `$TURBO_ROOT$` input line (PR 272 for the policy).
-- **Status read 2026-10-01**: this entry's own file is still absent: `turbo.json` (last changed
-  2026-09-30) lists `.agent/hooks/policy.json` for `agent-tools#test` and `#test:e2e` and the
-  commit guard for `#test:e2e`, but no `$TURBO_ROOT$/RULES_INDEX.md`, so the entry stays open;
+- **Status**: open (read 2026-10-01): this entry's own file is still absent: `turbo.json` (last
+  changed 2026-09-30) lists `.agent/hooks/policy.json` for `agent-tools#test` and `#test:e2e` and
+  the commit guard for `#test:e2e`, but no `$TURBO_ROOT$/RULES_INDEX.md`, so the entry stays open;
   three root files in one class point to a check that fails when a cached task's tests read a root
   path its inputs omit (JC's agent-tools test tasks are `cache: false`).
 
@@ -2812,15 +2806,14 @@ commit SHA and the closing plan reference.
   Pewter, 2026-09-25); the registry's nearest row is `claude-fable-5` at 200,000.
 - **Status**: partially-addressed. `claude-fable-5-1` is registered at 1,000,000 in
   `agent-tools/src/session-metadata/window-registry.ts` (2026-09-30). The Opus 5 rows
-  (`claude-opus-5`, `claude-opus-5[1m]`, `claude-opus-5-5[1m]`) are in JC.net's registry and not
-  in this one. The second observation (the compaction call's usage line) has not been re-read.
+  (`claude-opus-5`, `claude-opus-5[1m]`, `claude-opus-5-5[1m]`) are in JC.net's registry and not in
+  this one. The second observation (the compaction call's usage line) has not been re-read. Neither
+  estate registers the bare `claude-opus-5-5` (JC.net has `claude-opus-5`, `claude-opus-5[1m]` and
+  `claude-opus-5-5[1m]`; OCE has none of the three), so a seat on that id is refused in both (read
+  2026-10-01).
 - **Sixth instance, 2026-09-28** (Myrtle turns Canopy): `session-metadata` printed nothing for
   `claude-fable-5-1`, so the directive context-budget check rested on an estimate (about 357k
   tokens of a window of at least 1M); the model was registered two days later.
-- **Status read 2026-10-01**: the Status line is true as read on 2026-10-01, with one gap it does
-  not name: neither estate registers the bare `claude-opus-5-5` (JC has `claude-opus-5`,
-  `claude-opus-5[1m]` and `claude-opus-5-5[1m]`; OCE has none of the three), so a seat on that id
-  is refused in both.
 
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
@@ -2909,12 +2902,6 @@ commit SHA and the closing plan reference.
   commit pass in ninety seconds; that evening the owner ruled fsmonitor OFF for the
   shared clone (`core.fsmonitor=false` in the clone config, two daemons stopped). Plain
   `git status` is instant since.
-- **Status read 2026-10-01**: the heading's "the cause is supported, not proven" is untrue: the
-  body records "The measurement that settled it" (cure of 2026-09-19) and the owner's ruling of
-  2026-09-23 turning fsmonitor off for the shared clone; a heading true to the body is "git hung
-  on the fsmonitor socket while installs churned ignored trees; cause measured 2026-09-19, monitor
-  off for the shared clone by the owner's ruling of 2026-09-23", with the body and its Status line
-  unchanged.
 
 ### F-194 — the `SHA:` prefix rule is unenforced, and the in-scope records carry hundreds of bare shas
 
@@ -3001,11 +2988,11 @@ commit SHA and the closing plan reference.
 - **Summary-comment instances, 2026-09-27 and 2026-09-28** (seats, OCE; the Director): the doors
   of OCE PRs 267, 268 and 264 held because Codex recorded each clean run only by editing its
   summary comment, posting a review object only with findings; 264 landed after PR 274's cure.
-- **Status read 2026-10-01**: the summary-comment arm is cured in OCE by `SHA:c85d4d8e8`
+- **Status**: open (read 2026-10-01): the summary-comment arm is cured in OCE by `SHA:c85d4d8e8`
   (2026-09-28, PR 274, "the connector's own edit of its summary is its report"; OCE `pr-lifecycle`
-  reads "unedited or last edited by its author"); JC's pr-watch and merge-bot carry no
-  editor-aware reading (read 2026-10-01), so the arm stays open there; the quota-notice-as-comment
-  arm and the reaction arm of the 2026-10-01 instance stay open in both.
+  reads "unedited or last edited by its author"); JC's pr-watch and merge-bot carry no editor-aware
+  reading (read 2026-10-01), so the arm stays open there; the quota-notice-as-comment arm and the
+  reaction arm of the 2026-10-01 instance stay open in both.
 
 ### F-199 — the commit queue's `commit` command runs `git commit` without `--author`, so a ceremony commit on the primary is bot-authored
 
@@ -3154,10 +3141,15 @@ commit SHA and the closing plan reference.
 - **Instance, 2026-09-25** (a seat, OCE): the guard refused a command whose text held a
   force-push or wildcard-staging shape as an argument to a checker, so an execpolicy transcript
   ran from a cases file as data; a `pgrep -f` after the push word was refused the same day.
-- **Status read 2026-10-01**: F-207 carries no Status line, and the scanner its Route names has
-  changed: the code can segment a command line (`segmentCommand`, `blocked-patterns.ts`) and drop here-document bodies, but only for policy entries declared `match: argv`, and neither estate's `policy.json` declares one: the git entries still match by token subsequence over the whole command, as F-225, F-251 and F-262 record. This entry is open. (An earlier reading here, and the archive rows for F-102 and F-107, called it addressed; a code read on 2026-10-01 corrected that.) Lines 8 and 122 of `hook-policy-substring-discipline` in
-  both estates still call the policy "a substring-matcher" and say `git push --force-with-lease`
-  "is blocked by the `--force` substring". JC's open case of the compound-command class is F-225.
+- **Status**: open (read 2026-10-01): the scanner its Route names has changed: the code can segment
+  a command line (`segmentCommand`, `blocked-patterns.ts`) and drop here-document bodies, but only
+  for policy entries declared `match: argv`, and neither estate's `policy.json` declares one: the
+  git entries still match by token subsequence over the whole command, as F-225, F-251 and F-262
+  record. This entry is open. (An earlier reading here, and the archive rows for F-102 and F-107,
+  called it addressed; a code read on 2026-10-01 corrected that.) Lines 8 and 122 of
+  `hook-policy-substring-discipline` in both estates still call the policy "a substring-matcher" and
+  say `git push --force-with-lease` "is blocked by the `--force` substring". JC's open case of the
+  compound-command class is F-225.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves
 
@@ -3274,9 +3266,9 @@ commit SHA and the closing plan reference.
   relying on the harness's task notification alone.
 - **Target surface**: `.agent/rules/liveness-heartbeat-cron.md`, PDR-078 §4, the landing-slot
   bullet in `pr-lifecycle` §Phase 7, the seats' wait scripts (`wait-legs.sh` shapes).
-- **Status**: open, an observation with one instance (recorded 2026-09-27); for the Director's
-  routing. The wait scripts of this seat can take cure (b) without doctrine: emit a comms event
-  on completion.
+- **Status**: open, an observation with one instance of the stall (recorded 2026-09-27). Cure (b), a
+  comms event on completion, is practice in several seats' wait scripts (not in agent-tools); cure
+  (a) is unapplied in both estates' landing-slot bullet (read 2026-10-01).
 - **Owner direction status**: session-scoped (this seat's own record).
 - **Cure (b) in use, 2026-09-28**: a seat's own leg wait for PR 282 emitted its result as a
   comms event so the watcher woke the seat (Myrtle turns Canopy). It lives in that seat's wait
@@ -3284,9 +3276,6 @@ commit SHA and the closing plan reference.
 - **Further cure (b) instances, 2026-09-27 to 2026-09-29** (seats, OCE): leg and eval waits
   emitted their own completion events in at least seven runs; cure (a) is unapplied, as both
   `pr-lifecycle` copies free a slot only when "heartbeat and state lines stop for twenty minutes".
-- **Status read 2026-10-01**: the Status line's single instance holds for the stall itself; its
-  note that cure (b) needs no doctrine is now practice in several seats' wait scripts (not
-  agent-tools), and cure (a) is unapplied in both estates' landing-slot bullet (read 2026-10-01).
 
 ### F-212 — agent-tools' test:e2e rebuilds `dist` while lint and type-check may read it
 
@@ -3444,13 +3433,11 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   board item of 2026-09-13): `atomic-file.ts` has three product importers in both estates, so
   the no-follow seam lands with its move to `core/`, a test and a header, one same-bytes change.
 
-### F-219 — a peer's comms event during the pre-push gate fails the push: the generated log is stale (2026-10-01)
+### F-219 — a comms event written without a render during the pre-push gate fails the push: the generated log is stale (2026-10-01)
 
 - **Source**: Crucible binds Slag, first-hand, the push of the coordination fold on 2026-10-01.
 - **Surface**: JC.net's pre-push `practice-substrate check`, reached through `pnpm check` (in OCE the script `practice:substrate:check` exists and no hook calls it); `collaboration-state -- comms append`.
-- **Observed**: the check renders the comms log from the event files and refuses when the rendered text differs from `shared-comms-log.md` on disk (`live-shared-comms-log.ts`); it makes no age test. `comms append` writes an event without rendering the log, and any
-  seat's event written during the ten-minute gate makes the log stale. Cost: one full gate run.
-  Cure used: `comms render`, then push again, with the peer asked to hold comms writes.
+- **Observed**: the check renders the comms log from the event files and refuses when the rendered text differs from `shared-comms-log.md` on disk (`live-shared-comms-log.ts`); it makes no age test. `comms send` appends and then renders (`cli-comms-send.ts`, both estates), so a send leaves the log current. The log goes stale for a writer that does not render (`comms append`) and in a race between two renders (the instances of 2026-09-26 and 2026-09-27 below). Which writer made the 2026-10-01 instance stale was not read. Cost: one full gate run. Cure used: `comms render`, then push again. Asking peers to hold `comms send` during a gate is not needed (a reviewer's finding on OCE's pull request 318, verified in the code).
 - **Expected**: a push does not depend on an untracked, generated file that another seat's
   write can invalidate mid-gate.
 - **Candidate cure**: the check writes the rendered log back before comparing (the repair is deterministic), or the file on disk stops being an input; `comms append` renders.
@@ -4444,6 +4431,10 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: `session-handoff`; agent-tools CLI (`collaboration-state`).
 - **Status**: open.
 - **Owner direction status**: standing
+- **Instance, read 2026-10-01**: neither estate holds a `handoff-record.schema.json` or a worked
+  example: the second tranche of the handoff-record decision (OCE's ADR-182), which was to land
+  them, never landed, so PDR-063's four sections are the only statement of the record's shape and no
+  check reads a record against it.
 
 ### F-280 — OCE's agent-tools smoke suites spawn processes and worktrees on every pre-push (2026-10-01)
 

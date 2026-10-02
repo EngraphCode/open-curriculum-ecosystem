@@ -1512,6 +1512,20 @@ write JC.net records from a separate worktree cut from `origin/main`.
 - No Director is seated. The two seats and the order of work are in `repo-continuity.md` §Current
   State and the 2026-10-01 pickup block.
 
+### 2026-10-01 23:59Z — the 2026-10-01 branch folded as #318 (Hazel tracks Trunk, 7d8b9d, the consolidation's curating seat)
+
+- #318 merged into `engraph` as `SHA:73668b712` at 23:59:27Z, by the bot at the pinned head, on
+  two settlement pushes; a third finding (F-219's scope) was routed to this branch and is cured
+  in its first records commit. The folded branch is deleted, local and remote; the successor is
+  `coordination/2026-10-02-73668b`.
+- moved for teachers: nothing in this fold / moved for the Practice: the frictions register gains
+  the tooling frictions and recurring owner rulings found by the walk of both comms streams and
+  of the record files (F-195 to F-281); two patterns gain worked instances and one gains a
+  second-round trigger; the owner-signal record gains owner words that no comms event held; the
+  continuity records and the review-cost ledger carry 2026-10-01's landings.
+- No Director is seated. The second two-estate consolidation is in progress from JC.net; its
+  state is in JC.net's `two-estate-consolidation` thread record (entry of 2026-10-02T00:10Z).
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

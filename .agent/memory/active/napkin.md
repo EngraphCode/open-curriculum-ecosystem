@@ -65,3 +65,52 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   superseded); the frictions register from 99 entries to 44, the settled 55 archived byte-identical
   with index rows and nine lessons homed; the Director handoff's finished state archived; every
   shared rule and skill this pass touched the same bytes in both estates.
+
+## 2026-10-02T00:10Z — the second pass at the fold (Hazel tracks Trunk, 7d8b9d)
+
+- **Correction (the same lesson twice in one evening):** the triage fleet was launched on an
+  estimate (0.7M tokens) with no pilot leg and cost 2.1M; a leg that only reads a 70 KB batch
+  and writes 172 lines still costs about 130k. The entry of 22:37Z above already said to measure
+  the premise with the cheapest probe. One leg first, always, when a fleet's cost is an
+  estimate. The owner's stop term is per wave, at 50 % over its estimate; wave 2 as a whole ran
+  about 10.0M against 9.4M, so the term did not fire, and the stage's overrun is reported.
+- **Correction:** a failed push was answered as done. One command chained the push, an echo of
+  its exit code, the thread replies and the push-done line with semicolons; the push exited 1
+  (two generated skill adapters had drifted after a description change) and the rest ran. Gate
+  every later step on the push's exit with `&&`, and read remote against local before any
+  sentence that says "pushed". A change to a skill's description needs `skills:generate`;
+  `portability:check` does not cover it, `skills:check` does.
+- **Correction:** "prettier passes" was cited in eight pull-request bodies for files prettier
+  never reads (`.prettierignore` lists `.agent/` in both estates; `--file-info` says ignored).
+  The true checks were markdownlint and the docs validators. A record item read that evening
+  said exactly this. An evidence line names only checks that read the file.
+- **Correction:** the WIP shape a third time. With a pull request open in JC.net the seat cut
+  OCE's next branch locally and applied eleven files, reasoning that the limit counts open
+  pull requests. The pull-request skill text in that very diff says the next worktree is cut
+  after the merge. The edits were saved as a patch, the tree written back from the default
+  tip, the empty branch deleted. Three Cricket suites named the same pull: pull-request
+  preparation displaces the reading, because its events arrive and the reading's do not.
+- **Correction:** a probe passed its path list in one variable; zsh does not split it, so
+  `git grep` took the list as one pathspec and every probe read zero in both estates. Ten
+  lessons were about to be written as unhomed. The tell was zeros for a term known to be
+  present. Run one known-positive term through a new probe before trusting its negatives.
+- **Correction:** an edit helper written as `open(p, 'w').write(compute())` emptied a decision
+  record when `compute()` raised on a missing anchor: Python opens, and truncates, before it
+  evaluates the argument. Compute first, then open. The file came back from the other
+  estate's identical copy.
+- **Correction:** an insert anchored on "the first `### F-`" landed inside the frictions
+  register's template code fence; markdownlint found it (MD032). Anchor on a numeric id, and
+  lint after every scripted edit.
+- **Surprise:** the small cross-estate differences (48 files differing by six lines or fewer)
+  are three kinds: host anchors (a decision-record number, a skill prefix, a package scope);
+  Core records where one estate already holds host-neutral wording; and content one estate
+  has and the other lacks. The third kind is knowledge at risk and ports directly, after a
+  whole-history search for a deliberate removal; the second converges on the neutral wording;
+  only the first is a standing difference.
+- **Surprise:** divergence rose during the pass (147 files and 7,142 lines at the open, 150
+  and 7,225 at 23:16Z) because twin pull requests land an hour or more apart and each
+  estate's review changes the bytes. Measure at the close of a pair, never mid-pair.
+- **Surprise:** every vendor review of text this seat wrote found a real defect, including on
+  bytes the other estate had already merged without that review: a path-limited history
+  search, then one missing `--all`; a proposal read as a rule; a status note that named a
+  line stale and left it. A records-class or docs-only pull request is not below review.
