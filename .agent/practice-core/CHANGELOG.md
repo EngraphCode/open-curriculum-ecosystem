@@ -4,7 +4,7 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
-## [EngraphCode/open-curriculum-ecosystem] 2026-10-02 — seven records trued from the two-estate consolidation
+## [EngraphCode/open-curriculum-ecosystem] 2026-10-02 — six decision records and their README trued from the two-estate consolidation
 
 - PDR-027's 2026-09-25 amendment states that a subagent's collaboration write
   is its parent's. PDR-052 says what a seat does when only held directive

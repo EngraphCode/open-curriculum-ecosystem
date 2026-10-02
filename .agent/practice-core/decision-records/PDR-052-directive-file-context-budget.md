@@ -72,10 +72,11 @@ The rule has three operational corollaries:
    next compaction, in the same session, with this check repeated
    immediately before it. A seat left with only directive edits that
    this check holds says so: its report names the queued edit, the
-   reading, and that a compaction releases it. A seat cannot compact
-   itself, so the report is the only way the hold reaches someone who
-   can end it (2026-10-02, a review cure held on an open pull request
-   until the next compaction).
+   reading, and that the edit waits for the next compaction and the
+   repeated reading below the threshold. A seat cannot compact itself,
+   so the report is the only way the hold reaches someone who can end
+   it (2026-10-02, a review cure held on an open pull request until the
+   next compaction).
 
 3. **Self-applying clause**. This PDR is itself directive-shape doctrine.
    When this PDR is edited, the same 30%-context-budget rule applies
