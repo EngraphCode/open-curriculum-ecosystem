@@ -232,7 +232,9 @@ the first comms write, claim, or registration).
    byte-checks a wholly joint file and diff-checks one where only pieces are
    joint (the exchange seats' practice on three receipts, 2026-09-26; a
    convention, not a ruling). A twin found divergent after such a receipt
-   means the check was not run.
+   is read first for a later change to either copy (a correction, or the
+   receiver's own formatting, which PDR-125 lets a finished receipt
+   survive), and only then for a check that was not run.
    **Format on receipt**: where the RECEIVING repo's conventions or
    gates refuse the donor's bytes (markdown conventions, heading
    shapes, gate-satisfying style), the estates align that convention or
