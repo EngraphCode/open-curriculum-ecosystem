@@ -368,7 +368,12 @@ script and open it per estate, the owner reading the rows. Cricket at 21:0xZ (DR
 accepted): the JC.net tail has no owner since Hazel's stop, so the JC.net queue is 302's review and merge,
 then 2y, 2z, the notebooks' move and the rotation's records commit, then the fold of 300; the ledger's
 rerun and its closer counts gate on that folded tip, not before. The estimate owed to the owner runs to
-the node's finish (the carries landed), not to the next pull request.
+the node's finish (the carries landed), not to the next pull request. Correction, 22:2xZ: the line above
+that JC.net's branch carried the second records commit was false when written; its chain's stage step had
+failed (the exchange node's old path was already gone from the index) and a trailing grep in the pipeline
+masked the exit code (`exit-codes-in-band-never-piped`, violated by this seat). Landed on the resume as
+`SHA:7c868467` on `coordination/2026-10-02-f19bed`, the same bytes as here. Both implementers re-seated at
+22:1xZ on the Director's word; Efreet lifts Scorch on the fold of #340, Hazel tracks Trunk on 302 then the tail.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
