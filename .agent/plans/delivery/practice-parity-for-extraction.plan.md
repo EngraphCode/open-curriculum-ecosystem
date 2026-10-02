@@ -227,16 +227,24 @@ the measure, the records, then the carries.
 
 The owner's word of 2026-10-02 20:0xZ, verbatim, on the bound above: "I am going to bed. Take it slow, stay thoughtful, keep the plan up to date and use the Crickets. Slow and steady is better than fast and wrong every time. The two hour goal is a yarstick not a deadline, quality matters far more than speed, esimate remaining time as you go, and if it looks like it is going to hit four hours there may be an issue, apply all appropriate planning and cognitive skills".
 Estimate, kept current here by the Director at each boundary (its history is this file's): at
-22:5xZ on 2026-10-02 the tail is landed in OCE and three of its four slices in jimcresswell.net, the
+23:0xZ on 2026-10-02 the tail is landed in OCE and three of its four slices in jimcresswell.net, the
 first carry (the registry rows) is merged and demonstrated, the records are on both coordination
-branches, and the ledger is assembled over 384 items with its closer script and pushed as a lane in
-each repository, held at its door for the owner's reading. It derives 28 carries (at most 22 pull
-requests; 13 owner rows), above this node's twenty, so the node is reopened with the owner on row
-O10: the queue runs as sized, is cut by declines, or the node is re-sized. To the finish from here:
-the jimcresswell.net fold tonight, the ledger's merge after the owner's word, then the carries at
-about twenty minutes each for the small ones (fourteen under four files) and one to two hours each for
-the four large ones, across two implementer seats: about five seat-hours after the owner's reading.
-The reading was the long pole and is done; the fix slots serialise what remains.
+branches, and the ledger is assembled over 384 items with its closer script, open in OCE as a pull
+request held at its door for the owner's reading and opening in jimcresswell.net after its fold. It
+derives 28 carries against this node's twenty, so the node is reopened with the owner on row O10.
+Sized from the closures, not from a rate: the queued carries are fifteen pull requests (nine of one
+to three files at about twenty minutes each; C16, C17, C20 with C21, C24 at thirty to forty-five
+minutes; C23 at about an hour; C25 at about ninety minutes), about eight seat-hours, four hours of
+wall-clock on two implementer seats; the five owner rows (C19, C22, C26, C27, C28), if all carried,
+add about seven seat-hours more. The table's step 4 said the two large gaps were under an hour each;
+the ledger found four large carries sized at one to two hours each, and this line re-sizes them.
+Against the owner's four-hour signal: three and a half hours have run since ratification, and the
+queue as sized is a further four to eight hours of wall-clock, so the signal is crossed and the issue
+is named: the yardstick assumed six carries and the measure found twenty-eight. The Director's
+recommendation on O10 is to carry the text and the small code now (thirteen pull requests, about
+two and a half hours on two seats) and to defer C23, C25 with C19, C27 and C28 to the entity's
+package, PDR-142's ratified route for code, which is exactly where carrying by copy and by package
+differ most; the owner's word on the ledger decides.
 
 ## Out of scope
 
