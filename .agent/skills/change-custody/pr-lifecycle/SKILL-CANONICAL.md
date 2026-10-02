@@ -209,6 +209,13 @@ into the permanent record):
    The passes are worth their cost on code and rule text; a status change is
    also checked against every condition the record itself states.
 
+**No draft waits for a ratification.** Work whose premise awaits the owner's word waits on
+its ticket with no commit on a worktree branch; the branch, its first commit and its draft
+open together at the moment of ratification (`worktree-hygiene` §1 fires at the first
+commit, so a plan with no commit holds no draft and the two rules govern different moments).
+A draft that cannot move holds a slot and ages its base (the owner retired a waiting draft;
+from a handoff record).
+
 ## Phase 2 — Open with a reviewer-facing description
 
 Where the repository's PR label ledger defines no fleet-authorship label, this
@@ -262,6 +269,11 @@ review lands as review comments and a signed premises comment on that PR); a
 separate record PR only at the owner's word (owner, 2026-09-07,
 verbatim: "I never wanted the review in a separate PR, that is of very little
 use, you should have added your work to 66 in the first place").
+
+**The docs-only class is decided per path, never per directory.** `.agent/`
+holds executables beside its prose (hooks, scripts, skill scripts), and a change
+to one of those is a code change whatever directory it sits in (a finding on a fold
+merged on 2026-09-21).
 
 **Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
 Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
@@ -380,6 +392,17 @@ read the description as a claim to be checked against it. A description that
 undersells its own diff is a finding to raise, not a formatting nit — it is how
 an unreviewed major reaches `main` on everyone's assumption that someone else
 had already looked.
+
+**The scope a change causes is in scope, whatever the description declares.** A change that
+makes a sibling site wrong has caused that defect, and curing it belongs to the pull request
+even where the declared scope stops short of the site (2026-09-16: a reviewer called a
+regression the change introduced "outside the declared scope"; three independent checks agreed
+it was the pull request's to cure). Before review, take each "counted", "never" and "only" in
+the description and find the assertion that holds it in the diff: a promise no test holds is
+the next round's finding.
+
+**A pull request authored in a cloud environment is marked ready by the owner**, or by a seat
+only after the owner's stated acceptance (a Director's ruling, from a thread record).
 
 ## Phase 3 — Harvest EVERY feedback surface (the step most often botched)
 
@@ -619,6 +642,14 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   `if: always()` advisory step that runs last can misattribute the real
   failure (observed 2026-06-24: the tail blamed a drift check; the failure
   was format-check).
+
+**State the invariant, not an enumeration.** A recipe that lists cases invites a sampling
+reviewer to list the rest, one a round: state the invariant and its check, and name the writes
+once. A patch to one region is read against the untouched text and the sibling files before it
+opens: five of one records pull request's eight rounds were contradictions with text the
+patch had not touched. And where a cure is cheaper than the argument against it, cure; a
+second raising by an independent reviewer tips any disposition to a cure (three lessons from
+one handoff record).
 
 ## Phase 5 — Wait without burning budget: the SUPERVISED terminal-condition watch
 
@@ -1862,7 +1893,11 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   the holder cured a red check, and an order to land one of them arrived
   twice while the holder waited on its leg, and was held); or its heartbeat
   and state lines stop for twenty
-  minutes and a direct ping goes unanswered, which frees the slot. While the
+  minutes and a direct ping goes unanswered, which frees the slot. A heartbeat written by a
+  loop proves the process, not the attention behind it: a holder about to go
+  unattended hands the slot over first, or names on the stream the condition
+  under which a peer takes it (2026-09-27: a ready pull request waited a night
+  behind a holder whose loop kept beating). While the
   owner lands by hand, every seat holds its syncs until the owner says done.
   A coordination fold takes the slot at its time. Any auto-sync babysitter — a watcher running
   `gh pr update-branch` on OPEN and BEHIND auto-merge PRs — runs for the
@@ -1881,7 +1916,9 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   cannot run code "need to be checked out locally, evaluated, and then
   worked on as normal by the team"; for Dependabot, "Team lands green ones".
   The goal is "aiming for zero while useful value is still created and
-  merged", because "a static zero means no useful work is happening". The
+  merged", because "a static zero means no useful work is happening". A seat
+  the owner names alone is its own Director: it routes and it executes, and
+  its limit is one open pull request across the repositories. The
   operating steps:
   - No PR that starts new work opens while the count is at the limit or over
     it, other than a repository's one coordination PR. The reservation comes
@@ -1966,6 +2003,11 @@ The yield in the landing slot is a throughput rule: Altair spins Umbra measured 
 rule is throughput, not courtesy (two landings inside the window this lane would have held)" (the
 seat's reading of 2026-09-10, event 2a55fd9a).
 
+**No merge rests on an authority the pull request's own diff grants.** Where the diff edits
+the rule that would permit its merge, the merge waits for the authority the unedited rule
+names. And no approval is given without re-reading the open threads first (a decision from a
+handoff record).
+
 ## Phase 8 — After merge
 
 **Every merge gets its own fleet broadcast, no exceptions** (obligation
@@ -2004,6 +2046,10 @@ untracked by design and rotate (ADR-199, PDR-094); fourteen pointers from
 three lanes (2026-09-04/05) lived only on lane-closed events until the
 consolidation of 2026-09-06 recovered them. The Director applies this to its
 own closes from 2026-09-06.
+
+**A superseded pull request closes only when every surviving delta has a successor.** Each
+change it carried is either in a merged successor or has an evidenced supersession. Matching
+commit ids are not the test: a squash merge changes them.
 
 ## Failure modes this skill exists to prevent (all observed)
 

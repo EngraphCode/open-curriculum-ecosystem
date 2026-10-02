@@ -157,7 +157,12 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
    state (`silence-is-never-liveness`). Full condition = the four
    required checks BY NAME (CodeQL, SonarCloud Code Analysis,
    run-quality-gates, Vercel) all green + zero unresolved review
-   threads + MERGEABLE.
+   threads + MERGEABLE. A fold is reviewed before it merges: where the host
+   does not review a ready pull request by itself, request the vendor review
+   at the ready-mark. A fold merged with no review took six true findings
+   after its merge (2026-09-21), and on 2026-10-01 one estate's vendor
+   reviews found two false entries in records the other estate had merged
+   unreviewed.
 8. Bot REST merge at the FETCHED full head sha — fetched at merge time,
    never typed from memory, never expanded from an abbreviation — with
    `merge_method=merge`, never squash.

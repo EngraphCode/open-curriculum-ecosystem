@@ -41,6 +41,11 @@ behaviour regression is the constraint. The method was proven on the
 - **Read the pinned-version doctrine before bumping pinned surfaces.** Some
   pins are deliberate holds with their own decision records; a currency pass
   honours them (see Holds below).
+- **Upgrade before working around.** When a framework or tool reports that a
+  dependency is stale (a deprecation notice, a peer-range warning, a version
+  check in its own output), the first move is the upgrade cycle, not a local
+  workaround: a workaround written over a known-stale version is debt the next
+  pass unwinds, and it hides the signal that priced the upgrade (2026-08-12).
 
 ## Workflow
 

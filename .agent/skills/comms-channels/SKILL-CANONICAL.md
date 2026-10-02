@@ -119,6 +119,11 @@ The split, in one line each:
   behalf) is by policy owner-mediated: the Watcher drafts and
   notifies the owner, never posts autonomously for another agent.
 
+A ruling another seat must cite is an event on the stream; a direct message may carry it as
+the tap on the shoulder (the mirroring obligation below), never as its only copy. A ruling
+sent by direct message alone could not be found on either stream by the seat that had to
+cite it, which then waited on a relay (2026-09-29).
+
 ## The behaviours
 
 1. **Sanctioned s2s uses** — unblocking pings, short questions and
