@@ -113,7 +113,9 @@ to a source. Never coin a product name, a number or a policy statement: product
 naming is an owner decision. Anything genuinely new (a phase notice, say) goes
 to the owner as small explicit options, rendered in the browser, before any
 build or pull request; owner-glance acceptance criteria on copy bind at draft
-time. Render-verify a composed page before showing or shipping it, because
+time. The owner said it again two days later, of a plan that had decided the
+copy (2026-07-25): "the copy cannot be decided by AI" and "I will make changes
+to the copy." Render-verify a composed page before showing or shipping it, because
 self-contradictions show only in the render. Tone conformance is necessary and
 nowhere near sufficient.
 

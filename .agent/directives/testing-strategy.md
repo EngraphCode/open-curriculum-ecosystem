@@ -209,7 +209,22 @@ describes it). Rollout sequencing:
   proven by exercising its own boundary once at cure time and
   guaranteed by construction (declarative config, fail-fast hook,
   preflight probe) — never narrated as proven by a product suite
-  passing over it.
+  passing over it. A behaviour the product gets from a helper it calls by
+  default (a file write, in the instance) is proven by making the helper
+  an injected seam and passing a fake that exposes a violation (a writer
+  that truncates), never by asserting which helper is named (a seat's
+  reading, 2026-09-13, of the owner's words as its handoff relays them:
+  "proven by relation to the injected seam, not by asserting the helper's
+  name"). §Prove the guard bites asks that a mutant of the guarded
+  behaviour dies; it does not ask that our own configuration be pinned. A
+  surviving mutant is a gap only when it changes behaviour at a boundary.
+  One that changes a value of our own configuration and leaves every
+  required result as it was (in the instances, a directory prefix and
+  flags handed to git) survives because this rule is working; one that
+  alters a required result (a status code, a retry limit) is a gap,
+  however the value is written. Hold an assertion against this rule
+  before adding it because a mutant survives, or restoring it because a
+  sibling estate removed it (2026-10-01, two instances in one day).
 - **No useless tests** - Each test must prove something useful
   about the product code. If a test is only testing the test or
   mocks, delete it.
@@ -508,7 +523,16 @@ exchange is permitted, loopback included (§Test Types).
   often or in what order is implementation (§Philosophy). A collaborator
   that both answers queries and receives output (a store with get and put)
   is judged per operation: what it receives is output, and the queries it
-  answers are never asserted.
+  answers are never asserted. Across ports, the order in which the
+  product reaches them is never itself the claim. Where an
+  outcome depends on one port not being reached before another decides (a
+  refusal that must mint nothing), the proof is the outcome: give the
+  port that must not be reached a fake that fails, so that reaching it
+  turns the refusal into a failure the test reads at the boundary; a call
+  count is never the proof. A property no admissible fake can observe (one
+  token for every attempt) is not a test's to prove: the structure
+  carries it, a type or the place of a call (a seat's observation,
+  2026-09-29; one instance).
 
 Do not conflate the two. Runtime stubs are product code; test fakes are test
 infrastructure.
