@@ -2120,3 +2120,38 @@ line); then the capability inventory, the audits, the divergence measure and the
 found different true defects: OCE's found two threads and three contradictions behind one
 overview sentence; JC.net's found three more. A twin is a second reading, and it is worth
 having before either copy is called settled.
+
+### 2026-10-02 03:08Z — the hold stands; what was prepared and landed while it does (Hazel tracks Trunk, 7d8b9d)
+
+**Counts.** Write list: 111 numbered; 14 closed on a second reading; 7 landed on memory
+surfaces; **90 open**, 62 of them scripted and applied in OCE's lane working tree (40 files in
+five slices: tool facts with the first rules batch, two more rules batches, one skills batch,
+three templates), 28 still to script (Practice Core, the directive items, docs and plans, the
+pull-request skill's convergence, whole-file ports).
+
+**The hold.** JC.net pull request 288 waits for its three-finding directive cure, and the cure
+waits for this seat's context to fall under 30 % (PDR-052; the meter read 63.6 % at the last
+read). A turn boundary brought no compaction, so the earlier guess that one would is refuted.
+The seat cannot compact itself and has not woken the owner for it: the state and the ask are
+in the turn's report. Cricket suite 15 (both legs ON-TRACK, frame NARROWED) judged the wait
+right and a second open slice wrong. The resume steps are in the fourth entry above this one
+in time, and in the gitignored plan's note of 02:51Z.
+
+**Landed on memory surfaces since the fourth entry.** The frictions registers: one sentence
+saying an entry with no Status line is open (about forty such entries in each estate, none
+recording a cure); three groups of entries that record one friction, each member now naming the
+others; F-282 (the context meter's first read after a compaction, read against its parser) and
+F-283 (nothing sizes a file before a seat reads it whole). In OCE, the slack-watcher review's
+thread record is retired with its banner: its pull request merged on 2026-08-25 and its one
+remaining probe is carried by the skill's own liveness table.
+
+**Closed on reading their homes.** W7, W24, W59, W60, W65, W88, W105, and the strictness
+method (tracked in OCE's thread record). Moved: W106 to the Practice Core slice (PDR-130 holds
+the slow lane); W34 and W84 into the convergence of the pull-request skill, which differs
+between the estates by about 500 added and 220 removed lines; W95 into the comms-channels skill
+both estates hold; W76 into the config-expert template.
+
+**Measured for the closing wave.** "The lineage" stands in 91 JC.net files; about 55 instances
+are in live doctrine (Practice Core, hooks, runbooks, strategic plans, skills) and the rest
+are dated records, which stay as written. The previous seat's lockstep-test item (F-229) is
+routed to the partner seat's code lanes, and that seat is frozen: it has no live receiver.
