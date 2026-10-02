@@ -33,7 +33,14 @@ resides on the coordination branch).
    edit reads whole: closing signature, complete table row, clean diff
    boundaries) and coordinate on their channel when in doubt. Never
    capture a half-state; never delete or revert anything found
-   (`never-use-git-to-remove-work`).
+   (`never-use-git-to-remove-work`). A directory no fleet seat wrote or
+   claims can be wanted work: of an agent's content workspace found in JC.net's
+   primary on 2026-09-28 the owner said, relayed by the Director,
+   "legitimate and should be treated as material to commit" and "keep it off
+   the fold, and the Practice agents decide if any changes are needed before
+   merging". It is copied, not moved, to its own branch from the default
+   branch in a worktree, with its own pull request counted toward the WIP
+   limit (the Director's correction the same day; one instance).
    Immediately before each push from the primary (steps 5, 9 and 10),
    check by name each tracked file dirty at that moment
    (`git diff --name-only --diff-filter=d HEAD`), with
@@ -49,7 +56,10 @@ resides on the coordination branch).
    its owner for the cure, never edited or reverted by the folding seat,
    since a fixer's rewrite races the peer's next write; a class (a) file is
    cured and folded with its authorship named.
-3. **A records pass before the ready-mark.** Every finding of the 2026-09-28
+3. **A records pass before the ready-mark.** Once the fold PR is under
+   review, a seat's records commit waits for the successor branch cut after
+   the merge: "a push now would move the verdicted tip and restart the round"
+   (a Director's ruling, 2026-09-25; one instance). Every finding of the 2026-09-28
    rollover fold's review was a records slip; before the fold PR is marked
    ready, a read-only reviewer checks every carried record against the day's
    landings (shas, PR numbers, states), and on a repository whose Copilot
@@ -187,7 +197,7 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
      PROBE=$?
    fi
    if [ "$PROBE" -eq 0 ]; then
-     git fetch origin "+refs/heads/$FOLDED:refs/remotes/origin/$FOLDED" &&
+     git fetch origin "+refs/heads/${FOLDED}:refs/remotes/origin/${FOLDED}" &&
        git merge-base --is-ancestor "$FOLDED" "$BASE" &&
        git merge-base --is-ancestor "origin/$FOLDED" "$BASE"
    elif [ "$PROBE" -eq 2 ]; then
@@ -208,7 +218,10 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
    (`DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`; a
    `git push --delete` runs the full pre-push gate), each read back
    absent. A tip that reads unmerged holds commits made after the merge:
-   surface it, never delete it. GitHub's auto-delete of a merged head is
+   surface it, never delete it. Carry them into the successor by a merge
+   commit, so they land at its fold, and only then delete the folded branch
+   (four record commits reached a folded branch after the owner merged its
+   fold PR by hand, 2026-09-26; one instance). GitHub's auto-delete of a merged head is
    not relied on: both folded heads of 2026-09-27 survived their merges
    (`worktree-hygiene` §3). If the default branch moves again during or just after the ceremony (a
    lane PR merging mid-rotation), merge `origin/<default>` in and rebuild promptly: until

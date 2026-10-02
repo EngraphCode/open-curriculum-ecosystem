@@ -11,7 +11,8 @@ description: >-
   Use when a sync carrier exists or is due, when GitHub calls a sync dirty that
   git merges cleanly, or when fork docs read stale after an upstream change.
   Not for two branches of one lineage (complex-merge), memory files alone
-  (semantic-merge), or curing upstream code here.
+  (semantic-merge), or a finding on carried code that does not block the merge
+  (its own lane, after the sync lands).
   Right: one carrier, two merge commits (the carrier's, then the landing's),
   docs re-trued in the same landing, the tree diff against upstream equal to
   the enumerated fork diff. Wrong: squash or

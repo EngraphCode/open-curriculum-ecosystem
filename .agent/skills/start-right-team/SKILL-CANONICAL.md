@@ -940,7 +940,11 @@ SKILL names the protocol shape and points at it):
    `.agent/state/collaboration/handoffs/` naming the four required
    sections — _current edit state_, _in-flight reasoning_, _decisions
    made_, _decisions deferred_. The record is a first-class artefact,
-   content-addressed by `claim_id`, retained until the claim closes.
+   content-addressed by `claim_id`, retained until the claim closes. The
+   directory is gitignored in both estates, so the file stays on the machine
+   that wrote it: a Director absorbing a closeout homes the record's text on
+   the thread record beside its boundary entry (done for three seats'
+   handoffs, 2026-09-29; one instance).
 3. **Extend the active claim** by setting the optional
    `handoff_record_path` field on the active-claims entry pointing at
    the new handoff record. No other schema field changes; existing

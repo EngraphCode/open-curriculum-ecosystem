@@ -141,7 +141,12 @@ the first comms write, claim, or registration).
    NEW Core file (a pattern, a rule), list the other estate for the same
    name: a same-named file with different substance is a divergence only
    `git apply --check` finds, and the cure is one merged file carrying
-   both instances, the same bytes in both estates (2026-09-30).
+   both instances, the same bytes in both estates (2026-09-30). Before
+   bringing to one estate what only the other holds, search the history of
+   the estate that lacks it (`git log --all -m -S'<name>'`): it may have been removed
+   on purpose, with the reason in the commit (one instance, 2026-10-01: a
+   port made from a diff met a deletion made two days earlier on four
+   reviewers' verdicts).
 2. **Declare the coordination home.** One substrate owns the
    arrangement's coordination state. Resolution order: explicit CLI
    flag, then `PRACTICE_COORDINATION_HOME`, then git-native
@@ -220,7 +225,16 @@ the first comms write, claim, or registration).
    an improvement with no disposition is drift waiting for the next
    exchange turn.
    Lifecycle threads on the comms stream: delivered → acknowledged →
-   integrated or rejected — every bundle receipted both ways.
+   integrated or rejected — every bundle receipted both ways. After joint
+   text lands, the receipt names the merge commit and each joint file's blob
+   id in that commit's tree (`git rev-parse <merge>:<path>`; `git hash-object`
+   hashes the working-tree file, which may have moved), so the receiving estate
+   byte-checks a wholly joint file and diff-checks one where only pieces are
+   joint (the exchange seats' practice on three receipts, 2026-09-26; a
+   convention, not a ruling). A twin found divergent after such a receipt
+   is read first for a later change to either copy (a correction, or the
+   receiver's own formatting, which PDR-125 lets a finished receipt
+   survive), and only then for a check that was not run.
    **Format on receipt**: where the RECEIVING repo's conventions or
    gates refuse the donor's bytes (markdown conventions, heading
    shapes, gate-satisfying style), the estates align that convention or
@@ -258,6 +272,18 @@ foreign estate — supervise it (`--supervisor-pid` or the home's
 equivalent) so it dies with your session.
 
 ## Worked instances
+
+- **2026-09-25 — a joint cure of a Core record**: one estate drafts the cure
+  on a draft PR and offers named blob hashes; the other lands those bytes or
+  refuses a named sentence; the drafting side merges after that receipt, so
+  the record stays one blob (the exchange seats' convention on three cures,
+  beside PDR-142's same-bytes rule). A Core record found as two blobs after
+  a cure conveyed this way would show it failing.
+- **2026-09-25 — an anchor pass is not a reading**: a scripted pass found
+  every cited anchor in a batch of 21 notes, and an independent verification
+  read then found 26 defects (wrong facts, framing, unsupported claims) in 16
+  of them, all cured before delivery. The pass showed each citation existed,
+  and nothing about whether a claim was right (one batch).
 
 - **2026-07-05 — the first live bidirectional exchange**: one session
   with a per-estate name on each of two estates, a second repo as

@@ -390,6 +390,10 @@ the whole §Prove the guard bites (OCE's directive lags, a backlog item, not tod
 `verify-data-supports-shape-before-building` differs by its estate-specific worked instances
 (Oak's bulk export against JC.net's entity model), which the owner may want split out of the shared
 rule.
+The measure run again on 2026-10-01, from the default-branch tips of 2026-09-29 to the trees after
+the pass, confirms those three (44, 12 and 6 lines) and shows two smaller ones this paragraph did
+not name: `testing-strategy` (5 lines) and the cross-platform surface matrix (1 line). The
+data-shape rule did not grow.
 
 The owner's word is now the rule `cross-estate-work-must-reduce-divergence` in both estates (identical
 bytes; the rules index and adapters regenerated in each): measure at the open, write shared changes
