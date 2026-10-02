@@ -84,9 +84,10 @@ work this content describes?". Two dispositions:
    archive (the body is everything after the archive's own frontmatter, where
    it carries one; where the finished ranges are not contiguous, each range
    moves whole in file order with nothing between them, and the body is
-   compared with the same ranges cut from the pre-move blob and joined in that
-   order; no snapshot of the whole file is written, because the move commit's
-   parent already holds it); and the
+   compared with the same ranges cut from the pre-move blob (the surface as
+   committed at `HEAD` before the move) and joined in that order; no snapshot
+   of the whole file is written, because that commit stays in history as the
+   move commit's parent); and the
    live surface
    keeps only the live state and a one-line pointer to the archive (the path
    written inline as code: the link validator's target set excludes archive
@@ -152,9 +153,11 @@ embedded here in the doctrine it enacts; indexed in
    drifting).
 3. **Verify losslessness mechanically** (after the rewrite, before committing): the
    archive's body (everything after its own frontmatter, where it carries one)
-   equals the moved range's bytes in the pre-move blob, the surface at the move
-   commit's parent (for ranges that are not contiguous, the same ranges cut from
-   that blob and joined in file order); every live-pointer token from
+   equals the moved range's bytes in the pre-move blob, `git show HEAD:<surface>`
+   (the move starts from a surface with no uncommitted change, so `HEAD` holds
+   the whole pre-move surface while the proof runs and becomes the move commit's
+   parent; for ranges that are not contiguous, the same ranges are cut from that
+   blob and joined in file order); every live-pointer token from
    the pre-curation file still appears in the live surface (`grep -F` each); every
    curated passage's statement about a neighbour is re-read against the neighbour (a
    passage saying an "UNCOMMITTED" block had since been committed was the only place
