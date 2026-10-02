@@ -130,6 +130,25 @@ renders the state, not only in the writer. (Recorded by the 2026-07-31
 comms-corpus run; the registry-side cure is tooling work for the
 agent-tooling backlog.)
 
+## Worked instances — proofs that checked something else
+
+- A strict-YAML round trip proved the container valid, not the values: a comma splitter had
+  broken brace groups and the round trip still passed. A proof script that re-implements the
+  parser proves the re-implementation and repeats its bugs.
+- A census validator's contract put the run's provenance (`generatedAt`, `sourceCommit`)
+  inside the payload it compared with a fresh derivation, so it could never pass across two
+  runs. Provenance sits outside the compared payload.
+- A merge resolver's test had the merge sides reversed, and the first run in the real
+  orientation refused. Run a new check once against the real input shape before its verdict
+  is trusted.
+- Inside one instrument, a fact is read by one route. Where an instrument reads one fact by
+  two routes and they disagree (two git commands gave two answers for a dangling symbolic
+  ref), remove a route; a third check that reconciles them is a third route. This is about
+  how an instrument reads, not about recomputing a recorded value, which this rule requires.
+- Evidence is taken at the moment and on the bytes it describes. A figure read before a push,
+  a rebase or a compaction describes that earlier state, so an instrument is tested for the
+  integrity of its evidence as well as for its function (2026-09-28).
+
 ## Enforcement
 
 There is no global hook for this rule because the failure mode is

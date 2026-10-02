@@ -88,6 +88,11 @@ genuine periodic work continue past five iterations because
 their iterations produce work; loops without genuine periodic
 work stop quickly.
 
+A chain of review trips is a loop and has an exit of the same kind: a trip
+whose review brings no cure ends the chain, and a trip that does not shrink
+the cure count is the signal to step back, not to review again (one chain's
+counts ran eleven, then three; 2026-09-26).
+
 ## Composition
 
 - [`use-monitor-for-event-driven-wake`](use-monitor-for-event-driven-wake.md) —

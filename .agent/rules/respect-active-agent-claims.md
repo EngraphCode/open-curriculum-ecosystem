@@ -44,6 +44,10 @@ This rule **does not refuse entry** to claimed areas. It fires as a
 tripwire — *consult, decide, log* — not as a refusal — *do not enter*.
 The logged decision is the artefact that proves consultation.
 
+A peer's live commit intent that names a path is a hold on new edits to that
+path until the intent completes or is abandoned: content that arrives between
+the peer's staging and its commit rides that commit or breaks it (2026-07-04).
+
 ### Shared-state files are always writable and always commit-includable
 
 **Shared-state files can ALWAYS be written to and ALWAYS be added to
