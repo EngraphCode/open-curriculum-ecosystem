@@ -1754,7 +1754,7 @@ instinct the rulings ledger (plan S2) formalises.
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-opus-5-5[1m] | 281e44 | Zephyr guards Leeward | Model moved to `claude-opus-5-5[1m]` on 2026-09-23 at the owner's word, from `claude-opus-5[1m]` by way of `claude-fable-5-1` (the continuity lane row records that step); one continuous seat, so the row's `model` moves (PDR-027 Amendment Log, 2026-07-08). Sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation; curator through the consolidation's folds #152, #153, #155 and #156, and this record's curation on 2026-09-20; the #159 and #169 folds and the three-estate exchange's opening on 2026-09-21 | 2026-09-14 | 2026-09-23 |
 | claude-code | claude-opus-5-5[1m] | 74fc02 | Marten mends Shadow | this estate's exchange seat of the three-estate Practice exchange, named at the owner's word as Zephyr guards Leeward's (281e44) successor; implementer of the exchange's owed lanes, each in its own worktree off `engraph` | 2026-09-24 | 2026-09-25 |
-| claude-code | claude-fable-5-1 | 7b999c | Crucible binds Slag | implementer at n=2 with Hazel tracks Trunk (7d8b9d, curator), both resident in JC.net: the fold of #299, the continuity record, the open lanes and the upstream sync, at the owner's word of 2026-10-01 | 2026-10-01 | 2026-10-01 |
+| claude-code | claude-fable-5-1 | 7b999c | Crucible binds Slag | implementer at n=2 with Hazel tracks Trunk (7d8b9d, curator), both resident in JC.net: the fold of #299, the continuity record, the open lanes and the upstream sync, at the owner's word of 2026-10-01; the Director across both estates from 2026-10-02 10:51Z (claim 6a4b11b1 here, 8b346894 in JC.net) to 14:4xZ, stopped at the owner's compaction-and-stop word with its claims closed and no successor seated: PDR-143 and the Capability Foundations sentence landed in both estates as the same bytes, the retire port routed as #333 and read, 290 and 291 read before merge, JC.net's 286 fold held by a stale index lock and passed on | 2026-10-01 | 2026-10-02 |
 | claude-code | claude-fable-5-1 | 7adb15 | Efreet lifts Scorch | implementer at n=3 with Hazel tracks Trunk (7d8b9d, curator) and Crucible binds Slag (7b999c, implementer), both resident in JC.net: the fold of #327 and the mirror check, at the owner's word of 2026-10-02; guest observer on JC.net's stream | 2026-10-02 | 2026-10-02 |
 
 Prior Director seats predate this record; their identities and tenures are
@@ -2271,3 +2271,20 @@ sibling estate; the back-port, then q, r, s, u, v and w in this estate, by the s
 names); write W112, W113, W115 and W116 as second commits on the slices that carry their files;
 archive the three napkins by proof after the owner's word on the one line; wave 4 stands as listed
 in the plan.
+
+### 2026-10-02 14:4xZ — the Director's tenure, 10:51Z to the owner's compaction-and-stop word (Crucible binds Slag, 7b999c)
+
+State at the stop. Landed: PDR-143 (Proposed) and the Capability Foundations sentence as the same
+bytes on both coordination branches (JC.net `c232b740` on draft 286; this estate `e55129de6` on
+draft 332); JC.net's 280 (`e5c9c1e4`) and 290 (`1fc540d5c`) merged, 291 open and read; this
+estate's 327 folded by Efreet lifts Scorch (`9fd05ecf7`), the successor cut, and the retire port
+open as #333 (`feat/merge-bot-retire-port`, claim 006c79ad), read by the Director with no objection
+and released to its seat's verdict at green. Held: JC.net's 286 fold, by a zero-byte `.git/index.lock`
+in that primary (10:56:56Z, no holder; the owner's to clear), passed to the seat holding JC.net's
+slot when the lock is gone or to the rollover DUE. The owner's words of the day are in this
+estate's `director-handoff.md` §STATE 14:4xZ and JC.net's napkin block of the same time; the
+routes and receivers are the handoff block's; no Director seat exists after it, and each
+implementer's session is the owner interface. Four Crickets at the owner's word returned ON-TRACK
+with the same NARROWED frame (an unmapped owner clause; two constraints applied but not stated) and
+refuted the Director's hold on the fold: the lock rule forbids deleting or looping on the lock,
+nothing more.

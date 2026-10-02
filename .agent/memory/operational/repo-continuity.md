@@ -37,6 +37,20 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T14:4xZ: the Director seat stopped at the owner's compaction-and-stop word; the
+  retire port is open as #333 and read; the fold of JC.net's 286 is held by a stale lock there**
+  (Crucible binds Slag, 7b999c). The owner's word, verbatim: "you are working on a bounded task, not
+  open ended, we must always understand the goal so that we are able to finish". The Director's
+  claims are closed, its processes stopped, and no Director seat exists; the routes and receivers
+  are the §STATE block of 14:4xZ in `director-handoff.md`, and each implementer's session is the
+  owner interface meanwhile. #333 (Efreet lifts Scorch, claim 006c79ad, the retire port carrying
+  JC.net 280's cures) was read first-hand by the Director at 14:3xZ with no objection and lands at
+  green by its seat; the nb back-port then Hazel's six slices follow it here, one at a time. JC.net's
+  286 (PDR-143 and the morning's records) folds once the owner clears the zero-byte `.git/index.lock`
+  in its primary (10:56:56Z, no holder), by the seat holding that estate's slot or at the rollover
+  DUE. This branch (332) carries PDR-143, the Capability Foundations sentence, Hazel's re-trued owner
+  items and frictions entries, and folds at the rollover.
+
 - **2026-10-02T11:1xZ: the owner's direction on the Practice's extraction is recorded as PDR-143,
   Proposed; the Reliable Atoms concept is named Capability Foundations; JC.net's pull request 280
   landed; the Director seat is taken** (Crucible binds Slag, 7b999c). The owner's words of 2026-10-02

@@ -306,6 +306,45 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-02 14:4xZ (Crucible binds Slag, `7b999c`, the Director seat stopped at the
+owner's word).** The owner, verbatim: "Please prepare compaction … then stop all processes -- and
+remember, you are working on a bounded task, not open ended, we must always understand the goal so
+that we are able to finish". Every standing process of this seat is stopped and its claims are
+closed (6a4b11b1 here, 8b346894 and cab726a6 in JC.net); 4b82394b (the J2 lane, NOT READY,
+uncommitted in `oce-wt-j2-docs-validators`, `repo-continuity.md` §Next Safe Steps line 2) carries a
+handoff pointer for the next implementer seat here. No Director seat exists after this block; the
+routes below stand until an owner-seated Director adopts them, and each implementer's own session
+is the owner interface meanwhile.
+
+The finish of the day's Director task, stated: (a) JC.net's 286 folded — held by a zero-byte
+`.git/index.lock` in JC.net's primary (10:56:56Z, no holder; the commit skill's foreign-lock section
+reserves its removal to the owner), so the fold passes to the seat holding JC.net's slot once the
+lock is gone (Hazel tracks Trunk, resident there; the napkin, the formation letter and Hazel's own
+records sit dirty in that primary, linted, and ride the fold) or to the rollover DUE; (b) this
+estate's 332 folded at the rollover by its seat; (c) #333 (the retire port) landed at green by
+Efreet lifts Scorch — the Director read it at 14:3xZ with no objection and the gate is released to
+the seat's own verdict; (d) this handoff. Beyond it, routed with receivers, in order: the nb
+back-port then Hazel's six slices here (Efreet, from Hazel's PDR-063 record, one at a time after
+the retire port lands); the 309 twin and the 333 twin in JC.net (the fix slot after the
+consolidation's slices); the
+security lane, the test-shape lane (280's three items, the retire smoke double's call-count branch,
+the mint test's removal) and the GitHub-port seam lane, each in both estates; the J2 cures here.
+Owner-gated and held for the record: the lock; PDR-143's ratification and the entity's name, home,
+licence, publishing route and version scheme; the external Capability Foundations pull request
+(team intake); the Turbo items; the three OCE owner cards (`homed/oce-owner-items-retrued.md` in
+Hazel's synced session directory, raised by Hazel at the owner's next presence); Hazel's four items
+of 14:1xZ (the monitor rule's carve-out, "homes twin; buffers do not", the privacy line, the
+test-expert gate's cost). Two second observations routed as register entries at the next fold, with
+their text in JC.net's napkin block of 14:4xZ: per-seat worktrees for coordination writes (the
+shared primary index idled two seats and a DUE check); F-219's cure (the gate reads the generated
+comms log, so every push needs a hold line and every holding seat stops its heartbeat; six pairs
+and three false "retired" readings today).
+
+Re-arm recipe for a successor Director: §Standing processes above, verified by id first (the task
+list, the cron list) so a survivor is never doubled; the seat opens with its landing target and its
+finish condition (PDR-026), arms processes for that path's gates only, and stops them at the finish
+or at the owner's word (the owner's bounded-task word, candidate for this brief).
+
 **§STATE, 2026-10-02 11:1xZ (Crucible binds Slag, `7b999c`, the Director seat across both
 estates).** Licence: the owner's word in this seat's own session, 2026-10-02 ("when it makes sense,
 take on the Director role … context preservation over longer timescales … strategic decisions are
