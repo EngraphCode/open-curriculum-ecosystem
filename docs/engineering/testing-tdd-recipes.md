@@ -35,6 +35,7 @@ unit, integration, and E2E levels.
   - [Tests That Only Pass With The Current Implementation](#tests-that-only-pass-with-the-current-implementation)
   - [Adding To Existing IO Debt In A Unit Test File](#adding-to-existing-io-debt-in-a-unit-test-file)
   - [Validator Script vs Integration Test](#validator-script-vs-integration-test)
+- [Lessons From Review Rounds](#lessons-from-review-rounds)
 
 ## TDD At All Levels
 
@@ -355,3 +356,56 @@ Root `scripts/` is retired and `agent-tools/scripts/` is dissolved
 ([ADR-168 §5a](../architecture/architectural-decisions/168-typescript-6-baseline-and-workspace-script-architectural-rules.md));
 runtime validators belong in a workspace-owned command surface such as
 `agent-tools/src/validators/` or the package that owns the contract being validated.
+
+## Lessons From Review Rounds
+
+Each line is a lesson from the review of a test that had passed its gates.
+
+- **A fake that branches on an incidental argument is call inspection.** A test whose fake
+  read a dry run's argv to choose what to print was deleted: the flag was a detail of how the
+  product called the tool, not contract data flowing through the seam, which is the only kind
+  of parameter the testing strategy admits a parametric fake for. The flag is guaranteed by
+  construction and proven by one observation of the real tool.
+- **A test pins the estate's behaviour, never the runtime's.** A case that passed only because
+  `localeCompare` handles a non-BMP character on one Node version pinned the implementation
+  and was removed. Two assertions on Node's own `TypeError` became assertions on the helper's
+  contract. A smoke asserts the estate's operator-facing messages, never a library's.
+- **A surviving mutant whose change has no observable effect marks dead code**: a deletion
+  candidate before it is a missing test.
+- **A mutant can survive because an earlier layer answers first.** Dropping an empty-token
+  backstop survived until the token mint became an injected port: the mint's own schema had
+  rejected the empty token before the backstop ran.
+- **Ported tests are reviewed as tests.** Tests carried byte-for-byte from the other estate
+  were routed away from test review at open and still drew four blocking findings (two
+  expect-then-if, an assertion on a query log, a branching mock). A port inherits its
+  source's test gaps.
+- **Green gates, killed mutants and byte parity are not evidence of test quality.** Asked why
+  four test pull requests were weak, the seat that wrote them named: no test-expert review,
+  directives not re-read at resume, those three signals taken as quality, copied patterns,
+  and a pace it had set itself.
+- **Prove a CLI topic's routing by its help.** Run `<topic> --help` through the unified entry
+  point and expect the topic's own help text. The test fails when the topic's map entry is
+  removed, which an assertion on the usage list does not catch.
+- **An eval judge reads assertions literally.** State a fixture's expected outcome in
+  observable terms (what the record must contain), never in the method's vocabulary, and
+  make each prompt self-contained: an empty workspace cannot hold the material a prompt
+  refers to.
+- **A fake never answers in sequence, and a fake clock is never keyed to a count of the
+  product's reads.** Either one asserts how often the product asked. Move the proof to the seam
+  where the state is a constant, or change the world on what the product writes (2026-10-01:
+  a test review found guard tests whose fake counted the product's questions, after two rounds
+  of vendor review had passed them).
+- **When the doctrine refuses the test you want, ask where the property lives.** A property no
+  admissible fake can observe (one token for every attempt) is carried by the structure: a type,
+  or the place of a call. Where an outcome depends on a port not being reached, a fake of that
+  port that fails is the probe: reaching it turns the outcome into a failure the test reads at
+  the boundary (2026-09-29).
+- **One property test for a class of leak.** A renderer meant to print by allowlist is tested
+  with a nonce at every position and shape of its input: no character of it appears unless its
+  token is in the closed vocabulary. Six leaks found one per review round were one class; the
+  second instance of a class is the signal to write the structural test before the third cure
+  (2026-09-27).
+- **A test that fails under load is a measurement first.** Read the host's load and run what
+  the test measures before widening its bound: a watcher smoke's ten-second exit failed under
+  host load and passed on one retry after two load readings (2026-09-24). A bound widened to
+  quiet one failure hides the next.

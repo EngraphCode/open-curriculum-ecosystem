@@ -690,3 +690,88 @@ Director's landing record of 2026-09-06, event f05a54da).
   spot check on 2026-10-02 to be stated in neither estate).
 - **`gh pr create` needs the head branch on the remote**: push first, and read the push back,
   before the create call (a thread record of September 2026).
+- **`comms send --body` is refused over 1,500 characters**, before anything is written (exit
+  2; `MAX_COMMS_BODY_LENGTH` in the CLI, read in both estates on 2026-10-02). Pass a longer
+  body with `--body-file`.
+- **Pass the registered `--model` on every comms call that resolves an identity** (`send`,
+  `watch`): the send binds the seat's registered platform and model, and a mismatch refusal
+  reads like an identity collision (2026-07-29). The read-only `comms list` takes no identity
+  and refuses the option.
+- **`comms send` can exit 1 after a durable write, or print usage and write nothing**: read
+  `comms list --since` before any retry, never the exit code alone (2026-07-30).
+- **macOS's `patch` with no terminal reverses a hunk the target already holds**: its prompt
+  "Assume -R? [y]" defaults to yes (patch 2.0-12u11-Apple; GNU patch defaults to no and skips
+  the hunk). Pass `-N` on either: probed on 2026-10-02, bare and `-t` reversed the hunk, `-f`
+  applied it a second time, `-N` ignored it and exited 1. After any port, scan the changed files for a three-line run
+  that occurs twice: a port made from the other estate's raw diff reversed one hunk and
+  duplicated three passages (2026-10-02).
+- **`git log` `%cI` moves on a rebase, cherry-pick or amend with no content change; `%aI` does
+  not**: a drift check regenerates, it never compares committer dates (one handoff record).
+- **HTTP 403 from a publisher to a scripted client is a refusal, never a dead link**: record
+  "unverified by probe" (2026-09-07).
+- **A harness classifier's refusal is session-local, and a classifier error is transient**: a
+  successor re-tests and never inherits a refusal as a gate; an error retries once
+  (2026-07-15).
+- **After GitHub Code Quality is re-enabled, a head minted before it is refused at
+  all-green** ("base branch policy prohibits"): update the branch to mint a fresh head
+  (2026-07-20).
+- **An out-of-credit Codex connector posts a "usage limits reached" notice on a new pull
+  request within seconds**, and a billing-capped Claude review bot posts a skip notice: each
+  is the observable outage, and a skip is never a pass (2026-06-28, 2026-09-10).
+- **`/restart` is not a fresh session**: hook session state persists (2026-07-25).
+- **A `NODE_OPTIONS` tap reaches only the config that runs**: a harness change needs the full
+  gate surface green, not one config (2026-07-30).
+- **When the primary checkout cannot build, a lane worktree that built the CLI still carries
+  comms**, and a `pnpm`-wrapped CLI call dies at postinstall while `node` on `dist` works only
+  while `dist` and the dependencies agree (2026-07-20).
+- **`mint-token --scope` enforcement depends on which build runs**: a rebuilt CLI requires
+  the flag where an older `dist` accepted a mint without it (2026-07-29).
+- **vitest path arguments under `pnpm --filter` are workspace-relative** (`tests/...`,
+  `src/...`), never prefixed with the repository path (2026-07-20).
+- **prettier run inside a workspace resolves that workspace's config and can warn falsely**:
+  check formatting from the repository root before treating it as drift (2026-07-30).
+- **In zsh, `status` is read-only** (use another name), and a backslash before `>` inside
+  test brackets misparses (2026-09-17).
+- **The shared CLI registry files in agent-tools are additive-only across parallel lanes**, so
+  their merges serialise (2026-06-28).
+- **git can sleep on the fsmonitor socket** (one daemon per worktree): pass
+  `-c core.fsmonitor=false` to the command; a clone may set it once in its config
+  (2026-09-17 to 2026-09-23).
+- **Profile a gate before optimising it**: `turbo run --summarize` and a timing line per gate
+  step name the quickest win (2026-09-29).
+- **`gh pr create --draft` fails on a branch with no commit beyond its base** (2026-06-28).
+- **Copilot's automatic review may not bind a tip that is only a merge commit of the base**:
+  after a "merge the base in, then land" push, read the reviews for a review on that tip before
+  waiting for one (one record, 2026-09-02, carried as received and not reproduced; frictions
+  entry F-167).
+- **The Claude Bash tool's sandbox can return empty content for reads under `.agent/memory/`,
+  and its shell is zsh**: a grep that reads empty everywhere, a known-present term included,
+  is the tell (2026-06-30, confirmed again 2026-07-02; frictions entry F-111).
+- **A worktree's local default branch can sit many commits behind the remote**: cut a branch
+  from `origin/<default>` after a fetch, never from the local name (2026-09-13).
+- **CI can drop webhook events under throttle**: a pull request may show no checks at all. A
+  push re-fires them; bot authorship is not the cause (August 2026).
+- **Agents of one session share one scratchpad directory**: put a distinguishing token in every
+  scratchpad filename. One collision overwrote a validated commit message before
+  `git commit -F` read it (August 2026).
+- **Download external data once**: write a CI log or an API response to a scratch file and read
+  it locally; do not request it again for a second look (2026-03-30).
+- **`ps`'s `%cpu` is an average, not the load now** (on Linux, CPU time over the time since the
+  process started): take two samples of CPU time a few seconds apart, or read `top`, before
+  calling a process busy or idle (2026-09-24).
+- **`open(p, 'w').write(compute())` truncates the file before `compute()` runs**: Python opens,
+  and empties, before it evaluates the argument, so a raise in `compute()` leaves an empty
+  file. Compute first, then open (2026-10-01: a decision record was emptied and restored).
+- **A computed listing printed into a seat's context gets a bound**: a line count or a heading
+  list first, then the range that is needed. One unbounded read of a ledger of long rows cost
+  about 28,000 tokens (2026-10-02).
+- **The context meter's first read after a compaction can describe another moment**: 63.9 % and
+  0 % were read where the next reads said 28.9 % and 17 % (2026-10-02). Read it twice, a few
+  calls apart, before anything is priced on it.
+- **A Copilot review can carry a claim in its overview with no thread, under "Findings:
+  None"**: read every review body in full. On 2026-10-02 one such sentence named two files and
+  nothing else; reading the pull request's additions to those files found three true
+  contradictions.
+- **A watch whose ready condition needs "no review request pending" never fires where a
+  person's request stands**: count only the vendor reviewers' requests, and read each
+  condition of a new watch against one live sample before trusting its silence (2026-10-02).

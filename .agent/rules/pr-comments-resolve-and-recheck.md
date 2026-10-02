@@ -99,6 +99,17 @@ edit script that mutates a register without post-condition asserts is a claim, n
 one inverted-slice register edit spawned three bot findings across two rounds; mutation
 scripts carry their own asserts.
 
+**A resolver script resolves the one thread it is given.** A scratch script
+called for one thread resolved every open thread on the pull request, and the
+thread of a true finding had to be reopened by hand (2026-09-21). Pass the
+thread's id, resolve that id, and read the unresolved count back afterwards.
+
+**A reply waits for its push.** A reply that says "cured in" a commit is
+posted after that commit is read back from the remote, never chained after the
+push command: replies posted early named a commit the remote did not hold
+(2026-09-27), and again when a refused push was followed by its replies
+(2026-10-01).
+
 ## Dispositions are grounded in verified failure scenarios
 
 Before writing any reply or disposition on a review finding, name the

@@ -136,6 +136,12 @@ real one. Where a subcommand rejects `--help` (the merge-bot token mint
 does), read its source or the topic help — never invoke it to learn its
 flags.
 
+Build output has its own verb as well. A stale derived artefact that blocks a gate
+(a `.next` directory, a `dist`) is cleared with the build graph's own clean
+verb, `pnpm --filter <workspace> run clean`: never with a raw delete, and
+never by asking the owner which to use (owner's correction, 2026-08-10, as
+recorded: "you shouldn't have asked").
+
 ## Related Surfaces
 
 - [`agent-tools/README.md`](../../agent-tools/README.md) §Unified entrypoint —
