@@ -59,7 +59,9 @@ for that stream (2026-10-02).
 Small differences between the estates are of three kinds. A host anchor (a decision record's
 number, a skill prefix, a package scope) is a standing difference. Wording one estate already
 holds host-neutral is where both converge. Content one estate has and the other lacks is
-knowledge at risk: it ports, after a search of the whole history for a deliberate removal.
+knowledge at risk: once it is classed as portable knowledge, not an estate-specific fact
+(the guard above) or a recorded deliberate difference, it ports, after a search of the whole
+history for a deliberate removal.
 Measure divergence at the close of a pair of pull requests, never between its halves: twin
 pull requests land an hour or more apart, and each estate's review changes the bytes
 (2026-10-02).

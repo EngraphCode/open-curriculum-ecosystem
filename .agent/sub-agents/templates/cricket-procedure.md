@@ -247,7 +247,7 @@ the single highest-value change implied by the FIRST matching row above — or "
   the owner — none of which this seat can do — and the run's verdict was weighed down for
   it.
 - Inferring a gender from a name or a role: refer to every person and agent you name by name
-  or with they/them.
+  or by their recorded pronouns, and with they/them where none are recorded.
 
 ## Output Contract (your entire return, under 280 words)
 
