@@ -37,6 +37,17 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T11:07Z: #327 folded into `engraph` as `SHA:9fd05ecf7`** (Efreet lifts Scorch, 7adb15;
+  the bot's merge at the pinned head `dc23b7a16`, on two pushes (the merge of engraph, then the
+  records pass's seven cures) and one Copilot round with no thread, its overview dispositioned on
+  the pull request; the Codex connector's reaction read as its no-finding transport, so the landing
+  went through the REST door under the docs-only class; a read-only records pass before the
+  ready-mark, seven cures). The successor is `coordination/2026-10-02-9fd05e`, cut from the merged
+  tip. The upstream mirror `main` (`SHA:2a7773837`, 1.185.6) read as an ancestor of `engraph`
+  through #319; no carrier open or due. Three seats at the owner's word: Crucible binds Slag
+  (7b999c), the Director across both estates from 10:51Z (claim OCE 6a4b11b1); Hazel tracks Trunk
+  (7d8b9d, implementer, the consolidation's slices); this seat (implementer, the fold).
+
 - **2026-10-01T20:21Z: #322 landed as `SHA:30f5b4338`; the push starts each attempt inside its token's
   life and on the settled commit** (Crucible binds Slag, 7b999c). Before every attempt, the first
   included, `merge-bot push` stops when the token is within five minutes of its expiry or when HEAD
@@ -364,7 +375,8 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 Crucible binds Slag's order, from the owner's word in §Current State, in landing order (this estate's
 own fold is not a line here: its state lives in its pull request). The live coordination branch is
-`coordination/2026-10-01-972020`, cut from `SHA:972020417`:
+`coordination/2026-10-02-9fd05e`, cut from `SHA:9fd05ecf7` (the 2026-10-01 and 2026-10-02-73668b
+branches folded as #318 and #327):
 
 The three open lanes and the upstream sync that stood first in this order landed on 2026-10-01
 (§Current State). Under the owner's limit on open pull requests (one coordination pull request per

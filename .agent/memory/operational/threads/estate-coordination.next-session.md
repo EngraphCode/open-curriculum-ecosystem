@@ -1515,9 +1515,9 @@ write JC.net records from a separate worktree cut from `origin/main`.
 ### 2026-10-01 23:59Z — the 2026-10-01 branch folded as #318 (Hazel tracks Trunk, 7d8b9d, the consolidation's curating seat)
 
 - #318 merged into `engraph` as `SHA:73668b712` at 23:59:27Z, by the bot at the pinned head, on
-  two settlement pushes; a third finding (F-219's scope) was routed to this branch and is cured
-  in its first records commit. The folded branch is deleted, local and remote; the successor is
-  `coordination/2026-10-02-73668b`.
+  two settlement pushes; a third finding (F-219's scope) was routed to
+  `coordination/2026-10-02-73668b` and cured in its first records commit (`6a3885878`). The
+  folded branch is deleted, local and remote; the successor is `coordination/2026-10-02-73668b`.
 - moved for teachers: nothing in this fold / moved for the Practice: the frictions register gains
   the tooling frictions and recurring owner rulings found by the walk of both comms streams and
   of the record files (F-195 to F-281); two patterns gain worked instances and one gains a
@@ -1755,6 +1755,7 @@ instinct the rulings ledger (plan S2) formalises.
 | claude-code | claude-opus-5-5[1m] | 281e44 | Zephyr guards Leeward | Model moved to `claude-opus-5-5[1m]` on 2026-09-23 at the owner's word, from `claude-opus-5[1m]` by way of `claude-fable-5-1` (the continuity lane row records that step); one continuous seat, so the row's `model` moves (PDR-027 Amendment Log, 2026-07-08). Sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation; curator through the consolidation's folds #152, #153, #155 and #156, and this record's curation on 2026-09-20; the #159 and #169 folds and the three-estate exchange's opening on 2026-09-21 | 2026-09-14 | 2026-09-23 |
 | claude-code | claude-opus-5-5[1m] | 74fc02 | Marten mends Shadow | this estate's exchange seat of the three-estate Practice exchange, named at the owner's word as Zephyr guards Leeward's (281e44) successor; implementer of the exchange's owed lanes, each in its own worktree off `engraph` | 2026-09-24 | 2026-09-25 |
 | claude-code | claude-fable-5-1 | 7b999c | Crucible binds Slag | implementer at n=2 with Hazel tracks Trunk (7d8b9d, curator), both resident in JC.net: the fold of #299, the continuity record, the open lanes and the upstream sync, at the owner's word of 2026-10-01 | 2026-10-01 | 2026-10-01 |
+| claude-code | claude-fable-5-1 | 7adb15 | Efreet lifts Scorch | implementer at n=3 with Hazel tracks Trunk (7d8b9d, curator) and Crucible binds Slag (7b999c, implementer), both resident in JC.net: the fold of #327 and the mirror check, at the owner's word of 2026-10-02; guest observer on JC.net's stream | 2026-10-02 | 2026-10-02 |
 
 Prior Director seats predate this record; their identities and tenures are
 carried in the seat chain above, and their full identity tuples in the
@@ -2208,3 +2209,26 @@ the scripted door; then the twin. Directive and decision-record edits only under
 Addendum at the fold, 2026-10-02 (Efreet lifts Scorch, 7adb15): pull request 331 merged at 04:05Z as
 `SHA:39bf1a814` (its ledger row is on this branch); the open pull request the Resume paragraph names
 is therefore the next slice's, not 331.
+
+### 2026-10-02 11:07Z — the 2026-10-02-73668b branch folded as #327 (Efreet lifts Scorch, 7adb15, implementer at n = 3)
+
+- #327 merged into `engraph` as `SHA:9fd05ecf7` at 11:07Z, by the bot at the pinned head
+  `dc23b7a16`, on two pushes (the merge of engraph, then the records pass's seven cures) and one
+  Copilot round with no thread, its overview dispositioned on the pull request; the Codex
+  connector's reaction read as its no-finding transport, so the landing went through the REST door
+  under the docs-only class. The folded branch is deleted, local and remote; the successor is
+  `coordination/2026-10-02-9fd05e`.
+- moved for teachers: nothing in this fold / moved for the Practice: the consolidation's buffer
+  stage and its first landings are on the record (the write list closed at W111, 55 experience files
+  read whole, the hold on directive edits and its end); the frictions register gains the context
+  meter's post-compaction read, the unsized whole-file read, the zod empty-shape schema fact and the
+  review-cost gate's missing settlement heads; the ledger carries 2026-10-02's landings; the CLI
+  writer-boundary pattern gains a worked instance and the cross-platform surface matrix gains the
+  Codex observations.
+- Crucible binds Slag (7b999c) is the Director across both estates from 10:51Z (the Moment-2
+  broadcast on both streams; claims JC.net 8b346894, OCE 6a4b11b1), resident in JC.net; Hazel tracks
+  Trunk (7d8b9d, implementer, the two-estate consolidation's slices) works this estate non-resident
+  from JC.net; this seat (implementer) held the fold and the mirror check at the owner's word.
+- The upstream mirror `main` (`SHA:2a7773837`, release 1.185.6) read first-hand as equal to the Oak
+  line's tip and an ancestor of `engraph` through carrier #319; no carrier open or due, nothing to
+  integrate.

@@ -171,3 +171,43 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
 - **Observation (Cricket suite 14):** a closed, grouped write list of 104 items with none landed
   is itself the buffer. Group by home surface early, and land the memory-surface group first: it
   needs no pull request.
+
+## 2026-10-02 10:3xZ — the fold at the owner's word, with the mirror check (Efreet lifts Scorch, 7adb15)
+
+- **Verified:** the owner's "merge the upstream mirror main into engraph" was already done before
+  this session: origin/main and upstream/main both read 2a7773837 (release 1.185.6), the repository
+  service agreed (parent oaknational/oak-open-curriculum-ecosystem, default main; mirror tip equal),
+  and that commit is an ancestor of origin/engraph through carrier 319 (merged 2026-10-01T15:58Z).
+  No carrier was open; the mirror workflow's last run (03:32Z) and the carrier workflow's (05:58Z)
+  both read success. The cross-fork skill's step 1 is the whole deliverable when the fetch finds
+  nothing newer.
+- **Observation:** the fold skill names four required checks by name (CodeQL, SonarCloud Code
+  Analysis, run-quality-gates, Vercel); the engraph ruleset's `required_status_checks` lists two
+  (`run-quality-gates`, `CodeQL`) and no Vercel check ran on 327 at all. The full condition was read
+  as every check concluded green plus the two required by name; the skill's list is stale by two
+  names (one instance).
+- **Surprise:** `ListAgents` showed two JC.net sessions busy while both estates' streams read a
+  declared cold pause since 07:21Z; the owner had resumed one seat by word with no resume event
+  posted. A direct message found the live seat in a minute; the streams alone would have read it as
+  paused.
+- **Correction (own):** a merge script written with the checkout's absolute path was refused by the
+  write-time hook (machine-local-path fingerprint); `$HOME`-relative and script-relative paths
+  passed.
+- **Mistake (own):** `comms peer-liveness` was called with `--platform`/`--model` by analogy with
+  its siblings; it takes `--comms-dir` only (exit 2, one re-run).
+- **Observation (for the code lanes):** `windows-basic` failed on the fold head f12ca3daa with one
+  timeout, `tests/commit-queue.order.integration.test.ts` ("orders two same-millisecond enqueues by
+  arrival") at 5000 ms on the Windows runner; the file is untouched by the fold and the same job
+  passed on 57a9e44e4 an hour earlier. A test that needs two writes inside one millisecond is
+  runner-speed-shaped (one instance).
+- **Observation:** the records pass's three failed claims were all of one shape: a sentence about
+  what code does that checked the source or the configuration but not both (Hazel's own reading).
+- **Mistake (own, three times):** an inline `python3 -c` with quotes escaped inside an f-string
+  failed to parse: a settle watch, a window watch, then the REST merge's gate recompute (which
+  stopped safely). Each was caught by its first emitted line; a parser is a script file run by one
+  call, nothing quoted inline, and the third instance came after the lesson was written.
+- **Observation:** the merge door read 327 as SILENT-WAIT-NO-REVIEWER with the Codex leg OWED while
+  the connector had reacted thumbs-up at 10:47:55Z (its no-finding transport, recorded in
+  repo-continuity on 2026-10-01); the docs-only bot-authored class landed by the REST door with the
+  gate recomputed by name, as #329 did. The door's reading of the reaction is still the tooling lane
+  the continuity record names (one more instance).
