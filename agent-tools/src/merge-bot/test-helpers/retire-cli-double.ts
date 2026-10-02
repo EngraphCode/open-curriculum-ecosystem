@@ -1,5 +1,6 @@
 import { err, ok, type Result } from '@oaknational/result';
 
+import type { BranchArgSeams } from '../branch-arg.js';
 import { runMergeBotCli } from '../cli.js';
 import type { GithubApiFetch } from '../mint-installation-token.js';
 import type { PushMint } from '../push-mint.js';
@@ -151,8 +152,8 @@ export interface RetireRunOptions {
   /** The token mint; {@link MINT_UNREACHED} unless the run must delete on the remote. */
   readonly mint?: PushMint;
   readonly readConfigFileImpl?: (path: string) => string;
-  /** git's ref-format grammar: whether it accepts a branch name. */
-  readonly refFormatLegal?: boolean;
+  /** The `--branch` check's seams; defaults to an oracle that accepts every name. */
+  readonly branchArgSeams?: BranchArgSeams;
 }
 
 const IDENTITY_CONFIG = JSON.stringify({
@@ -169,7 +170,6 @@ export async function runRetire(
 ): Promise<RetireRun> {
   const out: string[] = [];
   const errText: string[] = [];
-  const legal = options.refFormatLegal ?? true;
   const exit = await runMergeBotCli({
     args: ['retire', ...args],
     env: { HOME: '/test-home' },
@@ -181,7 +181,7 @@ export async function runRetire(
     repoRoot: '/srv/repo',
     runGitImpl: () => 'worktree /srv/repo\n',
     retireGitPort: portOver(world),
-    branchArgSeams: { refFormatOracle: () => legal },
+    branchArgSeams: options.branchArgSeams ?? { refFormatOracle: () => true },
   });
   return { exit, out: out.join(''), err: errText.join('') };
 }

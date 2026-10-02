@@ -14,13 +14,14 @@ import {
 
 /**
  * The retire decision: readings in, a refusal, "nothing to retire" or a
- * delete plan out. Written as relations over every combination of the three
- * names a branch can have, so no case is a hand-picked example.
+ * delete plan out. The rows below enumerate every combination of the three
+ * names a branch can have that the rule decides (each tip absent, merged or
+ * off the default), as literal rows, so the test carries no second
+ * statement of the rule.
  */
 
 const BASE = { name: 'main', sha: '0'.repeat(39) + '1' };
-const TIP_NAMES = ['local', 'tracking', 'remote'] as const;
-type TipName = (typeof TIP_NAMES)[number];
+type TipName = 'local' | 'tracking' | 'remote';
 type TipCase = 'absent' | 'merged' | 'unmerged';
 
 const shaFor = (tip: TipName): string =>
@@ -49,42 +50,60 @@ type TipStates = Readonly<Record<TipName, TipCase>>;
 const reasonOf = (decision: RetireDecision): string =>
   decision.kind === 'refused' ? decision.reason : `(not refused: ${decision.kind})`;
 
-const CASES: readonly TipCase[] = ['absent', 'merged', 'unmerged'];
+/** The twelve combinations with exactly one tip off the default, each with that tip's sha: the one the refusal names. */
+const REFUSING: readonly { states: TipStates; sha: string }[] = [
+  { states: { local: 'unmerged', tracking: 'absent', remote: 'absent' }, sha: shaFor('local') },
+  { states: { local: 'unmerged', tracking: 'absent', remote: 'merged' }, sha: shaFor('local') },
+  { states: { local: 'unmerged', tracking: 'merged', remote: 'absent' }, sha: shaFor('local') },
+  { states: { local: 'unmerged', tracking: 'merged', remote: 'merged' }, sha: shaFor('local') },
+  { states: { local: 'absent', tracking: 'unmerged', remote: 'absent' }, sha: shaFor('tracking') },
+  { states: { local: 'absent', tracking: 'unmerged', remote: 'merged' }, sha: shaFor('tracking') },
+  { states: { local: 'merged', tracking: 'unmerged', remote: 'absent' }, sha: shaFor('tracking') },
+  { states: { local: 'merged', tracking: 'unmerged', remote: 'merged' }, sha: shaFor('tracking') },
+  { states: { local: 'absent', tracking: 'absent', remote: 'unmerged' }, sha: shaFor('remote') },
+  { states: { local: 'absent', tracking: 'merged', remote: 'unmerged' }, sha: shaFor('remote') },
+  { states: { local: 'merged', tracking: 'absent', remote: 'unmerged' }, sha: shaFor('remote') },
+  { states: { local: 'merged', tracking: 'merged', remote: 'unmerged' }, sha: shaFor('remote') },
+];
 
-/** Every combination of the three names' cases: 27 rows. */
-const COMBINATIONS: readonly TipStates[] = CASES.flatMap((local) =>
-  CASES.flatMap((tracking) => CASES.map((remote) => ({ local, tracking, remote }))),
-);
+const LOCAL = { expectedSha: shaFor('local') };
+const TRACKING = { expectedSha: shaFor('tracking') };
+const REMOTE = { expectedSha: shaFor('remote') };
 
-/** What each case plans for its tip: only a merged tip is planned, at the sha read. */
-const PLANNED: Readonly<Record<TipCase, (tip: TipName) => { expectedSha: string } | undefined>> = {
-  absent: () => undefined,
-  merged: (tip) => ({ expectedSha: shaFor(tip) }),
-  unmerged: () => undefined,
-};
-
-/** Every combination with exactly one tip off the default, with that tip's sha: the one the refusal names. */
-const REFUSING = TIP_NAMES.flatMap((tip) =>
-  COMBINATIONS.filter(
-    (states) =>
-      states[tip] === 'unmerged' &&
-      TIP_NAMES.filter((other) => states[other] === 'unmerged').length === 1,
-  ).map((states) => ({ states, sha: shaFor(tip) })),
-);
-
-/** Every combination with at least one name, all on the default, with the plan it must produce. */
-const PLANNING = COMBINATIONS.filter(
-  (states) =>
-    TIP_NAMES.every((tip) => states[tip] !== 'unmerged') &&
-    TIP_NAMES.some((tip) => states[tip] === 'merged'),
-).map((states) => ({
-  states,
-  plan: {
-    local: PLANNED[states.local]('local'),
-    tracking: PLANNED[states.tracking]('tracking'),
-    remote: PLANNED[states.remote]('remote'),
+/** The seven combinations with at least one name and every tip on the default, each with the plan it must produce. */
+const PLANNING: readonly {
+  states: TipStates;
+  plan: Readonly<Record<TipName, { expectedSha: string } | undefined>>;
+}[] = [
+  {
+    states: { local: 'merged', tracking: 'absent', remote: 'absent' },
+    plan: { local: LOCAL, tracking: undefined, remote: undefined },
   },
-}));
+  {
+    states: { local: 'absent', tracking: 'merged', remote: 'absent' },
+    plan: { local: undefined, tracking: TRACKING, remote: undefined },
+  },
+  {
+    states: { local: 'absent', tracking: 'absent', remote: 'merged' },
+    plan: { local: undefined, tracking: undefined, remote: REMOTE },
+  },
+  {
+    states: { local: 'merged', tracking: 'merged', remote: 'absent' },
+    plan: { local: LOCAL, tracking: TRACKING, remote: undefined },
+  },
+  {
+    states: { local: 'merged', tracking: 'absent', remote: 'merged' },
+    plan: { local: LOCAL, tracking: undefined, remote: REMOTE },
+  },
+  {
+    states: { local: 'absent', tracking: 'merged', remote: 'merged' },
+    plan: { local: undefined, tracking: TRACKING, remote: REMOTE },
+  },
+  {
+    states: { local: 'merged', tracking: 'merged', remote: 'merged' },
+    plan: { local: LOCAL, tracking: TRACKING, remote: REMOTE },
+  },
+];
 
 describe('decideRetirement over every combination of the three names', () => {
   it.each(REFUSING)(

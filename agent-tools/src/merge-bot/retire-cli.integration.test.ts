@@ -46,9 +46,20 @@ describe('merge-bot retire, front door', () => {
   });
 
   it("exits 2 on a name git's ref grammar rejects", async () => {
-    const run = await runRetire(['--branch', BRANCH], UNREADABLE, { refFormatLegal: false });
+    const run = await runRetire(['--branch', BRANCH], UNREADABLE, {
+      branchArgSeams: { refFormatOracle: () => false },
+    });
 
     expect(run.exit).toBe(2);
+  });
+
+  it('fails with exit 1, reading nothing, when no git binary can answer the ref grammar', async () => {
+    const run = await runRetire(['--branch', BRANCH], UNREADABLE, {
+      branchArgSeams: { pathExists: () => false },
+    });
+
+    expect(run.exit).toBe(1);
+    expect(run.err).toContain('merge-bot retire:');
   });
 
   it('exits 2, minting nothing, when the bot identity cannot be read', async () => {
@@ -82,6 +93,7 @@ describe('merge-bot retire, front door', () => {
   it.each([
     'https://x-access-token:s3cret-in-url@github.com/someone-else/widgets.git',
     'https://s3cret-in-url@example.com/acme/widgets.git',
+    'https://github.com/acme/widgets.git?access_token=s3cret-in-url',
   ])('never echoes a credential carried in origin URL, on either stream: %s', async (url) => {
     const run = await runRetire(['--branch', BRANCH], withOrigin(url));
 

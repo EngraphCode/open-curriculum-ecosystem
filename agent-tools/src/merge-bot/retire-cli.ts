@@ -88,7 +88,7 @@ async function originMismatch(
   return namesGithubRepository(trustedOriginRepository(urls.value), identity)
     ? ok(undefined)
     : ok(
-        `origin is not github.com/${identity.owner}/${identity.repoName}, the one repository the bot would delete in`,
+        `origin does not name github.com/${identity.owner}/${identity.repoName}, the one repository the bot would delete in, as the bot binds to it: one URL, https or ssh, no plain http, no credential in the URL`,
       );
 }
 
