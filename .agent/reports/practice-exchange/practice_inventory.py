@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""The Practice inventory (practice-work-finish, end state 3): one row per artefact of the Practice
-in either estate's default tip, with its kind, its PDR-143 scope class by directory default (hand
-overrides by name where §2's membership test says otherwise), and whether the two estates' copies
-are the same bytes. Generated from the two trees' blob ids; no file content is read.
+"""The Practice inventory (the finish node's end state 3, now mechanism 3 of
+practice-parity-for-extraction): one row per artefact of the Practice in either estate's default
+tip, with its kind, its PDR-143 scope class by directory default (hand overrides by name where
+§2's membership test says otherwise), and whether the two estates' copies are the same bytes.
+Generated from the two trees' blob ids; no file content is read.
 
 usage: practice_inventory.py <jc-root> <jc-ref> <oce-root> <oce-ref> <out-file>
 The report names the estates JC.net and OCE and carries no machine-local path.
@@ -16,13 +17,13 @@ jc, jcref, oce, oceref, out = sys.argv[1:6]
 
 # (prefix, kind, default scope). First match wins; order matters.
 KINDS = [
+    (".agent/practice-index.md", "bridge index", "Repo-local, authored"),
     (".agent/directives/", "directive", "Practice-wide"),
     (".agent/rules/", "rule", "Practice-wide"),
     (".agent/skills/", "skill", "Practice-wide"),
     (".agent/practice-core/decision-records/", "decision record", "Practice-wide"),
     (".agent/practice-core/schemas/", "schema", "Practice-wide"),
     (".agent/practice-core/provenance.yml", "adoption record", "Repo-local, authored"),
-    (".agent/practice-core/practice-lineage.md", "adoption record", "Repo-local, authored"),
     (".agent/practice-core/", "Practice Core file", "Practice-wide"),
     (".agent/sub-agents/templates/", "reviewer template", "Practice-wide"),
     (".agent/sub-agents/components/", "reviewer component", "Practice-wide"),
@@ -45,6 +46,16 @@ HOST_PATTERNS = re.compile(
     r"design-system-expert[^/]*|react-component-expert[^/]*|editor[^/]*|accessibility-expert[^/]*)"
     r"(\.|/|$)"
 )
+# Reviewed overrides by path for artefacts whose names are neutral but whose contents bind one
+# host's product (read by hand on 2026-10-02: Oak's semantic search, bulk downloads and upstream
+# API). The membership test applied to contents across the whole tree is mechanism 3 of
+# practice-parity-for-extraction; this list is the reviewed subset until that rerun.
+HOST_BOUND_PATHS = (
+    ".agent/skills/ground-truth-design/",
+    ".agent/skills/ground-truth-evaluation/",
+    ".agent/skills/update-bulk-download-schema/",
+    ".agent/skills/update-upstream-api-spec/",
+)
 
 
 def tree(root: str, ref: str) -> dict[str, str]:
@@ -58,6 +69,10 @@ def tree(root: str, ref: str) -> dict[str, str]:
     return blobs
 
 
+def host_bound(path: str) -> bool:
+    return bool(HOST_PATTERNS.search(path)) or path.startswith(HOST_BOUND_PATHS)
+
+
 def classify(path: str):
     for prefix, kind, scope in KINDS:
         if path.startswith(prefix):
@@ -67,9 +82,9 @@ def classify(path: str):
                     return None
             if kind == "skill" and ("/evals/" in path or "/fixtures/" in path or "/eval/" in path):
                 kind = "skill evals and fixtures"
-            if HOST_PATTERNS.search(path) and scope == "Practice-wide":
+            if host_bound(path) and scope == "Practice-wide":
                 return kind, "Repo-local, authored (host name, §2)"
-            if HOST_PATTERNS.search(path) and scope.startswith("Language-wide"):
+            if host_bound(path) and scope.startswith("Language-wide"):
                 return kind, "Repo-local, host (product tooling, §2)"
             return kind, scope
     return None
@@ -118,8 +133,9 @@ lines.append(
     "default, with hand overrides by name where §2's membership test says an artefact names one "
     "host (its people, its product, its platform set); sameness by blob id. Heads: JC.net main "
     f"SHA:{jchead}, OCE engraph SHA:{ocehead}. Rows: {len(rows)}. This report is the input the "
-    "extraction plan takes (practice-work-finish, end state 3); the exchange register closes "
-    "against it."
+    "extraction plan takes (the finish node's end state 3, carried since 2026-10-02 by "
+    "`practice-parity-for-extraction`, whose mechanism 3 reruns it over the whole Practice at the "
+    "folded tips); the exchange register closes against it."
 )
 lines.append("")
 lines.append(
@@ -152,8 +168,13 @@ lines.append(
     "canonical; a skill's evals and fixtures are counted as their own kind because one estate holds "
     "the eval runner and the other does not; tooling differs by topic, and a topic one estate alone "
     "holds is either a capability to carry (Language-wide) or product tooling (Repo-local, host). "
-    "The hand overrides by name are the regular expression in the generator; a row whose scope reads "
-    "with a §2 note was placed by that override, every other row by its directory."
+    "The hand overrides by name are the regular expression in the generator, and four OCE skills "
+    "whose names are neutral but whose contents bind Oak's product (ground-truth-design, "
+    "ground-truth-evaluation, update-bulk-download-schema, update-upstream-api-spec) are placed by "
+    "the generator's reviewed path list; a row whose scope reads with a §2 note was placed by one "
+    "of those, every other row by its directory. The bridge index `.agent/practice-index.md` is "
+    "the one root-level Practice surface inventoried; the other entry points and the Practice "
+    "directories outside the prefix list are the rerun's."
 )
 lines.append("")
 lines.append("## Counts by kind")
@@ -181,5 +202,6 @@ lines.append("| --- | --- | --- | --- |")
 for path, kind, scope, same in rows:
     lines.append(f"| `{path}` | {kind} | {scope} | {same} |")
 lines.append("")
-open(out, "w", encoding="utf-8").write("\n".join(lines))
+with open(out, "w", encoding="utf-8") as f:
+    f.write("\n".join(lines))
 print(f"rows {len(rows)}; same {tot[0]}, different {tot[1]}, JC.net only {tot[2]}, OCE only {tot[3]}")
