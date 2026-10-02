@@ -31,7 +31,7 @@ for the operational-memory surfaces and authority order within them.
 | **Research** | Default exploratory-synthesis tier and holding bay for un-promoted material | `.agent/research/` (with optional transient `notes/` holding bay) | When investigating a topic, or when authoring fresh material that has not been (and may not be) promoted to reference |
 | **Workflow** | Named rituals and canonical skills | `.agent/skills/`, `.agent/rules/`, `.agent/sub-agents/` | On invocation or trigger |
 | **Platform Adapters** | Thin wrappers pointing back at canonical surfaces | `.cursor/`, `.claude/`, `.gemini/`, `.agents/`, `.codex/` | Platform-specific activation |
-| **Operator-Local Profile** | Machine-local facts about the human at *this* machine: credential bindings, tone of voice, personal operating preferences. Lowest authority; see below | `~/.practice/profile/` in the home directory (index, `repos/<scope>.md`, `machines/<machine>.md`; PDR-141) | Session open — grounding, via the shared start-right workflow |
+| **Operator-Local Profile** | Facts about the human operator that no tracked surface may carry — credential bindings by name, tone of voice, personal operating preferences — in three scopes: operator-wide (`index.md`), one repository (`repos/<scope-key>.md`) and one machine (`machines/<machine-key>.md`). Lowest authority; see below | `~/.practice/profile/` (home directory, shared by every Practice repository on the machine; may not exist; [PDR-141](../practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md)) | Session open — grounding, via the shared start-right workflow |
 
 ## Authority Order (for same-scope conflicts)
 

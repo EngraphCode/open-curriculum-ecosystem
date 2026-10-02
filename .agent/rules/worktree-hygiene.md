@@ -376,6 +376,9 @@ bound as a route to it, the owner selected "No bound" (card answer,
 2026-09-26, relayed by the Director; one instance), and the Director's
 programme then read pull requests opened beside those merged.
 
+System residue (`.DS_Store` and its kind) is gitignored, and is deleted where it is found
+(owner, 2026-08-02). It is not work, and no seat's claim covers it.
+
 ## Failure mode this prevents
 
 Orphaned worktrees: branches with commits that never reach `main`, no PR, invisible

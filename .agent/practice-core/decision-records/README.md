@@ -59,7 +59,11 @@ PDR-NNN-kebab-case-title.md
 ```
 
 Numbers are not reused. Superseded PDRs stay in place with a
-`Superseded by` header; they are not deleted.
+`Superseded by` header; they are not deleted. A PDR that withdraws one
+clause of an earlier PDR amends that PDR in the same change: a dated pointer
+at each section that granted the clause, its index row and the changelog. One
+record withdrew another's permission without amending it, the two then
+contradicted each other, and a third acted on the stale one (2026-09-28).
 
 ## Shape of a PDR
 
@@ -72,7 +76,10 @@ Each PDR follows a stable shape inherited from the ADR convention:
 - **Related** (optional — links to other PDRs, Core sections, or
   concept-level references; avoid host-repo ADR numbers inside the
   substance of a PDR — they do not travel)
-- **Context** — what problem, what observation, what pressure.
+- **Context** — what problem, what observation, what pressure. An owner
+  quote is the owner's sentence whole, never spliced, and says whether it
+  was heard first-hand or relayed, and by whom (one record's goal quote was
+  spliced and relayed unlabelled; three reports, 2026-09-25).
 - **Decision** — what is decided. Name the constraint clearly.
 - **Rationale** — why this, not the alternatives. Name the
   alternatives.

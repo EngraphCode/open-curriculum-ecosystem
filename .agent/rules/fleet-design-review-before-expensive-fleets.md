@@ -218,3 +218,25 @@ The measured 2026-09-07 fleet failures share one generator: "instruments about t
 contact with it; a mechanism modelled instead of measured", recorded with "thirteen fleet-design
 defects and nine process defects each with a cure" (Juno seeks Apogee's owner-directed measurement
 of 2026-09-07, event c8812df4).
+
+Two leg failures a design plans for. An agent started late in the usage window dies on the
+limit and returns nothing: start no reviewer near the limit, or after a compaction has been
+called. A narrow verifier can return a stub on its first run: a reading of every leg's output
+before the next stage catches it, a count of returned legs does not (three stubs, 2026-07-08).
+
+Legs share no mutable resource. A relay arm whose spawns shared scratch filenames crossed
+seven of twenty-eight runs, and striking the crossed rows reversed the finding the run had
+seemed to show (August 2026). Remove the shared resource; do not shrink the window. Carry the
+task's id through the output schema so that contamination shows, and strike data whose
+provenance cannot be verified.
+
+A survey that asks models for the owner's facts produces guesses, and their consensus is not a
+decision input (owner ruling, 2026-08-17): keep its mechanical measurements and its fleet
+lessons only.
+
+The committed design is the task specification of record. A workflow script drafted in a
+scratchpad is never the specification.
+
+A call cap bounds calls, not results. Price each leg from what it reads, because a flat
+per-leg figure hides the large leg: a triage stage estimated at 0.7M tokens cost 2.1M, each leg
+reading a 70 KB batch for about 130,000 tokens (2026-10-01).

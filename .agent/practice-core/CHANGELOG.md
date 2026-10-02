@@ -13,6 +13,21 @@ Practice Core package.
   and graduate once the definition is centralised, and lists what stays the owner's.
   Lands as the same bytes in both estates, under the tag of the repository whose seat
   wrote them; the number allotted from the lineage, where both sets ended at PDR-142.
+## [EngraphCode/open-curriculum-ecosystem] 2026-10-02 — six decision records and their README trued from the two-estate consolidation
+
+- PDR-027's 2026-09-25 amendment states that a subagent's collaboration write
+  is its parent's. PDR-052 says what a seat does when only held directive
+  edits remain. PDR-055 names each adopting host's own build-isolation choice,
+  not one repo's. PDR-064 records the five transmission failures of Director
+  tenures and the cure enacted for them. PDR-081's rationale, cascade,
+  consequences, forbids and falsifiability agree with its 2026-06-14
+  supersession of the per-pass log. PDR-130 has a review find and answer every
+  condition a record puts on its own status. The decision-record README says
+  how an owner quote is carried in a PDR and that a PDR withdrawing a clause
+  amends the PDR that granted it. Joint bytes in both estates.
+- PDR-057 and PDR-065 each take one line of the sibling estate's wording,
+  which names no host command or host directive (a convergence port: the
+  sibling estate already holds these bytes).
 
 ## [EngraphCode/open-curriculum-ecosystem] 2026-10-01 — PDR-075 promoted to Proposed and PDR-130 retained at their slow-lane reviews
 

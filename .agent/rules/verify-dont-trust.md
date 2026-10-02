@@ -284,6 +284,20 @@ the sentence, observable to you as you write and to a reader as they read. Gate
 on the artefact the fluent claim omits, not on the feeling you hoped to notice.
 The smoother and more convenient the claim, the harder the citation is owed.
 
+A public claim needs support its reader can open. A hash of local evidence
+preserves the evidence's integrity for those who hold it and makes nothing
+available to anyone else; reviewable and publishable are separate properties.
+A seat's own scan cannot certify that scan's completeness: another reader
+checks the negatives, the counts and the permission boundaries
+(September 2026, a public claim that rested on a local-only measurement).
+
+A review request for a durable local capture carries metadata only: its path,
+byte size, hash, run times, tool version and the shape of the command. A
+reviewer who asks for the payload is routed to the Director. Originals behind
+test fixtures are never published: redacted projections are committed, and a
+pickup index names the originals for those who hold them to re-verify locally
+(two recorded decisions of one capture lane).
+
 ## The Authority Test — Identifiable, Appropriate, Current
 
 *Citation or Silence* gates a claim on a source you read; this gates the source

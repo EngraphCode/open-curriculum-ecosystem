@@ -8,7 +8,8 @@ import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-g
 import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
 import { decideMergeAction, type MergeDecision } from './merge-decision.js';
-import { readMergeSettings, realFetch, putMerge } from './merge-github-api.js';
+import { realFetch } from './github-fetch.js';
+import { readMergeSettings, putMerge } from './merge-github-api.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import type { BotIdentity } from './resolve-identity.js';
@@ -16,13 +17,13 @@ import type { BotIdentity } from './resolve-identity.js';
 /**
  * The `merge-bot merge` execution: mint → read → verdict → gate → merge.
  *
- * Composes pr-watch's reading and verdict (one settlement implementation,
- * never a re-derivation) and merges over merge-bot's own fetch port so the
- * call shape is an HTTP body a test can pin. The PUT carries the VERDICTED
- * tip's sha — a tip that moves between verdict and merge gets the API's 409,
- * never an unverdicted merge. Merge method is `merge`, always: the repo
- * settings gate refuses when merge commits are disallowed rather than ever
- * changing method (the never-squash ruling as behaviour).
+ * Composes pr-watch's reading and verdict (one settlement implementation, never
+ * a re-derivation) and merges over merge-bot's own fetch port so the call shape
+ * is an HTTP body a test can pin. The PUT carries the VERDICTED tip's sha — a
+ * tip that moves between verdict and merge gets the API's 409, never an
+ * unverdicted merge. Merge method is `merge`, always: the repo settings gate
+ * refuses when merge commits are disallowed rather than ever changing method
+ * (the never-squash ruling as behaviour).
  */
 
 /**
@@ -42,11 +43,10 @@ interface MergeExecutionSeams {
   readonly mintSeams?: MintSeams;
   readonly ghPath?: string;
   /**
-   * Base environment for the read-path gh executor. Defaults to
-   * `process.env` at the leaf (the default-seam pattern: reality enters at
-   * exactly one injectable point): Node REPLACES a provided child env rather
-   * than merging it, so pinning the read env forces constructing the whole
-   * environment, and gh needs PATH and friends underneath.
+   * Base environment for the read-path gh executor. Defaults to `process.env` at the leaf
+   * (the default-seam pattern: reality enters at exactly one injectable point): Node REPLACES
+   * a provided child env rather than merging it, so pinning the read env forces constructing
+   * the whole environment, and gh needs PATH and friends underneath.
    */
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }

@@ -61,6 +61,9 @@ If a system we control emits a warning, the rule is:
    session. Recurring vendor warnings are a Sentry uptime/issue
    signal candidate, not background noise.
 
+Any failed check is a real failure. No category of expected failure exists for a check or a
+workflow job (the owner's direction): a check that is allowed to fail is repaired or removed.
+
 ## Forbidden
 
 - Acknowledging a warning in a thread record, plan, or commit

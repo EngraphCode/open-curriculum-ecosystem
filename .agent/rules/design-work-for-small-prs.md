@@ -62,3 +62,11 @@ A review tool's size cap is one more reason the PR is shaped small at design tim
 /ultrareview on PR 66 "was refused by the tool ("too large: 21 files, 16,235 lines")", and the seat
 had to cut four subset fixtures to review it at all (Jackal wakes Nocturne's resume record of
 2026-09-06, event 13ed5809).
+
+A new owner ruling lands alone, as its own pull request, the day it is given; its later homing
+by a consolidation pass rides with its neighbours. One ruling carried in two estates merged
+within an hour where it was its own pull request, and was still unlanded twenty-two hours later
+where it rode a bundle (2026-09-24 to 25). Frame an intake as concepts, the owner's rulings first, so that a bundle
+shows as one: an intake framed as a file merge did not trip this rule. And no slice ships text
+that is false until a later slice lands: a slice was re-cut because its header and a note
+described what the next slice would add (2026-09-28).
