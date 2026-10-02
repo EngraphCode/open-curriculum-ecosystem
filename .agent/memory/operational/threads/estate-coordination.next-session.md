@@ -1843,7 +1843,11 @@ The drafted cure, to be re-read in full under 30 % before it leaves draft:
 - W62, PDR-052: a seat left with only directive edits above the floor asks for a compaction or
   reports the queued edit.
 - W63, JC.net's docs: true ADR-015 and the surface matrix on the Codex rules layer.
-- W64, the Core: PDR-081 still describes the retired curator-passes log as live.
+- W64, the Core: PDR-081 still describes the retired curator-passes log as live (its §Amendment Log
+  and §Per-pass log contract mark the supersession; its rationale, consequences and forbids sections
+  still read the log as live, lines 240 to 284 at the fold of 2026-10-02). The cure is prepared in
+  the consolidation's Practice Core slice and lands by pull request (Hazel tracks Trunk, 7d8b9d, to
+  Efreet lifts Scorch, 7adb15, at the fold's records pass).
 - W65, the Cricket skill's frame clause: each hold states its rule, its release sensor and the
   sensor's last read.
 
@@ -2200,3 +2204,7 @@ analysis: a host difference, recorded for the capability inventory.
 Resume. Read the open pull request's reviews in full (bodies as well as threads); cure by
 script in both lane trees; one settlement push; replies after the push is read back; merge by
 the scripted door; then the twin. Directive and decision-record edits only under 30 %.
+
+Addendum at the fold, 2026-10-02 (Efreet lifts Scorch, 7adb15): pull request 331 merged at 04:05Z as
+`SHA:39bf1a814` (its ledger row is on this branch); the open pull request the Resume paragraph names
+is therefore the next slice's, not 331.

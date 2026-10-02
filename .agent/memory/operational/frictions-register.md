@@ -2841,7 +2841,9 @@ commit SHA and the closing plan reference.
   tokens of a window of at least 1M); the model was registered two days later.
 
 - **Second estate (2026-10-02)**: JC.net's window registry registers both the Fable 5.1 and the
-  Opus 5 windows; this estate's registers Fable 5.1 only.
+  Opus 5 windows; this estate's registers Fable 5.1 (beside its Fable 5, Opus 4.x, Sonnet 4.6 and
+  Haiku 4.5 rows) and none of the Opus 5 ids (checked at the fold, 2026-10-02, Efreet lifts Scorch,
+  7adb15).
 
 ### F-192 — a mid-session model change collides with the seat's live identity in the comms route
 
@@ -3180,8 +3182,11 @@ commit SHA and the closing plan reference.
   compound-command class is F-225.
 
 - **Second estate (2026-10-02)**: JC.net's hook policy handles heredoc bodies (14 lines of its
-  `agent-tools/src/hook-policy` name them; this estate's code names none). The cure can be ported
-  from there.
+  `agent-tools/src/hook-policy` name them). This estate's `agent-tools/src/hook-policy/` names none,
+  but its `agent-tools/src/shell/shell-words.ts` carries the heredoc scan (`skipHeredocBodies`,
+  `readHeredocOperator`, `scanHeredoc`), reached only through `match: argv` entries, of which
+  `policy.json` declares none (checked at the fold, 2026-10-02, Efreet lifts Scorch, 7adb15): the
+  gap is policy configuration, not missing code.
 
 ### F-208 — the hub demo's CI build fails on a Turbopack font module that a re-run resolves
 
@@ -3587,8 +3592,9 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Owner direction status**: standing
 - **Ported**: from JC.net's register on 2026-10-02; the entry above is JC.net's reading at its own
   date. Checked against this estate's code on 2026-10-02: OCE's hook policy carries the force-push
-  patterns and has no step that splits a compound into simple commands; the refusal was not
-  re-run. See F-207 for the same matcher reading prose.
+  patterns and has the segmenting step (`segmentCommand` in `shell/shell-words.ts`, argv mode), but
+  no `match: argv` entry in `policy.json` engages it (checked at the fold, 2026-10-02, Efreet lifts
+  Scorch, 7adb15); the refusal was not re-run. See F-207 for the same matcher reading prose.
 
 ### F-227 — four real-filesystem integration tests time out at five seconds on the Windows job (2026-10-01)
 
