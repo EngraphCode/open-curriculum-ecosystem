@@ -174,6 +174,11 @@ validator of an AUTHORED repository surface (Markdown, links, lint, docs): its u
 tracked tree (`git ls-files`), never a disk walk; a link validator that walked a gitignored
 session directory refused commits on scratch copies (OCE F-295, 2026-10-02), so the lesson
 written once for the Markdown gate binds each later such validator at its second consumer.
+The clause binds; it does not describe every validator yet: in this estate the
+fitness-vocabulary walker reads directories (`walk.ts`, `readdir`) and the Markdown-links
+validator collects `**/*.md` by glob with the tracked set used for target checks only
+(read 2026-10-03), so each is a cure owed under this clause, never a licence for the next
+validator to walk the disk.
 State-integrity validators of the live tier (collaboration state, the practice substrate's
 instance JSON) read their untracked state by design (`important-state-not-in-temp-files`) and
 are outside this clause.
