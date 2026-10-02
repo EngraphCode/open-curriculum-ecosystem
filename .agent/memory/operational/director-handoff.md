@@ -382,6 +382,16 @@ owner rows, closer script green, on lane `docs/parity-measure` in each repositor
 there `SHA:05e6e1904`), pushed as the bot, to open as one pull request per estate in the implementers'
 slots and held at the door for the owner's row reading; the carry count reopens the node with the owner
 (row O10). The whole-finish estimate is on the node's §Size.
+§BOARD, 23:0xZ: the ledger is open here as #344 (`SHA:35db66466` after two settlement pushes: the CodeQL cure
+on the closer's side test and four routed cures, engraph merged in), at full condition and held for the
+owner's row reading; JC.net's lane is at the same bytes (`SHA:cfa2a242`) and opens after Hazel tracks
+Trunk's fold of 300 (304 merged `SHA:c33de96b4`, the rotation's records commit next). The owner has the
+Director's question on O10 in chat with the recommendation (carry the text and small code now, thirteen
+pull requests; defer C23, C25 with C19, C27 and C28 to the entity's package) and a notification; no carry
+starts before that word. Two lessons of this seat tonight: a trailing grep in a chain's pipeline masked a
+failed stage step and a false landing line followed (`exit-codes-in-band-never-piped`); a commit on a
+shared primary without a pathspec swept a peer's staged file into the Director's commit (commit by
+pathspec on a shared primary, always).
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
