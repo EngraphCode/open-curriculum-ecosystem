@@ -288,7 +288,10 @@ file with `pnpm agent-tools:check-commit-message` (commitlint) before `git commi
 the commit-msg hook runs after the whole pre-commit gate, so a refused subject or
 a body line that opens `word:` (read as a footer) costs a full gate run (five
 refusals across two seats, 2026-09-23 to 2026-09-25); it opens no queue intent and
-no window claim (F-132, F-139 and F-169 are superseded by scope). Two mechanics of
+no window claim (F-132, F-139 and F-169 are superseded by scope). The audit line
+is true of the PATH that produced the commit (queue, worktree or primary checkout),
+never of the seat's habit: a seat that commits by both paths writes a different
+line on each (2026-10-02). Two mechanics of
 the pathspec commit, measured 2026-09-07: the queue guard accepts only the bare
 `index/head` label (a scoped `index/head@<worktree>` is refused), and a pathspec
 commit records a deletion only for a path it names — after a `git mv`, list the
@@ -677,6 +680,15 @@ the index-reset family is banned. The cure is structural, not a further
 naming discipline: per-seat worktrees for coordination writes (PDR-117),
 or the commit-warden singleton owning `git:index/head`.
 
+The worktree route is the standing answer to step 3's wait-or-handoff
+question for RECORDS, so that question reaches the owner only for the
+primary itself: once the lock is surfaced (step 3), the seat cuts a linked
+worktree at the coordination branch's remote tip, copies the dirty paths
+in, commits by pathspec and pushes as the bot to that ref, touching neither
+the lock nor the primary's index (the route of 2026-10-02, three records
+commits under one lock; the owner's word of 2026-09-25: every seat pushes
+without the owner).
+
 ## Process
 
 Before opening the four-move protocol above:
@@ -809,6 +821,12 @@ message file, run the checker on it, and chain the launch after the checker with
 `&&` (`pnpm agent-tools:check-commit-message -F <file> && …`), so the launch is
 gated on the checker's exit code and never on the file existing: a file that
 exists can still hold a message the hook refuses.
+
+A chain that opens a push window closes it on every exit path, the refused-commit
+path included: a chain that exited on a hook refusal left a hold line standing
+(2026-10-02). Copy a chain script to a per-run path before launching it and edit
+only the source: Bash reads a running script by offset, so an edit in place kills
+the running instance.
 
 ## Stream truncation at the depcruise → turbo handover — workaround
 
