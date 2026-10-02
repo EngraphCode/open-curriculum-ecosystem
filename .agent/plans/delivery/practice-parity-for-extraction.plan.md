@@ -7,10 +7,15 @@ overview: >-
   carrying every capability one holds and the other lacks, and leave the extraction's design
   its inputs: a survey of the whole Practice a reader can recompute, the parity ledger, and
   the structural findings as evidence.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell
+ratified_date: 2026-10-02
+ratified_where: >-
+  The owner's approval of this node's text as the plan, given in plan mode in the session of
+  Crucible binds Slag (7b999c) on 2026-10-02 at 19:2xZ, and the owner's words of the same
+  evening treating it as the plan: "We WILL finish the Practice work in the next few hours,
+  make sure of it" and, at 20:0xZ, "keep the plan up to date" (the word of the night, quoted
+  whole in §Size).
 serves: best-of-each-practice
 impact_areas:
   - practice-and-estate
@@ -58,7 +63,11 @@ removals judged are carried out.
    to its import closure, under one open Practice pull request per repository, and demonstrated
    where adopted (the command runs, the gate fires, the validator passes on that tree) before
    its row reads landed. Copied code names its debt to the package in its integrating commit
-   (PDR-143 §Context). A carry is a tested module that exists on one side, copied with its
+   (PDR-143 §Context). The parent node's §The bet lists copying code between estates as
+   deliberately not done; its dated entry of 2026-10-02 under §Delivery records the owner's word
+   that these carries are the exception until the entity exists, so no carry opens a pull
+   request before that entry is on the default branch it lands against. A carry is a tested
+   module that exists on one side, copied with its
    tests and proved by the content script's zero: minutes each, not a fresh build. The four
    named now, smallest closure first:
    the window registry rows (into OCE) and the host-tagged amendment entries in PDR-008,
@@ -112,7 +121,13 @@ removals judged are carried out.
    and fold-latency mechanics; §4 keeps two sentences (the render is committed and checked
    against the pin, because readers of the tree as it is exist) and loses the gate placement
    and the per-revision cost. The moved text is held verbatim in this node's §Inputs from the
-   same change, so nothing is lost between the trim and the design node that takes it.
+   same change, so nothing is lost between the trim and the design node that takes it. In the
+   same change the exchange node `practice-two-way-exchange`, closed 79 of 79 against the
+   inventory on 2026-10-02, takes `status: superseded` by this node and moves to the plans
+   archive with its rulings intact; its five rulings that still govern and have no record home
+   (9, 11, 12, 36 and 45 of its §Rulings) take dated entries on PDR-142's amendment log, and the
+   three live citations of the exchange node for rulings (the stream page, the parent node's
+   `ratified_where`, the commit-as-the-full-local-gate node) re-point to those entries.
 
 ## Acceptance criteria (each with a proof)
 
@@ -161,6 +176,18 @@ count reported at the fold as landed of total, and a count that does not fall be
 folds routed as a failure, never re-labelled. With one seat the order is the node's landing,
 the measure, the records, then the carries.
 
+The owner's word of 2026-10-02 20:0xZ, verbatim, on the bound above: "I am going to bed. Take it slow, stay thoughtful, keep the plan up to date and use the Crickets. Slow and steady is better than fast and wrong every time. The two hour goal is a yarstick not a deadline, quality matters far more than speed, esimate remaining time as you go, and if it looks like it is going to hit four hours there may be an issue, apply all appropriate planning and cognitive skills".
+Estimate, kept current here by the Director at each boundary (its history is this file's): at
+20:2xZ with three seats (the OCE seat on the tail as one pull request of three twin commits, the
+jimcresswell.net seat on the write-list table and the notebooks then the amendment-entries
+carry, the Director on the records and the ledger), the measure and the records are on both
+default branches at about 00:00Z of 2026-10-03, four hours from the seats' start, and the
+carries follow. The long pole is the ledger's reading of about 175 conflict hunks first-hand
+(the tail's files are read after they land), which is the work and not ceremony. The four-hour
+signal is noted, and the planning applied to it: the tail as one pull request (PDR-132 §Decision
+item 7), the records on the coordination branches rather than pull requests of their own, the
+carry queue held until the parent node's entry lands, a Cricket check at each boundary.
+
 ## Out of scope
 
 The OCE product work (the owner's, later). The entity's design, name, home, licence and
@@ -179,8 +206,8 @@ budget.
 3. The measure: extend the generator's map and the per-file rule, rerun at the folded tips, run
    the dry-run merge, author the ledger; land in both as one pull request each.
 4. Land the ledger's carries in closure order after the ledger merges.
-5. Author the PDR-019 amendment and the PDR-143 trim, the moved text held in §Inputs; land in
-   both.
+5. Author the PDR-019 amendment and the PDR-143 trim, the moved text held in §Inputs; archive
+   the exchange node with its five PDR-142 entries and three re-points; land in both.
 
 ## Plan-body first-principles check
 
