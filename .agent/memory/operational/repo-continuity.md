@@ -39,7 +39,7 @@ forward-asks remain.
 
 - **2026-10-02T16:4xZ: three Practice pull requests landed here in the hour and five in JC.net; the
   board against the definition of done is recomputed** (Crucible binds Slag, 7b999c). Here: #333
-  `134c2fb6f`, #334 `f45aaeca4` (nb), #335 `576d8924d` (r) on `engraph`; #336 (v) open at its second
+  `SHA:134c2fb6f`, #334 `SHA:f45aaeca4` (nb), #335 `SHA:576d8924d` (r) on `engraph`; #336 (v) open at its second
   round; w, u, q, s and y local on their lane branches, the J2 port uncommitted, #332 BEHIND for the
   rollover fold by merge. JC.net: 291 to 295 on `main` (r, s, y, x, z); u opens last; the fold of 286
   on the owner's lock. Goal 1 lines 2 to 6 and Goal 2 lines 4 and 5 not yet started; PDR-143 and the
@@ -439,6 +439,15 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+STATE, 2026-10-02T17:2xZ (Crucible binds Slag, 7b999c): the order below stands inside the delivery
+node `practice-work-finish` (`.agent/plans/delivery/`, the same bytes in both estates), which is
+the finish of the Practice work under the owner's rulings of 17:0xZ and 17:1xZ (`director-handoff.md`
+§STATE 17:2xZ, verbatim). Here, one pull request at a time: the four remaining slices (u by merge
+from `engraph`, q, s with their cure scripts first, then y), the product node authored between
+doors, the port's sizing run, the fold at the rollover, the product lane's first pull request, the
+census. The security lane is deleted from the queue until it carries criteria, size and value; the
+ten owner-decision items below are retired by the triage taxonomy in the next records commit.
 
 STATE, 2026-10-02T15:1xZ (Crucible binds Slag, 7b999c, the Director seat re-taken): the order of
 11:1xZ below stands inside the finish defined in `director-handoff.md` §STATE 15:1xZ. Here, one pull

@@ -306,6 +306,33 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-02 17:2xZ (Crucible binds Slag, `7b999c`, the Director: the owner's three rulings
+and the plan that replaces the definition of 15:1xZ).** The owner, verbatim, in this seat's session:
+17:0xZ, "we don't archive napkins, we fully process them, and once all knowledge is safe we move
+them to an archive, we don't do it to park them somewhere. I have no idea what any of the things
+you are talking about are. That means you or other agents have invented a 'for the user' bucket as
+a way of calling work paused. That means you have likely been prioritising according to ease
+rather than value. That means we have likely not been moving in a useful direction."; 17:0xZ,
+"NOTHING is blocked on me, NOTHING should be worked on without clear completion criteria, sizing,
+and an unambiguous and provable statement of how it provides ratified value."; 17:1xZ, "ALL of
+this work is bounded, ALL of it must have a known, reachable, measurable end state, and ALL of it
+must be finished soon." The finish is now the delivery node `practice-work-finish` (the same bytes
+in both estates): five end states a reader verifies in a minute each, sized from the day's measured
+rate, finished within one day of authoring; it supersedes the seven-and-five lines of the §STATE
+block of 15:1xZ, which stands below as the record. What the rulings changed: the owner-decision
+list of the 15:2xZ report is dissolved (the first product target is the ratified programme's; the
+ten stale items take the triage taxonomy at the seats; the no-IO conversion is its own node sized by
+the census; PDR-143 gates nothing); the twin-lane programme is replaced by one generated inventory
+with scope classes under PDR-143 §1; the security lane is deleted from the queue for want of
+criteria, size and value; the notebooks are fully processed and then moved, never archived on a
+condition. The lock in JC.net's primary: the owner's "Run now" of 11:28Z was the decision and was
+misread as the owner's own act for six hours; this session's permission classifier refused the
+removal at 17:0xZ, and a routing of it to a peer was refused as permission laundering; the fold of
+286 and the dirty records go by a route that needs no index in that primary (the pull request
+merged remote-side, the successor cut in a linked worktree, the records committed from a linked
+worktree copy), so nothing waits on the lock. Processes unchanged, each serving the node's finish
+and stopped at it.
+
 **§STATE, 2026-10-02 15:1xZ (Crucible binds Slag, `7b999c`, the Director seat re-taken at the
 owner's word).** The owner, verbatim, 15:0xZ: "for the team, and for each agent, including yourself,
 define what the goals are, we need a definition of done, so that we know when the work is finished.
@@ -316,7 +343,7 @@ the two watchers, the two heartbeat loops, the pull-request poll over both open 
 peer-liveness poll; the fold wakes for #332 and 286; each armed for the finish below and stopped at
 it. Roster at 15:1xZ, both live by their reports in this seat's session and their beats: Hazel
 tracks Trunk (7d8b9d), JC.net implementer (claims 009bbaea there, 08f94e2a here; 291 merged
-`54a219d50` at 15:06Z; slice s opening); Efreet lifts Scorch (7adb15), OCE implementer (claim
+`SHA:54a219d50` at 15:06Z; slice s opening); Efreet lifts Scorch (7adb15), OCE implementer (claim
 006c79ad; #333's one ceremony running on the go word of 15:0xZ). The mode is the full protocol at
 n = 3.
 
@@ -407,7 +434,7 @@ the first-lane card are before the owner, (e) the inherited J2 claim is with Efr
 closed on its record, (f) the handoff is written; then the seat stops, or pauses when only
 owner-gated lines remain. Hazel tracks Trunk, JC.net implementer: goal, the consolidation's finish
 list on the JC.net side and the JC.net fold while the lock stands; done when 291 is merged (done,
-`54a219d50`), s, y, x, u, z are merged one at a time, the records commit and the fold of 286 land
+`SHA:54a219d50`), s, y, x, u, z are merged one at a time, the records commit and the fold of 286 land
 once the owner clears the lock (or at the rollover DUE, the fold waiting on the lock the same way),
 the three napkins are archived by proof after the owner's line, the two directive lines and the
 monitor clause are edited, the napkin is rotated, and the counts read 0 and 0; then the exchange
@@ -430,10 +457,10 @@ on the 2026-03-08 napkin (per-user memory, chat only).
 **§BOARD, 2026-10-02 16:4xZ (the wrap cadence's first recomputation against the definition
 above).** Work safety: both primaries equal their remotes; this estate clean; JC.net's ten dirty
 paths are records behind the lock (zero bytes, 10:56Z, standing at 16:42Z). Goal 1 line 1: JC.net
-has five of Hazel's six slices on `main` (291 `54a219d50`, 292 `a1b4e393f`, 293 `4a9a0d04c`, 294
-`541fb1981`, 295 `9365ab74a`, each read first-hand), u opening last with `main` merged in, the
-stale routed-cures and the merged 2a branches still local; here, #333 `134c2fb6f`, #334 (nb)
-`f45aaeca4` and #335 (r) `576d8924d` are on `engraph`, #336 (v) is open at its second round, w, u,
+has five of Hazel's six slices on `main` (291 `SHA:54a219d50`, 292 `SHA:a1b4e393f`, 293 `SHA:4a9a0d04c`, 294
+`SHA:541fb1981`, 295 `SHA:9365ab74a`, each read first-hand), u opening last with `main` merged in, the
+stale routed-cures and the merged 2a branches still local; here, #333 `SHA:134c2fb6f`, #334 (nb)
+`SHA:f45aaeca4` and #335 (r) `SHA:576d8924d` are on `engraph`, #336 (v) is open at its second round, w, u,
 q, s and y are local on their lane branches, the stale routed-cures branch stands, and the J2 port
 is uncommitted (five paths). Lines 2 to 6: in progress or not started (the consolidation's list
 lands slice by slice; the exchange recount, the parity rows, the divergence classification and the

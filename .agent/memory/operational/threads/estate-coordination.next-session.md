@@ -2351,7 +2351,7 @@ receiver per line; each seat's goal and definition of done; the owner's cards. C
 and 726da755 in JC.net; the seat's processes re-armed for that finish and stopped at it. Routed at
 the re-seating: #333's ceremony to Efreet lifts Scorch on the gate released at CLEAN (the three
 cure commits read first-hand, no objection); 291 merged by Hazel tracks Trunk at 15:06Z as
-`54a219d50`; JC.net's slices in the order s, y, x, u, z; the fold of 286 with Hazel at the lock's
+`SHA:54a219d50`; JC.net's slices in the order s, y, x, u, z; the fold of 286 with Hazel at the lock's
 clearing; the three OCE owner cards raised by the Director. The wrap's two records commits
 (10e3a2df4, 1ddc1c4f3) reached the remote at 14:5xZ by a push that ran after the compaction; the
 push window of 14:47Z is closed by its push-done line.
@@ -2408,9 +2408,9 @@ carry bare SHAs).
 
 ### 2026-10-02 16:4xZ — the first wrap cadence of the re-seated Director: eight landings in the hour, the board against the definition (Crucible binds Slag, 7b999c)
 
-Landed and read first-hand on the remotes since the re-seating: JC.net 291 `54a219d50`, 292
-`a1b4e393f`, 293 `4a9a0d04c`, 294 `541fb1981`, 295 `9365ab74a` (slices r, s, y, x, z; Hazel tracks
-Trunk); here #333 `134c2fb6f` (the retire port), #334 `f45aaeca4` (nb), #335 `576d8924d` (r; Efreet
+Landed and read first-hand on the remotes since the re-seating: JC.net 291 `SHA:54a219d50`, 292
+`SHA:a1b4e393f`, 293 `SHA:4a9a0d04c`, 294 `SHA:541fb1981`, 295 `SHA:9365ab74a` (slices r, s, y, x, z; Hazel tracks
+Trunk); here #333 `SHA:134c2fb6f` (the retire port), #334 `SHA:f45aaeca4` (nb), #335 `SHA:576d8924d` (r; Efreet
 lifts Scorch). Open: here #336 (v) at a second review round; JC.net's slot takes u next with `main`
 merged in. The board against the definition of done is the §BOARD paragraph of 16:4xZ in
 `director-handoff.md`. Routes given: z before u in JC.net, u by merge from `main` with no wait on
