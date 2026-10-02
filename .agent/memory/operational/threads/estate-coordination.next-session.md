@@ -1526,6 +1526,148 @@ write JC.net records from a separate worktree cut from `origin/main`.
 - No Director is seated. The second two-estate consolidation is in progress from JC.net; its
   state is in JC.net's `two-estate-consolidation` thread record (entry of 2026-10-02T00:10Z).
 
+### 2026-10-02 01:15Z — the write list: lessons read out of the record files that are not yet in their homes (Hazel tracks Trunk, 7d8b9d)
+
+Why this entry exists: the reading of the record files (handoff records, thread records, the
+continuity record) produces lessons faster than pull requests land them, one open pull request at a
+time. Until each lesson below is in its home, this entry is its tracked copy. A line leaves the list
+when its home holds it. The per-item verdicts are in the gitignored state directory
+`.agent/state/collaboration/comms-analysis-2026-10-01/session-7d8b9d/homed/seat/` on the host.
+
+Reading state: 2,748 items triaged; every handoff obligation read (420); the knowledge items read at
+the seat so far are the 350 highest-ranked and 720 of the 1,048 that remain; 348 obligations in live
+tracked records are unread. One independent check of thirty of the seat's "homed" verdicts against
+the text confirmed 27 and found 3 covered by a principle only.
+
+Landed since the last entry: OCE 328 and JC.net 287 (the skills slice in both estates, the
+whole-file snapshot removed from the continuity directive and `consolidate-docs`, 30 tool facts in
+JC.net and 25 in OCE); OCE's directive slice is open.
+
+Scripted and waiting for a slice (same bytes for both estates unless marked):
+
+- Testing recipes (`docs/engineering/testing-tdd-recipes.md`), a section of lessons from review
+  rounds; rules `validators-must-recompute-not-just-record` (run a new check against the real input
+  shape before trusting it; one reader per fact), `consolidate-at-second-consumer`,
+  `loop-exit-criteria-required`, `respect-active-agent-claims`, `pr-comments-resolve-and-recheck`
+  (a reply that says "cured in" waits until the push is read back from the remote),
+  `use-built-agent-tools-cli` (the owner's correction of 2026-08-10: clear derived artefacts with
+  the workspace's own `run clean`, never raw `rm`); skill `dependency-currency`.
+- `verify-dont-trust`: a public claim needs support its reader can open; a hash of local evidence is
+  integrity for its holders only; a seat's own scan cannot certify its completeness.
+- `design-work-for-small-prs`: an owner ruling lands alone; an intake is framed as concepts, the
+  owner's rulings first; no slice ships text that is false until a later slice lands.
+- `fleet-design-review-before-expensive-fleets`: an agent started near the usage limit returns
+  nothing; a narrow verifier can return a stub on its first run, caught only by reading every leg.
+- Napkin skill: on a shared primary a candidate enters `napkin.md` in the records commit that
+  carries it; lint the append before a push.
+- Fold skill: a fold is reviewed before it merges (a fold merged unreviewed took six true findings
+  afterwards; on 2026-10-01 one estate's vendor reviews found two false entries the other had
+  merged unreviewed).
+- Pull-request skill: the docs-only class is decided per path, never per directory.
+- `start-right-team`: when the owner pairs seats the first message carries state and assignments
+  come from the routing or after asking; two seats on one pull request divide it by direct message.
+- `consolidate-until-done`: orchestration is not curation (the owner stopped a consolidation over
+  this on 2026-06-16 and affirmed the lesson): the seat reads raw sources itself, checks every leg
+  against the source and writes each lesson in its own words.
+- JC.net only, four directive edits built and read under the 30 % context line (PDR-052): the
+  repeated ask stands (`user-collaboration`); two sharpenings in `testing-strategy`; a new
+  obligation binds forward (`principles`); two fluency paragraphs OCE's `metacognition` holds (a
+  second finish-line instance; a check's name is a claim about its target).
+
+Not yet scripted (each is the whole lesson):
+
+- Pull-request skill. Owed branches over one free slot are ordered, each opener counting only those
+  named before it. A seat of unproven liveness does not hold the only landing slot overnight: set a
+  takeover trigger or hand the slot over. A seat the owner names alone both directs and executes,
+  and its limit is one open pull request. A pull request authored in the cloud environment is
+  marked ready by the owner, or by a seat only after the owner's stated acceptance. Write the
+  description before the first commit. Authoring for review: state the invariant and the check,
+  never an enumeration of cases; a region patch is read by whole-file reviewers, so read the
+  untouched text and the sibling files for contradictions before opening (five of eight rounds on
+  one records pull request; four rounds on OCE 328).
+- `review-feedback-defaults-to-triage`: where the cure is cheaper than the argument, cure; a second
+  raising by an independent reviewer tips a disposition to a cure.
+- JC.net pull-request skill, a port from OCE: a reviewer's result has two transports, and Codex's
+  completion comment for a zero-findings run is a positive result (owner ruling, 2026-09-16).
+- Inter-practice skill: a port is cut from the destination's own text with edits that assert their
+  anchors, from a diff of normalised files, never by applying the other estate's raw patch (on
+  2026-10-02 a lenient `patch` run reversed a hunk the target already held and a re-run script
+  duplicated three passages); estate-local self-references are rewritten; records commits in the
+  second estate are named in the receipt.
+- `use-monitor-for-event-driven-wake`: a watching role watches every surface it answers for (a
+  comms-only watcher was blind to checks, threads and mergeability); a pull-request watcher emits
+  terminal conditions only, since a count ticker spends context.
+- `start-right-team`: crossed routing broadcasts are settled by ratifying the in-flight version and
+  closing the chain in one event.
+- Plan skill: before writing a procedure that touches shared state, list every actor that reads or
+  writes each resource, schedules included; an amendment that can only be decided at execution is
+  recorded in the conserved design.
+- Fleet rule: legs share no mutable resource (shared scratch filenames crossed 7 of 28 spawns);
+  carry the task id through the schema; the committed design is the task specification, never a
+  script draft in a scratchpad; a survey that asks models for the owner's facts produces guesses,
+  and its consensus is not a decision input (owner, 2026-08-17).
+- `owner-attention-at-action-moments`: an answer given on a premise that changed within minutes is
+  asked again, never overridden and never obeyed blind.
+- `precedence-is-not-approval`: a question about the value or risk of publishing is not permission
+  to publish; JC.net also takes OCE's sentence on recorded keep-open grants.
+- Wrap skill and liveness rule: a compaction does not reliably end a session's processes (verify by
+  the task list, re-arm only what is absent; JC.net's liveness rule still says it always does); the
+  freeze at the owner's compaction word covers every outward act after the push (title, body,
+  thread replies, review requests).
+- `consolidate-until-done`: a surface that accepts appends is a buffer from its birth; name its
+  drain when it is created (this pass found three with none: a Director handoff's standing
+  lessons, a Director rulings ledger, a frictions register 134 entries ahead of its twin).
+- Ticket-management skill: tickets a retired seat left In Progress are re-labelled at the next seat
+  spin-up; no stopgap outlives its cure, and at merge the ticket records the sanction retired with
+  the cure's evidence.
+- Session-handoff skill against the wrap skill on handover commits: read both, reconcile.
+- JC.net cricket skill, a port: frames cite quotes as `git show <sha>:<path>`.
+- Surface matrix, Codex section: the bounded-poll challenge (a nonce event found only by declared
+  foreground polling; the reply records nonce, timestamps, command, cadence and turn state).
+- Pattern `cli-writer-boundary-discipline`: after an irreversible call every non-confirming answer
+  is indeterminate; audit each failure arm added after a mutation for misreporting a completed
+  write (`comms send` can exit 1 after a durable write: read `comms list` before a retry).
+- Gotchas, next batch: `comms send --body` over 1,500 characters is refused before writing, use
+  `--body-file` (checked against the code in both estates); pass the registered `--model` on every
+  comms call; `patch` run without a terminal reverses a hunk the target already holds, pass `-N`;
+  `git log %cI` moves on a rebase or amend, `%aI` does not; HTTP 403 to a scripted client is a
+  refusal, never a dead link; a harness classifier refusal is session-local and a transient
+  classifier error retries; after GitHub Code Quality is re-enabled an older head is refused at
+  all-green until the branch is updated; an out-of-credit Codex connector posts a usage-limits
+  notice within seconds; `/restart` keeps hook session state; a `NODE_OPTIONS` tap reaches only the
+  config that runs; when the primary checkout cannot build, a lane worktree's built CLI still
+  carries comms; `mint-token --scope` enforcement depends on which build runs; vitest paths under
+  `pnpm --filter` are workspace-relative; prettier inside a workspace resolves that workspace's
+  config; in zsh `status` is read-only; the shared CLI registry files are additive-only across
+  parallel lanes; pass `-c core.fsmonitor=false` where git sleeps on the monitor socket (OCE's
+  clone sets it; JC.net's does not).
+- TypeScript gotchas: Sonar S7765 (prefer includes) makes a value-is-X type guard unsound where the
+  argument is wider than the element type, keep `.some`; `z.object({}).strict()` is needed to emit
+  `additionalProperties: false`; a refine that lets both optional keys be absent passes keyless
+  input, so make the keys required and nullable.
+- Decision records: PDR-009's thin-wrapper clause gains "an adapter adds no substantive
+  instruction of its own"; five Directors in fifty hours showed five transmission-class error
+  signatures (for PDR-117 or the Director handoff, after the source handoff is read).
+- OCE docs: two Clerk facts and an ADR-213 note; a report for the agent-tools architecture
+  exploration of 2026-08-01 (three contracts, four feedback timescales), whose only source is a
+  gitignored handoff.
+- Directive-bound, waiting for a context under 30 % (PDR-052), `privacy`: a review request for a
+  durable capture carries metadata only; originals behind test fixtures are never published.
+- Ports to JC.net: a Sonar disposition policy. Ports to OCE: the skills `author-skills` and
+  `deslop` (no history of either in OCE); OCE removed its own `distillation` skill on 2026-04-10, so
+  that one is compared with `consolidate-docs` and `curator-pass` before any port.
+
+For the frictions audit (each claim is checked against the code before it enters a register):
+eleven defects from this reading (the commit-queue guard's estate-wide ordering; three spawn-tool
+defects; a watcher arming under a different identity tuple than the claims registry; no
+authoring-time check on agent attribution; `worktree-hygiene` §8 on `--comms-dir`; a rule that did
+not fire on pre-authored brief text; `ClaimArea.kind`; a cap one line from its limit), beside the
+134 entries only OCE's register holds.
+
+Named items from the opening frame: the 51 deferred rows of OCE's decision table are decided; the
+three shared files' divergence is measured and their convergence is not started; OCE's lockstep
+test is friction F-229 for the code lanes; the event-cited paragraphs are not re-trued.
+
 ## Seat chain (reconstructed from the handoff record's block census, 2026-07-26 → 2026-08-13, then from this record's journal)
 
 Squall wakes Apex → Moon rides Penumbra → Lynx → Bora → Falcon hunts Flight

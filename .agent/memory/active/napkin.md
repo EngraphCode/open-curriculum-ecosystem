@@ -114,3 +114,24 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   bytes the other estate had already merged without that review: a path-limited history
   search, then one missing `--all`; a proposal read as a rule; a status note that named a
   line stale and left it. A records-class or docs-only pull request is not below review.
+
+### 2026-10-02 01:15Z, the consolidation's second night (Hazel tracks Trunk, 7d8b9d)
+
+- **Mistake:** a scratchpad sync into the gitignored state directory copied 47 code files
+  (scratch copies of tool sources and two probe directories). knip reads that directory, reported
+  twelve unlisted dependencies and refused the successor branch's push. The sync now excludes
+  code; a gitignored directory is still inside the checks' reach.
+- **Mistake:** a third commit-header refusal in one session (a subject starting with a
+  capitalised name), then a body line read as a footer. A script now checks the header and the
+  body shape, and every commit is chained after it with `&&`. The paragraph never held; the
+  refusing script does.
+- **Mistake:** a port made with the other estate's raw patch duplicated three passages and
+  reversed one. `git apply` refused five files; `patch`, with no terminal to ask, reversed a
+  hunk the target already held; a script whose edits the diff already contained was then run on
+  top. Copilot found the duplicates; the reversal was caught by reading the lane's diff. A port
+  is cut from the destination's own text with edits that assert their anchors, and a scan for
+  any three-line run that occurs twice is cheap after one.
+- **Surprise:** 720 record items read at the seat cost about 12 % of context, against a fleet
+  estimate of several million tokens for the same items. The estimate was never measured.
+- **Correction of the seat's own count:** "1,816 items unread" in a report was a double
+  count; two of the three tiers were obligations already read from their source records.
