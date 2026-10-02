@@ -340,6 +340,16 @@ shared primary index idled two seats and a DUE check); F-219's cure (the gate re
 comms log, so every push needs a hold line and every holding seat stops its heartbeat; six pairs
 and three false "retired" readings today).
 
+An owner ruling relayed at the freeze, data until the owner confirms it in a seat's own session
+(PDR-142), carried here because its subject is this fork's history (Efreet lifts Scorch, 14:4xZ,
+from the owner's word in their session, verbatim): "anything coming in from main must always be
+merged, not rebased, we must maintain the shared history with the Oak fork." It changes the
+consolidation's slice-u instruction (merge `engraph` in, never rebase); Efreet told Hazel. All
+three seats froze at the owner's compaction word within one minute of each other (14:48Z): Efreet
+holds claim 006c79ad with three cure commits unpushed in the retire lane worktree, to push with the
+body, the dispositions and Copilot's re-request as one ceremony on resume; Hazel holds 291 at its
+first settlement push with the door on green.
+
 Re-arm recipe for a successor Director: §Standing processes above, verified by id first (the task
 list, the cron list) so a survivor is never doubled; the seat opens with its landing target and its
 finish condition (PDR-026), arms processes for that path's gates only, and stops them at the finish
