@@ -2503,6 +2503,9 @@ commit SHA and the closing plan reference.
 - **Route**: agent-tooling backlog (collaboration-state), beside F-95; the
   watcher rule's arm template derives arm and assert from one
   `identity preflight` read.
+- **Note (2026-10-02)**: read against the code again: the routing key now compares `id` alone
+  (`active-agent-routing.ts` lines 53–62), not the display name; platform and model are still
+  never compared (F-292 carries the mechanism).
 
 ### F-175 — content-audit review modules can pin one path twice; the last spread wins silently
 
@@ -4623,4 +4626,160 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   the enumeration or document the exclusion in its output.
 - **Target surface**: OCE's agent-tools review-cost gate (a code lane).
 - **Status**: open; routed to the code lanes. Two instances.
+- **Owner direction status**: unsolicited
+
+### F-286 — the commit-queue guard serialises one estate-wide queue and refuses scoped index/head labels that the commit skill still describes (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `agent-tools/src/commit-queue/core.ts`, `guard.ts`; the commit skill
+  (`.agent/skills/change-custody/commit/SKILL-CANONICAL.md`).
+- **Observed**: `getFreshEntriesAhead` (core.ts lines 38–56) returns every fresh active entry ahead
+  of an intent in one global queue and the guard refuses with "fresh queue entries ahead" (guard.ts
+  64–73); `claimCoversGitIndexHead` accepts only a git-kind area whose patterns include the bare
+  `index/head` (guard.ts 130–135). The skill's merge-path text still tells a worktree seat to claim
+  `git:index/head@<worktree-name>`, which the same skill's scope ruling (worktree lanes commit by
+  pathspec with no queue; F-132, F-139 and F-169 superseded by scope) and the guard refuse.
+- **Expected**: the skill describes the queue's scope once, and its instruction agrees with what
+  the guard accepts.
+- **Candidate cure**: rewrite the skill's merge-path lines to the scope ruling; the guard stands.
+- **Target surface**: the commit skill (docs).
+- **Status**: open; a doctrine lane.
+- **Owner direction status**: unsolicited
+
+### F-287 — `agent spawn` builds before it opens the draft pull request, and a failed build leaves the worktree unbuilt with no pull request (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `agent-tools/src/spawn/cli.ts`, `build.ts`, `create.ts`.
+- **Observed**: `prepareWorktree` runs the build (cli.ts lines 114–129) and returns on error before
+  `openPr`; the `@remarks` at 103–107 say so. Neither `build.ts` nor `cli.ts` removes the worktree
+  on failure; the resume path (create.ts 190–197) rebuilds and, per cli.ts 98–100, skips opening
+  the pull request.
+- **Expected**: a lane whose build fails still has its draft pull request, or its worktree is
+  removed and the failure says so.
+- **Candidate cure**: open the draft before the build, or remove the worktree on build failure and
+  report it; the resume path opens the pull request when none exists.
+- **Target surface**: agent-tools spawn (a code lane).
+- **Status**: open.
+- **Owner direction status**: unsolicited
+
+### F-288 — `baseBranchOf` strips the first path segment of a base branch name, right for `origin/<branch>` and wrong for a base with no remote prefix (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `agent-tools/src/spawn/open-pr.ts` lines 32–34 (`base.replace(/^[^/]+\//u, '')`).
+- **Observed**: `origin/release/1.0` becomes `release/1.0`; `release/1.0` becomes `1.0`.
+- **Expected**: a base given without a remote is used as given.
+- **Candidate cure**: strip the segment only when it names a configured remote.
+- **Target surface**: agent-tools spawn (a code lane).
+- **Status**: open.
+- **Owner direction status**: unsolicited
+
+### F-289 — the 250-line `max-lines` error leaves a file at 249 lines one line of headroom, and nothing reports near-cap files (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: the ESLint recommended configuration's `max-lines: ['error', 250]` (JC.net
+  `tooling/eslint/src/configs/recommended.ts`; OCE `packages/core/oak-eslint/src/configs/recommended.ts`);
+  `agent-tools/src`.
+- **Observed**: files at 249 lines in both estates (`pr-watch/index.ts`, `merge-bot/push-cli.ts`,
+  `collaboration-state/cli-comms-watch.ts`, and others); the next one-line edit pays an extraction.
+- **Expected**: a near-cap file is known before the edit that trips the cap.
+- **Candidate cure**: a warn tier at about 230 beside the error at 250, or a repo-check that lists
+  files within ten lines of the cap.
+- **Target surface**: the lint configuration (a code lane).
+- **Status**: open (low).
+- **Owner direction status**: unsolicited
+
+### F-290 — `ClaimArea.kind` is a closed five-value union in the collaboration-state types, parser and schema, and a plain string where the commit queue reads the same claims (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `agent-tools/src/collaboration-state/types.ts` line 30, `state-parsers.ts` 204–215,
+  `cli-claim-areas.ts` 33–38, `schemas/active-claims.schema.json` 301–303;
+  `agent-tools/src/commit-queue/types.ts` 40–43.
+- **Observed**: a sixth kind is refused with "unsupported claim area kind" at every
+  collaboration-state boundary; the commit queue's `CommitQueueClaimArea.kind` is `string`,
+  compared against the literal `'git'`.
+- **Expected**: one declared set of kinds, read through one type, extended in one place.
+- **Candidate cure**: export the union from the collaboration-state types and import it in the
+  commit queue.
+- **Target surface**: agent-tools types (a code lane).
+- **Status**: open.
+- **Owner direction status**: unsolicited
+
+### F-291 — `worktree-hygiene` §8 says `comms watch` needs `--comms-dir` passed explicitly from a worktree; the CLI defaults it and refuses it alone (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `.agent/rules/worktree-hygiene.md` §8; `agent-tools/src/collaboration-state/comms-watch-paths.ts`
+  lines 69–84, `cli-spec-help.ts` 104–105.
+- **Observed**: the rule's sentence is true for `comms list` and `comms inbox`
+  (`required(options, 'comms-dir')`) and false for `comms watch`, where `--comms-dir` and
+  `--seen-file` are accepted only as a pair and both omitted default to the coordination home.
+- **Expected**: the rule says what each command takes.
+- **Candidate cure**: one clause in §8 for `watch`.
+- **Target surface**: the rule (docs).
+- **Status**: open; a doctrine lane.
+- **Owner direction status**: unsolicited
+
+### F-292 — `comms watch` and the claims commands take `--platform` and `--model` as free text, and nothing compares the watcher's tuple with the registry row's (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `cli-identity.ts` lines 12–26, `cli-self-identity.ts` 73–87, `identity.ts` 77–107,
+  `active-agent-routing.ts` 53–62, `watcher-presence.ts` 86–92, all under
+  `agent-tools/src/collaboration-state/`.
+- **Observed**: `resolveIdentity` copies the caller's `--platform` and `--model` into the tuple while
+  `id` and `session_id_prefix` derive from the seed; `sameAgentRoutingKey` compares `id` only and
+  `presentIfThisSession` uses it, so `assert-watcher-live` never compares platform or model (the
+  mechanism behind F-174).
+- **Expected**: an arm whose platform or model differs from the registry row for the same `id` is
+  refused or reported.
+- **Candidate cure**: compare the tuple in `presentIfThisSession` and name the difference in the
+  assert's output.
+- **Target surface**: agent-tools collaboration-state (a code lane), beside F-174.
+- **Status**: open.
+- **Owner direction status**: unsolicited
+
+### F-293 — no authoring-time check requires the agent attribution trailer or the bot signature on a commit or a GitHub write (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `commitlint.config.mjs`, `.husky/commit-msg`, `.agent/hooks/policy.json`; the rule
+  `identify-as-agent-under-shared-credentials` §Enforcement.
+- **Observed**: commitlint extends the conventional configuration only; the commit-msg hook runs the
+  version guard and commitlint; no `Co-Authored-By` or signature check exists in the hooks, the lint
+  or the agent tools; the rule says "There is no write-time hook today".
+- **Expected**: a missing trailer or signature is caught where the commit or the write is authored.
+- **Candidate cure**: a commitlint rule for the trailer on agent-authored commits; a check for the
+  signature line in the bot's write path.
+- **Target surface**: commit hooks and agent-tools (a code lane).
+- **Status**: open; the rule records the gap.
+- **Owner direction status**: unsolicited
+
+### F-294 — `verify-vendor-call-shapes-at-plan-author-time` fires on a plan body and names the plan author; a brief authored outside a plan is not covered (2026-10-02)
+
+- **Source**: a claim set aside at the records reading of 2026-10-02 (the two-estate thread
+  record's write-list entry), code-checked in both estates the same day; every line named
+  below was read.
+- **Surface**: `.agent/rules/verify-vendor-call-shapes-at-plan-author-time.md` lines 8–10.
+- **Observed**: the fire condition reads "When a plan body pins the call shape of an external
+  dependency … the plan author MUST verify"; the file has no clause for a brief, a dispatch packet
+  or a prompt, and a pre-authored brief that pinned a vendor call shape went unchecked (the records
+  reading's instance).
+- **Expected**: any authored text that pins a vendor call shape for another seat to execute is
+  checked at its authoring.
+- **Candidate cure**: extend the fire condition to briefs and dispatch packets.
+- **Target surface**: the rule (docs).
+- **Status**: open; a doctrine lane.
 - **Owner direction status**: unsolicited
