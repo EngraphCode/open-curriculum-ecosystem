@@ -2904,3 +2904,16 @@ re-find only the session directory's buffer, named above and in the node; the re
   the census regenerated at JC.net main `ba5ad39a8` and OCE engraph `d51669d2f`) sit in OCE's synced
   session directory (`comms-analysis-2026-10-01/session-7d8b9d/cures-332/`, gitignored) for the
   measure step to read.
+
+### 2026-10-02 20:0xZ — compaction: one plan node, the owner's rulings of the evening, the measure's first numbers (Crucible binds Slag, 7b999c)
+
+Counts first. Pending graduations: 0 inline in either register. Buffers: the sibling estate's
+notebooks move after the write-list table, under the node's step 1. The record of this boundary is
+the Director handoff's §STATE 20:0xZ, which names the goal in the owner's words, the plan as one
+node (`practice-parity-for-extraction`, superseding `practice-work-finish`), the rulings verbatim,
+the state of every tree, the measure's first numbers (4,580 survey rows; 445 shared Practice-wide
+files, 72 merging clean, 89 in conflict over 207 hunks, 105 one-sided) and the next session's order.
+Landed since 18:4xZ: here #339 (q) `SHA:d51669d2f`, 332 merged `SHA:2b25ced1b` and the successor
+cut carrying the node; there 298 `SHA:a35b5f325`, the node `SHA:3f1445b4` and its trued sizes
+`SHA:766c6c0e` on the recreated coordination branch, folding as 299. The owner's word on the
+finish: "We WILL finish the Practice work in the next few hours, make sure of it."

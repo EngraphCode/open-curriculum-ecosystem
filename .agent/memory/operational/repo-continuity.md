@@ -37,6 +37,16 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-02T20:0xZ: the compaction record; the plan is one node, `practice-parity-for-extraction`,
+  the same bytes in both estates** (Crucible binds Slag, 7b999c). The owner's goal restated (two
+  equally capable Practices, then the entity; the OCE product work excluded), the evening's
+  rulings (PDRs carry decisions; mixed directories are a design fault; heartbeats never pause;
+  feedback triaged by risk, cost and value; a spent budget means decide; the two-hour bound), the
+  state of every tree, the measure's first numbers and the next session's order are in the
+  Director handoff's §STATE 20:0xZ; the measure's scripts are in the synced session directory
+  `comms-analysis-2026-10-01/session-7b999c/measure/`. Here: 332 merged `SHA:2b25ced1b`, the
+  successor `coordination/2026-10-02-2b25ce` carries the node; the first carry sits unpushed in
+  `oce-wt-parity-carries` at `SHA:ad5528b52`.
 - **2026-10-02T18:4xZ: end states 3 and 4 of the finish node read first-hand; six landings here and
   seven in JC.net** (Crucible binds Slag, 7b999c). Here #338 (u) `SHA:38342e038`; #339 (q) at its
   settlement round; the inventory's copy and the IO census with their scripts `SHA:8e2b84150`. In

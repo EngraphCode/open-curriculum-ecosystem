@@ -53,16 +53,22 @@ removals judged are carried out.
    the notebooks' move in jimcresswell.net (the node `write-list-residue-and-notebook-close`,
    which this node now governs), the two folds (each a merge of the default branch, never a
    rebase), the two omnibus branches deleted on the content script's zero.
-2. **The four small carries begin at ratification.** A carry is one capability one repository
+2. **The small carries begin at ratification.** A carry is one capability one repository
    holds and the other lacks, landed in the repository that lacks it as one pull request sized
    to its import closure, under one open Practice pull request per repository, and demonstrated
    where adopted (the command runs, the gate fires, the validator passes on that tree) before
    its row reads landed. Copied code names its debt to the package in its integrating commit
-   (PDR-143 §Context). A carry is code with tests, not a wording slice: one to three hours each
-   with its demonstration, never the slice rate. The four named now, smallest closure first:
-   the window registry rows (into OCE), the pr-watch content binding (into jimcresswell.net),
-   the runbook index, and the host-tagged amendment entries in PDR-008, PDR-082 and PDR-132
-   moved to a host record with the Core validator that refuses a host-named heading. The two
+   (PDR-143 §Context). A carry is a tested module that exists on one side, copied with its
+   tests and proved by the content script's zero: minutes each, not a fresh build. The four
+   named now, smallest closure first:
+   the window registry rows (into OCE) and the host-tagged amendment entries in PDR-008,
+   PDR-082 and PDR-132 moved to a host record with the Core validator that refuses a
+   host-named heading. Two gaps first listed as small are ledger rows instead, sized at
+   authoring: the pr-watch content binding (202 lines imported by 22 files in OCE, whose
+   pr-watch has been restructured around it, so the carry is an adaptation of jimcresswell.net's
+   state machine, not a copy) and the runbook index (OCE's is product operations under
+   PDR-120; jimcresswell.net has one runbook and no operations docs, so its likely reading is
+   host-local with the PDR-120 pointer). The two
    large gaps already known, the three documentation validators with their three core helpers
    (into OCE; the preservation commit in the port's worktree is their starting point) and the
    skill-evals runner (into jimcresswell.net), are ledger rows: each takes its verdict at the
@@ -134,23 +140,26 @@ from extension packs per domain; and PDR-143's moved mechanics and materialisati
 
 ## Size and order
 
-Measured on 2026-10-02: about 19 minutes per landing in jimcresswell.net and 15 in OCE, review
-rounds included. Counts below are derived at the ledger and re-derived at each fold, never
-carried from this table.
+The owner's bound, 2026-10-02: "no more than two hours, one agent per estate plus a
+cross-estate Director", done efficiently. The day's measured landing rate (15 to 19 minutes)
+was the rate of ceremony (review rounds on wording slices, hold lines, heartbeat pauses, a
+records commit per event), not of this work, and is not used. Efficient means: carries as
+tested copies proved by the content script, the ledger reading conflict hunks only, no
+heartbeat pauses, one records commit at the end, nothing held for ceremony, and nothing sent
+to a second review round that a first-time-right read would have caught.
 
 | Step | Work | Size | Who, when |
 | --- | --- | --- | --- |
-| 1 | the OCE slices; the write-list table and the notebooks; the two folds | one day of door time across two seats; the folds at the rollover | the implementers |
-| 2 | the four small carries, smallest closure first | one pull request each, one to three hours each with its demonstration; about one seat-day | from ratification, in whichever repository has no open Practice pull request |
-| 3 | the measure: the generator's map and the per-file rule, the rerun, the dry-run merge, the ledger | one day, one seat, one pull request per repository | after the folds |
-| 4 | the ledger's carries | derived at the ledger, under a ceiling of twenty before the node reopens | after 3 merges, in closure order |
-| 5 | the PDR-019 amendment and the PDR-143 trim | one pull request per repository | with 3 |
+| 1 | the three OCE slices with their cure scripts; the write-list table and the notebooks; the two folds | about one hour on each side | the implementers, from the start |
+| 2 | the two small carries, smallest closure first | minutes each | the OCE seat after its slices (the registry rows); the jimcresswell.net seat after its tail (the amendment entries and the validator, then OCE's copy) |
+| 3 | the measure: the generator's map and the per-file rule, the rerun, the dry-run merge, the ledger over its hunks | about one hour, the Director, one pull request per repository | from the start, while reading each landing |
+| 4 | the ledger's carries | derived at the ledger; the two large gaps under an hour each if carried; a ledger above twenty carries reopens the node | after 3 merges, in closure order |
+| 5 | the PDR-019 amendment and the PDR-143 trim | half an hour, the Director, one pull request per repository | with 3 |
 
-Finish: steps 1, 2, 3 and 5 within three days of ratification; step 4 within the count the
-ledger derives, reported at each fold as landed of total; a count that does not fall between
-two folds is routed as a failure, never re-labelled. With one seat the order is the node's
-landing, the measure, the records, then the carries; with three seats the table's columns run
-side by side.
+Finish: two to three hours wall-clock with three seats, the ledger's carries included; the
+count reported at the fold as landed of total, and a count that does not fall between two
+folds routed as a failure, never re-labelled. With one seat the order is the node's landing,
+the measure, the records, then the carries.
 
 ## Out of scope
 
@@ -166,7 +175,7 @@ Sliced at pickup by the implementers; each slice a single-story pull request wit
 budget.
 
 1. Land the tail (mechanism 1). Fold both branches at the rollover.
-2. Land the four small carries, smallest closure first, each demonstrated on its tree.
+2. Land the two small carries, smallest closure first, each demonstrated on its tree.
 3. The measure: extend the generator's map and the per-file rule, rerun at the folded tips, run
    the dry-run merge, author the ledger; land in both as one pull request each.
 4. Land the ledger's carries in closure order after the ledger merges.

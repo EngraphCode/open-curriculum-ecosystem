@@ -234,6 +234,18 @@ conveniences, never the only home.
 
 ## Standing lessons (this Director lineage)
 
+- **2026-10-02, four corrections in one evening on one shape.** Work turned into meta-work (a
+  "for the user" bucket, end states before value, heartbeat pauses, records per event, a plan
+  with three instruments before its value step) was corrected by the owner four times in three
+  hours. The value step is the first todo of any plan this seat writes; the measure serves it.
+- **2026-10-02, estimates.** A rate measured under ceremony is not the rate of the work; state
+  the work's own cost and the ceremony's separately, or the estimate is wrong by an order of
+  magnitude (eight to ten seat-days against the owner's two hours).
+- **2026-10-02, review feedback.** Triage per finding by risk, cost and value; the usual home for
+  a substantive finding is work that exists; a spent budget means decide, never a new branch or
+  pull request; never cure all, never decline all.
+- **2026-10-02, heartbeats.** A liveness signal is never paused for a peer's gate; the gate that
+  fails on a peer's beat is the tooling's fault. The registry is the liveness source.
 Each lesson is the cure for a churn cause observed in the pilot.
 
 **Drive, never coordinate** (a seat's reading of the owner's repeated corrections
@@ -305,6 +317,86 @@ current state there. (`claims adopt`, `claims set-handoff` and the watcher-prese
 on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
+
+**§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
+the plan is one node; the owner's rulings of the evening; what the next session does first).**
+Read this block, then the node, then nothing else before acting.
+
+The goal, the owner's words, verbatim (18:5xZ): "The OCE product work is not part of this, that is
+something I handle later. What we are currently working towards is both estates having equally
+capable Practices which we can then extract into a separate entity which has yet to be
+designed." And (20:1xZ): "We WILL finish the Practice work in the next few hours, make sure of
+it." The plan is one document, the same bytes in both estates:
+`.agent/plans/delivery/practice-parity-for-extraction.plan.md` (born sketch; the owner approved
+its plan file at 19:2xZ; its size table carries the owner's bound, "no more than two hours, one
+agent per estate plus a cross-estate Director", stated at 19:4xZ). It supersedes
+`practice-work-finish` (archived here under `.agent/plans/archive/`). Its definition of done is
+`best-of-each-practice` §Outcome, unchanged.
+
+The rulings of the evening, each verbatim and each already applied to the node: PDRs carry
+decisions, not plans ("if there is planning in a PDR it is in the wrong place. The Practice should
+make that definition clear, as it should define ADRs"); directories that mix definitions with
+instances are "a design problem in the Practice that this process has uncovered" (the entity
+design's first decision; the survey's per-file rule reads it meanwhile); heartbeats are liveness
+("stopping and starting is an unbelievable waste of time and attention": beat the registry only,
+never pause); review feedback is triaged ("we need to triage it and _decide_ what we do with it";
+"we don't need to deal in absolutes, we deal in risk, cost, value, assessement"); a spent budget
+means decide, and "cutting a new branch and a separate PR does not serve that goal"; the estimate
+of eight to ten seat-days was "ridiculous" because the measured landing rate was the rate of
+ceremony, not of the work. What does not provide value, named at 19:5xZ and to be cut: curing
+bot feedback instead of triaging it; reviewing fold pull requests at all; CI that runs the whole
+product pipeline on documentation changes (path filters are the largest permanent saving); the
+hold-line and heartbeat ceremony; records commits per event; stage lines for routine landings.
+
+The state of every tree at 19:45Z, read first-hand. Here: 332 merged `SHA:2b25ced1b`; the
+successor `coordination/2026-10-02-2b25ce` in the primary at `SHA:b4205aebb`, clean, carrying the
+parity node by a two-parent merge of `SHA:c0258facf` (Efreet lifts Scorch's ceremony; its draft
+and broadcast were in flight at this writing); seven slices on `engraph` today (#333 to #339); s,
+the first-batch skills leftover and y still to land, local on the implementer's lane; the carry
+worktree `oce-wt-parity-carries` on `feat/parity-window-registry-rows` at `SHA:ad5528b52`, one
+unpushed commit (the registry rows and their tests, three tests green), the first carry, to push
+and open after the rotation; the port worktree `oce-wt-j2-docs-validators` with the validators
+staged and uncommitted (the formatting hook refused the preservation commit; the three validators
+are a ledger row, decided at the ledger). JC.net: 298 (the inventory) merged `SHA:a35b5f325`; the
+coordination branch, recreated by this seat's push after 286 had merged, carries the node
+(`SHA:3f1445b4`) and its trued sizes with the notebook (`SHA:766c6c0e`, pushing at this writing);
+the fold is 299, Hazel tracks Trunk's, who fast-forwards the primary (its index lock is gone,
+read at 19:4xZ) and cuts the successor there; her lane holds one unpushed commit of the cured
+report scripts (`docs/consolidation-2j-inventory-cures`), not a pull request, the measure's
+input. Open pull requests: 299 here-and-there (the JC.net fold); none in OCE until the successor
+draft opens.
+
+The measure's first numbers, first-hand, with the scripts conserved in both estates' synced
+session directories under `comms-analysis-2026-10-01/session-7b999c/measure/`
+(`practice_inventory_v2.py`, `dry_run_merge.py`, `classify_conflicts.py`, `dump_hunks.py`, Hazel's
+cured `io_census.py`, and their outputs): the extended survey reads 4,580 rows at `main`
+`SHA:ba5ad39a` and `engraph` `SHA:d51669d2f` (1,241 same, 959 different, 536 JC.net only, 1,844
+OCE only; the map covers the entry points, the install surface, roles, reference, prompts,
+evaluations, harness bindings, the mixed directories by a per-file rule, the tooling's command
+surface, configs and docs, the gate scripts, the workflows, CODEOWNERS, the root configs, five
+adapter sets whole; a capability column per row); the dry-run three-way merge of the Practice-wide
+text with the transplant pin as base: shared 445, identical 279, differing 166, of which 72 merge
+clean (the merged text is the landing for both), 89 conflict in 207 hunks (56 reviewer surfaces,
+49 skills, 46 rules, 39 directives, 12 Core, 5 hooks), 5 have no base; host-token normalisation
+resolves 1 of the 89, so the 207 hunks are wording or substance and are the ledger's read;
+one-sided 46 JC.net, 59 OCE. Hazel's cured scripts read the census at 514/81 and 732/93.
+
+What the next session does, in order, from the node: (1) the OCE seat lands s, 2fb and y and
+folds; the JC.net seat's fold 299 and successor; (2) this seat pushes the registry-rows carry and
+opens it (minutes), then the amendment-entries carry; (3) the measure as one pull request per
+estate: the v2 generator, the census, the dry-run merge's numbers and the ledger over the 207
+hunks and the 105 one-sided files, each row one of four readings; the 72 clean merges land as
+merged text in both; (4) the ledger's carries in closure order, the two large ones decided at the
+ledger; (5) the PDR-019 amendment and the PDR-143 trim. Processes to re-arm: the two
+registry-only heartbeats (claims 726da755 and 302e8307) and nothing else; no liveness poll, no
+pause at any window; the comms watchers only while peers are live. Promises of this seat, all
+discharged or forwarded: the port's closure (now a ledger row, the staged worktree its starting
+point); the records of the hour (this block); the size truing in OCE (rides this seat's first
+records commit on the successor, the same patch as JC.net's `SHA:766c6c0e`). Attribution
+inferences flagged: the OCE index rewrite at 19:41Z is unexplained by this seat's actions (none
+after 19:34Z); Efreet's reading of its cause is theirs. Blind-spot bounds: the comms watchers were
+stopped from 18:5xZ, so peer lines after that reached this seat by session messages only. A third
+metaloss pass would only re-find these; the recursion closes here.
 
 **§STATE, 2026-10-02 18:4xZ (Crucible binds Slag, `7b999c`, the Director: the third cadence under
 the finish node; end states 3 and 4 read first-hand).** Since 18:0xZ, each landing read by this
