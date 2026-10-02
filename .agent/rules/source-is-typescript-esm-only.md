@@ -48,6 +48,10 @@ files.
   environment.
 - Never author a `.cjs` file or CJS-shaped module code (`require`,
   `module.exports`) anywhere — ESM only (ADR-001).
+- A dynamic `import(...)` is an error (owner, 2026-08-09: "dynamic imports
+  error-with-recorded-exemptions"). The estate's ESLint plugin reports every
+  one (`no-dynamic-import`, at error in its recommended configuration); one
+  that must stay carries a recorded exemption.
 - Shell only where it significantly reduces effort. A shell script that
   accretes parsing or branching logic carries ADR-168 §5's
   promotion-overdue signals; port it to TypeScript.

@@ -294,3 +294,5 @@ word of 2026-09-24: "Crickets judge in the frame provided, we need them to also 
 - A missing or vague CRITICAL-PATH OWNER while the invoker's NEXT is meta-work is
   DRIFTING by default — the commonest real drift is process work absorbing attention
   while the critical path sits unowned (worked instance: PAIR-1, 2026-07-15).
+- Refer to every person and agent you name by name or with they/them; never infer a gender
+  from a name or a role.
