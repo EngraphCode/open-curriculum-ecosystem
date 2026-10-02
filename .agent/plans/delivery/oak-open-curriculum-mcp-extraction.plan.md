@@ -57,6 +57,10 @@ last_updated: 2026-09-08
 
 # Design the extraction of the MCP app product into oak-open-curriculum-mcp
 
+Priority by line: the owner, 2026-09-05, verbatim (recorded in the continuity record's
+current state; one instance): "Splitting out the Oak apps is the top priority in the Oak fork,
+not necessarily in this fork." Work in this fork does not wait for the extraction.
+
 ## Goal
 
 This node is the design step of the extraction lane — a delivery node is one

@@ -292,6 +292,11 @@ Review round on PR #131, 2026-09-11. Carried to the owner:
 | --- | --- |
 | The compare on the parent and the `parent_tip` read are separate authenticated requests. A parent move between them leaves a stale `identical`, the fast-forward never fires, and the mirror stays behind until the next slot — which across a Friday evening slot means a weekend, since the schedule is Monday to Friday. (Codex, P2) | Carried, not cured: nothing wrong is written and the next slot self-heals, so the cost is latency rather than correctness, while the fix changes the workflow's read order in text the owner ratified. Recommended shape, verified read-only on 2026-09-11: read `parent_tip` FIRST and compare the mirror against that immutable sha, which the compare endpoint accepts on the head side. One decision settles this and the carrier node's matching row. |
 
+Owner's card answer, 2026-09-11 (Director session, Nettle guards Pistil): "Cure all four in one
+lane." The four carried findings (the two-request race in each node, the duplicate-guard
+pagination cured 2026-09-20, and the mirror provenance) are one lane. Only the provenance route
+(the carrier's parent-check remedy, or a protected mirror branch) waits on the owner.
+
 Pre-commit reviews on the lane `fix/upstream-mirror-dispatch-token-scope`, 2026-09-17 (subagent
 reviews commissioned by the integrating seat, Dynamo turns Temper 2a4c8a, before any commit;
 recorded here because a subagent transcript is not a destination — owner, 2026-09-17):

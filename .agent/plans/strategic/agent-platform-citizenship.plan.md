@@ -66,6 +66,12 @@ modes serve this node:
 - **2026-08-01** — Widened to all agent platforms (owner card; see
   ratified_where). The Copilot-specific bet, success criteria, and
   execution state are retained unchanged below as the first instance.
+- **2026-09-28** — The owner's word to the Director, relayed by the Director
+  (event decbef38), verbatim: "I am deprioritising Codex support for now, we
+  have made progress, we will come back to it later." The Director's record of
+  the same day reads the Codex goal as paused until the owner returns to it,
+  its nodes ratified and unseated (codex-queue-wake-bridge,
+  codex-pretooluse-guard-parity, codex-live-acceptance-seat). One instance.
 
 ## The first fully-worked instance: GitHub Copilot CLI
 
