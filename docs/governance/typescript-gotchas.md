@@ -187,8 +187,10 @@ finding class ends rather than relocates.
 
 - **Sonar S7765 (prefer `.includes`) against a value-is-X type guard**: rewriting
   `values.some((v) => v === x)` as `values.includes(x)` fails where the argument is wider than
-  the element type (TS2345), and widening the array to satisfy it makes the guard unsound.
-  Keep `.some` in a guard and disposition the finding.
+  the element type (TS2345). Widening the array's annotation to satisfy it removes the
+  compiler's check that the list holds only members of the guard's union, so the guard is
+  then right by convention only. Keep `.some` in a guard, or widen only a list nothing else
+  can write to, and disposition the finding.
 - **zod 4 closes a plain object in a generated JSON schema only in output mode**:
   `z.toJSONSchema(z.object({}))` emits `additionalProperties: false` for `io: 'output'` and
   omits it for `io: 'input'`, where `z.object({}).strict()` is needed (measured on zod 4.4.3,

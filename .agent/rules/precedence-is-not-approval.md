@@ -79,6 +79,10 @@ owner's own; prior conversational statements never block, collisions with ratifi
 structure always earn the surface-with-verdict at the action moment — never silent
 execution past them, never flat refusal.
 
+A question is not a grant either. An owner's questions about the value or the risk of
+publishing something are not permission to publish it: publishing local evidence needs the
+owner's explicit approval (a decision from a handoff record).
+
 ## The Cure
 
 Stop and locate the live approving authority or proving surface, then check it.
