@@ -635,8 +635,9 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     moved whole to `archive/<surface>-YYYY-MM-DD.md` beside the surface (a
     letter suffix for a second archive that day; never overwrite one) and
     proven byte-identical against the committed blob (finished ranges that are
-    not contiguous: a snapshot of the whole pre-curation file, proven the same
-    way, then the live file curated); the runbook's token and
+    not contiguous: each range moved whole in file order and proven the same
+    way, the archive's first line naming the pre-move commit, which holds the
+    whole pre-curation file; no whole-file snapshot is written); the runbook's token and
     neighbour checks run; the live surface left with its live state and a
     one-line pointer. This is the trigger the continuity surfaces lacked
     until 2026-09-17, when only the napkin had one. Archiving happens only after

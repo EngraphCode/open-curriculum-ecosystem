@@ -364,7 +364,11 @@ this way produces cleaner boundaries and simpler classification.
   owning surface completely. A validator, reader, writer, or operator
   command MUST target the canonical surface and fail loudly when that
   surface is absent or invalid; it must not quietly scan an old location,
-  skip a missing canonical directory, or keep a migration path alive.
+  skip a missing canonical directory, or keep a migration path alive. A
+  new obligation binds from its adoption forward: records that predate it
+  are history and are not rewritten to satisfy it (owner, 2026-07-20, of
+  channel records a new validator refused: "no, we don't fix the old
+  channel docs, we just update the system").
 - **No timing dependence** - nothing we build relies on timing, ordering
   luck, or a race being unlikely (owner principle, 2026-08-17, verbatim:
   "nothing we do should ever, ever rely on timing or races, we build

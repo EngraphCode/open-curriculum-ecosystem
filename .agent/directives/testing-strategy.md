@@ -209,7 +209,13 @@ describes it). Rollout sequencing:
   proven by exercising its own boundary once at cure time and
   guaranteed by construction (declarative config, fail-fast hook,
   preflight probe) — never narrated as proven by a product suite
-  passing over it.
+  passing over it. A claim about a default is proven only when the
+  default can be swapped for a fake that violates it (owner, 2026-09-13:
+  "proven by relation to the injected seam, not by asserting the helper's
+  name"). A mutant that survives on a decision value written as a literal
+  is this rule working, not a gap: hold an assertion against this rule
+  before adding it because a mutant survives, or restoring it because a
+  sibling estate removed it (2026-10-01, two instances in one day).
 - **No useless tests** - Each test must prove something useful
   about the product code. If a test is only testing the test or
   mocks, delete it.
@@ -508,7 +514,10 @@ exchange is permitted, loopback included (§Test Types).
   often or in what order is implementation (§Philosophy). A collaborator
   that both answers queries and receives output (a store with get and put)
   is judged per operation: what it receives is output, and the queries it
-  answers are never asserted.
+  answers are never asserted. An ordering claim across ports is proven
+  through a port's failure state, never its call count, and a property no
+  admissible fake can observe belongs in the types (a seat's observation,
+  2026-09-29; one instance).
 
 Do not conflate the two. Runtime stubs are product code; test fakes are test
 infrastructure.
