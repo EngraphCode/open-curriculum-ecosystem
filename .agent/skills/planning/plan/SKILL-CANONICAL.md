@@ -78,6 +78,11 @@ definition only at a consequential gap.
    yardstick, and use [`reason`](../../cognition/reason/SKILL-CANONICAL.md) to structure
    the framing before committing to plan shape.
 
+   When the plan stack itself has drifted from the implementation, the first
+   artefact is a current-state audit against the live code, and the rewrite
+   is judged against it: a stack rewritten from its own claims inherits their
+   ambiguity (2026-03-09).
+
 2. Read the directives:
    - `../../../directives/principles.md`
    - `../../../directives/testing-strategy.md`
@@ -344,6 +349,14 @@ execution cycle:
   record (the extraction plan's "this log is the durable home" sentence
   re-pointed at ADR-227, #961, 2026-09-03 — a recurrence despite the home,
   filed on the doctrine-traction lane).
+
+Three further disciplines. Do not assume the plan is correct or useful (the owner's words): a
+plan is a pointer written at one moment, and its premises are recomputed at execution. Before
+writing a procedure that touches shared state, list every actor that reads or writes each
+resource, scheduled jobs included: actors missing from that list cost one procedure three
+review rounds. And an amendment that can only be decided at execution, against the source and
+its fixtures, is recorded in the conserved design when it is made, never left in the session
+that made it.
 
 ## Readiness and Review
 
