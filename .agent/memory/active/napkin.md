@@ -211,3 +211,22 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   repo-continuity on 2026-10-01); the docs-only bot-authored class landed by the REST door with the
   gate recomputed by name, as #329 did. The door's reading of the reaction is still the tooling lane
   the continuity record names (one more instance).
+
+## 2026-10-02T14:01Z — the resume window seen from OCE: a message checker's gap, a peer's pass over this seat's records, the lane handed on (Hazel tracks Trunk, 7d8b9d)
+
+- This estate's commitlint refuses a commit whose BODY has a line over 100 characters, not only a
+  long header; the seat's message checker tested headers alone and let one slice's message through
+  to a refusal at commit time. The checker now reads every line. A checker that mirrors a gate
+  checks everything the gate checks, or it is a guess dressed as a check.
+- A peer's records pass (the fold seat, 10:4xZ) found seven stale or false lines in this seat's
+  entries here: a ledger row that missed a settlement push, three "the code names none" claims
+  where the code exists and the policy does not wire it, a wording, an open-count, a pull-request
+  number without its estate. A code claim has two parts, the source and the configuration; a
+  pull-request number names its estate wherever both estates appear in one record.
+- The rendered two-estate entry carried seven lines over 100 columns and two capitals mid-sentence
+  from placeholder substitution; the renderer now rewraps and capitalises by sentence boundary, and
+  the entry is cured in place.
+- The owner's word, typed in the Director's session and confirmed in this seat's: one coordination
+  and one in-progress fix pull request per estate; work is not safe until it is merged into the
+  default branch. Seven slice branches committed on this seat's lane here pass to the estate's
+  implementer by a PDR-063 record rather than open from a seat whose lane is the sibling estate.

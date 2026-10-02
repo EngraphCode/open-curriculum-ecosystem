@@ -1686,7 +1686,7 @@ More lessons for the list above (each is the whole lesson):
 - `precedence-is-not-approval`: a standing owner grant never covers the hook-blocked family,
   another organisation's surfaces, a hook bypass, a settings change or spend over the agreed
   band; reading a sibling organisation's repositories is the owner's to grant, asked in one card.
-- `invoke-test-expert`: each test change gets a test-expert verdict before commit, recorded in the
+- `invoke-code-experts`: each test change gets a test-expert verdict before commit, recorded in the
   commit message or the pull request's body.
 - `no-warning-toleration`: any non-zero or failed check is a real failure; no expected-failure
   category exists (owner).
@@ -2163,48 +2163,48 @@ routed to the partner seat's code lanes, and that seat is frozen: it has no live
 
 ### 2026-10-02 03:52Z — the hold ended; two directive pull requests landed and the slices are opening (Hazel tracks Trunk, 7d8b9d)
 
-Counts first. Write list: 111 numbered; 19 closed on reading their homes (five more this
-window: the adapter clause, held by PDR-009 in both estates; two directive-bound follow-ups
-the registers show already graduated; the content boundary for a private lane, held by the
-privacy directive's rules 5 and 7; the Sonar policy port, a host difference); 7 landed on
-memory surfaces; 85 open. Of the open, 74 are scripted and applied in the estates' lane
-working trees, the twins' added lines compared file by file and equal; 11 are not yet
-scripted (product documents in this estate, two documents in the sibling estate, two product ideas for this estate's
-backlog, two whole-file ports, the convergence of the pull-request skill, the capability
-inventory). Pending graduations: no inline entry in either register; the
-slow-lane rows (the sibling estate 1, this estate 6) are gated on their review dates and none is due (PDR-130,
-decision 3). Buffers named at the open: none unread, three read by scan only.
+Counts first. Write list: 111 numbered; 19 closed on reading their homes (five more this window: the
+adapter clause, held by PDR-009 in both estates; two directive-bound follow-ups the registers show
+already graduated; the content boundary for a private lane, held by the privacy directive's rules 5
+and 7; the Sonar policy port, a host difference); 7 landed on memory surfaces; 85 open. Of the open,
+74 are scripted and applied in the estates' lane working trees, the twins' added lines compared file
+by file and equal; 11 are not yet scripted (product documents in this estate, two documents in the
+sibling estate, two product ideas for this estate's backlog, two whole-file ports, the convergence
+of the pull-request skill, the capability inventory). Pending graduations: no inline entry in either
+register; the slow-lane rows (the sibling estate 1, this estate 6) are gated on their review dates
+and none is due (PDR-130, decision 3). Buffers named at the open: none unread, three read by scan
+only.
 
-The hold. The harness compacted and the meter read 0 %, then 8.4 %. The directive cure for
-The sibling estate's pull request 288 was re-read in full at that figure and three of its five texts were
-rewritten there. 288 merged with one settlement push. This estate's pull request 330 carried the
-same cure; its review made one claim in the body and no thread (the archive proof relied on
-HEAD and never checked the surface was clean), which held, and 330 merged with one settlement
-push. The sibling estate still holds the first form of that step: the back-port is in its lane working
-tree and rides its next slice. The meter reached 29.4 % with one more directive edit made at
-that reading (this estate's stale orientation row); directive edits wait again from there.
+The hold. The harness compacted and the meter read 0 %, then 8.4 %. The directive cure for the
+sibling estate's pull request 288 was re-read in full at that figure and three of its five texts
+were rewritten there. 288 merged with one settlement push. This estate's pull request 330 carried
+the same cure; its review made one claim in the body and no thread (the archive proof relied on HEAD
+and never checked the surface was clean), which held, and 330 merged with one settlement push. The
+sibling estate still holds the first form of that step: the back-port is in its lane working tree
+and rides its next slice. The meter reached 29.4 % with one more directive edit made at that reading
+(this estate's stale orientation row); directive edits wait again from there.
 
 Open now: this estate's pull request 331, the first lessons slice (ten files). Two vendor reviews
 raised six findings, five distinct, all holding in part or whole; the cures are committed as
 settlement push one and are in the sibling estate's lane working tree too.
 
-Prepared and waiting, one pull request at a time, this estate first and its twin after each:
-rules two (nine files); rules three with three reviewer templates (eleven); skills (ten);
-Practice Core (seven decision records, the decision-record README, the changelog, the
-context-budget rule, and in this estate two one-line convergence ports and the orientation row);
-plans (fifteen files in this estate, two in the sibling estate). Each slice's branch, paths, message and
-description are files in the session's scratchpad state directory, with the order of the
-apply scripts in the plan note beside them.
+Prepared and waiting, one pull request at a time, this estate first and its twin after each: rules
+two (nine files); rules three with three reviewer templates (eleven); skills (ten); Practice Core
+(seven decision records, the decision-record README, the changelog, the context-budget rule, and in
+this estate two one-line convergence ports and the orientation row); plans (fifteen files in this
+estate, two in the sibling estate). Each slice's branch, paths, message and description are files in
+the session's scratchpad state directory, with the order of the apply scripts in the plan note
+beside them.
 
-Decided this window: the lessons of the agent-tools architecture exploration stay homed in
-This estate's ratified strategic node; in the sibling estate they are routed into the exchange plan with the
-question that is the owner's, because the owner's rulings give its Practice stream one
-strategic node. The Sonar disposition policy is not ported to the sibling estate, which runs no Sonar
+Decided this window: the lessons of the agent-tools architecture exploration stay homed in this
+estate's ratified strategic node; in the sibling estate they are routed into the exchange plan with
+the question that is the owner's, because the owner's rulings give its Practice stream one strategic
+node. The Sonar disposition policy is not ported to the sibling estate, which runs no Sonar
 analysis: a host difference, recorded for the capability inventory.
 
-Resume. Read the open pull request's reviews in full (bodies as well as threads); cure by
-script in both lane trees; one settlement push; replies after the push is read back; merge by
-the scripted door; then the twin. Directive and decision-record edits only under 30 %.
+Resume. Read the open pull request's reviews in full (bodies as well as threads); cure by script in
+both lane trees; one settlement push; replies after the push is read back; merge by the scripted
+door; then the twin. Directive and decision-record edits only under 30 %.
 
 Addendum at the fold, 2026-10-02 (Efreet lifts Scorch, 7adb15): pull request 331 merged at 04:05Z as
 `SHA:39bf1a814` (its ledger row is on this branch); the open pull request the Resume paragraph names
@@ -2232,3 +2232,42 @@ is therefore the next slice's, not 331.
 - The upstream mirror `main` (`SHA:2a7773837`, release 1.185.6) read first-hand as equal to the Oak
   line's tip and an ancestor of `engraph` through carrier #319; no carrier open or due, nothing to
   integrate.
+
+### 2026-10-02 14:00Z — the owner's review and the resume: every slice committed, 289 landed, the three napkins read (Hazel tracks Trunk, 7d8b9d)
+
+Counts first. Pending graduations: no inline entry in either register; the slow-lane rows (the
+sibling estate 1, this estate 6) are gated on their review dates and none is due. Write list: 116
+numbered; 25 closed on reading; 7 landed on memory surfaces; 84 open: 10 merged in both estates (the
+first lessons slice, the sibling estate 289 and this estate 331, with the four cures the second
+review found travelling back to this estate); 66 committed on local lane branches in both estates
+(five slices in the sibling estate, six in this estate, and the four-file back-port); 5 unscripted,
+plus four new from the napkins. Buffers: the three unconsolidated napkins are read whole (about 200
+lessons; every one homed, superseded, tracked or released except the four writes and one line that
+is the owner's); the live napkins carry this window's entries; the per-user memory is dispositioned
+by marker.
+
+The owner's review (10:1xZ). Asked what was done, what remains and what was missed, the seat
+recomputed every figure from its source. Missed: the three napkins had been held behind a privacy
+review the owner lifted on 2026-09-14; a record imported from this estate sits uninventoried in the
+sibling estate's active memory; the divergence measure excludes the pattern port and reads the
+merged state as more divergent than at the open (7,167 lines against 7,142; 7,081 with every
+prepared slice landed); three ported patterns carry the upstream package scope the port's plan said
+it would rename; eleven set-aside code defects were never filed; this estate's ten owner-decision
+items were not re-trued; the method lives only in buffers and scripts; the sixty-six applied lessons
+were git-durable nowhere. The owner agreed the ten proposals.
+
+Done since. Every prepared slice is a local commit, because nothing is safe until it is merged (the
+owner's word of this morning), and each opens by pull request in turn under one fix pull request per
+estate. 289 merged after one settlement push curing four findings on bytes this estate had merged
+first; the cures are committed for this estate. 290, the sibling estate's nine-rule slice, is open.
+The seat's own misreadings this window: the work-in-progress word forbids open pull requests, not
+local commits; three records claimed code "names none" where the code exists and the policy does not
+wire it (a code claim has two parts). The owner's words of the day: "always use monitors, not ad-hoc
+shell processes"; the Practice is to be extracted as a standalone entity (PDR-143, the Director's
+record).
+
+Resume. Open the slices one pull request at a time per estate (290, then r, s, u and x in the
+sibling estate; the back-port, then q, r, s, u, v and w in this estate, by the seat the owner
+names); write W112, W113, W115 and W116 as second commits on the slices that carry their files;
+archive the three napkins by proof after the owner's word on the one line; wave 4 stands as listed
+in the plan.
