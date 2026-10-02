@@ -18,7 +18,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-09
+last_updated: 2026-10-02
 ---
 
 # Skills-estate organisation
@@ -214,6 +214,15 @@ pairing discoverable).
   byte-identical, with body diffs confined to the moved skills'
   pointer lines — the conservation instrument #731 proved (wording
   amended 2026-08-09 per WS6 note (e)).
+
+### Amendment 2026-08-17 (owner word, direct to the Director, recorded in the Director rulings ledger as SKILLS-FIRST)
+
+"finish the skill work first, including getting to the point where all
+Practice skills have evals". The owner trued its scope the same day ("ONLY
+about `.agent/skills`"). WS8's per-skill evals are therefore the bar for every
+Practice skill, not an option. The queue-head order in the same word was
+superseded that day by XPLAT-4. Recorded here on 2026-10-01 from the Director
+records; one instance.
 
 ## Why this shape (first principles, not cowpath)
 
@@ -425,6 +434,10 @@ the standing ruling, recorded here as the affected artifact's stamp).
   plan. (The apparent rhyme between concern groups and export
   boundaries is a noted association, not a design input — portability
   is the stratum axis's job.)
+- Skills outside the Practice corpus: every workstream's quantifier ranges
+  over `.agent/skills` only (the owner, 2026-08-17, direct to the Director,
+  verbatim: "ONLY about `.agent/skills` and not at all about
+  `plugins/oak-open-curriculum`").
 
 ## Review dispositions
 
