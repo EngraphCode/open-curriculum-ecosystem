@@ -14,6 +14,7 @@ describe('parseGitRemoteUrl', () => {
     { url: 'https://jim@github.com/acme/widgets.git', host: 'github.com' },
     { url: 'https://github.com@evil.example/acme/widgets.git', host: 'evil.example' },
     { url: 'https://gitlab.example/acme/widgets.git', host: 'gitlab.example' },
+    { url: 'http://github.com/acme/widgets.git', host: 'github.com' },
   ])('reads $url as acme/widgets on $host', ({ url, host }) => {
     expect(parseGitRemoteUrl(url)).toEqual({ host, owner: 'acme', repoName: 'widgets' });
   });

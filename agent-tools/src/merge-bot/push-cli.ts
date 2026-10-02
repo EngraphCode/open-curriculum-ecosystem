@@ -171,7 +171,8 @@ async function mintAndPush(
 
 /**
  * One attempt: the transfer of the settled commit with the push's token, and
- * its reporting. The output streams to stderr in full as it arrives, and the
+ * its reporting. The output is written to stderr in full as the executor
+ * hands it over, which the file-backed executor does when git ends, and the
  * refusal check keeps a bounded copy of it (R1; `keptForRefusal`), classified
  * once. A warning that the token directory could not be removed joins that
  * copy, so an attempt whose cleanup warned is never taken for the refusal: it

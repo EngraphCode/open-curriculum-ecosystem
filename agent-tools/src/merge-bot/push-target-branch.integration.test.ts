@@ -372,7 +372,7 @@ describe('settleCommitFor: the branch and the commit are one snapshot of HEAD', 
     expect(failureMessage(settled)).toContain('no branch');
   });
 
-  it('fails with git own words when the branch cannot be read again', async () => {
+  it("fails with git's own words when the branch cannot be read again", async () => {
     const settled = await settleCommitFor(
       'feat/example',
       true,
