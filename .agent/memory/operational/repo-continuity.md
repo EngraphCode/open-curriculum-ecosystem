@@ -2729,75 +2729,45 @@ this section; create a thread record when execution is scheduled.
 
 ## Open Owner-Decision Items
 
-Re-trued 2026-10-02 against the estate (each item read first-hand at the paths named; the
-owner's questions travel as cards, not here). The 2026-09-06 ruling that no upstream-organisation
-surface is reached from this line is "the fork ruling" below.
+None. The ten items this section carried until 2026-10-02 were re-trued against the estate on
+2026-10-02 14:2xZ (each read first-hand at its paths) and retired the same day under the owner's
+rulings of 17:0xZ and 17:1xZ ("NOTHING is blocked on me"; nothing is worked on without completion
+criteria, a size and a ratified-value line; all of it bounded and finished soon), by the Director's
+routing to the consolidation seat. Each took one verb of the owner's triage taxonomy:
 
-1. MCP product analytics. Premise as written: MCP-63 proceeds from the ratified plan on PR #568;
-   the remaining owner-held decision is October public-beta enablement after MCP-173's evidence
-   is complete. State: PR #568 merged 2026-07-26 (`ccd1c410f`); both plans `status: ratified`
-   (`.agent/plans/delivery/mcp-63-posthog-product-analytics.plan.md`, `mcp-173-posthog-privacy-governance.plan.md`,
-   nine proofs `owner-held`); the implementation thread is PAUSED since the fork ruling
-   (`.agent/memory/operational/threads/paused/mcp-product-analytics.next-session.md`); the public
-   beta was publicised 2026-09-06; MCP-173's evidence is not in the estate. Verdict: the premise
-   is stale ("proceeds" is false; the October trigger month has arrived); the owner's decision
-   stands open.
-2. Monorepo workspace topology. Premise: held by owner decision (2026-05-09) until after the graph
-   MVP tranche. State: the plan is parked
-   (`.agent/plans-backlog-2026-07/architecture-and-infrastructure/future/monorepo-workspace-topology-adr-and-canonical-plan.plan.md:34`);
-   the graph-stack plan is ACTIVE with close-out cycles remaining (`.../active/graph-stack.plan.md:143`),
-   no "tranche complete" statement found; ADR-227 (Accepted 2026-09-03) and the ratified
-   workspace-classification-census and workspace-config-isolation plans overlap the parked scope.
-   Verdict: premise stale; whether ADR-227 and the census supersede the parked ADR is the owner's.
-3. MCP launch-readiness ladder. Premise: ratify the Stage 1–4 ladder, promote the stub; K1–K3
-   ratified. State: the stub is `status: future` (2026-06-17, trigger "owner direction to
-   schedule the milestone-redraft pass";
-   `.agent/plans-backlog-2026-07/curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md`);
-   no ratification of the ladder found; `first-major-release` is `status: ratified`
-   (`.agent/plans/strategic/first-major-release.plan.md`, updated 2026-09-01); the beta is live.
-   Verdict: premise stale; retire or ratify is the owner's.
-4. External-facing capability corpus. Premise: decide source-of-truth topology and first-tranche
-   scope; these gate `t0` and `w0`. State: the corpus map is `status: current` (2026-06-08) with
-   its questions open
-   (`.agent/plans-backlog-2026-07/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md`);
-   a plugin has shipped (`claude/plugins/` and `chatgpt/plugins/`; PR #999 merged 2026-10-01,
-   `050bf314c`); no recorded decision on either question. Verdict: the gate is overtaken by what
-   shipped; the two questions stand open.
-5. Native-MCP-auth build-vs-buy. Premise: adopt or adopt-partial on the spike. State: the spike is
-   `status: strategic-brief`, lane `future` (2026-06-16;
-   `.agent/plans-backlog-2026-07/security-and-privacy/future/native-mcp-sdk-auth-build-vs-buy.md`);
-   the auth under `apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/` is still bespoke.
-   Verdict: open, unchanged.
-6. Upstream and SDK forks. Premise: endpoint-style cross-refs in tool descriptions; Q-010 repair
-   vs retire the orphaned typedoc estate. State: Q-010 is decided (retire, owner-ratified
-   2026-06-15; `.agent/plans-backlog-2026-07/sdk-and-mcp-enhancements/future/retire-curriculum-sdk-api-md.plan.md`)
-   and executed (`0eb7653d5`, 2026-07-03; the `docs/api-md` tree is absent). The cross-refs half
-   has no recorded resolution. Verdict: Q-010 closed; the cross-refs question stands open.
-7. Curriculum graph estate, single-team proposal. Premise: whether to bring four curriculum
-   efforts under one team for about six months. State: the synthesis report is `status: complete`
-   (`.agent/reports/curriculum-graph-estate-synthesis-2026-06-22.md`); the record says a
-   leadership brief is held local, and no file of that name is under `.agent/reference-local/`;
-   no decision is recorded; under the fork ruling the addressee is outside this line. Verdict:
-   open, and the owner's to keep or retire.
-8. Corpus-generalisation Phase 0 scheduling. Premise: when and what shape. State: the trigger
-   fired and the fresh-seat session ran on 2026-07-05
-   (`.agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-phase0-design-record-2026-07-05.md`);
-   the thread reads "PHASE 0 IN FLIGHT — PAUSED 2026-07-05"
-   (`.agent/memory/operational/threads/agentic-engineering-enhancements.next-session.md:238`);
-   PDR-122's last amendment is 2026-07-03. Verdict: the scheduling decision was taken and acted
-   on; the restart and the PDR-122 landing set stand open.
-9. Comms forensics depth and live-event path posture. Premise: (a) further effort on the
-   unexplained untracked-tier removal; (b) 21+ live comms events embedding machine-local paths.
-   State: `255117a43^` resolves and the removal is still unexplained (this record, lines 265–266);
-   the comms events are untracked, and the `validate-no-machine-local-paths` validator and the
-   `machine-local-path` write hook now enforce the invariant (this record, §Repo-Wide Invariants).
-   Verdict: open; premise (b) has changed (no tracked exposure; the guard exists).
-10. Estate-wide markdown→graph inversion ADR timing. Premise: a Proposed ADR generalising ADR-200
-    and PDR-119. State: not authored; the thread names it the OQ-10 authoring session
-    (`.agent/memory/operational/threads/continuity-memory-and-knowledge-flow.next-session.md:64-67`);
-    ADR-221 (Accepted 2026-07-31) refines ADR-200 without the surface-class taxonomy or the
-    reconciler; "after Phase 0" depends on item 8. Verdict: open; whether ADR-221 discharges it
-    is the owner's.
+1. MCP product analytics: DELETE as overtaken. PR #568 merged 2026-07-26, the public beta was
+   publicised 2026-09-06, the implementation thread is paused under the fork ruling, and MCP-173's
+   evidence is not in this estate; the October-enablement question has no criteria, size or value
+   line here and reopens only as a node carrying all three.
+2. Monorepo workspace topology: DELETE as overtaken. ADR-227 (Accepted 2026-09-03) and the
+   ratified census and config-isolation plans cover the parked ADR's scope; a supersession note,
+   if wanted, is a one-line edit on the parked plan, not a decision.
+3. MCP launch-readiness ladder: DELETE as overtaken. `first-major-release` is ratified and the
+   beta is live; no live document cites the stub, which stays `future` by its own status.
+4. External-facing capability corpus: DELETE as overtaken. A plugin shipped (PR #999,
+   2026-10-01); the corpus map's two questions were answered by what shipped, and the next
+   tranche is a node with criteria, size and value when one is wanted.
+5. Native-MCP-auth build-vs-buy: DELETE. The spike is a strategic brief of 2026-06-16 with no
+   criteria, size or value line on record; it reopens only as a node carrying all three.
+6. Upstream and SDK forks: DELETE as decided. Q-010 was owner-ratified 2026-06-15 and executed
+   2026-07-03; the cross-refs half has no owner, criteria or value line on record and is not
+   work.
+7. Curriculum graph estate, single-team proposal: DELETE as outside this line. The addressee is
+   outside this fork under the fork ruling of 2026-09-06; the synthesis report stands complete as
+   a report; the brief stays out of version control.
+8. Corpus-generalisation Phase 0 scheduling: DELETE as decided and run (2026-07-05). The restart
+   and the PDR-122 landing set carry no criteria, size or value line and reopen only as a node.
+9. Comms forensics depth and live-event path posture: DELETE. The removal's forensics has no
+   criteria or value line, and the recovery point (the parent of SHA:255117a43) resolves and is
+   named in this record; the path-bearing events are untracked, and the validator and the write
+   hook forbid new ones, so the tracked estate has no exposure and nothing to decide.
+10. Markdown→graph inversion ADR timing: DELETE. A sequencing note on an unauthored ADR is not a
+    decision; ADR-221 (Accepted 2026-07-31) is the current refinement of ADR-200, and a
+    surface-class ADR, if wanted, is a node with criteria, size and value.
+
+The re-truing's evidence paths are in this record's history at the commit before this rewrite; the
+fork ruling (2026-09-06: no upstream-organisation surface is reached from this line) stands in
+§Repo-Wide Invariants.
 
 ## Repo-Wide Invariants / Non-Goals
 

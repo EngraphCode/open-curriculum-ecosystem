@@ -2453,3 +2453,87 @@ never idled. The two directive lines wait for a window under the context meter's
 read 60 % at 16:45Z); the pattern files take the same naming by the records channel. After the list:
 Goal 1 item 3, the exchange register's recount at the current heads and the computed path delta
 between the two default tips.
+
+### 2026-10-02 17:48Z — the owner's three rulings and the finish node; the last the sibling estate slice landed; the records by the worktree route; the omnibus branch's residue (Hazel tracks Trunk, 7d8b9d)
+
+Counts first. Pending graduations: 0 inline in either register; slow-lane rows the sibling estate 1,
+this estate 6, each read against the Director's test of 17:2xZ (a prediction, a falsifier and a
+dated review trigger) and each carrying all three, none due before 2026-10-10. Buffers: the three
+unconsolidated napkins in the sibling estate are fully processed by the write list and move to the
+archive when the list reads zero open items (the owner, 17:1xZ, relayed by the Director: "we don't
+archive napkins, we fully process them, and once all knowledge is safe we move them to an archive"),
+the one phrase the privacy directive keeps out of version control omitted from the archived copy;
+the sibling estate's live napkin rotates with this records commit; this estate's is 232 lines. Write
+list: the count line of the earlier entries (116 numbered, 83 open) is not recomputable, and this
+entry retires it: the record numbers only W61 to W116 explicitly, and the 01:10Z entry's 44 bullets
+bundle the items counted as W1 to W60. Of W61 to W116, read by home file against every consolidation
+pull request in both estates (the sibling estate 287 to 296, this estate 328 to 337; the table is in
+the session state directory, three rows verified first-hand): 23 merged in both estates, 16 merged
+in the sibling estate only with their copies in this estate in the unopened u, q, s and y slices, 9
+closed on reading, 1 on a memory surface, 7 not mapped by home (W84; W104, which is the omnibus
+residue below; W112 to W116, whose text the record never attached to the numbers). The cure, in the
+next records entry, is one numbered table of every item from the 01:10Z entry onward with its home,
+its slice in each estate and its status, so that criterion 1's count is one a reader recomputes.
+
+The owner's words of the window, verbatim, 17:0xZ in this seat's session: "NOTHING should be worked
+on without clear completion criteria, sizing, and an unambiguous and provable statement of how it
+provides ratified value. Run a fully Cricket suite"; in the Director's session, 17:0xZ: "NOTHING is
+blocked on me", and 17:1xZ: "ALL of this work is bounded, ALL of it must have a known, reachable,
+measurable end state, and ALL of it must be finished soon." The Director answered with the delivery
+node `practice-work-finish` (five end states, sized from the day's measured rate, finished within
+one day), the same bytes in both estates; it replaces the definition of done of 15:1xZ. This seat's
+todo under it: land the last slice; recount the exchange register at the current heads and compute
+the port delta; close the open rows into the generated inventory of every Practice artefact with its
+PDR-143 scope class and byte-sameness; run the census here; move the notebooks after the write list
+closes; rotate the notebook.
+
+The Cricket suite ran on every lane's three statements (four variants, two adversarial): the work
+ON-TRACK by three and DRIFTING by one on proportion; the frame CONTRADICTED by three on one reading,
+that this estate's ten re-trued owner items' retirement was the Director's to write, where the
+Director's words were "your next OCE records commit". Corrected: the retirement is this seat's, each
+item with one verb of the owner's triage taxonomy, in this estate's continuity record with the next
+records commit there; items 5, 9 and 10, still open in the verdict column, take DELETE because none
+carries criteria, a size or a value line on record (the Director's confirmation, 17:2xZ).
+
+The sibling estate's last slice, 296 (Practice Core, ten files), landed at SHA:c44edc837: a second
+Copilot round found three things in the review body, none an inline thread, all holding (PDR-052's
+report clause said a compaction releases a held edit where the record requires the repeated reading;
+PDR-055 named this host's tooling package and plan files while claiming every clause portable; the
+temp-files rule still prescribed the curator's per-pass log PDR-081 retired on 2026-06-14, in five
+places); one script (a144) cured all three and travels to this estate's copy of u after a143. The
+two-push budget was spent on the slice; no third request; the door at CLEAN. The pattern files'
+naming (a133) needed no run: zero lines in the ten files still say "the lineage" on the primary. Six
+slices of the sibling estate landed today, 291 to 296.
+
+The omnibus branch `docs/consolidation-2-routed-cures` (SHA:767c05a9) failed its content proof: a
+script that checks every line the branch added against main's copy of each file found 73 absent (113
+against the coordination branch). Read by content, PDR-075's "Accepted" lines, PDR-130's line and
+the changelog and README rows are superseded by 281's review (PDR-075 is Proposed), F-219 is in the
+register under a reworded heading, the commit skill's header check is carried in substance, and the
+shell-gotchas lines are on main; the real residue is the first batch's skills split, which was never
+cut (281, 282 and 283 landed; no skills pull request of that batch exists): `coordination-fold`,
+`inter-practice-collaboration`, `consolidate-docs` step 6b, `pr-lifecycle`, `start-right-team` and
+`tooling.md`, about 30 lines; the exchange plan's paragraph on capabilities found 2026-10-01 with no
+register row and the retrospective's measure rerun of 2026-10-01 (the records channel); and
+`continuity-practice`'s archive clause (20 lines, a directive, PDR-052's floor). The Director
+approved it as the lane `docs/consolidation-2fb-first-batch-skills` in both estates (criterion the
+script's zero against main plus the passages landed; size one six-file pull request per estate, one
+records commit, one directive edit per estate; value the fold reviews' contradiction cures decided
+at the owner's review of 2026-10-01 and end states 1 and 2); this estate's copy is Efreet lifts
+Scorch's own pull request after s and before y, and both omnibus branches are deleted on the
+script's zero. The record's earlier sentence that the branch's content had landed by other slices
+was wrong in part; a claim about a branch is proved by its content, never by memory of the split.
+
+What stands. The zero-byte index lock in the sibling estate's primary (10:56Z) holds nothing: by the
+Director's route the dirty records (this record's eighth to eleventh entries, the napkin with the
+seats' blocks, the memory README, the WS-8 synthesis header, three patterns, the register's nine
+entries, two formation letters, the finish node) are committed from this seat's built lane worktree
+on a branch cut from the coordination branch's remote tip and pushed to that branch's ref; the fold
+of 286 is the Director's by the same route. Next for this seat, in the Director's order: the remote
+retirement of `docs/consolidation-2a-decision-records` (merged as 281, never retired); this estate's
+records commit (the ten retirements, this entry); the first-batch skills lane in the sibling
+estate's slot; then the inventory lane (the recount is its sizing act; its value line is the owner's
+word of 2026-09-29 in the exchange plan's §Finish: "I want the Practice exchange finished"; "a means
+to an end, not an endless horizon"), then the census here. The two directive lines and the archive
+clause wait for a context reading under the floor, read twice after a compaction (PDR-052 §2); this
+window's reading is not taken.
