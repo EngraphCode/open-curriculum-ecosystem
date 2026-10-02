@@ -91,9 +91,9 @@ work stop quickly.
 A chain of review trips is a loop and has an exit of the same kind: a trip
 whose review brings no cure ends the chain, and the step-back predicate is
 the pull-request skill's review-round state machine, item 2 (two consecutive
-trips that do not shrink the cure count, or four settled rounds, while the
-latest count is non-zero), never a count read from one trip (one chain's
-counts ran eleven, then three; 2026-09-26).
+trips that do not shrink the cure count, or four settled rounds in the current
+epoch, while the latest count is non-zero), never a count read from one trip
+(one chain's counts ran eleven, then three; 2026-09-26).
 
 ## Composition
 
