@@ -89,9 +89,11 @@ their iterations produce work; loops without genuine periodic
 work stop quickly.
 
 A chain of review trips is a loop and has an exit of the same kind: a trip
-whose review brings no cure ends the chain, and a trip that does not shrink
-the cure count is the signal to step back, not to review again (one chain's
-counts ran eleven, then three; 2026-09-26).
+whose review brings no cure ends the chain, and the step-back predicate is
+the pull-request skill's review-round state machine, item 2 (two consecutive
+trips that do not shrink the cure count, or four settled rounds in the current
+epoch, while the latest count is non-zero), never a count read from one trip
+(one chain's counts ran eleven, then three; 2026-09-26).
 
 ## Composition
 
