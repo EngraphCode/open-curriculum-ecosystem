@@ -135,6 +135,12 @@ instruction, surface the conflict in one sentence at the action moment
 ("tracking them in place — say if you'd rather I snapshot instead"), never
 resolve it silently toward the weaker protection.
 
+A placement that feels easy under a sensitivity constraint is checked against the tree before
+it is made. Search the tracked files for the thing being protected: one such search found
+sixty-two tracked files already naming it, and both of the estate's own tiers for derived
+analysis already in place. Repository data does not go in a machine-local folder (owner,
+2026-09-25); a guard's allowance of a path shape is not a reason to place something there.
+
 ## Composition With Other Rules
 
 - **The machine-local-path guard fires on the session scratchpad too**, and on

@@ -30,6 +30,12 @@ excellence frame leave only one defensible answer, there is no
 question to ask. State the forced verdict and the evidence that makes
 alternatives non-viable.
 
+A decided thing at risk gets a mobilisation verdict. When scope the owner has decided, or a
+deadline fixed outside the team, is at risk, the seat brings who and what unblocks it and by
+when, never the decision back as options (owner, 2026-07-29, of a target re-offered as a
+choice: "we cannot simply move an external deadline because it is inconvenient"). A decided
+thing re-offered as a question is re-litigation.
+
 ## Legitimate Uses of AskUserQuestion
 
 `AskUserQuestion` (and equivalent multi-choice surfaces) is reserved for:

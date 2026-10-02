@@ -47,6 +47,10 @@ rule, base updates, sequencing within the seat's own claim, tooling choices. It 
   reserved regardless;
 - anything the estate's rules already reserve to the owner (credentials, destructive
   operations, doctrine ratification, milestone placement).
+- **the limits every standing grant keeps** (a Director's scope ruling, from a handoff record): the
+  command family the hook policy blocks, hook bypass, settings changes, another organisation's
+  surfaces and spend over the agreed band. Reading another organisation's repositories is the
+  owner's to grant: ask once, with every such request on one card.
 
 Low confidence remains what it always was: route the question and hold ONLY what the answer
 genuinely gates — never the whole lane.

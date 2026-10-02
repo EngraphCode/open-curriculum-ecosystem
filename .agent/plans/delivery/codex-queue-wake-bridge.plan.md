@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-25
+last_updated: 2026-10-02
 ---
 
 # Codex seat wake through the vendor's queue
@@ -238,6 +238,11 @@ Each slice is one story, within the default round budget.
 
 1. **Probe the open behaviours**, under the owner's standing permission for Codex experiments:
    read-only sandbox, never unlimited permissions, every process closed, CLI version recorded.
+   A first probe (2026-09-25, two runs) learned nothing from a daemon-mode run that exited in
+   25 seconds with its exit message uncaptured; the re-run captured the TUI's own stdout and
+   stderr to a file, killed only what the probe started and compared process sets before and
+   after, and showed codex-cli 0.157.0 installing the daemon, then loading for about two
+   minutes with no control socket, rollout or thread.
    Each probe runs in an isolated session started for it, never in a live team seat's turn,
    because queued text arrives as user-role input.
    - A user's typing and a queued notice meeting at an idle boundary.

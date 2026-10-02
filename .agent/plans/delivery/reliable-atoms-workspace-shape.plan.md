@@ -17,7 +17,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-25
+last_updated: 2026-10-02
 ---
 
 # Capability Foundations workspace shape
@@ -180,13 +180,24 @@ compiler and source set; inheritance must not add ambient APIs, aliases, framewo
 settings or declaration-checking omissions. Preserve the base's `strict`,
 `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns` and
 `noFallthroughCasesInSwitch`, and add `noUncheckedIndexedAccess`,
-`exactOptionalPropertyTypes`, `noPropertyAccessFromIndexSignature`,
-`noImplicitOverride`, `verbatimModuleSyntax` and `isolatedDeclarations` (an
-explicit type on every export — the clarity constraint that also makes the
-committed API report of bar element 4 a pure projection). Keep tests/tooling
+`exactOptionalPropertyTypes`, `noImplicitOverride`, `verbatimModuleSyntax` and
+`isolatedDeclarations` (an explicit type on every export — the clarity
+constraint that also makes the committed API report of bar element 4 a pure
+projection); `noPropertyAccessFromIndexSignature` is not added, the owner's
+ruling excludes it (the routed note below). Keep tests/tooling
 configuration separate; source checking, native execution and distribution
 emission require distinct evidence. The profile's options are not a claim that
 the current base already supplies them.
+
+Routed here on 2026-10-02: `noPropertyAccessFromIndexSignature` is excluded from
+this profile by the owner's ruling on the estate's target compiler set ("more
+pain than it is worth"; it fights ESLint's dot-notation rule). That ruling also
+has every tsconfig resolve the set from one base, with no workspace config
+restating or relaxing a flag (owner direction relayed on 2026-09-16, open item
+7 of the estate-coordination thread record). The seat that executes this axis
+reconciles the two before writing the profile: the profile takes the shared
+flags from the one base with the excluded flag kept out, or the owner rules the
+profile an exception.
 
 ### Axis 4 — assurance thresholds that break
 

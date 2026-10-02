@@ -7,6 +7,13 @@ fitness_content_role: reference
 overflow_disposition: 'leave-if-live; else graduate, then archive to a dated file proven byte-identical — never before full processing, never split/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
 merge_class: index-narrative-tables
 ---
+> **RETIRED — thread completed 2026-08-25.** The review's whole arc merged as this estate's
+> pull request 17 on 2026-08-25 (read from the forge on 2026-10-02), and the plan is archived.
+> The one probe it left, the `NOTIFY` row's upgrade at the next Watcher stand-up, is carried
+> by the `slack-watcher` skill's liveness table and the surface matrix; the reconciler input
+> lives in the speculative plan `watcher-liveness-self-heal.md`. Retained as continuity
+> history; not a live lane. Not listed in `repo-continuity.md` Active or Paused threads.
+
 # Next-Session Record - `slack-watcher-estate-review` thread
 
 Owner-commissioned review of the Slack Watcher organ: the skills,
