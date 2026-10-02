@@ -13,7 +13,9 @@ at newer tips (the output of `dump_hunks.py`): a row matches by its file and the
 line of the hunk's JC.net side, outer whitespace dropped and `](` parted as `] (` (the anchors table,
 §(i)); a row whose anchor the new dump no
 longer carries is marked settled; a hunk in the new dump that no row anchors is marked unread.
-The rerun changes the exit code only when a row's anchor is malformed.
+A key two hunks of one file share, in the new dump or in §(i), is refused by name, never
+collapsed. The rerun changes the exit code only when a row's anchor is malformed or a key is
+ambiguous.
 
 usage: ledger_close.py [<ledger.md>] [--rerun <conflict-hunks.md>]
 """
@@ -77,6 +79,32 @@ def surface_of(path):
     raise SystemExit(f"row names a path outside the six surfaces: {path}")
 
 
+def unspan(cell):
+    if cell.startswith("`` ") and cell.endswith(" ``"):
+        cell = cell[3:-3]
+    elif cell.startswith("`") and cell.endswith("`"):
+        cell = cell[1:-1]
+    return cell.replace("\\|", "|").strip()
+
+
+def index_anchors(pairs, where):
+    """Index (file, first line) -> hunk; refuse a key two hunks share.
+
+    The rerun matches by (file, first non-empty line) alone, so a key two hunks of one file share
+    cannot be matched by it. The simplest correct behaviour is to refuse such a key by name: the
+    alternative, letting the later hunk overwrite the earlier, undercounts the dump and mis-marks
+    rows silently, and matching by hunk order instead would guess. Neither the ledger nor the
+    dumps it has been run against carry such a key.
+    """
+    out = OrderedDict()
+    for (file, first), n in pairs:
+        if (file, first) in out:
+            raise SystemExit(f"ambiguous anchor in {where}: hunks {out[(file, first)]} and {n} of "
+                             f"{file} share the first line {first!r}")
+        out[(file, first)] = n
+    return out
+
+
 secs = sections(ledger)
 missing = [k for k in "abcdefghi" if k not in secs]
 if missing:
@@ -119,8 +147,13 @@ g = [r for r in table_rows(secs["g"]) if len(r) == 3 and r[0] != "file"]
 h = [r for r in table_rows(secs["h"]) if len(r) == 4 and re.fullmatch(r"D\d+", r[0])]
 i_ = [r for r in table_rows(secs["i"]) if len(r) == 4 and r[0] != "file"]
 i_keys = [(r[0].strip("`"), int(r[1])) for r in i_]
-if set(i_keys) != set(a_keys):
-    raise SystemExit(f"anchors and rows disagree: {set(i_keys) ^ set(a_keys)}")
+duplicate_anchors = sorted(k for k, n in Counter(i_keys).items() if n > 1)
+if duplicate_anchors:
+    raise SystemExit(f"duplicate (file, hunk) anchor rows in §(i): {duplicate_anchors}")
+if len(i_keys) != len(a_keys) or set(i_keys) != set(a_keys):
+    raise SystemExit(f"anchors and rows disagree: {len(i_keys)} anchors for {len(a_keys)} rows; "
+                     f"{sorted(set(i_keys) ^ set(a_keys))}")
+ledger_anchors = index_anchors((((r[0].strip("`"), unspan(r[3])), int(r[1])) for r in i_), "§(i)")
 
 # the host-local rows must be the host-local readings of (a) and (c)
 expected_g = a_reading["host-local"] + c_reading["host-local"]
@@ -155,18 +188,11 @@ agree = " ".join(header.split()) == " ".join(line.split())
 print("count line", "agrees" if agree else "DISAGREES")
 
 
-def unspan(cell):
-    if cell.startswith("`` ") and cell.endswith(" ``"):
-        cell = cell[3:-3]
-    elif cell.startswith("`") and cell.endswith("`"):
-        cell = cell[1:-1]
-    return cell.replace("\\|", "|").strip()
-
-
 def dump_anchors(path):
-    text = open(path, encoding="utf-8").read()
+    with open(path, encoding="utf-8") as f:
+        text = f.read()
     parts = re.split(r"^### (.+?) — hunk (\d+)\n", text, flags=re.M)
-    out = OrderedDict()
+    pairs = []
     for k in range(1, len(parts), 3):
         file, n, body = parts[k], int(parts[k + 1]), parts[k + 2]
         hunk = body.split("```text\n", 1)[1].rsplit("\n```", 1)[0]
@@ -180,13 +206,12 @@ def dump_anchors(path):
         if first is None:
             sep = next(j for j, l in enumerate(lines) if l.startswith("======="))
             first = next((l for l in lines[sep + 1:] if l.strip() and not l.startswith(">>>>>>> OCE")), "")
-        out[(file, first.strip().replace("](", "] ("))] = n
-    return out
+        pairs.append(((file, first.strip().replace("](", "] (")), n))
+    return index_anchors(pairs, path)
 
 
 if rerun:
     new = dump_anchors(rerun)
-    ledger_anchors = {(r[0].strip("`"), unspan(r[3])): int(r[1]) for r in i_}
     open_rows, settled = [], []
     for (file, first), n in ledger_anchors.items():
         if (file, first) in new:
