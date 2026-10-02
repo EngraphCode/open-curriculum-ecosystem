@@ -90,9 +90,11 @@ here.
 
 A watching role watches every surface it answers for. A seat that answers for a pull request
 watches its checks, its threads and its merge state, not the comms stream alone: a comms-only
-watcher was blind to all three. A pull-request watch emits action-bearing conditions only (a
-failed check, a new unresolved thread, the pull request no longer open, ready to merge); a
-ticker of check counts spends context and tells the seat nothing it can act on.
+watcher was blind to all three. A pull-request watch emits on change of the compound state it
+answers for (the head, the merge state, the check rollup, the unresolved threads, the tip-bound
+reviews), on every state that means stuck, and on the terminal states, merged and closed
+(`pr-lifecycle`, the compound watch loop); a ticker that repeats an unchanged count spends
+context and tells the seat nothing it can act on.
 
 Before a new watch's silence is trusted, see it emit once, and read each of its conditions
 against one live sample. A watch run through a buffering entrypoint said nothing for half an
