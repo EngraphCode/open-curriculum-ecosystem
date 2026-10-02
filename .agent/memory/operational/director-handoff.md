@@ -364,7 +364,11 @@ carries (5 JC.net to OCE, 8 OCE to JC.net), 26 host-local, 21 host binding, 13 s
 carries before deduplication across the six reads, above the node's twenty, so the assembled ledger
 reopens the node with the owner, with the count and the closures, unless deduplication brings it under.
 Next: fold 340 then 300 (an implementer-class task), assemble the ledger as one document with a closer
-script and open it per estate, the owner reading the rows.
+script and open it per estate, the owner reading the rows. Cricket at 21:0xZ (DRIFTING on one point,
+accepted): the JC.net tail has no owner since Hazel's stop, so the JC.net queue is 302's review and merge,
+then 2y, 2z, the notebooks' move and the rotation's records commit, then the fold of 300; the ledger's
+rerun and its closer counts gate on that folded tip, not before. The estimate owed to the owner runs to
+the node's finish (the carries landed), not to the next pull request.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
