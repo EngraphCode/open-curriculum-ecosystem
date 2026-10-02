@@ -4783,3 +4783,24 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: the rule (docs).
 - **Status**: open; a doctrine lane.
 - **Owner direction status**: unsolicited
+
+### F-295 — the pre-commit markdown-links validator walks the gitignored session directory under `.agent/state/collaboration/` (2026-10-02)
+
+- **Source**: Hazel tracks Trunk, first-hand, the records commit of 18:2xZ on the coordination
+  branch of 2026-10-02 (refused once; landed on the rerun as SHA:8e2b84150).
+- **Surface**: `agent-tools/src/validators/markdown-links/validate-markdown-links.ts`, run by the
+  pre-commit repo-validator chain.
+- **Observed**: the validator scanned 4,708 files, among them two scratch copies of the exchange
+  plan under the gitignored `comms-analysis-*/session-*/` directory (`.agent/state/collaboration/
+  .gitignore`, the `comms-analysis-*/` line), whose relative link resolves from the plan's own
+  directory and not from the copy's; it refused the commit as BLOCKING on two broken links in files
+  no commit carries. Cost: one commit-queue window abandoned and its claim closed, the copies
+  removed by hand in both estates and the scratchpad, one gate rerun.
+- **Expected**: a pre-commit validator reads the tracked universe (`git ls-files`), never the
+  working tree's ignored directories; a file no commit can carry cannot refuse a commit.
+- **Candidate cure**: compute the validator's universe from `git ls-files` (JC.net's markdownlint
+  configuration states the discipline: the universe is the tracked tree, computed from `git
+  ls-files`, and the configuration declares only ownership), or honour `.gitignore` in the walk;
+  JC.net's copy of the validator is read for the same walk before the cure is scoped.
+- **Target surface**: the validator (code).
+- **Status**: open; a code lane.

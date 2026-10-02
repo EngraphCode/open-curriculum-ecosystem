@@ -2800,3 +2800,77 @@ CLOSED-ON-READING; MEMORY; SEQUENCED with its mechanism; OPEN with its slice; NO
 
 Numbers: 116. Items: 97. LANDED-BOTH 34; LANDED-JC 39; LANDED-OCE 5; CLOSED-ON-READING 14; MEMORY 1;
 SEQUENCED 2; OPEN 2; NOT-AN-ITEM 19.
+
+### 2026-10-02 18:53Z — compaction freeze at the owner's word: the residue node authored, what stands, how the resume re-arms (Hazel tracks Trunk, 7d8b9d)
+
+The owner's words, 18:4xZ, verbatim: "Please prepare compaction ultrathink /jc-metacognition
+/jc-free-play /jc-concept-exploration /jc-reason /jc-wrap then stop all processes -- and remember,
+you are working on a bounded task, not open ended, we must always understand the goal so that we are
+able to finish". The freeze binds from that line: this records commit is the last outward act;
+nothing is started until the compaction lands.
+
+Counts first: unchanged from the twelfth entry (pending graduations 0 in both registers; the write
+list 97 items with the residue sized below; the notebooks as there). What landed since: the twelfth
+entry in both records and OCE's F-295 (the link validator walking the gitignored session directory);
+and the delivery node `write-list-residue-and-notebook-close` in both repositories as the same bytes
+(validated: 15 plan files conformant in JC.net, 142 in this estate), serving `best-of-each-practice`
+beside the finish node: five JC.net sentences in slice 2w, five OCE Practice twins in OCE's 2w, four
+OCE product-docs items in 2x, the notebook rotation (four readers over the day's blocks, every claim
+verified first-hand), the three notebooks' move by the 6b proof, the directive clauses after a
+compaction under the floor, the omnibus branches on the content script's zero with the script
+tracked; about five seat-hours; every sentence to write is in the node verbatim, so a fresh seat
+implements it without this context. The node carries one promoted clause for
+`validators-must-recompute-not-just-record` in both estates: a count stands only where a reader at
+the default tip can recompute it (three instances today: the generator, the write list's count line,
+the content proof).
+
+What stands at the freeze. 298 (the inventory) is at its second round on SHA:6425f0d81 with five
+Copilot threads open and unanswered, the budget's last settlement push unspent; the resume reads
+them first. Their substance, read at 18:4xZ: the closer settles a row on landing rows from either
+estate (J11 reads LANDED on two old jcnet rows while every lineage row is PARTIAL), so the 17/15/47
+line is unstable until the closer reads the receiving estate's rows only; L34's landing row carries
+`lineage` where the register's rule has L rows received in `jcnet`; `practice-lineage.md` is
+classified as a repo-local adoption record where the bootstrap calls it part of the portable Core
+trinity; the exchange plan's dated line still says all 47 difference rows were measured; the
+closer's docstring still describes every open row as measured. The cure is one commit: the closer's
+state function filtered to the receiving estate, L34's row in the jcnet column, the override for
+`practice-lineage.md` removed (Practice-wide, by directory), the report regenerated, the plan's line
+and the docstring re-trued, the replies, the merge at CLEAN. OCE's copy of the report then takes the
+same regeneration as a records commit (its first copy is at SHA:8e2b84150). 297 landed
+(SHA:f4a1c7496). OCE: 338 landed, 339 at its settlement round (Efreet lifts Scorch), s, 2fb, y to
+come; a149 waits in the synced session directory for 2fb. The Director's heartbeat is the registry
+leg only from 18:46Z in both estates (read their liveness from the claims registry, never the
+stream).
+
+Seat state. JC.net: the primary on coordination/2026-10-02-9f4d89 at SHA:c232b740 local, trailing
+the remote (the Director's SHA:84ec0680 and this seat's records commits sit on the remote; the
+primary's index lock of 10:56Z holds nothing and stays); the built lane worktree on
+docs/consolidation-2i-practice-inventory at SHA:6425f0d81, clean; the Director's detached worktree
+at SHA:84ec0680. this estate: the primary on coordination/2026-10-02-9fd05e level with the remote
+before this commit; the lane worktrees are Efreet lifts Scorch's. The local branch
+docs/consolidation-2-routed-cures stays until the directive clause lands (the node's todo 7).
+
+Re-arm recipe, as if nothing survives; the resume verifies by id first (the task list) and re-arms
+only what is absent. Every process of this seat is a Monitor, thirty minutes, re-armed at expiry:
+the two comms watchers (`run/comms-watch.sh <estate-root> "$PPID"`, one per estate); the two
+heartbeats (`run/heartbeat.sh <estate-root> <claim> consolidation-2 <coordination-branch>
+"<label>"`, claims 009bbaea-1956-44bf-a78a-59a509579e7a here and
+08f94e2a-0068-45d0-a62a-8aaac7da2aa5 in OCE, stopped during any push window, this seat's or a
+peer's, and re-armed at the push-done); the lock watch (`run/wait-gone.sh <primary>/.git/index.lock
+2`); one pull-request watch at a time (`run/pr-terminal.sh <root> jimCresswell jimcresswell.net 298
+<head9>`). The scripts are in the session state directory synced into both estates' gitignored
+`comms-analysis-2026-10-01/session-7d8b9d/`. The first reads at the resume: the task list; `git
+status --branch` in the primary and the lane of each estate; 298's threads; the claims registry for
+the Director's and Efreet lifts Scorch's heartbeats; then slice 2w is cut from origin/main after 298
+merges.
+
+Promises sweep: the a149 note to Efreet lifts Scorch (posted, acknowledged); the census's JC.net
+commit (this commit, as answered to the Director at 18:43Z); the residue node (this commit); 298's
+round (the resume's first act); the directive clauses (the node's todo 6); nothing else was promised
+on either stream. Attribution: every "landed" above is read from a merge ceremony's output or a
+fetch; "Efreet lifts Scorch's order" for s, 2fb and y is their stated plan, not an observation of
+the cuts. Blind-spot bounds: the comms watchers delivered events to 18:4xZ; anything after this
+commit's push is unread; the four readers' reports are conserved only as the verified lines in the
+twelfth entry and the sentences in the node. Fence sweep: no tracked line of this window quotes the
+one owner-private phrase; the archived copy's omission is named, never quoted. A further pass would
+re-find only the session directory's buffer, named above and in the node; the recursion closes here.

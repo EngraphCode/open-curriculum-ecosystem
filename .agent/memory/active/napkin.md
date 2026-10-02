@@ -238,3 +238,47 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
 - The Cricket suite's one frame finding (three of four variants): this seat read the node's "retire the ten items with the OCE seat's records commit" as the Director's act, where the Director's later message said "your next OCE records commit". A later, more specific message from the same author settles an earlier ambiguous line; the ack asked and the Director confirmed within minutes. The suite is worth its two minutes at a re-planning boundary; it is not worth a restatement of lanes the plan node already states (the Director agreed, and will not ask for restatements again).
 - The pattern-naming cure (a133) was carried forward as open through three entries after its substance had landed: its dry run on the primary found zero lines left to cure. An item carried in a list is re-run, not re-stated, at every entry that names it; the dry run costs one command.
 - The records commit's route around the primary's index lock (the Director, 17:1xZ): a fresh branch from the coordination branch's remote tip in this seat's built lane worktree, the dirty paths copied in, committed by pathspec, pushed as the bot to the coordination branch's ref (`merge-bot push --branch`), the primary never written. The primary's working tree then reads dirty against its own HEAD until the lock clears and the branch is re-read; that is the one cost of the route and it falls on nobody until the lock clears.
+
+## 2026-10-02T18:5xZ — the afternoon's seven landings, the owner's suite, the product node; the compaction freeze (Efreet lifts Scorch, 7adb15)
+
+- **Observation (the owner's suite):** eight Cricket verdicts on one frame, read from the judges'
+  session transcripts because none of their returns reached the lead as a notification (the four
+  normal-stance pane teammates had finished before 17:28Z; a nudge made each re-send, undelivered
+  again). Three adversarial spawns failed on the pane spawner ("respawn pane failed") until the
+  finished normal-wave panes were stopped. After a pane-teammate wave: stop the finished panes,
+  read `~/.claude/projects/<slug>/<session>.jsonl` for the final text; never wait on the
+  notification.
+- **Mistake (own, twice):** waited on a Monitor's output file for a peer's push-done line after the
+  Monitor had expired at its thirty-minute limit; the file was stale and the line had arrived. The
+  Director pinged for liveness in the gap because the whole beat loop was stopped for the window.
+  Cures in place: the beat's registry leg runs always and only the stream leg pauses (a flag file);
+  before every hold line the stream is read fresh with
+  `comms list --comms-dir .agent/state/collaboration/comms --since <iso> --tail 30`.
+- **Mistake (own, twice):** commitlint binds the body and footer lines at 100 characters, not the
+  header alone; two commits were refused and recommitted wrapped, and the merge-in script's
+  both-sides line now folds at 96.
+- **Mistake (own):** a `git diff --stat ... | tail -n 8` hid three of a slice's ten files, and the
+  slice was reasoned about as seven files until the cut commit's own stat was read. Count from the
+  whole listing, never from a tail.
+- **Mistake (own):** in zsh, `read -r path ...` assigns the `path` array tied to `PATH`; every
+  command in the loop then read "command not found". Never name a shell variable `path`.
+- **Observation (review):** two reviewers can raise the same sentence with opposite narrowings: Copilot
+  said "terminal conditions" was too strong for a failed check; Codex said the four-signal list was
+  too narrow against `pr-lifecycle`'s compound watch. The one cure that satisfied both was to cite
+  the skill's loop rather than restate it. A reviewer's finding on text both estates carry is checked
+  against the twin before a cure travels: the sibling's rule lacked the paragraph, so none did.
+- **Observation (door):** a records push's gate from the primary measured 2m02s (17:25Z to 17:27Z);
+  docs slices ran 7 minutes (one round, no settlement push) to 60 minutes (three rounds) door to
+  door. The product lane's first code push measures its own gate, rounds and door time into the
+  node's Size table; today's numbers are prose-class only.
+- **Correction (the Director's, absorbed):** a sketch delivery node's own stamp gates nothing when
+  the ratified strategic node names the target and delegates authoring to the implementer at pickup;
+  writing "the first pull request waits for this node's ratification word" rebuilt a gate on the
+  owner the ruling of 17:0xZ forbids. The node now carries the reading and its source.
+- **Observation (tooling):** `slice-push-open`'s Copilot request step once printed "unexpected end
+  of JSON input" and requested nothing; the bare REST POST by hand did. The timeline's
+  `review_requested` events are the only proof a request exists.
+- **Play seed (marked as such):** a stream watcher that emits nothing on silence cannot be told from
+  a dead one by its output; twice today its silence was read as "no window closed". A watcher that
+  wrote its own "still watching" line every few minutes would separate silence from death; until
+  then the one-shot `comms list` is the liveness check for the watcher as well as for the stream.
