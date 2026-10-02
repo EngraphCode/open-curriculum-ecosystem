@@ -803,12 +803,12 @@ because a refused `git add` aborts the chain and the later `git commit -F`
 runs on a missing file (`stage-by-explicit-pathspec` §What to Do Instead,
 2026-09-12).
 
-Build the header through a check before the message file is written: the header
-is at most 100 characters (`header-max-length`) and its subject starts lower-case
-(`subject-case`), or the file is not written. A launch chained after the checker
-is gated on its exit code (`pnpm agent-tools:check-commit-message -F <file> && …`),
-never on the file existing, since a file that exists can still hold a message the
-hook refuses.
+Check the header before the commit is launched: it is at most 100 characters
+(`header-max-length`) and its subject starts lower-case (`subject-case`). Write the
+message file, run the checker on it, and chain the launch after the checker with
+`&&` (`pnpm agent-tools:check-commit-message -F <file> && …`), so the launch is
+gated on the checker's exit code and never on the file existing: a file that
+exists can still hold a message the hook refuses.
 
 ## Stream truncation at the depcruise → turbo handover — workaround
 

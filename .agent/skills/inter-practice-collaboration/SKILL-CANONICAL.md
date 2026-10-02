@@ -143,7 +143,7 @@ the first comms write, claim, or registration).
    `git apply --check` finds, and the cure is one merged file carrying
    both instances, the same bytes in both estates (2026-09-30). Before
    bringing to one estate what only the other holds, search the history of
-   the estate that lacks it (`git log --all -S'<name>'`): it may have been removed
+   the estate that lacks it (`git log --all -m -S'<name>'`): it may have been removed
    on purpose, with the reason in the commit (one instance, 2026-10-01: a
    port made from a diff met a deletion made two days earlier on four
    reviewers' verdicts).
