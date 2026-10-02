@@ -189,14 +189,14 @@ configuration separate; source checking, native execution and distribution
 emission require distinct evidence. The profile's options are not a claim that
 the current base already supplies them.
 
-Routed here on 2026-10-02: this profile lists `noPropertyAccessFromIndexSignature`,
-which the owner's ruling on the estate's target compiler set excludes ("more
+Routed here on 2026-10-02: `noPropertyAccessFromIndexSignature` is excluded from
+this profile by the owner's ruling on the estate's target compiler set ("more
 pain than it is worth"; it fights ESLint's dot-notation rule). That ruling also
 has every tsconfig resolve the set from one base, with no workspace config
 restating or relaxing a flag (owner direction relayed on 2026-09-16, open item
 7 of the estate-coordination thread record). The seat that executes this axis
 reconciles the two before writing the profile: the profile takes the shared
-flags from the one base and drops the excluded flag, or the owner rules the
+flags from the one base with the excluded flag kept out, or the owner rules the
 profile an exception.
 
 ### Axis 4 — assurance thresholds that break
