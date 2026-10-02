@@ -351,7 +351,11 @@ in both estates, with a closer script that recomputes its counts, the measure's 
 and open it as one pull request per estate (JC.net from Hazel's cures tip `SHA:92644157` with main
 merged in; here from the post-fold tip); the dry-run merge rerun at the folded tips; then the
 carries in closure order. Processes: all died at the limit; re-arm the two registry-only heartbeats
-and the two watchers only.
+and the two watchers only. Addendum, 20:5xZ: Hazel tracks Trunk stopped at the usage limit too, with JC.net
+pull request 302 open at `SHA:25a385cc` (slice 2x, six files, Copilot requested, no watch on it), slices 2y
+and 2z drafted in her lane worktrees and the rotation's records commit not made; her offer to run 340's
+fold with her scripts lapsed with her turn. All three seats stood down within three minutes; every
+pull request open at the stop (302 here-and-there, 340 at its door) waits for a seated agent or the owner's hand.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
