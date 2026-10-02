@@ -75,6 +75,9 @@ index row per moved id so citations resolve, and the archive keeps the text. The
 the two-estate consolidation is `archive/frictions-register-settled-2026-09-30.md`, 55 entries, each
 verified in the tree by an analyst and re-read by the seat.
 
+An entry with no Status line is open: no cure is recorded for it. Where an entry's own text
+records a cure, its Status line says so.
+
 ### F-07 — No `comms list/show` CLIs (no `comms watch` either)
 
 - **Source**: napkin 2026-05-05 (Twilit/Ashen, `7cf730`) Surprise 7 (a)
@@ -307,6 +310,8 @@ verified in the tree by an analyst and re-read by the seat.
   discoverable plan surface").
 - **Review 2026-09-30**: LIVE: the owner-directed plan home for the deferred `--event-spec` and
   sanitisation options exists under neither `.agent/plans/` nor the agent-tooling backlog.
+- **Same friction**: also filed as F-48, F-149, F-152 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-37 — Shipped skills generator diverges from PDR-051 §Required
 
@@ -441,6 +446,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Status**: partially-addressed (`--body-file` delivered for comms bodies;
   pattern/glob args remain).
 - **Owner direction status**: standing.
+- **Same friction**: also filed as F-32, F-149, F-152 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-51 — Worktree vocab-gen needs the gitignored bulk-downloads (symlink setup)
 
@@ -560,6 +567,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Status**: open (trigger: a viable low-false-positive detector design OR owner
   direction).
 - **Owner direction status**: standing.
+- **Same friction**: also filed as F-154 (the negation-contrast tombstone has no structural detector); read them together, and
+  count them once.
 
 ### F-66 — BSD `sed -i ''` transient siblings race directory watchers
 
@@ -657,6 +666,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
+- **Same friction**: also filed as F-92 (the heartbeat mode requires a title its help does not name); read them together, and
+  count them once.
 
 ### F-78 — `check-commit-message` is not an `agent-tools` subcommand; only reachable via the pnpm script
 
@@ -712,6 +723,8 @@ verified in the tree by an analyst and re-read by the seat.
 - **Target surface**: `agent-tools/src/collaboration-state/` comms-send heartbeat-mode arg handling + help text; `.agent/rules/liveness-heartbeat-cron.md` §Loop hygiene / §Canonical invocation
 - **Status**: open
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
+- **Same friction**: also filed as F-76 (the heartbeat mode requires a title its help does not name); read them together, and
+  count them once.
 
 ### F-93 — `comms send --body` 1500-char limit has no clean home for a long directed coordination steer
 
@@ -1978,6 +1991,8 @@ commit SHA and the closing plan reference.
   a fix-instruction pointing at `--body-file` (fail-loud at the boundary instead
   of downstream), and prints the written `event_id` on every send path
   (`comms direct` currently prints none).
+- **Same friction**: also filed as F-32, F-48, F-152 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-186 — `turbo run lint` returns a cached green that never ran the new linter
 
@@ -2056,6 +2071,8 @@ commit SHA and the closing plan reference.
   pnpm arg forwarding vs CLI parsing); then either fix the intake or add
   the named refusal. Route: agent-tooling backlog; evidence lives in this
   entry's three instances and the two seats' napkin notes.
+- **Same friction**: also filed as F-32, F-48, F-149 (an inline comms body meets the shell before the tool does); read them together, and
+  count them once.
 
 ### F-153 — first new-shape comms event poisons all stale-dist readers (strict parsers + poison-pill drain)
 
@@ -2114,6 +2131,8 @@ commit SHA and the closing plan reference.
 - **Status**: OPEN. The rule's §Why This Rule Is Strict now points here;
   a future drain of any register this row migrates to re-trues that
   pointer first (the generator this row's own history proves).
+- **Same friction**: also filed as F-63 (the negation-contrast tombstone has no structural detector); read them together, and
+  count them once.
 
 ### F-155 — the prose-width hard limit fires on markdown headings, which are structurally unwrappable
 
@@ -2499,6 +2518,7 @@ commit SHA and the closing plan reference.
 - **Route**: agent-tooling backlog (content-audit); until then a merge that
   touches two review modules greps the pinned paths for duplicates before
   trusting a green validator.
+- **Status**: addressed (the entry's own text: cured by one owner per path).
 
 ### F-176 — workflow fan-outs launch without a per-stage budget or a pilot measurement
 
@@ -4521,3 +4541,40 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: agent-tools conformance tooling (OCE).
 - **Status**: decided, unbuilt, paused by the owner until a retention incident recurs.
 - **Owner direction status**: standing
+
+### F-282 — the context meter's first read after a compaction describes the compaction call (2026-10-02)
+
+- **Source**: this session's own readings on 2026-10-02 (63.9 % then 28.9 %; 0 % then 17 %), and
+  `agent-tools/src/session-metadata/usage.ts`, read the same day in both estates.
+- **Surface**: `agent-tools session-metadata`.
+- **Observed**: `parseLatestUsage` returns the input and cache tokens of the latest transcript
+  line that carries a usage object. A read made inside a turn therefore reports the previous
+  assistant message, and the first read after a compaction reports the compaction call itself
+  (the whole pre-compaction context) or a line with zero input. A thread-record entry carried
+  63.9 % as the seat's context when the true figure was under 30 %, and a directive edit was
+  nearly priced on it.
+- **Expected**: a read that cannot describe the present context says so.
+- **Candidate cure**: ignore usage lines at or before the transcript's latest compaction
+  boundary and zero-sum usage lines, and print "no reading since the compaction" with a
+  distinct exit until an assistant turn has been recorded after it. Until then the seat reads
+  the meter twice, a few calls apart (PDR-052 directive floor).
+- **Target surface**: agent-tools session-metadata (both estates).
+- **Status**: open.
+- **Owner direction status**: unsolicited
+
+### F-283 — nothing sizes a file before a seat reads it whole (2026-10-02)
+
+- **Source**: this session on 2026-10-02: a ledger of long rows, a plan block and two
+  directory and grep listings were read unbounded within two hours of the seat writing "every
+  listing gets a bound" into its napkin.
+- **Surface**: the harness's file read and shell tools; the seat's habit.
+- **Observed**: the read tool stopped the ledger read at its cap of 25,000 tokens, which is
+  itself 2.5 % of the seat's context for one call; a directory listing and a grep for file
+  names have no cap. The written lesson did not change the next read.
+- **Expected**: a seat learns a file's size before it spends context on it.
+- **Candidate cure**: a PreToolUse advisory that prints a file's byte size when a whole-file
+  read is asked of a file over a threshold, and a shell habit the tool-facts reference now
+  states (a line count or a heading list first).
+- **Target surface**: hook policy (advisory), tool-facts reference.
+- **Status**: open.
+- **Owner direction status**: unsolicited
