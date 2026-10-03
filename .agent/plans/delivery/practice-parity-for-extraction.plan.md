@@ -8,7 +8,7 @@ overview: >-
   its inputs: a survey of the whole Practice a reader can recompute, the parity ledger, and
   the structural findings as evidence.
 status: superseded
-superseded_by: practice-parity-two-landings
+superseded_by: practice-system-review
 ratified_by: Jim Cresswell
 ratified_date: 2026-10-02
 ratified_where: >-

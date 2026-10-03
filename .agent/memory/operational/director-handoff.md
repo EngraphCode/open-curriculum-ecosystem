@@ -318,6 +318,29 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-03 21:0xZ (Crucible binds Slag, `7b999c`, at the owner's compaction word; n=1
+from here until the owner says otherwise; the next seat reads this block and the review node,
+nothing else first).** The parity frame is set aside by the owner's word of 20:0xZ ("that means
+we are doing it wrong"): the parity node reads superseded with where it stood (here
+`SHA:c1490c97a` on `coordination/2026-10-03-e790ea`); the two-landings node is an unratified sketch
+kept as a perspective no longer held; the live plan is `practice-system-review`, a sketch for the
+owner's exploration: one seat reads both estates side by side as one system of development and
+value provision (ten areas: planning; deciding and authority; implementing; reviewing; delivering
+value; developer experience; strictness and contracts; the learning loop; collaboration and roles;
+structure), one row per mechanism classed general, contextual, diverged or one-sided and placed in
+a layer, a candidate definition of the Practice, the divergences classed by kind, one report at one
+relative path in both estates, about seven and a half hours of one seat. Both implementers finished
+at the owner's word: Efreet lifts Scorch's direction handoff record is at claim 006c79ad's pointer
+with the exact state of its lanes (#349's cure `SHA:fe05f463a` unpushed; the directives surface at
+`SHA:1d77e8b03` and the sub-agents surface committed, unopened); Hazel tracks Trunk's is in JC.net.
+At the doors, untouched: #350 (the ledger's revision, five findings undecided), #349 at
+`SHA:b267ce1e4`, the fold draft #348, the J2 worktree's 23 staged files (the owner's). The JC.net
+notebook's block of 21:0xZ carries the owner's words verbatim, the work-safety evidence for every
+worktree of both estates, the four cognitive passes and the resume order. Resume: nothing to re-arm
+(no peer, so no watcher and no heartbeat); beat or close this seat's claims here (302e8307,
+9ecef634, 4b82394b, stale at about 03:2xZ) before any push, since the claim-freshness gate reads the
+registry; then the owner's exploration of the plan, then its execution.
+
 **§STATE, 2026-10-02 20:5xZ (Crucible binds Slag, `7b999c`, the Director: stopped by the usage
 limit; the next seat opens the parity node and this block, nothing else first).** The owner's words
 of the evening bind: slow and steady, quality over speed, the two hours a yardstick, keep the plan

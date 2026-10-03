@@ -7,13 +7,10 @@ overview: >-
   as one pull request applied from the ledger's recorded readings, the code carries as one pull
   request of tested modules; proved by the dry-run merge conflicting only where a host-binding
   row of the ledger says it should.
-status: ratified
-ratified_by: Jim Cresswell
-ratified_date: 2026-10-03
-ratified_where: >-
-  The owner's word in the Director's session (Crucible binds Slag, 7b999c) on 2026-10-03 at
-  20:0xZ, "I am happy to do this in two large PRs", with the order to record where the parity
-  node stands, supersede it, and write this node simply.
+status: sketch
+ratified_by: null
+ratified_date: null
+ratified_where: null
 serves: best-of-each-practice
 impact_areas:
   - practice-and-estate
@@ -24,6 +21,15 @@ last_updated: 2026-10-03
 ---
 
 # Practice parity in two landings
+
+**Standing of this node, the owner's word of 2026-10-03 20:4xZ: an unratified and questionable
+sketch, not to be implemented.** It is kept as a perspective once held and held no longer: it
+still took "the Practice" to be the six measured directories and alignment to be bytes, when the
+Practice is one system of planning, implementing, reviewing and delivering value across two
+estates, with a general layer, a contextual layer, what it accumulates in a context, and the
+learning loop between them, and no ratified definition of it exists. The review node
+`practice-system-review` replaces this perspective and is the parity node's named successor; this
+node stays a sketch, implemented by nothing, at the owner's word.
 
 Supersedes `practice-parity-for-extraction`; that node's §Size closes with where the work stood
 at 2026-10-03 20:0xZ, the state this node starts from. The owner's words bind this node: the

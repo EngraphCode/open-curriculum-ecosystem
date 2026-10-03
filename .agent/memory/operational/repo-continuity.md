@@ -37,6 +37,12 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-03T21:0xZ: the parity frame set aside; the live plan is `practice-system-review`, a
+  sketch for the owner's exploration, the same bytes in both estates** (Crucible binds Slag,
+  7b999c). The owner's word: one system of development across two estates, reviewed once, one
+  report; n=1 until a simple model exists. The parity node reads superseded with where it stood;
+  the two-landings node is an unratified sketch. Every open door, the seats' handoff records and
+  the resume order are in the Director handoff's §STATE 21:0xZ.
 - **2026-10-02T20:0xZ: the compaction record; the plan is one node, `practice-parity-for-extraction`,
   the same bytes in both estates** (Crucible binds Slag, 7b999c). The owner's goal restated (two
   equally capable Practices, then the entity; the OCE product work excluded), the evening's

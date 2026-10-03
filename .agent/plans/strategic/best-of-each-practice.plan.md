@@ -117,4 +117,10 @@ words the delivery node `practice-parity-for-extraction` carries each capability
 and the other lacks into the estate that lacks it as the tested module with its tests, proved by
 content. The owner's word of 2026-10-03: "The act of bringing the two instances of the Practice into
 alignment is how we explore what the Practice currently is"; the extraction is a later thread, and
-the carries, code included, are how the alignment is done.
+the carries, code included, are how the alignment is done. The owner's word of 2026-10-03 20:4xZ,
+verbatim, sets the dry-run measure aside until the system is understood whole: "there are two
+estates with one system of development and value provision and contracts and authority and so
+on, and that system currently has divergences that we are trying to resolve"; the divergences are
+resolved from a model of that system, never from the merge's hunks; the delivery node
+`practice-system-review` is the step that re-grounds this bet, and the owner's word on its model
+will be recorded here as a dated line.
