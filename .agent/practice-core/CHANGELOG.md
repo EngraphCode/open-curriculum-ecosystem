@@ -6,6 +6,21 @@ Practice Core package. A joint change carries the writing seat's repository
 tag in both repositories; the other repository's slug is never written here
 (the write hook refuses it, 2026-10-02).
 
+## [jimcresswell.net] 2026-10-03 — host-named amendment headings leave the Core; a gate refuses the shape
+
+- PDR-008's two host-tagged entries (the 2026-09-12 adoption of the read-only
+  `check` and the 2026-09-14 reading of the validator groups) and PDR-132's
+  2026-09-14 register-retirement entry move verbatim to the writing
+  repository's host-side adoption record, paired in its bridge index; PDR-008
+  keeps the portable claim of the 2026-09-12 direction under a heading of date
+  and subject alone. The remaining host-named amendment headings of PDR-005,
+  PDR-082 and PDR-132 drop the host and keep their date and subject. A new Core
+  gate, `validate-no-host-names-in-core-headings`, refuses a Core heading naming
+  any repository the provenance chain, this changelog's tags or the tree's
+  origin declares; this changelog's own headings are exempt by their tag
+  convention. The parity node's step 2 carry; the sibling estate's copy follows
+  with the same rule.
+
 ## [jimcresswell.net] 2026-10-02 — the changelog's own convention for joint changes
 
 - The header states how a joint change is tagged (the writing seat's repository, in
