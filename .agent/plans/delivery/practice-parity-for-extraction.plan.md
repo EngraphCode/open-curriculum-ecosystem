@@ -250,16 +250,17 @@ the first such round; a row the owner declines is one hunk reverted, never a pul
 owner's word on the ledger decides.
 Estimate, 2026-10-03 13:0xZ, recorded by the OCE implementer at the fold of #342 from the Director's
 rulings of this hour on the OCE comms stream (the paragraph above stands as the history it is): the
-owner's words of 12:4xZ and 13:0xZ lift every pause, set the work to finish today and name the
-shared doctrine as the Practice itself, so no row is deferred to the entity's package. The
-recommendation above miscounted its own list (C1 to C17 less C9, C20 with C21 and C24 name nineteen
-rows, not thirteen) and read PDR-142 against its text, which says alignment precedes extraction and
-the package route changes nothing until the package exists. The shape now routed: doctrine before
-code in both estates; the doctrine-text carries as one pull request per estate (here C8 cured at
-source first, C10, C4 with C20, C21; in jimcresswell.net C7, C11 to C16, then C24), which supersedes
-mechanism 2's one pull request per capability for text carries, the Director's amendment of that
-mechanism owed with the ledger's next revision; the code carries one pull request each with their
-tests, tomorrow (here C19, decided a Practice ruling under O2, then C27; in jimcresswell.net C22
+owner's words of 12:4xZ and 13:0xZ lift every pause, name the shared doctrine as the Practice itself
+and set it to finish today, the code carries following tomorrow by the Director's routing, so no row
+is deferred to the entity's package and none waits on the extraction. The recommendation above
+miscounted its own list (C1 to C17 less C9, C20 with C21 and C24 name nineteen rows, not thirteen)
+and read PDR-142 against its text, which says alignment precedes extraction and the package route
+changes nothing until the package exists. The shape now routed: doctrine before code in both
+estates; the doctrine-text carries as one pull request per estate (here C8 cured at source first,
+C10, C4 with C20, C21; in jimcresswell.net C7, C11 to C16, then C24), which supersedes mechanism 2's
+one pull request per capability for text carries, the Director's amendment of that mechanism owed
+with the ledger's next revision; the code carries one pull request each with their tests, tomorrow
+by that routing (here C19, decided a Practice ruling under O2, then C27; in jimcresswell.net C22
 with C5 under the O7 ruling, C26 under O1); between them the shared text by surface (directives and
 sub-agents authored here, rules and skills there, each twinned by content; Core read by the Director
 first-hand before merge; hooks with the code). Rows open of total are reported from the rerun at
