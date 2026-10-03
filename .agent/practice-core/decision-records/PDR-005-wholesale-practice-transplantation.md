@@ -399,7 +399,7 @@ two disciplines reinforce each other.
 
 ## Amendment Log
 
-### 2026-09-30 — jimcresswell.net transplant lessons: execution method, scrub tiers, assertion audit, completeness by function
+### 2026-09-30 — a transplant's lessons: execution method, scrub tiers, assertion audit, completeness by function
 
 **Driver**: the 2026-09-12 transplant of the Practice into jimcresswell.net
 captured seven operational lessons on its register, each ruled `graduated`
