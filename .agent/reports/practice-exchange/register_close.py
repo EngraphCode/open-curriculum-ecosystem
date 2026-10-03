@@ -2,8 +2,8 @@
 """Close the exchange register against the Practice inventory (practice-work-finish, end state 3).
 
 For every row of the register's four row tables, read its state from its own cells and the
-§Landings table. A row is received by one estate: J rows by OCE (the `lineage` column), L and C
-rows by JC.net (the `jcnet` column), with one per-row override, L34, a JC.net landing that took
+§Landings table. A row is received by one estate: J rows by OCE (the `lineage` column), L, C and
+O rows by JC.net (the `jcnet` column), with one per-row override, L34, a JC.net landing that took
 its row at its OCE port by the Director's ruling of 2026-09-29 and is received by OCE. Only the
 §Landings rows whose Estate is the receiving estate settle a row: LANDED where one of them lacks
 PARTIAL; PARTIAL where every one of them carries PARTIAL; DECLINED where no such row exists and
