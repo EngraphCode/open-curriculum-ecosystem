@@ -25,6 +25,7 @@ For the Practice Core files and their roles, see [practice-core/index.md](practi
 | [user-collaboration.md](directives/user-collaboration.md)         | Agent-to-owner working model                              |
 | [agent-collaboration.md](directives/agent-collaboration.md)       | Agent-to-agent working model                              |
 | [testing-strategy.md](directives/testing-strategy.md)             | TDD at all levels                                         |
+| [secops.md](directives/secops.md)                                 | Security operations, the Practice-wide half               |
 | [schema-first-execution.md](directives/schema-first-execution.md) | Types flow from the OpenAPI schema                        |
 | [metacognition.md](directives/metacognition.md)                   | Reflective thinking before planning                       |
 | [orientation.md](directives/orientation.md)                       | Layering contract: directives / memory / reference / practice-core; authority order |

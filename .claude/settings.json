@@ -173,7 +173,14 @@
       "mcp__plugin_vercel_vercel__get_project",
       "Skill(oak-author-skills)",
       "Skill(oak-deslop)",
-      "Skill(oak-project-spec-creation)"
+      "Skill(oak-project-spec-creation)",
+      "Skill(oak-accessibility)",
+      "Skill(oak-architecture)",
+      "Skill(oak-config)",
+      "Skill(oak-docs-adr)",
+      "Skill(oak-react-component)",
+      "Skill(oak-security)",
+      "Skill(oak-subagent-architecture)"
     ],
     "deny": [
       "Bash(git push --force:*)",
