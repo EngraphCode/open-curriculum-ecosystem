@@ -62,11 +62,8 @@ removals judged are carried out.
    holds and the other lacks, landed in the repository that lacks it as one pull request sized
    to its import closure, under one open Practice pull request per repository, and demonstrated
    where adopted (the command runs, the gate fires, the validator passes on that tree) before
-   its row reads landed. Copied code names its debt to the package in its integrating commit
-   (PDR-143 §Context). The parent node's §The bet lists copying code between estates as
-   deliberately not done; its dated entry of 2026-10-02 under §Delivery records the owner's word
-   that these carries are the exception until the entity exists, so no carry opens a pull
-   request before that entry is on the default branch it lands against. A carry is a tested
+   its row reads landed. The parent node's §The bet records that these carries are how the two instances
+   are aligned (the owner's word of 2026-10-03). A carry is a tested
    module that exists on one side, copied with its
    tests and proved by the content script's zero: minutes each, not a fresh build. The four
    named now, smallest closure first:
@@ -240,31 +237,37 @@ wait on O10 and two usage outages; the signal is crossed and its cause is the co
 The one carry measured overnight re-sizes the queue's unit: 310 was four files and forty-four lines,
 two minutes of copying and seventy minutes door to merge (two reviews, a re-cut for the
 generalisation trailer, the bot's settlement), so a carry's cost is its pull request's fixed cost
-and the queue's cost is its count of pull requests. The Director's recommendation on O10 is
-therefore revised: carry the thirteen text and small-code carries (C1 to C17 less C9, C20 with C21,
-C24) as two pull requests per estate, the doctrine text as one and the small code as one, the same
-bytes in both, about one seat-hour each; defer C23, C25 with C19, C27 and C28 to the entity's
-package, PDR-142's ratified route for code, where carrying by copy and by package differ most.
-Falsifier: a batched pull request whose review round grows with its file count, which splits it at
-the first such round; a row the owner declines is one hunk reverted, never a pull request. The
-owner's word on the ledger decides.
-Estimate, 2026-10-03 13:0xZ, recorded by the OCE implementer at the fold of #342 from the Director's
-rulings of this hour on the OCE comms stream (the paragraph above stands as the history it is): the
-owner's words of 12:4xZ and 13:0xZ lift every pause, name the shared doctrine as the Practice itself
-and set it to finish today, the code carries following tomorrow by the Director's routing, so no row
-is deferred to the entity's package and none waits on the extraction. The recommendation above
-miscounted its own list (C1 to C17 less C9, C20 with C21 and C24 name nineteen rows, not thirteen)
-and read PDR-142 against its text, which says alignment precedes extraction and the package route
-changes nothing until the package exists. The shape now routed: doctrine before code in both
-estates; the doctrine-text carries as one pull request per estate (here C8 cured at source first,
-C10, C4 with C20, C21; in jimcresswell.net C7, C11 to C16, then C24), which supersedes mechanism 2's
-one pull request per capability for text carries, the Director's amendment of that mechanism owed
-with the ledger's next revision; the code carries one pull request each with their tests, tomorrow
-by that routing (here C19, decided a Practice ruling under O2, then C27; in jimcresswell.net C22
-with C5 under the O7 ruling, C26 under O1); between them the shared text by surface (directives and
-sub-agents authored here, rules and skills there, each twinned by content; Core read by the Director
-first-hand before merge; hooks with the code). Rows open of total are reported from the rerun at
-each landing: 201 hunks in 87 files at the 12:4xZ rerun, 198 rows open, 9 settled, 3 unread.
+and the queue's cost is its count of pull requests. The owner's word of 2026-10-03 12:4xZ, verbatim, settles O10 and the code carries: "The act of
+bringing the two instances of the Practice into alignment is how we explore what the Practice
+currently is, and we need that exploration and consequent refinement before we explore the
+extraction work. The extraction work is not defined and not part of this thread." Every carry runs,
+code included, as the tested module with its tests, proved by the content script, with no clause
+excusing it. The Director decided the shape under the lenses and records it on the ledger's next
+revision: doctrine-text carries as one pull request per estate, code carries one pull request each;
+the thirteen owner rows are decided the same way, the owner declining by row. Falsifier: a batched
+pull request whose review round grows with its file count, which splits it at the first such round.
+
+Plan to finish, sized at 13:0xZ on 2026-10-03 at the owner's word that the work finishes today, two
+implementer seats and the Director. Today's target is the doctrine aligned, because the shared
+doctrine is the Practice itself: (a) the ledger merged in both estates after each default branch
+merges into its lane, two merges, forty minutes; (b) the doctrine-text carries as one pull request
+per estate (into jimcresswell.net C7, C11 to C16, C24; into OCE C8, C10, C4 with C20, C21), about
+ninety minutes each with review; (c) the shared text by surface, each open ledger row's recorded
+reading landed and twinned by content, in this order: rules (46 hunks), directives (39), skills
+(49), sub-agents (56), Practice Core (12, read first-hand by the Director), hooks (5), the 68 clean
+merges riding their surfaces and the six contradictions as joint cures; about two hours to author a
+surface and thirty minutes to twin it, fifteen seat-hours, the two seats authoring alternate
+surfaces and twinning each other's, about eight hours of wall-clock; the rerun at each fold counts
+rows open of total. Tomorrow: the code carries, one pull request each with their tests (into
+jimcresswell.net C3, C17, C23, C25 with C19, C26, and C28 in two to three; into OCE C19 and C27 from
+the J2 worktree's staged files), about ten seat-hours, and C5, C6 and C22 on the Codex dialogues
+tally (O7). The ledger's next revision, the Director's deliverable today after the merges, records
+today's rerun, C9 closed, the three unread hunks as rows, the thirteen owner decisions, the tool
+rows T1 to T5 from the owner's ruling of 12:1xZ (a script used repeatedly becomes a standardised
+agent tool), and the carry shape. Finish: the dry-run merge of the shared text reads zero changed
+files and zero conflict hunks, every carry row landed with its demonstration or host-local with its
+reason, the count line N of N at the tips it names; estimated at the end of tomorrow at two seats,
+with today's doctrine target reported at the evening fold as rows open of total.
 
 ## Out of scope
 
