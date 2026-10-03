@@ -166,7 +166,10 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
    time and each SUCCESS, and no other name: a deployment or vendor status
    the rules do not require is information on the pull request, never a gate
    (a door computed from a list of names carried from the other estate
-   refused a green fold, 2026-10-02) + zero unresolved review threads +
+   refused a green fold, 2026-10-02); never a gate is not never read: the
+   lifecycle skill's Phase 3 harvest reads and triages every non-required
+   verdict (a code-quality vendor's gate among them) before the merge + zero
+   unresolved review threads +
    MERGEABLE. A fold is reviewed before it merges: where the host
    does not review a ready pull request by itself, request the vendor review
    at the ready-mark. A fold merged with no review took six true findings

@@ -100,7 +100,9 @@ authoritative source of substance.
   signal (PDR-078 §Emit-side; PDR-118's freshness clause, which reads a
   claim's TTL as housekeeping, never as alive) is a decision for a PDR
   amendment, routed to the Director, and until it lands this rule's
-  invocation stands: both beats run, and neither pauses.
+  invocation stands: both beats run, and neither pauses (the owner-word
+  stand-down of §Exemptions below, PDR-078 §4, still stops a seat: that is
+  the owner's word ending the seat's run, not a pause around a push).
 - The current repo phenotype (per ADR-186, emitter migrated
   2026-08-02) lands heartbeats in the canonical lifecycle shape: the
   agent-tools CLI's heartbeat mode (`comms send --tag heartbeat`)

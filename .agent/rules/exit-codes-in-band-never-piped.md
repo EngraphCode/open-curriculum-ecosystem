@@ -44,7 +44,12 @@ discipline held for expensive chains gets skipped.
 - A landing proof is a NEW commit on the remote beyond the head read
   before the commit; head equal to remote proves nothing (a pathspec commit
   refused whole over one untracked path left head equal to remote, and the
-  chain pushed a no-op and posted a false push-done, 2026-10-02).
+  chain pushed a no-op and posted a false push-done, 2026-10-02). On a
+  shared branch a new commit beyond that head may be a peer's (a fold saw
+  exactly that, 2026-10-02), so the proof is the EXPECTED commit, or its
+  content, on the remote, read back by its hash. The tracked `merge-bot push`
+  reports the push's exit status and reads nothing back; the read-back is
+  the caller's own step after it, never assumed from a green push.
 - **The false-silence twin, on WRITES: on any ambiguous outcome, READ THE
   STATE before retrying — a retry is itself a write.** A piped grep over a
   successful write can match nothing (the CLI emits prose, not the JSON the
