@@ -87,8 +87,7 @@ work this content describes?". Two dispositions:
    compared with the same ranges cut from the pre-move blob (the surface as
    committed at `HEAD` before the move) and joined in that order; no snapshot
    of the whole file is written, because that commit stays in history as the
-   move commit's parent); and the
-   live surface
+   move commit's parent); and the live surface
    keeps only the live state and a one-line pointer to the archive (the path
    written inline as code: the link validator's target set excludes archive
    directories, and the commit gate refuses a markdown link into one). Git retains the literal

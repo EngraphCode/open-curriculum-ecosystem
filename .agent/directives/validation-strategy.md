@@ -1,11 +1,18 @@
 ---
 title: "Validation Strategy"
-status: seeded-stub
+status: active
 last_updated: 2026-09-24
-fitness_line_target: 180
-fitness_line_limit: 240
-fitness_char_limit: 14000
+fitness_line_target: 330
+fitness_line_limit: 400
+fitness_char_limit: 24000
 fitness_line_length: 100
+fitness_rationale: >-
+  Sized at the 2026-09-12 merge of the TypeScript practice into this directive;
+  substance is never trimmed to fit, and a later curation lane may split by seam.
+split_strategy: >-
+  Split at the compile-time / runtime seam: the type-flow patterns could become a
+  companion reference beside typescript-gotchas.md, leaving the spine, the tiers
+  and the gate-integrity doctrine here.
 ---
 
 # Validation Strategy
@@ -24,7 +31,8 @@ fitness_line_length: 100
   reproducible; unit of truth is the assertion, and a test uses no IO.
   [testing-strategy.md](testing-strategy.md) defines the tests, and the E2E and
   smoke checks beside them, which are validation surfaces. Mutation testing (Stryker) is the
-  meta-quality layer that makes test coverage meaningful.
+  meta-quality layer that makes test coverage meaningful; the claim-directed
+  method is §Prove the guard bites, below.
 - **Evaluate** — *probabilistic*. Measures the value and reliability of a
   judgement-laden capability across realistic inputs, graded relative to a
   baseline. Unit of truth is a graded outcome over a corpus plus a with/without
@@ -54,30 +62,36 @@ keyed on surface type.
 
 ## Gate integrity: a green check proves its own path, nothing more
 
-A green gate is evidence about the path the gate exercised — never about
-the path production runs. Worked instance (2026-07-2x): a Vitest unit test
-passed on a runtime fact the real build path could not satisfy, because
-Vite resolves workspace packages and `tsx esbuild.config.ts` does not — the
-green unit test "proved" a resolution the shipped artefact lacked. When a
-claim is about a RUNTIME or BUILD property, the check must run on that
-runtime or build path (a smoke check on the built artefact, not a unit test
-on the source graph). Composes with the
-`green-parts-red-composition` pattern: per-path checks compose no better
-than per-part ones.
+A green gate is evidence about the path the gate exercised — never about the path
+production runs. Worked instance (2026-07-2x): a Vitest unit test passed on a
+runtime fact the real build path could not satisfy, because Vite resolves
+workspace packages and a `tsx`-driven build script does not — the green unit test
+"proved" a resolution the shipped artefact lacked. When a claim is about a RUNTIME
+or BUILD property, the check must run on that runtime or build path (a smoke check
+on the built artefact, not a unit test on the source graph). Composes with the
+`green-parts-red-composition` pattern: per-path checks compose no better than
+per-part ones.
 
 ### Right tool: a check uses the property's real machinery (owner ruling 2026-08-09)
 
-A validator's subject dictates its instrument. A check about
-**dependencies** runs on a dependency **resolver** — dependency-cruiser,
-AST-based and already in the blocking chain (group-matched containment
-via `$1` back-references, phantom-dependency `dependencyTypes`,
-first-class dynamic-`import()` and `require` analysis) — never on
-textual pattern-matching of source. Regex import-scanning is the wrong
-tool: its silent-pass classes (literal dynamic imports, unrecognised
-path idioms, comment-stripping bypasses) are the instrument's shape,
-not bugs to patch one spelling at a time. This generalises the section
-above — prefer the instrument that exercises the property's real path
-over a textual shadow of it.
+A validator's subject dictates its instrument. A check about **dependencies** runs
+on a dependency **resolver** — dependency-cruiser, AST-based and already in the
+blocking chain (group-matched containment via `$1` back-references,
+phantom-dependency `dependencyTypes`, first-class dynamic-`import()` and `require`
+analysis) — never on textual pattern-matching of source. Regex import-scanning is
+the wrong tool: its silent-pass classes (literal dynamic imports, unrecognised
+path idioms, comment-stripping bypasses) are the instrument's shape, not bugs to
+patch one spelling at a time. Prefer the instrument that exercises the property's
+real path over a textual shadow of it.
+
+The module-system policy those rules enforce (owner ruling 2026-08-09): this
+estate is **strictly ESM — zero `require` statements**; the presence of a
+`require` IS the finding, never a style note. **Dynamic `import()` is strongly
+discouraged**: it errors by default, with any sanctioned use carried as a
+recorded, per-instance exemption in the rule configuration — never a silent
+allowance. Worked instance, in OCE's estate: the workspace-config-isolation
+containment leg (2026-08-09), whose replacement with dependency-cruiser rules was ruled
+at the owner's word; the isolation lane executes it.
 
 **An observation is an instrument** (owner, 2026-09-14, verbatim: "sometimes
 you don't need an automated check @validation-strategy.md sometimes you need
@@ -89,21 +103,44 @@ exercised once at cure time by hand and the run is recorded on the pull
 request and in the records: the commands, the inputs, what was seen. An
 observation is dated, first-hand and reproducible from its record; it is
 never narrated as a suite's proof, and a suite is never built to replace it
-with IO. Worked instance: the review-cost gate's sync predicate, proven by
-unit tests over injected git output plus one recorded run of the real git on
-PR #146 (2026-09-14), a scratch repository exercising the admitted and
-refused merge shapes by hand.
+with IO. Worked instance, in OCE's estate (2026-09-14): its review-cost
+gate's sync predicate, proven by unit tests over injected git output plus one
+recorded run of the real git on its PR #146, a scratch repository exercising
+the admitted and refused merge shapes by hand.
 
-The module-system policy those rules enforce (owner ruling
-2026-08-09): this estate is **strictly ESM — zero `require`
-statements**; the presence of a `require` IS the finding, never a
-style note. **Dynamic `import()` is strongly discouraged**: it errors
-by default, with any sanctioned use carried as a recorded,
-per-instance exemption in the rule configuration — never a silent
-allowance. Worked instance: the
-workspace-config-isolation containment leg (2026-08-09) — its
-replacement with dependency-cruiser rules was ruled at the owner's
-word; the isolation lane executes it.
+## Prove the guard bites: claim-directed mutation checks
+
+When a change's value IS an assertion (a test instrument, a validator, a guard),
+each claim the change makes lands with a mutant that negates exactly that claim,
+verified killed in the same commit. The binding statement is
+[testing-strategy.md §Prove the guard bites](testing-strategy.md); the
+checker-level form (a negative control in an isolated fixture, for a checker
+whose failure cannot be planted in the live tree) is the pattern
+`prove-the-checker-with-a-negative-control` in the patterns tier (a directive names
+a pattern, never links it: doctrine cites doctrine, PDR-105);
+this is the method:
+
+1. Pick one mutant per failure mode the change claims to close — negate the claim
+   itself (invert the predicate, drop the branch, skip the write), never an
+   incidental line. A mutant that leaves a syntax error is killed by the parser,
+   not by the claim: replace a removed statement with a no-op (`:` in shell,
+   `void 0` in TypeScript) so the mutant fails on the claim itself (2026-09-25).
+2. Apply it as a temporary forward file edit from a driver script that holds the
+   original text (string-replace with a matched-needle assertion; restore by
+   writing the original back — never via `git checkout` / `git restore`).
+3. Run the narrowest suite that judges the claim; record the outcome; restore;
+   re-run green.
+4. Read the direction honestly. At unit level a mutant is killed when a cell
+   fails. Against a live surface that is already red from a known defect, the
+   direction inverts: the mutant must turn the red cell GREEN — that proves the
+   new assertion (not some other break) is what catches the defect. "The cell went
+   red" alone is evidence a defect surfaced, not evidence the instrument caught it.
+5. The durable record is the commit body: which mutants, judged where, with what
+   outcome. Driver scripts are throwaway.
+
+A mutation score, where one is ever measured, is evidence, never a gate (owner
+doctrine 2026-08-05); promotion to a gate is a separate owner decision with its
+own evidence.
 
 ## Validators: the fewest processes, never a change to the code, never a build
 

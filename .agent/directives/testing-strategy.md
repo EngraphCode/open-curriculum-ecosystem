@@ -117,7 +117,7 @@ describes it). Rollout sequencing:
   `vi.useFakeTimers` or `vi.setSystemTime`.
   Product code must accept configuration, and a clock or scheduler, as
   parameters. See
-  [ADR-078][di]. For React components that fetch or derive async
+  [`no-global-state-in-tests`][di]. For React components that fetch or derive async
   state, the DI seam that makes this holdable is the view-binder
   split — views take state as props, a two-line binder owns the
   hook, tests render the view with literal states, zero mocks
@@ -162,11 +162,9 @@ describes it). Rollout sequencing:
   pin is never admissible: the cure for a pinned value is a test of
   the mechanism that generates it, asserting relations to the inputs
   the test injects, so it is red only when the mechanism breaks and
-  silent on upstream content drift (trigger artefact: the MCP-462
-  differential examples test that replaced three value-pinned
-  tests). A value that carries a decision is recorded in its owning
-  ADR and guaranteed by construction (one exported source) or by a
-  validator, never by a test.
+  silent on upstream content drift. A value that carries a decision is
+  recorded in its owning ADR and guaranteed by construction (one
+  exported source) or by a validator, never by a test.
 - **Pinning an absence is not proof** (owner doctrine 2026-08-19,
   verbatim: "tests should prove behaviour, not configuration, pinning
   a lack of something does not provide value"): an assertion that a
@@ -188,8 +186,8 @@ describes it). Rollout sequencing:
   behaviour"): a test asserting an exclusion counter, a stat field or the
   argument of a query the product made asserts what the configuration
   echoes back, not whether the restricted content flowed. The cure is a sentinel-content assertion
-  through the public result: the hidden lesson's keyword appears only
-  when the switch admits it. The generator to watch is testing at the
+  through the public result (in OCE: the hidden lesson's keyword
+  appears only when the switch admits it). The generator to watch is testing at the
   seam where the wiring is visible instead of the surface where the
   behaviour is observable.
 - **Assert relations to injected inputs, never literals of our own
@@ -292,13 +290,13 @@ describes it). Rollout sequencing:
   replace the clock with `vi.useFakeTimers` or `vi.setSystemTime`. If a
   function needs configuration or the time, refactor it to accept the
   configuration, or a clock or scheduler, as a parameter. See
-  [ADR-078][di].
+  [`no-global-state-in-tests`][di].
   A validation check's composition root (a smoke or E2E check's runner
   config, global setup or entry script) may read ambient env, validate
   it, and inject the result. Test files and other setup files must not read
   or mutate `process.env`.
 
-[di]: ../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md
+[di]: ../rules/no-global-state-in-tests.md
 [testing-patterns-value-proxies]: ../../docs/engineering/testing-patterns.md#acceptance-value-proxies
 
 - **No process spawning in tests** - Test code MUST NOT
@@ -330,8 +328,8 @@ describes it). Rollout sequencing:
   `readFileSync`-ed a plan JSON, asserted its `statuses` and finding
   tuples, and silently broke when a plan-estate relocation moved the file.
   If product code resolves `.agent/` paths, exercise it against an
-  injected file view (ADR-078), never a temporary directory and never
-  the live tree.
+  injected file view, never a temporary directory and never the live
+  tree.
 
 ### Prove the guard bites (mutation check on every gap-closing test)
 
@@ -508,9 +506,9 @@ exchange is permitted, loopback included (§Test Types).
 
 ### Stubs vs Fakes
 
-- **Runtime stubs**: plain functions that live in the SDK and are used in
-  product code stub mode (e.g. `createStubRetrievalService`). They return
-  canned data and have no test framework dependency.
+- **Runtime stubs**: plain functions that live in product code and are used when
+  product code runs in a stub mode. They return canned data and have no test
+  framework dependency.
 - **Test fakes**: simple functions or objects that live in `test-helpers/`
   directories and are used only in tests. They stand in for a dependency so
   the code under test can run. What the product sends through an output port
@@ -552,9 +550,11 @@ integration → E2E). There is a second, orthogonal axis: EXECUTION
 SURFACE. Scope-axis tests and checks typically execute source through a
 loader-assisted harness (vitest, tsx) while production executes built
 artefacts under plain `node` — and nothing at any scope level REQUIRES
-surface fidelity. An E2E check MAY boot the built artefact (the Oak
-Search CLI contract E2E boots `dist/bin/oaksearch.js` and is the worked
-example), but that coverage is incidental to its scope classification.
+surface fidelity. An E2E check MAY boot the built artefact (the site's
+Playwright suite runs against the production build its `e2e:server` script
+builds and serves on the port the config held, and OCE's CLI contract E2E
+booted its built binary), but that coverage is
+incidental to its scope classification.
 Smoke checks own the surface axis and make artefact fidelity MANDATORY:
 minimum behaviour scope, maximum surface fidelity. Defects that exist
 only in the built form — extensionless ESM import specifiers in
@@ -794,8 +794,8 @@ in-process test run, which admits no IO.
 ## Test Assertion Placement
 
 Keep E2E check assertions on system/transport invariants; prove runtime
-stub semantics in SDK unit/integration tests, not by asserting
-server output against the same stub path.
+stub semantics in the owning workspace's unit/integration tests, not
+by asserting server output against the same stub path.
 
 ## Acceptance Value-Proxies
 

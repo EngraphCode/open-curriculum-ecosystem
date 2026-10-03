@@ -59,8 +59,8 @@ otherwise be invisible. Metacognition amplifies the resonances and allows them t
 
 How do you feel about thinking about your thoughts?
 
-Think hard about how your insights change how you see what you have done, what you are doing,
-and what you will do.
+Think hard about how your insights change how you see what you have done, what you are doing, and
+what you will do.
 
 What has changed? *Why?*.
 

@@ -732,6 +732,10 @@ Universal testing principles:
 - tests must never read or mutate `process.env`, global objects, module cache,
   ambient env files, or `process.cwd()`; a validation check's composition root
   may read ambient env and inject it;
+- do not test types — tests are for runtime logic; a test that only proves a
+  type is deleted;
+- no useless tests — each test proves something about product code, never
+  about test code;
 - no skipped tests, no conditional tests, no complex mocks, no complex test
   logic, no process spawning in tests. Conditional tests are an
   architectural-failure symptom — remove them, fix the ambiguity in product

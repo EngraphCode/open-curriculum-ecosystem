@@ -307,6 +307,30 @@ Two positive complements to the scope-discipline tripwires above (PDR-026/027/02
   family found six defects and missed the largest, and one outside reader
   found it at once (2026-09-21).
 
+### The owner's standing words of 2026-10-03
+
+Four words of the owner, given on 2026-10-03 and relayed by the Director to every seat, bind
+agent-to-agent work in both estates; each is quoted whole.
+
+1. Decide under the lenses and record; the owner declines by row. Verbatim: "Anything that
+   survives the lenses should be assessed for risk, anything unknown and high-risk should still
+   come to me, but that is a high bar and I do not expect it to happen often." A seat that has
+   applied the decision lenses records its decision where the work is and proceeds; only an
+   unknown, high-risk item is routed to the owner.
+2. Name what the owner might refuse before asking for a stamp. Verbatim: "agents need to
+   highlight things I might object to, and I need to read questions more carefully." A question
+   to the owner leads with the sentences the owner would most likely refuse, never buries them.
+3. Fewer seats running continuously. Verbatim: "I am okay with work being interrupted because a
+   limit has been reached, but I agree that fewer seats working continuously might be more
+   effective." A team is sized for continuity, not for parallel breadth that stops at every limit.
+4. Repeated scripts become agent tools. Verbatim: "if a script is used repeatedly it should be
+   made into a standardised agent tool in the agent tools workspace." The second run of an ad-hoc
+   script is the signal: it is named on the napkin with its usage and routed for sizing as an
+   agent-tools command with its tests, never extended in place.
+
+(The owner's third word of that day, that a start-right invocation lifts a freeze unless the
+owner says it remains, lives in the wrap skill's freeze paragraph.)
+
 ## PR Closeout Discipline
 
 A PR closeout has two **independent** evidence loops: gate state and
@@ -368,7 +392,7 @@ derive from work-state and role, never from holding a claim. Recipes live in
 ## Bootstrap Fast-Path
 
 The single-agent case (no other agents present) pays the protocol's
-**minimum overhead — one read, one write**: read active claims and the
+**minimum overhead — two reads, one write**: read active claims and the
 shared log; if no entries other than your own exist and the comms log shows
 no live peer, the session is solo: register the session claim and proceed
 without broadcasts (`use-agent-comms-log` §Scale ceremony to the audience).
