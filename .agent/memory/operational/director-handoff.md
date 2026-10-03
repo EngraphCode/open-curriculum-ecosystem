@@ -433,6 +433,39 @@ both sides. Copilot's two seam-test findings there were declined for the carry a
 node as named inputs for both estates. The #347 relay-clause nuance remains a note for one joint cure.
 Nothing from this slice is owed to this estate. Seats unchanged: both cold-paused; the Director holds on
 the owner's word on O10.
+§STATE, 2026-10-03 06:3xZ, the compaction boundary at the owner's word (prepare compaction with the
+cognition passes and the wrap, stop every process, report, stop). Every outward act of this seat's
+own initiative is frozen from here. Live now: the parity node is landed through steps 1, 2 (the
+opening carries) and 5 on both default branches; step 3, the ledger, is at its door here as #344
+(`docs/parity-measure` at `SHA:35db66466`, twelve behind engraph, so engraph merges into it from the
+`oce-wt-parity-measure` worktree before its own) and in JC.net as 306; step 4 waits on the owner's
+word on row O10, and the node's §Size now carries a revised recommendation, two batched pull
+requests per estate (the doctrine text as one, the small code as one) instead of thirteen, priced
+from the one carry measured overnight (JC.net 310: two minutes of copying inside seventy minutes of
+pull request). The fold of #342 is DUE 12:00Z with no live seat; the Director folds it on resume or
+the owner's hand does. Work safety read first-hand at 06:1xZ: the primary clean and level with its
+remote; `docs/parity-measure` zero unpushed; the registry-rows lane merged with its remote gone (the
+`oce-wt-parity-carries` worktree retires); the two detached harness worktrees on engraph. The one
+unsafe item, unchanged tonight and in these records since 2026-09-29: the J2 lane worktree `oce-
+wt-j2-docs-validators` holds 23 staged, uncommitted files, the docs-validators port's starting
+point, on `feat/exchange-j2-docs-validators` at `SHA:e07d6b34e` with no remote; it cannot pass the
+push gate as it stands and is ledger row C27 and the owner's row O4. Review-cost rows for #344 and #342
+are on this host's ledger. Claims retained with handoff pointers by intent: 302e8307 (the
+Director), 9ecef634 (the records and the measure, #344), 4b82394b (the J2 lane); Efreet lifts
+Scorch's 006c79ad stays retained under its own pause. The registry loop stops after a heartbeat-end
+on this stream, so staleness past that event is the declared pause. Re-arm recipe, written as if
+nothing survives: from this clone's root, the registry loop `while true; do date -u
++%Y-%m-%dT%H:%M:%SZ | xargs -I{} pnpm --silent agent-tools:collaboration-state -- claims heartbeat
+--active .agent/state/collaboration/active-claims.json --claim-id
+302e8307-8e0b-4221-af1c-600a62390df3 --now {} >/dev/null || echo "beat failed"; sleep 240; done`
+under a two-hour bound re-armed on exit; the watcher only while a peer is live, as a thirty-minute
+Monitor, `timeout 1740 pnpm --silent agent-tools:collaboration-state -- comms watch --platform
+claude --model claude-fable-5-1 --supervisor-pid "$PPID" --step-timeout-ms 120000 --max-events-per-
+drain 100`; no cron, no one-shot wake. Resume order: verify by the harness task list and agent list
+before any act; read ahead/behind on every branch named here; re-arm only what is absent; then the
+owner's word on O10, the two ledger merges, and the seats resumed by message in the shape the owner
+chose. The wrap's loss scan, metaloss passes and fixed point are on JC.net's notebook block of this
+hour; the formation letter is in JC.net's experience tier, dated today.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**

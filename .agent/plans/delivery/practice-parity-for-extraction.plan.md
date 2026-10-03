@@ -22,7 +22,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-10-02
+last_updated: 2026-10-03
 ---
 
 # Practice parity for extraction
@@ -226,25 +226,28 @@ folds routed as a failure, never re-labelled. With one seat the order is the nod
 the measure, the records, then the carries.
 
 The owner's word of 2026-10-02 20:0xZ, verbatim, on the bound above: "I am going to bed. Take it slow, stay thoughtful, keep the plan up to date and use the Crickets. Slow and steady is better than fast and wrong every time. The two hour goal is a yarstick not a deadline, quality matters far more than speed, esimate remaining time as you go, and if it looks like it is going to hit four hours there may be an issue, apply all appropriate planning and cognitive skills".
-Estimate, kept current here by the Director at each boundary (its history is this file's): at
-23:0xZ on 2026-10-02 the tail is landed in OCE and three of its four slices in jimcresswell.net, the
-first carry (the registry rows) is merged and demonstrated, the records are on both coordination
-branches, and the ledger is assembled over 384 items with its closer script, open in OCE as a pull
-request held at its door for the owner's reading and opening in jimcresswell.net after its fold. It
-derives 28 carries against this node's twenty, so the node is reopened with the owner on row O10.
-Sized from the closures, not from a rate: the queued carries are fifteen pull requests (nine of one
-to three files at about twenty minutes each; C16, C17, C20 with C21, C24 at thirty to forty-five
-minutes; C23 at about an hour; C25 at about ninety minutes), about eight seat-hours, four hours of
-wall-clock on two implementer seats; the five owner rows (C19, C22, C26, C27, C28), if all carried,
-add about seven seat-hours more. The table's step 4 said the two large gaps were under an hour each;
-the ledger found four large carries sized at one to two hours each, and this line re-sizes them.
-Against the owner's four-hour signal: three and a half hours have run since ratification, and the
-queue as sized is a further four to eight hours of wall-clock, so the signal is crossed and the issue
-is named: the yardstick assumed six carries and the measure found twenty-eight. The Director's
-recommendation on O10 is to carry the text and the small code now (thirteen pull requests, about
-two and a half hours on two seats) and to defer C23, C25 with C19, C27 and C28 to the entity's
-package, PDR-142's ratified route for code, which is exactly where carrying by copy and by package
-differ most; the owner's word on the ledger decides.
+Estimate, kept current here by the Director at each boundary (its history is this file's): at 06:3xZ
+on 2026-10-03 every step that needs no owner word is landed on both default branches (the tails, the
+folds, the registry rows, the host-tagged entries with the Core heading gate, the records), the
+ledger is at its door in both estates (OCE #344, jimcresswell.net 306, the same bytes, both
+settlement pushes spent), and one owed twin outside the ledger landed overnight (jimcresswell.net
+310, the heading gate's three cures as the same bytes). The ledger derives 28 carries against this
+node's twenty, so the node stands reopened with the owner on row O10. Sized from the closures:
+fifteen queued pull requests at about eight seat-hours; the five owner rows (C19, C22, C26, C27,
+C28) about seven more. Against the owner's four-hour signal: eleven hours have run since
+ratification, of which the seats' work at the doors was a small part and the rest the owner-gated
+wait on O10 and two usage outages; the signal is crossed and its cause is the count, not the rate.
+The one carry measured overnight re-sizes the queue's unit: 310 was four files and forty-four lines,
+two minutes of copying and seventy minutes door to merge (two reviews, a re-cut for the
+generalisation trailer, the bot's settlement), so a carry's cost is its pull request's fixed cost
+and the queue's cost is its count of pull requests. The Director's recommendation on O10 is
+therefore revised: carry the thirteen text and small-code carries (C1 to C17 less C9, C20 with C21,
+C24) as two pull requests per estate, the doctrine text as one and the small code as one, the same
+bytes in both, about one seat-hour each; defer C23, C25 with C19, C27 and C28 to the entity's
+package, PDR-142's ratified route for code, where carrying by copy and by package differ most.
+Falsifier: a batched pull request whose review round grows with its file count, which splits it at
+the first such round; a row the owner declines is one hunk reverted, never a pull request. The
+owner's word on the ledger decides.
 
 ## Out of scope
 
