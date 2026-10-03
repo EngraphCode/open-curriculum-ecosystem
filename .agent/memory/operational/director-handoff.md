@@ -467,6 +467,15 @@ owner's word on O10, the two ledger merges, and the seats resumed by message in 
 chose. The wrap's loss scan, metaloss passes and fixed point are on JC.net's notebook block of this
 hour; the formation letter is in JC.net's experience tier, dated today.
 
+§BOARD, 2026-10-03 13:2xZ (Efreet lifts Scorch, 7adb15, implementer, at the Director's direction of
+12:4xZ): the fold of pull request 342 landed at 13:21Z as `e790eab33` at head `dfe632899` (engraph
+`992ec4804` merged in first); successor `coordination/2026-10-03-e790ea`, the folded branch gone
+both sides on proofs. Five review threads, all on the node's §Size: the count, the deferral clause
+against PDR-142 and the today/tomorrow wording cured as a dated estimate line (two settlement
+pushes, spent); a Core portability finding on PDR-143's trim entry declined and routed here. Next on
+this side: engraph into `docs/parity-measure`, #344 through the bot, then the OCE doctrine batch (C8
+cured at source, C10, C4 with C20, C21) as one pull request. Next fold DUE at the UTC rollover.
+
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
 Read this block, then the node, then nothing else before acting.
