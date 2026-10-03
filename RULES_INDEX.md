@@ -27,6 +27,7 @@ it by hand.
 | `.agent/rules/bot-identity-on-third-party-systems.md` | core | — |
 | `.agent/rules/capability-landing-decision-procedure.md` | situational | `surface:lever-authoring — Landing, converting, or re-homing a capability; not landed-home edits` |
 | `.agent/rules/capture-practice-tool-feedback.md` | core | — |
+| `.agent/rules/channel-by-audience-lifetime-and-consumer.md` | situational | `session:team — every cross-seat send` |
 | `.agent/rules/check-singleton-per-window.md` | situational | `tool:gate-sweep` |
 | `.agent/rules/closed-shape-design-optionality.md` | core | — |
 | `.agent/rules/collaboration-is-value-contingent.md` | core | — |
@@ -60,15 +61,22 @@ it by hand.
 | `.agent/rules/identify-as-agent-under-shared-credentials.md` | core | — |
 | `.agent/rules/important-state-not-in-temp-files.md` | core | — |
 | `.agent/rules/invoke-accessibility-expert.md` | situational | `surface:accessibility — Accessibility-touching change (WCAG / keyboard / focus / contrast / ARIA)` |
+| `.agent/rules/invoke-architecture-expert.md` | situational | `surface:workspace boundaries, import direction, module structure, dependency injection, public APIs` |
 | `.agent/rules/invoke-assumptions-expert.md` | situational | `ceremony:plan-authoring — Plan authoring, decision-complete marks, blocking claims, 3+ agents` |
 | `.agent/rules/invoke-clerk-expert.md` | situational | `surface:clerk-auth — Clerk / OAuth / authentication / sign-in / sign-up / token verification` |
 | `.agent/rules/invoke-code-experts.md` | core | — |
+| `.agent/rules/invoke-config-expert.md` | situational | `surface:tsconfig, ESLint, Vitest, Prettier, markdownlint, Turbo, knip, dependency-cruiser, Husky, package.json scripts, lockfile, env handling, Playwright config, Vercel settings, deployment tooling` |
 | `.agent/rules/invoke-design-system-expert.md` | situational | `surface:design — Design token / theming / CSS custom property / colour palette change` |
 | `.agent/rules/invoke-doc-and-onboarding-experts-on-significant-changes.md` | situational | `ceremony:significant-doc-change — Behaviour/API/architecture change without a paired doc update` |
+| `.agent/rules/invoke-docs-adr-expert.md` | situational | `surface:docs/, ADRs, PDRs, READMEs, .agent/ documentation, permanent narrative surfaces` |
 | `.agent/rules/invoke-elasticsearch-expert.md` | situational | `surface:elasticsearch — Elasticsearch mapping / analyser / query / retriever / ELSER / RRF change` |
 | `.agent/rules/invoke-mcp-expert.md` | situational | `surface:mcp-protocol — MCP tool/resource/prompt definition or transport/session pattern change` |
 | `.agent/rules/invoke-react-component-expert.md` | situational | `surface:react-component — React component edit (hooks, render, prop API, composition)` |
+| `.agent/rules/invoke-security-expert.md` | situational | `surface:headers, CSP, secrets, env loading, middleware, proxy, dependencies, auth, public attack surface` |
 | `.agent/rules/invoke-sentry-expert.md` | situational | `surface:observability — Sentry / OpenTelemetry / observability change` |
+| `.agent/rules/invoke-subagent-architect.md` | situational | `surface:reviewer roster, .agent/sub-agents/, invoke-* rules, .agent/skills/, platform agent, rule and skill adapters, platform entry points` |
+| `.agent/rules/invoke-test-expert.md` | situational | `surface:test files, test helpers, proof layers, vitest and playwright config, TDD discipline` |
+| `.agent/rules/invoke-type-expert.md` | situational | `surface:types, exported types, type flow, generics, assertions, schemas and schema inference, compile-time guarantees` |
 | `.agent/rules/knowledge-preservation-over-fitness-warnings.md` | core | — |
 | `.agent/rules/linear-mcp-team-and-project-hygiene.md` | situational | `tool:linear — any ticket mint, move, re-project, or placement audit` |
 | `.agent/rules/lint-after-edit.md` | situational | `surface:source-authoring` |

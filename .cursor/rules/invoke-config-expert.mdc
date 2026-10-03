@@ -1,0 +1,6 @@
+---
+description: invoke config expert
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/invoke-config-expert.md`.

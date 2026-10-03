@@ -1,0 +1,6 @@
+---
+description: invoke test expert
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/invoke-test-expert.md`.

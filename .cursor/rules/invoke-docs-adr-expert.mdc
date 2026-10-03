@@ -1,0 +1,6 @@
+---
+description: invoke docs adr expert
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/invoke-docs-adr-expert.md`.

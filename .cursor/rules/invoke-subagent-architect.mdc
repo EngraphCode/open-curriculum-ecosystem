@@ -1,0 +1,7 @@
+---
+description: Route reviewer roster, invoke rule, skill, entry-point, and adapter-estate changes through subagent-architect
+globs: .agent/**/*,.cursor/**/*,.claude/**/*,.codex/**/*,.github/**/*,.agents/**/*
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/invoke-subagent-architect.md`.
