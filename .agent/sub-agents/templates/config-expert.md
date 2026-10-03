@@ -1,5 +1,5 @@
 ---
-description: Tooling configuration specialist for ESLint, TypeScript, Vitest, Prettier, Turbo, and Husky. Enforces inheritance consistency, quality-gate alignment, and prevention of disabled rules across all monorepo workspaces. Use immediately when any config file is created or modified, when a new workspace is scaffolded, or when auditing quality gates for silently bypassed rules.
+description: Tooling configuration specialist for ESLint, TypeScript, Vitest, Prettier, markdownlint, Turbo, knip, dependency-cruiser, and Husky. Enforces inheritance consistency, quality-gate alignment, and prevention of disabled rules across all monorepo workspaces. Use immediately when any config file is created or modified, when a new workspace is scaffolded, or when auditing quality gates for silently bypassed rules.
 platforms:
   - cursor
   - claude
@@ -272,6 +272,7 @@ When configuration issues affect code quality, architecture, or type safety, thi
 ### Quality Gate Alignment
 
 - [ ] Every verifying `pnpm check` leg runs in CI (`validate-check-ci-parity`)
+- [ ] Scripts follow the canonical names; every cited script exists
 - [ ] All workspaces pass `pnpm type-check`
 - [ ] All workspaces pass `pnpm lint`
 - [ ] All workspaces pass `pnpm test`

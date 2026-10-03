@@ -1,6 +1,6 @@
 ---
 name: config-expert
-description: 'Tooling configuration specialist for ESLint, TypeScript, Vitest, Prettier, Turbo, and Husky. Enforces inheritance consistency, quality-gate alignment, and prevention of disabled rules across all monorepo workspaces. Use immediately when any config file is created or modified, when a new workspace is scaffolded, or when auditing quality gates for silently bypassed rules.'
+description: 'Tooling configuration specialist for ESLint, TypeScript, Vitest, Prettier, markdownlint, Turbo, knip, dependency-cruiser, and Husky. Enforces inheritance consistency, quality-gate alignment, and prevention of disabled rules across all monorepo workspaces. Use immediately when any config file is created or modified, when a new workspace is scaffolded, or when auditing quality gates for silently bypassed rules.'
 tools: Read, Grep, Glob, Bash
 disallowedTools: Write, Edit
 color: yellow

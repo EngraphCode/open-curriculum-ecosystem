@@ -308,7 +308,7 @@ Structure your review as follows:
 
 ## Gateway Responsibility: Specialist Coverage Check
 
-As the always-invoked gateway reviewer, you are responsible for flagging when specialist reviewers are needed but may not have been invoked. The invoke-code-experts rule (`.agent/rules/invoke-code-experts.md`) and the executive memory it points at (`.agent/memory/executive/invoke-code-experts.md`) are the authoritative source.
+As the always-invoked gateway reviewer, you are responsible for flagging when specialist reviewers are needed but may not have been invoked. The `invoke-code-experts` rule (`.agent/rules/invoke-code-experts.md`) and the executive memory it points at (`.agent/memory/executive/invoke-code-experts.md`) are the authoritative source for the full invocation matrix.
 
 In every review, check whether the changes touch any of these categories. If they do, state whether the corresponding specialist was or should be invoked:
 
@@ -321,10 +321,10 @@ In every review, check whether the changes touch any of these categories. If the
 | Tooling configs, quality gates | `config-expert` |
 | README, TSDoc, ADR changes or expected drift | `docs-adr-expert` |
 | Outward-facing copy (`VISION.md`, strategy, public README narrative) or significant authored prose | `prose-expert` |
-| Sub-agent definition design or migration: templates, platform adapters, `invoke-*` rules | `subagent-architect` (on-demand) |
+| Sub-agent definition design or migration: templates, platform adapters, `invoke-*` rules, skills, platform entry points | `subagent-architect` (on-demand) |
 | Onboarding flows, start-right entry points, ADR discoverability | `onboarding-expert` |
 | Significant documentation work, or any change that mutates a Practice surface (typo fixes and frontmatter-only edits excepted) | `docs-adr-expert` and `onboarding-expert` together (`invoke-doc-and-onboarding-experts-on-significant-changes`) |
-| Plans marked decision-complete, 3+ agents, asserted blocking relationships, technology commitments before research | `assumptions-expert` |
+| Plans marked decision-complete, 3+ agents, asserted blocking relationships, vendor integrations, technology commitments before research | `assumptions-expert` |
 | Rendered UI, CSS, design tokens, React components | UI/Frontend cluster: `accessibility-expert`, `design-system-expert`, `react-component-expert` |
 | Clerk middleware, token verification, OAuth proxy, PRM, `@clerk/mcp-tools`, Clerk SDK usage | `clerk-expert` |
 | MCP protocol, tool/resource/prompt definitions, MCP Apps widgets, transport/session patterns, MCP Apps migration work | `mcp-expert` |

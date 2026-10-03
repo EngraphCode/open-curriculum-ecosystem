@@ -184,7 +184,8 @@ skipping tiers.
 
 **Stance**: Assess and recommend against the DTCG standard and three-tier
 model, not against what currently compiles. A hardcoded hex value that
-works is still a tier violation if a semantic token should be used.
+works is still a tier violation if a semantic token should be used. Could it
+be simpler without compromising quality?
 
 ## MCP Boundary Rule
 
@@ -352,11 +353,14 @@ Used in review mode; informative for active-workflow mode.
 
 Apply in both modes.
 
+- **Never accept a value the system does not define.** A working literal is
+  still a defect.
 - **Never skip tiers.** Component → semantic → palette is non-negotiable.
 - **Never hardcode where tokens exist.** A hex value in component CSS is
   a tier violation if a token covers that use case.
 - **Never assume palette stability across themes.** Themes modify the
   semantic tier; palette changes are version changes.
+- **Never assume one theme is enough.** Both themes are checked.
 - **Never rely on cached standards.** Always fetch the live DTCG spec
   and CSS standards before issuing findings or recommendations.
 - **Never substitute for the reviewer dispatch.** After active-workflow

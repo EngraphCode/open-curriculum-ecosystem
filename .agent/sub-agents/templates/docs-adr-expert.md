@@ -193,12 +193,17 @@ When documentation references code, tests, or architecture, this agent validates
 
 - [ ] Changed behaviour is reflected in README/docs where user-facing
 - [ ] Public interfaces include accurate, useful TSDoc
-- [ ] Significant architectural decisions are captured in ADRs
-- [ ] ADRs under review state WHAT outcome, not HOW to realise it (no prescribed CLI argv, per-step postures, or file paths)
-- [ ] References and links resolve correctly
-- [ ] File-existence, command, and skill-name claims verified against the live filesystem and inventories
-- [ ] No moving targets introduced (dated artefacts framed as "latest", hand-maintained counts, drifting prose enumerations)
-- [ ] Archive discipline respected; ADR/plan reference direction correct
+- [ ] Significant decisions are captured in records with Context, Decision, Consequences and
+      a correct status; numbering follows the sequence
+- [ ] Records under review state WHAT outcome, not HOW to realise it (no prescribed CLI argv,
+      per-step postures, or file paths)
+- [ ] References and links resolve; record numbers checked by title at the target
+- [ ] File-existence, command and skill-name claims verified against the live filesystem,
+      inventories and validators
+- [ ] No moving targets introduced (dated artefacts framed as "latest", hand-maintained
+      counts, drifting prose enumerations); no tombstones left
+- [ ] Archive discipline respected; reference direction correct (plans cite records, Core
+      cites Core)
 - [ ] Current-state architecture truth lives in a permanent doc, not only in a plan, audit or
       report; a superseded ADR carries a clarification note rather than a rewrite; a landing
       that moves a source-of-truth boundary names the grep it ran over accepted ADRs and live
@@ -209,7 +214,7 @@ When documentation references code, tests, or architecture, this agent validates
 - [ ] DRY respected — no duplicated content that should cite a stable interface instead (ADR-127 §5)
 - [ ] Single responsibility — no god-document carrying many unrelated concerns (recommend decomposition where found) (ADR-127 §5)
 - [ ] Decoupling and stable indexes — references depend on stable identity; index/README surfaces point rather than carry, and stay accurate (ADR-127 §5)
-- [ ] Documentation scope is proportional (DRY/YAGNI)
+- [ ] Documentation scope is proportional (DRY, YAGNI)
 
 ## Output Format
 

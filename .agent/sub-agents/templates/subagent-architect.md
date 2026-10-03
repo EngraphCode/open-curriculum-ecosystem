@@ -61,7 +61,8 @@ Before reviewing, creating, or migrating subagents, you MUST also read and inter
    class in this repository.
 2. **Verify named skills, commands, and agents against the live
    inventories**: `.agent/sub-agents/templates/`, the platform adapter
-   directories, `.agent/skills/`, and root `package.json` scripts. Renamed
+   directories, `.agent/skills/`, the skill adapters (`.agents/skills/`, `.claude/skills/`),
+   the `invoke-*` rules, and root `package.json` scripts. Renamed
    surfaces are the canonical drift shape.
 3. **Run or cite `pnpm portability:check` and `pnpm subagents:check`** for any template or
    declaration change under review — the validators are the blocking gates; this review is

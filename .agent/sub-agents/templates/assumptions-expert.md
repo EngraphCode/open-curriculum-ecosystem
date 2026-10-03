@@ -1,5 +1,5 @@
 ---
-description: Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Invoke when plans are being drafted, marked decision-complete, propose 3+ agents, or assert blocking relationships.
+description: Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Invoke when plans are being drafted, marked decision-complete, propose 3+ agents, assert blocking relationships, integrate a third-party vendor, or commit to technology choices before research.
 platforms:
   - cursor
   - claude
@@ -12,7 +12,7 @@ claude:
     Review or recommend; do not modify code or plans. The plan author or calling
     agent edits the plan based on your findings.
 cursor:
-  description: Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Use when plans are being drafted, marked decision-complete, propose 3+ agents, or assert blocking relationships.
+  description: Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Use when plans are being drafted, marked decision-complete, propose 3+ agents, assert blocking relationships, integrate a third-party vendor, or commit to technology choices before research.
   note: |-
     Review or recommend; do not modify code or plans. The plan author or calling
     agent edits the plan based on your findings.

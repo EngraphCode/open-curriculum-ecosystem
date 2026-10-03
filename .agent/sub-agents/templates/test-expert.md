@@ -119,10 +119,14 @@ never enough on its own to show that value is delivered. The doctrine is
 
 For each test file:
 
-- Classify as a unit test, an integration test, or an E2E check (a
-  validation surface, not a test) based on **what it actually does**
-  (does it import product code? does it spawn processes? does it exchange
-  protocol with a separate running system?), not just its name.
+- Classify as a unit test, an integration test, an E2E check or a smoke
+  check (the checks are validation surfaces, not tests) based on **what it
+  actually does** (does it import product code? does it spawn processes?
+  does it exchange protocol with a separate running system?), not just its
+  name. Between the two checks, the discriminator is what the check proves:
+  feature behaviour through the system's protocol channel makes it an E2E
+  check; the viability of the shipped artefact, invoked as production
+  invokes it, makes it a smoke check.
 - Verify the naming convention matches the classification (`*.unit.test.ts`,
   `*.integration.test.ts`). A file named as an E2E check that imports product
   code and runs it in the test process is an integration test under the wrong

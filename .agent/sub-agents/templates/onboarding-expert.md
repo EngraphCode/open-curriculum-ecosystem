@@ -6,6 +6,7 @@ platforms:
   - codex
 claude:
   color: pink
+  note: Review and report only. Do not modify code.
 cursor:
   description: Onboarding documentation quality specialist. Use proactively when onboarding paths change, new contributors join, or documentation drift is suspected. Reviews accuracy, efficacy, readability, style consistency, stale information, and gaps across human and AI-agent flows.
 codex:

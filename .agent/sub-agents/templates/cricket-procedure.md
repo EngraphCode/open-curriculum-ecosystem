@@ -218,7 +218,7 @@ frame repair, whatever the work verdict, because a redirection steered by a fram
 incomplete or false inherits its gap: the first `CONTRADICTED:` line in Step 3b's order, else
 the first `OMITTED:` line, else the first `UNAUDITED:` line's source phrase, else "supply the
 sources verbatim in a `SOURCES:` block". When the frame verdict is SOUND, the redirection is
-the single highest-value change implied by the FIRST matching row above — or "none" when row
+the single highest-value change implied by the FIRST matching Step-4 row — or "none" when row
 7 (the clean all-PASS row) fired.
 
 ## Banned Moves
@@ -262,7 +262,7 @@ the single highest-value change implied by the FIRST matching row above — or "
   under STANCE adversarial each bullet also carries its question's counter-evidence
   line (the disconfirming quote or `NO COUNTER-EVIDENCE IN SUPPLIED CONTEXT`)
 - `FRAME VERDICT:` SOUND | NARROWED | CONTRADICTED, from Step 4b
-- `FRAME EVIDENCE:` up to 2 Step-3b lines verbatim, findings first (`CONTRADICTED:`,
+- `FRAME EVIDENCE:` up to 2 Step-3b or Step-4b lines verbatim, findings first (`CONTRADICTED:`,
   `OMITTED:`, `UNAUDITED:` or `FRAME: NO VERBATIM SOURCE`); on SOUND, `AUDITED: <N> items` and one
   `ADDRESSED:` line, or the `FRAME: NO OPEN SOURCE ITEM` line
 - `REDIRECTION:` from Step 5 — or "none"
