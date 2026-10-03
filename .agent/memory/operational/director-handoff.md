@@ -423,6 +423,16 @@ the default branch into each ledger lane, merge the ledgers at their doors, resu
 with the carries in closure order under the owner's reading of O10, one in-progress pull request per
 estate. Estimate from the owner's word: the two ledger merges within half an hour; the recommended
 thirteen carries about two and a half hours on two seats; all twenty-eight about four to eight.
+§BOARD, 2026-10-03 01:4xZ. The twin slice owed to JC.net landed there without waiting for a lane: a
+Cricket check read holding idle as drifting while the slice had no dependence on the owner's word, so the
+Director ran it by delegation and read every proof first-hand. JC.net 310 merged at `SHA:a4fdc188` (the
+slice's commit `SHA:caa09239`), the re-cut of 309 after Codex held that a received portability move
+carries the generalisation trailer in the commit that makes the change; the heading validator's shared
+bytes are now equal in both estates, host bindings aside, which closes the #346 review's three cures on
+both sides. Copilot's two seam-test findings there were declined for the carry and routed to the no-IO
+node as named inputs for both estates. The #347 relay-clause nuance remains a note for one joint cure.
+Nothing from this slice is owed to this estate. Seats unchanged: both cold-paused; the Director holds on
+the owner's word on O10.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
