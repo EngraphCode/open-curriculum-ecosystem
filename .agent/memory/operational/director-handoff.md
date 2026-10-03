@@ -433,7 +433,7 @@ both sides. Copilot's two seam-test findings there were declined for the carry a
 node as named inputs for both estates. The #347 relay-clause nuance remains a note for one joint cure.
 Nothing from this slice is owed to this estate. Seats unchanged: both cold-paused; the Director holds on
 the owner's word on O10.
-§STATE, 2026-10-03 06:3xZ, the compaction boundary at the owner's word (prepare compaction with the
+§STATE, 2026-10-03 07:1xZ, the compaction boundary at the owner's word (prepare compaction with the
 cognition passes and the wrap, stop every process, report, stop). Every outward act of this seat's
 own initiative is frozen from here. Live now: the parity node is landed through steps 1, 2 (the
 opening carries) and 5 on both default branches; step 3, the ledger, is at its door here as #344

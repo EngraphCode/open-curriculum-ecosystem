@@ -467,7 +467,7 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
-STATE, 2026-10-03T06:3xZ (Crucible binds Slag, 7b999c, the Director, at the owner's compaction-and-
+STATE, 2026-10-03T07:1xZ (Crucible binds Slag, 7b999c, the Director, at the owner's compaction-and-
 stop word): the order below is superseded by the delivery node `practice-parity-for-extraction` (the
 same bytes in both estates, ratified 2026-10-02). Live now: steps 1, 2 (the opening carries) and 5
 landed on engraph (#341, #343, #345, #346 with ADR-232 and the Core heading gate, #347, the

@@ -226,7 +226,7 @@ folds routed as a failure, never re-labelled. With one seat the order is the nod
 the measure, the records, then the carries.
 
 The owner's word of 2026-10-02 20:0xZ, verbatim, on the bound above: "I am going to bed. Take it slow, stay thoughtful, keep the plan up to date and use the Crickets. Slow and steady is better than fast and wrong every time. The two hour goal is a yarstick not a deadline, quality matters far more than speed, esimate remaining time as you go, and if it looks like it is going to hit four hours there may be an issue, apply all appropriate planning and cognitive skills".
-Estimate, kept current here by the Director at each boundary (its history is this file's): at 06:3xZ
+Estimate, kept current here by the Director at each boundary (its history is this file's): at 07:1xZ
 on 2026-10-03 every step that needs no owner word is landed on both default branches (the tails, the
 folds, the registry rows, the host-tagged entries with the Core heading gate, the records), the
 ledger is at its door in both estates (OCE #344, jimcresswell.net 306, the same bytes, both
