@@ -27,7 +27,12 @@ day or any second coordination-shaped branch.
 - **`main` is the target of every PR.** No branch targets another branch; no
   stacked long-lived chains. A build-ahead worktree cut from a parent lane
   branch (`worktree-hygiene` §1) is inside this rule, not outside it: its PR
-  targets `main` from its first push, its base advances to `main` by one merge
+  targets `main` from its first push (which waits for a free slot under the
+  work-in-progress limit, owner 2026-10-02, the branch holding local commits
+  meanwhile; a waiting branch's working day runs from the slot's opening, not
+  from its cut, and a count that stays full past a working day is routed to
+  the Director as a throughput question, never absorbed by the branch that
+  waits), its base advances to `main` by one merge
   or a re-cut when the parent lands, and it lives no longer than the parent's
   landing plus its own — a short-lived single-story branch whose start point
   happens to be a sibling's tip, never a chain.

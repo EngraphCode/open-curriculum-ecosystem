@@ -72,7 +72,10 @@ overtaken when the first scripted hour delivered most of it (2026-09-12).
 A frame that asks for a report names the report's exact row shape (the
 field order, the delimiter, the heading per row): seven analysts given
 identical frames returned three formats, and the seat's join tooling read
-one (2026-09-30).
+one (2026-09-30). Where several workers return the same item shape, the join
+script assigns the item letters and repairs a mis-copied id from the one
+source that carries the quote: a worker points, a script numbers (the second
+instance of report-format drift, 2026-10-01).
 
 ## Briefs centre the question, never the predecessor
 
@@ -204,7 +207,11 @@ leg on a cheaper tier with a twelve-call cap):
    (a script checks citations mechanically). Where search is allowed, bound it
    by a search command, a per-item read cap and a result-size cap derived in the
    launch record from the measured pilot (the 2026-09-07 instance: `grep -l`
-   only, one read of at most sixty lines per item).
+   only, one read of at most sixty lines per item). A read-back of mapped
+   items against whole source bundles misses facts stated in passing inside
+   an announcement and owner words cut inside a clause (one cut dropped a
+   "not"); check every owner quote mechanically against the source's
+   quotation marks before any leg's verdict is applied (2026-10-01).
 6. **Name the tier per phase and enforce a budget in the script** (the workflow
    API's `budget`): the top tier only where judgement is the product; `log()`
    dropped coverage; a stop condition that is not the owner noticing.

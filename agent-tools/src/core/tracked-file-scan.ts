@@ -27,6 +27,8 @@ import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { errorCodeOf } from './error-code.js';
+
 /** Null byte: the marker of binary content. */
 const NUL = '\u0000';
 
@@ -86,6 +88,21 @@ export interface UnreadableTrackedFile {
   readonly relativePath: string;
   /** The error thrown by the read attempt. */
   readonly cause: unknown;
+}
+
+/**
+ * The refusal line for an unreadable tracked file, fit for a CI log: the
+ * repo-relative path and the error's code, never the cause's own message,
+ * which carries the working copy's absolute path (5c-ii). Only a code shaped
+ * as one crosses ({@link errorCodeOf}); any other cause reads `unknown`.
+ */
+export function describeUnreadable(file: UnreadableTrackedFile): string {
+  const { cause } = file;
+  const kind = (cause instanceof Error ? errorCodeOf(cause) : undefined) ?? 'unknown';
+  return (
+    `cannot read tracked file '${file.relativePath}' — fix the file or its permissions; ` +
+    `the scan must not skip a tracked file (${kind})`
+  );
 }
 
 /**

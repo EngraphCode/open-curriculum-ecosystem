@@ -88,6 +88,21 @@ authoritative source of substance.
   work-evidence cross-check of §"Heartbeat-only stall diagnostic" have
   both come back negative — see §"State thresholds" and §"Claim
   auto-rebalance protocol on retirement" below.
+- **The owner's word (2026-10-02, verbatim): "heartbeats are supposed to be a
+  liveness signal, if they are interupting work then there is a process
+  issue, stopping and starting is an unbelievable waste of time and
+  attention".** Under it a heartbeat is never paused around a push window
+  or a peer's gate; a gate that fails on a peer's heartbeat is a tooling
+  fault to fix (F-219's cure is the gate's, never the seat's). The seats of
+  2026-10-02 beat the claims registry only (`claims heartbeat`, every four
+  minutes) under the Director's reading of that word beside F-219; whether
+  the registry beat replaces the stream heartbeat as the canonical liveness
+  signal (PDR-078 §Emit-side; PDR-118's freshness clause, which reads a
+  claim's TTL as housekeeping, never as alive) is a decision for a PDR
+  amendment, routed to the Director, and until it lands this rule's
+  invocation stands: both beats run, and neither pauses (the owner-word
+  stand-down of §Exemptions below, PDR-078 §4, still stops a seat: that is
+  the owner's word ending the seat's run, not a pause around a push).
 - The current repo phenotype (per ADR-186, emitter migrated
   2026-08-02) lands heartbeats in the canonical lifecycle shape: the
   agent-tools CLI's heartbeat mode (`comms send --tag heartbeat`)
@@ -254,7 +269,10 @@ failure instance from the 2026-06-11 team window:
   2026-09-29) a seat read dark on the peer-liveness poll after its
   monitors expired inside an owner card or a plan-approval turn, one of
   sixteen hours. On leaving such a turn the seat re-arms first and reads
-  `heartbeat_at` back. If a seat that does so still reads dark, this
+  `heartbeat_at` back; and before raising a card it re-arms every watch at
+  its full timeout and tells the Director the card is up, so that the
+  silence has a named cause (a card raised into an unattended session let
+  every monitor expire, 2026-10-02). If a seat that does so still reads dark, this
   sentence is not the cure.
 
 ### Owner-input precedence on every scheduled tick

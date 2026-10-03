@@ -519,6 +519,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   line had minted its own ADR-228 — homes the decision the ratified strategic node carries: who
   runs this tree is never in the tree — identity derived, per-checkout, environment or
   service-bound; mechanism names no organisation; the default branch derived, never a literal)
+- [ADR-232: Host-side adoption of Practice Core decisions](232-host-side-adoption-of-practice-core-decisions.md)
+  (Accepted 2026-10-03 — this repository's applications of PDR-008 and PDR-132, paired in the
+  practice index; a Core heading never names the host, and the `validate-no-host-names-in-core-headings`
+  gate refuses the shape)
 
 ## Key Architectural Decisions
 
@@ -569,6 +573,7 @@ For understanding the agentic engineering practice:
 - **[ADR-137](137-specialist-operational-tooling-layer.md)** - Specialist operational tooling layer: optional live-system tooling for domain experts
 - **[ADR-131](131-self-reinforcing-improvement-loop.md)** - Self-reinforcing improvement loop: knowledge flow, consolidation hub, self-referential governance, inter-repo propagation
 - **[ADR-231](231-organisational-identity-below-the-tree.md)** - Organisational identity is held below the tree: who runs this tree is never in the tree; mechanism names no organisation; the default branch derived, never a literal
+- **[ADR-232](232-host-side-adoption-of-practice-core-decisions.md)** - Host-side adoption of Practice Core decisions: this repository's applications of PDR-008 and PDR-132 live here, paired in the practice index; a Core heading never names the host
 - **[ADR-135](135-agent-classification-taxonomy.md)** - Agent classification taxonomy: domain_expert, process_executor, specialist; operational modes; Practice domain trio
 - **[ADR-144](144-two-threshold-fitness-model.md)** - Three-zone fitness model: `healthy` / `soft` / `hard` / `critical` graduated scale with `CRITICAL_RATIO = 1.5`; `critical` is a loop-failure signal requiring a three-question post-mortem (§Loop Health)
 - **[ADR-146](146-assumptions-expert-meta-level-plan-assessment.md)** - Assumptions expert: independent proportionality and plan-assumption challenge with an inverted doctrine hierarchy

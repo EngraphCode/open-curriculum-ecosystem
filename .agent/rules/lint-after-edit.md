@@ -24,6 +24,11 @@ Lint the fragment before it joins the whole, and lint every write at once. A com
 header is checkable with `wc -c` and a block about to be appended with markdownlint on
 the block file, before either joins the record; a check that runs only on the whole runs
 late, and each late refusal cost a commit or a gate run (six in one window, 2026-09-26).
+A scripted record edit is read back rendered, in full, once before its commit: a doubled
+heading marker is valid Markdown and no linter flags it. After any word-level substitution,
+search the files for the pattern across the line break (a line ending in the article, the
+next opening with the new word, and the reverse), which a line-local substitution misses
+(2026-10-02).
 On this repository the pre-push gate reads the WORKING TREE, not the commit: an
 uncommitted edit to a tracked file, a stale comms-log projection or an unconsolidated
 link fails the next push whoever made the edit, so each write to the shared primary is
