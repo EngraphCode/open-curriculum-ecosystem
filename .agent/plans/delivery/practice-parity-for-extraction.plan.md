@@ -7,7 +7,8 @@ overview: >-
   carrying every capability one holds and the other lacks, and leave the extraction's design
   its inputs: a survey of the whole Practice a reader can recompute, the parity ledger, and
   the structural findings as evidence.
-status: ratified
+status: superseded
+superseded_by: practice-parity-two-landings
 ratified_by: Jim Cresswell
 ratified_date: 2026-10-02
 ratified_where: >-
@@ -268,6 +269,21 @@ agent tool), and the carry shape. Finish: the dry-run merge of the shared text r
 files and zero conflict hunks, every carry row landed with its demonstration or host-local with its
 reason, the count line N of N at the tips it names; estimated at the end of tomorrow at two seats,
 with today's doctrine target reported at the evening fold as rows open of total.
+
+Where it stands at supersession, 2026-10-03 20:0xZ, recorded by the Director. Landed on both
+default branches: 306 and #344 (the ledger), 310, 311 (C7, C11 to C16 into jimcresswell.net, main
+`SHA:c4d376535`), the fold #342 (engraph `SHA:e790eab33`, then #344 at `SHA:f0f1aacb7`), the plan
+correction on both coordination branches; rows open of total 194 of 209. At their doors:
+jimcresswell.net 312 and OCE #350 (the ledger's revision, five review findings to decide), 318
+(C24, the specification family, read sound), the hooks surface pushed at `SHA:c6262b00` and
+unopened; OCE #349 (the doctrine batch, C8, C10, C4 with C20, C21) with its last cure
+`SHA:fe05f463a` committed and unpushed, the directives surface (39 rows) at `SHA:1d77e8b03` and the
+sub-agents surface (56 rows) committed in their lanes and unopened; the OCE implementer's session
+finished at the owner's word with its handoff record at the claim's pointer. Not started: rules
+(48 rows), skills (49) and Practice Core (12) in jimcresswell.net; every twin; the code carries.
+Superseded by `practice-parity-two-landings`, which lands what remains as one pull request per
+estate for the doctrine and one for the code, and records why this node's shape cost the time it
+did.
 
 ## Out of scope
 
