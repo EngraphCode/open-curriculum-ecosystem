@@ -37,10 +37,10 @@ Core keeps the decision; this record keeps the adoption.
 - The canonical gate set is exposed at the package-manager script level as `pnpm check` (the
   secrets scan, a clean build, and the Turbo pipeline's `sdk-codegen`, `build`, `type-check`,
   `lint`, `test` and workspace-local tasks), with `repo-validators:check` (the repository
-  validators, CI parity among them) and `docs-validators:check` (the documentation validators:
-  reference direction, machine-local paths, lineage names, Core ADR citations, host names in
-  Core headings, Markdown links, cited scripts and paths, the patterns index) as its named
-  validator groups. The pre-commit hook runs the validator groups and the pipeline; the pre-push
+  validators, CI parity among them) and `docs-validators:check` (the documentation validators
+  the script runs: reference direction, machine-local paths, Core ADR citations, host names in
+  Core headings, Markdown links, the patterns index, the ratified lists) as its named validator
+  groups. The pre-commit hook runs the validator groups and the pipeline; the pre-push
   gate runs the whole of `check`.
 - `check` applies no fixes; the `portability:fix` and `format` scripts are the only writers, run
   by a seat before its commit, never by a gate.

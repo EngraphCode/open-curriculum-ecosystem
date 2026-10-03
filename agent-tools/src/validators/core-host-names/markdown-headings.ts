@@ -56,19 +56,21 @@ export function atxHeadings(content: string): AtxHeading[] {
   const headings: AtxHeading[] = [];
   let openFence: string | undefined;
   content.split('\n').forEach((rawLine, index) => {
+    // CRLF Markdown: the carriage return is a line ending, never fence info or heading text.
+    const line = rawLine.endsWith('\r') ? rawLine.slice(0, -1) : rawLine;
     if (openFence !== undefined) {
-      if (closesFence(openFence, rawLine)) {
+      if (closesFence(openFence, line)) {
         openFence = undefined;
       }
       return;
     }
-    const opener = fenceOpenerOf(rawLine);
+    const opener = fenceOpenerOf(line);
     if (opener !== undefined) {
       openFence = opener;
       return;
     }
-    if (ATX_HEADING.test(rawLine)) {
-      headings.push({ line: index + 1, text: rawLine });
+    if (ATX_HEADING.test(line)) {
+      headings.push({ line: index + 1, text: line });
     }
   });
   return headings;

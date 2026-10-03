@@ -127,6 +127,11 @@ describe('atxHeadings', () => {
     expect(atxHeadings(content)).toEqual([{ line: 5, text: '## Real' }]);
   });
 
+  it('closes a fence and reads the headings of CRLF Markdown', () => {
+    const content = ['```', '## quoted', '```', '## Real'].join('\r\n');
+    expect(atxHeadings(content)).toEqual([{ line: 4, text: '## Real' }]);
+  });
+
   it('a backtick run whose info string carries a backtick opens no fence', () => {
     const content = ['``` `inline` ```', '## Real heading', '```', '## quoted', '```'].join('\n');
     expect(atxHeadings(content)).toEqual([{ line: 2, text: '## Real heading' }]);
