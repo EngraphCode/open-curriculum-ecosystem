@@ -3,6 +3,10 @@ classification: situational
 description: Route reviewer roster, invoke rule, skill, entry-point, and adapter-estate changes through subagent-architect
 trigger: surface:reviewer roster, .agent/sub-agents/, invoke-* rules, .agent/skills/, platform agent, rule and skill adapters, platform entry points
 globs:
+  - CLAUDE.md
+  - AGENTS.md
+  - GEMINI.md
+  - skills.md
   - .agent/**/*
   - .cursor/**/*
   - .claude/**/*

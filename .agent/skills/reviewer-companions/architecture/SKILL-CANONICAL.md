@@ -20,8 +20,7 @@ start by choosing the right lens rather than collapsing them.
    - Barney (simplification): `.agent/sub-agents/components/personas/barney.md`
    - Betty (systems thinking): `.agent/sub-agents/components/personas/betty.md`
    - Fred (principles first): `.agent/sub-agents/components/personas/fred.md`
-   - Wilma (adversarial): `.agent/sub-agents/components/personas/wilma.md` and
-     `.agent/sub-agents/templates/architecture-expert-wilma.md`
+   - Wilma (adversarial): `.agent/sub-agents/components/personas/wilma.md`
 2. Relevant changed files in the lane you picked
 3. The ADRs or Practice files named by that reviewer template
 

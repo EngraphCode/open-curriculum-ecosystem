@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: invoke type expert
+description: Invoke `type-expert` when changes alter type flow, exported types, generics, assertions, schemas and schema inference or compile-time guarantees.
 trigger: surface:types, exported types, type flow, generics, assertions, schemas and schema inference, compile-time guarantees
 ---
 

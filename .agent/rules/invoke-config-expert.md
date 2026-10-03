@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: invoke config expert
+description: Invoke `config-expert` when changes touch TypeScript, ESLint, Vitest, Prettier, markdownlint, Turbo, knip, dependency-cruiser or Husky configuration, package scripts, lockfiles, env handling or deployment tooling.
 trigger: surface:tsconfig, ESLint, Vitest, Prettier, markdownlint, Turbo, knip, dependency-cruiser, Husky, package.json scripts, lockfile, env handling, Playwright config, Vercel settings, deployment tooling
 ---
 

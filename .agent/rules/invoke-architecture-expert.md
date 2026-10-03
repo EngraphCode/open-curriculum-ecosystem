@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: invoke architecture expert
+description: Invoke `architecture-expert` when changes touch workspace boundaries, import direction, module structure, dependency injection or a public API.
 trigger: surface:workspace boundaries, import direction, module structure, dependency injection, public APIs
 ---
 

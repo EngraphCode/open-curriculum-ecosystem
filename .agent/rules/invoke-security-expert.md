@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: invoke security expert
+description: Invoke `security-expert` when changes touch headers, CSP, secrets, env loading, middleware, proxies, dependencies, auth or the public attack surface.
 trigger: surface:headers, CSP, secrets, env loading, middleware, proxy, dependencies, auth, public attack surface
 ---
 

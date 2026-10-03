@@ -1,5 +1,9 @@
 ---
 paths:
+  - CLAUDE.md
+  - AGENTS.md
+  - GEMINI.md
+  - skills.md
   - .agent/**/*
   - .cursor/**/*
   - .claude/**/*

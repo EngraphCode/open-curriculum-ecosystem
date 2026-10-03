@@ -13,7 +13,8 @@ never adapters. Vendored external skills live only in the adapter
 tier, pinned by `skills-lock.json`.
 
 The canonical definitions here group by concern (a family directory per
-concern — cognition, change-custody, knowledge, orientation, and so on);
+concern — cognition, change-custody, knowledge, orientation, lever-authoring,
+reviewer-companions, domain-craft, and so on);
 the generated platform adapters stay flat. That is an owner decision
 (2026-08-07, verbatim: "I want skills grouped by concern, at least in the
 core skills definitions, the vendor specific projections can remain flat.

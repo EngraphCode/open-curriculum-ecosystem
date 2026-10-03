@@ -1,5 +1,5 @@
 ---
-description: invoke test expert
+description: Invoke `test-expert` when changes touch test files, test helpers, proof layers, Vitest or Playwright configuration or TDD discipline.
 alwaysApply: false
 ---
 

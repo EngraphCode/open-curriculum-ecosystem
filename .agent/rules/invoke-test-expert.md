@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: invoke test expert
+description: Invoke `test-expert` when changes touch test files, test helpers, proof layers, Vitest or Playwright configuration or TDD discipline.
 trigger: surface:test files, test helpers, proof layers, vitest and playwright config, TDD discipline
 ---
 

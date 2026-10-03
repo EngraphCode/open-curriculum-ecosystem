@@ -179,7 +179,8 @@ Anticipate how the agent might fail:
 ### 3.4 Fallback Rules
 
 ```markdown
-- If uncertain about layout, do less. Prefer omission over approximation.
+- If uncertain about layout, do less: simplify the layout. Never omit content; the Copy Lock
+  holds.
 - If uncertain about styling, default to typography and whitespace.
 - If uncertain about a section, render it plainly rather than guess at emphasis.
 ```
@@ -222,7 +223,7 @@ Verify:
 For any packages specified:
 
 ```bash
-npm view <package> time --json | jq -r 'to_entries | sort_by(.value) | reverse | .[0:3]'
+pnpm view <package> time --json | jq -r 'to_entries | sort_by(.value) | reverse | .[0:3]'
 ```
 
 - Reject packages with no releases in 18+ months
