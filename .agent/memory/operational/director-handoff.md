@@ -368,7 +368,104 @@ script and open it per estate, the owner reading the rows. Cricket at 21:0xZ (DR
 accepted): the JC.net tail has no owner since Hazel's stop, so the JC.net queue is 302's review and merge,
 then 2y, 2z, the notebooks' move and the rotation's records commit, then the fold of 300; the ledger's
 rerun and its closer counts gate on that folded tip, not before. The estimate owed to the owner runs to
-the node's finish (the carries landed), not to the next pull request.
+the node's finish (the carries landed), not to the next pull request. Correction, 22:2xZ: the line above
+that JC.net's branch carried the second records commit was false when written; its chain's stage step had
+failed (the exchange node's old path was already gone from the index) and a trailing grep in the pipeline
+masked the exit code (`exit-codes-in-band-never-piped`, violated by this seat). Landed on the resume as
+`SHA:7c868467` on `coordination/2026-10-02-f19bed`, the same bytes as here. Both implementers re-seated at
+22:1xZ on the Director's word; Efreet lifts Scorch on the fold of #340, Hazel tracks Trunk on 302 then the tail.
+§BOARD, 22:5xZ: #340 folded (`SHA:209b2674b`, successor `coordination/2026-10-02-209b26`, draft #342); the
+first carry #343 merged (`SHA:41b394ed9`); JC.net 302 and 303 merged, 2z open, then the rotation's records
+commit and the fold of 300 (Hazel tracks Trunk); the two Core portability findings on 340 cured in both
+estates (`SHA:5a328e05d` here, `SHA:43df9095` there). The ledger is assembled: 384 items, 28 carries, 13
+owner rows, closer script green, on lane `docs/parity-measure` in each repository (here `SHA:f662f982c`,
+there `SHA:05e6e1904`), pushed as the bot, to open as one pull request per estate in the implementers'
+slots and held at the door for the owner's row reading; the carry count reopens the node with the owner
+(row O10). The whole-finish estimate is on the node's §Size.
+§BOARD, 23:0xZ: the ledger is open here as #344 (`SHA:35db66466` after two settlement pushes: the CodeQL cure
+on the closer's side test and four routed cures, engraph merged in), at full condition and held for the
+owner's row reading; JC.net's lane is at the same bytes (`SHA:cfa2a242`) and opens after Hazel tracks
+Trunk's fold of 300 (304 merged `SHA:c33de96b4`, the rotation's records commit next). The owner has the
+Director's question on O10 in chat with the recommendation (carry the text and small code now, thirteen
+pull requests; defer C23, C25 with C19, C27 and C28 to the entity's package) and a notification; no carry
+starts before that word. Two lessons of this seat tonight: a trailing grep in a chain's pipeline masked a
+failed stage step and a false landing line followed (`exit-codes-in-band-never-piped`); a commit on a
+shared primary without a pathspec swept a peer's staged file into the Director's commit (commit by
+pathspec on a shared primary, always).
+§BOARD, 23:3xZ: JC.net's fold of 300 done (`SHA:24fc052e9`, successor `coordination/2026-10-02-24fc05`, draft
+305, the Director's records with the node's re-sized estimate on it at `SHA:c2a593b3`); the ledger is open
+in both estates at the same bytes (306 there, #344 here), each at full condition and held for the owner's
+row reading, both settlement pushes spent. In flight: JC.net's step 2 carry (the host-tagged amendment
+entries to a host record with the Core validator; Hazel tracks Trunk, about fifty minutes), OCE's #345 (the
+twins of 302 to 304 as three twin commits, proved line by line by the Director), then the carry's OCE copy.
+A reading of the owner's limit recorded for the seats: a pull request held at its door for the owner is a
+review surface, not work in progress, so one in-progress pull request beside it is the shape. Nothing of
+the ledger's queue starts before the owner's word on O10.
+§BOARD, 2026-10-03 01:0xZ, the night's close. Landed, every one read first-hand: the node's step 1 on both
+sides (OCE #341, #345, #347; JC.net 301 to 304 and 308, the notebooks rotated); step 2 on both sides (#343
+the registry rows; JC.net 307 and OCE #346 the host-tagged entries to ADR-023 and ADR-232 with the Core
+host-name heading gate live in both docs-validators); step 5 on both default branches (PDR-019 amended,
+PDR-143 trimmed, the exchange node archived with five PDR-142 entries, the parent node's entry, two
+portability cures); both coordination branches folded twice (OCE successor `coordination/2026-10-02-209b26`
+at `SHA:6c0b67924`, draft #342, DUE 12:00Z; JC.net `coordination/2026-10-02-24fc05` at `SHA:684162547`, draft
+305). Step 3, the ledger, is open in both estates at the same bytes (#344 here, 306 there), at full condition
+with both settlement pushes spent, held at the door for the owner's row reading; #344 reads BEHIND engraph
+after tonight's merges and takes a merge of engraph before its own (from `oce-wt-parity-measure`, the
+Director's). Step 4 waits on the owner's word on O10 (the recommendation on the node's §Size and in chat).
+Owed to JC.net as one twin slice when Hazel tracks Trunk's lane next opens: three cures on the validator's
+shared bytes from #346's review and one Codex relay nuance from #347's (Efreet lifts Scorch's notes of
+00:45Z and 01:02Z on this stream). Housekeeping for the owner's hand: the forced local deletes of OCE's
+two omnibus branches and JC.net's old records branch, each proved landed by content. Seats: Hazel tracks
+Trunk (claims 009bbaea, 08f94e2a) and Efreet lifts Scorch (006c79ad) are cold-paused by the Director's word
+with handoff pointers current, resumed by the Director's message after the owner's word; the Director holds
+with the registry heartbeats on and no watcher (no peer live). Resume recipe at the owner's word: merge
+the default branch into each ledger lane, merge the ledgers at their doors, resume both seats by message
+with the carries in closure order under the owner's reading of O10, one in-progress pull request per
+estate. Estimate from the owner's word: the two ledger merges within half an hour; the recommended
+thirteen carries about two and a half hours on two seats; all twenty-eight about four to eight.
+§BOARD, 2026-10-03 01:4xZ. The twin slice owed to JC.net landed there without waiting for a lane: a
+Cricket check read holding idle as drifting while the slice had no dependence on the owner's word, so the
+Director ran it by delegation and read every proof first-hand. JC.net 310 merged at `SHA:a4fdc188` (the
+slice's commit `SHA:caa09239`), the re-cut of 309 after Codex held that a received portability move
+carries the generalisation trailer in the commit that makes the change; the heading validator's shared
+bytes are now equal in both estates, host bindings aside, which closes the #346 review's three cures on
+both sides. Copilot's two seam-test findings there were declined for the carry and routed to the no-IO
+node as named inputs for both estates. The #347 relay-clause nuance remains a note for one joint cure.
+Nothing from this slice is owed to this estate. Seats unchanged: both cold-paused; the Director holds on
+the owner's word on O10.
+§STATE, 2026-10-03 07:1xZ, the compaction boundary at the owner's word (prepare compaction with the
+cognition passes and the wrap, stop every process, report, stop). Every outward act of this seat's
+own initiative is frozen from here. Live now: the parity node is landed through steps 1, 2 (the
+opening carries) and 5 on both default branches; step 3, the ledger, is at its door here as #344
+(`docs/parity-measure` at `SHA:35db66466`, twelve behind engraph, so engraph merges into it from the
+`oce-wt-parity-measure` worktree before its own) and in JC.net as 306; step 4 waits on the owner's
+word on row O10, and the node's §Size now carries a revised recommendation, two batched pull
+requests per estate (the doctrine text as one, the small code as one) instead of thirteen, priced
+from the one carry measured overnight (JC.net 310: two minutes of copying inside seventy minutes of
+pull request). The fold of #342 is DUE 12:00Z with no live seat; the Director folds it on resume or
+the owner's hand does. Work safety read first-hand at 06:1xZ: the primary clean and level with its
+remote; `docs/parity-measure` zero unpushed; the registry-rows lane merged with its remote gone (the
+`oce-wt-parity-carries` worktree retires); the two detached harness worktrees on engraph. The one
+unsafe item, unchanged tonight and in these records since 2026-09-29: the J2 lane worktree `oce-
+wt-j2-docs-validators` holds 23 staged, uncommitted files, the docs-validators port's starting
+point, on `feat/exchange-j2-docs-validators` at `SHA:e07d6b34e` with no remote; it cannot pass the
+push gate as it stands and is ledger row C27 and the owner's row O4. Review-cost rows for #344 and #342
+are on this host's ledger. Claims retained with handoff pointers by intent: 302e8307 (the
+Director), 9ecef634 (the records and the measure, #344), 4b82394b (the J2 lane); Efreet lifts
+Scorch's 006c79ad stays retained under its own pause. The registry loop stops after a heartbeat-end
+on this stream, so staleness past that event is the declared pause. Re-arm recipe, written as if
+nothing survives: from this clone's root, the registry loop `while true; do date -u
++%Y-%m-%dT%H:%M:%SZ | xargs -I{} pnpm --silent agent-tools:collaboration-state -- claims heartbeat
+--active .agent/state/collaboration/active-claims.json --claim-id
+302e8307-8e0b-4221-af1c-600a62390df3 --now {} >/dev/null || echo "beat failed"; sleep 240; done`
+under a two-hour bound re-armed on exit; the watcher only while a peer is live, as a thirty-minute
+Monitor, `timeout 1740 pnpm --silent agent-tools:collaboration-state -- comms watch --platform
+claude --model claude-fable-5-1 --supervisor-pid "$PPID" --step-timeout-ms 120000 --max-events-per-
+drain 100`; no cron, no one-shot wake. Resume order: verify by the harness task list and agent list
+before any act; read ahead/behind on every branch named here; re-arm only what is absent; then the
+owner's word on O10, the two ledger merges, and the seats resumed by message in the shape the owner
+chose. The wrap's loss scan, metaloss passes and fixed point are on JC.net's notebook block of this
+hour; the formation letter is in JC.net's experience tier, dated today.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
