@@ -103,7 +103,11 @@ and Forge herds Vapor, event 5c30f92a of 2026-09-24).
    every touched branch, verbatim, the branches enumerated from `git worktree
    list` and each worktree's status, never from memory (a wrap named three
    branches where the list held five, two with unpushed or unpruned work,
-   2026-09-25) — never the bare words "all pushed"
+   2026-09-25) — never the bare words "all pushed". The push read-back
+   belongs to the seat that resumes as well: after a compaction, read
+   ahead/behind against the remote on every branch the wrap named before any
+   new act, because a background push launched before the compaction reports
+   to nobody (2026-10-02)
    (founding instance: a closeout claimed "all pushed" over a stranded
    local commit, caught only by first-hand verification; this estate's
    `exit-codes-in-band-never-piped` rule is the same discipline at command

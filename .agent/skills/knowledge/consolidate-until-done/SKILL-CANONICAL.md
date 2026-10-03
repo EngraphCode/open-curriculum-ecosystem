@@ -333,7 +333,11 @@ check pass; the action is conserving and homing knowledge.
 
 ## Work Loop
 
-Repeat this loop until the completion contract is met:
+The pass opens with a counted finish list at the top of its record, each
+item with its landing path; a front not on the list does not open until the
+list is changed in writing first (a drain whose fronts opened as they were
+found had no finish, 2026-10-02). Then repeat this loop until the completion
+contract is met:
 
 1. **Inventory.** Run the current fitness validator and build a buffer
    inventory that includes all live drainable buffers and their split or child

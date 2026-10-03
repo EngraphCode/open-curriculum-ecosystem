@@ -22,7 +22,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-10-02
+last_updated: 2026-10-03
 ---
 
 # Practice parity for extraction
@@ -226,16 +226,45 @@ folds routed as a failure, never re-labelled. With one seat the order is the nod
 the measure, the records, then the carries.
 
 The owner's word of 2026-10-02 20:0xZ, verbatim, on the bound above: "I am going to bed. Take it slow, stay thoughtful, keep the plan up to date and use the Crickets. Slow and steady is better than fast and wrong every time. The two hour goal is a yarstick not a deadline, quality matters far more than speed, esimate remaining time as you go, and if it looks like it is going to hit four hours there may be an issue, apply all appropriate planning and cognitive skills".
-Estimate, kept current here by the Director at each boundary (its history is this file's): at
-20:2xZ with three seats (the OCE seat on the tail as one pull request of three twin commits, the
-jimcresswell.net seat on the write-list table and the notebooks then the amendment-entries
-carry, the Director on the records and the ledger), the measure and the records are on both
-default branches at about 00:00Z of 2026-10-03, four hours from the seats' start, and the
-carries follow. The long pole is the ledger's reading of about 175 conflict hunks first-hand
-(the tail's files are read after they land), which is the work and not ceremony. The four-hour
-signal is noted, and the planning applied to it: the tail as one pull request (PDR-132 §Decision
-item 7), the records on the coordination branches rather than pull requests of their own, the
-carry queue held until the parent node's entry lands, a Cricket check at each boundary.
+Estimate, kept current here by the Director at each boundary (its history is this file's): at 07:1xZ
+on 2026-10-03 every step that needs no owner word is landed on both default branches (the tails, the
+folds, the registry rows, the host-tagged entries with the Core heading gate, the records), the
+ledger is at its door in both estates (OCE #344, jimcresswell.net 306, the same bytes, both
+settlement pushes spent), and one owed twin outside the ledger landed overnight (jimcresswell.net
+310, the heading gate's three cures as the same bytes). The ledger derives 28 carries against this
+node's twenty, so the node stands reopened with the owner on row O10. Sized from the closures:
+fifteen queued pull requests at about eight seat-hours; the five owner rows (C19, C22, C26, C27,
+C28) about seven more. Against the owner's four-hour signal: eleven hours have run since
+ratification, of which the seats' work at the doors was a small part and the rest the owner-gated
+wait on O10 and two usage outages; the signal is crossed and its cause is the count, not the rate.
+The one carry measured overnight re-sizes the queue's unit: 310 was four files and forty-four lines,
+two minutes of copying and seventy minutes door to merge (two reviews, a re-cut for the
+generalisation trailer, the bot's settlement), so a carry's cost is its pull request's fixed cost
+and the queue's cost is its count of pull requests. The Director's recommendation on O10 is
+therefore revised: carry the thirteen text and small-code carries (C1 to C17 less C9, C20 with C21,
+C24) as two pull requests per estate, the doctrine text as one and the small code as one, the same
+bytes in both, about one seat-hour each; defer C23, C25 with C19, C27 and C28 to the entity's
+package, PDR-142's ratified route for code, where carrying by copy and by package differ most.
+Falsifier: a batched pull request whose review round grows with its file count, which splits it at
+the first such round; a row the owner declines is one hunk reverted, never a pull request. The
+owner's word on the ledger decides.
+Estimate, 2026-10-03 13:0xZ, recorded by the OCE implementer at the fold of #342 from the Director's
+rulings of this hour on the OCE comms stream (the paragraph above stands as the history it is): the
+owner's words of 12:4xZ and 13:0xZ lift every pause, name the shared doctrine as the Practice itself
+and set it to finish today, the code carries following tomorrow by the Director's routing, so no row
+is deferred to the entity's package and none waits on the extraction. The recommendation above
+miscounted its own list (C1 to C17 less C9, C20 with C21 and C24 name nineteen rows, not thirteen)
+and read PDR-142 against its text, which says alignment precedes extraction and the package route
+changes nothing until the package exists. The shape now routed: doctrine before code in both
+estates; the doctrine-text carries as one pull request per estate (here C8 cured at source first,
+C10, C4 with C20, C21; in jimcresswell.net C7, C11 to C16, then C24), which supersedes mechanism 2's
+one pull request per capability for text carries, the Director's amendment of that mechanism owed
+with the ledger's next revision; the code carries one pull request each with their tests, tomorrow
+by that routing (here C19, decided a Practice ruling under O2, then C27; in jimcresswell.net C22
+with C5 under the O7 ruling, C26 under O1); between them the shared text by surface (directives and
+sub-agents authored here, rules and skills there, each twinned by content; Core read by the Director
+first-hand before merge; hooks with the code). Rows open of total are reported from the rerun at
+each landing: 201 hunks in 87 files at the 12:4xZ rerun, 198 rows open, 9 settled, 3 unread.
 
 ## Out of scope
 

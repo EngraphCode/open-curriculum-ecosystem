@@ -129,6 +129,7 @@ const config: KnipConfig = {
         'src/validators/reference-direction/validate-reference-direction.ts',
         'src/validators/machine-local-paths/validate-no-machine-local-paths.ts',
         'src/validators/core-adr-citations/validate-core-adr-citations.ts',
+        'src/validators/core-host-names/validate-no-host-names-in-core-headings.ts',
         'src/validators/patterns-index/validate-patterns-index.ts',
         'src/validators/ratified-lists/validate-ratified-lists.ts',
         'src/rule-declarations/rule-frontmatter-sweep.ts',

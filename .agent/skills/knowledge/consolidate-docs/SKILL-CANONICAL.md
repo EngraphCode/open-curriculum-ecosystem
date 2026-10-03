@@ -55,6 +55,11 @@ failure-shape and pitfall passages against those findings and re-truing what the
 record names at least one skill it checked (napkin 2026-03-07; graduated 2026-10-01 at the owner's
 card).
 
+Owner words said in the owner's own chat reach the handoff and thread records, and the comms
+stream only where a seat mirrors them (`comms-channels` §The behaviours); a consolidation reads
+those records for owner quotes before it sizes any comms-only pass (207 owner words sat only in
+the records, 2026-10-01).
+
 ## Trigger Checklist
 
 Run `consolidate-docs` when one or more of these is true:
@@ -226,6 +231,11 @@ substance remains ready to graduate. This is the structural cure for
 "the destination is full" reasoning at consolidation: the layer is
 not full of substance to remove, it is full of substance to graduate.
 
+An instance that only exemplifies a clause already homed is recorded as a
+dated count against that clause, never as a new paragraph; promote on the
+first instance stands, and proportion is cured at triage and by fuller
+pull requests, not by withholding a lesson (2026-10-01).
+
 ## Drainable Buffer Protocol
 
 Drainable buffers are flow-control surfaces. In
@@ -307,7 +317,9 @@ points at before the verdict stands. Where a sibling estate shares the Practice,
 The writes that survive are anchored scripts (dry, then apply) run on a lane branch, so the
 home lands as reviewable bytes, and the buffer archives by proof only after those writes merge.
 Three rotated napkins of 1,706 lines yielded about 200 lessons and four writes this way
-(2026-10-02).
+(2026-10-02). The table's verdicts are reasoning toward the protocol's disposition (graduated,
+duplicate, rejected, carried forward), never the disposition or the record; the permanent home
+and its commit remain the record (`permanent-doc-is-the-consolidation-record`).
 
 **Checklist failure / anti-example**: archiving a buffer or source file before
 reading, extracting, routing, and verifying the home is not curation. An

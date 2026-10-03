@@ -95,7 +95,9 @@ command's `--help`, the rule the step would break) before following it
 workflow YAML). A handover to a lower-capability seat carries commands and
 stop conditions, never "use judgement": every judgement already made becomes
 a rule with its warrant, and every judgement not made goes to the owner's
-list.
+list. Where a later message from the same author narrows an earlier
+ambiguous line, the later governs: ask once, confirm, and proceed, rather
+than re-running the frame (2026-10-02).
 
 ## Handoff artefacts teach by their form
 

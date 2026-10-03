@@ -247,9 +247,11 @@ learning rate"; in §4, the gate placement ("at every gate, the pattern the plat
 already follow") and the per-revision cost ("A committed render costs a diff in every repository
 at every revision of the entity; the check is what keeps that diff a render and never an edit").
 
-**Decision.** The three passages leave this record and are held verbatim in the delivery node
-`practice-parity-for-extraction`, §Inputs, until the extraction's design node takes them; the
-counts become one dated line pointing at the inventory report. The record's status and its
+**Decision.** The three passages leave this record and are held verbatim, host-side, in the delivery
+node of the two estates that made this decision (`practice-parity-for-extraction`, §Inputs) until
+the extraction's design node takes them; a repository that hydrates this record takes it without
+them, as planning content, and loses nothing it needs to apply the decision. The counts become one
+dated line pointing at the inventory report. The record's status and its
 decision are unchanged: the direction, the scopes, the membership tests, §3's constraints and its
 installed-in-itself decision, §4's committed and checked render, and §5 stand as written.
 

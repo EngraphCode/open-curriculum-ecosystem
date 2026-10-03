@@ -380,7 +380,7 @@ described under Adoption.
 
 ## Amendment Log
 
-### 2026-09-30 — jimcresswell.net: open at two seats, widen on measured throughput
+### 2026-09-30 — open at two seats, widen on measured throughput
 
 Owner card (2026-09-16, adopting proposal 6 of the transplant arc's
 retrospective). §Decision gains the operating default: an arc opens at
