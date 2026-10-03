@@ -53,6 +53,11 @@ If those responsibilities start to blur, capture that as a domain-model
 signal in the napkin or an active plan rather than adding another
 ad-hoc field to an existing surface.
 
+Which channel a message travels by — native session messaging, an ARC channel, or a comms
+event — is decided by
+[`channel-by-audience-lifetime-and-consumer`](channel-by-audience-lifetime-and-consumer.md);
+this rule governs what must land on the comms log regardless of how the conversation travelled.
+
 ## Event Authoring Contract
 
 The rendered `shared-comms-log.md` is a generated view, not an authoring

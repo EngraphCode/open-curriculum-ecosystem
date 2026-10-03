@@ -1,0 +1,6 @@
+---
+description: Invoke `config-expert` when changes touch TypeScript, ESLint, Vitest, Prettier, markdownlint, Turbo, knip, dependency-cruiser or Husky configuration, package scripts, lockfiles, env handling or deployment tooling.
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/invoke-config-expert.md`.

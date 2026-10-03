@@ -1,0 +1,6 @@
+---
+description: Invoke `security-expert` when changes touch headers, CSP, secrets, env loading, middleware, proxies, dependencies, auth or the public attack surface.
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/invoke-security-expert.md`.

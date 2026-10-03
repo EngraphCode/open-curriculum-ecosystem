@@ -1,0 +1,6 @@
+---
+description: Invoke `docs-adr-expert` when changes add or alter ADRs, PDRs, READMEs, `.agent/` documentation or other permanent narrative surfaces.
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/invoke-docs-adr-expert.md`.
