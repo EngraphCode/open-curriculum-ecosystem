@@ -2,6 +2,8 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
+
+import { resolveTrustedGit } from '../src/core/trusted-git';
 import { fileURLToPath } from 'node:url';
 
 /**
@@ -30,12 +32,17 @@ const GREEN =
 const REFUSAL =
   /^validate-no-host-names-in-core-headings: cannot read \.agent\/practice-core\/provenance\.yml/mu;
 
+const GIT = resolveTrustedGit();
+
 function fail(message: string): never {
   process.stderr.write(`validate-no-host-names-in-core-headings CLI smoke: ${message}\n`);
   process.exit(1);
 }
 
-const result = spawnSync('pnpm', ['exec', 'tsx', entry], { cwd: packageDir, encoding: 'utf8' });
+const result = spawnSync(process.execPath, ['--import', 'tsx', entry], {
+  cwd: packageDir,
+  encoding: 'utf8',
+});
 if (result.status !== 0) {
   fail(
     `expected exit 0 on the tracked tree, got ${String(result.status)}:\n${result.stderr.slice(0, 600)}`,
@@ -51,13 +58,13 @@ if (Number(green[1]) === 0 || Number(green[2]) === 0) {
 
 const bare = mkdtempSync(join(tmpdir(), 'core-host-names-smoke-'));
 try {
-  execFileSync('git', ['init', '-q', bare], { encoding: 'utf8' });
+  execFileSync(GIT, ['init', '-q', bare], { encoding: 'utf8' });
   execFileSync(
-    'git',
+    GIT,
     ['-C', bare, 'remote', 'add', 'origin', 'https://github.com/example-owner/example-repo.git'],
     { encoding: 'utf8' },
   );
-  const refusal = spawnSync('pnpm', ['exec', 'tsx', entry, bare], {
+  const refusal = spawnSync(process.execPath, ['--import', 'tsx', entry, bare], {
     cwd: packageDir,
     encoding: 'utf8',
   });
