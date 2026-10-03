@@ -170,7 +170,10 @@
       "Skill(oak-update-upstream-api-spec:*)",
       "Skill(oak-update-bulk-download-schema)",
       "Skill(oak-update-bulk-download-schema:*)",
-      "mcp__plugin_vercel_vercel__get_project"
+      "mcp__plugin_vercel_vercel__get_project",
+      "Skill(oak-author-skills)",
+      "Skill(oak-deslop)",
+      "Skill(oak-project-spec-creation)"
     ],
     "deny": [
       "Bash(git push --force:*)",
