@@ -103,7 +103,7 @@ critical-architectural-failure-shaped prior art for this rule.
 The Edit/Write hook (`.agent/hooks/policy.json`) applies the
 related moving-targets prohibition at write-time.
 
-Two gates in `docs-validators:check` enforce parts of this rule:
+Three gates in `docs-validators:check` enforce parts of this rule:
 
 - `validate-core-adr-citations` enforces the ADR-identifier clause. It
   refuses an ADR identifier written anywhere under `practice-core/`:
@@ -114,6 +114,18 @@ Two gates in `docs-validators:check` enforce parts of this rule:
   `pnpm --filter @oaknational/agent-tools validate-core-adr-citations`.
 - `validate-reference-direction` refuses a resolvable link from the
   Core to anything outside it.
+- `validate-no-host-names-in-core-headings` enforces the host-name clause
+  in the one shape a scanner can hold: a heading in any Core document
+  (the changelog excepted, whose entry tags name the writing repository
+  by convention) that names a repository the Core has lived in. The names
+  are derived from the Core's own records — the provenance chain's `repo`
+  fields and the changelog's entry tags — and the scanned tree's origin
+  owner and repository; nothing is declared in the gate. The cure moves
+  the host's adoption to the host's own decision record, pairs it in the
+  bridge index (PDR-079) and heads the Core entry by its date and
+  subject alone. With a repository root as its one argument it reads a
+  sibling estate's tree by the same rule. Run it alone with
+  `pnpm --filter @oaknational/agent-tools validate-no-host-names-in-core-headings`.
 
 An automated reviewer does not know this rule: it reads a Core path or a
 Core-relative link as "does not exist in this repository" and proposes
@@ -123,7 +135,7 @@ this rule as the reason; it is never cured by writing a host path into the
 Core.
 
 The remaining clauses (host paths written as text, commit references,
-host-context sections) have no scanner yet. PDR-038 pairs every stated
+host-context sections, a host name in body text) have no scanner yet. PDR-038 pairs every stated
 principle with a structural enforcement surface, so that scanner is
 their next layer. Until it lands, those clauses are the human-readable
 contract that authoring agents apply at write-time.
