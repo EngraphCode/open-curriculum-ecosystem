@@ -17,9 +17,13 @@ CATS = [
     ("network", re.compile(r"node:net|node:http|\blisten\(|fetch\(['\"]https?://(localhost|127\.0\.0\.1)")),
     ("clock", re.compile(r"Date\.now\(|new Date\(\)|performance\.now\(|setTimeout\(|setInterval\(")),
 ]
+# In scope: test files by suffix anywhere under agent-tools/; test helpers and test directories;
+# and every TypeScript file directly under agent-tools/smoke-tests/, since the smoke fixtures and
+# support modules there carry no .smoke.ts suffix and are part of the conversion.
 IN_SCOPE = re.compile(
     r"^agent-tools/.*(\.test\.tsx?|\.smoke\.ts|\.e2e\.test\.ts|\.setup\.ts|test\.setup[^/]*\.ts)$|"
-    r"^agent-tools/.*/test-helpers/.*\.tsx?$|^agent-tools/.*/tests?/.*\.tsx?$"
+    r"^agent-tools/.*/test-helpers/.*\.tsx?$|^agent-tools/.*/tests?/.*\.tsx?$|"
+    r"^agent-tools/smoke-tests/[^/]+\.tsx?$"
 )
 
 
@@ -42,7 +46,8 @@ for f in sorted(files):
 lines = [
     f"## {label} at SHA:{head}",
     "",
-    f"Files in scope (tests, smokes, end-to-end tests, setup files, test helpers under `agent-tools/`): "
+    f"Files in scope (tests, smokes, end-to-end tests, setup files, test helpers and the smoke "
+    f"fixtures under `agent-tools/`): "
     f"{len(files)}. Offenders: {len(rows)}. By category (a file counts in each it touches): "
     + ", ".join(f"{c} {n}" for c, n in counts.items()) + ".",
     "",
@@ -53,5 +58,6 @@ for f, hits in rows:
     cells = " | ".join("yes" if c in hits else "" for c, _ in CATS)
     lines.append(f"| `{f}` | {cells} |")
 lines.append("")
-open(out, "w", encoding="utf-8").write("\n".join(lines))
+with open(out, "w", encoding="utf-8") as f:
+    f.write("\n".join(lines))
 print(f"{label} {head}: in scope {len(files)}, offenders {len(rows)}, " + ", ".join(f"{c} {n}" for c, n in counts.items()))

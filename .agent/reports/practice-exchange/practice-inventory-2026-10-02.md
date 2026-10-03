@@ -1,18 +1,19 @@
 # The Practice inventory, 2026-10-02
 
-One row per artefact of the Practice present in either estate's default tip, generated from the two trees' blob ids by `practice_inventory.py` beside this report (run as `python3 practice_inventory.py <jc-root> <jc-ref> <oce-root> <oce-ref> <out>` against the two checkouts at the two tips named below; the register is then closed against the output by `register_close.py <register> <inventory> <closure>` and the closure spliced in above the rows by `assemble_report.py <inventory> <closure> <out>`, both beside this report): kind by directory; scope class under PDR-143 §1 by directory default, with hand overrides by name where §2's membership test says an artefact names one host (its people, its product, its platform set); sameness by blob id. Heads: JC.net main SHA:f4a1c7496, OCE engraph SHA:38342e038. Rows: 3555. This report is the input the extraction plan takes (practice-work-finish, end state 3); the exchange register closes against it.
+One row per artefact of the Practice present in either estate's default tip, generated from the two trees' blob ids by `practice_inventory.py` beside this report (run as `python3 practice_inventory.py <jc-root> <jc-ref> <oce-root> <oce-ref> <out>` against the two checkouts at the two tips named below; the register is then closed against the output by `register_close.py <register> <inventory> <closure>` and the closure spliced in above the rows by `assemble_report.py <inventory> <closure> <out>`, both beside this report): kind by directory; scope class under PDR-143 §1 by directory default, with hand overrides by name where §2's membership test says an artefact names one host (its people, its product, its platform set); sameness by blob id. Heads: JC.net main SHA:ba5ad39a8, OCE engraph SHA:d51669d2f. Rows: 3557. This report is the input the extraction plan takes (the finish node's end state 3, carried since 2026-10-02 by `practice-parity-for-extraction`, whose mechanism 3 reruns it over the whole Practice at the folded tips); the exchange register closes against it.
 
 The scope classes are PDR-143's (the Practice as a standalone entity; Proposed, recorded on 2026-10-02 on the coordination branch of each estate, so neither default tip holds it until the day's fold lands; its text is restated here so this report stands on its own). §1, the scopes in the owner's words: Practice-wide (principles, rules, skills, decision records, reviewer templates, hook policy, the schemas of every state and memory surface, the learning protocol, the tooling's contracts, the set of platforms the entity renders adapters for); Language-wide, today TypeScript (the binding of each Practice-wide contract to one ecosystem: gate names, test conventions, the tooling's implementation); Repo-local, the installed Practice, authored (the bridge index, the bindings the host chooses, the adoption record and its omissions, repo-local extensions); Repo-local, the installed Practice, rendered (the canonical content and the platform adapters rendered from the pinned revision and committed); Repo-local, the installed Practice, instances (every state and memory instance); Repo-local, the host (product code, content, product decision records, product docs and tests, the gates the host exposes); Machine-local (the operator profile). §2, the membership tests: PDR-079's migration test, could this record land unchanged in another repository adopting the same practice, read for every artefact kind; and for tooling the engineering principles' framework test, could another consumer use this component unchanged; an artefact that passes neither cleanly is decomposed at the tension before it is placed, and a compromise label names coupling, not a home. The hand overrides by name in this generator are the §2 tests applied to artefacts that name one host; the instances and machine-local scopes hold no inventoried artefact, since memory and the home directory are outside the directories below.
 
-Reading the sameness column: a platform adapter is rendered from the canonical content with the host's prefix, so adapters differ or stand one-sided by design and say nothing about the canonical; a skill's evals and fixtures are counted as their own kind because one estate holds the eval runner and the other does not; tooling differs by topic, and a topic one estate alone holds is either a capability to carry (Language-wide) or product tooling (Repo-local, host). The hand overrides by name are the regular expression in the generator; a row whose scope reads with a §2 note was placed by that override, every other row by its directory.
+Reading the sameness column: a platform adapter is rendered from the canonical content with the host's prefix, so adapters differ or stand one-sided by design and say nothing about the canonical; a skill's evals and fixtures are counted as their own kind because one estate holds the eval runner and the other does not; tooling differs by topic, and a topic one estate alone holds is either a capability to carry (Language-wide) or product tooling (Repo-local, host). The hand overrides by name are the regular expression in the generator, and four OCE skills whose names are neutral but whose contents bind Oak's product (ground-truth-design, ground-truth-evaluation, update-bulk-download-schema, update-upstream-api-spec) are placed by the generator's reviewed path list; a row whose scope reads with a §2 note was placed by one of those, every other row by its directory. The bridge index `.agent/practice-index.md` is the one root-level Practice surface inventoried; the other entry points and the Practice directories outside the prefix list are the rerun's.
 
 ## Counts by kind
 
 | Kind | same bytes | different bytes | JC.net only | OCE only | total |
 | --- | --- | --- | --- | --- | --- |
-| Practice Core file | 6 | 2 | 0 | 0 | 8 |
-| adoption record | 1 | 1 | 0 | 0 | 2 |
-| decision record | 129 | 14 | 0 | 0 | 143 |
+| Practice Core file | 7 | 2 | 0 | 0 | 9 |
+| adoption record | 0 | 1 | 0 | 0 | 1 |
+| bridge index | 0 | 1 | 0 | 0 | 1 |
+| decision record | 129 | 14 | 1 | 0 | 144 |
 | directive | 3 | 10 | 4 | 2 | 19 |
 | hook policy | 0 | 2 | 0 | 0 | 2 |
 | platform adapter (Claude) | 111 | 32 | 153 | 176 | 472 |
@@ -22,22 +23,22 @@ Reading the sameness column: a platform adapter is rendered from the canonical c
 | reviewer component | 4 | 1 | 0 | 4 | 9 |
 | reviewer index | 0 | 1 | 0 | 1 | 2 |
 | reviewer template | 0 | 21 | 6 | 5 | 32 |
-| rule | 39 | 78 | 17 | 16 | 150 |
+| rule | 43 | 74 | 17 | 16 | 150 |
 | schema | 1 | 1 | 0 | 0 | 2 |
 | skill | 92 | 39 | 18 | 31 | 180 |
 | skill evals and fixtures | 29 | 0 | 0 | 507 | 536 |
 | tooling | 436 | 511 | 83 | 661 | 1691 |
 | tooling smoke test | 13 | 24 | 16 | 13 | 66 |
-| all | 975 | 794 | 343 | 1443 | 3555 |
+| all | 979 | 791 | 344 | 1443 | 3557 |
 
 ## Counts by scope class
 
 | Scope (PDR-143 §1) | same bytes | different bytes | JC.net only | OCE only | total |
 | --- | --- | --- | --- | --- | --- |
 | Language-wide (TypeScript) | 449 | 535 | 99 | 549 | 1632 |
-| Practice-wide | 303 | 166 | 36 | 560 | 1065 |
-| Repo-local, authored | 1 | 1 | 0 | 0 | 2 |
-| Repo-local, authored (host name, §2) | 0 | 3 | 9 | 6 | 18 |
+| Practice-wide | 308 | 162 | 37 | 556 | 1063 |
+| Repo-local, authored | 0 | 2 | 0 | 0 | 2 |
+| Repo-local, authored (host name, §2) | 0 | 3 | 9 | 10 | 22 |
 | Repo-local, host (product tooling, §2) | 0 | 0 | 0 | 125 | 125 |
 | Repo-local, rendered | 222 | 89 | 199 | 203 | 713 |
 
@@ -45,87 +46,87 @@ Reading the sameness column: a platform adapter is rendered from the canonical c
 
 | Row | Concept | State | Evidence | Inventory paths under its globs (same / different / JC.net only / OCE only) |
 | --- | --- | --- | --- | --- |
-| C1 | semantic-merge git merge driver | OPEN | cell begins 'bring'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| C2 | drift validator | OPEN | cell begins 'bring'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| C3 | loop-closure-references validator | OPEN | cell begins 'compare (with cited-scripts, J2; bring what it adds)'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| C4 | Coverage-as-signal CI wiring with the fail-loud workspace enumeration  | OPEN | cell begins 'bring'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| C5 | Statusline | OPEN | cell begins 'compare (the third estate's statusline diverged by 100 to 300 lines per'; no landing row | 13 / 6 / 0 / 0 |
-| C6 | agent-adapter-generate and its cricket-contract integration test | DECLINED | cell begins 'graduated into J1; the contract test taken' | closed by its state |
-| C7 | PDR-005 §Default disposition | DECLINED | cell begins 'card' | closed by its state |
-| C8 | PDR-124 multi-agent audit harness (a pattern PDR) | OPEN | cell begins 'bring, renumbered above 141 (required: PDR-124 collides in a'; no landing row | 1 / 0 / 0 / 0 |
-| C9 | the third estate's colliding PDR-096 and PDR-097 | OPEN | cell begins 'compare (judge on substance; renumbering is required, not co'; no landing row | 2 / 0 / 0 / 0 |
-| C10 | Generic rules | OPEN | cell begins 'bring after reading each body'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| C11 | Product doctrine and reviewers | DECLINED | cell begins 'decline' | closed by its state |
-| C12 | the third estate's June transplant of lineage machinery and its own adaptations s | DECLINED | cell begins 'graduated into the lineage rows above' | closed by its state |
-| C13 | The nine the third estate surfaces the owner named as leaving | DECLINED | cell begins 'none' | closed by its state |
-| C14 | Distilled insights | DECLINED | cell begins 'records, not portable' | closed by its state |
-| C15 | The lineage's changes since the third estate's pin that the rows above do not nam | DECLINED | cell begins 'graduated into the L rows' | closed by its state |
-| C16 | the third estate's AGENTS.md | DECLINED | cell begins 'already-present-verify-parity' | closed by its state |
-| C17 | the third estate-origin machinery the lineage never held | OPEN | cell begins 'compare per module (this estate holds the version guard, the'; no landing row | 3 / 4 / 0 / 0 |
-| C18 | the third estate's canonical patterns | OPEN | cell begins 'compare by name, then bring the absent (patterns are records'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| C19 | the third estate's Practice-owned root configuration changes | OPEN | cell begins 'compare (this estate's form lands at re-transplant)'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| J1 | Rule and sub-agent declarations, and the generators that render every  | PARTIAL | 4 landing rows, every one PARTIAL | 282 / 221 / 222 / 231 |
-| J2 | Tracked-universe validators | OPEN | cell begins 'bring cited paths, cited scripts, the authored-surfaces walk'; no landing row | 44 / 81 / 40 / 26 |
-| J3 | repo-check | PARTIAL | 9 landing rows, every one PARTIAL | 6 / 13 / 8 / 1 |
-| J4 | practice-substrate | LANDED | 3 landing rows, 1 settled | closed by its state |
-| J5 | Merge bot with the measured-state hold and the signed disposition-line | DECLINED | cell begins 'graduated into L9' | closed by its state |
-| J6 | The smoke runner discovered from `smoke-tests/*.smoke.ts`; the derived | PARTIAL | 6 landing rows, every one PARTIAL | 22 / 32 / 16 / 16 |
-| J7 | hook-policy path scoping (root-anchored `./`) and the shared unreadabl | PARTIAL | 2 landing rows, every one PARTIAL | 98 / 33 / 6 / 23 |
-| J8 | corpus-analysis and workflow-build adaptations | LANDED | 2 landing rows, 2 settled | closed by its state |
-| J9 | Doctrine | LANDED | 7 landing rows, 1 settled | closed by its state |
-| J10 | PDR-008 (gate naming as practised), PDR-082 (channel clause), PDR-132  | PARTIAL | 1 landing rows, every one PARTIAL | 0 / 3 / 0 / 0 |
-| J11 | The transplant runbook, the loss-scan, the generalisation register, th | LANDED | 9 landing rows, 2 settled | closed by its state |
-| J12 | Site-specific doctrine | DECLINED | cell begins 'decline' | closed by its state |
-| J13 | Practice tooling text that named one estate's prefix (the adapter gene | LANDED | 3 landing rows, 1 settled | closed by its state |
-| J14 | The worktree-lane skill | LANDED | 2 landing rows, 2 settled | closed by its state |
-| J15 | Everything else in the jcnet list | LANDED | 2 landing rows, 1 settled | closed by its state |
-| J16 | Root platform entrypoints | PARTIAL | 1 landing rows, every one PARTIAL | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| J17 | Machinery this estate rewrote by more than 100 lines since the pin | PARTIAL | 4 landing rows, every one PARTIAL | 0 / 2 / 0 / 0 |
-| J18 | The pre-compact observer hook with its env-snapshot, observation, resp | PARTIAL | 5 landing rows, every one PARTIAL | 0 / 1 / 8 / 0 |
-| J19 | Canonical patterns this estate recorded since the transplant | LANDED | 2 landing rows, 1 settled | closed by its state |
-| J20 | Practice-owned root configuration this estate changed since the transp | OPEN | cell begins 'compare (the lineage changed the same files in the same wind'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| J21 | The shared tooling workspaces since the transplant | PARTIAL | 3 landing rows, every one PARTIAL | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| J22 | This estate's docs/engineering since the transplant | LANDED | 4 landing rows, 1 settled | closed by its state |
-| J23 | This estate's architecture decision records since the transplant (docs | LANDED | 1 landing rows, 1 settled | closed by its state |
-| L1 | Operator profile in the home directory | LANDED | 3 landing rows, 3 settled | closed by its state |
-| L2 | PDR-117 amendments | LANDED | 1 landing rows, 1 settled | closed by its state |
-| L3 | PDR-027 amendment | OPEN | cell begins 'compare (this estate's copy carries a 2026-09-12 session-id-'; no landing row | 0 / 1 / 0 / 0 |
-| L4 | PDR-026 amendment | LANDED | 1 landing rows, 1 settled | closed by its state |
-| L5 | PDR-011 amendment | LANDED | 1 landing rows, 1 settled | closed by its state |
-| L6 | pr-lifecycle | OPEN | cell begins 'compare (with the merge hold and the plan-ledger disposition'; no landing row | 0 / 1 / 0 / 0 |
-| L7 | review-cost push gate | OPEN | cell begins 'twinned-in-window (lineage to jcnet)'; no landing row | 0 / 0 / 0 / 9 |
-| L8 | pr-tally | OPEN | cell begins 'compare (with pr-watch); the signed-line grammar twins back '; no landing row | 0 / 0 / 0 / 7 |
-| L9 | pr-watch reconvergence | OPEN | cell begins 'compare (two windows: each estate takes the other's unique m'; no landing row | 12 / 17 / 14 / 37 |
-| L10 | testing-strategy rewrite | OPEN | cell begins 'compare (per-section merge against the site-merged version; '; no landing row | 0 / 1 / 0 / 0 |
-| L11 | Owner rulings graduated into rules, skills and a template on 2026-09-1 | PARTIAL | 1 landing rows, every one PARTIAL | 160 / 138 / 41 / 559 |
-| L12 | Generic rules absent here | LANDED | 3 landing rows, 1 settled | closed by its state |
-| L13 | Product-bound and fork-custody surfaces in the delta | DECLINED | cell begins 'decline' | closed by its state |
-| L14 | Directives touched since the pin, and schema-first-execution, which th | OPEN | cell begins 'compare (per-section merge; agent-collaboration, metacogniti'; no landing row | 3 / 10 / 4 / 2 |
-| L15 | skills-adapter-generate and commit-advisories changes, with their test | OPEN | cell begins 'compare on the files both hold (discovery, adapter-render, t'; no landing row | 12 / 9 / 0 / 3 |
-| L16 | The docs-only bot-authored class at the merge door (the lineage's item | OPEN | cell begins 'bring once built'; no landing row | 22 / 54 / 0 / 6 |
-| L17 | Product tooling | DECLINED | cell begins 'decline' | closed by its state |
-| L18 | The lineage's hand-kept platform adapters and rules index | DECLINED | cell begins 'graduated into J1' | closed by its state |
-| L19 | Landing instruments read the evidence | OPEN | cell begins 'bring with L9'; no landing row | 22 / 54 / 0 / 13 |
-| L20 | TypeScript strictness brought to the target set as maintenance, by thi | DECLINED | cell begins 'origin' | closed by its state |
-| L21 | Root manifests, hooks, CI, the CLI topic registry and the index surfac | OPEN | cell begins 'compare (line by line with the jcnet copies)'; no landing row | 20 / 8 / 1 / 7 |
-| L22 | The Workflow tool operating note under the harness integrations | LANDED | 1 landing rows, 1 settled | closed by its state |
-| L23 | The dedicated consolidation session prompt | OPEN | cell begins 'compare (with the consolidate-until-done skill here)'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| L24 | Reference notes | OPEN | cell begins 'bring'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| L25 | collaboration-state test helpers (frontmatter, repo document) | OPEN | cell begins 'compare on repo-doc.ts; bring test-helpers/frontmatter.ts, a'; no landing row | 60 / 77 / 4 / 4 |
-| L26 | The plugin-skill-copies validator and the plugin package invariants | OPEN | cell begins 'compare (this estate carries a plugin marketplace file; the '; no landing row | 0 / 0 / 0 / 8 |
-| L27 | Canonical patterns the lineage recorded since the pins | OPEN | cell begins 'compare by name, then bring the absent (this estate recorded'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| L28 | Practice-owned root configuration the lineage changed since the pins | OPEN | cell begins 'compare (this estate changed the same files in the same wind'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| L29 | The lineage's five shared core packages (the eslint plugin, result, sa | DECLINED | cell begins 'already-present-verify-parity' | closed by its state |
-| L30 | The lineage's Practice docs trees since the pins | OPEN | cell begins 'compare per document on the engineering set (this estate car'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| L31 | The lineage's architecture decision records since the pins (docs/archi | OPEN | cell begins 'compare per record (this estate's ADRs live under docs/archi'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| L32 | Root entrypoint AGENTS.md | OPEN | cell begins 'bring (per-section merge with this estate's AGENTS.md, which'; no landing row | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
-| L33 | The Result-based git path reads of `agent-tools/src/core/repository-pa | OPEN | cell begins 'bring, after the review unless the owner brings it forward. '; no landing row | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
-| L34 | The merge-bot push retry on the advertisement 403 (`push-attempts.ts`, | LANDED | 1 landing rows, 1 settled | closed by its state |
-| O1 | A context-measuring mechanism or workflow that stops the agent rather  | OPEN | cell begins 'a PDR clause that names PDR-063's measured hand-over and the'; no landing row | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
-| O2 | "Two instances before extraction" applies sometimes and never override | OPEN | cell begins 'amend `consolidate-at-second-consumer`'; no landing row | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
-| O3 | Innovation's value is discovery and knowledge creation; it never requi | OPEN | cell begins 'amend the warrant clauses that demand a need (the reason ski'; no landing row | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
+| C1 | semantic-merge git merge driver | OPEN | jcnet cell begins 'bring'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| C2 | drift validator | OPEN | jcnet cell begins 'bring'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| C3 | loop-closure-references validator | OPEN | jcnet cell begins 'compare (with cited-scripts, J2; bring what it adds)'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| C4 | Coverage-as-signal CI wiring with the fail-loud workspace enumeration  | OPEN | jcnet cell begins 'bring'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| C5 | Statusline | OPEN | jcnet cell begins 'compare (the third estate's statusline diverged by 100 to 300 lines per'; no landing row in jcnet | 13 / 6 / 0 / 0 |
+| C6 | agent-adapter-generate and its cricket-contract integration test | DECLINED | jcnet cell begins 'graduated into J1; the contract test taken' | closed by its state |
+| C7 | PDR-005 §Default disposition | DECLINED | jcnet cell begins 'card' | closed by its state |
+| C8 | PDR-124 multi-agent audit harness (a pattern PDR) | OPEN | jcnet cell begins 'bring, renumbered above 141 (required: PDR-124 collides in a'; no landing row in jcnet | 1 / 0 / 0 / 0 |
+| C9 | the third estate's colliding PDR-096 and PDR-097 | OPEN | jcnet cell begins 'compare (judge on substance; renumbering is required, not co'; no landing row in jcnet | 2 / 0 / 0 / 0 |
+| C10 | Generic rules | OPEN | jcnet cell begins 'bring after reading each body'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| C11 | Product doctrine and reviewers | DECLINED | jcnet cell begins 'decline' | closed by its state |
+| C12 | the third estate's June transplant of lineage machinery and its own adaptations s | DECLINED | jcnet cell begins 'graduated into the lineage rows above' | closed by its state |
+| C13 | The nine the third estate surfaces the owner named as leaving | DECLINED | jcnet cell begins 'none' | closed by its state |
+| C14 | Distilled insights | DECLINED | jcnet cell begins 'records, not portable' | closed by its state |
+| C15 | The lineage's changes since the third estate's pin that the rows above do not nam | DECLINED | jcnet cell begins 'graduated into the L rows' | closed by its state |
+| C16 | the third estate's AGENTS.md | DECLINED | jcnet cell begins 'already-present-verify-parity' | closed by its state |
+| C17 | the third estate-origin machinery the lineage never held | OPEN | jcnet cell begins 'compare per module (this estate holds the version guard, the'; no landing row in jcnet | 3 / 4 / 0 / 0 |
+| C18 | the third estate's canonical patterns | OPEN | jcnet cell begins 'compare by name, then bring the absent (patterns are records'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| C19 | the third estate's Practice-owned root configuration changes | OPEN | jcnet cell begins 'compare (this estate's form lands at re-transplant)'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| J1 | Rule and sub-agent declarations, and the generators that render every  | PARTIAL | 3 landing rows in lineage, every one PARTIAL | 286 / 217 / 222 / 231 |
+| J2 | Tracked-universe validators | OPEN | lineage cell begins 'bring cited paths, cited scripts, the authored-surfaces walk'; no landing row in lineage | 44 / 81 / 40 / 26 |
+| J3 | repo-check | PARTIAL | 6 landing rows in lineage, every one PARTIAL | 6 / 13 / 8 / 1 |
+| J4 | practice-substrate | LANDED | 3 landing rows in lineage, 1 settled | closed by its state |
+| J5 | Merge bot with the measured-state hold and the signed disposition-line | DECLINED | lineage cell begins 'graduated into L9' | closed by its state |
+| J6 | The smoke runner discovered from `smoke-tests/*.smoke.ts`; the derived | PARTIAL | 4 landing rows in lineage, every one PARTIAL | 22 / 32 / 16 / 16 |
+| J7 | hook-policy path scoping (root-anchored `./`) and the shared unreadabl | PARTIAL | 2 landing rows in lineage, every one PARTIAL | 98 / 33 / 6 / 23 |
+| J8 | corpus-analysis and workflow-build adaptations | LANDED | 1 landing rows in lineage, 1 settled | closed by its state |
+| J9 | Doctrine | LANDED | 7 landing rows in lineage, 1 settled | closed by its state |
+| J10 | PDR-008 (gate naming as practised), PDR-082 (channel clause), PDR-132  | PARTIAL | 1 landing rows in lineage, every one PARTIAL | 0 / 3 / 0 / 0 |
+| J11 | The transplant runbook, the loss-scan, the generalisation register, th | PARTIAL | 4 landing rows in lineage, every one PARTIAL | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
+| J12 | Site-specific doctrine | DECLINED | lineage cell begins 'decline' | closed by its state |
+| J13 | Practice tooling text that named one estate's prefix (the adapter gene | LANDED | 3 landing rows in lineage, 1 settled | closed by its state |
+| J14 | The worktree-lane skill | LANDED | 1 landing rows in lineage, 1 settled | closed by its state |
+| J15 | Everything else in the jcnet list | LANDED | 2 landing rows in lineage, 1 settled | closed by its state |
+| J16 | Root platform entrypoints | PARTIAL | 1 landing rows in lineage, every one PARTIAL | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| J17 | Machinery this estate rewrote by more than 100 lines since the pin | PARTIAL | 4 landing rows in lineage, every one PARTIAL | 0 / 3 / 0 / 0 |
+| J18 | The pre-compact observer hook with its env-snapshot, observation, resp | PARTIAL | 5 landing rows in lineage, every one PARTIAL | 0 / 1 / 8 / 0 |
+| J19 | Canonical patterns this estate recorded since the transplant | LANDED | 2 landing rows in lineage, 1 settled | closed by its state |
+| J20 | Practice-owned root configuration this estate changed since the transp | OPEN | lineage cell begins 'compare (the lineage changed the same files in the same wind'; no landing row in lineage | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| J21 | The shared tooling workspaces since the transplant | PARTIAL | 3 landing rows in lineage, every one PARTIAL | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| J22 | This estate's docs/engineering since the transplant | LANDED | 4 landing rows in lineage, 1 settled | closed by its state |
+| J23 | This estate's architecture decision records since the transplant (docs | LANDED | 1 landing rows in lineage, 1 settled | closed by its state |
+| L1 | Operator profile in the home directory | LANDED | 2 landing rows in jcnet, 2 settled | closed by its state |
+| L2 | PDR-117 amendments | LANDED | 1 landing rows in jcnet, 1 settled | closed by its state |
+| L3 | PDR-027 amendment | OPEN | jcnet cell begins 'compare (this estate's copy carries a 2026-09-12 session-id-'; no landing row in jcnet | 0 / 1 / 0 / 0 |
+| L4 | PDR-026 amendment | LANDED | 1 landing rows in jcnet, 1 settled | closed by its state |
+| L5 | PDR-011 amendment | LANDED | 1 landing rows in jcnet, 1 settled | closed by its state |
+| L6 | pr-lifecycle | OPEN | jcnet cell begins 'compare (with the merge hold and the plan-ledger disposition'; no landing row in jcnet | 0 / 1 / 0 / 0 |
+| L7 | review-cost push gate | OPEN | jcnet cell begins 'twinned-in-window (lineage to jcnet)'; no landing row in jcnet | 0 / 0 / 0 / 9 |
+| L8 | pr-tally | OPEN | jcnet cell begins 'compare (with pr-watch); the signed-line grammar twins back '; no landing row in jcnet | 0 / 0 / 0 / 7 |
+| L9 | pr-watch reconvergence | OPEN | jcnet cell begins 'compare (two windows: each estate takes the other's unique m'; no landing row in jcnet | 12 / 17 / 14 / 37 |
+| L10 | testing-strategy rewrite | OPEN | jcnet cell begins 'compare (per-section merge against the site-merged version; '; no landing row in jcnet | 0 / 1 / 0 / 0 |
+| L11 | Owner rulings graduated into rules, skills and a template on 2026-09-1 | PARTIAL | 1 landing rows in jcnet, every one PARTIAL | 164 / 134 / 41 / 559 |
+| L12 | Generic rules absent here | LANDED | 3 landing rows in jcnet, 1 settled | closed by its state |
+| L13 | Product-bound and fork-custody surfaces in the delta | DECLINED | jcnet cell begins 'decline' | closed by its state |
+| L14 | Directives touched since the pin, and schema-first-execution, which th | OPEN | jcnet cell begins 'compare (per-section merge; agent-collaboration, metacogniti'; no landing row in jcnet | 3 / 10 / 4 / 2 |
+| L15 | skills-adapter-generate and commit-advisories changes, with their test | OPEN | jcnet cell begins 'compare on the files both hold (discovery, adapter-render, t'; no landing row in jcnet | 12 / 9 / 0 / 3 |
+| L16 | The docs-only bot-authored class at the merge door (the lineage's item | OPEN | jcnet cell begins 'bring once built'; no landing row in jcnet | 22 / 54 / 0 / 6 |
+| L17 | Product tooling | DECLINED | jcnet cell begins 'decline' | closed by its state |
+| L18 | The lineage's hand-kept platform adapters and rules index | DECLINED | jcnet cell begins 'graduated into J1' | closed by its state |
+| L19 | Landing instruments read the evidence | OPEN | jcnet cell begins 'bring with L9'; no landing row in jcnet | 22 / 54 / 0 / 13 |
+| L20 | TypeScript strictness brought to the target set as maintenance, by thi | DECLINED | jcnet cell begins 'origin' | closed by its state |
+| L21 | Root manifests, hooks, CI, the CLI topic registry and the index surfac | OPEN | jcnet cell begins 'compare (line by line with the jcnet copies)'; no landing row in jcnet | 20 / 9 / 1 / 7 |
+| L22 | The Workflow tool operating note under the harness integrations | LANDED | 1 landing rows in jcnet, 1 settled | closed by its state |
+| L23 | The dedicated consolidation session prompt | OPEN | jcnet cell begins 'compare (with the consolidate-until-done skill here)'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| L24 | Reference notes | OPEN | jcnet cell begins 'bring'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| L25 | collaboration-state test helpers (frontmatter, repo document) | OPEN | jcnet cell begins 'compare on repo-doc.ts; bring test-helpers/frontmatter.ts, a'; no landing row in jcnet | 60 / 77 / 4 / 4 |
+| L26 | The plugin-skill-copies validator and the plugin package invariants | OPEN | jcnet cell begins 'compare (this estate carries a plugin marketplace file; the '; no landing row in jcnet | 0 / 0 / 0 / 8 |
+| L27 | Canonical patterns the lineage recorded since the pins | OPEN | jcnet cell begins 'compare by name, then bring the absent (this estate recorded'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| L28 | Practice-owned root configuration the lineage changed since the pins | OPEN | jcnet cell begins 'compare (this estate changed the same files in the same wind'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| L29 | The lineage's five shared core packages (the eslint plugin, result, sa | DECLINED | jcnet cell begins 'already-present-verify-parity' | closed by its state |
+| L30 | The lineage's Practice docs trees since the pins | OPEN | jcnet cell begins 'compare per document on the engineering set (this estate car'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| L31 | The lineage's architecture decision records since the pins (docs/archi | OPEN | jcnet cell begins 'compare per record (this estate's ADRs live under docs/archi'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| L32 | Root entrypoint AGENTS.md | OPEN | jcnet cell begins 'bring (per-section merge with this estate's AGENTS.md, which'; no landing row in jcnet | its globs fall outside the inventory's directories (memory, docs, root configuration or shared packages); closed as a difference row by its cell, not measured |
+| L33 | The Result-based git path reads of `agent-tools/src/core/repository-pa | OPEN | jcnet cell begins 'bring, after the review unless the owner brings it forward. '; no landing row in jcnet | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
+| L34 | The merge-bot push retry on the advertisement 403 (`push-attempts.ts`, | LANDED | 1 landing rows in lineage, 1 settled | closed by its state |
+| O1 | A context-measuring mechanism or workflow that stops the agent rather  | OPEN | jcnet cell begins 'a PDR clause that names PDR-063's measured hand-over and the'; no landing row in jcnet | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
+| O2 | "Two instances before extraction" applies sometimes and never override | OPEN | jcnet cell begins 'amend `consolidate-at-second-consumer`'; no landing row in jcnet | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
+| O3 | Innovation's value is discovery and knowledge creation; it never requi | OPEN | jcnet cell begins 'amend the warrant clauses that demand a need (the reason ski'; no landing row in jcnet | no path globs on the row (a ruling or a root entrypoint); closed as a difference row by its cell, not measured |
 
-Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as difference rows (10 partial, 37 never landed). Of the 47, 26 are measured above against the inventory's paths under their globs; 17 have globs outside the inventory's directories and 4 have no globs, and those 21 close as difference rows on their register cells alone, which the extraction plan reads from the register, not from the inventory.
+Count line: 79 of 79 rows closed: 16 landed, 15 declined, 48 closed as difference rows (11 partial, 37 never landed). Of the 48, 26 are measured above against the inventory's paths under their globs; 17 have globs outside the inventory's directories and 5 have no globs, and those 22 close as difference rows on their register cells alone, which the extraction plan reads from the register, not from the inventory.
 
 ## Rows
 
@@ -296,17 +297,19 @@ Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as differenc
 | `.agent/practice-core/decision-records/PDR-140-review-response-pricing.md` | decision record | Practice-wide | same bytes |
 | `.agent/practice-core/decision-records/PDR-141-operator-profile-in-the-home-directory.md` | decision record | Practice-wide | same bytes |
 | `.agent/practice-core/decision-records/PDR-142-the-best-of-each-practice.md` | decision record | Practice-wide | different bytes |
+| `.agent/practice-core/decision-records/PDR-143-the-practice-as-a-standalone-entity.md` | decision record | Practice-wide | JC.net only |
 | `.agent/practice-core/decision-records/README.md` | decision record | Practice-wide | different bytes |
 | `.agent/practice-core/incoming/.gitkeep` | Practice Core file | Practice-wide | same bytes |
 | `.agent/practice-core/index.md` | Practice Core file | Practice-wide | same bytes |
 | `.agent/practice-core/practice-bootstrap.md` | Practice Core file | Practice-wide | same bytes |
-| `.agent/practice-core/practice-lineage.md` | adoption record | Repo-local, authored | same bytes |
+| `.agent/practice-core/practice-lineage.md` | Practice Core file | Practice-wide | same bytes |
 | `.agent/practice-core/practice-verification.md` | Practice Core file | Practice-wide | different bytes |
 | `.agent/practice-core/practice.md` | Practice Core file | Practice-wide | same bytes |
 | `.agent/practice-core/protocol.json` | Practice Core file | Practice-wide | same bytes |
 | `.agent/practice-core/provenance.yml` | adoption record | Repo-local, authored | different bytes |
 | `.agent/practice-core/schemas/inter-practice-wire.schema.json` | schema | Practice-wide | same bytes |
 | `.agent/practice-core/schemas/operator-profile.schema.json` | schema | Practice-wide | different bytes |
+| `.agent/practice-index.md` | bridge index | Repo-local, authored | different bytes |
 | `.agent/rules/agent-experience-review-lens.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/agent-state-observable.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/agentic-judgment-conserve-by-default.md` | rule | Practice-wide | same bytes |
@@ -338,7 +341,7 @@ Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as differenc
 | `.agent/rules/eef-corpus-grounding.md` | rule | Practice-wide | OCE only |
 | `.agent/rules/executive-memory-drift-capture.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/exit-codes-in-band-never-piped.md` | rule | Practice-wide | same bytes |
-| `.agent/rules/fleet-design-review-before-expensive-fleets.md` | rule | Practice-wide | different bytes |
+| `.agent/rules/fleet-design-review-before-expensive-fleets.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/follow-agent-collaboration-practice.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/follow-collaboration-practice.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/follow-the-practice.md` | rule | Practice-wide | different bytes |
@@ -402,7 +405,7 @@ Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as differenc
 | `.agent/rules/oak-chrome-session-is-metered.md` | rule | Repo-local, authored (host name, §2) | OCE only |
 | `.agent/rules/one-instance-is-an-observation.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/one-pr-per-leaf-issue.md` | rule | Practice-wide | OCE only |
-| `.agent/rules/owner-attention-at-action-moments.md` | rule | Practice-wide | different bytes |
+| `.agent/rules/owner-attention-at-action-moments.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/per-user-memory-is-a-buffer.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/permanent-doc-is-the-consolidation-record.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/ping-before-escalate.md` | rule | Practice-wide | different bytes |
@@ -411,7 +414,7 @@ Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as differenc
 | `.agent/rules/practice-core-portability.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/pre-execution-code-expert-review-per-loop-cycle.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/pre-merge-divergence-analysis.md` | rule | Practice-wide | different bytes |
-| `.agent/rules/precedence-is-not-approval.md` | rule | Practice-wide | different bytes |
+| `.agent/rules/precedence-is-not-approval.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/present-verdicts-not-menus.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/re-apply-first-question-at-elaboration-boundaries.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/read-agent-md.md` | rule | Practice-wide | different bytes |
@@ -428,7 +431,7 @@ Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as differenc
 | `.agent/rules/review-feedback-defaults-to-triage.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/route-blocks-and-questions-to-director.md` | rule | Practice-wide | different bytes |
 | `.agent/rules/rules-have-no-exceptions.md` | rule | Practice-wide | same bytes |
-| `.agent/rules/scope-from-goal-before-approach.md` | rule | Practice-wide | different bytes |
+| `.agent/rules/scope-from-goal-before-approach.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/sha-prefix-in-collaboration-content.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/ship-independent-coordinate-dependent.md` | rule | Practice-wide | same bytes |
 | `.agent/rules/silence-is-never-liveness.md` | rule | Practice-wide | same bytes |
@@ -630,8 +633,8 @@ Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as differenc
 | `.agent/skills/editorial-voice/SKILL-CANONICAL.md` | skill | Repo-local, authored (host name, §2) | JC.net only |
 | `.agent/skills/go/SKILL-CANONICAL.md` | skill | Practice-wide | different bytes |
 | `.agent/skills/go/shared/go.md` | skill | Practice-wide | different bytes |
-| `.agent/skills/ground-truth-design/SKILL-CANONICAL.md` | skill | Practice-wide | OCE only |
-| `.agent/skills/ground-truth-evaluation/SKILL-CANONICAL.md` | skill | Practice-wide | OCE only |
+| `.agent/skills/ground-truth-design/SKILL-CANONICAL.md` | skill | Repo-local, authored (host name, §2) | OCE only |
+| `.agent/skills/ground-truth-evaluation/SKILL-CANONICAL.md` | skill | Repo-local, authored (host name, §2) | OCE only |
 | `.agent/skills/inter-practice-collaboration/SKILL-CANONICAL.md` | skill | Practice-wide | different bytes |
 | `.agent/skills/knowledge/consolidate-docs/SKILL-CANONICAL.md` | skill | Practice-wide | different bytes |
 | `.agent/skills/knowledge/consolidate-until-done/SKILL-CANONICAL.md` | skill | Practice-wide | different bytes |
@@ -1168,9 +1171,9 @@ Count line: 79 of 79 rows closed: 17 landed, 15 declined, 47 closed as differenc
 | `.agent/skills/the-codex-dialogues/scripts/probe-workspace.mjs` | skill | Practice-wide | OCE only |
 | `.agent/skills/the-codex-dialogues/scripts/tool-contract.mjs` | skill | Practice-wide | OCE only |
 | `.agent/skills/tsdoc/SKILL-CANONICAL.md` | skill | Practice-wide | different bytes |
-| `.agent/skills/update-bulk-download-schema/SKILL-CANONICAL.md` | skill | Practice-wide | OCE only |
+| `.agent/skills/update-bulk-download-schema/SKILL-CANONICAL.md` | skill | Repo-local, authored (host name, §2) | OCE only |
 | `.agent/skills/update-dependencies/SKILL-CANONICAL.md` | skill | Practice-wide | OCE only |
-| `.agent/skills/update-upstream-api-spec/SKILL-CANONICAL.md` | skill | Practice-wide | OCE only |
+| `.agent/skills/update-upstream-api-spec/SKILL-CANONICAL.md` | skill | Repo-local, authored (host name, §2) | OCE only |
 | `.agent/skills/working-with-graphs/SKILL-CANONICAL.md` | skill | Practice-wide | different bytes |
 | `.agent/skills/wrap/SKILL-CANONICAL.md` | skill | Practice-wide | different bytes |
 | `.agent/sub-agents/README.md` | reviewer index | Practice-wide | different bytes |
