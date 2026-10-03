@@ -401,6 +401,28 @@ twins of 302 to 304 as three twin commits, proved line by line by the Director),
 A reading of the owner's limit recorded for the seats: a pull request held at its door for the owner is a
 review surface, not work in progress, so one in-progress pull request beside it is the shape. Nothing of
 the ledger's queue starts before the owner's word on O10.
+§BOARD, 2026-10-03 01:0xZ, the night's close. Landed, every one read first-hand: the node's step 1 on both
+sides (OCE #341, #345, #347; JC.net 301 to 304 and 308, the notebooks rotated); step 2 on both sides (#343
+the registry rows; JC.net 307 and OCE #346 the host-tagged entries to ADR-023 and ADR-232 with the Core
+host-name heading gate live in both docs-validators); step 5 on both default branches (PDR-019 amended,
+PDR-143 trimmed, the exchange node archived with five PDR-142 entries, the parent node's entry, two
+portability cures); both coordination branches folded twice (OCE successor `coordination/2026-10-02-209b26`
+at `SHA:6c0b67924`, draft #342, DUE 12:00Z; JC.net `coordination/2026-10-02-24fc05` at `SHA:684162547`, draft
+305). Step 3, the ledger, is open in both estates at the same bytes (#344 here, 306 there), at full condition
+with both settlement pushes spent, held at the door for the owner's row reading; #344 reads BEHIND engraph
+after tonight's merges and takes a merge of engraph before its own (from `oce-wt-parity-measure`, the
+Director's). Step 4 waits on the owner's word on O10 (the recommendation on the node's §Size and in chat).
+Owed to JC.net as one twin slice when Hazel tracks Trunk's lane next opens: three cures on the validator's
+shared bytes from #346's review and one Codex relay nuance from #347's (Efreet lifts Scorch's notes of
+00:45Z and 01:02Z on this stream). Housekeeping for the owner's hand: the forced local deletes of OCE's
+two omnibus branches and JC.net's old records branch, each proved landed by content. Seats: Hazel tracks
+Trunk (claims 009bbaea, 08f94e2a) and Efreet lifts Scorch (006c79ad) are cold-paused by the Director's word
+with handoff pointers current, resumed by the Director's message after the owner's word; the Director holds
+with the registry heartbeats on and no watcher (no peer live). Resume recipe at the owner's word: merge
+the default branch into each ledger lane, merge the ledgers at their doors, resume both seats by message
+with the carries in closure order under the owner's reading of O10, one in-progress pull request per
+estate. Estimate from the owner's word: the two ledger merges within half an hour; the recommended
+thirteen carries about two and a half hours on two seats; all twenty-eight about four to eight.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
