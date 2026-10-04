@@ -102,7 +102,9 @@ engineering practice that governs how work is planned, decided, implemented, rev
 and learned from in every repository that carries it. It has five layers. The **general** layer
 is tooling-agnostic policy and strict universal contracts: the principles, rules, skills,
 decision records, patterns, reviewer templates and hook policy; the schemas of its state, memory
-and plan surfaces; the vocabulary of its gates. The **family** layer binds those contracts to
+and plan surfaces; the vocabulary of its gates. Each of those kinds also has instances in the
+family and contextual layers (a host rule, a family pattern), placed by the membership tests of
+§2, so the kind names the layer's content and the test places the instance. The **family** layer binds those contracts to
 one tooling ecosystem (TypeScript, Python, Rust and their like): the Practice-operation scripts
 and quality gates, their placement at commit, push and CI, the toolchain and configuration
 baselines, the CI skeleton; it is implemented per family only where a universal approach is not

@@ -131,5 +131,5 @@ agnostic policy, strict universal contracts, tooling specific implementations wh
 approach is not efficient or appropriate". From that word this bet is re-grounded: the
 divergences between the estates are resolved by class, one pull request per class per estate,
 the general layer by concept, the family layer by convention, the contextual layer named as
-bindings, the accumulated layer never compared; the review node is archived and its successor
-delivery node is written from the model.
+bindings, the accumulated layer never compared; the review node is archived, and the successor
+delivery node, written from the model, lands by its own pull request after this one.
