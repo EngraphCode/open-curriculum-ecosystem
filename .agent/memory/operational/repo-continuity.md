@@ -37,6 +37,11 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-04T19:0xZ: the Practice's canonical definition landed on engraph (#351,
+  `SHA:82cb7fba4`) and on jimcresswell.net main (319, `SHA:02178ff0b`), the same bytes; the
+  successor node `practice-alignment-by-class` ratified by four card answers and on this
+  coordination branch; the next safe step is its doctrine landing, jimcresswell.net first**
+  (Crucible binds Slag, 7b999c). The live state is the Director handoff's §STATE 2026-10-04 19:0xZ.
 - **2026-10-04T13:5xZ: `practice-system-review` ratified by the owner (card answer 13:3xZ) in
   its reshaped four-hour form; the layer pass read and the draft page written; the coordination
   branches folding; this seat's claims closed (n=1)** (Crucible binds Slag, 7b999c). The live

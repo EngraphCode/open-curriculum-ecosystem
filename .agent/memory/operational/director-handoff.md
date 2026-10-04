@@ -318,6 +318,20 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-04 19:0xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's
+compaction word; this block supersedes the blocks below where they differ).** The definition's
+landings merged: #351 at `SHA:82cb7fba4` on engraph, jimcresswell.net 319 at `SHA:02178ff0b` on
+main, the same bytes. The successor delivery node `practice-alignment-by-class` is ratified (the
+owner's four card answers of 16:xZ: four pull requests, two per estate; proceed at about five
+hours over two sittings; a light commit and a full push as the TypeScript family's convention;
+the conformance check included) and sits on this successor coordination branch at
+`SHA:5125881ce` with the Cricket suite's tally, the same bytes as the sibling's. The live record
+is jimcresswell.net's two-estate thread block of 2026-10-04T19:0xZ; the next safe step is the
+doctrine landing in jimcresswell.net first, then here from engraph, the same bytes; then the code
+landing. One conflict is the owner's, carried with the doctrine landing: the owner's 2026-09-30
+word ("it's OCE") against PDR-142's host-neutrality clause. No claim, no process, no unpushed
+commit of this seat; draft #352 is this branch's fold pull request.
+
 **§STATE, 2026-10-04 13:5xZ (Crucible binds Slag, `7b999c`, the n=1 seat at the resume; this
 block supersedes the 21:0xZ block below where they differ).** The review node
 `practice-system-review` is ratified (the owner's card answer of 13:3xZ, the stamp in its
