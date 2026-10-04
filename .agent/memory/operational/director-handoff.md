@@ -318,6 +318,22 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-04 13:5xZ (Crucible binds Slag, `7b999c`, the n=1 seat at the resume; this
+block supersedes the 21:0xZ block below where they differ).** The review node
+`practice-system-review` is ratified (the owner's card answer of 13:3xZ, the stamp in its
+frontmatter, the same bytes in both estates) in the shape two Cricket checks reshaped it to: a
+two-hour layer pass of both estates side by side that writes a one-page model (the layers, what
+transmits, what is created empty, what stays the host's, the candidate definition, the divergence
+classes with a direction each), posted to the owner at two hours as a report; one hour of
+evidence, one coarse row per area with exceptions and `unread` only; one report landed in
+jimcresswell.net by one pull request, this estate's copy riding the landing of the owner's word
+here; about four hours of one seat. The layer pass is read and the draft page written. The two
+coordination branches are folding (jimcresswell.net 305 merging through the bot; here #348 ready
+with its seven findings cured in one settlement push); this seat's five claims are closed (n=1).
+At the doors, untouched until the model is read: #350 and 312 (the ledger's revision), 318, the
+hooks branch, the OCE implementer's unpushed lanes; the dependabot pull requests were closed by
+the owner.
+
 **§STATE, 2026-10-03 21:0xZ (Crucible binds Slag, `7b999c`, at the owner's compaction word; n=1
 from here until the owner says otherwise; the next seat reads this block and the review node,
 nothing else first).** The parity frame is set aside by the owner's word of 20:0xZ ("that means

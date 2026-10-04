@@ -31,8 +31,9 @@ learning loop between them, and no ratified definition of it exists. The review 
 `practice-system-review` replaces this perspective and is the parity node's named successor; this
 node stays a sketch, implemented by nothing, at the owner's word.
 
-Supersedes `practice-parity-for-extraction`; that node's §Size closes with where the work stood
-at 2026-10-03 20:0xZ, the state this node starts from. The owner's words bind this node: the
+Written to supersede `practice-parity-for-extraction`, whose §Size closes with where the work
+stood at 2026-10-03 20:0xZ; that node's named successor is now `practice-system-review`, and this
+sketch supersedes nothing. The owner's words that bound this sketch when it was written: the
 alignment of the two instances is how we learn what the Practice is; the carries, code included,
 are the work; finish by doing it.
 

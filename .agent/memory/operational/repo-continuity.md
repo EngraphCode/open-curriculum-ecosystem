@@ -37,6 +37,10 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-04T13:5xZ: `practice-system-review` ratified by the owner (card answer 13:3xZ) in
+  its reshaped four-hour form; the layer pass read and the draft page written; the coordination
+  branches folding; this seat's claims closed (n=1)** (Crucible binds Slag, 7b999c). The live
+  state is the Director handoff's §STATE 2026-10-04.
 - **2026-10-03T21:0xZ: the parity frame set aside; the live plan is `practice-system-review`, a
   sketch for the owner's exploration, the same bytes in both estates** (Crucible binds Slag,
   7b999c). The owner's word: one system of development across two estates, reviewed once, one

@@ -281,9 +281,10 @@ unopened; OCE #349 (the doctrine batch, C8, C10, C4 with C20, C21) with its last
 sub-agents surface (56 rows) committed in their lanes and unopened; the OCE implementer's session
 finished at the owner's word with its handoff record at the claim's pointer. Not started: rules
 (48 rows), skills (49) and Practice Core (12) in jimcresswell.net; every twin; the code carries.
-Superseded by `practice-parity-two-landings`, which lands what remains as one pull request per
-estate for the doctrine and one for the code, and records why this node's shape cost the time it
-did.
+Superseded by `practice-system-review` (the frontmatter's `superseded_by`), the review of both
+estates as one system, ratified 2026-10-04. The two-landings sketch written first as this node's
+successor is kept, unratified and implemented by nothing, as a perspective no longer held; it
+records why this node's shape cost the time it did.
 
 ## Out of scope
 
