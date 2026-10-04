@@ -318,6 +318,45 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-04 13:5xZ (Crucible binds Slag, `7b999c`, the n=1 seat at the resume; this
+block supersedes the 21:0xZ block below where they differ).** The review node
+`practice-system-review` is ratified (the owner's card answer of 13:3xZ, the stamp in its
+frontmatter, the same bytes in both estates) in the shape two Cricket checks reshaped it to: a
+two-hour layer pass of both estates side by side that writes a one-page model (the layers, what
+transmits, what is created empty, what stays the host's, the candidate definition, the divergence
+classes with a direction each), posted to the owner at two hours as a report; one hour of
+evidence, one coarse row per area with exceptions and `unread` only; one report landed in
+jimcresswell.net by one pull request, this estate's copy riding the landing of the owner's word
+here; about four hours of one seat. The layer pass is read and the draft page written. The two
+coordination branches are folding (jimcresswell.net 305 merging through the bot; here #348 ready
+with its seven findings cured in one settlement push); this seat's five claims are closed (n=1).
+At the doors, untouched until the model is read: #350 and 312 (the ledger's revision), 318, the
+hooks branch, the OCE implementer's unpushed lanes; the dependabot pull requests were closed by
+the owner.
+
+**§STATE, 2026-10-03 21:0xZ (Crucible binds Slag, `7b999c`, at the owner's compaction word; n=1
+from here until the owner says otherwise; the next seat reads this block and the review node,
+nothing else first).** The parity frame is set aside by the owner's word of 20:0xZ ("that means
+we are doing it wrong"): the parity node reads superseded with where it stood (here
+`SHA:c1490c97a` on `coordination/2026-10-03-e790ea`); the two-landings node is an unratified sketch
+kept as a perspective no longer held; the live plan is `practice-system-review`, a sketch for the
+owner's exploration: one seat reads both estates side by side as one system of development and
+value provision (ten areas: planning; deciding and authority; implementing; reviewing; delivering
+value; developer experience; strictness and contracts; the learning loop; collaboration and roles;
+structure), one row per mechanism classed general, contextual, diverged or one-sided and placed in
+a layer, a candidate definition of the Practice, the divergences classed by kind, one report at one
+relative path in both estates, about seven and a half hours of one seat. Both implementers finished
+at the owner's word: Efreet lifts Scorch's direction handoff record is at claim 006c79ad's pointer
+with the exact state of its lanes (#349's cure `SHA:fe05f463a` unpushed; the directives surface at
+`SHA:1d77e8b03` and the sub-agents surface committed, unopened); Hazel tracks Trunk's is in JC.net.
+At the doors, untouched: #350 (the ledger's revision, five findings undecided), #349 at
+`SHA:b267ce1e4`, the fold draft #348, the J2 worktree's 23 staged files (the owner's). The JC.net
+notebook's block of 21:0xZ carries the owner's words verbatim, the work-safety evidence for every
+worktree of both estates, the four cognitive passes and the resume order. Resume: nothing to re-arm
+(no peer, so no watcher and no heartbeat); beat or close this seat's claims here (302e8307,
+9ecef634, 4b82394b, stale at about 03:2xZ) before any push, since the claim-freshness gate reads the
+registry; then the owner's exploration of the plan, then its execution.
+
 **§STATE, 2026-10-02 20:5xZ (Crucible binds Slag, `7b999c`, the Director: stopped by the usage
 limit; the next seat opens the parity node and this block, nothing else first).** The owner's words
 of the evening bind: slow and steady, quality over speed, the two hours a yardstick, keep the plan
@@ -466,6 +505,15 @@ before any act; read ahead/behind on every branch named here; re-arm only what i
 owner's word on O10, the two ledger merges, and the seats resumed by message in the shape the owner
 chose. The wrap's loss scan, metaloss passes and fixed point are on JC.net's notebook block of this
 hour; the formation letter is in JC.net's experience tier, dated today.
+
+§BOARD, 2026-10-03 13:2xZ (Efreet lifts Scorch, 7adb15, implementer, at the Director's direction of
+12:4xZ): the fold of pull request 342 landed at 13:21Z as `e790eab33` at head `dfe632899` (engraph
+`992ec4804` merged in first); successor `coordination/2026-10-03-e790ea`, the folded branch gone
+both sides on proofs. Five review threads, all on the node's §Size: the count, the deferral clause
+against PDR-142 and the today/tomorrow wording cured as a dated estimate line (two settlement
+pushes, spent); a Core portability finding on PDR-143's trim entry declined and routed here. Next on
+this side: engraph into `docs/parity-measure`, #344 through the bot, then the OCE doctrine batch (C8
+cured at source, C10, C4 with C20, C21) as one pull request. Next fold DUE at the UTC rollover.
 
 **§STATE, 2026-10-02 20:0xZ (Crucible binds Slag, `7b999c`, the Director: the compaction record;
 the plan is one node; the owner's rulings of the evening; what the next session does first).**
