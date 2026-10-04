@@ -81,6 +81,15 @@ argue; they do not decide anything.
 - [retrospective-the-review-rounds-that-grew-2026-09-27.md](./retrospective-the-review-rounds-that-grew-2026-09-27.md)
   — the Director's retrospective, on the owner's brief relayed by Siren, on the review rounds that grew on the transplant runbook's rollback and the WIP clause (2026-09-26 to 27): the mechanism (a procedure written as prose, with the reviewers as its only test, under a per-PR budget the concept crossed), the five rivals against their falsifiers, a blind pre-open pass, six proposals.
 
+### Cricket suite tallies
+
+- [cricket-suite-tally-2026-10-04-alignment-node.md](./cricket-suite-tally-2026-10-04-alignment-node.md)
+  — the full eight-leg suite on the delivery node `practice-alignment-by-class`
+  before its card: eight ON-TRACK, seven CONTRADICTED and one NARROWED on the
+  same two facts (six pull requests against the owner's two; the cost guide
+  read per landing), and the reshape they drove; the same bytes as the sibling
+  estate's copy
+
 ## Current Posture
 
 The structure exists now so future audit and synthesis outputs have a stable
