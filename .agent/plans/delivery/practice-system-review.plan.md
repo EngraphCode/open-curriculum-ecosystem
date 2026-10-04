@@ -13,7 +13,7 @@ status: ratified
 ratified_by: Jim Cresswell
 ratified_date: 2026-10-04
 ratified_where: >-
-  The owner's card answer of 2026-10-04 09:5xZ in the session of Crucible binds Slag (7b999c),
+  The owner's card answer of 2026-10-04 13:3xZ in the session of Crucible binds Slag (7b999c),
   the Director seat across both estates, "Ratify as reshaped (Recommended)", ratifying this node
   in both estates as one system; the card's text and the answer are in that session's napkin block
   of 2026-10-04T09:4xZ and the plan body of that commit.
