@@ -4,9 +4,11 @@ pdr_kind: governance
 
 # PDR-143: The Practice as a Standalone Entity — What Is Extracted, What Is Installed, and How It Keeps Learning
 
-**Status**: Proposed (the owner's direction, stated 2026-10-02 and recorded verbatim below, is
-standing; the definition in §Decision is one seat's proposal and binds nothing until the owner
-ratifies it; Accepted on that ratification)
+**Status**: Accepted (the owner's direction, stated 2026-10-02 and recorded verbatim below, is
+standing; the definition in §Decision was ratified by the owner on 2026-10-04 as the canonical
+definition of the Practice, by card answer to the Director seat Crucible binds Slag, "Ratify as
+canonical"; the Amendment Log entry of that date carries the ratified text and the review that
+is its evidence)
 **Date**: 2026-10-02
 **Related**: [PDR-142](PDR-142-the-best-of-each-practice.md) (the exchange that defines excellent;
 its §Two axes names the scopes this record uses, and its §Boundaries reserves the package's shape
@@ -93,8 +95,36 @@ commit.
 
 The direction is recorded as standing: the Practice will be extracted from the repositories that
 carry it into one standalone entity, the single canonical definition, installed into each
-repository it supports. The definition below is proposed for the owner's ratification. It uses the
-owner's scope axis and adds one distinction that axis does not carry.
+repository it supports.
+
+**The definition, ratified by the owner on 2026-10-04.** The Practice is one system of
+engineering practice that governs how work is planned, decided, implemented, reviewed, delivered
+and learned from in every repository that carries it. It has five layers. The **general** layer
+is tooling-agnostic policy and strict universal contracts: the principles, rules, skills,
+decision records, patterns, reviewer templates and hook policy; the schemas of its state, memory
+and plan surfaces; the vocabulary of its gates. The **family** layer binds those contracts to
+one tooling ecosystem (TypeScript, Python, Rust and their like): the Practice-operation scripts
+and quality gates, their placement at commit, push and CI, the toolchain and configuration
+baselines, the CI skeleton; it is implemented per family only where a universal approach is not
+efficient or appropriate, and every repository of a family shares it. The **contextual** layer
+binds the family layer to one host: the package scope and workspaces, the product's tasks, the
+required checks beyond the family's, deployment, the host's reviewers, rules and decision
+records, the operator's profile. The **accumulated** layer is what an instance accrues as it
+runs and learns from: the napkin, the registers, claims, comms, handoffs, plan nodes, reports,
+experience; it is created empty in a new context and never transmitted. The **loop** is the set
+of mechanisms by which the accumulated layer becomes general, family or contextual (capture,
+distillation, graduation, enforcement by gates and reviewers) and by which one instance's
+learning reaches another, the last an open design question of the extraction. An instance of the
+Practice is all five layers in one repository; the Practice itself is the general layer, its
+family bindings and the loop; the product is what an instance produces and is no part of it.
+The owner's direction for the shape across families, verbatim: "tooling agnostic policy, strict
+universal contracts, tooling specific implementations where a universal approach is not
+efficient or appropriate".
+
+The scopes below are the layers read along the owner's scope axis: Practice-wide is the general
+layer; language-wide is the family layer; repo-local authored and rendered are the contextual
+layer; repo-local instances are the accumulated layer; repo-local host is not the Practice;
+machine-local is contextual. The axis adds one distinction the layers need.
 
 ### 1. The scopes, in the owner's words
 
@@ -258,3 +288,39 @@ installed-in-itself decision, §4's committed and checked render, and §5 stand 
 **Falsifier.** A reader applying §3 or §4 needs one of the moved passages to know what is decided,
 or the design node is authored without them: then the trim cut a decision, not planning, and the
 passage returns here with this log saying so.
+
+### 2026-10-04 — the definition ratified as canonical; the family layer added; the owner's words of 2026-10-03
+
+**Context.** Two days of aligning the two estates' Practice instances by bytes ended at the owner's
+word of 2026-10-03, heard first-hand by the Director seat Crucible binds Slag (7b999c), verbatim:
+"there are two estates with one system of development and value provision and contracts and
+authority and so on, and that system currently has divergences that we are trying to resolve."
+And: "There is the Practice in general, the Practice in a context, and the ephemeral state and
+memory and records that the Practice accumulates over time in a context and _learns from_. There
+is the learning loop itself. I don't think we have a definition of what the Practice is." The
+review that followed read both estates side by side from what runs (scripts, hooks, workflows,
+configuration, the Practice directory, the tooling, the records) and derived the layers from the
+reading; on 2026-10-04 the owner added the family layer ("between the general Practice and a
+contextual instance in a repo, there is the repo tooling family, e.g. Typescript, Python, Rust,
+each family has conventions, for instance I would expect all Typescript family repos to have the
+same package.json scripts, at least for Practice operations, which includes all quality gates")
+and a Python-family instance confirmed it. The review is the report
+`practice-system-review-2026-10` under the agentic-engineering reports of each estate.
+
+**Decision.** The definition in §Decision is the owner's, ratified 2026-10-04 by card answer
+("Ratify as canonical"); the status reads Accepted. The seven scopes of §1 stand, read as the five
+layers. Six placements the review found are decided with the owner's words recorded in the
+report: patterns are general-layer content and a core part of the memory loop, each to be placed
+in a layer, with their reachability from rules, directives, skills and records the measure of
+their value; the Core changelog is Core text, its two copies merged; the fourteen
+reviewer-invocation rules become one rule and a roster table in every instance; one CI shape
+(the fan-in) per family; the implementation of the Practice's own runtime across families is the
+extraction's first design question, under the direction quoted in §Decision; the family layer's
+falsifier was met. The open question the owner named for another day stands as §3's successor:
+how learning feeds from a repository's operations into its local Practice and then the central
+one.
+
+**Falsifier.** A mechanism both estates rely on that fits no layer or two, found by a seat
+applying the definition and not placed by a decision within the next review; or a repository of
+a family whose Practice-operation scripts the family's contract cannot name. One such instance
+reopens this entry with the owner, and this log says so.
