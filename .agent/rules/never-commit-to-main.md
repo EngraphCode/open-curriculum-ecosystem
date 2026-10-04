@@ -45,10 +45,12 @@ pull request to resolve.
 Mechanical for every commit-creating or ref-rewriting path git exposes a
 usable hook for; the shared guard `.husky/refuse-commit-on-main.sh` is
 sourced by five hooks, each covering the path git actually routes it
-through. The guard refuses `main` and `master` by name, in any case, and the
-default branch `refs/remotes/origin/HEAD` names, so a repository whose
+through. OCE's guard refuses `main` and `master` by name, in any case, and
+the default branch `refs/remotes/origin/HEAD` names, so a repository whose
 default branch has another name is guarded too while `origin/HEAD` is set
-(`git clone` sets it; `git remote set-head origin --auto` restores it):
+(`git clone` sets it; `git remote set-head origin --auto` restores it);
+jimcresswell.net's guard refuses `main` by name and takes that form at the
+parity queue's code landing:
 
 - `pre-commit` — plain `git commit` and `git commit --amend`;
 - `pre-merge-commit` — clean merges, including a reflexive `git pull` on a
@@ -75,7 +77,7 @@ a fast-forward merge (a ref update, no commit created — and `git pull` on
 distinguish the sanctioned case), a
 fresh clone before `pnpm install` wires `core.hooksPath`, and a clone with no
 `origin/HEAD` (an `-o upstream` clone, or `git init` plus `remote add`), which
-the two names alone guard. Remote branch
+the literal names alone guard. Remote branch
 protection (pull requests required, non-fast-forward pushes blocked) is the
 invariant that holds regardless; the guards are local hygiene that fails
 fast.

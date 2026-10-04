@@ -12,8 +12,9 @@ Any single item below is an **immediate fail** — the test is rejected
 without further analysis. This is the fast gate test-expert applies
 first; tests that pass it then receive the full checklist.
 
-Rooted in `.agent/directives/testing-strategy.md` and
-[ADR-078](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md).
+Rooted in `.agent/directives/testing-strategy.md` (the dependency-injection
+pattern is in `docs/engineering/testing-patterns.md` §In-Process Tests with
+Dependency Injection).
 Violations indicate product-code design problems, not test-authorship
 problems — the fix is usually at the product-code level (expose a
 seam, extract a pure function, inject a dependency).
@@ -61,9 +62,8 @@ seam, extract a pure function, inject a dependency).
    test as imported modules or as literal values (a seat's reading from
    the 2026-09-19 directive pass, ratified by the owner's card of
    2026-09-20: "Yes, no disk reads"). A fixture-reading
-   `test-helpers/` module (the two worked instances are
-   `agent-tools/tests/mcp-conformance/test-helpers/fixture-loader.ts` and
-   the sdk-codegen `schema-cache-reader.ts`)
+   `test-helpers/` module (OCE's two worked instances were a
+   conformance-suite fixture loader and a codegen schema-cache reader)
    is a defect under this item; existing code is evidence of the
    estate and carries no approval
    ([PDR-091](../practice-core/decision-records/PDR-091-precedence-is-not-approval.md)).
@@ -85,9 +85,9 @@ seam, extract a pure function, inject a dependency).
    separately running system is an E2E check, a validation surface.
    Code imported into the test process is proven at the handler
    seam, called directly: a harness's loopback listener is a socket.
-   Where network reach lives (the
-   deploy pipeline, validation checks, operator context) is
-   [ADR-161](../../docs/architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md)'s.
+   Network reach lives in validation checks run by CI-gated tasks, the
+   deploy pipeline and operator context; never in a test (OCE records
+   that boundary as its ADR-161, the network-free PR-check CI boundary).
 
 ## Mock/Stub Immediate Fails
 
@@ -195,7 +195,7 @@ The test-expert flags the symptom. The fix is usually upstream.
   on `process.env` reads/writes, `vi.stubGlobal`, `vi.mock`,
   `vi.doMock`, `vi.useFakeTimers` and `vi.setSystemTime`.
 - `.agent/directives/testing-strategy.md` §Rules — the skip-mechanism
-  prohibition (no-skipped-tests bullet).
+  prohibition (the **No skipped tests** bullet).
 - `.agent/rules/no-conditional-tests.md` — prohibition on conditional
   execution and the architectural-failure diagnosis.
 - `.agent/directives/testing-strategy.md` — full authoritative

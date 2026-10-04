@@ -2,6 +2,7 @@
 name: "An Observer Must See the Terminal State of What It Observes"
 polarity: pattern
 category: agent-operations
+layer: general
 status: active
 use_this_when: "Designing or arming any watcher, monitor, poll loop, or wait — a PR watch, a CI waiter, a job poller, a peer-liveness probe — especially one that reports progress by emitting on change."
 proven_in: "PR #878 watch, 2026-08-13: a watcher tracking reviewDecision, mergeStateStatus, reviews, threads, checks and head SHA — but not `state` — reported a merged PR as pending for ~30 minutes while emitting change events throughout."

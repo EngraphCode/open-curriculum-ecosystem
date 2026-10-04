@@ -21,7 +21,7 @@ day or any second coordination-shaped branch.
 
 - **Every work branch is short-lived and single-ticket**: created from current
   `main` — or, for a build-ahead lane only, from the parent lane branch it
-  builds on, the one start point this rule admits (below) — carrying one Linear-ticketed atomic change (small diff, few commits),
+  builds on, the one start point this rule admits (below) — carrying one ticketed atomic change (small diff, few commits),
   PR'd to `main`, merged or closed within hours — never days. If work outgrows
   the ticket, STOP and split; never let the branch absorb a second story.
 - **`main` is the target of every PR.** No branch targets another branch; no
@@ -79,7 +79,8 @@ metrics, ticket-first) is the standing cure this rule pins.
 ## Enforcement
 
 Behavioural at branch/PR creation, plus mechanical layers as they land:
-AIP-128 (Linear-ID branch gate in the shared hooks), AIP-129 (`pr-contract`
-required CI status: ticket link + size bounds). The stray-code register
-pattern (`.agent/reports/agentic-engineering/stray-code-register-2026-07-16.md`)
+a ticket-ID branch gate in the shared hooks and a `pr-contract` required CI
+status (ticket link + size bounds) as they land (OCE's means-home for the two
+is its tickets AIP-128 and AIP-129). The stray-code register
+pattern (OCE, 2026-07-16)
 is the audit shape when drift is suspected: enumerate, commit, PR, adjudicate.

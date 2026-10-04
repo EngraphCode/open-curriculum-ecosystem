@@ -3,6 +3,7 @@ name: "Test Coverage Review Lens"
 polarity: pattern
 use_this_when: "Reviewing the test surface around a product feature — auditing an `.e2e.test.ts` or `.integration.test.ts` file, triaging a flaky test suite, or deciding what coverage to keep when collapsing a feature's tests after refactor"
 category: testing
+layer: general
 proven_in: "apps/oak-curriculum-mcp-streamable-http/e2e-tests/get-curriculum-model.e2e.test.ts and public-resource-auth-bypass.e2e.test.ts — 18 tests across 2 files reviewed against the lens; 17 deletable or demote-to-unit, root cause of cross-test flake surfaced as a by-product (tests booting full app to prove pure-function decisions)."
 proven_date: 2026-05-17
 barrier:
@@ -125,4 +126,4 @@ coverage exists, when shape and accumulation need auditing.
 - [`test-complexity-signals-wrong-level.md`](test-complexity-signals-wrong-level.md) — sibling: complexity in test infrastructure as a level-wrong signal.
 - [`test-claim-assertion-parity.md`](test-claim-assertion-parity.md) — sibling: tests must assert what they claim.
 - [`testing-strategy.md`](../../../directives/testing-strategy.md) — authoritative doctrine the lens enforces.
-- [ADR-078](../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md) — DI rationale the lens leans on at Q4.
+- ADR-078 (`078-dependency-injection-for-testability.md`, a file OCE holds) — DI rationale the lens leans on at Q4.

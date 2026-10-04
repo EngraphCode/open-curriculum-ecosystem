@@ -62,9 +62,10 @@ check-in cadence reads the DUE clock at each check-in as well.
    day-stamped branch tree-preservingly (`git switch -c`) from the merged
    tip and push it. Broadcast the rotation on the comms stream so every
    seat re-homes. **The fold PR body and the seated block each carry
-   one product-gravity line** — `moved for teachers: … / moved for the
-   Practice: …` — naming what the fold's window delivered on each
-   strand. No quota and no judgment in the line itself; it exists so
+   one product-gravity line** — `moved for <the product's people>: … /
+   moved for the Practice: …`, the product word the host's (jimcresswell.net
+   writes `the sites`, OCE `teachers`) — naming what the fold's window
+   delivered on each strand. No quota and no judgment in the line itself; it exists so
    drift toward Practice-internal work is glanceable in the record
    rather than caught by owner vigilance (owner-agreed step-back,
    2026-08-01).

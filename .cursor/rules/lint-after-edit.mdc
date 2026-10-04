@@ -1,6 +1,5 @@
 ---
-description: After editing TypeScript files, check lint for file/function length violations.
-globs: '**/*.ts'
+description: Run check and required follow-up proofs after edits
 alwaysApply: false
 ---
 

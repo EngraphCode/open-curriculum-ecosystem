@@ -13,7 +13,7 @@ you are about to author). If any clause fails, surface the mismatch to the owner
 before writing code or doctrine.
 
 The stakes, from a worked failure (2026-07-26, owner-named as a discipline
-signal): ADR-217 §1 recorded no-hydration as a decided state although it
+signal, OCE): an ADR recorded no-hydration as a decided state although it
 contradicted the owner's standing Full-React requirement, survived four
 reviewer passes AND ratification, and was then cited back to the owner as
 authority for the contradiction. A decided-state that contradicts standing
@@ -22,7 +22,7 @@ downstream are goal-blind and will polish the wrong decision rather than
 catch it.
 
 1. **Shape clause.** Is the test-shape (or implementation-shape, or doctrine-
-   shape) right for the **Oak-authored behaviour** being proven, or is it a
+   shape) right for the **repo-authored behaviour** being proven, or is it a
    vendor / configuration / framework assertion in disguise? If the shape
    proves "the vendor did its job" or "the config is set", the shape is wrong.
 2. **Landing-path clause.** Does the file naming carry a tooling contract

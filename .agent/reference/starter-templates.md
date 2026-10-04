@@ -1,13 +1,16 @@
 # Starter Templates
 
-Ready-to-use templates for the three essential reviewer agents. Adapt
-these to your project's specific standards, ADRs, and conventions.
+Ready-to-use templates for the code, test and architecture reviewers.
+Adapt these to your project's specific standards, ADRs, and conventions.
 
-These are the minimum viable set for a functioning reviewer system. The
-architecture they instantiate is
+Together they are the minimum viable set for a functioning reviewer
+system. The architecture they instantiate is
 [PDR-009](../practice-core/decision-records/PDR-009-canonical-first-cross-platform-architecture.md)
-(canonical templates, platform adapters); the layers and their rules are in
-[`.agent/sub-agents/README.md`](../sub-agents/README.md).
+(canonical templates, platform adapters); the layers, their rules and the
+frontmatter declaration every template carries are in
+[`.agent/sub-agents/README.md`](../sub-agents/README.md), and
+`.agent/memory/executive/invoke-code-experts.md` routes each change to its
+reviewers.
 
 ---
 
@@ -19,6 +22,10 @@ specialists are needed.
 ### Template: `.agent/sub-agents/templates/code-expert.md`
 
 ````markdown
+---
+description: Gateway code reviewer for quality, correctness and maintainability. Use immediately after any code is written or modified; triages to specialist reviewers.
+---
+
 ## Delegation Triggers
 
 Invoke this agent after any code is written or modified. The
@@ -56,7 +63,7 @@ accurate feedback on code changes.
 **Mode**: Observe, analyse and report. Do not modify code unless
 explicitly requested.
 
-**DRY and YAGNI**: Read and apply
+**Sub-agent Principles**: Read and apply
 `.agent/sub-agents/components/principles/subagent-principles.md`.
 
 ## Reading Requirements (MANDATORY)
@@ -69,7 +76,7 @@ Before reviewing any code, you MUST also read and internalise:
 | Document | Purpose |
 |----------|---------|
 | `.agent/directives/principles.md` | Core project rules and quality expectations |
-| `.agent/sub-agents/components/principles/subagent-principles.md` | DRY and YAGNI guardrails |
+| `.agent/sub-agents/components/principles/subagent-principles.md` | Reviewer mandate: should this code exist |
 
 <!-- ADD YOUR PROJECT'S TESTING STRATEGY AND OTHER KEY DOCS HERE -->
 
@@ -202,6 +209,10 @@ Enforces TDD discipline, naming conventions, and mock simplicity.
 ### Template: `.agent/sub-agents/templates/test-expert.md`
 
 ````markdown
+---
+description: Test quality and TDD compliance reviewer. Use when test files are written or modified, or when TDD evidence is needed.
+---
+
 ## Delegation Triggers
 
 Invoke this agent when writing or modifying test files, when auditing
@@ -218,7 +229,7 @@ prove product behaviour.
 
 **Mode**: Observe, analyse and report. Do not modify code.
 
-**DRY and YAGNI**: Read and apply
+**Sub-agent Principles**: Read and apply
 `.agent/sub-agents/components/principles/subagent-principles.md`.
 
 ## Reading Requirements (MANDATORY)
@@ -308,24 +319,29 @@ This agent reviews test quality. It does NOT:
 
 ## 3. Architecture Reviewer Template
 
-Shared by all persona variants. Guards structural integrity.
+The structural reviewer. Guards structural integrity across modules.
+The four persona lenses (section 5) are variants of it; a host may also
+bind each persona to a lane of its own surfaces, with its own template
+(section 5 gives the shape).
 
 ### Template: `.agent/sub-agents/templates/architecture-expert.md`
 
 ````markdown
+---
+description: Structural architecture reviewer for module structure, import direction, workspace boundaries and dependency injection. Invoke the persona for the lens or lane a change touches as well.
+---
+
 ## Delegation Triggers
 
-Invoke an architecture reviewer when a change touches module
-structure, import direction, workspace boundaries, dependency
-injection patterns, or any decision with long-term architectural
-consequence.
+Invoke this reviewer when a change touches module structure, import
+direction, workspace boundaries, dependency injection patterns, or any
+decision with long-term architectural consequence. Invoke the persona
+for the lens or lane the change touches as well.
 
 ### Persona Selection
 
-- **Barney**: Simplification and boundary cartography
-- **Betty**: Cohesion, coupling, and change-cost trade-offs
-- **Fred**: Strict ADR compliance and boundary discipline
-- **Wilma**: Adversarial resilience and failure-mode testing
+The four lenses, and the lanes a host binds them to, are set out in
+`.agent/sub-agents/components/architecture/reviewer-team.md`.
 
 ---
 
@@ -339,7 +355,7 @@ not short-term convenience.
 
 **Mode**: Observe, analyse and report. Do not modify code.
 
-**DRY and YAGNI**: Read and apply
+**Sub-agent Principles**: Read and apply
 `.agent/sub-agents/components/principles/subagent-principles.md`.
 
 ## Reading Requirements (MANDATORY)
@@ -350,8 +366,8 @@ Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
 | Document | Purpose |
 |----------|---------|
 | `.agent/directives/principles.md` | Core project rules |
-| `.agent/sub-agents/components/principles/subagent-principles.md` | DRY/YAGNI guardrails |
-| `.agent/sub-agents/components/architecture/reviewer-team.md` | Team perspectives |
+| `.agent/sub-agents/components/principles/subagent-principles.md` | Reviewer mandate: should this code exist |
+| `.agent/sub-agents/components/architecture/reviewer-team.md` | The structural reviewer and the persona lenses or lanes |
 
 <!-- ADD YOUR PROJECT'S ARCHITECTURE DOCS AND ADR INDEX HERE -->
 
@@ -363,10 +379,11 @@ Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
 2. Determine the nature of the change
 3. Note any cross-module implications
 
-### Step 2: Apply Your Persona Lens
+### Step 2: Apply the Persona Lens; Name the Lanes the Change Touches
 
-Read `.agent/sub-agents/components/architecture/reviewer-team.md`
-and apply your specific perspective.
+Read `.agent/sub-agents/components/architecture/reviewer-team.md`. Apply
+your own persona lens where you run as a variant; where the host binds
+lanes, recommend by name the persona for each lane the change touches.
 
 ### Step 3: Assess Against Architectural Constraints
 
@@ -442,65 +459,134 @@ This agent reviews architecture. It does NOT:
 
 ## 4. Shared Components
 
-These are universal; the live files are under `.agent/sub-agents/components/` and
-each pointer below names one.
+These are universal; the live files are under `.agent/sub-agents/components/`
+and each pointer below names one. The templates above read them, so a copy
+here would drift the day it changes.
 
 ### `components/behaviours/subagent-identity.md`
 
-The live file is [`components/behaviours/subagent-identity.md`](../sub-agents/components/behaviours/subagent-identity.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is
+[`components/behaviours/subagent-identity.md`](../sub-agents/components/behaviours/subagent-identity.md):
+the three-line identity declaration every reviewer opens its first response
+with.
 
 ### `components/behaviours/reading-discipline.md`
 
-The live file is [`components/behaviours/reading-discipline.md`](../sub-agents/components/behaviours/reading-discipline.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is
+[`components/behaviours/reading-discipline.md`](../sub-agents/components/behaviours/reading-discipline.md):
+the universal reading requirements every reviewer reads before its own.
 
 ### `components/principles/subagent-principles.md`
 
-The live file is [`components/principles/subagent-principles.md`](../sub-agents/components/principles/subagent-principles.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is
+[`components/principles/subagent-principles.md`](../sub-agents/components/principles/subagent-principles.md):
+the reviewer mandate — whether the code should exist, whether it is
+idiomatic, and whether an off-the-shelf solution does the job.
 
 ### `components/architecture/reviewer-team.md`
 
-The live file is [`components/architecture/reviewer-team.md`](../sub-agents/components/architecture/reviewer-team.md); the templates above read it, so a copy
-here would drift the day it changes.
+The live file is
+[`components/architecture/reviewer-team.md`](../sub-agents/components/architecture/reviewer-team.md):
+the structural reviewer, the four persona lenses, and the lanes this host
+binds them to, so each reviewer can hand a finding to the right colleague.
+When a finding falls in another reviewer's lens or lane, the reviewer
+explicitly recommends a follow-up review from that reviewer by name.
 
 ---
 
 ## 5. Persona Components
 
-One file per persona. Keep them short — the personality, not the process.
+The four personas are generic lenses over one shared brief, one file per
+persona; keep them short — the personality, not the process. The
+architecture-expert definitions generated from the template above direct
+the reviewer to read its persona file, so a copy here would drift the day
+it changes:
 
-### `components/personas/barney.md`
+- Barney —
+  [`components/personas/barney.md`](../sub-agents/components/personas/barney.md):
+  simplification-first and cartographic
+- Betty —
+  [`components/personas/betty.md`](../sub-agents/components/personas/betty.md):
+  systems-thinking and trade-off aware
+- Fred —
+  [`components/personas/fred.md`](../sub-agents/components/personas/fred.md):
+  principles-first tough love
+- Wilma —
+  [`components/personas/wilma.md`](../sub-agents/components/personas/wilma.md):
+  candid and adversarial in service of reliability
 
-The live file is [`components/personas/barney.md`](../sub-agents/components/personas/barney.md); the four
-architecture-expert definitions generated from the template above direct the reviewer
-to read it, so a copy here would drift the day it changes.
+A host may also bind each persona to one lane of its own surfaces, as a
+separate reviewer with its own template, adapters and trigger. The team
+component names every lane, and the host's reviewer catalogue section
+(`invoke-code-experts.md` §This host's reviewers and triggers) carries the
+triggers. A lane-bound template takes this shape:
 
-### `components/personas/fred.md`
+### Template: `.agent/sub-agents/templates/architecture-expert-<persona>.md`
 
-The live file is [`components/personas/fred.md`](../sub-agents/components/personas/fred.md); the four
-architecture-expert definitions generated from the template above direct the reviewer
-to read it, so a copy here would drift the day it changes.
+One template per persona, each naming its own lane.
 
-### `components/personas/betty.md`
+````markdown
+---
+description: Architecture reviewer <Persona> covering <lane>.
+---
 
-The live file is [`components/personas/betty.md`](../sub-agents/components/personas/betty.md); the four
-architecture-expert definitions generated from the template above direct the reviewer
-to read it, so a copy here would drift the day it changes.
+# Architecture Reviewer — <Persona>
 
-### `components/personas/wilma.md`
+You are <Persona>, the <lane> architect.
 
-The live file is [`components/personas/wilma.md`](../sub-agents/components/personas/wilma.md); the four
-architecture-expert definitions generated from the template above direct the reviewer
-to read it, so a copy here would drift the day it changes.
+**Mode**: Observe, analyse and report. Do not modify code.
+
+Read and apply `.agent/sub-agents/components/behaviours/reading-discipline.md`.
+Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
+Read and apply `.agent/sub-agents/components/personas/<persona>.md`.
+
+## Identity
+
+Name: architecture-expert-<persona>
+Purpose: Review <lane>.
+Summary: Reviews <the surfaces this lane covers>.
+
+## Reading Requirements (MANDATORY)
+
+<!-- ADD THE DECISION RECORDS FOR THIS LANE HERE -->
+
+## When Invoked
+
+1. Identify the changes that fall in this lane.
+2. Check each against the lane's decision records.
+3. Report each finding with its file, line, impact and fix.
+4. Recommend `architecture-expert` or another persona by name for
+   findings outside this lane.
+
+## Output Format
+
+```text
+## Architecture Review — <Persona>
+
+**Scope**: [Files reviewed]
+**Verdict**: [APPROVED / CHANGES REQUESTED]
+
+### Findings
+
+1. **[File:Line]** - [Issue]
+   - Impact: [Why it matters]
+   - Fix: [How to resolve]
+
+### Other Lanes
+
+- [Reviewer to recommend by name, and why]
+```
+````
 
 ---
 
 ## 6. Sub-Agent README
 
 The live file is [`.agent/sub-agents/README.md`](../sub-agents/README.md): the
-layers, the dependency rules and the template consistency checklist.
+layers, the dependency rules and the template consistency checklist. Its
+§Declarations gives the frontmatter declaration every template carries, which
+`pnpm portability:fix` reads to generate the adapters, and its §Template
+Consistency Checklist is the gate for every template change.
 
 ---
 
@@ -511,10 +597,23 @@ into your repo (each pointer above names its file, so the copied set
 resolves there as it does here):
 
 - [ ] Adapt the code-expert checklist to your project's standards
-- [ ] Replace `<!-- ADD YOUR ... -->` comments with your actual doc paths
+- [ ] Replace every `<!-- ... -->` placeholder and every `<...>` token
+      with your project's values
 - [ ] Set up the import direction rules for your module structure
-- [ ] Create Claude wrappers in `.claude/agents/`
-- [ ] Create Cursor wrappers in `.cursor/agents/`
-- [ ] (Optional) Create Gemini commands in `.gemini/commands/`
-- [ ] Run `pnpm portability:check` to validate
+- [ ] Decide whether the four personas run as lenses alone or also bind
+      to lanes of your surfaces; name any lanes in the team component and
+      give each lane-bound persona its own template
+- [ ] Give every template a frontmatter declaration (`description` at
+      minimum; `.agent/sub-agents/README.md` §Declarations gives the
+      shape)
+- [ ] Register each reviewer's trigger in
+      `.agent/memory/executive/invoke-code-experts.md` §This host's
+      reviewers and triggers, and add it to the roster in
+      `.agent/practice-index.md` §Experts
+- [ ] Create `.codex/config.toml` (an empty file is enough); the
+      generator keeps any project settings at its head and writes the
+      agent registrations after them
+- [ ] Generate the platform adapters and the rule projections with
+      `pnpm portability:fix`
+- [ ] Run `pnpm portability:check` and `pnpm subagents:check` to validate
 - [ ] Add the code-expert to your "after every change" workflow

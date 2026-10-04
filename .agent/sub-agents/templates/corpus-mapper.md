@@ -4,11 +4,6 @@ platforms:
   - cursor
   - claude
   - codex
-claude:
-  tools: Read
-  disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch, Glob, Grep, ReportFindings
-  maxTurns: 16
-  body: system-prompt
 cursor:
   description: Read-only leaf-signal extractor for the corpus-analysis map workflow stage. Dispatched by a corpus-analysis orchestrator, one agent per time-contiguous corpus window; never invoke for interactive delegation. Reads one window's corpus files in full and answers only through the schema-forced structured output call.
   note: |-
@@ -17,6 +12,11 @@ cursor:
     corpus files and carries the full task instructions; read only the named
     files, extract the specified leaf signals, and answer with the single
     required structured output call.
+claude:
+  tools: Read
+  disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch, Glob, Grep, ReportFindings
+  maxTurns: 16
+  body: system-prompt
 codex:
   description: Read-only leaf-signal extractor for the corpus-analysis map workflow stage; one agent per corpus window, answering only via the schema-forced structured output.
   note: |-
@@ -28,13 +28,14 @@ codex:
     answer with the single required structured output call. Do not modify
     anything.
 ---
-
 # Corpus Mapper: Read-Only Leaf-Signal Extractor
 
 Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
 `.claude/agents/corpus-mapper.md` (carries the System prompt block verbatim), the
-Cursor wrapper `.cursor/agents/corpus-mapper.md`, and the Codex adapter
-`.codex/agents/corpus-mapper.toml` (both load this template).
+Cursor wrapper `.cursor/agents/corpus-mapper.md`, the Codex adapter
+`.codex/agents/corpus-mapper.toml` and the Gemini adapter
+`.gemini/agents/corpus-mapper.md` (the last three load this template). All four are
+generated from the declaration above by `pnpm portability:fix`.
 
 ## Purpose
 
@@ -51,8 +52,9 @@ window that returns empty.
 Read and apply `.agent/sub-agents/components/behaviours/reading-discipline.md`.
 Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
 
-These fire where the platform variant loads this template (the Cursor wrapper
-and the Codex adapter). The Claude wrapper deliberately does not load it: its
+These fire where the platform variant loads this template (the Cursor wrapper,
+the Codex adapter and the Gemini adapter). The Claude wrapper deliberately does
+not load it: its
 dispatch carries the System prompt block verbatim so the stage spends its
 turns on corpus reads, not grounding reads — every dispatch supplies the
 complete task inputs.

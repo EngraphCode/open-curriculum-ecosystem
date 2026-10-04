@@ -1,6 +1,6 @@
 ---
 name: config-expert
-description: 'Expert at reviewing tooling configurations (ESLint, TypeScript, Vitest, Prettier, Turbo). Use proactively when changing configs, adding workspaces, or auditing quality gates. Invoke immediately after config file modifications.'
+description: "Expert at reviewing tooling configurations (TypeScript, ESLint, Vitest, Prettier, markdownlint, Turbo, knip, dependency-cruiser, Husky, pnpm scripts and each workspace's framework and end-to-end runner configuration). Use proactively when changing configs, adding workspaces, or auditing quality gates. Invoke immediately after config file modifications."
 readonly: true
 ---
 

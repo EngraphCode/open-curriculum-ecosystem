@@ -2,7 +2,7 @@
 
 **Status**: Accepted (owner-commissioned fast-lane 2026-07-20; the owner's
 framing: the shaping principle must reach work at planning time, because at
-PR time "that is too late to plan work"; amended 2026-09-24 and 2026-09-26 — see
+PR time "that is too late to plan work"; amended 2026-09-14 and 2026-09-26 — see
 Amendment Log).
 
 ## Context
@@ -134,17 +134,27 @@ amendment.
 
 ## Amendment Log
 
-### 2026-09-24 — the number of review rounds per pull request does not go up
+### 2026-09-14 — the number of review rounds per pull request does not go up
 
-Brought from the second estate's Practice through the inter-Practice exchange (PDR-125),
-where the owner's word of 2026-09-14 made the two-round budget an operating rule. §Decision
-item 1 gained the same-turn disposition after round two and the doors a further push opens
-through.
+Owner word (2026-09-14, 15:15Z, spoken to the Director in chat; the closure
+record's item 100 records it as "the number of review rounds per pull request
+does not go up"), as the Director carried it to the Implementer seat: "I don't
+want the number of rounds of PRs to go up." Applied from the next pull request
+on (2b-ii slice A1, pull request #81; the closure record's item 100): the
+two-round budget of Decision 1 binds as written; after round
+two every remaining finding is dispositioned in the same slot turn as the last
+push — a trivial cure rides that push; everything else is a signed Rejected
+line carrying its rationale or its routed home; a round three is a Director
+call on a correctness defect only. The slice size the closure measured over
+sixteen pull requests (about eight claims per slice, the closure record's
+item 92) stands as an operating default and changes no threshold in
+Decision 2 (owner card, 2026-09-14, about 15:20Z: "the item 92 sizing stands as
+an operating default with no PDR-132 text change").
 
 ### 2026-09-26 — a pull request's flat cost puts the optimum slice above one line
 
-Owner word (2026-09-26, to the Director, after merging thirteen small pull requests in the
-lineage by hand in fifteen minutes), verbatim: "Perhaps we need to update our cost model for
+Owner word (2026-09-26, to the Director, after merging thirteen small pull requests in OCE
+by hand in fifteen minutes), verbatim: "Perhaps we need to update our cost model for
 PRs, there are flat costs that dominate for tiny PRs, and while complexity based cost rises
 exponetially with complexity, the fixed cost suggests that there is an optimum in the effort to
 value curve that is well above a single line change". The Director's ruling of the same hour

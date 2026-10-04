@@ -128,7 +128,7 @@ opens a PR, is a hygiene violation to resolve.
 ### 4. Update onto `main` before ready; semantic-merge memory by hand
 
 Before a PR goes ready, bring its branch up to date with `main` (it must not merge
-stale — ADR-204 require-up-to-date). When the update touches agent memory/state files
+stale — branch protection requires up-to-date). When the update touches agent memory/state files
 (`napkin.md`, `repo-continuity.md`, thread records, registers), do NOT let git
 line-merge them: a git auto-merge silently corrupts concept-bearing files
 (drops/duplicates/stacks entries, often with no conflict marker). Author the union by
@@ -422,9 +422,9 @@ holding a worktree.
   removal is gated and content-verified; deletion never removes unpreserved work.
 - [`semantic-merge` skill](../skills/change-custody/semantic-merge/SKILL-CANONICAL.md) — the
   concept-union discipline for memory/state files at branch→main.
-- [ADR-197 (coordination-home checkout owns shared registry state)](../../docs/architecture/architectural-decisions/197-coordination-home-owns-registry-state.md)
-  — the accepted decision that one checkout owns `.agent/state/collaboration/` and feature
-  branches do not carry it; the basis for the cross-worktree-visibility and memory-merge clauses.
+- The coordination-home checkout owns `.agent/state/collaboration/` and feature
+  branches do not carry it ([`.agent/state/README.md`](../state/README.md)); the basis for the
+  cross-worktree-visibility and memory-merge clauses.
 - The cross-worktree work-state map at the F-41 coordination home
   (`.agent/state/collaboration/`) — the visibility substrate; its planned durable form is
   the agent-work-state registry (F-98).

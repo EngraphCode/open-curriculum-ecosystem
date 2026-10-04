@@ -26,8 +26,8 @@ by that gate regardless of this aggregate.
 
 ## Source and provenance
 
-- Primary source: the WS2 corpus survey
-  [`2026-06-12-ws2-corpus-survey.md`](../reports/agentic-engineering/2026-06-12-ws2-corpus-survey.md),
+- Primary source: the WS2 corpus survey (an OCE report of 2026-06-12, in that
+  estate's `.agent/reports/agentic-engineering/`),
   §"Liveness substrate statistics", §"Convention-emergence timeline", and the
   cross-section figures (first-hand verified during WS2).
 - Volume figures refreshed first-hand 2026-06-14 by `jq` over the live corpus

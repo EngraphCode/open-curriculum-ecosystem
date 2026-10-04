@@ -5,7 +5,7 @@ description: Canonical documentation hygiene (misleading-doc detection, attribut
 
 # Documentation Hygiene
 
-Operationalises [ADR-127 (Documentation as Foundational Infrastructure)](../../docs/architecture/architectural-decisions/127-documentation-as-foundational-infrastructure.md)
+Operationalises [PDR-023 (Documentation Structure Discipline)](../practice-core/decision-records/PDR-023-documentation-structure-discipline.md)
 and the **Misleading docs are blocking** principle in
 [`.agent/directives/principles.md` § Code Quality](../directives/principles.md).
 
@@ -86,10 +86,13 @@ never a personal email in the document body.
 
 Per [`.agent/directives/principles.md` § Document Everywhere](../directives/principles.md):
 public functions, types, and modules carry TSDoc explaining intent,
-contract, and trade-offs. Canonical TSDoc syntax and style rules live
-in that section of `principles.md` — this rule does not duplicate the
-syntax reference; it operationalises the *presence* expectation as a
-gate at edit time.
+contract, and trade-offs, and non-trivial internal logic is documented
+too. Canonical TSDoc syntax and style rules live in that section of
+`principles.md` — this rule does not duplicate the syntax reference; it
+operationalises the *presence* expectation as a gate at edit time. When
+tooling, rules or behaviour change, the contract docs that describe them
+(READMEs, the tooling reference, the rule and skill indexes) are updated
+in the same landing.
 
 ## 4. Doctrine includes rationale
 
@@ -118,7 +121,8 @@ A stable fact about how the system is built now (which surface owns which
 data, where a boundary sits, what derives from what) lives in the permanent
 architecture docs (`docs/architecture/`, the relevant ADR), never only in a
 plan, an audit or a report: on 2026-03-09 the site's split-ownership truth
-lived in an audit until it was moved. When the architecture moves on, the
+lived in an audit until it was moved. Permanent documentation uses canonical
+names and never depends on an ephemeral plan file. When the architecture moves on, the
 historical ADR stays accepted and gains a short clarification note pointing
 at the record that supersedes the detail; the ADR is never rewritten to the
 new truth. And when a source-of-truth boundary lands (a field renamed, a

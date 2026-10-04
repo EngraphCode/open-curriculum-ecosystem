@@ -1,6 +1,0 @@
----
-description: Apply start-right skills at session start and re-grounding checkpoints.
-alwaysApply: true
----
-
-Read and follow `.agent/rules/use-start-right-skills.md`.

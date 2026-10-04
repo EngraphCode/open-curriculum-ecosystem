@@ -23,7 +23,7 @@ Directive files (the canonical entry points and operative rules an
 agent reads at every session open) are deep, dense, and structurally
 load-bearing. In this Practice they live under `.agent/directives/`
 (`AGENT.md`, `principles.md`, `tdd-as-design.md`, `testing-strategy.md`,
-`schema-first-execution.md`, `orientation.md`, etc.). Other Practice-
+`orientation.md`, etc.). Other Practice-
 bearing repos have analogous surfaces under their host equivalents.
 
 A directive file edit lands at the apex of the doctrine staircase. A

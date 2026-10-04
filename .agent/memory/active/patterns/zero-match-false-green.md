@@ -3,6 +3,7 @@ name: "Zero-Match False-Green"
 polarity: anti-pattern
 use_this_when: "Reading success from any filtered or glob-scoped tool run — a targeted test filter, a path-scoped linter, a sweep over a file set — without confirming the filter actually matched the intended targets."
 category: build-system
+layer: general
 proven_in: "Discovery-run rescued candidates C35 and C47 (2026-07-02 salvage): a targeted vitest path/name filter silently expanded to the full workspace run and reported green with zero tests matched; markdownlint-cli without --dot matched ZERO files under dot-directory paths (.agent/), printed usage, exited 0 — voiding every prior targeted .agent/** markdownlint pass."
 proven_date: 2026-07-02
 barrier:

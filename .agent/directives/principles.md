@@ -81,6 +81,11 @@ Always apply the first question; **Ask: could it be simpler *without
 compromising quality or value*?**. The answer will often be no, that is fine,
 but bring real critical thinking to the question each time.
 
+- **Trace work to value** — Every non-trivial piece of work must be traceable to a defined
+  outcome, the impact that outcome is meant to create, and the mechanism by which that impact
+  creates value. If you cannot state all three clearly, stop and reframe before planning or
+  implementation.
+
 ### Ends Before Means, Front of Chain First
 
 The what, the why, and the why-now are established in CONVERSATION with the
@@ -290,9 +295,8 @@ dependency. Both directions stay falsifiable by measured cost. Which
 canonical form is adopted is a different question from where an owned
 implementation originates, and for algorithm and data-structure
 foundations the owner decided the second for the whole class
-(owner-directed 2026-09-08,
-[ADR-230](../../docs/architecture/architectural-decisions/230-own-built-algorithm-and-data-structure-foundations.md);
-scope confirmed 2026-09-09 as that class, not the estate): "select the
+(owner-directed 2026-09-08, recorded in OCE's own-built-foundations
+decision; scope confirmed 2026-09-09 as that class, not the estate): "select the
 best, permissively licenced libraries, and use their code as inspiration
 to create Reliable Atoms and composition layers tailored to our needs and
 created to our deliberately very high quality standards" — the estate
@@ -301,7 +305,7 @@ named Capability Foundations (the owner, 2026-10-02, verbatim: "the
 Reliable Atoms concept has been replaced by the Capability Foundations
 concept"; OCE's foundations records under its architecture docs define
 the concept and carry the owner's September 2026 direction); the
-quotation stands as spoken. The governing policy ADR-230 cites bounds the class
+quotation stands as spoken. The 2026-09-08 decision (OCE's ADR-230) bounds the class
 (language/runtime, protocol, storage, transport and platform capabilities
 and standards conformance stay under the sentence above), owns the
 provenance discipline that keeps learning distinct from adapting, and
@@ -435,6 +439,26 @@ this way produces cleaner boundaries and simpler classification.
   lose the ability to debug the problem.
 - **No empty catch blocks** - Never use empty catch blocks, always
   handle errors explicitly and using the `Result<T, E>` pattern.
+- **Never `void` a promise** - `void promise` swallows its rejection.
+  A cleanup promise in an event handler carries an explicit `.catch`
+  that routes to the error path.
+- **Distinct HTTP semantics** - Never collapse distinct HTTP status
+  codes into a single error kind (404 and 451 mean different things).
+  Per-surface error types are cleaner than one unified error type —
+  each surface has its own failure modes.
+- **Libraries do not own logging** - A shared package returns
+  classified results; the consuming app is responsible for
+  observability. Libraries never instantiate loggers or log
+  internally — pass results up, and the app inspects and logs through
+  its own logger.
+- **Survey the workspaces before proposing new infrastructure** -
+  Before proposing a new schema, validation pipeline, parsing helper,
+  env-loading mechanism, or path primitive, survey the shared packages
+  and the Practice tooling: read each README whose name plausibly
+  matches the capability and grep for existing usage sites. The right
+  proposal is usually an extension of an existing package (the
+  Practice's `result`, `type-helpers` and `workspace-config` packages
+  among them), not a parallel implementation.
 - **Document Everywhere** - ALL code, all decisions, all use
   cases MUST be documented: TSDoc on every file/module/function/
   data structure/class/constant/type; ADRs for major engineering
@@ -520,6 +544,12 @@ this way produces cleaner boundaries and simpler classification.
 - **Removing unused code** - If a function is not used, delete it.
   If product code is only used in tests, delete it. If a file is
   not used, delete it. Delete dead code.
+- **Moving files between workspaces** - Check whether removed tests
+  should be recreated in the destination, and verify ESLint
+  overrides, README relative links, and `tsconfig` include patterns
+  transfer correctly. When moving any artefact, grep for the old
+  path in `*.ts`, `*.mjs` and `*.json` as well as `*.md` — test
+  fixtures and CLI defaults hardcode paths.
 - **Version with git, not with names** - Fix files in place, or
   replace old approaches with new approaches, NEVER create parallel
   versions using naming. Incorrect: `execute-tool-call.ts` and
@@ -583,6 +613,40 @@ paths, setup files) don't apply.
   `.agent/rules/no-warning-toleration.md` for the operational
   discipline (covers esbuild/tsc/ESLint/vitest/depcruise/knip and
   Sentry runtime/uptime surfaces).
+- **An enforcement-scope gap is not a requirement gap** - Repo-wide
+  standards (Result over throw, strict types, the rule corpus) govern
+  every workspace regardless of where a lint rule happens to be
+  wired; "not enforced here" never implies "not required here". A
+  missing or narrowly-scoped binding is itself a defect — flag it,
+  prefer the structural cure (extend the enforcement), and never read
+  an inherited non-conforming local convention as ratified exemption.
+- **Progressive re-enablement** - When a pre-existing lint override
+  exists in a file you touch, fix the root cause; narrow
+  directory-wide overrides to file-specific first.
+- **Analysability is part of correctness** - For findings from static
+  instruments (CodeQL, lint), "false positive" is usually the wrong
+  frame: an alert on code whose safety the instrument cannot see is a
+  true positive about analysability, and only source-shape cures are
+  durable. Dismissal is doubly non-durable — the safety stays
+  invisible to every future scan, and positional alert identity makes
+  suppression a recurring tax. Worked instance (2026-07-29): five
+  alerts headed for dismissal were fixed at source instead, and a
+  differential test then proved one "false positive" regex was a real
+  super-linear backtracking vector the dismissal path would have
+  preserved. Fix-first is the only disposition (owner ruling
+  2026-09-08: "We don't dismiss issues, we fix them").
+- **Session-local tool reports are evidence only inside the session
+  that produced them** - Do not make a shell invocation of an
+  interactive-session command (such as Claude Code `/doctor`) a
+  validation gate for plans or commits. Validate durable changes
+  through repo-local gates, settings diffs, generated artefacts, and
+  owner-supplied session evidence when the session surface itself is
+  the subject.
+- **Code that generates code is product code** - A generator's output
+  is product code, so the generator is product code: full logger
+  discipline, lint, and type strictness apply. Adapter generation
+  (`pnpm portability:fix`) and every other generator are never
+  "build scripts" exempt from the gates.
 - **Fix things** - All quality gates are blocking at all times,
   regardless of location, cause, or context.
 - **Every issue earns a check** - An issue, however discovered —
@@ -732,10 +796,24 @@ Universal testing principles:
 - tests must never read or mutate `process.env`, global objects, module cache,
   ambient env files, or `process.cwd()`; a validation check's composition root
   may read ambient env and inject it;
+- do not test types — tests are for runtime logic; a test that only proves a
+  type is deleted;
+- no useless tests — each test proves something about product code, never
+  about test code;
 - no skipped tests, no conditional tests, no complex mocks, no complex test
   logic, no process spawning in tests. Conditional tests are an
   architectural-failure symptom — remove them, fix the ambiguity in product
   code, write deterministic behaviour-proving tests.
+
+### CSS and Accessibility
+
+- **Relative units for scalability** — Use `rem`/`em` for text sizing,
+  spacing, focus rings, and border radii. `px` is acceptable only for design
+  constraints (container max-width) and WCAG minimums (44px touch targets).
+  Layouts MUST scale with text size at 200%+ zoom.
+- **Accessibility is a gate, not a review note** — axe runs in the E2E suite;
+  a pre-hydration fallback state must pass contrast like any other state.
+  Practice detail: [Accessibility Practice](../../docs/governance/accessibility-practice.md).
 
 ### Any User, Any Machine
 
@@ -753,7 +831,13 @@ state that only exists because an earlier session happened to leave it
 and per-user surfaces derive their user at run time rather than at
 authoring time. A surface that silently assumes its author's identity
 or host is a portability defect even while it works perfectly for
-them.
+them. The same lens covers checkouts: for any coordination-state,
+path-resolution, or identity feature, many checkouts on many machines
+is the case to satisfy first; a single checkout is the degenerate
+case that satisfies it trivially. Resolving a path by walking up from
+the current directory lands in the LOCAL checkout — in a
+many-checkout world, the wrong registry. "Currently we run one
+checkout" is the tripwire to re-ground, not a licence.
 
 ### Developer Experience
 
@@ -814,3 +898,34 @@ flows toward the more fundamental artefact), and **stable indexes**
 drift). A DRY violation, a stale index, a god-document, or a dangling
 cross-reference is a real defect, not a style nit. Canonical decision:
 [ADR-127](../../docs/architecture/architectural-decisions/127-documentation-as-foundational-infrastructure.md).
+
+- **TSDoc everywhere** — All exported functions and non-trivial internal
+  functions carry TSDoc; public interfaces include examples.
+- **Good READMEs** — Each significant directory has a README that points,
+  never carries.
+- **Inline comments for the why** — The code shows what; comments explain
+  why.
+- **Permanent docs never reference ephemeral docs** — Plans and prompts are
+  ephemeral; `docs/`, directives, ADRs and EDRs never depend on them. Only the
+  reverse direction is valid.
+- **Tooling docs are contract surfaces** — When scripts, hooks, gate
+  sequences, or adapter surfaces change, update README, CONTRIBUTING, ADRs
+  and Practice docs in the same pass.
+- **Narrative sections drift first** — When syncing a plan or record,
+  inspect body status lines, decision tables, and current-state prose, not
+  just frontmatter and todo checkboxes; prose is where stale truth hides. A
+  child plan that changes runtime truth reconciles its parent plan and any
+  closure proof in the same session.
+- **Write the plain meaning, not coined status-jargon** — "safe to delete",
+  not "reclaimable". Before using a coined adjective or status term, ask
+  what it means for the reader and write that instead (or alongside, if the
+  term is load-bearing jargon the reader already knows). Agent-authored
+  artefacts accrete invented vocabulary that reads as ceremony.
+- **Prose artefacts are accepted on decision and audience outcome** — For
+  READMEs, decision records and runbooks, acceptance criteria name the
+  decision and the reader outcome (discoverability, accuracy), never an
+  exact sentence shape. Reserve executable tests and grep guards for code
+  contracts, generated surfaces, or forbidden runtime exposure; validation
+  of prose is read-through plus formatting and link hygiene.
+- **Read the index before guessing URLs** — When researching external
+  documentation, fetch `sitemap.xml`, `llms.txt`, or the docs index first.

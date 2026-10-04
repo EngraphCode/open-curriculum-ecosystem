@@ -162,6 +162,14 @@ below the overhead cost:
   **retains** substantive cross-agent broadcasts (tree-green, push-landed,
   gate-state, merge-ready, blocker) because they carry information the
   owner-chat does not — the refined retain-set supersedes that raw point.
+- **Dialogue channel ≡ native session messaging where both seats can use it**
+  (amended 2026-09-13, owner-directed). The pairwise dialogue this mode
+  routed through an ARC channel travels by the harness's session-to-session
+  send when both seats are on one machine and platform; ARC keeps its place
+  for cross-platform pairs and for a dialogue whose transcript is itself the
+  record. What must still land on comms — the retain-set above — is unchanged;
+  the channel rule and its conservation clause live in
+  `.agent/rules/channel-by-audience-lifetime-and-consumer.md`.
 
 ### Trigger / exit
 
@@ -387,9 +395,28 @@ retrospective). §Decision gains the operating default: an arc opens at
 n=2 and widens only on measured seat-hours per merge. `start-right-team`
 §Choose Temporary Responsibilities carries the operational form.
 
-### 2026-09-24 — the 120-second state line
+### 2026-09-14 — the 120-second state line is the n=2 liveness convention
 
-Brought from the second estate's Practice through the inter-Practice exchange (PDR-125; an
-owner card of 2026-09-14 there). §What changes at n=2's liveness bullet gained the state line
-and the reading of a partner's silence as unknown state. Worked instance: a seat silent for 80
-minutes in a long turn was read as blocked and escalated; it was fine.
+Owner card (2026-09-14, the morning cards; proposal E of the session 2
+synthesis, presented with the register pull request #63 and recorded in the
+closure record's item 78 as "adopted as a PDR-082 amendment by card"). The
+proposal, as the synthesis record states it under the heading "a state line
+every 120 seconds of a long turn at n=2": "a seat in a long turn sends a
+one-line state at the team cadence, and the lead reads silence as unknown,
+never as work."
+
+What changes. §What drops at n=2 still drops the team-cadence message-sweep
+and the heartbeat substrate; the seat's own outgoing progress report
+(`start-right-team` §5) is not dropped with them. During a long turn each seat
+sends its partner one state line at least every 120 seconds, on the dialogue
+channel §What changes at n=2 names (native session messaging where both seats
+can use it, otherwise the ARC channel); the line names the current state, any
+blocker and the next action. The lead reads silence past that interval as
+unknown state, never as work in progress. This entry's ruling on the remedy
+(the proposal offered it only for the declined case): the lead's response to
+such a silence is the native liveness probe and a ping
+(`ping-before-escalate`), never an escalation to the owner. Worked instance,
+the proposal's source: on 2026-09-13 the Implementer seat was silent for 80
+minutes in a long turn, the silence was read as a block and escalated to the
+owner, and the seat was fine. The `start-right-team` n=2 overlay points here
+for the state line.

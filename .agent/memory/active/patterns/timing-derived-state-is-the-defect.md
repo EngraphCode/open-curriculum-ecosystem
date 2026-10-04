@@ -2,6 +2,7 @@
 name: timing-derived-state-is-the-defect
 polarity: anti-pattern
 category: code
+layer: general
 use_this_when: "About to accept a design whose correctness depends on ordering, a small window, or one event arriving before another: a shared resource under fixed names, a state written from an event's timing, a validation that holds only because of step order, or a review argument that says 'usually' or 'the window is small'."
 proven_in: >-
   Owner ruling 2026-08-17 on the round-1b relay filename race (about twenty

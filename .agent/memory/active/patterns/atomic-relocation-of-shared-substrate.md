@@ -3,6 +3,7 @@ name: "Atomic Relocation of Shared Substrate"
 polarity: pattern
 use_this_when: "Moving a directory, workspace, or state surface that other agents' tooling reads live (comms dirs, registries, built CLIs) — plan the move, the repoint of every reader, and the rebuild as one atomic change."
 category: process
+layer: general
 proven_in: "Discovery-run rescued candidate C10 (2026-07-02 salvage; two independent windows): a substrate/workspace relocation via git mv that was not atomic across {move, repoint all readers, rebuild dist} within one window broke canonical comms/tooling team-wide until the trailing steps completed."
 proven_date: 2026-07-02
 barrier:

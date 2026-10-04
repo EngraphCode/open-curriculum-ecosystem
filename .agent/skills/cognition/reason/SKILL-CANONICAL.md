@@ -6,7 +6,7 @@ description: >-
   direct-trial-first gate, a decision-relevant value-of-information stop gate, and five firing
   moves (name the kind, frame the problem not the solution, surface the warrant, decide for
   reversibility, stress-test) that point to the full grammar of thinking for depth. The outward
-  pair to oak-metacognition's inward reflection. Use when facing a gnarly problem, choice, or
+  pair to metacognition's inward reflection. Use when facing a gnarly problem, choice, or
   analysis; especially when investigation or options keep proliferating and you must decide
   whether to build and observe, keep analysing, stop, or escalate.
 ---
@@ -26,7 +26,7 @@ and PDR-035 (agent-work capabilities are Practice substance).
 
 You are structuring a problem, argument, analysis, plan, or decision and want it to come out
 well. Distinct from its neighbours: not reflecting on whether you are about to do the right
-thing (`metacognition`), and not authoring a repo plan artefact (`oak-plan`, which *uses* these
+thing (`metacognition`), and not authoring a repo plan artefact (`plan`, which *uses* these
 moves). Fires on analysis / decision / diagnosis / design work — not every turn.
 
 ## The Direct Trial Gate
@@ -94,7 +94,7 @@ Force the comparison with four questions:
 If there is no named decision or decision-flipping result, the impact is immaterial, or a safe
 probe is cheaper than more analysis, **stop investigating**. Act on the sufficient evidence or run
 the probe. If the owner's purpose is genuinely to understand an unshaped concept rather than make
-a live decision, route to `oak-concept-exploration` with its own bounded purpose; do not disguise
+a live decision, route to `concept-exploration` with its own bounded purpose; do not disguise
 open exploration as decision research. This combines value of information and decision
 sensitivity with bounded-rationality satisficing and real-options logic: seek enough evidence for
 the next safe reversible move, not certainty about every branch.

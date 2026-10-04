@@ -16,4 +16,7 @@ lane), never at the twentieth ask. The platform's auto-loaded `.claude/rules/` f
 pointers, not the canonical bodies under `.agent/rules/`; the same session treated the injected pointer
 list as the rules read. A loaded pointer is followed to its canonical file before acting in its area.
 
+Re-read AGENT.md when scope, platform, or workflow questions appear; it is the entry point for
+project context, platform wiring, active-plan expectations, and supporting directives.
+
 See `.agent/directives/AGENT.md` for the full project context.

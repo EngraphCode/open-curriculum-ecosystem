@@ -410,10 +410,10 @@ id-less bare-prefix fallback (landed 2026-07-31 through 2026-08-01;
 the TUI active-agents routing-key label is id-shaped by design and
 renders no prefix field, while the claims CLI listings serialise full
 identity blocks, prefix included), the
-`@oaknational/agent-tools` collaboration-state CLI as the home tooling
+estate's `agent-tools` collaboration-state CLI as the home tooling
 for all writes, and the collaboration plane at
 `.agent/state/collaboration/`. The host phenotype ADR in
-`docs/architecture/architectural-decisions/` records the WHAT of these
+the host's decision-record directory records the WHAT of these
 mechanics; the controlling plan owns the HOW. The peer estate's copy
 of this PDR carries its own number and phenotype note; the portable
 body is identical by construction and proven by cross-estate diff at

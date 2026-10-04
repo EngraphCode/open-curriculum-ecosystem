@@ -3,6 +3,7 @@ name: "Scope Parsimony Is Not Discipline"
 polarity: anti-pattern
 use_this_when: "You are about to justify deferring, narrowing, or working around something by citing a scoping rule (YAGNI, consolidate-at-second-consumer, don't-extract-single-consumer, plan-scope hygiene, an external constraint) — check the rule's actual warrant before applying it, and ask the corrective question: does this thing have an independent identity worth defining, describing, and testing in isolation?"
 category: agent
+layer: general
 proven_in: "Three same-direction owner corrections in ONE session (2026-07-08, PR #328 deep review): (1) estate workspaces (observability/logger) treated as frozen — real defects routed away as 'not this plan's prerequisite' when the owner's direction was to enhance the estate in support of the work; (2) our own MCP app's auth treated as an external constraint — a persisted-human-refresh-token workaround designed around it, when adding first-class machine identity to our own app dissolved the store, the refresh machinery, and the identity liability at once; (3) an ai-gateway model-layer extraction called 'premature' via consolidate-at-second-consumer — wrong warrant: that rule prevents SPECULATIVE abstraction, and the layer had a present, crisp identity (contract + isolation tests). Each instance cited a REAL rule with the WRONG warrant."
 proven_date: 2026-07-08
 barrier:

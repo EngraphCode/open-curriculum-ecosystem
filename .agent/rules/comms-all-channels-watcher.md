@@ -55,7 +55,7 @@ exclusion surface is the only sanctioned narrowing.
 
 ### Sanctioned tag exclusion (F-146) — awareness/reserve-seat configuration
 
-`comms watch --exclude-tag <tag>` (repeatable, ADR-183 namespace tags
+`comms watch --exclude-tag <tag>` (repeatable, namespace tags
 only, boundary-validated) suppresses emission of events whose EVERY tag
 is excluded. The mechanism's tested guarantees: excluded events still
 mark seen (no backlog replay when the filter lifts); `directed` and
@@ -535,8 +535,7 @@ audit-shaped test catches, reviewer-dispatch surprises,
 coordination-protocol gaps — are posted as comms-events as they occur,
 not held back to session close.
 
-The substrate-implementation phenotype is
-[ADR-183](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md):
+The substrate implementation in `agent-tools` carries
 an optional `tags` array on the `narrative`, `lifecycle`, and `directed`
 event kinds, with the namespace exactly `"failure-mode"` (substantive
 failure modes) and `"behaviour-note"` (softer behaviour patterns worth
@@ -549,7 +548,7 @@ The convention is not schema-enforced (the body field stays free-form
 prose by design); it is the SKILL-level discipline that makes the channel
 scannable.
 
-**Activation live as of 2026-05-23.** ADR-183's required substrate has
+**Activation live as of 2026-05-23.** The required substrate has
 landed: the optional `tags` field is on `comms-event.schema.json`, and
 watcher rendering with tests for `[FAILURE-MODE]` / `[BEHAVIOUR-NOTE]`
 tokens composed with the existing channel tokens is active. Agents MAY
@@ -619,8 +618,7 @@ naming the rule; the substance lives here for two reasons:
   Director's watcher heartbeat-file specifically.
 - [PDR-066](../practice-core/decision-records/PDR-066-comms-events-as-failure-mode-channel.md)
   — comms-events as failure-mode capture channel.
-- [ADR-183](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md)
-  — comms-event tag-namespace substrate (`failure-mode`,
+- The `agent-tools` comms-event tag-namespace substrate (`failure-mode`,
   `behaviour-note`, `heartbeat`).
 - [`use-built-agent-tools-cli`](use-built-agent-tools-cli.md) — governs
   the CLI surface this rule invokes.

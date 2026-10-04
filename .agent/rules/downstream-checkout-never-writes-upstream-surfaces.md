@@ -5,10 +5,18 @@ description: A seat on a downstream checkout (fork, mirror, an organisation runn
 
 # Downstream Checkout Never Writes Upstream Surfaces
 
-Operationalises
-[ADR-231](../../docs/architecture/architectural-decisions/231-organisational-identity-below-the-tree.md)
-(organisational identity is held below the tree: mechanism names no
-organisation; the default branch is derived, never a literal).
+Operationalises the principle that organisational identity is held below
+the tree: mechanism names no organisation, and the default branch is
+derived, never a literal. OCE records that principle as its architecture
+decision on organisational identity below the tree (ADR-231 there). An
+estate that runs as its own origin with no upstream is bound by the fork
+clauses the moment a second remote or a fork of its tree exists; the
+explicit-repository and derived-default-branch clauses bind every call now.
+One gap in jimcresswell.net's own tooling is known: its spawn command's
+`--base` defaults to `origin/main` and its pull request opens against that
+literal; deriving the default branch there is a code carry of the parity
+queue, and until it lands the clause binds the seat, which passes `--base`
+explicitly, not the tool.
 
 A checkout that runs this repository downstream of another (a fork, a
 mirror, an organisation running the tree as its own) has exactly one set
@@ -48,7 +56,7 @@ repositories. Calls with no repository target (a `users/...` endpoint, a
   travels with the practice.
 - **The base branch of a pull request is the repository's default
   branch, derived at the moment of use, never a literal.** Two reads
-  agree and either serves; both are verified here (2026-09-08):
+  agree and either serves; both are verified (2026-09-08):
   `git remote set-head origin --auto` refreshes the cached remote HEAD
   from the remote (a plain `git fetch` does not, so a clone made before a
   default-branch change would otherwise keep the old name), then
@@ -72,7 +80,7 @@ repositories. Calls with no repository target (a `users/...` endpoint, a
 A checkout carrying `origin` (its own repository), `upstream` (the line
 it forked from) and a read-only mirror gives every inferring surface
 three candidates, and the tools infer the wrong one silently. Worked
-instance, the Engraph fork of Oak's repository (2026-09-06): the owner's
+instance, the owner's fork of OCE's upstream (2026-09-06): the owner's
 ruling, verbatim, "This is the Engraph fork, do not access the Oak repo
 without permission and NEVER write to the Oak repo, to Linear, or any
 other Oak surface"; the same day `gh pr list` with no `--repo`, on a
@@ -110,9 +118,11 @@ answered PRIVATE, 2026-09-05).
 
 ## Related Surfaces
 
-- [ADR-231](../../docs/architecture/architectural-decisions/231-organisational-identity-below-the-tree.md)
-  — the identity this rule protects is configuration below the tree; the
-  mechanism above names no organisation.
+- OCE's architecture decision on organisational identity below the tree
+  (ADR-231 there) — the identity this rule protects is configuration below
+  the tree; the mechanism above names no organisation. An estate with no
+  fork line holds no twin of that record; the principle binds through this
+  rule.
 - [`bot-identity-on-third-party-systems`](bot-identity-on-third-party-systems.md)
   — the identity every write carries on the checkout's own surfaces.
 - [`never-commit-to-main`](never-commit-to-main.md) — local commits to

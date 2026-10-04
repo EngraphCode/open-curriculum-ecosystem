@@ -6,9 +6,7 @@ description: Agent state that affects other agents' next actions must be express
 # Agent State That Affects Other Agents Must Be Observable
 
 Operationalises
-[PDR-056 (Inter-Agent Collaboration Protocol)](../practice-core/decision-records/PDR-056-inter-agent-collaboration-protocol.md)
-and
-[ADR-150 (Continuity Surfaces, Session Handoff, and Surprise Pipeline)](../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md).
+[PDR-056 (Inter-Agent Collaboration Protocol)](../practice-core/decision-records/PDR-056-inter-agent-collaboration-protocol.md).
 Composes with the comms-event-stream-as-canonical-truth principle in
 [`follow-agent-collaboration-practice.md`](follow-agent-collaboration-practice.md)
 §"Inter-Agent Comms Is First-Class And Parallel-Default".
@@ -30,7 +28,7 @@ When agent A is blocked behind agent B's commit-queue intent, A emits a directed
 - `subject`: `Waiting on intent <intent-id>`
 - `body`: A's own intent ID, A's claimed files, A's expected wait condition (e.g. "until cf39fd43 phase: completed OR expires at <iso>").
 
-Once ADR-183 substrate lands, the event carries `tags: ['queue-wait']` for first-class classification.
+The event carries `tags: ['queue-wait']` for first-class classification.
 
 Without this signal, A's wait is invisible — if A crashes (compaction, network), B never knows A was waiting; if a third agent C arrives, C cannot see A is queued.
 

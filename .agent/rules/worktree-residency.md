@@ -190,7 +190,7 @@ owner is at the keyboard.
 5. **Residency never re-homes coordination surfaces.** Comms, claims,
    and the commit queue stay resolved to the PRIMARY coordination home
    with explicit absolute paths, per `worktree-hygiene` clause 8 and
-   ADR-197. A resident agent reads and writes the shared stream, not a
+   `.agent/state/README.md`. A resident agent reads and writes the shared stream, not a
    worktree-local decoy.
 6. **The Director/principal seat resides in the principal checkout.**
    Residency binds lane implementers (PDR-117): isolate the doing in
@@ -318,8 +318,8 @@ from its operate-from-a-worktree clause.
   operating mechanics.
 - [PDR-117](../practice-core/decision-records/PDR-117-director-and-implementer-roles.md)
   — the Director/Implementer split residency binds to.
-- [ADR-197](../../docs/architecture/architectural-decisions/197-coordination-home-owns-registry-state.md)
-  — the coordination home residency never re-homes.
+- [`.agent/state/README.md`](../state/README.md) — the coordination home
+  residency never re-homes.
 - `.agent/memory/active/patterns/parallel-worktree-dispatch-unreliable.md`
   — the spawned-worktree HEAD verification discipline.
 

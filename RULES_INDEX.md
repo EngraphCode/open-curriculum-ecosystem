@@ -27,6 +27,7 @@ it by hand.
 | `.agent/rules/bot-identity-on-third-party-systems.md` | core | — |
 | `.agent/rules/capability-landing-decision-procedure.md` | situational | `surface:lever-authoring — Landing, converting, or re-homing a capability; not landed-home edits` |
 | `.agent/rules/capture-practice-tool-feedback.md` | core | — |
+| `.agent/rules/channel-by-audience-lifetime-and-consumer.md` | situational | `session:team — every cross-seat send` |
 | `.agent/rules/check-singleton-per-window.md` | situational | `tool:gate-sweep` |
 | `.agent/rules/closed-shape-design-optionality.md` | core | — |
 | `.agent/rules/collaboration-is-value-contingent.md` | core | — |
@@ -59,16 +60,7 @@ it by hand.
 | `.agent/rules/hook-policy-substring-discipline.md` | core | — |
 | `.agent/rules/identify-as-agent-under-shared-credentials.md` | core | — |
 | `.agent/rules/important-state-not-in-temp-files.md` | core | — |
-| `.agent/rules/invoke-accessibility-expert.md` | situational | `surface:accessibility — Accessibility-touching change (WCAG / keyboard / focus / contrast / ARIA)` |
-| `.agent/rules/invoke-assumptions-expert.md` | situational | `ceremony:plan-authoring — Plan authoring, decision-complete marks, blocking claims, 3+ agents` |
-| `.agent/rules/invoke-clerk-expert.md` | situational | `surface:clerk-auth — Clerk / OAuth / authentication / sign-in / sign-up / token verification` |
 | `.agent/rules/invoke-code-experts.md` | core | — |
-| `.agent/rules/invoke-design-system-expert.md` | situational | `surface:design — Design token / theming / CSS custom property / colour palette change` |
-| `.agent/rules/invoke-doc-and-onboarding-experts-on-significant-changes.md` | situational | `ceremony:significant-doc-change — Behaviour/API/architecture change without a paired doc update` |
-| `.agent/rules/invoke-elasticsearch-expert.md` | situational | `surface:elasticsearch — Elasticsearch mapping / analyser / query / retriever / ELSER / RRF change` |
-| `.agent/rules/invoke-mcp-expert.md` | situational | `surface:mcp-protocol — MCP tool/resource/prompt definition or transport/session pattern change` |
-| `.agent/rules/invoke-react-component-expert.md` | situational | `surface:react-component — React component edit (hooks, render, prop API, composition)` |
-| `.agent/rules/invoke-sentry-expert.md` | situational | `surface:observability — Sentry / OpenTelemetry / observability change` |
 | `.agent/rules/knowledge-preservation-over-fitness-warnings.md` | core | — |
 | `.agent/rules/linear-mcp-team-and-project-hygiene.md` | situational | `tool:linear — any ticket mint, move, re-project, or placement audit` |
 | `.agent/rules/lint-after-edit.md` | situational | `surface:source-authoring` |
@@ -84,7 +76,7 @@ it by hand.
 | `.agent/rules/never-use-git-to-remove-work.md` | core | — |
 | `.agent/rules/new-rule-vs-pdr-clause.md` | core | — |
 | `.agent/rules/no-conditional-tests.md` | situational | `surface:test-authoring` |
-| `.agent/rules/no-global-state-in-tests.md` | situational | `surface:test-authoring` |
+| `.agent/rules/no-global-state-in-tests.md` | situational | `surface:test-authoring — tests, smokes, test helpers, fixtures and setup files` |
 | `.agent/rules/no-hedging-vocabulary.md` | core | — |
 | `.agent/rules/no-moving-targets-in-permanent-docs.md` | core | — |
 | `.agent/rules/no-parallel-long-lived-branches.md` | core | — |
@@ -133,9 +125,9 @@ it by hand.
 | `.agent/rules/source-curriculum-content-via-api-not-cdn.md` | core | — |
 | `.agent/rules/source-is-typescript-esm-only.md` | situational | `surface:source-authoring` |
 | `.agent/rules/stage-by-explicit-pathspec.md` | situational | `ceremony:commit` |
-| `.agent/rules/strict-validation-at-boundary.md` | core | — |
-| `.agent/rules/subagent-practice-core-protection.md` | core | — |
-| `.agent/rules/tdd-for-refactoring.md` | situational | `surface:source-authoring` |
+| `.agent/rules/strict-validation-at-boundary.md` | situational | `surface:boundary-data — TypeScript and authored content where external data enters` |
+| `.agent/rules/subagent-practice-core-protection.md` | situational | `surface:AGENTS.md,CLAUDE.md,.agent/practice-core/**/*,.agent/directives/**/*,.agent/rules/**/*` |
+| `.agent/rules/tdd-for-refactoring.md` | core | — |
 | `.agent/rules/test-immediate-fails.md` | situational | `surface:test-authoring` |
 | `.agent/rules/third-party-skills-require-security-review.md` | situational | `ceremony:skill-vendoring` |
 | `.agent/rules/unattended-seats-never-prompt.md` | core | — |
@@ -143,7 +135,6 @@ it by hand.
 | `.agent/rules/use-built-agent-tools-cli.md` | situational | `tool:agent-tools-cli` |
 | `.agent/rules/use-monitor-for-event-driven-wake.md` | situational | `tool:background-task-arm` |
 | `.agent/rules/use-result-pattern.md` | situational | `surface:source-authoring` |
-| `.agent/rules/use-start-right-skills.md` | core | — |
 | `.agent/rules/validate-full-target-estate.md` | core | — |
 | `.agent/rules/validators-must-recompute-not-just-record.md` | core | — |
 | `.agent/rules/verify-data-supports-shape-before-building.md` | core | — |

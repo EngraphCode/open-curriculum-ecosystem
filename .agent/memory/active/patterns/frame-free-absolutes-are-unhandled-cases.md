@@ -3,6 +3,7 @@ name: Frame-Free Absolutes Are Unhandled Cases
 polarity: anti-pattern
 use_this_when: "Authoring or citing any categorical statement in doctrine, tickets, TSDoc, or review dispositions — 'all', 'never', 'without exception', 'the only sound shape' — and whenever a review loop keeps generating findings against categorical estate text"
 category: process
+layer: general
 status: emerging
 discovered: 2026-07-29
 proven_in: >-

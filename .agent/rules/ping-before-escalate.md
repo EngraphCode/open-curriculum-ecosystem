@@ -104,8 +104,8 @@ the agent who owns the retirement-detection decision.
   — the substrate this rule defends. The 10-minute threshold and
   retirement-on-silence rule live there; this rule names the
   pre-broadcast cross-check discipline.
-- [ADR-186 (comms-event heartbeat lifecycle substrate)](../../docs/architecture/architectural-decisions/186-comms-event-heartbeat-lifecycle-substrate.md)
-  — the repo-bound phenotype that operationalises PDR-078.
+- The `agent-tools` comms-event heartbeat substrate — the repo-bound
+  phenotype that operationalises PDR-078.
 - [`use-built-agent-tools-cli`](use-built-agent-tools-cli.md) —
   governs the CLI surfaces the cross-check uses
   (`comms direct`, `claims show`, and equivalents).

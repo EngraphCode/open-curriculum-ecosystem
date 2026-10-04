@@ -186,23 +186,16 @@ procedure resumes at step 4 with step 3's attributes (author, committer,
 Work in a dedicated worktree checked out at the EXISTING carrier head —
 `git worktree add <path> -b <carrier> origin/<carrier>` on the remote-tracking
 ref step 1 fetched; the lane-cut skill's step 1 cuts a new branch from a base,
-which is not this — with the inherited bot identity verified (its step 2),
+which is not this — with the inherited commit identity verified (its step 2),
 dependencies installed BEFORE any commit, and the local env file carried.
 Install first is a hook-integrity requirement, not a convenience: a fresh
 worktree has no `.husky/_` until install runs, so a merge commit made before
 it is created with no commit-msg or pre-commit hook and reads as if the gate
-passed. Merge the default branch INTO the carrier with the owner as author and
-the bot as committer, `--no-ff`, and a message that names the situation
-without spelling the CI-skip token anywhere in the message. `git merge` has no
-author option (the first attempt on 2026-09-09 failed on one, exit 129): the
-owner-as-author identity is set in the call's environment and the committer
-comes from the checkout's inherited bot configuration —
-`GIT_AUTHOR_NAME="<owner name>" GIT_AUTHOR_EMAIL="<owner address>" git merge
---no-ff -F <message-file> <fork-default-tip>`. The environment must also be
-set on the command that completes a conflicted merge (`git merge --continue`
-or `git commit` after step 2's genuine-conflict route), because `git merge`
-commits automatically only when the merge succeeds and a later completion
-otherwise takes the checkout's bot identity as author. In every case the pair
+passed. Merge the default branch INTO the carrier, `--no-ff`, with a message
+that names the situation without spelling the CI-skip token anywhere in the
+message: `git merge --no-ff -F <message-file> <fork-default-tip>`. Author and
+committer are both the owner, from the clone's shared identity, on the merge
+and on the command that completes a conflicted one. In every case the pair
 is read back off the commit (`git log -1 --format='%an <%ae> / %cn <%ce>'`)
 before the push. The CI-skip token matters because the host scans the whole
 head message, and a head that is upstream's release commit runs no workflow
@@ -355,10 +348,9 @@ its routing, never a pull request's transient state (2026-09-20). Three
 carriers routed every carried-code finding away under the
 withdrawn upstream model and counted none of them cure-worthy — #99 (1.179.0), #127
 (1.181.1, whose round one cured five findings on the sync itself) and #147
-(1.181.3); the 1.181.3 set is the local work list
-`.agent/reports/upstream-sync/upstream-report-draft-1.181.3-sync-2026-09-15.md`,
-and the 1.179.0 and 1.181.1 sets have not been re-read under the peer-fork
-model. Settle at green by name
+(1.181.3); the 1.181.3 set is OCE's local work list (its upstream-sync report
+draft for that sync, dated 2026-09-15), and the 1.179.0 and 1.181.1 sets have
+not been re-read under the peer-fork model. Settle at green by name
 (`run-quality-gates`, `CodeQL`) and clean (zero unresolved, `CLEAN`, the quiet
 window) — the front door's own wait-class polling is the settle instrument: a
 background settle watch is a process the host may kill (several times across
@@ -386,7 +378,7 @@ cures, else a fresh leg on the new head; a leg the MERGING SEAT verifies
 and records on the landing premises, because the tool checks only the
 vendors declared to it) and runs the front door
 again (pr-lifecycle §merge boundary;
-`docs/engineering/merge-bot.md`): it recomputes
+`.agent/reference/merge-bot.md`): it recomputes
 the settlement verdict itself, merges only on SETTLE-READY, and pins the
 verdicted tip's sha in its own call, so the landing merge's second parent IS
 the head the verdict was read on and a head moved between verdict and merge
@@ -489,7 +481,7 @@ declared" (Finch binds Sundog's panel-refuted frame of 2026-09-06, events 4382df
 ## Related surfaces
 
 - `.agent/rules/pre-merge-divergence-analysis.md` and
-  `docs/engineering/pre-merge-analysis.md` — the cascade classes; §4i is the
+  `.agent/reference/pre-merge-analysis.md` — the cascade classes; §4i is the
   premise cascade this skill runs.
 - `.agent/skills/change-custody/semantic-merge/SKILL-CANONICAL.md` — layer 3.
 - `.agent/skills/change-custody/complex-merge/SKILL-CANONICAL.md` — two
@@ -501,5 +493,8 @@ declared" (Finch binds Sundog's panel-refuted frame of 2026-09-06, events 4382df
   here — the reference direction runs plan → doctrine).
 - `.agent/skills/set-up-worktree-lane/SKILL-CANONICAL.md` — the identity
   check and the build; step 3 above says why its branch cut does not apply.
-- `docs/architecture/architectural-decisions/231-organisational-identity-below-the-tree.md`
+- the host's decision record on organisational identity below the tree, where
+  it has one (OCE: ADR-231, `231-organisational-identity-below-the-tree.md` in
+  its decision-record directory; jimcresswell.net states the rule in this
+  skill's step 3 and holds no record)
   — why the fork diff is enumerated and identity-free.

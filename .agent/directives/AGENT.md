@@ -155,7 +155,7 @@ at all times.
 The rule tier, core and situational, lives in [`.agent/rules/`](../rules/). Rules
 operationalise principles, ADRs, and PDRs; each declares how it loads and what
 it is for in its frontmatter, from which [`RULES_INDEX.md`](../../RULES_INDEX.md)
-at the repo root and the Cursor, Claude and `.agents` adapters are rendered
+at the repo root and the host's platform adapters (P1) are rendered
 (`pnpm portability:fix`), never edited by hand. Claude and Cursor load their
 adapter tiers automatically; Codex, Gemini, and any other non-loader platform
 MUST read every canonical `.agent/rules/*.md` file listed there at session open.
@@ -251,16 +251,21 @@ Use these links by trigger:
 
 ## Commands
 
-From the repo root. The commit is the gate: the pre-commit and pre-push hooks
-run the gates and the pull request's checks run the rest, so never run the
-gates separately, before, beside or after a commit (owner, 2026-09-14: "the
+From the repo root, through Turborepo. The hooks are the gate, placed by the
+family convention "light commit, full push" (owner, 2026-09-12 and 2026-10-04,
+both estates): the commit hook runs the light gate (formatting and lint over
+the staged and changed files), the push hook runs the full `pnpm check`
+aggregate, and CI composes the same legs with the pull request's checks. An
+agent never runs the gates by hand beside the hooks (owner, 2026-09-14: "the
 commit triggers the gates, there is no point and a fair amount of cost
 running the gates separately as well, never, ever do that"). Running one test
 file while a change is red is development, not a gate run. `pnpm check` is
-the aggregate the hooks and CI compose, kept for their parity, not a command a
-seat runs by hand. The command source of truth is
-[Build System](../../docs/engineering/build-system.md) plus root
-`package.json`.
+the aggregate the hooks and CI compose, kept for their parity, writing no
+tracked file; `pnpm fix` is the mutating pass that precedes it. Before every
+commit, check the message in isolation:
+`pnpm agent-tools:check-commit-message -m "…"` (the `commit-msg` hook is the
+backstop, not the first check). The command source of truth is root
+`package.json` and [Build System](../../docs/engineering/build-system.md).
 
 These commands apply only after the environment classification permits local
 execution. ChatGPT Work uses its non-execution route instead. Claude cloud uses

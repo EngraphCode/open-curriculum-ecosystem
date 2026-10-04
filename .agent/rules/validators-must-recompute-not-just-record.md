@@ -101,6 +101,12 @@ it where it is used):
   memory is a fabricated value of the right type; derive the id from
   the store in the same command that uses it, and read back the
   written artefact's reference after the write.
+- **Counts in tracked reports** — a count stands only where a reader at
+  the default tip can recompute it: the script that produced a tracked
+  count lands beside its output, and a record cites only what the tip
+  can read, or quotes the content. A generator in a gitignored session
+  directory makes its report's count a number, not a count (three
+  instances on 2026-10-02).
 
 It does NOT apply to:
 

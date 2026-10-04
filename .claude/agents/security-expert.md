@@ -1,6 +1,6 @@
 ---
 name: security-expert
-description: 'Security and privacy review specialist. Invoke proactively whenever changes touch authentication, authorisation, OAuth/OIDC flows, secret or credential handling, PII, or external input validation at a trust boundary. Also invoke immediately when code-expert flags a security signal. Benefits from a high-capability model — invoke with opus for deeper threat analysis.'
+description: 'Security and privacy review specialist. Invoke proactively whenever changes touch authentication, authorisation, OAuth/OIDC flows, security headers and CSP, secret or credential handling, PII, proxies or middleware, third-party scripts, or external input validation at a trust boundary. Also invoke immediately when code-expert flags a security signal. Benefits from a high-capability model — invoke with opus for deeper threat analysis.'
 tools: Read, Grep, Glob, Bash
 disallowedTools: Write, Edit
 color: red

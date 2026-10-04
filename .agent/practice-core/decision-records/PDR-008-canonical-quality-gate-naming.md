@@ -326,13 +326,17 @@ pattern to script names, the aggregate gate included.
 
 ## Amendment Log
 
-### 2026-09-24 — `check` applies no fixes; `check:fix` and `check:ci` retired
+### 2026-09-12 — `check` applies no fixes; `check:fix` and `check:ci` retired
 
-Brought from the second estate's Practice through the inter-Practice exchange (PDR-125; its
-own entry of 2026-09-12 made the same correction there). The body now states the convention
-host repositories run: `check` is the aggregate gate and applies no fixes, `fix` is the
-mutating aggregate, and CI runs every verifying leg of `check` under a parity validator,
-which gives the guarantee a separate CI form was for. Retired with it: `check` as an
-ergonomic alias of a mutating `check:fix`, the non-mutating `check:ci`, and the requirement
-to consolidate CI into one aggregate script. A host repository enumerates its live gate and
-validator sets in its own scripts and gates skill.
+Owner direction (2026-09-12), adopting the convention the Practice's skills
+and rules already assume of the repositories that carry it. The body is read
+through this entry: `check` is the aggregate gate and applies no
+fixes, `fix` is the mutating aggregate, and CI runs every verifying leg of
+`check` under a parity validator, which gives the guarantee a separate CI form
+was for. Retired with it: `check` as an ergonomic alias of a mutating
+`check:fix`, the non-mutating `check:ci`, and the requirement to consolidate
+CI into one aggregate script. A host repository enumerates its live gate and
+validator sets in its own scripts and gates skill, never here (the
+no-moving-targets rule); which scripts it names and how its validators are
+grouped are the host's own record, paired with this record in its bridge
+index.

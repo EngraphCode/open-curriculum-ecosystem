@@ -124,7 +124,7 @@ carefully PRESERVES it — that is the cowpath wearing a
 "non-entangling" costume. Ask: (a) is the boundary itself the problem?
 (b) what is the ONE smallest change that delivers the impact? (Worked
 instance 2026-06-28: an orientation tool invisible because a
-curriculum/orientation separation was taken too far; the proposed
+domain/orientation separation was taken too far; the proposed
 multi-workstream isolation-preserving precursor was wrong, the owner's
 one pointer sentence deliberately relaxing the over-separation was
 right.) An owner-sanctioned sticking-plaster precursor is valid —

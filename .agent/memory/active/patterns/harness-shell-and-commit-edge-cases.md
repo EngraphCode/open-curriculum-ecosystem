@@ -3,6 +3,7 @@ name: "Harness Shell and Commitlint Edge Cases"
 polarity: pattern
 use_this_when: "Driving the Bash/harness shell or composing a merge/commit message and hitting a surprising failure."
 category: process
+layer: general
 proven_in: "2026-06-21/22 (Oyster, Cosmos, Cutter) — collected operational edge-cases"
 proven_date: 2026-06-22
 barrier:
