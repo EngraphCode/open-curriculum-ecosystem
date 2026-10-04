@@ -22,7 +22,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 ---
 
 # The best of each Practice
@@ -123,4 +123,13 @@ estates with one system of development and value provision and contracts and aut
 on, and that system currently has divergences that we are trying to resolve"; the divergences are
 resolved from a model of that system, never from the merge's hunks; the delivery node
 `practice-system-review` is the step that re-grounds this bet, and the owner's word on its model
-will be recorded here as a dated line.
+will be recorded here as a dated line. The owner's word of 2026-10-04, by card answer to the
+Director seat Crucible binds Slag (7b999c): "Ratify as canonical", ratifying the five-layer
+definition of the Practice (general; family; contextual; accumulated; the loop) that the review
+derived, recorded in PDR-143 §Decision and `practice.md`; and the direction, verbatim: "tooling
+agnostic policy, strict universal contracts, tooling specific implementations where a universal
+approach is not efficient or appropriate". From that word this bet is re-grounded: the
+divergences between the estates are resolved by class, one pull request per class per estate,
+the general layer by concept, the family layer by convention, the contextual layer named as
+bindings, the accumulated layer never compared; the review node is archived, and the successor
+delivery node, written from the model, lands by its own pull request after this one.

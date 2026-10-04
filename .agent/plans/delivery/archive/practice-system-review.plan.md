@@ -9,7 +9,7 @@ overview: >-
   host's, how the system learns, and the divergences between the estates classed by kind with a
   direction each; the evidence behind the model follows, one coarse row per area of the system,
   for the owner's decision on whether the model is simple enough to proceed with.
-status: ratified
+status: archived
 ratified_by: Jim Cresswell
 ratified_date: 2026-10-04
 ratified_where: >-
@@ -25,19 +25,17 @@ impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner says whether the model on the report's first page is simple enough to proceed
-      with (constitutively the owner's: "I will decide when that is and I will tell you",
-      2026-10-03; no standing ruling or lens resolves it). The dated word is recorded as a line in
-      best-of-each-practice §Delivery, this node is archived, and the successor delivery node is
-      written from the model: its scope is the owner's one-word decision per divergence class.
-    expires: 2026-10-07
+owner_gates: []
 last_updated: 2026-10-04
 ---
 
 # The Practice as one system across two estates
+
+**Completed and archived 2026-10-04.** The owner read the model and ratified the five-layer
+definition as canonical by card answer ("Ratify as canonical"); the word is recorded as a dated
+line in `best-of-each-practice` §Delivery, the definition in PDR-143 §Decision and `practice.md`,
+and the report `practice-system-review-2026-10` under the agentic-engineering reports is the
+evidence; the owner gate is cleared. The successor delivery node is written from the model.
 
 The owner's words, 2026-10-03 20:4xZ, verbatim: "there are two estates with one system of
 development and value provision and contracts and authority and so on, and that system currently
