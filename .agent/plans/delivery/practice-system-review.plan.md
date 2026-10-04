@@ -14,9 +14,12 @@ ratified_by: Jim Cresswell
 ratified_date: 2026-10-04
 ratified_where: >-
   The owner's card answer of 2026-10-04 13:3xZ in the session of Crucible binds Slag (7b999c),
-  the Director seat across both estates, "Ratify as reshaped (Recommended)", ratifying this node
-  in both estates as one system; the card's text and the answer are in that session's napkin block
-  of 2026-10-04T09:4xZ and the plan body of that commit.
+  the Director seat across both estates. The card asked whether the owner ratifies this node as
+  reshaped after two Cricket checks (a two-hour layer pass writing a one-page model, one hour of
+  evidence rows, one landing, about four hours of one seat); the answer, verbatim, "Ratify as
+  reshaped (Recommended)", ratifies the node in both estates as one system. This frontmatter is
+  the record of the word in each estate; the card's full text is kept in the jimcresswell.net
+  napkin block of 2026-10-04, a sibling-estate surface named here and not linked.
 serves: best-of-each-practice
 impact_areas:
   - practice-and-estate
