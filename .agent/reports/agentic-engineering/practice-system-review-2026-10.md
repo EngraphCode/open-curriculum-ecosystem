@@ -60,7 +60,7 @@ produces and is no part of it.
 
 Against the three existing statements. It keeps `practice.md`'s sentence (a self-reinforcing
 system that governs how work happens, with the product and the substrate as two output surfaces)
-and makes "system" concrete as four layers. It keeps the functional reading of
+and makes "system" concrete as five layers. It keeps the functional reading of
 `what-the-practice-is.md` (its nine functions are this review's areas) and places each function
 in a layer. It keeps PDR-143's two membership tests (the migration test and the framework test)
 and reads its seven scope classes as the layers: Practice-wide is the general layer;
@@ -345,10 +345,11 @@ the owner decided each on 2026-10-04 (the words quoted at each item).
 
 It read names, counts and line differences, and the hooks and gate scripts in full; it did not
 read the differing text of the directives, PDRs, templates and patterns, which is the ledger's
-work and class A's merge. It did not run anything. It observed one tooling family, so the family
-layer rests on the owner's expectation and a counterfactual rather than on a second family. The
-model is a hypothesis the evidence rows test; the open placements above are its edges, and the
-owner's word on whether it is simple enough to proceed with is this node's completion.
+work and class A's merge. It did not run anything. It observed two tooling families: the two TypeScript estates in full
+and, on the owner's word, a Python-family instance that met the family layer's falsifier. The
+model was a hypothesis the evidence rows tested; the placements above are decided; the owner
+ratified the definition as canonical on 2026-10-04, which completed the node that commissioned
+this review.
 
 Revision of 2026-10-04 14:3xZ: the family layer added at the owner's word, with the script,
 hook, toolchain and compiler-base evidence; class C recast as family conformance; class E

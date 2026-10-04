@@ -209,7 +209,7 @@ Practice; and the extraction's date, since its order is the owner's already ("On
 contains the best of both it will be extracted"). Each is the owner's, and each lands in this
 record's amendment log or in a record of its own.
 
-## Consequences when accepted
+## Consequences
 
 - `practice.md` §Plasmid Exchange's sentence "there is no hierarchy" is replaced: there is one
   definition and many installations. Transformation becomes the install and conjugation becomes

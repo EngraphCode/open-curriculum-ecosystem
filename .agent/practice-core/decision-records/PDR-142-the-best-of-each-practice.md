@@ -11,7 +11,8 @@ the owner's word that concept transfer is the goal and identical bytes only a
 means (the Decision's clause on concepts and bytes and its merged-text bullet; the Amendment
 Log), and again the same day on the owner's card on format at receipt (the same clause), and
 2026-09-25 on the owner's words on pace and goal and the authority class before a cure (the
-same section and §Boundaries; the Amendment Log)
+same section and §Boundaries; the Amendment Log), and 2026-10-04 on the owner's words of
+2026-10-03 on the measure, read per layer of the ratified definition (the Amendment Log)
 **Date**: 2026-09-21
 **Related**: [PDR-125](PDR-125-inter-practice-collaboration-protocol.md)
 (the inter-Practice protocol; clause 6's union posture, which this record
