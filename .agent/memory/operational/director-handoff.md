@@ -328,8 +328,10 @@ classes with a direction each), posted to the owner at two hours as a report; on
 evidence, one coarse row per area with exceptions and `unread` only; one report landed in
 jimcresswell.net by one pull request, this estate's copy riding the landing of the owner's word
 here; about four hours of one seat. The layer pass is read and the draft page written. The two
-coordination branches are folding (jimcresswell.net 305 merging through the bot; here #348 ready
-with its seven findings cured in one settlement push); this seat's five claims are closed (n=1).
+coordination branches folded: jimcresswell.net 305 at `SHA:eebe40ea2` (successor
+`coordination/2026-10-04-eebe40`), here #348 at `SHA:d2f44f159` (successor
+`coordination/2026-10-04-d2f44f`, cut 2026-10-04 and holding the primary); this seat's five claims
+are closed (n=1). The definition's landing is open here as #351 and in jimcresswell.net as 319.
 At the doors, untouched until the model is read: #350 and 312 (the ledger's revision), 318, the
 hooks branch, the OCE implementer's unpushed lanes; the dependabot pull requests were closed by
 the owner.
