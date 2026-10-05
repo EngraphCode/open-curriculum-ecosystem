@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  classifyRootFileAbsence,
+  classifyOptionalReadFailure,
   collectPresentRootFiles,
-} from './family-conformance-root-files.js';
+} from './family-conformance-optional-reads.js';
 
-describe('classifyRootFileAbsence', () => {
+describe('classifyOptionalReadFailure', () => {
   it('reads ENOENT as the file being absent', () => {
     const failure = Object.assign(new Error('no such file'), { code: 'ENOENT' });
-    expect(classifyRootFileAbsence('.prettierrc.json', failure)).toEqual({
+    expect(classifyOptionalReadFailure('.husky/pre-push', failure)).toEqual({
       ok: true,
       value: 'absent',
     });
@@ -16,11 +16,11 @@ describe('classifyRootFileAbsence', () => {
 
   it('surfaces any other failure as an input error instead of reading it as absence', () => {
     const failure = Object.assign(new Error('permission denied'), { code: 'EACCES' });
-    const reading = classifyRootFileAbsence('.prettierrc.json', failure);
+    const reading = classifyOptionalReadFailure('.github/workflows/ci.yml', failure);
     expect(reading.ok).toBe(false);
     if (!reading.ok) {
       expect(reading.error.message).toBe(
-        '.prettierrc.json could not be checked for presence at the root: permission denied',
+        '.github/workflows/ci.yml could not be read: permission denied',
       );
     }
   });
@@ -43,7 +43,7 @@ describe('collectPresentRootFiles', () => {
   });
 
   it('ends at the first unreadable file with its error', () => {
-    const unreadable = new Error('.prettierrc could not be checked for presence at the root: busy');
+    const unreadable = new Error('.prettierrc could not be read: busy');
     const reading = collectPresentRootFiles(
       ['prettier.config.ts', '.prettierrc', '.prettierrc.json'],
       [

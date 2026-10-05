@@ -1,38 +1,22 @@
 #!/usr/bin/env node
-import fs from 'node:fs/promises';
-import path from 'node:path';
-
 import { err, ok, type Result } from '@oaknational/result';
 import { typeSafeKeys } from '@oaknational/type-helpers';
 
-import { failureAsError } from '../../core/failure-as-error.js';
-import { parseJsonTextResult } from '../../core/json.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
 
 import {
   compileFamilySchemas,
   FAMILY_CONFORMANCE_SCHEMA_REL_PATH,
-  FAMILY_HOOKS_REL_DIR,
   FAMILY_MANIFEST_REL_PATH,
   FAMILY_NAME,
   HOST_VALUES_REL_PATH,
-  LIVE_HOOKS_REL_DIR,
   validateWithSchema,
   type FamilyManifest,
   type HostValues,
 } from './family-conformance-manifest.js';
-import {
-  classifyRootFileAbsence,
-  collectPresentRootFiles,
-  type RootFilePresence,
-} from './family-conformance-root-files.js';
-import {
-  computeDrifts,
-  readRootPackage,
-  type ConformanceReading,
-  type TreeSnapshot,
-} from './family-conformance-tree-helpers.js';
+import { computeDrifts, type ConformanceReading } from './family-conformance-tree-helpers.js';
+import { readJsonFile, readTree } from './family-conformance-tree-reader.js';
 
 /**
  * Standalone validator asserting this repository conforms to its tooling
@@ -52,68 +36,6 @@ import {
 
 const repoRoot = resolveRepoRoot(import.meta.url);
 
-const ROOT_PACKAGE_REL_PATH = 'package.json';
-const TSCONFIG_BASE_REL_PATH = 'tsconfig.base.json';
-
-async function readJsonFile(relPath: string): Promise<Result<unknown, Error>> {
-  let text: string;
-  try {
-    text = await fs.readFile(path.join(repoRoot, relPath), 'utf8');
-  } catch (failure) {
-    const reason = failureAsError(failure, `reading ${relPath}`).message;
-    return err(new Error(`${relPath} is unreadable: ${reason}`));
-  }
-  return parseJsonTextResult(text, relPath);
-}
-
-async function readOptionalText(relPath: string): Promise<string | undefined> {
-  try {
-    return await fs.readFile(path.join(repoRoot, relPath), 'utf8');
-  } catch {
-    return undefined;
-  }
-}
-
-async function readOptionalBytes(relPath: string): Promise<Uint8Array | undefined> {
-  try {
-    return new Uint8Array(await fs.readFile(path.join(repoRoot, relPath)));
-  } catch {
-    return undefined;
-  }
-}
-
-async function readHookBodies(
-  relDir: string,
-  names: readonly string[],
-): Promise<ReadonlyMap<string, Uint8Array>> {
-  const bodies = new Map<string, Uint8Array>();
-  await Promise.all(
-    names.map(async (name) => {
-      const bytes = await readOptionalBytes(`${relDir}/${name}`);
-      if (bytes !== undefined) {
-        bodies.set(name, bytes);
-      }
-    }),
-  );
-  return bodies;
-}
-
-async function presentRootFiles(
-  names: readonly string[],
-): Promise<Result<ReadonlySet<string>, Error>> {
-  const readings = await Promise.all(
-    names.map(async (name): Promise<RootFilePresence> => {
-      try {
-        await fs.access(path.join(repoRoot, name));
-        return ok('present');
-      } catch (failure) {
-        return classifyRootFileAbsence(name, failure);
-      }
-    }),
-  );
-  return collectPresentRootFiles(names, readings);
-}
-
 interface Declarations {
   readonly manifest: FamilyManifest;
   readonly host: HostValues;
@@ -121,9 +43,9 @@ interface Declarations {
 
 async function loadDeclarations(): Promise<Result<Declarations, Error>> {
   const [schemaDocument, manifestDocument, hostDocument] = await Promise.all([
-    readJsonFile(FAMILY_CONFORMANCE_SCHEMA_REL_PATH),
-    readJsonFile(FAMILY_MANIFEST_REL_PATH),
-    readJsonFile(HOST_VALUES_REL_PATH),
+    readJsonFile(repoRoot, FAMILY_CONFORMANCE_SCHEMA_REL_PATH),
+    readJsonFile(repoRoot, FAMILY_MANIFEST_REL_PATH),
+    readJsonFile(repoRoot, HOST_VALUES_REL_PATH),
   ]);
   if (!schemaDocument.ok) {
     return schemaDocument;
@@ -160,39 +82,6 @@ async function loadDeclarations(): Promise<Result<Declarations, Error>> {
   return ok({ manifest: manifest.value, host: host.value });
 }
 
-async function readTree(manifest: FamilyManifest): Promise<Result<TreeSnapshot, Error>> {
-  const rootFileNames = [manifest.formatter.config_file, ...manifest.formatter.forbidden];
-  const [packageDocument, tsconfig, workflowText, liveHooks, familyHooks, present] =
-    await Promise.all([
-      readJsonFile(ROOT_PACKAGE_REL_PATH),
-      readJsonFile(TSCONFIG_BASE_REL_PATH),
-      readOptionalText(manifest.ci.workflow),
-      readHookBodies(LIVE_HOOKS_REL_DIR, manifest.hooks),
-      readHookBodies(FAMILY_HOOKS_REL_DIR, manifest.hooks),
-      presentRootFiles(rootFileNames),
-    ]);
-  if (!packageDocument.ok) {
-    return packageDocument;
-  }
-  if (!tsconfig.ok) {
-    return tsconfig;
-  }
-  if (!present.ok) {
-    return present;
-  }
-  const rootPackage = readRootPackage(packageDocument.value);
-  if (!rootPackage.ok) {
-    return rootPackage;
-  }
-  return ok({
-    rootPackage: rootPackage.value,
-    tsconfig: tsconfig.value,
-    workflowText,
-    hooks: { live: liveHooks, family: familyHooks },
-    presentRootFiles: present.value,
-  });
-}
-
 function formatSlot(legs: readonly string[]): string {
   return legs.length === 0 ? 'empty' : legs.join(' && ');
 }
@@ -217,7 +106,7 @@ async function main(): Promise<void> {
     writeErrorLine(`validate-family-conformance: ${declarations.error.message}`);
     process.exit(2);
   }
-  const tree = await readTree(declarations.value.manifest);
+  const tree = await readTree(repoRoot, declarations.value.manifest);
   if (!tree.ok) {
     writeErrorLine(`validate-family-conformance: ${tree.error.message}`);
     process.exit(2);

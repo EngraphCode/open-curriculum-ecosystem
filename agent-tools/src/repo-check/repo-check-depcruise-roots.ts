@@ -10,7 +10,9 @@ import { z } from 'zod';
  * not to the list is a partial cruise that exits clean). The roots are the
  * first path segment of each `packages` entry (`tooling/*` cruises `tooling`,
  * `packages/core/result` cruises `packages`), each once, in the manifest's
- * order; negated entries (`!`) narrow pnpm's resolution and name no root.
+ * order; negated entries (`!`) narrow pnpm's resolution and name no root; an
+ * entry whose first segment leaves the repository (`../outside`) is refused,
+ * since the gate cruises only directories inside it.
  *
  * @packageDocumentation
  */
@@ -55,6 +57,11 @@ function rootsOfEntries(entries: readonly string[]): Result<readonly string[], s
     const segment = rootSegment(entry);
     if (segment === undefined) {
       return err(`pnpm-workspace.yaml entry '${entry}' names no directory to cruise`);
+    }
+    if (segment === '..') {
+      return err(
+        `pnpm-workspace.yaml entry '${entry}' leaves the repository; the gate cruises only directories inside it`,
+      );
     }
     if (!roots.includes(segment)) {
       roots.push(segment);

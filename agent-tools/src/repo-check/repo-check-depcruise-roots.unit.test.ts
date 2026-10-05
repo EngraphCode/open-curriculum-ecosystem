@@ -38,6 +38,11 @@ describe('cruiseRootsFromWorkspaceManifest', () => {
     expect(unwrapErr(roots)).toContain("'*' names no directory");
   });
 
+  it('refuses an entry whose first segment leaves the repository', () => {
+    const roots = cruiseRootsFromWorkspaceManifest('packages:\n  - tooling/*\n  - ../outside/*\n');
+    expect(unwrapErr(roots)).toContain("'../outside/*' leaves the repository");
+  });
+
   it('refuses a manifest that is not YAML, naming the parse error', () => {
     const roots = cruiseRootsFromWorkspaceManifest('packages: [\n');
     expect(unwrapErr(roots)).toContain('not YAML');
