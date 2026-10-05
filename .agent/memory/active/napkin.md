@@ -335,3 +335,76 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
 - Lesson (14:1xZ, one instance, caught before landing): a three-way merge of a conflicted shared file lands the other estate's one-sided edits in its clean regions along with the resolved hunks; the directives' first build carried jimcresswell.net's entry-point matter into this estate's AGENT.md. The surface landing applies each row's reading to the receiving estate's own file; the clean regions of conflicted files are a read the ledger never made, sized per file and routed.
 - Lesson (19:4xZ, two instances caught by review): a host binding written at a carry is read back in the carried file and its paths checked for existence one by one; two listings printed together in one command were read as one, and a path under `components/architecture/` was written as `components/`; and O1's reading (this estate's architecture reviewer is a family of four lenses over one template) was applied to the companion's lane list but not to the generic reviewer name the carried rule and companion still used.
 - Observation (13:xxZ, four refusals in one day): the commit message checks that cost a full gate each (header 100, body line 100, footer line 100, a body line beginning `word:`) are one pre-check; the pattern of a message file, a length and footer check, a bash-shebang script for the pathspec commit and the sha read back ran twelve times today. Under the owner's ruling it is an agent-tools candidate beside the twin scripts (a `commit-by-pathspec` command), not a scratch script to extend.
+
+## 2026-10-05T11:3xZ — The code landing of practice-alignment-by-class open in both estates; the family shape one in both (Crucible binds Slag, 7b999c)
+
+- **The owner's words at the resume, verbatim** (09:1xZ, with `/jc-start-right-team` and
+  `/jc-plan`): "take your time to plan remaining steps. Remember: finished this Practice work
+  happens today, it is bounded, it will end. There are also two PRs across the estates that are
+  about 2 days old, that's bad PR hygeine, we should keep on top of it to avoid creating rework.
+  Use all appropriate skills to plan and execute the work".
+- **The plan**: the ratified node's todo 2, run as the Director's order of 09:5xZ (the scratch
+  run order, reviewed by the assumptions reviewer and one adversarial procedure Cricket before
+  work started: ON-TRACK, SOUND; the reviewer's one blocking finding, that a stop at the line
+  would leave nothing merged while keystone and carries shared one unopened pull request, taken:
+  the keystone opens each estate's pull request as soon as it is green and the carries ride
+  later pushes). The sibling's #353 merged first (`SHA:d70baa1d0`), its two new review threads
+  dispositioned under the bot (the Codex finding cured in this landing; the Copilot finding a
+  backlog's code spans, no cure).
+- **Shape of the work**: the Director authored the family shape once and applied it to both
+  trees (the scripts' one body with two placeholders, the hooks byte-identical, the CI fan-in,
+  the compiler flags, the formatter file, pnpm 12, the conformance manifest's design); nine
+  workers on disjoint paths (W1a tooling, W1b observer and audit, W2 validators and lint rules,
+  W2b and W2c the validators' findings on the sibling, W3 the conformance validator, W4 skills,
+  W5 the merge-bot, W6 repo-check, W7 the substrate audit), each handing back a table, the
+  Director on the wiring, the Core and the gates. The hook refused two commands on their text
+  (a heredoc carrying a hook-banned phrase; the brief's own words), so the brief was written
+  by the file tool and workers read the dispatch text in the meantime.
+- **What the measurement found that the node had not**: the merge-bot was not one body by file
+  name (1,185 differing lines, two divergent histories since the pin); the repo-check runner,
+  the substrate audit and the pre-compact observer the same; the sibling's `docs-validators`
+  leg raised 36 dead script names in its own live docs once the validators ran there; the
+  workspace census and most of the typescript-estate module failed the migration test;
+  `test:ui` is an interactive runner here and a gate there, so the family gate leg excludes it.
+- **State at this block**: jimcresswell.net `feat/practice-code-landing` at `SHA:d371218b`
+  (thirteen commits, keystone first; the git-read core and the substrate audit the eighth; the
+  ignore-file cure, the knip entries, the review cures, the depcruise roots and the origin
+  check the last five), four pushes through the bot, open as 322 since 10:35Z, CI green at
+  `SHA:b1988de4` with the fan-in passing; nine review threads triaged in one settlement push
+  (six cured, three observations on carried one-body modules recorded as remainders in both
+  descriptions), Copilot's second review left one finding (the origin check and an https URL
+  carrying userinfo), cured at `SHA:d371218b`. OCE `feat/practice-code-landing` at
+  `SHA:b79e0c23d` (twelve commits), on the remote at 11:12Z after four refused gates (the
+  Playwright browser build, one unused type export, the depcruise gate's pinned roots, the
+  current-source review hash), open as #354 since 11:1xZ with Copilot requested under the bot.
+  318 and #349 closed with comments naming 322 and #354. The merged door branches deleted on
+  2026-10-04; the surface lanes wait for the owner's word.
+- **The stop line**: the sitting opened at 09:16Z; the line is 13:45Z; at this block (11:2xZ)
+  the authoring stands at about 2 h with about 2 h of gates and settlement across both estates;
+  the owner's handoff word came at 11:0xZ, before the line.
+- **Lessons**: a commit pathspec that names a renamed or deleted path aborts the whole `git add`
+  (stage only what exists, commit by the full pathspec); a loop that pipes `git commit` into
+  `tail` hides the refusal (test the command's own exit); the reading that knip 6.37 here and 6.32
+  there trace one import graph differently was wrong (knip reads the tracked tree; the four
+  entries written on that reading are retired, the versions still differ); a carried
+  directory can be swallowed by the host's ignore file (the bare `build` line took the
+  restatement audit's `workflows/build/`): the local push gate reads the disk and passes, CI
+  reads the commit and fails, so a carry's proof is `git ls-files` over the carried tree, never
+  the gate alone; the sibling's host gate slot (its Playwright UI suites) needs the browser build
+  of its Playwright version on the pushing machine (`playwright install chromium` under the
+  workspace, one download), a machine fact the gate reports as thirty failed tests at 0 ms each;
+  a one-body gate that pins a host's directory list is a host binding in disguise (the depcruise
+  gate pinned this estate's three workspace roots and refused the sibling on a missing
+  directory; it now computes its roots from the workspace manifest, and this estate's fourth
+  workspace joined the cruise, clean); the sibling's product validators run after the family
+  legs and read a cure as a semantic delta (the unreachable-code cure in the fetch execution
+  file moved its recorded hash; the review record takes the new value with the reason).
+
+## 2026-10-05T16:3xZ — The code landing settled and merged in both estates; the alignment node at its finish (Sycamore holds Spore, 18d874)
+
+- **Seated 14:4xZ as the successor** at the owner's word (with `/jc-start-right-team`: "take your time coming up to speed, you are the eventual successor to Crucible binds Slag (7b999c)"); Moment 2 posted here as 01d8fae8 answering 4045a2b2; n=1, no heartbeat.
+- **The settlement pushes on #354, four in all, the same bytes as the sibling's but for the package scope and the skill prefix**: `SHA:95173d56f` (the setup action pinned to pnpm/action-setup v6.1.0 and setup-node v7.0.0, the `windows-basic` setup failure cured; the fan-in accepts one skipped result only under `schema-drift-status`'s own skip condition; the conformance validator's presence readings pure, the spawn-topology proof a smoke, `check-package-deps.py` exits 2 on a failed outdated command), `SHA:531be217b` (the optional-reads class one module at the reader seam; the depcruise gate refuses a workspace root above the repository), `SHA:5c6a3611c` (`windows-basic` named required in the workflow comment; the python helper's status lines on stderr), `SHA:6a4bd5e06` (the fan-in's `if: always()` required by the validator, one family gate run per `check`, the `review-cost` alias fail-closed). Findings rejected with RUN evidence: Codex's Windows P1 (`windows-basic` SUCCESS, run 37330034721); Copilot's knip claim (`knip-depcruise` SUCCESS, run 37335813488). Observations routed as signed lines: the cited scripts' `../` escape; the tracked `skills-lock.json` read.
+- **The rebudget door, once**: the review-cost gate refused the fourth push (rounds spent); PDR-140 clause 4 taken once by this seat's recorded decision on the description (intake line "Review budget — 5", §Rebudget), the owner's objection possible (the gate's text says "by the owner"; the clause names no grantor). After it the step-back: signed lines only.
+- **Copilot's review of the final tip, one finding, true**: the manifest's `agent-tools:build`, `agent-tools:prevent-accidental-major-version` and `agent-tools:secret-scan` lack `--fail-if-no-match` while the hook comments say every agent-tools alias carries it (both estates, the same bytes). A signed remainder on the description and the thread; the first follow-up pull request per estate after the merge cures the class by a manifest self-check in the conformance validator.
+- **Merged**: the sibling's 322 at `SHA:d3647a9d` (16:26:59Z); #354 at `SHA:ef42bd11f` through the bot's door after its quiet window. The sibling's ruleset switched to its fan-in; this estate's was already there.
+- **Lesson, one instance**: the home push gate refused a push at `skills:check` because an edited skill script has projections under `.claude/skills/` and `.agents/skills/`; regenerate in both estates before any push that touches `.agent/skills/**` (here `pnpm skills:generate --prefix=oak-`).

@@ -7,7 +7,7 @@ overview: >-
   as one pull request applied from the ledger's recorded readings, the code carries as one pull
   request of tested modules; proved by the dry-run merge conflicting only where a host-binding
   row of the ledger says it should.
-status: sketch
+status: archived
 ratified_by: null
 ratified_date: null
 ratified_where: null
@@ -17,10 +17,12 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-10-03
+last_updated: 2026-10-05
 ---
 
 # Practice parity in two landings
+
+**Disposition (2026-10-05): archived as a sketch**, never ratified; its shape (one pull request per estate for the doctrine, one for the code) was taken into `practice-alignment-by-class` §Mechanism and delivered there (321 and #353, then 322 and #354).
 
 **Standing of this node, the owner's word of 2026-10-03 20:4xZ: an unratified and questionable
 sketch, not to be implemented.** It is kept as a perspective once held and held no longer: it

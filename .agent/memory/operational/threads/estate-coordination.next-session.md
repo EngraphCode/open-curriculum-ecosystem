@@ -478,6 +478,60 @@ lane holds T01, T02, T07, T13 and T21.
 
 ## Journal
 
+### 2026-10-05 16:4xZ — #354 merged; the alignment node at its finish in both estates (Sycamore holds Spore, 18d874, the n=1 seat)
+
+Pull request #354 merged at `SHA:ef42bd11f` (16:33:15Z) through the bot's door after four
+settlement pushes
+(`SHA:95173d56f`, `SHA:531be217b`, `SHA:5c6a3611c`, `SHA:6a4bd5e06`), the last under the one
+PDR-140 clause 4 rebudget taken by this seat's recorded decision on the description (the gate's
+text says "by the owner"; highlighted for the owner); the sibling's 322 merged at `SHA:d3647a9d`
+(16:26:59Z) after six. Each door required Copilot's review bound to the tip; this estate's door
+waited its ten-minute quiet window, which counts from the last review event, the bot's own reply
+included. The byte proof at the merged tips is a comment on each landing: 829 shared, 776
+identical, 9 placeholder-only, 44 differing, the contextual layer; no family-layer path differs.
+
+Cured here with tests, the same bytes as the sibling's: the setup action pinned to
+pnpm/action-setup v6.1.0 and setup-node v7.0.0 (the `windows-basic` setup failure under pnpm 12's
+cmd shim), the fan-in's one skipped result accepted only under `schema-drift-status`'s own
+condition, the conformance validator's presence readings and its optional-reads class, the
+fan-in's `if: always()` required, one family gate run per `check`, the depcruise gate's root
+containment, the `review-cost` alias fail-closed, the spawn-topology proof a smoke, the python
+helper's exits. Rejected with RUN evidence: Codex's Windows P1 (`windows-basic` SUCCESS, run
+37330034721), Copilot's knip claim (`knip-depcruise` SUCCESS, run 37335813488). Routed as signed
+lines: the cited scripts' `../` escape, the tracked `skills-lock.json` read, and Copilot's last
+finding on the final tip, true in both estates: the family manifest's `agent-tools:build`,
+`agent-tools:prevent-accidental-major-version` and `agent-tools:secret-scan` lack
+`--fail-if-no-match` while the hook comments say every agent-tools alias carries it; the first
+follow-up pull request per estate cures the class with a manifest self-check in the validator.
+
+Retired under the bot and read back absent, their clean worktrees removed first:
+`feat/practice-code-landing`, `feat/parity-carry-doctrine-batch` (#349, superseded by #354),
+`feat/parity-surface-directives` and `feat/parity-surface-subagents` (the owner's card answer);
+the local `docs/parity-ledger-revision-2` after `merge-base --is-ancestor` read its tip in
+`engraph`. Todo 3 here: the strategic node's §Delivery finish line with both shas; the three
+nodes archived under `.agent/plans/archive/` with their dispositions; `validate-plan-corpus` OK
+(146 files). Left for this seat: these records committed, the coordination branch folded (DUE),
+the wrap.
+
+### 2026-10-05 11:3xZ — the code landing open as #354; the seat handed off at the owner's word (Crucible binds Slag, 7b999c, the n=1 seat)
+
+The sibling's 322 opened first (10:35Z) as the node orders it; this estate's branch reached the
+remote at 11:12Z after four refused gates, each a fact of this host or of the carried one-body
+tooling and none of the landing's content: Playwright 1.62's browser build was absent on the
+pushing machine (thirty UI tests failed at 0 ms; `pnpm exec playwright install chromium` under
+the showcase workspace); knip raised one unused type re-export in the carried cited-paths helpers
+(this estate reads configuration hints as information; the 23 `.css` hints predate the landing);
+the carried depcruise gate pinned the sibling's three workspace roots (it now computes them from
+`pnpm-workspace.yaml`, the four roots the old script named); the current-source validator read
+the unreachable-code cure in the fetch execution file as a semantic delta (its reviewed hash
+taken with the reason in the commit; the anchors refreshed). #354 opened at 11:1xZ with the full
+description (the family shape, the carries, the host-local decisions with reasons, the named
+remainders, the proofs), Copilot requested under the bot; #349 closed with the comment naming it.
+The sibling's review loop on 322 ran one settlement push (nine threads: six cured, three
+observations on one-body modules recorded as remainders in both descriptions) and one more cure
+(the origin check's userinfo refusal, carried here as the same bytes). Next: the records above,
+the fold (DUE), and the next seat's steps in §Next Safe Steps.
+
 ### 2026-09-20 12:44Z — the 2026-09-19 branch folded as #156 (Zephyr guards Leeward, 281e44, curator at n = 2)
 
 Merged `SHA:44729c98c` through the front door; successor `coordination/2026-09-20-44729c`. Folded
@@ -1754,7 +1808,7 @@ instinct the rulings ledger (plan S2) formalises.
 | claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-opus-5-5[1m] | 281e44 | Zephyr guards Leeward | Model moved to `claude-opus-5-5[1m]` on 2026-09-23 at the owner's word, from `claude-opus-5[1m]` by way of `claude-fable-5-1` (the continuity lane row records that step); one continuous seat, so the row's `model` moves (PDR-027 Amendment Log, 2026-07-08). Sole operator — the Claude buffer drain and PDR-141; #143, #146 and #145 landed; the 2026-09-14 coordination branch folded (#148) and `coordination/2026-09-15-4786ab` cut; #147 integrated at `15de4bc69`, held for the reviewer-leg fix, then landed on premises (`0bd321131`) at the owner's word; #149, the tightening half of slice 1, landed (`514bfc06a`); the owner's IO-invariant, instrument, "no findings is a result" and two-forks corrections recorded; the owner-commissioned deep retrospective over the last five napkins (`940c019a6`); the 2026-09-15 fold #150 (`a07940ac9`) and the successor `coordination/2026-09-16-a07940` at the opening of the dedicated consolidation; curator through the consolidation's folds #152, #153, #155 and #156, and this record's curation on 2026-09-20; the #159 and #169 folds and the three-estate exchange's opening on 2026-09-21 | 2026-09-14 | 2026-09-23 |
 | claude-code | claude-opus-5-5[1m] | 74fc02 | Marten mends Shadow | this estate's exchange seat of the three-estate Practice exchange, named at the owner's word as Zephyr guards Leeward's (281e44) successor; implementer of the exchange's owed lanes, each in its own worktree off `engraph` | 2026-09-24 | 2026-09-25 |
-| claude-code | claude-fable-5-1 | 7b999c | Crucible binds Slag | implementer at n=2 with Hazel tracks Trunk (7d8b9d, curator), both resident in JC.net: the fold of #299, the continuity record, the open lanes and the upstream sync, at the owner's word of 2026-10-01; the Director across both estates from 2026-10-02 10:51Z (claim 6a4b11b1 here, 8b346894 in JC.net) to 14:4xZ, stopped at the owner's compaction-and-stop word with its claims closed and no successor seated: PDR-143 and the Capability Foundations sentence landed in both estates as the same bytes, the retire port routed as #333 and read, 290 and 291 read before merge, JC.net's 286 fold held by a stale index lock and passed on; the Director again from 2026-10-02 19:0xZ to the owner's compaction word of 2026-10-03 07:1xZ (claims 302e8307, 9ecef634, 4b82394b here; 726da755, d5492b18 in JC.net): the parity node ratified and landed through its records on both default branches, the ledger at both doors, JC.net 310, the seats paused on the owner's word on O10; the Director again from 2026-10-03 13:2xZ to the owner's compaction word of 21:0xZ: the ledger's revision (JC.net 312, #350), the plan correction twinned, 311 and #349 read, then at the owner's word of 20:0xZ the parity frame set aside, the parity node superseded, the review node `practice-system-review` planned as the same bytes in both estates, n=1 from there; the n=1 seat again from 2026-10-04 (no claim: no peer): the review node reshaped at two Cricket verdicts and ratified by the owner's card answer of 13:3xZ, the layer pass read and the report drafted in JC.net, both coordination branches folded | 2026-10-01 | 2026-10-04 |
+| claude-code | claude-fable-5-1 | 7b999c | Crucible binds Slag | implementer at n=2 with Hazel tracks Trunk (7d8b9d, curator), both resident in JC.net: the fold of #299, the continuity record, the open lanes and the upstream sync, at the owner's word of 2026-10-01; the Director across both estates from 2026-10-02 10:51Z (claim 6a4b11b1 here, 8b346894 in JC.net) to 14:4xZ, stopped at the owner's compaction-and-stop word with its claims closed and no successor seated: PDR-143 and the Capability Foundations sentence landed in both estates as the same bytes, the retire port routed as #333 and read, 290 and 291 read before merge, JC.net's 286 fold held by a stale index lock and passed on; the Director again from 2026-10-02 19:0xZ to the owner's compaction word of 2026-10-03 07:1xZ (claims 302e8307, 9ecef634, 4b82394b here; 726da755, d5492b18 in JC.net): the parity node ratified and landed through its records on both default branches, the ledger at both doors, JC.net 310, the seats paused on the owner's word on O10; the Director again from 2026-10-03 13:2xZ to the owner's compaction word of 21:0xZ: the ledger's revision (JC.net 312, #350), the plan correction twinned, 311 and #349 read, then at the owner's word of 20:0xZ the parity frame set aside, the parity node superseded, the review node `practice-system-review` planned as the same bytes in both estates, n=1 from there; the n=1 seat again from 2026-10-04 (no claim: no peer): the review node reshaped at two Cricket verdicts and ratified by the owner's card answer of 13:3xZ, the layer pass read and the report drafted in JC.net, both coordination branches folded; then the owner added the family layer and decided the six placements, ratified the five-layer definition as canonical (landed here as #351 at `SHA:82cb7fba4` and in JC.net as 319), and ratified the successor node `practice-alignment-by-class` by four card answers after a full Cricket suite; compaction at the owner's word at 19:0xZ with the doctrine landing next; the doctrine landing of practice-alignment-by-class on 2026-10-04 to 05 (321 merged in the sibling, #353 open here at df70cd153), the owner's card answer on Core records | 2026-10-01 | 2026-10-05 |
 | claude-code | claude-fable-5-1 | 7adb15 | Efreet lifts Scorch | implementer at n=3 with Hazel tracks Trunk (7d8b9d, curator) and Crucible binds Slag (7b999c, implementer), both resident in JC.net: the fold of #327 and the mirror check, at the owner's word of 2026-10-02; guest observer on JC.net's stream | 2026-10-02 | 2026-10-02 |
 
 Prior Director seats predate this record; their identities and tenures are

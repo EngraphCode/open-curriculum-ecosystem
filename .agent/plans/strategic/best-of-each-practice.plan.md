@@ -22,7 +22,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-10-04
+last_updated: 2026-10-05
 ---
 
 # The best of each Practice
@@ -133,3 +133,18 @@ divergences between the estates are resolved by class, one pull request per clas
 the general layer by concept, the family layer by convention, the contextual layer named as
 bindings, the accumulated layer never compared; the review node is archived, and the successor
 delivery node, written from the model, lands by its own pull request after this one.
+
+The owner's word on its model was given on 2026-10-04 (the five-layer definition, ratified as
+canonical and recorded in PDR-143 §Decision), and the delivery node `practice-alignment-by-class`
+carried it to the finish on 2026-10-05: the doctrine landing merged in both estates (321 at
+SHA:4992af38 in jimcresswell.net; #353 at SHA:d70baa1d0 in OCE) and the code landing merged in both (322 at
+SHA:d3647a9d in jimcresswell.net; #354 at SHA:ef42bd11f in OCE), so the general layer is one text by concept,
+the family layer one shape (the Practice-operation scripts, the hooks, the CI fan-in, the
+compiler flags, the formatter and the package manager, kept by `validate-family-conformance` in
+every repository of the family), the capabilities carried each way with their tests or named
+host-local with their reasons, and the contextual layer named as the parameter list in the
+review report; the proofs are on the four pull requests and the byte proof posted on the two code
+landings. The parity nodes this node succeeded (`practice-parity-for-extraction`,
+`practice-parity-two-landings`) and the node itself are archived with their dispositions. What
+the alignment left named for later is in the landings' descriptions (the named remainders) and is
+routed as ordinary work, never as a standing lane.

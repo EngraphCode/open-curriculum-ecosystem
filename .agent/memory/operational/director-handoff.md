@@ -318,6 +318,85 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-05 16:4xZ (Sycamore holds Spore, `18d874`, the n=1 seat, at the alignment node's
+finish; this block supersedes the 11:3xZ block below where they differ).** The delivery node
+`practice-alignment-by-class` is at its finish: the doctrine landing merged in both estates (#353,
+321) and the code landing merged in both (#354 here at `SHA:ef42bd11f`, 16:33Z, after four
+settlement pushes, the last under the one PDR-140 rebudget; the sibling's 322 at `SHA:d3647a9d`,
+16:26Z), each through the bot's door with Copilot's review binding the tip; the byte proof at the
+merged tips is a comment on each landing (829 shared, 776 identical, 9 placeholder-only, 44
+differing, the contextual layer). Four branches retired here under the bot with their worktrees
+(`feat/practice-code-landing`, `feat/parity-carry-doctrine-batch`, and the two surface lanes on
+the owner's card answer), six in the sibling. Todo 3 is done in both working trees: the strategic
+node's §Delivery finish line, the three nodes archived under `.agent/plans/archive/` with their
+dispositions. What remains for this seat: the records committed, both coordination branches
+folded (DUE), the wrap. Named for the next seat, ordinary work: the first follow-up pull request
+per estate puts `--fail-if-no-match` on every filtered alias in the family manifest and the root
+scripts with a manifest self-check in the conformance validator (Copilot's finding on the final
+tip here, true in both estates); the remainders on the landing's description. For the owner: this
+seat took the PDR-140 clause 4 rebudget once on each code landing, #354 here and 322 in the
+sibling, by its own recorded decision (the gate's text says "by the owner"); the doctrine landings
+needed none. No claim, watcher, heartbeat or background agent survives this seat.
+
+**§STATE, 2026-10-05 11:3xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's handoff
+word; this block supersedes the 2026-10-04 13:5xZ block below where they differ).** The code
+landing of `practice-alignment-by-class` is open in both estates: #354 here on
+`feat/practice-code-landing` at `SHA:b79e0c23d` (twelve commits: the family shape with this
+host's two product slots, the Core clause and shared text, the docs validators and lint rules,
+the merge-bot's push side, the skills at the family paths, the substrate audit, the formatter
+file's deletion, one doc-comment cure, the review cures carried from the sibling's landing, the
+depcruise gate's computed roots, the origin check's userinfo refusal with the fetch execution
+file's reviewed hash, the regenerated delta inventory), pushed through the full gate after four
+refusals (the Playwright browser build for Playwright 1.62 on the pushing machine, one unused type
+export, the carried depcruise gate's pinned roots, the current-source review hash), Copilot
+requested under the bot; the sibling's 322 (thirteen commits, CI green, one review finding cured
+and awaiting its reply). The doctrine landing is merged in both (#353, 321). #349 and 318 are
+closed into the landings. What remains is settlement, the two merges (this estate's ruleset is
+already on the fan-in), the branch deletions and the byte proof, todo 3 (the strategic node's
+finish line; `practice-parity-two-landings` and `practice-parity-for-extraction` archived here,
+the alignment node lives in the sibling), the fold of both coordination branches (DUE), and one
+owner card (the two superseded surface lanes `feat/parity-surface-directives` and
+`feat/parity-surface-subagents`; the expired gates of `practice-language-separation` in the
+sibling). The live reading is the sibling's thread record
+`threads/two-estate-consolidation.next-session.md`'s block of this hour and this estate's
+`estate-coordination` journal entry of the same hour. No claim, watcher, heartbeat or background
+agent survives this seat.
+
+- This estate's `windows-basic` job fails at setup on #354 since the pnpm 12 bump: the
+  setup-node cache step runs `pnpm store path` through pnpm/action-setup's cmd shim, which
+  resolves to a path under `global\v11\...\node_modules\pnpm\pnpm` that cmd cannot run (pnpm 12's
+  Windows shim; pnpm issue 16573 is the same family). The fan-in needs that job, so #354 cannot
+  merge until it is cured: pin a newer pnpm/action-setup or a pnpm 12.x with the shim fix, or set
+  the action's `version` and `standalone` inputs; the `engraph` run before the bump is green.
+
+**§STATE, 2026-10-05 00:3xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's
+compaction word).** The doctrine landing of `practice-alignment-by-class` is merged in the
+sibling (jimcresswell.net 321 at `SHA:4992af38`, main) and open here as #353 at `SHA:df70cd153`
+(the landed bytes plus 43 contextual-bound variants; #350 merged in and closed; five review
+findings cured and the threads resolved under the bot; Copilot re-requested at the tip). The
+byte proof at main there and this tip reads DRIFT 1 over 744 shared paths: the one drift is
+`subagent-practice-core-protection`'s two adapter-tree globs, added here at Copilot's finding,
+which the sibling's copy takes in its code landing. The owner's card answer of 2026-10-04:
+"Your words stand (Recommended)": a Core record names an estate by its name; PDR-142's clause is
+amended in the code landing. Next safe step: `merge-bot merge --pr 353 --expect
+copilot-pull-request-reviewer` once a review binds `SHA:df70cd153`; then the code landing
+(mechanism item 2), in the sibling first, then here. The live record is the sibling's napkin
+block of 2026-10-05T00:3xZ.
+
+**§STATE, 2026-10-04 19:0xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's
+compaction word; this block supersedes the blocks below where they differ).** The definition's
+landings merged: #351 at `SHA:82cb7fba4` on engraph, jimcresswell.net 319 at `SHA:02178ff0b` on
+main, the same bytes. The successor delivery node `practice-alignment-by-class` is ratified (the
+owner's four card answers of 16:xZ: four pull requests, two per estate; proceed at about five
+hours over two sittings; a light commit and a full push as the TypeScript family's convention;
+the conformance check included) and sits on this successor coordination branch at
+`SHA:5125881ce` with the Cricket suite's tally, the same bytes as the sibling's. The live record
+is jimcresswell.net's two-estate thread block of 2026-10-04T19:0xZ; the next safe step is the
+doctrine landing in jimcresswell.net first, then here from engraph, the same bytes; then the code
+landing. One conflict is the owner's, carried with the doctrine landing: the owner's 2026-09-30
+word ("it's OCE") against PDR-142's host-neutrality clause. No claim, no process, no unpushed
+commit of this seat; draft #352 is this branch's fold pull request.
+
 **§STATE, 2026-10-04 13:5xZ (Crucible binds Slag, `7b999c`, the n=1 seat at the resume; this
 block supersedes the 21:0xZ block below where they differ).** The review node
 `practice-system-review` is ratified (the owner's card answer of 13:3xZ, the stamp in its
@@ -328,8 +407,10 @@ classes with a direction each), posted to the owner at two hours as a report; on
 evidence, one coarse row per area with exceptions and `unread` only; one report landed in
 jimcresswell.net by one pull request, this estate's copy riding the landing of the owner's word
 here; about four hours of one seat. The layer pass is read and the draft page written. The two
-coordination branches are folding (jimcresswell.net 305 merging through the bot; here #348 ready
-with its seven findings cured in one settlement push); this seat's five claims are closed (n=1).
+coordination branches folded: jimcresswell.net 305 at `SHA:eebe40ea2` (successor
+`coordination/2026-10-04-eebe40`), here #348 at `SHA:d2f44f159` (successor
+`coordination/2026-10-04-d2f44f`, cut 2026-10-04 and holding the primary); this seat's five claims
+are closed (n=1). The definition's landing is open here as #351 and in jimcresswell.net as 319.
 At the doors, untouched until the model is read: #350 and 312 (the ledger's revision), 318, the
 hooks branch, the OCE implementer's unpushed lanes; the dependabot pull requests were closed by
 the owner.
@@ -524,7 +605,7 @@ something I handle later. What we are currently working towards is both estates 
 capable Practices which we can then extract into a separate entity which has yet to be
 designed." And (20:1xZ): "We WILL finish the Practice work in the next few hours, make sure of
 it." The plan is one document, the same bytes in both estates:
-`.agent/plans/delivery/practice-parity-for-extraction.plan.md` (born sketch; the owner approved
+`.agent/plans/archive/practice-parity-for-extraction.plan.md` (archived 2026-10-05; born sketch; the owner approved
 its plan file at 19:2xZ; its size table carries the owner's bound, "no more than two hours, one
 agent per estate plus a cross-estate Director", stated at 19:4xZ). It supersedes
 `practice-work-finish` (archived here under `.agent/plans/archive/`). Its definition of done is
