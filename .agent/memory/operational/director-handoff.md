@@ -334,8 +334,9 @@ folded (DUE), the wrap. Named for the next seat, ordinary work: the first follow
 per estate puts `--fail-if-no-match` on every filtered alias in the family manifest and the root
 scripts with a manifest self-check in the conformance validator (Copilot's finding on the final
 tip here, true in both estates); the remainders on the landing's description. For the owner: this
-seat took the PDR-140 clause 4 rebudget once per landing by its own recorded decision (the gate's
-text says "by the owner"). No claim, watcher, heartbeat or background agent survives this seat.
+seat took the PDR-140 clause 4 rebudget once on each code landing, #354 here and 322 in the
+sibling, by its own recorded decision (the gate's text says "by the owner"); the doctrine landings
+needed none. No claim, watcher, heartbeat or background agent survives this seat.
 
 **§STATE, 2026-10-05 11:3xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's handoff
 word; this block supersedes the 2026-10-04 13:5xZ block below where they differ).** The code
