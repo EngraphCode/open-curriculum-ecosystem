@@ -16,14 +16,26 @@ import { parseGitRemoteUrl, type GitRemoteRepository } from '../core/git-remote-
  * over a transport worth trusting. Several URLs name nothing: fetch reads the
  * first and a single `config --get` the last, so a check of one would not
  * bind the other. Plain http names nothing: what a remote advertises over it
- * is not trusted. The parser reads either form all the same, for callers
- * that need only the repository a URL names.
+ * is not trusted. An https URL carrying userinfo names nothing either: the
+ * parser discards a `user@` on any scheme, which for ssh is the transport
+ * login, but on https it is a credential in the URL, and a repository read
+ * past a credential is not the trust this check gives. The parser reads
+ * every form all the same, for callers that need only the repository a URL
+ * names.
  */
 export function trustedOriginRepository(urls: readonly string[]): GitRemoteRepository | undefined {
   const url = urls[0]?.trim();
-  return urls.length !== 1 || url === undefined || url.startsWith('http://')
+  return urls.length !== 1 || url === undefined || !isTrustedTransport(url)
     ? undefined
     : parseGitRemoteUrl(url);
+}
+
+/** `https://` with no userinfo, or any non-http scheme; plain http and credentialed https are not trusted. */
+function isTrustedTransport(url: string): boolean {
+  if (url.startsWith('http://')) {
+    return false;
+  }
+  return !/^https:\/\/[^/]*@/u.test(url);
 }
 
 /** Whether `remote` is `repository` on github.com, each part compared without case. */
