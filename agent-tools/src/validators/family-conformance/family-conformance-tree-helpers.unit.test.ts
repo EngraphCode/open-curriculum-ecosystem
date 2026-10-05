@@ -112,12 +112,23 @@ describe('checkCiFanIn', () => {
     expect(drifts[0]?.message).toContain('does not need `windows-basic`');
   });
 
+  it('reports a fan-in that does not run under always(), which would skip on a failed prerequisite', () => {
+    const conditional = COVERING_WORKFLOW.replace('    if: always()\n', '');
+    const [onlyDrift, ...rest] = checkCiFanIn(CI, conditional);
+
+    expect(rest).toEqual([]);
+    expect(onlyDrift?.message).toBe(
+      '.github/workflows/ci.yml job `run-quality-gates` must run under `if: always()` so a failed prerequisite still reports; found no condition',
+    );
+  });
+
   it('reads a scalar needs as one job', () => {
     const scalar = `
 jobs:
   install: {}
   run-quality-gates:
     needs: install
+    if: always()
 `;
 
     expect(checkCiFanIn(CI, scalar)).toEqual([]);

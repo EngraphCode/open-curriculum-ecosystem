@@ -109,9 +109,21 @@ export function checkCiFanIn(
     return [drift('ci', `${ci.workflow} has no job \`${ci.fan_in_job}\``)];
   }
   const needs = new Set(needsOf(fanIn.needs));
-  return typeSafeKeys(jobs)
+  const drifts = typeSafeKeys(jobs)
     .filter((job) => job !== ci.fan_in_job && !needs.has(job))
     .map((job) => drift('ci', `${ci.workflow} job \`${ci.fan_in_job}\` does not need \`${job}\``));
+  // Fail-closed: without `if: always()` GitHub skips the fan-in whenever a
+  // prerequisite fails, so the required context never reports the failure.
+  if (fanIn.if !== 'always()') {
+    const found = fanIn.if === undefined ? 'no condition' : `\`if: ${String(fanIn.if)}\``;
+    drifts.push(
+      drift(
+        'ci',
+        `${ci.workflow} job \`${ci.fan_in_job}\` must run under \`if: always()\` so a failed prerequisite still reports; found ${found}`,
+      ),
+    );
+  }
+  return drifts;
 }
 
 /** Every declared compiler flag must be present in `compilerOptions` with its value. */

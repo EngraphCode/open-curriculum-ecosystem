@@ -138,6 +138,19 @@ describe('checkSkeleton', () => {
     expect(reading.drifts.some((entry) => entry.message.includes('tail legs'))).toBe(true);
   });
 
+  it('reports the family gate legs run more than once, which the host slots never carry', () => {
+    const twice =
+      'pnpm secrets:scan && pnpm lint:shell && turbo run --continue build test && ' +
+      'pnpm host:extra && turbo run --continue build test && ' +
+      'pnpm knip:gate && pnpm repo-validators:check';
+
+    const reading = checkSkeleton(SKELETON, HOST, twice);
+
+    expect(reading.drifts).toHaveLength(1);
+    expect(reading.drifts[0]?.message).toContain('more than once');
+    expect(reading.slotAfterTests).toEqual([]);
+  });
+
   it('reports gates that are absent or reordered between head and tail', () => {
     const reordered =
       'pnpm secrets:scan && pnpm lint:shell && turbo run --continue test build && ' +

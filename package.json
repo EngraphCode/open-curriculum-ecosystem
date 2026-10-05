@@ -73,7 +73,7 @@
     "agent-tools:check-commit-message": "pnpm --filter @oaknational/agent-tools check-commit-message",
     "agent-tools:workspace-census": "pnpm --filter @oaknational/agent-tools workspace-census",
     "agent-tools:secret-scan": "pnpm --filter @oaknational/agent-tools secret-scan",
-    "agent-tools:review-cost": "pnpm --filter @oaknational/agent-tools review-cost",
+    "agent-tools:review-cost": "pnpm --fail-if-no-match --filter @oaknational/agent-tools review-cost",
     "agent-tools:skill-evals": "pnpm --filter @oaknational/agent-tools skill-evals",
     "agent-tools:check-commit-skill-advisories": "pnpm --filter @oaknational/agent-tools check-commit-skill-advisories",
     "agent-tools:prevent-accidental-major-version": "pnpm --filter @oaknational/agent-tools prevent-accidental-major-version",

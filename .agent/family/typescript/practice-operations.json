@@ -5,7 +5,7 @@
     "agent-tools:gate-slot": "pnpm --fail-if-no-match --filter {scope}/agent-tools gate-slot",
     "agent-tools:prevent-accidental-major-version": "pnpm --filter {scope}/agent-tools prevent-accidental-major-version",
     "agent-tools:repo-check": "pnpm --fail-if-no-match --filter {scope}/agent-tools repo-check",
-    "agent-tools:review-cost": "pnpm --filter {scope}/agent-tools review-cost",
+    "agent-tools:review-cost": "pnpm --fail-if-no-match --filter {scope}/agent-tools review-cost",
     "agent-tools:secret-scan": "pnpm --filter {scope}/agent-tools secret-scan",
     "build": "turbo run --continue build",
     "clean": "turbo run --continue clean",

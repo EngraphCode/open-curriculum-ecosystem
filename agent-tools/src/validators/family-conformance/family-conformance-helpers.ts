@@ -132,17 +132,28 @@ export function checkSkeleton(
   if (drifts.length > 0) {
     return { drifts, ...empty };
   }
-  const middle = legs.slice(head.length, legs.length - tail.length);
+  return readGateSlots(legs.slice(head.length, legs.length - tail.length), gates);
+}
+
+/**
+ * The two host slots around the family gate legs in the middle of `check`:
+ * the gates appear exactly once, in order, so a missing or reordered
+ * sequence is one drift and a second run of the sequence (a host slot
+ * carrying the family's own legs) is another, each without a slot reading.
+ */
+function readGateSlots(middle: readonly string[], gates: readonly string[]): SkeletonReading {
+  const empty = { slotBeforeBuild: [], slotAfterTests: [] };
   const gatesAt = indexOfSequence(middle, gates);
   if (gatesAt === -1) {
     const message = `\`check\` does not run the family gate legs ${formatLegs(gates)} between its head and tail; found ${formatLegs(middle)}`;
     return { drifts: [drift('check', message)], ...empty };
   }
-  return {
-    drifts: [],
-    slotBeforeBuild: middle.slice(0, gatesAt),
-    slotAfterTests: middle.slice(gatesAt + gates.length),
-  };
+  const slotAfterTests = middle.slice(gatesAt + gates.length);
+  if (indexOfSequence(slotAfterTests, gates) !== -1) {
+    const message = `\`check\` runs the family gate legs ${formatLegs(gates)} more than once; the family legs appear exactly once between the head and the tail`;
+    return { drifts: [drift('check', message)], ...empty };
+  }
+  return { drifts: [], slotBeforeBuild: middle.slice(0, gatesAt), slotAfterTests };
 }
 
 /**
