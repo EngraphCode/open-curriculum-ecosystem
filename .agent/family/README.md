@@ -10,8 +10,8 @@ repository belongs to, and the one contextual file that binds those conventions 
   formatter and the package manager. `{scope}` and `{skill_prefix}` are the host placeholders.
 - `<family>/hooks/` holds the family's copies of the git hook bodies; the host's `.husky/` files
   must be byte-identical to them.
-- `practice-operations.schema.json` is the JSON Schema the manifest and `host.json` are
-  validated against before any comparison runs.
+- `.agent/practice-core/schemas/family-conformance.schema.json` is the JSON Schema the manifest
+  and `host.json` are validated against before any comparison runs.
 - `host.json` holds this host's values for the placeholders. It is the one file here that
   differs by host.
 

@@ -27,9 +27,6 @@ const config: KnipConfig = {
   ignoreBinaries: [
     // External tools not installed via npm
     'gitleaks',
-    // System binaries used in package.json scripts for port/process checks
-    'lsof',
-    'ps',
   ],
   ignoreIssues: {
     // Deploy boundary intentionally exposes the same handler as both a named
@@ -73,15 +70,14 @@ const config: KnipConfig = {
       entry: ['package.json'],
       project: [],
       ignoreDependencies: [
-        // Spawned as `pnpm exec prettier` and `pnpm exec markdownlint-cli2` from
-        // the repo root by agent-tools' repo-check (the format and markdown gates
-        // over the staged set and the tracked tree), never referenced from a root
-        // script knip can parse. They stay root devDependencies because their
-        // configs (`prettier.config.ts`, `.markdownlint-cli2.jsonc`) and their exec
-        // cwd are the root; scoped to this workspace so a stray copy elsewhere is
-        // still reported.
+        // Spawned as `pnpm exec markdownlint-cli2` from the repo root by
+        // agent-tools' repo-check (the markdown gate over the staged set and the
+        // tracked tree), never referenced from a root script knip can parse. It
+        // stays a root devDependency because its config
+        // (`.markdownlint-cli2.jsonc`) and its exec cwd are the root; scoped to
+        // this workspace so a stray copy elsewhere is still reported. Prettier is
+        // referenced by `prettier.config.ts`, so knip reads it as used.
         'markdownlint-cli2',
-        'prettier',
       ],
     },
     'agent-tools': {
@@ -177,12 +173,6 @@ const config: KnipConfig = {
         // Restatement-audit workflow stage entries: same string-entry-point
         // pattern as corpus-analysis above.
         'src/restatement-audit/workflows/*.workflow.ts',
-        // The restatement-audit build and ledger commands run through their
-        // package scripts (`tsx src/...`); listed so the stage metas and the
-        // gazetteer projection they import are traced from the real entry.
-        'src/restatement-audit/workflows/build/build-workflows.ts',
-        'src/restatement-audit/workflows/build/build-run-artefact.ts',
-        'src/restatement-audit/render-ledger-cli.ts',
         // Smoke checks: the smoke runner (`src/bin/run-smoke-tests.ts`)
         // discovers and spawns every `smoke-tests/*.smoke.ts`, so no import or
         // package script names them; each is an entry so what it imports from

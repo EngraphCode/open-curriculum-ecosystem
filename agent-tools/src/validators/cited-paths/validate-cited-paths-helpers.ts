@@ -15,9 +15,9 @@
  * @packageDocumentation
  */
 
-import { extractPathCitations, type PathCitation } from './extract-path-citations.js';
+import { extractPathCitations } from './extract-path-citations.js';
 
-export { extractPathCitations, type PathCitation };
+export { extractPathCitations };
 
 /** A citation whose target does not exist. */
 export interface MissingPathFinding {

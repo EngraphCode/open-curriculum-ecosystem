@@ -172,7 +172,7 @@ Before reviewing or recommending, read and internalise:
 
 | Document                                                        | Load when                                                        |
 | --------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `.agent/skills/design-system/SKILL-CANONICAL.md`                | Token-related contrast or theming concerns                       |
+| `.agent/skills/domain-craft/ui-design/design-system-usage/SKILL-CANONICAL.md`                | Token-related contrast or theming concerns                       |
 | `.agent/skills/domain-craft/ui-design/visual-verification/SKILL-CANONICAL.md` | Producing or reading rendered proof for a verdict   |
 | `.agent/sub-agents/components/principles/subagent-principles.md` | Scope and complexity guardrails                                 |
 
