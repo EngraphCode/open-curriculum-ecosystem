@@ -1,9 +1,13 @@
-import { cruise, format } from 'dependency-cruiser';
+import { readFileSync } from 'node:fs';
+
+import { err, isErr, ok, type Result } from '@oaknational/result';
+import { cruise, format, type ICruiseOptions, type ITranspileOptions } from 'dependency-cruiser';
 import extractDepcruiseOptions from 'dependency-cruiser/config-utl/extract-depcruise-options';
 import extractTSConfig from 'dependency-cruiser/config-utl/extract-ts-config';
 
 import { writeErrorLine } from '../core/terminal-output.js';
 
+import { cruiseRootsFromWorkspaceManifest } from './repo-check-depcruise-roots.js';
 import {
   depcruiseSummaryFailures,
   unloadedCruiseOptionFailures,
@@ -17,7 +21,9 @@ import {
  * For the options this repository's configuration uses, the cruise is the
  * command line's: the root `.dependency-cruiser.mjs` read as cruise options,
  * the `tsConfig` it names parsed with dependency-cruiser's own extractor, and
- * the same three workspace directories. The command line also loads a
+ * the workspace directories `pnpm-workspace.yaml` declares, computed from the
+ * manifest (`repo-check-depcruise-roots.ts`) so no host's list is pinned here.
+ * The command line also loads a
  * `webpackConfig` or `babelConfig`; the gate does not, so it refuses a
  * configuration that names either. The report text is the `err` reporter's,
  * produced by `format`, which re-summarises without the rule set and so lists a
@@ -37,8 +43,8 @@ import {
  */
 const CONFIG_FILE = './.dependency-cruiser.mjs';
 
-/** The workspace directories cruised, relative to the repository root. */
-const CRUISE_ROOTS = ['agent-tools', 'tooling', 'jcdotnet'];
+/** The workspace manifest the cruise roots are computed from, relative to the repository root. */
+const WORKSPACE_MANIFEST = 'pnpm-workspace.yaml';
 
 /**
  * The dependency-cruiser calls and the output streams the gate composes,
@@ -46,6 +52,8 @@ const CRUISE_ROOTS = ['agent-tools', 'tooling', 'jcdotnet'];
  * or cruising the repository.
  */
 export interface DepcruiseGateRuntime {
+  /** Read the workspace manifest's text. */
+  readonly readWorkspaceManifest: () => string;
   /** Read the configuration file as cruise options. */
   readonly extractDepcruiseOptions: typeof extractDepcruiseOptions;
   /** Parse the tsconfig the options name. */
@@ -62,6 +70,7 @@ export interface DepcruiseGateRuntime {
 
 /** The real dependency-cruiser API, the report on stdout and the failure lines on stderr. */
 const defaultDepcruiseGateRuntime: DepcruiseGateRuntime = {
+  readWorkspaceManifest: () => readFileSync(WORKSPACE_MANIFEST, 'utf8'),
   extractDepcruiseOptions,
   extractTSConfig,
   cruise,
@@ -79,21 +88,43 @@ function reportFailures(runtime: DepcruiseGateRuntime, failures: readonly string
   }
 }
 
+/** What a cruise needs, read before it runs: the roots, the options and the transpile options. */
+interface CruiseInputs {
+  readonly roots: readonly string[];
+  readonly options: ICruiseOptions;
+  readonly transpileOptions: ITranspileOptions;
+}
+
+/** Read the cruise inputs from the manifest and the configuration, or the failure lines that stop the gate. */
+async function readCruiseInputs(
+  runtime: DepcruiseGateRuntime,
+): Promise<Result<CruiseInputs, readonly string[]>> {
+  const roots = cruiseRootsFromWorkspaceManifest(runtime.readWorkspaceManifest());
+  if (isErr(roots)) {
+    return err([roots.error]);
+  }
+  const options = await runtime.extractDepcruiseOptions(CONFIG_FILE);
+  const optionFailures = unloadedCruiseOptionFailures(options);
+  if (optionFailures.length > 0) {
+    return err(optionFailures);
+  }
+  const tsConfigFileName = options.tsConfig?.fileName;
+  const transpileOptions =
+    tsConfigFileName === undefined ? {} : { tsConfig: runtime.extractTSConfig(tsConfigFileName) };
+  return ok({ roots: roots.value, options, transpileOptions });
+}
+
 /** Cruise the workspaces, print the `err` report, and fail on any violation, warning or partial cruise. */
 export async function runDepcruiseGate(
   runtime: DepcruiseGateRuntime = defaultDepcruiseGateRuntime,
 ): Promise<number> {
-  const options = await runtime.extractDepcruiseOptions(CONFIG_FILE);
-  const optionFailures = unloadedCruiseOptionFailures(options);
-  if (optionFailures.length > 0) {
-    reportFailures(runtime, optionFailures);
+  const inputs = await readCruiseInputs(runtime);
+  if (isErr(inputs)) {
+    reportFailures(runtime, inputs.error);
     return 1;
   }
-
-  const tsConfigFileName = options.tsConfig?.fileName;
-  const transpileOptions =
-    tsConfigFileName === undefined ? {} : { tsConfig: runtime.extractTSConfig(tsConfigFileName) };
-  const cruised = await runtime.cruise(CRUISE_ROOTS, options, {}, transpileOptions);
+  const { roots, options, transpileOptions } = inputs.value;
+  const cruised = await runtime.cruise([...roots], options, {}, transpileOptions);
   if (typeof cruised.output === 'string') {
     // No outputType was requested, so the API returns the result object; a
     // string here means the options named a reporter, and there is no summary

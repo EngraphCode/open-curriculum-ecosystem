@@ -36,6 +36,9 @@ const GATE_PREFIX = 'repo-check depcruise-gate: ';
  */
 const WORKSPACE_ROOTS = ['agent-tools', 'jcdotnet', 'tooling'];
 
+/** The manifest text the fake runtime serves: the three roots, one as a glob. */
+const WORKSPACE_MANIFEST = 'packages:\n  - agent-tools\n  - jcdotnet\n  - tooling/*\n';
+
 /** The reporter the gate's printed report comes from: `err`, as the gate's docblock states. */
 const ERR_REPORTER: IFormatOptions = { outputType: 'err' };
 
@@ -139,7 +142,11 @@ function expectUnderGateName(line: string | undefined): void {
  * A fake runtime: the reader returns `options`, the cruise returns `output`
  * (a result, or reporter text), and every call the gate makes is recorded.
  */
-function gateRuntime(output: ICruiseResult | string, options: ICruiseOptions = CONFIGURED_OPTIONS) {
+function gateRuntime(
+  output: ICruiseResult | string,
+  options: ICruiseOptions = CONFIGURED_OPTIONS,
+  manifestText: string = WORKSPACE_MANIFEST,
+) {
   const tsConfigReads: string[] = [];
   const cruisedRoots: ReadonlySet<string>[] = [];
   const cruises: unknown[] = [];
@@ -147,6 +154,9 @@ function gateRuntime(output: ICruiseResult | string, options: ICruiseOptions = C
   const reportWrites: string[] = [];
   const failureLines: string[] = [];
   const runtime: DepcruiseGateRuntime = {
+    readWorkspaceManifest() {
+      return manifestText;
+    },
     extractDepcruiseOptions() {
       return Promise.resolve(options);
     },
@@ -177,6 +187,22 @@ function gateRuntime(output: ICruiseResult | string, options: ICruiseOptions = C
 }
 
 describe('runDepcruiseGate', () => {
+  it('refuses before any cruise when the workspace manifest declares no packages, naming the manifest', async () => {
+    const { cruises, reportWrites, failureLines, runtime } = gateRuntime(
+      cruiseResult({ typescript: TYPESCRIPT_FOUND }),
+      CONFIGURED_OPTIONS,
+      'onlyBuiltDependencies:\n  - esbuild\n',
+    );
+
+    await expect(runDepcruiseGate(runtime)).resolves.toBe(1);
+
+    expect(cruises).toStrictEqual([]);
+    expect(reportWrites).toStrictEqual([]);
+    expect(failureLines).toStrictEqual([
+      `${GATE_PREFIX}pnpm-workspace.yaml declares no packages list to cruise`,
+    ]);
+  });
+
   it('passes a clean cruise and prints the err report formatted from that cruise', async () => {
     const result = cruiseResult({ typescript: TYPESCRIPT_FOUND });
     const { formatted, reportWrites, failureLines, runtime } = gateRuntime(result);
