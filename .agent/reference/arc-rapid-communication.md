@@ -19,7 +19,7 @@ and its standing maintenance clauses. The closed evaluation evidence that
 earned the graduation — six observed arcs, measured benefits, and the
 worked-instance histories behind the constraints below — is conserved in
 the dated record
-[`arc-rapid-communication-evaluation-record-2026-08-03.md`](../reports/arc-rapid-communication-evaluation-record-2026-08-03.md).
+of 2026-08-03 in OCE, which did not travel with the transplant.
 
 ## Protocol
 
@@ -46,9 +46,11 @@ the dated record
   team-coordination events that bootstrap the session all live on the
   canonical stream, and an agent watching only ARC is blind to them. The
   two watchers are paired, always.
-- **Where both seats can use s2s, that is the dialogue channel** (owner-directed 2026-09-13;
-  the `comms-channels` skill). ARC keeps its place for a pair s2s cannot reach and for a
-  dialogue whose transcript is itself the record; the mirroring obligation applies on both.
+- **Where both seats can use native session messaging (s2s), that is the
+  dialogue channel** (owner-directed 2026-09-13; the `comms-channels` skill).
+  ARC keeps its place for a pair s2s cannot reach and for a dialogue whose
+  transcript is itself the record; the conservation clause and the mirroring
+  obligation apply on both.
 - **Each participant tails the file** with a persistent watcher:
 
   ```bash

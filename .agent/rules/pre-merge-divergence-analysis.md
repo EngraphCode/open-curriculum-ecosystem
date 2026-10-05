@@ -6,11 +6,11 @@ trigger: "ceremony:merge — every merge: the premise sweep at any size; the ful
 
 # Pre-Merge Divergence Analysis
 
-Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md) — pre-merge type-check is a canonical surface — and [ADR-216 (The plan-node estate)](../../docs/architecture/architectural-decisions/216-plan-node-estate.md) — plan-level merge strategy lives in the governing delivery plan.
+Operationalises [`principles.md` §Code Quality](../directives/principles.md#code-quality) — pre-merge type-check is a canonical gate — and the plan-node estate (its README under `.agent/plans/`) — plan-level merge strategy lives in the governing delivery plan.
 
 When merging branches that have diverged significantly (100+ files changed
 on either side, or 10+ conflicts in a dry-run merge), follow the
-[Pre-Merge Divergence Analysis](../../docs/engineering/pre-merge-analysis.md)
+[Pre-Merge Divergence Analysis](../reference/pre-merge-analysis.md)
 guide before attempting the merge. This rule loads for EVERY merge: the
 premise sweep it carries (§Derive Merge Risk, last paragraph) has no size
 threshold; the thresholds above select the full divergence workflow only.

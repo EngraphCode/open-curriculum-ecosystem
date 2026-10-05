@@ -4,6 +4,7 @@ name: "Fix at source, not consumer"
 polarity: pattern
 use_this_when: "Multiple workaround attempts fail at the consumer because the producer's type/function/interface is wrong"
 category: process
+layer: general
 proven_in: "packages/sdks/oak-sdk-codegen/code-generation/typegen/paths/path-generators.ts"
 proven_date: 2026-04-03
 barrier:

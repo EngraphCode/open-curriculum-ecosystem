@@ -1,18 +1,21 @@
 ---
 classification: situational
-description: After editing TypeScript files, check lint for file/function length violations.
+description: Run check and required follow-up proofs after edits
 trigger: surface:source-authoring
-globs:
-  - "**/*.ts"
 ---
 
 # Lint After Edit
 
-Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md).
+Operationalises [`principles.md` §Code Quality](../directives/principles.md#code-quality).
 
 After editing TypeScript files, check lint for file/function length violations. Run lint on the changed files (on Cursor, `ReadLints` on the changed files) or run `pnpm lint:fix`. Catch violations early — don't accumulate them. A file you edit is yours to leave clean:
 fix its lint findings whatever their provenance, never only the lines you changed
 (owner norm, 2026-06).
+
+After each edit pass, run the gates the touched surface requires (`pnpm check`; for a served
+surface, the host's end-to-end checks or its rendering-proof instrument when rendering is at
+risk, as the `gates` skill lists them). Never disable checks or hand-wave failures; if a fix
+mutates files, restart the gate sequence from the top.
 
 A records-only change still runs the whole estate check at the push. Four validators refuse
 records and nothing else catches them earlier (a retired path named in a record, a directive

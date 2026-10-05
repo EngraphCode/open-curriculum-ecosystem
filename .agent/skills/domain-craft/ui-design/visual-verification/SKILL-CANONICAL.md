@@ -29,7 +29,12 @@ rule demand. The design register's decision is DDR-011.
 
 ## The instrument
 
-The showcase hosts the probe (first host; the pattern ports per
+The instrument is the host's (each estate's block names its own; the
+reading below is shared). It produces the rendered proof: a route at a
+viewport, a focus-state render where the claim is about interaction, and
+the DOM-fact echo beside it.
+
+OCE: the design showcase hosts the probe (first host; the pattern ports per
 workspace):
 
 ```bash

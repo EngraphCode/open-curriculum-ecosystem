@@ -306,8 +306,9 @@ reading; on 2026-10-04 the owner added the family layer ("between the general Pr
 contextual instance in a repo, there is the repo tooling family, e.g. Typescript, Python, Rust,
 each family has conventions, for instance I would expect all Typescript family repos to have the
 same package.json scripts, at least for Practice operations, which includes all quality gates")
-and a Python-family instance confirmed it. The review is the report
-`practice-system-review-2026-10` under the agentic-engineering reports of each estate.
+and a Python-family instance confirmed it. The review's evidence is each estate's own report
+of that month on the Practice system, an estate record cited here as evidence and never carried
+by this Core.
 
 **Decision.** The definition in §Decision is the owner's, ratified 2026-10-04 by card answer
 ("Ratify as canonical"); the status reads Accepted. The seven scopes of §1 stand, read as the five

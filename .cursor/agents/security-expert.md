@@ -1,6 +1,6 @@
 ---
 name: security-expert
-description: 'Security and privacy review specialist. Use proactively for auth/authz, OAuth, secrets handling, PII exposure, injection risk, and threat-focused analysis after security-sensitive changes.'
+description: 'Security and privacy review specialist. Use proactively for auth/authz, OAuth, headers and CSP, secrets handling, PII exposure, proxies or middleware, third-party scripts, injection risk, and threat-focused analysis after security-sensitive changes.'
 readonly: true
 ---
 

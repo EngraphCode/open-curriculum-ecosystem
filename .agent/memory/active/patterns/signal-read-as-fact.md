@@ -2,6 +2,7 @@
 name: signal-read-as-fact
 polarity: anti-pattern
 category: process
+layer: general
 use_this_when: "About to act on, or write into a record, an instrument's verdict, a reviewer's finding, a single instance, or a fit to the data at hand — without having stated what it is a signal of, why it is present, against what, and what would show it wrong."
 proven_in: >-
   One day, 2026-09-12 to 13, seven instances at one seat: every verified-correct

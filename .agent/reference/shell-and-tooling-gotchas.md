@@ -63,10 +63,10 @@ tool retires them.
   Verify a resolved version with `pnpm why <pkg>` or the lockfile, never a
   store-directory listing.
 - **Branch-switch stale-dist brick** (2026-07-20): after switching a
-  checkout between branches whose `@oaknational/result` dist differs,
+  checkout between branches whose `@engraph/result` dist differs,
   `pnpm install`'s bootstrap fails on the stale dist and every filtered
   build recurses into the same failing install. Escape:
-  `OAK_SKIP_AGENT_TOOLS_BOOTSTRAP=1 pnpm install`, then the filtered
+  `PRACTICE_SKIP_AGENT_TOOLS_BOOTSTRAP=1 pnpm install`, then the filtered
   package build, then plain install.
 - **pnpm-wrapped CLI invocations die at postinstall during source
   breakage** (2026-07-21): while the tree is broken, `pnpm <script>`
@@ -90,7 +90,7 @@ tool retires them.
   seats): BOTH direct node entries (tsx on source and node on the built
   cli.js) exit 0 with empty streams on the MINT path — a silent exit-0 on a
   token-minting path. The working entry is `pnpm --silent agent-tools
-  merge-bot mint-token --scope <name>` (docs/engineering/merge-bot.md).
+  merge-bot mint-token --scope <name>` (`.agent/reference/merge-bot.md`).
   Scoped to the mint path deliberately: since MCP-385 the direct node entry
   DOES exit 2 with a proper stderr message on a `--scope` usage failure
   (verified 2026-07-29), so the blanket "always exit 0" reading is no longer
@@ -180,7 +180,7 @@ Director's landing record of 2026-09-06, event f05a54da).
   leaf bin, and an arg scanner reading leading `--` as its terminator sees
   nothing. Drop the `--`; smoke the full script chain shell-level.
 - **turbo parses bare `--force` as value-taking** and eats the task name
-  (`turbo run --force sdk-codegen` runs nothing); use `--force=true`.
+  (`turbo run --force build` runs nothing); use `--force=true`.
 - **`spawnSync` timeout sets BOTH `error` (ETIMEDOUT) and `signal`** — an
   error-first branch swallows the captured streams the signal branch's
   diagnostics were added for; compose stream excerpts into both.
@@ -497,11 +497,13 @@ Director's landing record of 2026-09-06, event f05a54da).
   idle notification** (2026-09-09, four of five reviewers): put a scratchpad
   path in the original brief and ask for the report on disk plus a one-line
   pointer; a follow-up message asking for the file worked first time.
-- **The merge-bot App re-runs a failed workflow job under its `workflow-dispatch`
-  scope** (Actions write, read as held on 2026-09-11; `docs/engineering/merge-bot.md`
-  cites two bot re-runs of 2026-09-12). Before that grant the token answered
-  `Resource not accessible by integration` (2026-09-08 and 2026-09-09) and the
-  re-trigger was an empty-commit push; that route is retired.
+- **A merge-bot token re-runs a workflow job only under the `workflow-dispatch`
+  scope** (Actions write): the `pull-request-work` scope does not request
+  `actions: write` and answers `Resource not accessible by integration`
+  (2026-09-08 and 2026-09-09). The installation holds the permission (read as
+  held on 2026-09-11; the merge-bot reference document cites two bot re-runs of
+  2026-09-12 in OCE) and a `workflow-dispatch` mint succeeds (2026-09-25), so
+  mint that scope for a re-run; the empty-commit re-trigger is retired.
 - **`apt` fetching Google's chrome-stable index returned "Hash Sum mismatch" at
   the Playwright install step** — three consecutive `browser-tests` reds in
   sixteen minutes (2026-09-09): an external-mirror class; re-run after it
@@ -748,6 +750,8 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **The Claude Bash tool's sandbox can return empty content for reads under `.agent/memory/`,
   and its shell is zsh**: a grep that reads empty everywhere, a known-present term included,
   is the tell (2026-06-30, confirmed again 2026-07-02; frictions entry F-111).
+- **git commands and quality gates run outside the harness sandbox** (owner direction; the
+  sandbox refuses their writes and network reads).
 - **A worktree's local default branch can sit many commits behind the remote**: cut a branch
   from `origin/<default>` after a fetch, never from the local name (2026-09-13).
 - **CI can drop webhook events under throttle**: a pull request may show no checks at all. A

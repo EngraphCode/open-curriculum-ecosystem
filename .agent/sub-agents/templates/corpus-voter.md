@@ -1,5 +1,7 @@
 ---
 description: Single-turn no-tools adversary voter for the corpus-analysis validate workflow. Dispatched exclusively via the Workflow agent() agentType option; never invoke for interactive delegation. Judges one candidate against the four conjunctive apophenia tests from supplied grounding and answers only through the schema-forced structured output call.
+# No Gemini adapter: the Gemini adapter's body is the pointer to this template, which a
+# no-tools agent cannot read; the System prompt body is the Claude adapter's alone.
 platforms:
   - cursor
   - claude
@@ -31,13 +33,13 @@ codex:
     envelope behaviourally here) — and answer with the single required
     structured output call. Do not modify anything.
 ---
-
 # Corpus Voter: Single-Turn No-Tools Adversary
 
 Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
 `.claude/agents/corpus-voter.md` (carries the System prompt block verbatim), the
 Cursor wrapper `.cursor/agents/corpus-voter.md`, and the Codex adapter
-`.codex/agents/corpus-voter.toml` (both load this template).
+`.codex/agents/corpus-voter.toml` (both load this template). All three are generated
+from the declaration above by `pnpm portability:fix`.
 
 ## Purpose
 
@@ -82,6 +84,9 @@ also shrinks the per-turn context the tool definitions would occupy.
   quoted form (probed; the `["*"]` deny-glob lives in the SDK options
   layer, not frontmatter). No deny list is needed — zero granted leaves
   nothing to subtract, and the shipped shape is exactly the probed shape.
+  The declaration spells it `tools: none`, which the generator renders as
+  the null-value field and the declaration schema refuses beside a deny
+  list or a pointer body.
 - `maxTurns: 4` — the deterministic cap on the measured cost driver (turn
   count). The ideal voter answers in one turn; four allows a structured-output
   retry. A voter that hits the cap returns null, which the adjudication state

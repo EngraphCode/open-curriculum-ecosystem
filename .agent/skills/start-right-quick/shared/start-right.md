@@ -68,31 +68,31 @@ is the plan-body first-principles-check rule).**
    describes a system state, product code is the path that guides the system
    into it
 5. @.agent/directives/testing-strategy.md — test-type taxonomy and shape rules
-6. @.agent/directives/schema-first-execution.md — types flow from schema
-7. @.agent/directives/orientation.md — layering contract and authority order
+6. @.agent/directives/orientation.md — layering contract and authority order
 
 For Codex, Gemini, or any other platform that does not auto-load canonical
 rules, read every canonical `.agent/rules/*.md` file listed in
 `RULES_INDEX.md` before substantive work. Treat `RULES_INDEX.md` as the live
 inventory rather than copying the rule list here.
 
-### 2. Start-here ADRs
+### 2. ADRs for the workstream
 
-Scan the [Start Here: 5 ADRs in 15 Minutes](../../../../docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes)
-block in the ADR index. Open any ADR whose slug matches your current
-workstream from the [full ADR index](../../../../docs/architecture/architectural-decisions/README.md).
+Open any ADR whose slug matches your current workstream from the
+the host's ADR index (the decision-record directory under `docs/architecture/`); the
+Cardinal Rule's records (ADR-020, ADR-021) apply to any work that touches a
+rendered surface.
 
 ### 3. Learning-loop surfaces (active memory)
 
 - @.agent/memory/active/distilled.md — refined cross-session lessons
 - @.agent/memory/active/napkin.md — current session observations
-- @.agent/memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md —
-  constraint at tripwire-design time (passive guidance needs an active
-  layer to fire under context pressure)
+- @.agent/memory/active/patterns/README.md — the pattern index (passive
+  guidance needs an active layer to fire under context pressure; check it
+  at tripwire-design time)
 - Your own platform's per-user memory and session logs. Scan the
   surface for the platform you are running on:
   - Claude Code: `~/.claude/projects/<project>/memory/`
-  - Cursor: `~/.cursor/chats/`, `~/.cursor/prompt_history.json`; Composer may inject deterministic identity from `.cursor/hooks/oak-session-identity.mjs` (`sessionStart`; see `agent-tools/docs/agent-identity.md` and [Cursor Hooks](https://cursor.com/docs/hooks))
+  - Cursor: `~/.cursor/chats/`, `~/.cursor/prompt_history.json`; Composer may inject deterministic identity from `.cursor/hooks/practice-session-identity.mjs` (`sessionStart`; see `agent-tools/docs/agent-identity.md` and [Cursor Hooks](https://cursor.com/docs/hooks))
   - Codex: `~/.codex/memories/`, `~/.codex/history.jsonl`
 
   Read only the surface that matches your current platform at
@@ -215,26 +215,27 @@ When registering your PDR-027 identity row, use an existing owner-assigned
 `pnpm agent-tools:agent-identity --platform <label> --format display`, the label
 your platform (`claude-code`, `cursor`, `codex` or `gemini`). The CLI reads (in
 order) `PRACTICE_AGENT_SESSION_ID_CLAUDE`, `PRACTICE_AGENT_SESSION_ID_CURSOR`,
-`PRACTICE_AGENT_SESSION_ID_GEMINI`, `PRACTICE_AGENT_SESSION_ID_CODEX`, then
-`CLAUDE_CODE_REMOTE_SESSION_ID` (cloud seats), `CLAUDE_CODE_SESSION_ID` (Claude
-Code CLI shells), then the harness-native `CODEX_THREAD_ID`; the three Claude
-seeds count only on a Claude platform, so a seat opened from a Claude shell
-keeps its own identity.
-Platform hooks set the platform-suffixed Practice variable: the Claude Code
-`SessionStart` hook (`.claude/hooks/practice-session-identity.mjs`) appends
-`PRACTICE_AGENT_SESSION_ID_CLAUDE` to `$CLAUDE_ENV_FILE`, and the Cursor
-`sessionStart` hook (`.cursor/hooks/oak-session-identity.mjs`) injects
+`PRACTICE_AGENT_SESSION_ID_GEMINI`, `PRACTICE_AGENT_SESSION_ID_CODEX`, the
+cloud seat's `CLAUDE_CODE_REMOTE_SESSION_ID`, then the harness-native
+`CLAUDE_CODE_SESSION_ID` (present in every Claude Code Bash tool shell) and
+`CODEX_THREAD_ID`; the Claude seeds count only on a Claude platform, so a seat
+opened from a Claude shell keeps its own identity. Platform hooks set the platform-suffixed Practice
+variable: the Claude Code `SessionStart` hook
+(`.claude/hooks/practice-session-identity.mjs`) appends
+`PRACTICE_AGENT_SESSION_ID_CLAUDE` to `$CLAUDE_ENV_FILE` for shells created
+after the write, and the Cursor `sessionStart` hook
+(`.cursor/hooks/practice-session-identity.mjs`) injects
 `PRACTICE_AGENT_SESSION_ID_CURSOR`. If none of these is set in your shell
 (e.g. the hook artefact has not been built yet), pass
 `--seed "<stable-session-seed>"` explicitly. Do not use personal-email
 fallback.
 
-Before any Codex thread registration or shared collaboration-state write,
-run the PDR-027 identity preflight with the current platform and model values.
-For this repo's Codex GPT-5 sessions the command is:
+Before any thread registration or shared collaboration-state write, run the
+PDR-027 identity preflight with the current platform and model values, for
+example:
 
 ```bash
-pnpm agent-tools:collaboration-state -- identity preflight --platform codex --model GPT-5
+pnpm agent-tools:collaboration-state -- identity preflight --platform claude --model <model-id>
 ```
 
 Codex sessions with `CODEX_THREAD_ID` available must not write new thread rows
@@ -282,9 +283,9 @@ git config user.name && git config user.email
    and it is config, not authentication, so treat it as a default,
    never proof.
 2. **A per-user-authenticated service is the authoritative
-   cross-check** where one is connected — e.g. the Linear MCP viewer
-   (`get_user("me")`): it is real auth, resolved on this machine, for
-   this user.
+   cross-check** where one is connected — e.g. the GitHub CLI
+   (`gh api user --jq .login`): it is real auth, resolved on this
+   machine, for this user.
 3. **Ask the human only as the residue**: both sources absent,
    bot-shaped, or disagreeing with each other.
 
@@ -293,31 +294,6 @@ renders (owner-attention cards, per-user register renders, handoff
 records) instead of a remembered name. Memory and collaboration state
 name people historically — they are records of who acted, never
 resolution sources for who is here now.
-
-**Temporary — a clear run for Matt (owner-directed, 2026-08-03; remove
-when the owner declares the first-submission window closed — that
-declaration is the removal trigger, no other signal).** The easiest
-reliable signal that the collaborating human is Matt is his GitHub
-handle: `gh api user --jq .login` returning `mantagen` (owner-named
-detection route); the resolution order above applies where that signal
-is absent or bot-shaped. When — and only when — Matt is the identified
-user:
-
-- Open with a warm welcome that reflects the fleet's CURRENT quiet
-  state, derived from the live surfaces this workflow already loads
-  (open pull requests and their draft flags, active claims) — the
-  standing owner intent is that agent lanes stay parked in draft pull
-  requests so nothing churns under his work, with only the upstream
-  spec-update lane allowed near his surfaces and always tagged to him.
-  Say what is true at session open, never a remembered snapshot.
-- Treat his work as the repository's first priority for the session:
-  support what he is doing ahead of any agent-side backlog, keep
-  answers plain and practical, and route around his lane, never
-  through it.
-- Pass on the team's encouragement, plainly and warmly: Jim and the
-  whole fleet cleared this run for him on purpose, everyone is glad he
-  is making it, and he should ask any session for whatever he needs —
-  that is exactly what the agents are here for.
 
 ### 7. Host health
 
@@ -356,14 +332,15 @@ pnpm build
 ```
 
 `type-check` and `vitest` pass on install alone, and the install's bootstrap
-builds every package agent-tools reaches that has built entry points, including the internal
-`@oaknational/eslint-plugin-standards` whose package `exports` resolve to
-`dist/`, so ESLint's flat config loads on install alone too. Every other
-workspace's `dist/` stays unbuilt until `pnpm build`, and dependency-cruiser,
-knip and each workspace's typed lint read it. The
-primary checkout is usually already built, which masks this in the main tree
-only — so a worktree-based lane must run the build itself before trusting any
-gate.
+builds every package agent-tools reaches that has built entry points, including
+the internal ESLint standards plugin (the estate's `eslint-plugin-standards`
+package) whose package `exports` resolve to `dist/`, so ESLint's flat config
+loads on install alone too. What install does not write, the build does: the
+generated outputs a gate reads (a site's route types its `type-check`
+includes; a workspace's `dist/` that dependency-cruiser, knip and typed lint
+read). The primary checkout is usually already built, which masks this in the
+main tree only — so a worktree-based lane runs the build itself before
+trusting any gate.
 
 It also matters beyond gates: a worktree session shows **no statusline** unless the
 worktree was built **before the session started** (a known primary-checkout
@@ -375,26 +352,26 @@ not after.
 worktree's pre-push `test:ui`/`test:e2e` legs die with "Executable doesn't
 exist at …chrome-headless-shell" until you run
 `pnpm --filter <app> exec playwright install chromium-headless-shell` once in
-the worktree. Read the log before assuming a known flake — this failure is
-not the oauth-proxy concurrency flake. Read the failing job's own error lines
-before calling any check a defect or a flake: the fan-in job goes red with any
-failed leg and names no cause of its own (a font-loader flake read as the
-diff's fault, 2026-09-25).
+the worktree. Read the log before assuming a known flake, and read the failing
+job's own error lines before calling any check a defect or a flake: the fan-in
+job goes red with any failed leg and names no cause of its own (a font-loader
+flake read as the diff's fault, 2026-09-25).
 
-`pnpm install` installs shellcheck only through its `postinstall`, which runs
-`.agent/setup/install-shellcheck.sh` at a new clone or worktree's first install
-(the Quality Gates line says when else). The installer puts the pinned version
-in the worktree's ignored `.tools/bin`, and the shell lint gate runs at every
-commit. Without it the gate falls back to the shellcheck on `PATH`, which passes
-only while that one is the pinned version, so every worktree without its own
-`.tools/bin` fails at once when the `PATH` copy is upgraded.
+The pinned shellcheck lives in the worktree's ignored `.tools/bin`, where the
+shell lint gate looks before `PATH`; `.agent/setup/install-shellcheck.sh` puts
+it there at a new clone or worktree's first setup (where the estate's
+`pnpm install` runs the installer from its `postinstall`, by that; otherwise by
+hand, the lane-setup skill's fourth line). Without it the gate falls back to
+the shellcheck on `PATH`, which passes only while that one is the pinned
+version, so every worktree without its own `.tools/bin` fails at once when the
+`PATH` copy is upgraded.
 
 Full fresh-worktree setup is install, build, the pinned shellcheck before the
-first commit, AND the Playwright browser install before the browser-test gates
+first push, AND the Playwright browser install before the browser-test gates
 run.
 
 The collaboration substrate is also unseeded on a fresh checkout: the
-instance-tier state files are untracked-by-design (ADR-199 / PDR-094). The
+instance-tier state files are untracked by design (`.agent/state/README.md`). The
 pieces differ in who creates them: `active-claims.json`,
 `closed-claims.archive.json` require EXPLICIT seeding — the first claims read
 fails loud with seeding instructions rather than creating them. The
@@ -451,7 +428,7 @@ fi
 
 Check `.agent/practice-core/incoming/` for practice-core files. If
 present, alert the user — incoming material may carry learnings from
-another repo. Full integration happens during `/oak-consolidate-docs`.
+another repo. Full integration happens during the `consolidate-docs` skill.
 
 ## Per-Session Landing Commitment
 
@@ -521,11 +498,6 @@ artefact whose size matches the work:
 This is a work-shape declaration, not a repo plan file for every edit.
 It operationalises PDR-026 without turning small fixes into plan theatre.
 
-For observability work specifically: if the landing moves a matrix
-cell in
-[`what-the-system-emits-today.md`](../../../plans-backlog-2026-07/observability/what-the-system-emits-today.md)
-from empty to populated, update the artefact in the same commit.
-
 ## Session Priority
 
 Apply session priority ordering:
@@ -576,14 +548,12 @@ and developer experience. Choose architectural correctness over
 short-term expediency. This requires critical and _long-term_
 thinking.
 
-## Schema-First Nuance
-
-Schema-first is absolute for SDK code calling the upstream API or
-extracting from the OpenAPI spec. It is acceptable to add additional
-metadata (e.g., MCP tool descriptions) at sdk-codegen time.
+## Generated Files
 
 When analysing generated files, always analyse the generator code that
-produced them — the generator is the source of truth.
+produced them — the generator is the source of truth. Here that means the
+entity graph (`content/entities.json`) and the build that derives every
+rendered surface from it (the Cardinal Rule in `principles.md`).
 
 ## Sub-agent Reviews
 
@@ -600,58 +570,42 @@ first.
 
 ## Quality Gates
 
-The commit is the gate. Its pre-commit hook runs the local gates: the
-staged formatting and markdown checks, the repo validators, shell lint,
-then build, type-check, lint and unit tests, then dependency-cruiser and
-knip. Shell lint runs the pinned shellcheck from the checkout's `.tools/bin`,
-or the `PATH` copy only while that one is the pinned version. `pnpm install`
-provisions it at the first install of a clone or worktree, and at the next
-dependency change in a checkout already installed, since pnpm 11 runs no
-lifecycle script on an install that changes nothing ("Already up to date"),
-even with `--force`. Until then the gate's own failure and this line name the
-installer: in any checkout without `.tools/bin/shellcheck`, run
-`.agent/setup/install-shellcheck.sh` once before its first commit (§8 says
-why). The pre-push hook runs the wider local set: the pushed-commit secret
-scan and the review-cost gate first, then the whole-tree format and markdown
-checks, the sub-agent, portability, skills and repo validators, shell lint,
-the schema-drift check, then codegen, build, type-check, lint, unit, E2E and
-UI tests, dependency-cruiser, knip and the encoding check.
-The pull request's checks run the rest (the widget and accessibility
-suites, CodeQL, Sonar, the Windows and browser jobs). So never run these
-gates before, beside or after a commit or push (owner, 2026-09-14, verbatim
-in the commit skill: "the commit triggers the gates, there is no point and a
-fair amount of cost running the gates separately as well, never, ever do
-that"). Running one test file while a change is red is development, not a
-gate run; the ban is on running the suites the hooks run. The list below
-names the commands, for reading a failure and for curing one: a command
-marked "cure" mutates the tree and is run only when a hook has refused and
-named it, never as a gate. A cloud profile follows
-`cloud-environment-routing.md`. Some gates trigger earlier ones and caching
-prevents duplicate work: see @docs/engineering/build-system.md and ADR-065.
+The hooks are the gates. The pre-commit hook runs the light gate (the staged
+formatting and markdown checks, then the lint of the workspaces the commit
+changes); the pre-push hook runs the full aggregate, `pnpm check`, under a
+host gate slot, then the host's product legs; CI composes the same legs
+(owner, 2026-10-04: light commit, full push, in both estates). So never run
+these gates before, beside or after a commit or push (owner, 2026-09-14,
+verbatim: "the commit triggers the gates, there is no point and a fair amount
+of cost running the gates separately as well, never, ever do that"). Running
+one test file while a change is red is development, not a gate run; the ban
+is on running the suites the hooks run. The
+[gates skill](../../change-custody/gates/SKILL-CANONICAL.md) unrolls `check`
+one leg per line; the host's list below names the commands outside `check`,
+for reading a failure and for curing one: a command marked "cure" mutates the
+tree and is run only when a hook has refused and named it, never as a gate.
+Shell lint runs inside `check` with the pinned shellcheck from the checkout's
+`.tools/bin` (§8 says how it gets there); without it the gate falls back to
+the `PATH` copy, which passes only while that one is the pinned version. A
+cloud profile follows `cloud-environment-routing.md`. Some gates trigger
+earlier ones and caching prevents duplicate work: see
+@docs/engineering/build-system.md.
 
 ```bash
-# For reference: the commit and push hooks run the gates; never run them separately.
-pnpm sdk-codegen        # push hook; regenerates the SDK
-pnpm build              # both hooks
-pnpm type-check         # both hooks
-pnpm lint:fix           # cure: when the lint gate refuses
-pnpm format:root        # cure: when the format gate refuses
-pnpm markdownlint:root  # cure: when the markdown gate refuses
-pnpm subagents:check    # push hook
-pnpm portability:check  # push hook
-pnpm repo-validators:check  # both hooks
-pnpm test               # both hooks
-pnpm test:e2e           # push hook
-pnpm test:ui            # push hook
-pnpm test:widget        # pull request checks
-pnpm test:a11y          # pull request checks
-pnpm test:widget:ui     # pull request checks
-pnpm test:widget:a11y   # pull request checks
+# OCE: the push hook runs the secret scan and the review-cost gate, then
+# `pnpm check`; the commit hook runs the light gate. Never run them separately.
+pnpm fix                      # cure: format, markdownlint and lint:fix together
+pnpm lint:fix                 # cure: when the lint gate refuses
+pnpm format:root              # cure: when the format gate refuses
+pnpm markdownlint:root        # cure: when the markdown gate refuses
+pnpm sdk-codegen              # inside check; regenerates the SDK (a cure when the schema-drift check refuses)
+pnpm check:profile --dry-run  # outside the hooks: the gate profile a push would run, without running it
+# The pull request's checks run CodeQL, Sonar, the Windows and browser jobs.
 
 # Practice health — three-zone model, ADR-144
-pnpm practice:fitness:informational  # Four-zone report (always exit 0)
-# Consolidation-closure signal (run via oak-consolidate-docs):
+pnpm practice:fitness:informational  # four-zone report (always exit 0)
+# Consolidation-closure signal (run via the consolidate-docs skill):
 #   pnpm practice:fitness:strict-hard
-# Vocabulary consistency (ADR-144 §Key Principles #1):
+# Vocabulary consistency:
 #   pnpm practice:vocabulary
 ```

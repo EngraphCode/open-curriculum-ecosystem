@@ -442,8 +442,9 @@ currently is".
 caveat): the divergences are resolved from a model of the system, which PDR-143 §Decision now
 carries as the ratified definition in five layers, and §How each kind travels is read per layer:
 the general layer travels by concept (as written), the family layer by convention within a
-family, the contextual layer never, the accumulated layer never. The unit of landing is the
-estate, one pull request per class of divergence, never the hunk; the count of pull requests a
+family, the contextual layer never, the accumulated layer never, and the loop's path between
+instances is the extraction's open question, not a travel rule of this record. The unit of
+landing is the estate, one pull request per class of divergence, never the hunk; the count of pull requests a
 plan implies is its cost and is counted before work starts.
 
 **Falsifier.** A divergence the model cannot class, or a landing by class that the dry-run merge

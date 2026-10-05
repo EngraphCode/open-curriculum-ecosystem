@@ -46,16 +46,15 @@ After creating all files, validate:
 7. The `start-right-quick` skill references all foundation documents and
    the collaboration-state consultation surfaces used before mutation.
 8. The napkin rule points to a napkin skill that exists.
-9. **Canonical quality gates** (per PDR-008) are wired in
-   `package.json` (or the host ecosystem's script-layer equivalent):
-   `clean`, `build`, `dev`, `format`, `format:fix`, `lint`, `lint:fix`,
-   `typecheck`, `test`, `check` (the aggregate, which applies no
-   fixes), `fix` (the mutating aggregate), and the documentation subset
-   `check:docs` and `fix:docs`. Semantics follow PDR-008: bare =
-   verify, `:fix` = apply, and CI runs every verifying leg of `check`
-   under a parity check.
-   Per-ecosystem adaptations wrap the ecosystem's idiomatic invocations
-   under these canonical names.
+9. **Canonical quality gates** (per PDR-008 as amended) are wired
+   in `package.json` (or the host ecosystem's script-layer equivalent):
+   `clean`, `build`, `dev`, `format-check:root`, `format:root`,
+   `markdownlint-check:root`, `markdownlint:root`, `lint`, `lint:fix`,
+   `type-check`, `test`, `check` (the read-only aggregate), `fix` (the
+   mutating aggregate), `check:docs`, `fix:docs`. Semantics: bare `check`
+   verifies, `fix` applies; CI runs the same legs as `check` under a parity
+   validator rather than a separate `:ci` form. Per-ecosystem adaptations
+   wrap the ecosystem's idiomatic invocations under these canonical names.
 10. The project builds.
 11. **Artefact portability** (per PDR-009): canonical skills,
     commands, rules, and sub-agents live in `.agent/`; all platform

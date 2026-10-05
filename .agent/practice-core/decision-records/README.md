@@ -266,7 +266,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-129](PDR-129-diagnosis-reads-whole-surfaces-catalogues-are-open-sets.md) | Diagnosis Reads Whole Surfaces First; Failure Catalogues Are Open Sets | Accepted |
 | [PDR-130](PDR-130-two-speed-learning.md) | Two-Speed Learning — Fast Lessons, Slow Concepts, Predictions on Both | Accepted |
 | [PDR-131](PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md) | Merge Concurrency Is Free — Quality Binds at Settled-READY | Accepted |
-| [PDR-132](PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md) | Changeset Health — Round Budgets Bind at Authoring Time | Accepted (amended 2026-09-24, 2026-09-26) |
+| [PDR-132](PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md) | Changeset Health — Round Budgets Bind at Authoring Time | Accepted (amended 2026-09-14, 2026-09-26) |
 | [PDR-133](PDR-133-liveness-classes-and-platform-declaration.md) | Liveness Classes and the Platform Liveness Declaration | Proposed |
 | [PDR-134](PDR-134-knowledge-strata-carriers-and-the-concept-layer.md) | Knowledge Strata, Carriers, and the Concept Layer | Accepted |
 | [PDR-135](PDR-135-cost-of-change-gradient.md) | The Cost-of-Change Gradient — General Mechanism Below, Specific Value Above | Proposed |

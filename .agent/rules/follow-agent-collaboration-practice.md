@@ -42,8 +42,6 @@ session).
   — portable liveness contract distinct from identity; heartbeat cadence
   and stale-detection semantics that peer agents observe through the
   comms substrate.
-- ADR-186 Comms-Event Heartbeat Lifecycle Substrate (`../../docs/architecture/architectural-decisions/ADR-186-comms-event-heartbeat-lifecycle-substrate.md`)
-  — repo-bound phenotype implementing PDR-078 via the comms-event
-  channel.
-- ADR-183 Comms-Event Tag Namespace (`../../docs/architecture/architectural-decisions/ADR-183-comms-event-tag-namespace.md`)
-  — tag taxonomy for routing and filtering inter-agent comms.
+- The `agent-tools` comms-event substrate — the heartbeat lifecycle
+  (implementing PDR-078 via the comms-event channel) and the tag taxonomy
+  for routing and filtering inter-agent comms.

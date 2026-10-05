@@ -31,18 +31,18 @@ discipline binds to this PDR's tuple format).
 
 ## Amendment Log
 
-- **2026-09-24 — the Claude Code CLI session id accepted as a seed source.**
+- **2026-09-12 — the Claude Code CLI session id accepted as a seed source.**
   Claude Code exports the harness session id into every Bash tool shell as
   `CLAUDE_CODE_SESSION_ID`. The seed CLIs read it after the explicit
   `PRACTICE_AGENT_SESSION_ID_*` values and the cloud seat's
   `CLAUDE_CODE_REMOTE_SESSION_ID`, and before `CODEX_THREAD_ID` — the same
   shape as the 2026-04-27 Codex entry. It is the value the `SessionStart`
   hook writes as the Claude seed on a CLI seat, so the derived tuple is
-  identical whichever source resolves. The measured failure (in JC.net's
-  Practice, brought through the exchange): a seat whose startup hook wrote
-  nothing and whose compaction-time write landed after the persistent shell
-  existed lost every collaboration write for a session while the native id
-  sat in that shell throughout.
+  identical whichever source resolves. The measured failure: a seat whose
+  startup hook wrote nothing and whose compaction-time write landed after
+  the persistent shell existed lost every collaboration write for a session
+  while the native id sat in that shell throughout. The hook's context line
+  now states whether an env-file write was planned rather than asserting it.
 
 - **2026-09-25 — the three Claude seeds count only on a Claude platform.**
   Claude Code exports `CLAUDE_CODE_SESSION_ID` into every Bash tool shell and
@@ -60,7 +60,8 @@ discipline binds to this PDR's tuple format).
   assumption stays available by design through `--seed`, `--agent-name` and a
   hand-set Practice variable. The general form, that the seeds a seat reads
   are its platform's own, waits on a second nesting instance. A joint cure
-  with the second estate (its answer of 2026-09-25), the same design in both. A
+  with OCE (jimcresswell.net's answer of 2026-09-25), the same design
+  in both. A
   subagent's collaboration write is its parent's: a Claude Code subagent's
   shell carries the parent's session id and no environment signal separates
   the two, so its comms and claims writes derive the parent's identity and
@@ -486,7 +487,7 @@ order (`PRACTICE_AGENT_SESSION_ID_CLAUDE`, `PRACTICE_AGENT_SESSION_ID_CURSOR`,
 `CLAUDE_CODE_REMOTE_SESSION_ID` (cloud seats — type tag stripped; every
 explicit Practice seed outranks this ambient id, per the 2026-08-24
 amendment), then `CLAUDE_CODE_SESSION_ID` (Claude Code CLI shells, per the
-2026-09-24 amendment), then `CODEX_THREAD_ID`; missing seed is a
+2026-09-12 amendment), then `CODEX_THREAD_ID`; missing seed is a
 bad-usage error. The three Claude seeds (`PRACTICE_AGENT_SESSION_ID_CLAUDE`,
 `CLAUDE_CODE_REMOTE_SESSION_ID`, `CLAUDE_CODE_SESSION_ID`) count only when the
 seat's platform is a Claude platform (2026-09-25 amendment); the identity CLI

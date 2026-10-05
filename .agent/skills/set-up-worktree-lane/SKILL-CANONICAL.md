@@ -67,7 +67,7 @@ it never prompts.
 read with `git symbolic-ref --short refs/remotes/origin/HEAD` and the `origin/` prefix
 stripped, or `gh repo view <owner>/<name> --json defaultBranchRef --jq .defaultBranchRef.name`
 with the repository named — derived at the moment of use, never a literal;
-[`downstream-checkout-never-writes-upstream-surfaces`](../../rules/downstream-checkout-never-writes-upstream-surfaces.md)
+`downstream-checkout-never-writes-upstream-surfaces`
 verifies both reads), because the default branch is identity held below the tree.
 For a build-ahead lane it is the parent branch the worktree is cut from
 ([`worktree-hygiene`](../../rules/worktree-hygiene.md) §1), so the worktree carries the
@@ -89,15 +89,18 @@ This step applies to standard and separately provisioned profiles only. In a
 detected ChatGPT Work cloud session, step 0 replaces it completely.
 
 The identity lives once in the clone's shared local config and every worktree
-inherits it. This estate's identity contract, set by the owner's word of
-2026-08-04 ("we need to tell Vercel on whose authority this work was done";
-"keep the bot identity locally shared, not in version control"): the team
-bot the clone's merge-bot config names is the committer and the push
-transport, and the human on whose authority the work is done is the author,
-passed per commit. The mechanics are the estate's committer identity rule;
-this skill holds no value of an identity. A new worktree therefore needs no
-identity step at all — only a check that what it inherited matches the
-primary:
+inherits it. The estate's committer identity rule sets who is author and who
+is committer, on the owner's word in each estate (OCE, 2026-08-04: "we need
+to tell Vercel on whose authority this work was done"; "keep the bot identity
+locally shared, not in version control": the team bot the clone's merge-bot
+config names is the committer and the push transport, and the human on whose
+authority the work is done is the author, passed per commit; jimcresswell.net,
+2026-09-17: "Owner identity, as now": the owner as author and committer from
+the clone's shared identity, the acting agent named in the commit's
+`Co-Authored-By` trailer, bot credentials for third-party writes only). The
+mechanics are that rule's; this skill holds no value of an identity. A new
+worktree therefore needs no identity step at all — only a check that what it
+inherited matches the primary:
 
 ```bash
 PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
@@ -118,11 +121,12 @@ values must be the identity the estate's committer identity rule names. The
 check proves inheritance, not correctness: a worktree inherits the primary's
 error too (the app-id address of 2026-08-04 would pass on both sides), so where
 that rule derives the value, run its derivation (for a bot committer, the
-merge-bot config and the API) and compare it with `want`. If
-either differs, is absent, or names another identity, fix
-the SHARED config once, as that rule directs. Never patch this worktree: a
-`--worktree` override is a second copy that outlives the next correction and
-reintroduces the exact drift this step exists to catch.
+merge-bot config and the API; for the owner's own identity, the address the
+estate's security directive records and the name on the owner's GitHub
+profile) and compare it with `want`. If either differs, is absent, or names
+another identity, fix the SHARED config once, as that rule directs. Never
+patch this worktree: a `--worktree` override is a second copy that outlives
+the next correction and reintroduces the exact drift this step exists to catch.
 
 ### 3. Make the worktree buildable
 
@@ -149,15 +153,17 @@ principal: an unscoped `pnpm install` there rebuilds the principal and leaves th
 worktree without its dependencies or `dist/`. All four, before any gate, work or entry:
 `type-check` and `vitest` pass on install alone, and the install's bootstrap builds
 every package agent-tools reaches that has built entry points, the internal ESLint plugin
-among them, so a lint config loads; every other workspace's `dist/` stays unbuilt until the build line, and
-dependency-cruiser, knip and each workspace's typed lint read it. The third line runs once for each workspace whose gate
-drives a browser (`<app>`). `pnpm install` fetches no Playwright browser: the binaries sit in one
-per-user cache outside the tree, keyed by the revision the lockfile's Playwright selects,
-and an install in any checkout on the host can remove a revision another needs. So every
-lane runs the line, and a gate that fails with `Executable doesn't exist` is this step
-missed, not a flake. The fourth line installs the pinned shellcheck into the worktree's ignored
-`.tools/bin`: the shell lint gate runs at every commit, and without it falls back to the
-shellcheck on `PATH`, which passes only while that one is the pinned version. A fresh worktree has **no `.env.local`** — copy it from
+among them, so a lint config loads; the build line writes what install leaves unbuilt and a
+gate reads (generated route types a `type-check` includes; a workspace's `dist/` that
+dependency-cruiser, knip and typed lint read). The third line runs once for each workspace
+whose gate drives a browser (`<app>`). `pnpm install` fetches no Playwright browser: the
+binaries sit in one per-user cache outside the tree, keyed by the revision the lockfile's
+Playwright selects, and an install in any checkout on the host can remove a revision another
+needs. So every lane runs the line, and a gate that fails with `Executable doesn't exist` is
+this step missed, not a flake. The fourth line installs the pinned shellcheck into the
+worktree's ignored `.tools/bin`, where the shell lint gate looks before `PATH`; without it the
+gate falls back to the shellcheck on `PATH`, which passes only while that one is the pinned
+version. A fresh worktree has **no `.env.local`** — copy it from
 a worktree that has one when the lane runs anything env-dependent (codegen, ingest, a
 local server). Data directories that are gitignored (bulk downloads) do not travel
 either; fetch them per the owning workflow rather than copying, so their manifest
@@ -195,7 +201,7 @@ local runtime or full-gate claim is made.
 
 | Check | Command | Expected |
 | --- | --- | --- |
-| Identity resolves in the worktree | `git -C <path> config user.email` | the primary's address |
+| Identity resolves in the worktree | `git -C <path> config user.name` and `git -C <path> config user.email` | the primary's name and address |
 | Nothing shadows the shared copy | `git -C <path> config --worktree --get-regexp '^user\.'` | no output |
 | Base is clean | `git -C <path> log --oneline origin/<base>..HEAD` | only this story's commits |
 | Attribution is right | `git -C <path> log -1 --format='%an / %cn'` | author and committer as the estate's committer identity rule sets them |
@@ -252,7 +258,7 @@ never as a local-gate result.
   `CI=true` is a bypass (owner ruling 2026-08-04). The same error appeared with
   `PNPM_HOME` correct in a worktree another seat had installed (2026-09-24);
   the seat cleared it with that bypass before its first commit, which is
-  recorded here as evidence that the cause is still open (F-26), never as the
+  recorded here as evidence that the cause is still open, never as the
   cure: read `pnpm store path` in the new tree and the primary, and surface a
   difference before any purge. A wrong `PNPM_HOME` is an
   environment misconfiguration: surface it to the owner and fix the value itself;

@@ -6,6 +6,7 @@ platforms:
   - codex
 claude:
   color: purple
+  note: Review and report only. Do not modify code.
 cursor:
   description: Release go/no-go specialist. Use for release-critical changes to assess quality-gate status, migration risk, rollout safety, and final readiness recommendations.
 codex:
@@ -64,7 +65,7 @@ Before assessing release readiness, you MUST also read and internalise these dom
 
 ### Step 1: Gather Gate Status Evidence
 
-1. Check quality gate results (sdk-codegen, build, type-check, lint, format, test, E2E, UI, smoke)
+1. Check quality gate results (build, type-check, lint, format, test, end-to-end, visual regression)
 2. Record pass/fail status for each gate with evidence
 3. Note any gates that were not run and why
 
@@ -154,7 +155,8 @@ Structure your review as:
 | Issue Type | Recommended Specialist |
 |------------|------------------------|
 | Security blocker or risk | `security-expert` |
-| Structural reliability concern or boundary violation | `architecture-expert-barney` or `architecture-expert-wilma` |
+| Boundary violation | `architecture-expert` |
+| Build, caching or runtime reliability concern | `architecture-expert-fred` |
 | Missing documentation for rollout | `docs-adr-expert` |
 | Test coverage gaps blocking release | `test-expert` |
 | Type safety issues in changed contracts | `type-expert` |

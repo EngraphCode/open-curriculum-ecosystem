@@ -18,7 +18,7 @@ plan (owner-requested). Operationalises
 composes with the [`commit` skill](../commit/SKILL-CANONICAL.md) (which owns
 landing commits), [`worktree-hygiene`](../../../rules/worktree-hygiene.md) (which
 owns the branch/worktree lifecycle around the PR), and the
-[`sonarqube-mcp-instructions`](../../../rules/sonarqube-mcp-instructions.md)
+[`review-feedback-defaults-to-triage`](../../../rules/review-feedback-defaults-to-triage.md)
 per-finding discipline. Every gate constraint here inherits
 `never-disable-checks` and `all quality gates blocking, always`.
 
@@ -293,7 +293,24 @@ request the configured Copilot leg is OWED until it binds the tip, and the
 bot obtains it with its own request (§Phase 1, §merge boundary). Suppressed findings are Copilot's own low-confidence
 bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
 finding gets a reasoned decline with the falsifier recorded, never a
-speculative cure or a silent skip. Two scope facts: the Copilot-review
+speculative cure or a silent skip. **They hold the merge** (the owner's card
+"block on any finding", item 78, 2026-09-14; the fourth measured-state
+clause, `SUPPRESSED-FINDINGS-OPEN` in `agent-tools/src/pr-watch/states.ts`):
+a tip-bound review body's suppressed count holds the bot's merge until each
+finding carries a lifting disposition line in the §Disposition format below,
+or a later review on a later tip carries none. The machine reads the
+sentence's verb here and nowhere else (`dispositionLifts` in
+`agent-tools/src/pr-watch/disposition-lines.ts`): `Cured in SHA:<sha>` and
+`Rejected` lift a finding (the rejection's rationale is the convention a
+reader checks; the machine reads the verb); `Routed to <home>` does not,
+because a routed finding is still a finding the owner asked to block on,
+while a rejection is a false positive the owner did not ask to block on
+forever. A line lifts only from a comment whose author is the repository
+owner or the pull request's author (the seat's dispositions are posted as
+the bot that authored the pull request); the signature is a text convention,
+so any other login's line is ignored. REVIEW: that joining of the ratified
+format and the card is the Director's reading for the owner; the one
+function is the place to change if the card reads the other way. Two scope facts: the Copilot-review
 ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
 `packages/design` doc paths (confirmed on PR #536's timeline — zero review
 fired), so absence there is configuration, not a skipped reviewer; and a
@@ -456,7 +473,11 @@ live tickets where the platform is in use.
    bodies with no thread state, and those suppressed findings have run real
    at a striking rate. A thread never auto-outdates when its fix lands in a
    DIFFERENT file than the anchored line — reply with the actual fix
-   location and resolve manually, or it reads unaddressed forever.
+   location and resolve manually, or it reads unaddressed forever. Read
+   the reviews surface unfiltered, every time (owner, 2026-08-12: "never
+   ever filter reviews, ever"): no login, state or tip filter on any
+   review read; a narrow read is lawful only after an unfiltered read in
+   the same breath has enumerated the full set.
 3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
    CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's _first_ failure is
    the root to chase: a 20-second `install` failure cascades into skipped
@@ -595,11 +616,11 @@ live tickets where the platform is in use.
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
 - Analyser findings, Sonar's and CodeQL's alike, have no per-site
-  disposition channel: every finding is cured at source, and the tracked
-  CodeQL query exclusion of
-  `js/missing-rate-limiting` is the one excepted class (the owner's
-  2026-09-08 ruling, "we don't dismiss issues, we fix them", and the
-  2026-09-17 mechanism ruling; `docs/governance/sonar-disposition-policy.md`).
+  disposition channel: every finding is cured at source (the owner's
+  2026-09-08 ruling, "we don't dismiss issues, we fix them"); the one
+  excepted class is OCE's tracked CodeQL query exclusion of
+  `js/missing-rate-limiting` (the owner's 2026-09-17 mechanism ruling,
+  about that one issue; OCE's sonar disposition policy records it).
   Triage routes findings; it never buries them — never dismissed by
   category or per site, never gate-narrowed, never warning-downgraded,
   never suppressed.
@@ -709,14 +730,16 @@ contradicts (2026-10-02).
   with one `--expect` per available configured reviewer as for the merge
   (the flag declares the whole expected set), computes the front door's
   reading once and never merges. Do NOT use
-  `pnpm agent-tools:pr-watch <n> --watch --interval 60` as the watch: it was
-  silent across head and check transitions at three seats and exited early on
-  ALL-GREEN at a fourth (frictions F-164), so its silence cannot be told from
-  its failure. Treat any watcher's events as wake signals only, never as the
+  `pnpm agent-tools:pr-watch <n> --watch --interval 60` as the watch: run
+  through the unified entrypoint, that path buffers every line until exit, so
+  a Monitor on it reads silence; it was silent across head and check
+  transitions at three seats and exited early on ALL-GREEN at a fourth
+  (frictions F-164, five instances), so its silence cannot be told from its
+  failure. Treat any watcher's events as wake signals only, never as the
   state; the Phase 3 harvest is the authoritative read on every wake, and
   extending pr-watch to the full compound floor is tracked as the
   `ws6-pr-watch-compound-floor` item in
-  [`pr-merge-readiness-discipline.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/pr-merge-readiness-discipline.plan.md).
+  `pr-merge-readiness-discipline.plan.md`.
   Passing checks alone are not green — an
   unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
   harvest remains the authoritative read for which threads and what they say.
@@ -763,10 +786,13 @@ contradicts (2026-10-02).
   settles, never answered with a push** — an apt mirror returning "Hash Sum
   mismatch" at the Playwright install step failed three runs in sixteen
   minutes (2026-09-09). The bot re-runs the failed job under its
-  `workflow-dispatch` scope (the installation holds Actions write, read from
-  the installations endpoint on 2026-09-11; two bot re-runs on 2026-09-12 are cited in
-  `docs/engineering/merge-bot.md`), so no push is made: an empty-commit
-  re-trigger was the route only while the App lacked that permission.
+  `workflow-dispatch` scope (the installation holds Actions write in each
+  estate: OCE read it from the installations endpoint on 2026-09-11 and
+  cites two bot re-runs of 2026-09-12; jimcresswell.net minted a
+  `workflow-dispatch` run on 2026-09-25; `.agent/reference/merge-bot.md`
+  records the host's evidence), so no push is made: an empty-commit
+  re-trigger was the route only while the bot used a scope without that
+  permission.
 
 ## The review-round state machine (single definition)
 
@@ -830,11 +856,15 @@ the reply states them BEFORE any cure is written: naming the generator
 twice did not stop cure-reflex rounds at one seat, and stating the prong
 did, at once (2026-09-12, #136 and #138; "a sentence that must be written is
 a step"). The count does not read them. After the marker comes the disposition
-sentence: `Cured in SHA:<sha>` (the `SHA:` prefix and seven to forty hex
-characters, bare or inside a code span), `Routed to <home>`, or
-`Rejected` with the rationale — the convention for a reader; the machine
-reads the marker only, so a disposition whose sentence lacks the verb is
-still counted. A reply on a review thread inherits the thread's head and
+sentence: `Cured in SHA:<sha>` (the `SHA:` prefix and seven to forty
+lowercase hex characters, bare or inside a code span), `Routed to <home>`, or
+`Rejected` with the rationale — the convention for a reader; the raised
+count reads the marker only, so a disposition whose sentence lacks the verb
+is still counted there. The suppressed-findings hold (§Copilot review policy
+above) is the one reader of the verb: on a body-only line the sentence is
+everything after the first ` — ` (space, em dash, space) following the item,
+so an item is never read as a sentence; a line with no separator carries no
+sentence and lifts nothing. A reply on a review thread inherits the thread's head and
 anchor from the harvest. A finding that lives only in a review body (a
 Copilot suppressed item, a Codex body item) has no thread, so its
 disposition is an issue comment carrying ONE LINE PER FINDING: the marker,
@@ -858,11 +888,10 @@ generated: 0 new" footer coexists with suppressed items (two recorded
 reviews say 0 new and carry fifteen and eight). The
 cure-worthy count reads the marker and nothing else (a below-bar finding
 and a build-changing one can both be routed to a home); signed replies and
-comments are excluded from the raised count and from the quiet-window
-anchor (item 2). The recorded corpus is the fixture at
-`agent-tools/tests/pr-tally/fixtures/pr-135-harvest.json`; its README
-states, checked against the file, which of these fields each recorded
-disposition carries and which it predates.
+comments are excluded from the raised count (item 2). The recorded corpus
+that fixed this format is OCE's harvest of its pull request #135 (a fixture with a README in that
+estate: that repository's review data, never carried); each estate's own
+corpus is recorded at its first tallied pull request.
 
 1. **The compound read.** One GraphQL selection is the BASELINE compound
    state — it answers most PR-state questions, but two inputs come from
@@ -938,7 +967,7 @@ raised count, cure-worthy count}` — the raised count is every finding
    most a bounded settle delay. A leading `[Agent: …]` marker
    (identify-as-agent-under-shared-credentials) composes with, never
    replaces, the final signature line. EXCLUDE self-authored signed
-   replies from the round tally and from quiet-window anchoring (drive
+   replies from the round tally (drive
    precedent 2026-07-20; an unsigned self-reply reads back as owner round
    activity and falsely re-opens the round). A finding whose review binds to an ALREADY-SETTLED round's
    tip AMENDS that round's row (the tally records truth, not the order of
@@ -1153,7 +1182,7 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    finding, fixed forward. The limit is a decision: a base change outside
    the patch that alters what the pull request's code does still binds,
    and the synced head's checks cover it
-   (`agent-tools/src/pr-watch/content-binding.ts`). An EMPTY body satisfies nothing: replying to a review
+   (OCE's `agent-tools/src/pr-watch/content-binding.ts`). An EMPTY body satisfies nothing: replying to a review
    thread through the API creates a review with an empty body under the
    REPLIER's identity, so a pull request whose author dispositioned
    findings carries tip-bound empty reviews of its own (seven on #142's
@@ -1163,21 +1192,21 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    only by accident. The empties are COUNTED in the leg's detail, never
    dropped silently: a predicate over a filtered set says how many items
    it filtered and why, or an empty result set reads the same as a
-   satisfied one. The quiet window anchors to the LATEST LANDED review
+   satisfied one. The leg's SATISFIED reads the LATEST LANDED review
    binding the current tip (exactly or by content) whose body is non-empty and unsigned — a skip
-   marker still anchors it, because a vendor posting one is reviewer
-   activity — never to the author's globally latest review and never to an
-   empty-bodied one; the window is a proxy for "a reviewer may still be
-   composing", so it measures REVIEWER activity, not the seat's own
-   dispositioning (2026-09-15, #147: the anchor sat on the
-   seat's own reply, seven minutes after the round's last real review; the
-   signed-self-reply exclusion did not catch it, because an empty body
-   carries no signature to detect). A reviewer's reported result has TWO
+   marker still counts, because a vendor posting one is reviewer
+   activity — never the author's globally latest review and never an
+   empty-bodied one: the leg measures REVIEWER activity, not the seat's own
+   dispositioning (2026-09-15, #147: the quiet-window proxy then in use
+   anchored on the seat's own reply, seven minutes after the round's last
+   real review; the signed-self-reply exclusion did not catch it, because an
+   empty body carries no signature to detect). A reviewer's reported result has TWO
    transports, and the leg reads both: the review object, and a completion
    comment on the conversation — the Codex connector's transport for a
    zero-findings run ("Didn't find any major issues", naming the commit it
    read), which by the owner's ruling of 2026-09-16 is a positive result,
-   not missing evidence (`.agent/reports/merge-door-comment-evidence-decision-2026-09-16.md`).
+   not missing evidence (OCE's merge-door comment-evidence decision record of
+   2026-09-16).
    The connector also keeps one summary comment per pull request, which it
    rewrites on every run; the completed Code Review row of its table names
    the commit a code review read, whatever it found (findings arrive as
@@ -1204,7 +1233,7 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    the bot's own comment on the pull request, opening with
    `**<login> leg unavailable on head SHA:<40-hex>.**`, and it stands in for
    that vendor's review of the named head only on the pull request's own
-   evidence (`pr-watch/declared-unavailable.ts`): the bot posted it and no
+   evidence (OCE's `pr-watch/declared-unavailable.ts`): the bot posted it and no
    other account edited it; the timeline shows the outage (an error review
    from the vendor on that head, or a round asked of it over sixty minutes
    ago with no review since; the ruling of 2026-09-28); and the vendor has not
@@ -1236,20 +1265,24 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    door (round-6 correction + pair fold, 2026-07-16: `latestReviews`
    retains each author's latest body, so an unscoped early marker would
    otherwise satisfy SKIPPED for every later tip forever). The TIMEOUT leg:
-   no review bound to the tip after one full checks-green quiet window
-   (>10 min from the tip's checks reaching green); record the skip with its
-   evidence (reviewer, tip SHA, window bounds) in the shepherd's working
+   no review bound to the tip after the checks-green timeout
+   (>10 min from the tip's checks reaching green, the one clock in the
+   state machine; a request still outstanding past it on an OWED leg is the
+   leg nobody served, and the timeout ends the watch; a re-request on a leg
+   already SATISFIED by a tip-bound review is item 4's round in flight,
+   never a skip); record the skip with its
+   evidence (reviewer, tip SHA, timeout bounds) in the shepherd's working
    notes (round-2 correction, 2026-07-16: without the timeout the gate goes
    permanently unsatisfiable the moment a reviewer stops reviewing — on
    #390, claude[bot] posted a spend-limit skip review on the first commit
    and nothing on any later tip, so every subsequent tip would read owed
    forever with no tip-specific marker obtainable). **OWED** — otherwise.
-   The gate never waits more than one quiet window for any single reviewer.
+   The gate never waits more than one timeout for any single reviewer.
    CRITICAL first-round rule: the EXPECTED reviewer set is not just "bots
    that previously reviewed this PR" — on a repo whose ruleset configures
    bot review on push, the first round is ALWAYS expected, so before any
    bot has reviewed, every configured bot is OWED until it posts or the
-   checks-green quiet-window timeout fires. A leg is standing BY
+   checks-green timeout fires. A leg is standing BY
    CONFIGURATION, never assumed by doctrine (owner, 2026-08-09: "route
    through the rules process, not assumed"): Phase 1 reads the set from
    the repository's live automatic-review configuration at each PR-open,
@@ -1275,6 +1308,11 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    the pull request instead of a review (first on #116, four seconds after
    its creation on 2026-09-10 06:53Z; on #117 at ready-for-review) — the
    owner named the outage at 08:3xZ (out of credit until about
+   2026-09-16). A reviewer's reported result has two transports, and the
+   leg reads both: the review object, and a completion comment on the
+   conversation. The Codex connector's completion comment for a
+   zero-findings run ("Didn't find any major issues", naming the commit it
+   read) is a positive result, not missing evidence (owner ruling,
    2026-09-16). **Review legs are desirable, never required; the front
    door declares the configured reviewers AVAILABLE, and a subagent
    review posted on the pull request stands as a leg** (owner ruling
@@ -1337,27 +1375,39 @@ create` on such a branch exits non-zero with "a pull request for branch …
    config that fires bot reviews on push), and that declaration is the
    state machine's input for every round.
 4. **Round settled; merge-ready.** A round is SETTLED when every expected
-   reviewer leg reads SATISFIED or SKIPPED for the current tip AND a quiet
-   window LONGER than the async lag has elapsed since the latest review
-   binding to the tip — never since the push, and a disposition-only
-   pass anchors the window exactly as a push does (>10 min; 12 used on
-   #330)
-   (round-3 correction, 2026-07-16: without the skip clause a timed-out
-   reviewer stays bound to an older commit and the settled state is
-   unreachable). After a pure sync, a leg SATISFIED before it stays
-   SATISFIED by content, and its review, which predates the synced tip,
-   anchors the window: the synced tip settles at its first green once that
-   window has run, by intent. A pure sync opens no round: the tally (item
-   2), the round budget and both step-back arms bucket a review by the
+   reviewer leg reads SATISFIED or SKIPPED for the current tip AND the
+   round's boundary reads closed from MEASURED state: no expected reviewer
+   has an outstanding review request, and no live review run mapped to the
+   PR is observed. The run leg's contract, exactly: an OBSERVED live run
+   mapped to the PR is a measured guard and blocks settlement; an
+   unavailable or truncated run surface is named on the settled verdict and
+   does not block. The asymmetry is measured: `gh agent-task` lists
+   coding-agent sessions and never carried a review round, so the review
+   round's own signal is the request, read on every compound read, and
+   blocking on an optional gh extension being installed and readable (a CI
+   host has none) would be the SETTLED-NO-REVIEW deadlock in another coat
+   (Director's verdict on #65, 2026-09-14) (round-3 correction, 2026-07-16: without the skip clause a
+   timed-out reviewer stays bound to an older commit and the settled state
+   is unreachable). After a pure sync, a leg SATISFIED before it stays
+   SATISFIED by content, and the synced tip settles at its first green once
+   the round reads closed, by intent. A pure sync opens no round: the tally
+   (item 2), the round budget and both step-back arms bucket a review by the
    commit it names, never by content binding, so its findings count once,
-   in their own round. **The quiet window is a PROXY for review-run-boundary
-   visibility, which agents lack; the owner sees run start/finish directly,
-   so an owner settled-word — or an owner-executed merge — issued from that
-   direct visibility supersedes the proxy and is never read as a process
-   breach** (owner word 2026-07-25; #518 and #534 were owner-merged inside
-   the window, correctly). Agents keep the proxy. On a tip where every leg settled via SKIPPED (no review
-   ever bound to the tip), the quiet window anchors on the checks-green
-   window from item 3. MERGE-READY is a settled round with zero
+   in their own round. Until 2026-09-13 the boundary was a PROXY, a quiet
+   window of more than ten minutes since the latest tip-bound review,
+   because agents could not see a review round start or finish; the owner,
+   who could, superseded it from that direct visibility (owner word
+   2026-07-25; #518 and #534 were owner-merged inside the window,
+   correctly). The proxy went on the owner's word ("nothing is happening on
+   the PR ... the 'quiet window' could be replaced with measured state",
+   2026-09-13, on #56): the platform clears the request when the review
+   lands, the compound read brackets its thread read with a review harvest
+   on each side that must agree, re-reading on a landing (so a review seen
+   landed has its threads on the read, and one not yet landed shows as its
+   request; a round opening after the bracket is the next poll's, or the
+   post-merge harvest's), an OWED leg nobody serves is ended by item 3's
+   timeout, the one clock that remains, and a re-request on a satisfied tip
+   is bounded by the watcher's poll budget. MERGE-READY is a settled round with zero
    UNDISPOSITIONED findings and a cure-worthy count of zero (item 2's
    semantics under PDR-140: a round whose raised findings are all
    validly dispositioned-with-resolution is merge-ready without another
@@ -1368,13 +1418,18 @@ create` on such a branch exits non-zero with "a pull request for branch …
    door is `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>`
    (MCP-508): it recomputes the LEG-DRIVEN settlement verdict itself,
    merges only on SETTLE-READY with the verdicted tip's sha pinned, and
-   refuses by verdict name — but it does NOT yet consume the tally or
-   disposition state, so the zero-undispositioned and cure-worthy-zero
-   legs above are the MERGING SEAT'S own recomputation at the boundary
-   until the tool learns them (named follow-up on PDR-140: pass
-   machine-readable disposition state into the verdict); a summary-only
-   review carrying an undispositioned body finding is exactly the case
-   the tool cannot see today — including SETTLED-NO-REVIEW, the timeout-settled round
+   refuses by verdict name. Since closure item 5a-vi (2026-09-14) it
+   consumes the body tally and the disposition lines too: a tip-bound
+   summary body declaring suppressed findings holds the round as
+   SUPPRESSED-FINDINGS-OPEN until each is lifted by a signed Cured or
+   Rejected line from a permitted author (`suppressed-hold.ts`), so the
+   tool refuses a marked count that no such line has lifted. That is a
+   floor, not the legs: the zero-undispositioned and cure-worthy-zero
+   legs above stay the MERGING SEAT'S own recomputation at the boundary,
+   because the tool reads the marker, the verb and the head binding and
+   never the rejection's rationale, the cure SHA's presence on the branch,
+   a thread resolved without a disposition, or prose findings a summary
+   carries with no `Suppressed comments (N)` marker — including SETTLED-NO-REVIEW, the timeout-settled round
    this SKILL's item 4 anchor describes, which is watch-endable but NEVER
    merge-eligible — EXCEPT for the class the owner ruled on 2026-09-03
    ("Change the merge policy instead"): a bot-authored pull request that
@@ -1383,19 +1438,24 @@ create` on such a branch exits non-zero with "a pull request for branch …
    Claude Code Review's standing verdict and NO Copilot leg expected; for
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
-   satisfies. The Copilot leg is the bot's own to obtain: `POST
-repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
-   `reviewers[]=copilot-pull-request-reviewer[bot]` under the
-   pull-request-work token returns 201 and the timeline shows
-   `review_requested Copilot` within seconds (first-hand on #108, #109,
-   #110, #114); verify on the timeline, since the requested-reviewers
-   list never shows it, and never through the draft/ready toggle, which
-   fires nothing on a pull request already undrafted once. After a sync
-   push, read `pr state` on the synced tip: a leg it reads SATISFIED,
-   exactly or by content (state machine item 3), needs nothing; a leg it
-   reads OWED (the sync changed the pull request's own diff, or its content
-   could not be read) is requested on that tip, Copilot by that one call as
-   the bot. A CODE pull
+   satisfies. The Copilot leg is obtained by a review request on the tip,
+   `POST repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
+   `reviewers[]=copilot-pull-request-reviewer[bot]`, under the credential
+   that registers it in the estate (`.agent/reference/merge-bot.md` names
+   it): in OCE the bot's own pull-request-work token returns 201 and the
+   timeline shows `review_requested Copilot` within seconds (first-hand on
+   #108, #109, #110, #114); in jimcresswell.net that call under the bot
+   token registers nothing, and the owner's CLI credential registers the
+   request on the timeline within a minute unless the previous request's
+   review is still in flight (verified live 2026-09-13). Verify on the
+   timeline or the GraphQL `reviewRequests` connection, since gh's
+   requested-reviewers list never shows a Bot request, and never through
+   the draft/ready toggle, which fires nothing on a pull request already
+   undrafted once. After a sync push, read `pr state` on the synced tip: a
+   leg it reads SATISFIED, exactly or by content (state machine item 3),
+   needs nothing; a leg it reads OWED (the sync changed the pull request's
+   own diff, or its content could not be read) is requested on that tip,
+   Copilot by that one request. A CODE pull
    request lands only through the front door with every AVAILABLE
    configured leg bound plus the posted subagent review where a vendor
    is unavailable (item 3's owner ruling of 2026-09-10), never by the
@@ -1461,7 +1521,7 @@ repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
    undispositioned body-tally findings on the tip with a cure-worthy
    count of zero (item 2's PDR-140 semantics), every expected reviewer
    leg SATISFIED/SKIPPED,
-   a full quiet window since the latest tip-bound review, checks green —
+   no expected reviewer requested, no review run live, checks green —
    because a grant is read downstream as authorisation-to-act-now, and
    "the executing seat will recompute" is hope, not a gate, under grant
    momentum. The executing seat STILL recomputes at the boundary
@@ -1584,14 +1644,24 @@ grep -E "^-" | grep -v "^---"` and read every printed line — each is an
   diff, will supersede is spent for nothing
   (first-hand 2026-09-10 on #108, #114 and #116). The same sweep names a
   shepherd for every open PR: threads with no owner are the same disease.
-  The sweep's third leg is **review-RUN liveness**: `gh agent-task list`
-  enumerates review runs (`--json id,name,createdAt,completedAt`;
+  The sweep's third leg is **review-round liveness**: the outstanding
+  review request is the measured signal that a round is in flight. It is
+  read from the GraphQL `reviewRequests` connection, the one surface that
+  lists a Bot request (gh's `pr view --json reviewRequests` and the REST
+  endpoint beneath it omit Bot requests, so a Copilot review in progress
+  read as "nobody requested" until 2026-09-13, PR #60), and the platform
+  clears it when the review lands. `gh agent-task list` enumerates
+  coding-agent sessions (`--json id,name,createdAt,completedAt`;
   `completedAt` null = in flight) and `gh agent-task view <session-id>
---json` maps a run to its PR (the list JSON carries no PR number; the
+  --json` maps a run to its PR (the list JSON carries no PR number; the
   PR-number positional is interactive-only — vendor shapes verified
-  2026-07-21). Run-in-flight, run-never-started, and run-dead are now
-  distinguishable states; a wait on a review whose run never started is
-  the silent-wait class, not patience.
+  2026-07-21). Its contract is item 4's: an OBSERVED live session mapped
+  to the PR is a measured guard and blocks settlement; a run's ABSENCE is
+  never inferred from it (it never carried a review run), so an
+  unavailable or truncated surface is named on the settled verdict and
+  does not block. A request never served is ended by the checks-green
+  timeout arm (item 3): a wait on a review nobody requested is the
+  silent-wait class, not patience.
 - **Own the convergence loop — never hand it to the owner** (owner
   corrections, 2026-07-07 #317 and 2026-07-08 #324 — two seats re-derived
   the same blind spot in one sitting; scheduled nap-probes FEEL like
@@ -2046,13 +2116,14 @@ disposition text binds GitHub's delete-on-merge setting.
 
 **One post-merge harvest before stand-down.** MERGED ends the merge-state
 question, not the feedback stream: a bot round composing at merge time still
-posts findings on the merged code up to ~10 minutes later. Apply the settled
-quiet window ONCE after MERGED (one final full harvest after >10 quiet
-minutes); route any real finding to a follow-up branch, never to the merged
-PR's branch. The quiet window is a PROXY predicate — it exists only because
-agents cannot see a bot review start or finish; the owner's settled word
-from his own visibility supersedes it (owner ruling, 2026-07-2x): when he
-says it is settled, it is settled, and the window is not re-imposed on him.
+posts findings on the merged code minutes later. Apply item 4's measured
+predicate ONCE after MERGED (one final full harvest once no expected
+reviewer has an outstanding request and no live run is observed, any
+unavailable run surface named; the owner's credential request registered on
+the owner never holds it); route any real finding to a follow-up
+branch, never to the merged PR's branch. The owner's settled word from his
+own visibility supersedes the read (owner ruling, 2026-07-2x): when he says
+it is settled, it is settled.
 
 `worktree-hygiene` §3/§6 owns the cleanup: remove the worktree and delete the
 branch (content-verified, owner-authorisation-gated for destructive ops);

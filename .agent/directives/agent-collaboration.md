@@ -368,7 +368,7 @@ derive from work-state and role, never from holding a claim. Recipes live in
 ## Bootstrap Fast-Path
 
 The single-agent case (no other agents present) pays the protocol's
-**minimum overhead — one read, one write**: read active claims and the
+**minimum overhead — two reads, one write**: read active claims and the
 shared log; if no entries other than your own exist and the comms log shows
 no live peer, the session is solo: register the session claim and proceed
 without broadcasts (`use-agent-comms-log` §Scale ceremony to the audience).

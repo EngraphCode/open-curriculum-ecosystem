@@ -3,6 +3,7 @@ name: A Classification Instrument Is a Symptom of the System It Grades
 polarity: pattern
 use_this_when: A proposal or plan executes an instrument's findings row by row (a census's dispositions, an audit's items, a matrix's per-row cures) — ask whether the instrument's NEED is the defect before executing its output
 category: architecture
+layer: general
 proven_in: The 2026-08-19 lens-4 sweep on the toolkit change set (owner-ruled) — per-package census splits dissolved into the toolkit/oak seam; the census retired from standing instrument to one-time migration map
 proven_date: 2026-08-19
 barrier:

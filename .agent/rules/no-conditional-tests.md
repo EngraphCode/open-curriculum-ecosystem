@@ -8,7 +8,7 @@ globs:
 
 # No Conditional Tests
 
-Operationalises [ADR-011 (Use Vitest for Testing)](../../docs/architecture/architectural-decisions/011-vitest-for-testing.md), [ADR-078 (Dependency Injection for Testability)](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md), and [`testing-strategy.md`](../directives/testing-strategy.md) §Rules. Sibling discipline: skip and pending mechanisms are governed by [`testing-strategy.md`](../directives/testing-strategy.md) §Rules.
+Operationalises [`testing-strategy.md`](../directives/testing-strategy.md) §Rules, which also governs the sibling skip and pending mechanisms. Its cures apply the dependency-injection pattern in [`testing-patterns.md` §In-Process Tests with Dependency Injection](../../docs/engineering/testing-patterns.md#in-process-tests-with-dependency-injection).
 
 ## Rule
 
@@ -18,8 +18,8 @@ A conditional test is any test whose registration, execution, or assertion depen
 
 ## Enforcement
 
-`skipIf` and `runIf` are enforced at the lint gate by
-`@oaknational/no-conditional-tests` (added 2026-09-11), alongside
+`skipIf` and `runIf` are enforced at the lint gate by the estate's ESLint
+plugin's `no-conditional-tests` rule (in jimcresswell.net since 2026-09-11), alongside
 `vitest/no-disabled-tests` for `.skip` and `vitest/no-focused-tests` for `.only`.
 
 Until that rule existed this clause was prose only, and the gap had a cost: a
@@ -77,7 +77,7 @@ If step 3 reveals that the ambiguity is intentional and load-bearing, that is a 
 
 - `test-expert` enforces this rule on every test-touching diff. Conditional execution of any kind is an immediate fail; see [`test-immediate-fails.md`](test-immediate-fails.md).
 - `code-expert` flags conditional test patterns and routes to `test-expert`.
-- `architecture-expert-fred` (principles-first) flags product-code shapes that *force* test authors toward conditionals — multiple-mode functions, env-detection inside libraries, ambient-state coupling — as architectural-failure signals at the source.
+- `architecture-expert` flags product-code shapes that *force* test authors toward conditionals — multiple-mode functions, env-detection inside libraries, ambient-state coupling — as architectural-failure signals at the source.
 
 ## Cross-references
 
@@ -86,4 +86,3 @@ If step 3 reveals that the ambiguity is intentional and load-bearing, that is a 
 - Sibling rule: [`no-global-state-in-tests.md`](no-global-state-in-tests.md) — `process.env` reads/writes, `vi.stubGlobal`, `vi.mock`, `vi.doMock`, `vi.useFakeTimers`, `vi.setSystemTime`.
 - Sibling rule: [`never-disable-checks.md`](never-disable-checks.md) — quality gates are never disabled; conditioning a test is the test-surface instance of the same anti-pattern.
 - Operational checklist: [`test-immediate-fails.md`](test-immediate-fails.md) — fast-gate rejection list for test-expert.
-- ADR: [`078-dependency-injection-for-testability.md`](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md).

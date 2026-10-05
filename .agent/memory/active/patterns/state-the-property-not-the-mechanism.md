@@ -2,6 +2,7 @@
 name: state-the-property-not-the-mechanism
 polarity: pattern
 category: process
+layer: general
 use_this_when: "Writing a plan row, a ledger row or a routing note that a verifier, a probe or a gate must satisfy, when the next reviewer will look for a way round it."
 proven_in: >-
   The Codex dialogues probe, 2026-09-23 (Blazar lifts Corona, b65a9a): four review rounds on

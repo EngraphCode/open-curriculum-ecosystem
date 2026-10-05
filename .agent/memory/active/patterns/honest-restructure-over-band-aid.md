@@ -3,6 +3,7 @@ name: "Honest Restructure Over Band-aid"
 polarity: pattern
 use_this_when: "A quality gate fires mid-authoring and the first tempting fix is to bypass, guard, compress, or assert around the gate."
 category: agent
+layer: general
 status: proven
 discovered: 2026-05-22
 proven_in: "2026-05-22 → 2026-05-23 multi-agent gate-1a session (Foamy graph-view module split; Sparking binding-test deletion); promoted to proven 2026-06-28 by 5 further distinct cross-agent extractions of the max-lines-cap facet in the team-tooling session (Avocet, Ingot, Bandicoot, Quasar, Peregrine — the last on a test file)."

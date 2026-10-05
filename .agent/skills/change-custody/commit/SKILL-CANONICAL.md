@@ -21,7 +21,7 @@ committing.
 **Always-on** — every commit, every session, no trigger required.
 
 **Motivating pattern**:
-[`passive-guidance-loses-to-artefact-gravity`](../../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)
+`passive-guidance-loses-to-artefact-gravity`
 applied to commit authoring. Prior prose guidance said "lines under 99 chars"
 without surfacing the preset's actual rules; every session hit rework
 (subject-case violations, header-length overruns, missing footers). This skill
@@ -278,20 +278,17 @@ to peers.
 git operations colliding, that is not necessary for work in separate worktrees").**
 The queue and the bare `git:index/head` window serialise the SHARED PRIMARY
 checkout only. A lane in its own worktree (PDR-117) commits by plain pathspec —
-`git add -- <paths>` then `git commit --author="<owner name> <owner noreply email>"
--F <message> -- <paths>` — the `--author` flag on every commit, as the bot-identity
-rule requires: the worktree's `user.*` is the bot, so an omitted flag yields a
-bot-authored commit — hooks running, the owner as author and the bot as
-committer, with an audit line in the message
-naming the worktree and that the queue was not used, and validating the message
-file with `pnpm agent-tools:check-commit-message` (commitlint) before `git commit`:
-the commit-msg hook runs after the whole pre-commit gate, so a refused subject or
-a body line that opens `word:` (read as a footer) costs a full gate run (five
-refusals across two seats, 2026-09-23 to 2026-09-25); it opens no queue intent and
-no window claim (F-132, F-139 and F-169 are superseded by scope). The audit line
-is true of the PATH that produced the commit (queue, worktree or primary checkout),
-never of the seat's habit: a seat that commits by both paths writes a different
-line on each (2026-10-02). Two mechanics of
+`git add -- <paths>` then `git commit -F <message> -- <paths>` — hooks running,
+the author and committer as the estate's committer identity rule sets them (the
+lane-setup skill checks the inherited identity; where that rule names an author
+other than the worktree's `user.*`, the `--author` flag goes on every commit,
+since an omitted flag yields a commit authored by the worktree's identity), with
+an audit line in the message naming the worktree and that the queue was not
+used; it opens no queue intent and no window claim (F-132, F-139 and F-169 are
+superseded by scope). The audit line is true of the PATH that produced the
+commit (queue, worktree or primary checkout), never of the seat's habit: a seat
+that commits by both paths writes a different line on each (2026-10-02). Two
+mechanics of
 the pathspec commit, measured 2026-09-07: the queue guard accepts only the bare
 `index/head` label (a scoped `index/head@<worktree>` is refused), and a pathspec
 commit records a deletion only for a path it names — after a `git mv`, list the
@@ -410,7 +407,7 @@ direct CLI commands for inspection and recovery.
    # Resolve the session's UUID v5 id once (PDR-076a). Suppress stderr
    # rather than tail-skipping lines: the pnpm banner goes to stderr on
    # some harnesses, so `tail -n +2` can eat the JSON's first line.
-   AGENT_ID=$(pnpm -s agent-tools:collaboration-state -- identity preflight \
+   AGENT_ID=$(pnpm --silent agent-tools:collaboration-state -- identity preflight \
      --platform "<platform>" --model "<model>" \
      2>/dev/null | jq -r '.agent_id.id')
 
@@ -638,7 +635,7 @@ topology for memory-file reconciliation):
 4. **Close the claim** with the merge SHA as usual (move 4).
 
 For the semantic-merge topology itself (which branches merge where, and how
-memory files reconcile as unions), PDR-049 and the `oak-semantic-merge` skill
+memory files reconcile as unions), PDR-049 and the `semantic-merge` skill
 govern; this subsection owns only the commit mechanics.
 
 ### Foreign index lock — no autonomous contact, including waits
@@ -813,7 +810,10 @@ check it (`pnpm agent-tools:check-commit-message -F <file>`) before the
 `git add`; never write it after a guarded command in the same `&&` chain,
 because a refused `git add` aborts the chain and the later `git commit -F`
 runs on a missing file (`stage-by-explicit-pathspec` §What to Do Instead,
-2026-09-12).
+2026-09-12). The commit-msg hook runs after the whole pre-commit gate, so a
+refused subject or a body line that opens `word:` (read as a footer under strict
+commitlint) costs a full gate run (five refusals across two seats, 2026-09-23 to
+2026-09-25); check the message file before the gate, never after.
 
 Check the header before the commit is launched: it is at most 100 characters
 (`header-max-length`) and its subject starts lower-case (`subject-case`). Write the
@@ -911,7 +911,7 @@ not a hook-timing one), and it wastes ~30s per commit.
 Commit-attempt logging is currently paused. The helper script is still
 present in `scripts/` for quick reactivation, but the standard commit
 workflow should not append to
-[`commit-attempts.log`](../../../memory/operational/diagnostics/commit-attempts.log)
+`commit-attempts.log`
 unless the owner explicitly asks for that diagnostic trace again.
 
 ## Safety Rules
@@ -1038,11 +1038,11 @@ what authority*. The questions to ask:
 The orchestrator's signals are *important*. They surface the consolidation
 work that needs doing. They are not gates. The deeper disposition driving
 the conflation is captured at
-[`.agent/memory/active/patterns/eager-rounding-off-on-partial-structures.md`](../../../memory/active/patterns/eager-rounding-off-on-partial-structures.md).
+`.agent/memory/active/patterns/eager-rounding-off-on-partial-structures.md`.
 
 ## Related Surfaces
 
-- Pattern: [`.agent/memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md`](../../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)
+- Pattern: `.agent/memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md`
   — the failure mode this skill counters.
 - PDR: [`.agent/practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md`](../../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md)
   — design principles (firing cadence first; two complementary layers target:
@@ -1053,7 +1053,7 @@ the conflation is captured at
   amendment to name diagnostic substrates as a distinct surface class
   (see `repo-continuity.md § Pending-graduations register additions
   (2026-04-23 handoff)`).
-- Diagnostics: [`.agent/memory/operational/diagnostics/README.md`](../../../memory/operational/diagnostics/README.md)
+- Diagnostics: `.agent/memory/operational/diagnostics/README.md`
   — convention for diagnostic logs when the owner explicitly enables them.
 - Principles: [`.agent/directives/principles.md`](../../../directives/principles.md)
   — the `--no-verify` fresh-authorisation invariant.
@@ -1061,18 +1061,19 @@ the conflation is captured at
 ## Platform Adapters
 
 This skill is **passive / always-active** — discovery, not invocation.
-Adapters are generated skill-form thin pointers. ADR-125 is authoritative for
+Adapters are generated skill-form thin pointers. PDR-051 is authoritative for
 the current adapter topology; do not hand-maintain a platform inventory here.
 For this owned skill the generated adapters currently live at:
 
-- `.agents/skills/oak-commit/SKILL.md` — cross-tool alias used by Codex,
+- `.agents/skills/<prefix>-commit/SKILL.md` — cross-tool alias used by Codex,
   Cursor, Gemini, and other `.agents/` consumers.
-- `.claude/skills/oak-commit/SKILL.md` — Claude Code adapter.
+- `.claude/skills/<prefix>-commit/SKILL.md` — Claude Code adapter (the host's
+  skill prefix).
 
 The retired custom-command and per-platform skill directories are not valid
 homes for this workflow. Regenerate adapters with `pnpm skills:generate`
 (the root script — it builds first and pins the estate's required
-`--prefix=oak-`) and verify with `pnpm skills:check` or
+`--prefix`) and verify with `pnpm skills:check` or
 `pnpm portability:check` after canonical changes. The workspace-filtered
 form now also works (its script anchors at the repo root and pins the
 prefix; the 2026-07-02 wrong-cwd failure is cured at the script). A body-only

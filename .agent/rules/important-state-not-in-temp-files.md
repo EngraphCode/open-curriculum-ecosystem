@@ -8,7 +8,7 @@ description: Important state and context must never be left in a temp file long-
 Specialises the no-machine-local-paths principle
 ([principles.md §Code Design and Architectural Principles](../directives/principles.md);
 shapes in
-[safety-and-security.md §Machine-local paths](../../docs/governance/safety-and-security.md#machine-local-paths))
+[privacy.md §Machine-local paths](../directives/privacy.md#machine-local-paths))
 for the durable-reference failure mode at the `/tmp/` class, and
 operationalises PDR-014's knowledge-flow pipeline (capture,
 distillation, graduation, enforcement) at the buffer-vs-reference
@@ -150,7 +150,7 @@ analysis already in place. Repository data does not go in a machine-local folder
   writing them into files (three refusals in one seat before the pattern was
   learned, 2026-09-24; a fourth on an edit script, 2026-09-25).
 - **The no-machine-local-paths principle** (principles.md; shapes in
-  safety-and-security.md §Machine-local paths): forbids machine-local
+  privacy.md §Machine-local paths): forbids machine-local
   *paths* (the syntactic class). This rule forbids *durable
   references* to a particular machine-local class (`/tmp/`). A path
   under `/tmp/breezy-survey.md` is both — machine-local *and* not
@@ -170,11 +170,13 @@ analysis already in place. Repository data does not go in a machine-local folder
 - **PDR-067 (surface classification)**: per-user-memory is a buffer,
   not a personal store. By the same logic, `/tmp/` is a buffer, not
   a substrate store.
-- **PDR-081 (curator role)**: a curator pass MAY name a `/tmp/` working
-  artefact only as a transient pointer, resolved before the pass closes
-  (substance absorbed by reference into routed homes, or copied to a
-  durable in-repo location). A pass whose close-of-pass broadcast or
-  commit still points at `/tmp/` is in violation.
+- **PDR-081 (curator role)**: the curator keeps no per-pass log (the
+  commit plus the homed substance is its record, PDR-081 as amended
+  2026-06-14), so a `/tmp/` working artefact used during a pass MAY be
+  named only as a transient pointer, resolved before the pass closes:
+  its substance is absorbed by reference into routed homes, or copied
+  to a durable in-repo location. A pass whose close-of-pass broadcast
+  or commit still points at `/tmp/` is in violation.
 
 ## Detection
 
@@ -226,7 +228,7 @@ curator-pass's own surface survey.
 
 ### Example 1 — the bug that prompted this rule
 
-`.agent/memory/active/archive/napkin-2026-05-24-shaded-silencing-dusk.md`
+OCE's archived napkin of 2026-05-24 (an OCE record)
 § "2026-05-24 — Ferny Fruiting Root / claude / claude-opus-4-7 /
 `ee16a4` — Window 2 session-end captures" → "Capture D — Owner rule
 (2026-05-24): no important state long-term in temp files":
@@ -259,16 +261,18 @@ naming the new durable location, not retroactive event editing.
 ### Example 3 — curator-pass first-day self-instantiation
 
 A deep-curation survey commissioned by an outgoing curator is
-delivered at `/tmp/<survey>.md`. The incoming curator's opening claim
-names this `/tmp/` artefact. **This is acceptable only as a transient
-pointer.** The
-pass's first concrete cycle is the migration: either copy the survey
-into `.agent/state/collaboration/handoffs/<handover-record>.md` (when
-the artefact is a one-shot role-transfer record) or absorb its
-substance by reference into routed permanent homes and delete the
-temp file (when the substance has been distributed across multiple
-permanent homes). The close-of-pass broadcast names the durable home,
-or drops the pointer once substance is distributed.
+delivered at `/tmp/<survey>.md`. The incoming curator's opening claim may
+name this `/tmp/` artefact transiently; the curator keeps no per-pass log
+(PDR-081 as amended 2026-06-14), and a claim and a broadcast are not one.
+**The artefact is acceptable only while the pass is open.** The pass's
+first concrete cycle is the migration: either copy the survey into
+`.agent/state/collaboration/handoffs/<handover-record>.md` (when the
+artefact is a one-shot role-transfer record) or absorb its substance by
+reference into routed permanent homes and delete the temp file (when the
+substance has been distributed across multiple permanent homes). The
+close-of-pass broadcast names the durable home, or drops the pointer once
+substance is distributed; the commit that homes the substance is the
+record of where it went.
 
 The same custody hazard applies to UNTRACKED files inside the repo:
 durable-tier artefacts (formation letters, succession and permanent
@@ -281,10 +285,11 @@ July 2026).
 ## Related
 
 - `.agent/directives/principles.md` §"No machine-local paths".
-- `docs/governance/safety-and-security.md` §Machine-local paths (the
+- `.agent/directives/privacy.md` §Machine-local paths (the
   forbidden / permitted shapes; the companion syntactic-class
   surface).
 - PDR-014 (capture → distil → graduate → enforce; the layered model
   this rule's "buffer vs reference" distinction maps onto).
 - PDR-067 (surface classification; per-user-memory as buffer).
-- PDR-081 (curator role).
+- PDR-081 (curator role; no per-pass log, the commit plus the homed
+  substance is the record).

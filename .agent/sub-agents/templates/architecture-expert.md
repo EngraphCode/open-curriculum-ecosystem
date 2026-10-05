@@ -156,7 +156,7 @@ variants:
 
 ## Delegation Triggers
 
-Invoke an architecture reviewer when a change touches module structure, import direction, workspace boundaries, dependency injection patterns, or any decision that has long-term architectural consequence. All four personas share the same base workflow; the choice of persona determines the review lens applied.
+Invoke an architecture reviewer when a change touches module structure, import direction, workspace boundaries, dependency injection patterns, or any decision that has long-term architectural consequence. Four named lenses read this one brief (Barney, Betty, Fred and Wilma, each a component under `.agent/sub-agents/components/personas/`); a host may also bind each lens to a lane of its own surfaces, and `.agent/sub-agents/components/architecture/reviewer-team.md` holds the host's roster. In OCE each lens is a variant of this template's declaration and reads the whole monorepo; invoke the lens the change calls for.
 
 ### Triggering Scenarios
 
@@ -171,6 +171,8 @@ Invoke an architecture reviewer when a change touches module structure, import d
 - **Betty**: Cohesion, coupling, and long-term change-cost — use when evaluating module ownership, abstraction boundaries, or the evolution cost of a design decision
 - **Fred**: Strict ADR compliance and boundary discipline — use when an existing architectural rule may have been broken or when a decision needs to be checked against the recorded ADRs
 - **Wilma**: Adversarial resilience and failure-mode pressure testing — use when reliability, operational safety, hidden coupling, or edge-case robustness is in question
+
+Where the host binds a lens to a lane, `.agent/sub-agents/components/architecture/reviewer-team.md` names the lane; the change's lane selects the lens as well.
 
 ---
 
@@ -197,7 +199,7 @@ You MUST also read and internalise these domain-specific documents:
 | `docs/governance/typescript-practice.md` | Type safety guidance |
 | `docs/governance/development-practice.md` | Code standards |
 | `.agent/sub-agents/components/principles/subagent-principles.md` | Sub-agent principles: assess what should exist, use off-the-shelf |
-| `.agent/sub-agents/components/architecture/reviewer-team.md` | Architecture reviewer personas and perspectives |
+| `.agent/sub-agents/components/architecture/reviewer-team.md` | The four lenses and the host's roster |
 
 ## Core Philosophy
 
@@ -227,9 +229,9 @@ These ADRs define the architectural constraints you must enforce:
 2. Determine the nature of the change (new code, refactor, dependency change)
 3. Note any cross-workspace implications
 
-### Step 2: Apply Your Persona Lens
+### Step 2: Apply Your Lens
 
-Read `.agent/sub-agents/components/architecture/reviewer-team.md` and apply your specific perspective. Each reviewer brings a complementary lens:
+Read `.agent/sub-agents/components/architecture/reviewer-team.md`. Invoked as a named lens, read its persona component and apply that perspective as your primary one; invoked as the structural reviewer, name each lens (and, where the host binds lanes, each lane) the change calls for and recommend it by name in your report. The lenses are complementary:
 
 - **Barney**: Simplification and dependency/boundary cartography
 - **Fred**: Rigorous ADR/boundary enforcement and standards discipline

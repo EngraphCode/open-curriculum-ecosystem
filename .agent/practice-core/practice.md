@@ -41,9 +41,16 @@ links to the host repo's directives, ADRs, and tools,
 see practice-index.md — the bridge between the portable Core and the
 host repo.
 
-## Three Layers
+## Three Aspects of the General Layer
 
-The Practice operates in three layers. Each builds on the one below.
+The general layer of the five-layer definition above has three aspects, each
+building on the one below: philosophy (why it works), structure (what it
+consists of) and tooling (how it is used). The first two are general-layer
+content wherever the Practice is instantiated; the tooling aspect is where the
+family layer (one ecosystem's adapters and scripts) and the contextual layer
+(a host's entry points and platform set) bind to the general layer. These
+aspects were once called the Practice's three layers; the layers are the five
+of PDR-143 §Decision, and the three below are aspects of the first.
 
 ```mermaid
 graph TB

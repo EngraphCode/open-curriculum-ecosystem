@@ -5,9 +5,9 @@ description: Unattended seats never prompt — the tracked settings carry no ask
 
 # Unattended Seats Never Prompt
 
-Operationalises ADR-210's PDR-044 trip-list contract (the Bash guard's
+Operationalises the PDR-044 trip-list contract carried by the Bash guard in `.agent/hooks/policy.json` (the Bash guard's
 teaching deny list, which this rule extends with the filesystem-destruction
-concept) and ADR-125's tracked platform-settings model; the directing
+concept) and PDR-009's tracked platform-settings model; the directing
 decisions are the owner's words of 2026-09-08 and 2026-09-09 quoted below.
 
 A permission prompt is a hold. A seat cannot see that it is held — from

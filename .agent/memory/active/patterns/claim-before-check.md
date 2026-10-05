@@ -2,6 +2,7 @@
 name: "Claim Before Check"
 polarity: anti-pattern
 category: agent
+layer: general
 use_this_when: "About to state a status, mechanism, size, population or board fact to a peer, the owner, a PR record or a ticket — 'pushed', 'merged', 'the gate is released', 'the fleet is N seats', 'that plan is an unsanctioned sketch', 'the client should still complete' — and the state that would confirm it has not been read in the last few minutes."
 proven_in: "Nine grounded instances across five consecutive napkin windows, every catch external: 'commit pushed' told to the Director while the push had exited 128 (2026-07-28); a merge broadcast declaring a design-lane gate released (2026-08-01); fleet population claims transmitted without a census (2026-08-03); four mechanism claims narrated past their instruments in one day, the day the pattern was named (2026-08-04); six-plus instances in one Director tenure with two variants named (2026-08-06/07); a freeze broadcast's 'full gates green' false at utterance because the CI run had already failed (2026-08-09); four falsified premises in freshly authored claim-bearing text in one day (2026-08-11); a ratified, executed review fleet reported to the owner as an unsanctioned sketch (2026-08-13); a prediction dressed as a proof (2026-09-01). Kept by the 2026-09-02 adversarial quorum as an all-window recurrence; conserved in the 2026-09-02 historical napkin synthesis."
 proven_date: 2026-08-04

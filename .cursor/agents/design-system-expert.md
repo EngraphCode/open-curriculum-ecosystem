@@ -1,6 +1,6 @@
 ---
 name: design-system-expert
-description: 'Design token and visual consistency specialist for both read-only review and active-workflow planning, grounded in the DTCG standard, three-tier token model, and CSS custom properties for DTCG JSON, CSS custom properties, colour palettes, spacing scales, and theming in UI-shipping workspaces.'
+description: "Design token and visual consistency specialist for both read-only review and active-workflow planning, grounded in the live CSS standards and the host's token model (its tiers, custom properties, colour palettes, spacing scales, typography, motion and theming) for every value coming from the system, in UI-shipping workspaces."
 readonly: true
 ---
 

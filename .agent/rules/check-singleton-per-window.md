@@ -126,8 +126,7 @@ their own sweeps under
 - [PDR-076 / PDR-076a (Agent Identity Tuple)](../practice-core/decision-records/PDR-076a-agent-identity-tuple-name-and-uuid.md)
   — broadcasts carry the (name, UUID, session_id_prefix) identity so
   peers can attribute the in-flight run.
-- ADR-183 Comms-Event Tag Namespace (`../../docs/architecture/architectural-decisions/ADR-183-comms-event-tag-namespace.md`)
-  — broadcast tags (`gate-sweep:in-flight`, `gate-sweep:result`) sit in
+- The `agent-tools` comms-event tag namespace — broadcast tags (`gate-sweep:in-flight`, `gate-sweep:result`) sit in
   the comms-event tag taxonomy.
 - Active-claims schema `role` field — the structural claim-schema
   surface for singleton-role visibility; see

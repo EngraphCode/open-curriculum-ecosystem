@@ -26,11 +26,13 @@ agents that are *using* it concurrently.
   per [`agent-tools/README.md` §Unified entrypoint](../../agent-tools/README.md#unified-entrypoint).
   After editing `agent-tools` source, run `pnpm agent-tools:build` once
   before the next invocation.
-- Cache resolved identity values (`agent_name`, `session_id_prefix`) in
-  the per-platform env file at session-open and read them from env on
-  every subsequent invocation rather than re-deriving. The
-  `$CLAUDE_ENV_FILE` / `$CURSOR_ENV_FILE` mechanism already supports this;
-  the discipline is that re-derivation only happens once per session.
+- The session-open hook persists only the seed (`PRACTICE_AGENT_SESSION_ID_*`)
+  through the `$CLAUDE_ENV_FILE` / `$CURSOR_ENV_FILE` mechanism; every
+  invocation re-derives `agent_name` and `session_id_prefix` from the live
+  seed, never from a cached name (PDR-027, 2026-08-24). On a Claude Code CLI
+  seat the shell also carries the harness-native `CLAUDE_CODE_SESSION_ID`,
+  which the seed CLIs read when the env-file write did not reach the shell
+  (PDR-027, 2026-09-12); pass `--seed` only when neither is present.
 - During wordlist-, identity-, or collaboration-CLI refactors by other
   agents, identity drift will happen unless your session has bound to the
   built artefact at session start; if you observe mid-session identity

@@ -210,13 +210,13 @@ The same discipline covers authorities you are about to cite or copy. Before
 writing "this discipline lives in ADR-NNN" into a durable artefact, open the
 claimed home and confirm the substance is actually there — citing from a memory
 of "where this kind of thing lives" plants a wrong authority that a future
-reader follows to nothing (worked failure 2026-06-30: a plan cited ADR-117 for
+reader follows to nothing (worked failure 2026-06-30: a plan cited an ADR for
 a discipline that lives in the plan architecture; caught pre-commit). And
 before recommending a consistency or "simplify" move on tooling, ground the
 **governing** decision (the ADR/PDR that owns the surface), never the sibling
 that looks simplest — siblings can themselves be the inconsistency (worked
 instance 2026-06-29: "run it via tsx like its siblings" would have violated
-ADR-178, which mandates built-`dist` for agent-tools CLIs; the simplest-looking
+the `use-built-agent-tools-cli` rule, which mandates built-`dist` for agent-tools CLIs; the simplest-looking
 siblings were the outliers).
 
 The proactive form: before editing *around* an inherited story to repair it,
@@ -783,7 +783,7 @@ in sync and one fetch would have shown it).
   report) before any whole-file claim.
 - Running a generator / codegen / build script to *diagnose* without reading it
   first — a `clean` / `rm -rf` prelude on a command that may crash deletes
-  tracked artefacts (a diagnostic `sdk-codegen` once deleted ~100 tracked files
+  tracked artefacts (a diagnostic codegen run in OCE once deleted ~100 tracked files
   this way).
 - A proof loop whose probe consumes its own input as options — `grep -Fq "$line"`
   ate every `-`-prefixed needle as a flag, so 13 of 132 lines were never tested

@@ -142,14 +142,13 @@ lands. Never block on a cricket.
 5. NEXT — your next planned action(s).
 6. STANCE — `normal` or `adversarial` (see above).
 
-### Frame disciplines (graduated from the pair-era tally; standing for every invoker)
+### Frame disciplines (graduated from the lineage's pair-era tally; standing for every invoker)
 
 - **Provenance**: every condition or ruling the frame states carries who ruled it, when,
   and the ruling EVENT ID — never a bare timestamp — and every verification conclusion
   carries a one-line method beside it ("verified clean (git grep origin/main --
   plugins/, 0 matches)"). Full provenance eliminated the false-DRIFTING frame-grounding
-  mode outright (pair-era tally runs 6 and 10 against runs 1–5 —
-  `.agent/reports/agentic-engineering/cricket-two-pair-tally-2026-07-26.md`); partial
+  mode outright (pair-era tally runs 6 and 10 against runs 1–5); partial
   provenance — timestamps without IDs, conclusions without methods — still fires it
   (worked instance 2026-07-29, recorded in the same tally's successor entries).
 - **Two labelled lists**: ABSORBED scope and ROUTED-AWAY findings are separate labelled

@@ -3,6 +3,7 @@ name: Query the Value, Never the Lookalike
 polarity: anti-pattern
 use_this_when: About to use an identifier, timestamp, ref, config value, or state reading that you constructed, inherited, defaulted into, or read from a copy — rather than derived from the thing that owns it, at the moment of use
 category: agent
+layer: general
 proven_in: .agent/memory/active/archive/napkin-2026-08-06.md (nine distinct shapes across ~six seats, 2026-07-31→2026-08-04); cited as doctrine by PDR-027 § field-role home
 proven_date: 2026-08-04
 related_pattern: observation-that-does-not-bear-on-the-claim
@@ -145,7 +146,7 @@ this chosen or defaulted" has moved its own ambiguity into every caller, and eac
 caller pays for it separately and invisibly. The same reasoning is why
 [`validators-must-recompute-not-just-record`](../../../rules/validators-must-recompute-not-just-record.md)
 prefers a computed answer to a stored one, and why
-[`generator-first-mindset`](../../../rules/generator-first-mindset.md) fixes the
+`generator-first-mindset` (`generator-first-mindset.md`, a file OCE holds) fixes the
 generator rather than its output.
 
 ## Falsifier

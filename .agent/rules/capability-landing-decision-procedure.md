@@ -16,7 +16,7 @@ Where does a new capability land? This procedure answers at authoring
 time the question the estate used to answer by tacit knowledge — the
 consumer that runs at every landing is the landing decision itself.
 It is R2 of
-[the WS0 skills-estate recommendation](../reports/agentic-engineering/skills-estate-organisation-ws0-recommendation.md),
+the WS0 skills-estate recommendation (an OCE report, 2026-08-02),
 adopted at the owner's full ruling 2026-08-02; it succeeds the
 interim landing guidance, whose sunset fired at that ruling.
 
@@ -45,9 +45,10 @@ edits within an already-landed home.
 
 ## Source channels (owner ruling 2026-08-03)
 
-Verbatim: "no skills should be vendored, we have Oak skills, we have
-skills installed with `npx skills add` or `pnpm skills add` that is
-it." Exactly two legitimate skill channels exist: **Oak-authored
+Verbatim (given in OCE): "no skills should be vendored, we have Oak skills, we have
+skills installed with npx skills add or pnpm skills add that is
+it." (the commands as the owner typed them, in prose) Read host-neutrally: an estate's own skills, and skills the installer
+manages. Exactly two legitimate skill channels exist: **repo-authored
 skills in-repo**, and **installer-managed Vendor skills** via
 `pnpx skills add`, whose lifecycle (provenance, updates, drift)
 belongs to the external skills machinery. Content copied into the
@@ -78,10 +79,10 @@ while the procedure's substance homes in the skill.
 1. **Audience set first.** Which audience does this capability
    serve? `.agent/skills` is the Practice skills corpus — about
    creating the repo, its contents and mechanisms, and enabling
-   future mechanisms, not about pedagogy or Oak content (owner
-   partition, 2026-08-02). Curriculum- and teacher-facing capability
-   is a separate domain, audience, and delivery mechanism (first
-   version: `.claude-plugin/marketplace.json`). A capability that
+   future mechanisms, not about the product's content (owner
+   partition, 2026-08-02, given in OCE). Product- and end-user-facing
+   capability is a separate domain, audience, and delivery mechanism
+   (OCE's first version: its plugin marketplace manifest). A capability that
    fits no existing audience set does not stretch one — a new set
    lands deliberately, recorded in the audience-set registry in
    [the Practice skills corpus README](../skills/README.md).

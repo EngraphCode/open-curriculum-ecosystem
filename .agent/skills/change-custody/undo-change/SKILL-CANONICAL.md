@@ -163,18 +163,18 @@ The skill does not authorise unilateral execution. It always halts.
   — the doctrinal frame that supersedes the quarantined
   `apply-don't-ask` candidate; this skill remains the destructive-
   action compensator for the same family of agent failure modes.
-- [Quarantined apply-don't-ask doctrine](../../../memory/operational/quarantine/apply-dont-ask-doctrine.md)
-  — the predecessor doctrine; quarantine cleared 2026-05-10 by
-  PDR-057 + PDR-058. Preserved as historical evidence.
+- The quarantined apply-don't-ask doctrine (OCE's operational-memory
+  quarantine record) — the predecessor doctrine; quarantine cleared
+  2026-05-10 by PDR-057 + PDR-058. Preserved as historical evidence.
 
 ## Platform Adapters
 
-Thin pointers (no slash-command form):
+Thin pointers (no slash-command form), named with the host's skill prefix:
 
 - Codex and other cross-tool runtimes:
-  `.agents/skills/oak-undo-change/SKILL.md`
-- Claude Code: `.claude/skills/oak-undo-change/SKILL.md`
+  `.agents/skills/<prefix>-undo-change/SKILL.md`
+- Claude Code: `.claude/skills/<prefix>-undo-change/SKILL.md`
 
 Cursor, Gemini, Codex-native, and Windsurf skill adapter trees were retired by
-the 2026-05-09 ADR-125/PDR-051 two-surface skills contract. All live skill
-adapters resolve to this canonical file through the `oak-` wrapper name.
+the 2026-05-09 PDR-051 two-surface skills contract. All live skill
+adapters resolve to this canonical file through the host's prefixed wrapper name.

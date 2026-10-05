@@ -1,6 +1,6 @@
 ---
 name: subagent-architect
-description: 'Expert at creating, reviewing, upgrading, and optimising AI subagents across platforms (Cursor, Claude, Codex). Use proactively when creating new subagents, reviewing existing subagent definitions, migrating subagents between platforms, or improving subagent effectiveness. Invoke immediately when discussing subagent design, system prompts, or agent orchestration patterns.'
+description: 'Expert at creating, reviewing, upgrading, and optimising AI subagents across the platforms the host renders adapters for (Cursor, Claude, Codex, and Gemini where a declaration admits it). Use proactively when creating new subagents, reviewing existing subagent definitions, migrating subagents between platforms, or improving subagent effectiveness. Invoke immediately when discussing subagent design, system prompts, or agent orchestration patterns.'
 readonly: true
 ---
 

@@ -49,7 +49,7 @@ thing re-offered as a question is re-litigation.
 3. **Exploration of design intent before verdict is possible.** When the
    agent genuinely has no strong basis for a position (early planning,
    ambiguous scope, novel domain), surfacing 2–3 approaches with
-   trade-offs is the right move. This is the case the `oak-plan` skill's
+   trade-offs is the right move. This is the case the `plan` skill's
    §Before Writing item 1 is written for. One shape-check within this
    case: when the owner has framed the work as joint reflection —
    thinking a doctrine or design question through *together* — even the

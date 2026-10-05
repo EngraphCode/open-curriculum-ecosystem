@@ -25,9 +25,6 @@ and the right LEVEL to answer it?* Run them together — an exploration that nev
 can produce a warranted synthesis of work nobody should do at that scale, and a sizing pass over a
 malformed question sizes the wrong thing.
 
-Repository-specific provenance, adaptation notes, and replication guidance live in
-[the concept-exploration Practice transfer note](../../../research/concept-exploration-practice-transfer-2026-07.md).
-
 ## Loop Dynamics
 
 The principles beneath every iterative loop this estate runs — exploration movements, review

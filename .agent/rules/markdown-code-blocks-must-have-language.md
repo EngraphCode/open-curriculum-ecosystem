@@ -8,9 +8,9 @@ globs:
 
 # Markdown Code Blocks Must Have Language
 
-Operationalises [ADR-121 (Quality Gate Surfaces)](../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md),
-[ADR-125 (Agent Artefact Portability)](../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md),
-and [ADR-127 (Documentation as Foundational Infrastructure)](../../docs/architecture/architectural-decisions/127-documentation-as-foundational-infrastructure.md).
+Operationalises [`principles.md` §Code Quality](../directives/principles.md#code-quality),
+[PDR-009 (Canonical-First Cross-Platform Architecture)](../practice-core/decision-records/PDR-009-canonical-first-cross-platform-architecture.md),
+and [PDR-023 (Documentation Structure Discipline)](../practice-core/decision-records/PDR-023-documentation-structure-discipline.md).
 
 ## Rule
 
