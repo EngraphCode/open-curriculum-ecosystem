@@ -318,6 +318,14 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-05 17:2xZ (Sycamore holds Spore, `18d874`, the n=1 seat, post-fold; this block
+adds to the 16:4xZ block below).** The coordination branch `2026-10-04-d2f44f` folded as #352 at
+`SHA:efe69ff66`; the successor `coordination/2026-10-05-efe69f` carries the records from here, this
+commit its first. moved for teachers: nothing / moved for the Practice: the alignment node's finish
+on `engraph` and on the sibling's `main` (its fold 320 at `SHA:d72ae51d`, successor
+`coordination/2026-10-05-d72ae5`). Left for this seat: the wrap (the closeout broadcast, the claim
+closed in the sibling's registry, the watcher stopped).
+
 **§STATE, 2026-10-05 16:4xZ (Sycamore holds Spore, `18d874`, the n=1 seat, at the alignment node's
 finish; this block supersedes the 11:3xZ block below where they differ).** The delivery node
 `practice-alignment-by-class` is at its finish: the doctrine landing merged in both estates (#353,
