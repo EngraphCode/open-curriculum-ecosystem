@@ -124,8 +124,8 @@ The host's; in the sibling estate, jimcresswell.net: a statically built Next.js 
 components under `components/`, content derived from `content/`, assets under `public/`) with
 a generated PDF built in the same `pnpm build`. Accessibility checks run in the site's
 Playwright suite (`pnpm test:e2e`, against a production build, with `@axe-core/playwright`)
-and rendered proof comes from the visual-regression harness
-(`pnpm visual-regression:harness`). In every estate, per `principles.md` and
+and rendered proof comes from the host's rendered-proof instrument (its visual-regression
+harness or visual probe, named in its gates skill). In every estate, per `principles.md` and
 `visual-verdicts-require-rendered-proof`, an accessibility violation on a rendered surface is a
 blocking finding: the merge waits for the fix and its rendered proof.
 
@@ -172,7 +172,7 @@ Before reviewing or recommending, read and internalise:
 
 | Document                                                        | Load when                                                        |
 | --------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `.agent/skills/design-system/SKILL-CANONICAL.md`                | Token-related contrast or theming concerns                       |
+| `.agent/skills/domain-craft/ui-design/design-system-usage/SKILL-CANONICAL.md`                | Token-related contrast or theming concerns                       |
 | `.agent/skills/domain-craft/ui-design/visual-verification/SKILL-CANONICAL.md` | Producing or reading rendered proof for a verdict   |
 | `.agent/sub-agents/components/principles/subagent-principles.md` | Scope and complexity guardrails                                 |
 

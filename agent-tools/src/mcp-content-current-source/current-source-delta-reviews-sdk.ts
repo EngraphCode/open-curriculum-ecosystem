@@ -69,7 +69,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C100', 'C101', 'C102', 'C103', 'C104', 'C105'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/execution.ts': reviewed(
-    '56b062278ecd92c465eacaf96bdf787e2a5b23b10f92a6a9f143485462319550',
+    'fc8390ebf293ea96e8d3240bfaba3b21493f3f6aa5f16e62a048ab46bb005362',
     ['C151', 'C152', 'C153', 'C154', 'C155', 'C156', 'C157', 'C158', 'C159'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts': reviewed(

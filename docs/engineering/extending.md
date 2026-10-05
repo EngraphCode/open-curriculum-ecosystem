@@ -48,7 +48,7 @@ The semantic search system uses Elasticsearch Serverless with ELSER embeddings.
 1. **Define the index mapping** — Create a mapping generator in the SDK that produces Elasticsearch mappings from the curriculum data model
 2. **Create the ingestion pipeline** — Add ingestion logic in `apps/oak-search-cli/` that transforms curriculum data into indexable documents
 3. **Add ground truths** — Design ground truth queries using the known-answer-first methodology (see [Ground Truth Protocol](../../apps/oak-search-cli/docs/ground-truths/ground-truth-protocol.md))
-4. **Run benchmarks** — Use `pnpm benchmark` to evaluate search quality (MRR, NDCG@10)
+4. **Run benchmarks** — Use `pnpm --filter @oaknational/search-cli benchmark` to evaluate search quality (MRR, NDCG@10)
 5. **Wire into search dispatch** — Add the new index to the search dispatch configuration
 
 **Key files**:

@@ -281,12 +281,12 @@ record of 2026-09-08, event 283a6660).
 
 ## Quick Fixes
 
-| Symptom                                                 | Fix                                                             |
-| ------------------------------------------------------- | --------------------------------------------------------------- |
-| `pnpm publish --dry-run` fails with uncommitted changes | Add `--no-git-checks` flag                                      |
-| `pnpm benchmark` not found                              | The command is `pnpm benchmark` (not `pnpm eval:benchmark`)     |
-| E2E `tool-examples-metadata` flaky                      | SSE payload timing issue — retry once before investigating      |
-| Test upstream API status codes                          | `curl -s -w "\n%{http_code}" <url>` to see both body and status |
+| Symptom                                                 | Fix                                                                                     |
+| ------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `pnpm publish --dry-run` fails with uncommitted changes | Add `--no-git-checks` flag                                                              |
+| `benchmark` script not found at the root                | It lives in the search CLI workspace: `pnpm --filter @oaknational/search-cli benchmark` |
+| E2E `tool-examples-metadata` flaky                      | SSE payload timing issue — retry once before investigating                              |
+| Test upstream API status codes                          | `curl -s -w "\n%{http_code}" <url>` to see both body and status                         |
 
 ## Quality Gate Failures
 

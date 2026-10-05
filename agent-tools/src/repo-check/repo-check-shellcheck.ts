@@ -1,7 +1,5 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { describeGitReadFailure } from '../core/repository-paths.js';
-
 import { trackedCheckFiles, type TrackedTreeReading } from './repo-check-files.js';
 import { lostFilesRefusal, unstagedLoss } from './repo-check-gates.js';
 import {
@@ -122,7 +120,7 @@ function trackedTreeOutsideVendored(
 ): Result<{ readonly tree: TrackedTreeReading; readonly vendored: readonly string[] }, string> {
   const tree = runtime.trackedTree();
   if (!tree.ok) {
-    return err(`${describeGitReadFailure(tree.error)}; the gate checked nothing`);
+    return err(`${tree.error}; the gate checked nothing`);
   }
   const tools = tree.value.tracked.filter((file) => REPO_TOOLS_PATH.test(file));
   if (tools.length > 0) {

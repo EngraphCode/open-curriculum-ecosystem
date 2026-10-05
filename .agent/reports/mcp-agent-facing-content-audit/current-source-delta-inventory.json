@@ -890,7 +890,7 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/execution.ts",
-      "semanticSha256": "56b062278ecd92c465eacaf96bdf787e2a5b23b10f92a6a9f143485462319550",
+      "semanticSha256": "fc8390ebf293ea96e8d3240bfaba3b21493f3f6aa5f16e62a048ab46bb005362",
       "itemIds": [
         "C151",
         "C152",

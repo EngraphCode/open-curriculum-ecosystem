@@ -49,9 +49,10 @@ These tools are not managed by pnpm but are required by specific workflows:
   in `pnpm check`; `.agent/setup/install-shellcheck.sh` installs the pinned
   version into the checkout's ignored `.tools/bin`
 - [bun](https://bun.sh/docs/installation) — optional, required for
-  `pnpm dev:widget-in-host`
-- [jq](https://jqlang.github.io/jq/download/) — optional, required for
-  `pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http smoke:oauth-curl`
+  `pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http dev:widget-in-host`
+- [jq](https://jqlang.github.io/jq/download/) — optional, used by the
+  log-reading commands in the
+  [production debugging runbook](../operations/production-debugging-runbook.md)
 - [lsof](https://github.com/lsof-org/lsof) — optional, used by
   `apps/oak-curriculum-mcp-streamable-http/scripts/restart-dev-server.sh`
 

@@ -22,8 +22,8 @@ Worked instance that prompted graduation: Ferny Capture D in
 `/tmp/ferny-ws8-reviewer-synthesis-window2.md` was referenced from a
 napkin entry intended for ongoing follow-on-author consumption. The
 napkin pointer became a broken link the moment `/tmp/` rotated. Cured
-by moving the synthesis to
-`.agent/memory/active/ws-8-ratification-reviewer-synthesis-2026-05-24.md`
+by moving the synthesis into the active memory tier (the WS-8 ratification
+reviewer synthesis of 2026-05-24, a record jimcresswell.net still carries)
 and updating the napkin pointer. The same shape has appeared multiple
 times across sessions — this rule fixes the class.
 
@@ -236,8 +236,8 @@ OCE's archived napkin of 2026-05-24 (an OCE record)
 > "my Capture B pointer at
 > `/tmp/ferny-ws8-reviewer-synthesis-window2.md` was the violation —
 > a napkin entry referenced `/tmp/` for ongoing follow-on-author
-> substrate. Cured this turn: synthesis content moved to
-> `.agent/memory/active/ws-8-ratification-reviewer-synthesis-2026-05-24.md`;
+> substrate. Cured this turn: synthesis content moved into the active memory
+> tier (the WS-8 ratification reviewer synthesis of 2026-05-24);
 > Capture B pointer updated."
 
 The cure is the canonical pattern: identify the substrate's true

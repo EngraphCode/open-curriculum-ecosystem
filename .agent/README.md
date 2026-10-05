@@ -109,6 +109,7 @@ are in §This host.
 | `collaboration/`                         | Rapid-comms channels for multi-seat sessions                                                         |
 | `state/`                                 | Machine-local coordination state (git-ignored) and tracked decision provenance; see its `.gitignore` |
 | `hooks/`                                 | Hook policy for platform harnesses                                                                   |
+| `family/`                                | The family layer: the tooling family's declared Practice operations (`typescript/practice-operations.json`, its hook copies) and `host.json`, the host's placeholder values |
 | `setup/`, `claude-harness-integrations/` | Cloud-session preflight and setup scripts                                                            |
 
 ### Reference

@@ -186,7 +186,7 @@ Load only the documents relevant to the work area:
 | Document | Load when |
 |----------|-----------|
 | `.agent/reference/accessibility-practice.md` | The component produces interactive or semantic HTML |
-| `.agent/skills/design-system/SKILL-CANONICAL.md` | The component consumes tokens or styles |
+| `.agent/skills/domain-craft/ui-design/design-system-usage/SKILL-CANONICAL.md` | The component consumes tokens or styles |
 | `docs/architecture/decision-records/016-review-oriented-visual-regression-harness.md` | Producing or reading rendered proof |
 | `docs/architecture/decision-records/019-playwright-against-production-build.md` | Changing behaviour the Playwright suite covers |
 | `.agent/sub-agents/components/principles/subagent-principles.md` | Sub-agent principles: assess what should exist, use off-the-shelf |

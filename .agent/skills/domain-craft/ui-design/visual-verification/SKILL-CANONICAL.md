@@ -45,7 +45,7 @@ pnpm exec next start -p 4600  # serve it — separate terminal, stays up
 
 ```bash
 # then, against that same origin:
-pnpm tool:visual-probe --origin http://localhost:4600 \
+pnpm --filter @oaknational/oak-design-showcase tool:visual-probe --origin http://localhost:4600 \
   --route /identity-switchboard --tabs 1
 ```
 

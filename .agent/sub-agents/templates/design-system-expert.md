@@ -129,9 +129,9 @@ live in `jcdotnet/app/globals.css` as a `@theme` block plus custom properties; c
 consume them through utility classes and `var()` references. Light and dark themes are
 switched by `jcdotnet/components/theme-provider.tsx` and `jcdotnet/components/theme-toggle.tsx`. The generated
 PDF renders from the same components in the same build, so a token change reaches the PDF.
-Rendered proof comes from the visual-regression harness
-(`pnpm visual-regression:harness <base-ref> <target-ref>`), and per ADR-022 a visual verdict
-without rendered proof is not a verdict.
+Rendered proof comes from the host's rendered-proof instrument (its visual-regression harness
+over a base and a target ref, or its visual probe, named in its gates skill), and per the
+host's rendered-proof record a visual verdict without rendered proof is not a verdict.
 
 ## Authoritative Sources (MUST CONSULT)
 

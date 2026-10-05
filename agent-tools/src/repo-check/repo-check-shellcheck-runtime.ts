@@ -2,7 +2,6 @@ import { closeSync, existsSync, openSync, readFileSync, readSync } from 'node:fs
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import type { GitReadFailure } from '../core/repository-paths.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 
 import type { TrackedTreeReading } from './repo-check-files.js';
@@ -10,7 +9,7 @@ import { defaultRuntime } from './repo-check-runtime.js';
 import { REPO_SHELLCHECK, SHELLCHECK_INSTALLER } from './repo-check-shellcheck-version.js';
 import { SKILLS_LOCK } from './repo-check-skills-lock.js';
 import type { RepoCheckCommandResult } from './repo-check-types.js';
-import { readTrackedTree } from './repo-check-universe.js';
+import { readTrackedTreeResult } from './repo-check-universe.js';
 
 /**
  * The shellcheck gate's edges (`repo-check-shellcheck.ts`): the working tree,
@@ -30,9 +29,9 @@ export interface ShellcheckGateRuntime {
   /** Run the given shellcheck with `--version`. */
   readonly probeVersion: (command: string) => RepoCheckCommandResult;
   /** What git says about the tracked tree, or why git could not say. */
-  readonly trackedTree: () => Result<TrackedTreeReading, GitReadFailure>;
-  /** The skills lock's text; the gate reads it only when git tracks the lock as a file. */
-  readonly readSkillsLock: () => string;
+  readonly trackedTree: () => Result<TrackedTreeReading, string>;
+  /** The skills lock's text, or undefined when the repository has none. */
+  readonly readSkillsLock: () => string | undefined;
   /** A file's first `bytes` bytes (fewer when the file is shorter), decoded as UTF-8. */
   readonly readHead: (file: string, bytes: number) => string;
   /** The opening of a file's content in git's index, or why git could not read it. */
@@ -72,8 +71,8 @@ export const defaultShellcheckGateRuntime: ShellcheckGateRuntime = {
   readInstaller: () => readFileSync(SHELLCHECK_INSTALLER, 'utf8'),
   hasRepoShellcheck: () => existsSync(REPO_SHELLCHECK),
   probeVersion: (command) => defaultRuntime.runCaptured(command, ['--version']),
-  trackedTree: () => readTrackedTree(defaultRuntime),
-  readSkillsLock: () => readFileSync(SKILLS_LOCK, 'utf8'),
+  trackedTree: () => readTrackedTreeResult(defaultRuntime),
+  readSkillsLock: () => (existsSync(SKILLS_LOCK) ? readFileSync(SKILLS_LOCK, 'utf8') : undefined),
   readHead,
   readIndexHead,
   readText: (file) => readFileSync(file, 'utf8'),

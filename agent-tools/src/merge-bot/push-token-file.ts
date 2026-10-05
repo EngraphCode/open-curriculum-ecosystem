@@ -51,7 +51,7 @@ export interface StagedToken {
 
 /**
  * Stage the token file, translating the filesystem's throws to a value
- * (ADR-088): a full or unwritable temp root is an operational failure, and an
+ * (the Result pattern): a full or unwritable temp root is an operational failure, and an
  * escaping throw would land it on the CLI's usage-error exit instead. A
  * half-staged directory is removed before reporting.
  */

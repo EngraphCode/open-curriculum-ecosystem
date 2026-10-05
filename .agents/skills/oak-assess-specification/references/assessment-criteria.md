@@ -2,8 +2,9 @@
 
 How an existing specification is judged for a named reliance: the criteria drawn from the intended
 use, the classes a finding falls into, and the scoped dispositions an assessment may issue. Owned
-with `assess-specification`; it applies [assurance](../../specify/references/assurance.md) and
-[lifecycle and change](../../specify/references/lifecycle-and-change.md) without copying them.
+with `assess-specification`; it applies `specify`'s references `assurance.md` and
+`lifecycle-and-change.md` (canonical home `.agent/skills/specification/specify/references/`)
+without copying them.
 Source: the specification framework note, §9, §12 and §13.3.
 
 ## Criteria come from the intended use

@@ -25,17 +25,19 @@ usefulness or wider contribution is unresolved.
 
 A contract a step depends on is no different: hand the question to the skill
 that owns it, never plan around it or invent it. "What must this thing do,
-preserve or permit?" is a specification question (the `specify` skill); "can
-these individually defined things work together?" a connection question
-(`specify-connection`); "does this evidence justify this use of this
-specification?" an assessment question (`assess-specification`). Where the
-estate carries the specification family, invoke the owning skill before
-scheduling the steps that depend on its answer. The return is a named
-obligation or gap, never a certificate for the dependent steps; it gates only
-those steps, and settled steps proceed. Authority stays where it is: a dispute
-over who owns a contract is preserved for the authority that holds it, never
-decided by the plan. Settled work takes no compulsory value or specification
-pass; reopen a definition only at a consequential gap.
+preserve or permit?" goes to
+[`specify`](../../specification/specify/SKILL-CANONICAL.md); "can these
+individually defined things work together?" to
+[`specify-connection`](../../specification/specify-connection/SKILL-CANONICAL.md);
+"does this evidence justify this use of this specification?" to
+[`assess-specification`](../../specification/assess-specification/SKILL-CANONICAL.md).
+Invoke the owning skill before scheduling the steps that depend on its
+answer. The return is a named obligation or gap, never a certificate for
+the dependent steps; it gates only those steps, and settled steps proceed.
+Authority stays where it is: a dispute over who owns a contract is
+preserved for the authority that holds it, never decided by the plan.
+Settled work takes no compulsory value or specification pass; reopen a
+definition only at a consequential gap.
 
 1. **Design gate**: Has the design intent been explored and confirmed
    with the project owner? If the scope is ambiguous or the approach
