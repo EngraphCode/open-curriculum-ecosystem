@@ -173,11 +173,12 @@ write files. `danger-full-access` requires explicit owner authorisation per invo
 
 `pnpm agent-tools:codex-exec` exposes `last-message`, which extracts the
 final assistant text from a JSONL stream, and `command-records`, which
-summarises what a seat's rollout says the harness ran (ADR-180 §2).
+summarises what a seat's rollout says the harness ran (OCE's ADR-180 §2).
 
 A richer wrapper (a `run` subcommand with built-in timeout, sandbox flag
-forwarding, and streaming progress) is under design in the
-[codex-exec CLI deep-dive strategic plan](../../plans-backlog-2026-07/agentic-engineering-enhancements/future/codex-exec-cli-deep-dive.plan.md).
+forwarding, and streaming progress) is under design in OCE's codex-exec CLI
+deep-dive strategic plan (a node of its 2026-07 plan backlog, agentic-engineering
+enhancements, future).
 Until that plan promotes, use raw `codex exec` for invocation and pipe the
 output through `last-message` for extraction.
 
