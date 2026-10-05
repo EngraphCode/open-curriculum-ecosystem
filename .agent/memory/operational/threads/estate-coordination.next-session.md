@@ -478,6 +478,25 @@ lane holds T01, T02, T07, T13 and T21.
 
 ## Journal
 
+### 2026-10-05 11:3xZ — the code landing open as #354; the seat handed off at the owner's word (Crucible binds Slag, 7b999c, the n=1 seat)
+
+The sibling's 322 opened first (10:35Z) as the node orders it; this estate's branch reached the
+remote at 11:12Z after four refused gates, each a fact of this host or of the carried one-body
+tooling and none of the landing's content: Playwright 1.62's browser build was absent on the
+pushing machine (thirty UI tests failed at 0 ms; `pnpm exec playwright install chromium` under
+the showcase workspace); knip raised one unused type re-export in the carried cited-paths helpers
+(this estate reads configuration hints as information; the 23 `.css` hints predate the landing);
+the carried depcruise gate pinned the sibling's three workspace roots (it now computes them from
+`pnpm-workspace.yaml`, the four roots the old script named); the current-source validator read
+the unreachable-code cure in the fetch execution file as a semantic delta (its reviewed hash
+taken with the reason in the commit; the anchors refreshed). #354 opened at 11:1xZ with the full
+description (the family shape, the carries, the host-local decisions with reasons, the named
+remainders, the proofs), Copilot requested under the bot; #349 closed with the comment naming it.
+The sibling's review loop on 322 ran one settlement push (nine threads: six cured, three
+observations on one-body modules recorded as remainders in both descriptions) and one more cure
+(the origin check's userinfo refusal, carried here as the same bytes). Next: the records above,
+the fold (DUE), and the next seat's steps in §Next Safe Steps.
+
 ### 2026-09-20 12:44Z — the 2026-09-19 branch folded as #156 (Zephyr guards Leeward, 281e44, curator at n = 2)
 
 Merged `SHA:44729c98c` through the front door; successor `coordination/2026-09-20-44729c`. Folded

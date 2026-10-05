@@ -318,6 +318,37 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-05 11:3xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's handoff
+word; this block supersedes the 2026-10-04 13:5xZ block below where they differ).** The code
+landing of `practice-alignment-by-class` is open in both estates: #354 here on
+`feat/practice-code-landing` at `SHA:b79e0c23d` (twelve commits: the family shape with this
+host's two product slots, the Core clause and shared text, the docs validators and lint rules,
+the merge-bot's push side, the skills at the family paths, the substrate audit, the formatter
+file's deletion, one doc-comment cure, the review cures carried from the sibling's landing, the
+depcruise gate's computed roots, the origin check's userinfo refusal with the fetch execution
+file's reviewed hash, the regenerated delta inventory), pushed through the full gate after four
+refusals (the Playwright browser build for Playwright 1.62 on the pushing machine, one unused type
+export, the carried depcruise gate's pinned roots, the current-source review hash), Copilot
+requested under the bot; the sibling's 322 (thirteen commits, CI green, one review finding cured
+and awaiting its reply). The doctrine landing is merged in both (#353, 321). #349 and 318 are
+closed into the landings. What remains is settlement, the two merges (this estate's ruleset is
+already on the fan-in), the branch deletions and the byte proof, todo 3 (the strategic node's
+finish line; `practice-parity-two-landings` and `practice-parity-for-extraction` archived here,
+the alignment node lives in the sibling), the fold of both coordination branches (DUE), and one
+owner card (the two superseded surface lanes `feat/parity-surface-directives` and
+`feat/parity-surface-subagents`; the expired gates of `practice-language-separation` in the
+sibling). The live reading is the sibling's thread record
+`threads/two-estate-consolidation.next-session.md`'s block of this hour and this estate's
+`estate-coordination` journal entry of the same hour. No claim, watcher, heartbeat or background
+agent survives this seat.
+
+- This estate's `windows-basic` job fails at setup on #354 since the pnpm 12 bump: the
+  setup-node cache step runs `pnpm store path` through pnpm/action-setup's cmd shim, which
+  resolves to a path under `global\v11\...\node_modules\pnpm\pnpm` that cmd cannot run (pnpm 12's
+  Windows shim; pnpm issue 16573 is the same family). The fan-in needs that job, so #354 cannot
+  merge until it is cured: pin a newer pnpm/action-setup or a pnpm 12.x with the shim fix, or set
+  the action's `version` and `standalone` inputs; the `engraph` run before the bump is green.
+
 **§STATE, 2026-10-05 00:3xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's
 compaction word).** The doctrine landing of `practice-alignment-by-class` is merged in the
 sibling (jimcresswell.net 321 at `SHA:4992af38`, main) and open here as #353 at `SHA:df70cd153`

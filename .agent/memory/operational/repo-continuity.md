@@ -37,6 +37,16 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-05T11:3xZ: the code landing open as #354; the seat handed off at the owner's word**
+  (Crucible binds Slag, 7b999c). #354 at `SHA:b79e0c23d` (twelve commits; the family shape with
+  this host's product slots, the carries each way with their tests, the conformance check,
+  `validate-family-conformance` a leg of `repo-validators:check`); the sibling's 322 at
+  `SHA:d371218b`. #349 and 318 closed into the landings. `coordination/2026-10-04-d2f44f` carries
+  the records and is DUE to fold. Named for the next landing: the 23 `.css` knip hints this estate
+  reads as information and the sibling as errors; `authored-surfaces`'s POSIX joins owed to the
+  sibling; the merge-bot's merge side with `pr-watch`; two Copilot observations on one-body modules
+  (the cluster signature's `|` join, the review-cost base-merge exemption).
+
 - **2026-10-05T00:3xZ: the doctrine landing open as #353 at `SHA:df70cd153`** (the alignment
   node's first landing; merged in the sibling as 321; the byte proof DRIFT 1, the one drift
   owed to the sibling's code landing; the owner's card answer on Core records recorded). The
@@ -486,6 +496,22 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+STATE, 2026-10-05T11:3xZ (Crucible binds Slag, 7b999c, the n=1 seat, at the owner's handoff word):
+the code landing is open in both estates (#354 here, 322 in the sibling); the doctrine landing is
+merged in both; #349 and 318 are closed into the landings. The live detail is `director-handoff.md`
+§STATE of this hour and the `estate-coordination` journal entry of the same hour. Next safe steps,
+in order:
+
+1. `git status --branch` in the primary and the landing branch's remote tip, first-hand.
+2. Settle and merge #354 through the bot (`merge-bot merge --pr 354 --expect
+   copilot-pull-request-reviewer --json --interval 30 --max-polls 60`); the sibling's 322 the same.
+3. Delete the merged and absorbed branches under the bot (`feat/practice-code-landing`,
+   `feat/parity-carry-doctrine-batch`); the byte proof posted on both landings; the owner's card
+   on the two surface lanes.
+4. Todo 3 of the alignment node: this estate's two parity nodes archived with inbound links swept;
+   the strategic node's §Delivery finish line the same bytes as the sibling's.
+5. Fold the coordination branch (DUE); wrap.
 
 STATE, 2026-10-03T07:1xZ (Crucible binds Slag, 7b999c, the Director, at the owner's compaction-and-
 stop word): the order below is superseded by the delivery node `practice-parity-for-extraction` (the
