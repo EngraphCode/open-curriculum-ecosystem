@@ -48,6 +48,18 @@ tag in both repositories; the other repository's slug is never written here
   on 2026-10-04; this entry records them, written with the alignment landing
   above.
 
+## [jimcresswell.net] 2026-10-05 — a record names an estate where it tells that estate's act; the family conformance contract
+
+- PDR-142 §How each kind travels: the Core-records clause now reads that a record
+  names no host in its doctrine and names an estate by its name where it records
+  that estate's act (the owner's card answer of 2026-10-04, "Your words stand");
+  the Amendment Log entry of 2026-10-05 carries the context and the falsifier.
+- The family conformance schema joins the Core's schemas directory: the contract
+  of the family layer's practice-operations manifest (the owner's "Include it" of
+  2026-10-04), read by `validate-family-conformance` in every repository of the
+  TypeScript family. The code landing of `practice-alignment-by-class`, the same
+  bytes in both estates.
+
 ## [jimcresswell.net] 2026-10-03 — host-named amendment headings leave the Core; a gate refuses the shape
 
 - PDR-008's two host-tagged entries (the 2026-09-12 adoption of the read-only

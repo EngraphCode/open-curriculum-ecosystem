@@ -31,8 +31,8 @@ Files under `.agent/practice-core/` MUST NOT contain:
 - Cross-Practice paths into the host adapter: `../../skills/`,
   `../../commands/`, `../../memory/`, `../../plans/`,
   `../../experience/`, `../../rules/`, etc.
-- ADR references: no `ADR-NNN`, no links into
-  `docs/architecture/decision-records/`.
+- ADR references: no `ADR-NNN`, no links into the repository's ADR
+  directory.
 - Commit references: no SHAs, no commit subjects, no
   `commit abcdef0` citations.
 - Host-local context sections, "host context note" sections, or

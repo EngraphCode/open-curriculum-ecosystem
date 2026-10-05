@@ -28,6 +28,17 @@ narrow.
 - Codex identity context — a separate native `SessionStart` surface activated
   through the thin `.codex/hooks/practice-session-identity.mjs` adapter; it
   injects the PDR-027 identity block and remains soft/fail-open
+- Claude Code `PreCompact` observer — a never-blocking OBSERVER, not a guard,
+  activated in `.claude/settings.json` (it has no key in `policy.json`): it
+  records what the harness sends at a compaction to a git-ignored log under
+  `.claude/logs/`, and is the first hook run directly from TypeScript source
+  (`node <source>.ts`, through the `log-hook-errors.sh` wrapper). What it
+  guarantees, and why its build dependency remains, is stated once in the
+  TSDoc of `agent-tools/src/bin/claude-pre-compact-observe-hook.ts`; the
+  contract it has observed is recorded in
+  `.agent/memory/executive/cross-platform-agent-surface-matrix.md` §Hook
+  Support. Retire it when a `PreCompact` gate replaces it: its
+  `systemMessage` shows on every compaction it answers
 - `preCommit` — documented policy only; quality-gate reminders already
   live in the workflow and review surfaces
 
@@ -177,19 +188,19 @@ policy decision taken entry by entry.
   file path (`archive/`), a `**/*` suffix (`**/*.plan.md`), or a root-anchored
   path led by `./` (`./.agent/memory/`), which matches from the repository root
   only, so a nested copy of an exempt path cannot claim its exemption; the
-  whole-tree gate that reuses the scoping (machine-local paths) reads the same
-  forms. For the write-hook the root is the session's project directory
-  (`CLAUDE_PROJECT_DIR` when set, else the policy's own checkout), so a write
-  into another checkout matches no root-anchored exemption and the block fires;
-  an absolute path is read with its `..` segments resolved, so a path that
-  climbs back out of an exempt directory is scoped where it lands; an
+  whole-tree gates that reuse the scoping (lineage names, machine-local paths)
+  read the same forms. For the write-hook the root is the session's project
+  directory (`CLAUDE_PROJECT_DIR` when set, else the policy's own checkout), so
+  a write into another checkout matches no root-anchored exemption and the
+  block fires; an absolute path is read with its `..` segments resolved, so a
+  path that climbs back out of an exempt directory is scoped where it lands; an
   `apply_patch` path is relative to the payload's `cwd` and is resolved against
   it before scoping, and without a `cwd` it claims no root-anchored exemption
   either: the anchor fails closed, never open.
 
   `excludes_other_repositories` is for a concept that governs only this
-  repository's own files: another repository's files may name what this one
-  must not. A repository is known by its common git
+  repository's own files, such as `lineage-name`: another repository's files
+  may name what this one must not. A repository is known by its common git
   directory, which every worktree of it shares, so this repository's worktrees
   stay guarded wherever they sit on disk; two common directories are compared
   by identity on disk (device and inode), never by spelling. The walk starts
@@ -206,9 +217,9 @@ policy decision taken entry by entry.
   climb; a path it could not place; or a session root whose own repository it
   cannot tell. A move's source, and a Write's prior content, are read only as
   regular files, never waiting on a pipe, and one request's reads share a byte
-  budget, so no read holds the hook past its timeout. The whole-tree gate
-  reads only this repository's tracked files, so the option never changes what
-  it finds.
+  budget, so no read holds the hook past its timeout. The whole-tree gates
+  read only this repository's tracked files, so the option never changes what
+  they find.
 
 **The deny message carries the reappraisal.** When a group fires, the message
 names the concept the matched text is a fingerprint of, states the `reappraisal`
@@ -252,7 +263,7 @@ guaranteed at two points:
 the dispatcher imports, such as `agent-tools/src/core/bounded-read.ts`) or the
 observer's source (`agent-tools/src/claude/pre-compact-observe/` or
 `agent-tools/src/bin/claude-pre-compact-observe-hook.ts`), run a build
-(`pnpm --filter @oaknational/agent-tools build` or any `turbo build`) before
+(`pnpm agent-tools:build` or any `turbo build`) before
 relying on the hook in the active session — until then the running hook
 executes the previously-compiled artefact. The failure direction is safe: a
 stale guard still blocks every already-published pattern; only a *newly added*
@@ -279,9 +290,58 @@ artefact-failure shapes:
 The Read / `UserPromptSubmit` secrets-scan hooks (via
 `.claude/hooks/_lib/log-hook-errors.sh`) are deliberately **best-effort /
 fail-open**: they `exit 0` when the scanner is unavailable so a session is never
-bricked by a missing optional tool. That is a broader fail-open posture than the
+bricked by a missing optional tool, and the allow is loud: with no `sonar` on PATH,
+or a scan that exits with an error, the prompt or the Read goes through with a
+warning shown to the user that it was not scanned (the Read hook stays silent
+for every other tool). That is a broader fail-open posture than the
 dangerous-command/content guards above: those fail open *only* for the not-built
 case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
+They read the payload with `jq` when it is installed; without it, the Read hook
+denies a path holding a JSON escape it cannot decode rather than let it through
+unscanned. Their commands quote every `${CLAUDE_PROJECT_DIR}`, which the
+portability check enforces for every hook and the status line; it also holds
+each of those commands to the closed hook-command grammar in
+`agent-tools/src/validators/portability/claude-hook-script-anchoring.ts`.
+
+A file a prompt @-mentions never reaches the Read hook. Claude Code puts the
+file's content into the conversation as an attachment, with no tool call, and
+the `UserPromptSubmit` payload carries only the prompt's text (Claude Code
+2.1.274, observed 2026-09-17). The documentation says only that an @-mention
+"includes the full content of the file in the conversation"
+([Common workflows](https://code.claude.com/docs/en/common-workflows)) and
+that `Read` permission rules apply to `@file` mentions on a best-effort basis
+([Permissions](https://code.claude.com/docs/en/permissions)). So the prompt
+hook hands Sonar every regular file a mention can name, found as Claude Code
+finds it: its patterns, read from the 2.1.274 bundle, run on node, the engine
+they were written for, so the whitespace set, the word boundary and the `#`
+split are Claude Code's own. They take a mention only after the start of the
+text, whitespace or a CJK stop (`(^|[\s\u3002\u3001\uFF1F\uFF01])@`), end an
+unquoted path at the last word character before whitespace (`@([^\s]+)\b`),
+and split the path at its first `#` whatever follows
+(`^([^#]+)(?:#L(\d+)(?:-(\d+))?)?(?:#[^#]*)?$`); the hook resolves it against
+the payload's `cwd`, `~` or the root. Each file goes by its real path, once,
+since Sonar reports a symlink clean without reading its target. When Sonar
+is missing or errors, or `node` or `realpath` is missing, exits non-zero or cannot resolve a mentioned file,
+the prompt goes through with a warning shown to the user that it was not
+scanned. A mentioned file outside the project is read by the scanner
+as the model would read it: the Sonar documentation says the scan runs locally
+with no server connection
+([Secrets detection](https://docs.sonarsource.com/sonarqube-cli/analysis/secrets-detection))
+and that telemetry carries no file content, path or command argument
+([Telemetry and privacy](https://docs.sonarsource.com/sonarqube-cli/administration/telemetry-and-privacy));
+`sonar config telemetry --disabled` opts out of telemetry altogether. Other
+content reaches the model without either hook seeing it, among them a nested
+`CLAUDE.md`, a connected IDE's selection or open file, an MCP resource, and a
+file read by a Bash or Grep call.
+
+Every writer of `.claude/logs/` creates it owner-only: the directory mode 700 and
+the logs mode 600. The wrapper and the Node hooks' shared helper
+(`_lib/append-owner-only-log.mjs`) also tighten what an earlier version left open
+and leave a symlinked, foreign-owned or non-regular log alone; the wrapper says on
+stderr when a failure could not be written. In a process with no uid (Node gives
+none on Windows or Android) the helper cannot check ownership, and the modes
+cannot make a file owner-only on Windows, so it writes nothing. The `PreCompact` observer runs inside
+the wrapper and keeps its own log at 600.
 
 ## Quoted wrapper paths
 
@@ -367,7 +427,7 @@ decides. It records the harness's compaction contract (what Claude Code sends a
 
 | Platform | Upstream hook surface | Repo activation |
 | --- | --- | --- |
-| Claude Code | Native lifecycle hooks | Soft `SessionStart` identity context plus `PreToolUse` command/content guards and a `PreCompact` observer in tracked `.claude/settings.json` |
+| Claude Code | Native lifecycle hooks | Soft `SessionStart` identity context, `PreToolUse` command/content guards and a never-blocking `PreCompact` observer in tracked `.claude/settings.json` |
 | Codex CLI | Stable lifecycle hooks | Soft `SessionStart` identity context in tracked `.codex/config.toml` |
 | Cursor | Not reassessed in this Codex research pass as of 2026-07-25 | Soft `sessionStart` identity context in tracked `.cursor/hooks.json`; no canonical policy activation |
 | Gemini / Antigravity CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
@@ -385,8 +445,7 @@ in `policy.json`.
 
 The Codex CLI observation pinned in `policy.json` documents stable session,
 subagent, tool/approval, compaction, prompt, and stop lifecycle families. The
-version-pinned event list and evidence boundary live in the
-[Codex CLI capability catalogue](../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
+version-pinned event list and evidence boundary live in the Codex CLI documentation.
 Availability upstream is not activation here. In particular, hosted tools such
 as Web Search are outside the general local-function hook path.
 

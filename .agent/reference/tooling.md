@@ -53,7 +53,7 @@ These tools are not managed by pnpm but are required by specific workflows:
   (`pnpm agent-tools:test:e2e`, a `pnpm check` leg, so also at pre-push and in
   CI); the smokes prove each hook with jq and without it, and fail with
   installation guidance when it is missing
-- [Playwright browsers](https://playwright.dev/docs/browsers) — `pnpm --filter @jimcresswell/www exec playwright install chromium-headless-shell`
+- [Playwright browsers](https://playwright.dev/docs/browsers) — `pnpm exec playwright install chromium-headless-shell`
   once per checkout, the primary and every lane alike, before `pnpm test:e2e`
   (a lane runs it from the principal scoped with `pnpm --dir <path>`, as step 3
   of [`set-up-worktree-lane`](../skills/set-up-worktree-lane/SKILL-CANONICAL.md)

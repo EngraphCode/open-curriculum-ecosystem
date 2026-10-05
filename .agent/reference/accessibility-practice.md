@@ -117,8 +117,8 @@ for (const theme of ['light', 'dark']) {
 
 The axe assertions run inside the site's Playwright suite (`pnpm test:e2e`,
 against a production build, in the light and dark theme projects), which
-the pre-push hook and CI both run; the visual-regression harness
-(`pnpm visual-regression:harness`) carries the rendered-proof side. The
+the pre-push hook and CI both run; the host's rendered-proof instrument (this
+estate's visual-regression harness) carries the rendered-proof side. The
 gate list is the gates skill (`.agent/skills/change-custody/gates/`).
 
 ## References

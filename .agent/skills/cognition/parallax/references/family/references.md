@@ -86,11 +86,15 @@ This is a representative foundation, not a claim that Parallax is derivable from
 
 ## Embedding Practice and memory
 
-- This Practice, [`.agent` Practice root](../../../../../README.md)
-- This Practice, [Practice memory model](../../../../../memory/README.md)
-- This Practice, [Continuity Practice](../../../../../directives/continuity-practice.md)
-- This Practice, [PDR-051: vendor-agnostic skills standardisation](../../../../../practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md)
-- This Practice, [PDR-119: agent memory as an event graph with renderers](../../../../../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)
+- This Practice, the `.agent` Practice root: `.agent/README.md` (repository-relative paths
+  here, never relative links: this file is copied byte for byte into every generated skill
+  adapter, where a relative link that leaves the skill directory resolves nowhere)
+- This Practice, the Practice memory model: `.agent/memory/README.md`
+- This Practice, the Continuity Practice: `.agent/directives/continuity-practice.md`
+- This Practice, PDR-051, vendor-agnostic skills standardisation:
+  `.agent/practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md`
+- This Practice, PDR-119, agent memory as an event graph with renderers:
+  `.agent/practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md`
 - OCE, ADR-125: agent artefact portability (a host record in OCE's decision-record directory)
 - OCE, ADR-131: self-reinforcing improvement loop (a host record in OCE's decision-record directory)
 

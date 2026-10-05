@@ -116,8 +116,11 @@ the owner's word. What is removed is removed in every estate that carries it.
 
 ### How each kind travels
 
-- **Core decision records:** bytes, identical, naming no host (read through "Concepts travel"
-  below).
+- **Core decision records:** bytes, identical, naming no host in their doctrine (read through
+  "Concepts travel" below); where a Core record records an estate's act (a word given there, a
+  landing made there, a measure taken there), it names that estate by its name, never by a
+  role or a pronoun (the owner's word of 2026-09-30, "it's not 'the lineage', it's OCE", and
+  the owner's card answer of 2026-10-04 confirming it against this clause's earlier reading).
 - **Text the estates held at the copy point:** the donor's BYTES, by three-way merge from that
   point, where they carry the concept (read through "Concepts travel" below). One side moved:
   the evolved text is the candidate, never the verdict; newer is not
@@ -450,3 +453,22 @@ plan implies is its cost and is counted before work starts.
 **Falsifier.** A divergence the model cannot class, or a landing by class that the dry-run merge
 shows regressing the text both estates already shared. One such instance reopens this entry with
 the owner, and this log says so.
+
+### 2026-10-05 — a Core record names an estate by its name where it records that estate's act
+
+**Context.** The doctrine landing of `practice-alignment-by-class` (jimcresswell.net 321,
+OCE #353) carried the Core's records as one text, and its reviewers raised the same finding in both
+estates: a Core record naming an estate ("OCE", "jimcresswell.net") reads as host-bound under
+this record's clause "naming no host". The conflict was put to the owner with that landing,
+never decided by the seat: the owner's word of 2026-09-30 ("it's not 'the lineage', it's OCE")
+against the clause. The owner's card answer of 2026-10-04, verbatim: "Your words stand".
+
+**Decision.** The clause in §How each kind travels now reads that a Core record names no host
+in its doctrine and names an estate by its name where it records that estate's act (a word
+given there, a landing made there, a measure taken there). A reviewer's finding on such a name
+is answered by this entry, not cured. The Core's heading gate (`validate-no-host-names-in-core-headings`)
+is unchanged: a host's name stays out of headings, where it would bind the record's subject.
+
+**Falsifier.** A Core record whose doctrine, not its account of an act, needs an estate's name
+to read true in a third estate. One such instance reopens this clause with the owner, and this
+log says so.
