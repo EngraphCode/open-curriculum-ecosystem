@@ -232,7 +232,7 @@ is installed inside WSL, never in PowerShell.
 - **bash 5.2 or later** — every bash script this repository owns opens with a guard that stops an older bash with install advice, and the two secrets hooks block until it is met (macOS ships 3.2: `brew install bash` and put it first on `PATH`; Debian 12 or Ubuntu 24.04 and later: `sudo apt-get install bash`; older releases package 5.1 or lower and need a newer release or a source build). The wrapper the hooks run behind hands straight to the hook on an older bash, so the block still lands. Git hooks run under `sh` and carry no floor, and neither do the vendored skill scripts under `.agents/skills/`, which are upstream's bytes.
 - **shellcheck 0.11.0** — the shell lint gate (`pnpm lint:shell`, run by pre-commit, pre-push, `pnpm check` and CI) runs the version `.agent/setup/install-shellcheck.sh` pins. `pnpm install` runs that script when it installs a new checkout or linked worktree, and it installs into the ignored `.tools/bin`, which the gate runs before any shellcheck on your `PATH`, on macOS and Linux, x86_64 and arm64. Run it yourself where the install warned that it could not, or in a checkout installed before the install ran it; it does nothing when the pinned version is already there
 - **gh** — the [GitHub CLI](https://cli.github.com/), used by the repo's pull-request and agent tooling
-- **bun** (optional, for `pnpm dev:widget-in-host`) — install via [bun.sh](https://bun.sh/docs/installation)
+- **bun** (optional, for `pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http dev:widget-in-host`) — install via [bun.sh](https://bun.sh/docs/installation)
 - **lsof** (optional, for `apps/oak-curriculum-mcp-streamable-http/scripts/restart-dev-server.sh`) — pre-installed on macOS; on Debian/Ubuntu use `sudo apt install lsof`; source/build instructions at [github.com/lsof-org/lsof](https://github.com/lsof-org/lsof)
 - **GNU `timeout`** (optional, for the agent-collaboration comms watcher's self-termination guard) — the canonical watcher is wrapped in `timeout`/`gtimeout` so a watcher whose agent has gone away cannot linger as an orphan process. macOS: `brew install coreutils` (GNU coreutils; the binary installs as `gtimeout`); Debian/Ubuntu and most Linux ship it with GNU coreutils as `timeout` (`sudo apt install coreutils` if missing). The watcher runs un-guarded if neither binary is on `PATH`, so it is needed only to enforce the dead-watcher cleanup (see [`comms-all-channels-watcher`](.agent/rules/comms-all-channels-watcher.md) and friction F-101).
 - **sentry** (optional, for dev-time Sentry issue triage, event inspection,
@@ -446,6 +446,8 @@ pnpm sdk-codegen    # Regenerate SDK + MCP artefacts from OpenAPI
 **Widget development** (from `apps/oak-curriculum-mcp-streamable-http/`):
 
 ```bash
+cd apps/oak-curriculum-mcp-streamable-http
+
 pnpm dev:widget          # Standalone widget dev server with token live-reload
 pnpm dev:widget-in-host  # Widget rendered inside MCP Apps basic-host (requires bun)
 pnpm test:widget         # Widget unit + integration tests

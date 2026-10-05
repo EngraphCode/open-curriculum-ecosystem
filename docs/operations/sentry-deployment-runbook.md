@@ -269,8 +269,8 @@ contract for troubleshooting:
 2. Verify the deployment by issuing a `GET /healthz` (or equivalent
    liveness check exposed by the MCP server) against the deployment
    host and confirming a `200` response. Automated post-deploy
-   verification previously scripted via `pnpm smoke:remote` was retired
-   alongside the smoke-tests harness (see ADR-121 change log entry
+   verification was retired alongside the smoke-tests harness (see
+   ADR-121 change log entry
    2026-05-04). For preview deployments whose commit carries
    `.github/workflows/preview-serves.yml`, this verification is
    automated: that workflow publishes the `preview-serves` commit

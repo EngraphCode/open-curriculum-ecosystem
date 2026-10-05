@@ -124,7 +124,7 @@ or not that node has landed.
    generator's header comment and the flag parser's own usage and error text drop the
    literal `--prefix=oak-`; the hint says `pnpm skills:generate`. A root script,
    `skills:prefix`, builds the package and runs the binary with `--print-prefix`, so the
-   proof command exists in a fresh checkout as `pnpm skills:prefix`. The commit skill's
+   proof command exists in a fresh checkout as the planned prefix script. The commit skill's
    canonical, which tells agents the root script pins the required prefix, says instead
    that the prefix is read from the tracked default and the per-checkout override.
 5. **The permanent record.** ADR-125 names the pin at three sites — the skill-adapter
@@ -176,7 +176,7 @@ prefix appears.
 - **One point of configuration.** `git grep -n -- '--prefix=oak-' -- package.json
   agent-tools/package.json .husky agent-tools/src agent-tools/README.md docs/architecture
   .agent/skills .agent/rules .agent/directives` returns nothing, and on this checkout
-  `pnpm skills:prefix` reports `oak-` with source `default`. The named
+  the planned prefix script reports `oak-` with source `default`. The named
   residue outside that scope: the flag parser's unit test keeps explicit `--prefix` values
   because it exercises the surviving override, and the dated records under `.agent/reports`
   and `.agent/plans-old-archive` stay as written. Proof: `repo-safe`, the command and the
@@ -188,7 +188,7 @@ prefix appears.
   suite.
 - **The mechanism works for a second prefix without touching this tree.** The smoke
   proof generates into a temporary root overridden to `e-` and finds every projection
-  under `e-*`, checker green; on this checkout `pnpm skills:prefix` prints `oak-` with
+  under `e-*`, checker green; on this checkout the planned prefix script prints `oak-` with
   source `default`. Proof: `repo-safe`, the smoke proof and the command's output quoted in
   the PR body.
 - **No projected name changes.** The landing PR's diff touches no file under
@@ -196,7 +196,7 @@ prefix appears.
   passes on the head. Proof: `repo-safe`, `git diff --stat` on the PR and the check by
   name.
 - **The example is a template, not a home.** `.agent/skills-projection.local.json.example`
-  parses as JSON, and copying it unedited to the override name makes `pnpm skills:prefix`
+  parses as JSON, and copying it unedited to the override name makes the planned prefix script
   refuse, because `<prefix->` fails the lowercase name-fragment grammar, with the message
   that names the override, the example and the field to edit. Proof: `repo-safe`, the resolver's placeholder
   test and the command in the PR body.
@@ -238,7 +238,7 @@ Four PR-shaped units, each inside the sizing bands and safe on its own, in this 
    skill's canonical, the agent-tools README and the engineering doc. About eight files,
    four of mechanism and four carrying one-sentence record corrections; the record cannot
    land later, because ADR-125 would then state a pin the tree no longer has. This is the
-   one PR whose body carries the `git grep` proofs, the `pnpm skills:prefix` output, the
+   one PR whose body carries the `git grep` proofs, the planned prefix script's output, the
    placeholder refusal and the diff-stat proof that no projection moved.
 
 ## Out of scope
@@ -274,7 +274,7 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   worktree list` names the primary first (the resolution the merge-bot already relies on),
   and no validator today forbids a JSON file at the Practice home's top level — each
   checked against the tree on 2026-09-05, and each re-verified at pickup.
-- **Optionality.** One observable signal, the `pnpm skills:prefix` line; the sequence is
+- **Optionality.** One observable signal, the planned prefix script's line; the sequence is
   four ordered PRs; no deferral remains — the projections question is closed by the
   ratification note.
 - **Record consumer.** The disposition ledger below is read by the pickup implementer,

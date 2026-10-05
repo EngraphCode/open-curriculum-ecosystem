@@ -5,8 +5,8 @@
  *
  * Every walk of the authored surfaces has the same semantics: a missing root
  * is not a failure, a path outside the universe (normally the tracked tree)
- * is never entered or read, an excluded fragment prunes a directory or a
- * file, and only files with a scanned extension are read. One walker owns
+ * is never entered or read, an excluded fragment or root prunes a directory
+ * or a file, and only files with a scanned extension are read. One walker owns
  * those semantics (`consolidate-at-second-consumer`); each caller supplies
  * its own roots, extensions and scope exclusions, and the universe comes
  * from git rather than from a list (`compute-dont-hope`). The projection leg
@@ -44,6 +44,14 @@ export interface AuthoredSurfaceSpec {
    * repository ignores is never listed here — it is outside the universe.
    */
   readonly excludedPathFragments: readonly string[];
+  /**
+   * Repo-relative directory prefixes, each ending with a slash, under which
+   * nothing is entered or read: the host's history roots (frozen backlogs,
+   * archived records, its architectural decision records). A fragment names
+   * a shape found anywhere; a root names one place. The roots are host data,
+   * declared in each validator's entry file beside its general fragments.
+   */
+  readonly excludedRoots: readonly string[];
   /**
    * The paths the walk may see: repo-relative files and the directories they
    * imply, normally the tracked tree (`collectTrackedPaths`). A directory or
@@ -94,6 +102,7 @@ export function isEnoent(error: unknown): boolean {
  *   rootFiles: ['AGENTS.md'],
  *   extensions: new Set(['.md']),
  *   excludedPathFragments: ['/archive/'],
+ *   excludedRoots: [],
  * });
  * ```
  */
@@ -189,5 +198,8 @@ function toRepoRelative(repoRoot: string, absolute: string): string {
 }
 
 function isExcluded(spec: AuthoredSurfaceSpec, repoRelative: string): boolean {
-  return spec.excludedPathFragments.some((fragment) => repoRelative.includes(fragment));
+  return (
+    spec.excludedPathFragments.some((fragment) => repoRelative.includes(fragment)) ||
+    spec.excludedRoots.some((root) => repoRelative.startsWith(root))
+  );
 }

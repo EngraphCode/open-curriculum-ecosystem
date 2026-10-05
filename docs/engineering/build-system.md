@@ -241,10 +241,9 @@ Secret scanning, clean rebuild, and full verification:
 pnpm check
 ```
 
-`pnpm check` is the only canonical **full** aggregate verification command. The
-former `pnpm qg` surface was removed to avoid having two competing full-gate
-stories. `pnpm check:docs` is deliberately narrower and makes no full-repository
-verification claim.
+`pnpm check` is the only canonical **full** aggregate verification command;
+there is no second full-gate surface. `pnpm check:docs` is deliberately
+narrower and makes no full-repository verification claim.
 
 ### `pnpm check:docs` - Documentation work gate
 
@@ -627,12 +626,12 @@ all command names. When documenting commands in markdown files, always
 use the exact names from `package.json`. Key commands that are commonly
 mis-referenced:
 
-| Correct                  | Incorrect            |
-| ------------------------ | -------------------- |
-| `pnpm format:root`       | `pnpm format`        |
-| `pnpm lint:fix`          | `pnpm lint -- --fix` |
-| `pnpm markdownlint:root` | `pnpm markdownlint`  |
-| `pnpm type-check`        | `pnpm check-types`   |
+| Correct                  | Incorrect                                 |
+| ------------------------ | ----------------------------------------- |
+| `pnpm format:root`       | `format` without the `:root` suffix       |
+| `pnpm lint:fix`          | `lint` with a `--fix` flag passed through |
+| `pnpm markdownlint:root` | `markdownlint` without the `:root` suffix |
+| `pnpm type-check`        | `check-types`, the words reversed         |
 
 When renaming a command in `package.json`, search all markdown files for
 the old name and update them in the same change.
@@ -722,7 +721,7 @@ README.md (root, including the Quick Start section)
 A green gate run certifies only the suites it actually ran, against the
 artefacts it actually resolved:
 
-- **A filtered `pnpm --filter X type-check` can pass on stale types**:
+- **A type-check filtered to one workspace can pass on stale types**:
   `tsc` resolves workspace dependencies via their built `dist/*.d.ts`,
   while vitest resolves `src` — so a filtered type-check can go green
   against stale dist types (or red against types a rebuild would fix)

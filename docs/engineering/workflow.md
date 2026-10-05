@@ -225,7 +225,7 @@ verified output, not in the green exit code.
 
 Package scripts that wrap a test runner sometimes pick up extra suite
 selection, parallelism flags, or filter rewrites that broaden the run
-beyond what a focused proof needs. When a `pnpm test:unit <file>`
+beyond what a focused proof needs. When a package's `pnpm test <file>`
 invocation starts running the broader suite or hangs on unrelated
 work, drop to the runner directly:
 `pnpm --dir <package> exec vitest run <file>`. The literal vitest

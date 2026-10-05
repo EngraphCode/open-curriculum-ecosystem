@@ -79,7 +79,7 @@ no-server reference.
 - **A version stamp.** Each rendered file opens with the corpus data version from
   `corpusMeta.data_version`, so a consumer's provenance pin has a value to name.
 - **A thin writer** at `scripts/render-eef-markdown.ts` taking `--out <dir>`
-  (`pnpm render:eef-markdown --out <dir>`): it writes the file set and nothing else. The
+  (the planned `render:eef-markdown` root script): it writes the file set and nothing else. The
   output root must sit inside the directory the command runs from, checked lexically before
   anything is created, canonically through its nearest existing ancestor before it is
   created, and canonically once it exists; each target directory gets the same checks before
