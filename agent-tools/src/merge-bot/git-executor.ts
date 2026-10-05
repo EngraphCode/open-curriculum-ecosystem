@@ -47,7 +47,7 @@ interface GitCallOptions {
 }
 
 /**
- * The git seam, execFile-shaped and VALUE-returning (ADR-088): a non-zero
+ * The git seam, execFile-shaped and VALUE-returning (the Result pattern): a non-zero
  * exit is a result to read, never a throw to catch.
  *
  * A caller may answer synchronously; the real executor answers with a Promise
@@ -202,7 +202,7 @@ function fileBackedGitCall(
 /**
  * The real `child_process` translation, choosing its arm by the sink's
  * presence. The `runner` parameter exists for the spawn-free tier tests
- * (ADR-078); production callers pass nothing and get the file-backed
+ * (the injected-seams rule); production callers pass nothing and get the file-backed
  * runner — the default binding is itself pinned by the stdio-topology
  * test, the one place a pipe-backed mutant dies.
  */

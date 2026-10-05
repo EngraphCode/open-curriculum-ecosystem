@@ -7,7 +7,7 @@ import { defaultPrivateKeyPath, loadMergeBotRepoConfig } from './repo-config.js'
 const VALID = JSON.stringify({
   appSlug: 'jimbot-oakington-iii',
   appId: '4352989',
-  repo: 'oaknational/oak-open-curriculum-ecosystem',
+  repo: 'acme/widgets',
 });
 
 describe('loadMergeBotRepoConfig', () => {
@@ -25,7 +25,7 @@ describe('loadMergeBotRepoConfig', () => {
       value: {
         appSlug: 'jimbot-oakington-iii',
         appId: '4352989',
-        repo: 'oaknational/oak-open-curriculum-ecosystem',
+        repo: 'acme/widgets',
       },
     });
     // The product reads a host-joined path; the expectation derives the same

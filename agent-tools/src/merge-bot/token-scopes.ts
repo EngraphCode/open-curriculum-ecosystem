@@ -1,4 +1,6 @@
-import { typeSafeHasOwn, typeSafeKeys } from '@oaknational/type-helpers';
+import { typeSafeEntries, typeSafeHasOwn, typeSafeKeys } from '@oaknational/type-helpers';
+
+import { BRANCH_TOKEN_SCOPES } from './branch-token-scopes.js';
 
 /**
  * The bot token's permission policy: which GitHub App permissions each kind of
@@ -192,32 +194,8 @@ export const TOKEN_SCOPES = {
     contents: 'write',
   },
 
-  /**
-   * Deleting one merged branch ref: what `merge-bot retire` mints, and only
-   * when its proof has planned a remote delete.
-   *
-   * `contents: write` is wider than the act (it also permits pushes to
-   * unprotected branches and tag writes), and GitHub offers nothing narrower
-   * for a ref delete. `workflows` and `pull_requests` are left out: a delete
-   * creates no workflow file and touches no pull request, and the
-   * `pull-request-work` note above is why an unused `workflows: write` must
-   * not sit in memory for an act that never needs it (security D3).
-   *
-   * ## Provenance, 2026-09-28
-   *
-   * A live probe in the sibling estate where this row was authored, under a
-   * token minted with this row alone: the bot created a throwaway branch at
-   * its default branch's tip (REST `POST git/refs`), then deleted it with GraphQL
-   * `updateRefs`. A stale `beforeOid` left the ref in place, answered by a
-   * generic GraphQL error ("Something went wrong while executing your
-   * query"), not a named mismatch; the right `beforeOid` deleted it, and a
-   * REST read and `git ls-remote` then read it absent. So contents alone
-   * suffices, the compare-and-swap holds, and a failed update is classified
-   * by re-reading the ref, never by the error's text.
-   */
-  'branch-retire': {
-    contents: 'write',
-  },
+  /** The branch acts (`merge-bot retire`): their rows and provenance are `branch-token-scopes.ts`. */
+  ...BRANCH_TOKEN_SCOPES,
 } as const satisfies Readonly<Record<string, TokenPermissionSet>>;
 
 /** The closed set of scope names, derived so there is one source. */
@@ -243,7 +221,11 @@ export function isTokenScopeName(value: string): value is TokenScopeName {
   return typeSafeHasOwn(TOKEN_SCOPES, value);
 }
 
-/** The permission names a scope grants, for usage text. */
-export function permissionNamesFor(scope: TokenScopeName): readonly string[] {
-  return typeSafeKeys(TOKEN_SCOPES[scope]);
+/**
+ * The permissions a scope grants, each with its level (`contents: read`),
+ * for usage text: two scopes can share a permission name at different
+ * levels, so a name alone does not say which one writes.
+ */
+export function permissionLevelsFor(scope: TokenScopeName): readonly string[] {
+  return typeSafeEntries(TOKEN_SCOPES[scope]).map(([name, level]) => `${name}: ${level}`);
 }

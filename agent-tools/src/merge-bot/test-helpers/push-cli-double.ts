@@ -62,7 +62,7 @@ export const REFUSED_PUSH: GitCommandResult = {
 };
 
 /**
- * The value-returning git seam (ADR-088) for the one call the executor makes,
+ * The value-returning git seam (the Result pattern) for the one call the executor makes,
  * the push, every call recorded; a non-zero exit is a RESULT, never a throw.
  * Every push gets `push`'s answer as the file-backed executor gives it to a
  * call with an output sink, which the push always passes: the output replayed
