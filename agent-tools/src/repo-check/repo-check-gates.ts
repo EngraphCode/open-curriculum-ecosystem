@@ -1,10 +1,10 @@
 /**
  * The format and markdown gates: the process edge that runs each tool over
- * git's file universe, the staged set for the pre-commit hook and the tracked
- * tree for the root gates.
+ * git's file universe (`repo-check-universe.ts`), the staged set for the
+ * pre-commit hook and the tracked tree for the root gates.
  *
  * @remarks
- * A tracked gate reads the tree through {@link readTrackedTree}, which fails
+ * A tracked gate reads the tree through {@link readTrackedTreeResult}, which fails
  * closed: a gate whose git read failed checked nothing, so it fails rather
  * than pass, and a check refuses a tracked file the working tree has lost
  * ({@link planUnlessLost}). Its files run in chunks within the host's
@@ -16,13 +16,14 @@
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import { describeGitReadFailure } from '../core/repository-paths.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 
 import {
   combinedExitCode,
   globSignificantPaths,
   markdownOnly,
+  markdownlintArgs,
+  prettierArgs,
   trackedCheckFiles,
   trackedMarkdownlintRuns,
   trackedPrettierRuns,
@@ -30,89 +31,32 @@ import {
   type PrettierMode,
   type TrackedTreeReading,
 } from './repo-check-files.js';
-import { defaultRuntime } from './repo-check-profile.js';
+import { defaultRuntime } from './repo-check-runtime.js';
 import type { RepoCheckRuntime } from './repo-check-types.js';
-import { readTrackedTree } from './repo-check-universe.js';
+import { readTrackedTreeResult, stagedFiles } from './repo-check-universe.js';
 
-function stagedFiles(runtime: RepoCheckRuntime): readonly string[] {
-  const result = runtime.runCaptured('git', [
-    'diff',
-    '--cached',
-    '--name-only',
-    '--diff-filter=ACMR',
-  ]);
-
-  if ((result.status ?? 1) !== 0) {
-    throw new Error(result.stderr.trim() || 'git diff failed while discovering staged files');
-  }
-
-  const names = result.stdout
-    .split(/\r?\n/u)
-    .map((entry) => entry.trim())
-    .filter((entry) => entry.length > 0);
-
-  // Symlink index entries (mode 120000, e.g. the .claude/skills adapters
-  // pointing at .agents/skills external-skill content) carry no formattable
-  // content of their own — the linked target is checked under its real path,
-  // and prettier refuses symlink paths outright.
-  const symlinks = stagedSymlinkPaths(runtime);
-  return names.filter((name) => !symlinks.has(name));
-}
-
-/** Repo-relative paths of staged index entries that are symbolic links. */
-function stagedSymlinkPaths(runtime: RepoCheckRuntime): ReadonlySet<string> {
-  const result = runtime.runCaptured('git', ['ls-files', '--cached', '-s']);
-  if ((result.status ?? 1) !== 0) {
-    return new Set();
-  }
-  const symlinks = new Set<string>();
-  for (const line of result.stdout.split(/\r?\n/u)) {
-    if (line.startsWith('120000 ')) {
-      const path = line.split('\t')[1];
-      if (path !== undefined) {
-        symlinks.add(path);
-      }
-    }
-  }
-  return symlinks;
-}
-
-function stagedMarkdownFiles(runtime: RepoCheckRuntime): readonly string[] {
-  return stagedFiles(runtime).filter((entry) => entry.endsWith('.md'));
-}
-
+/** markdownlint over the staged Markdown files (the pre-commit hook). */
 export async function runMarkdownlintStaged(
   runtime: RepoCheckRuntime = defaultRuntime,
 ): Promise<number> {
-  const files = stagedMarkdownFiles(runtime);
-  if (files.length === 0) {
-    writeLine('repo-check markdownlint-staged: no staged Markdown files');
+  const markdown = markdownOnly(stagedFiles(runtime));
+  if (markdown.length === 0) {
+    writeLine('repo-check markdownlint-staged: no Markdown files');
     return 0;
   }
-  // `--no-globs` is load-bearing, not redundant: it tells markdownlint-cli2 to
-  // ignore the `globs` array in `.markdownlint-cli2.jsonc` and lint ONLY the
-  // explicit staged paths. Without it cli2 would union the staged files with the
-  // config globs and re-lint the whole repo on every commit. The config's rules
-  // and `ignores` still apply, so an explicitly-staged but excluded file is skipped.
-  return runtime.runInherited('pnpm', ['exec', 'markdownlint-cli2', '--no-globs', '--', ...files]);
+  return runtime.runInherited('pnpm', markdownlintArgs('check', markdown));
 }
 
+/** prettier over the staged files (the pre-commit hook). */
 export async function runPrettierStaged(
   runtime: RepoCheckRuntime = defaultRuntime,
 ): Promise<number> {
   const files = stagedFiles(runtime);
   if (files.length === 0) {
-    writeLine('repo-check prettier-staged: no staged files');
+    writeLine('repo-check prettier-staged: no files');
     return 0;
   }
-  return runtime.runInherited('pnpm', [
-    'exec',
-    'prettier',
-    '--check',
-    '--ignore-unknown',
-    '--',
-    ...files,
-  ]);
+  return runtime.runInherited('pnpm', prettierArgs('check', files));
 }
 
 /**
@@ -172,11 +116,9 @@ async function runTrackedGate(
   label: string,
   plan: (reading: TrackedTreeReading) => GatePlan,
 ): Promise<number> {
-  const reading = readTrackedTree(runtime);
+  const reading = readTrackedTreeResult(runtime);
   if (!reading.ok) {
-    writeErrorLine(
-      `repo-check ${label}: ${describeGitReadFailure(reading.error)}; the gate checked nothing.`,
-    );
+    writeErrorLine(`repo-check ${label}: ${reading.error}; the gate checked nothing.`);
     return 1;
   }
   const runs = plan(reading.value);

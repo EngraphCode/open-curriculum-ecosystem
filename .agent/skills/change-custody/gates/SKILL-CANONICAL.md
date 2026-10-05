@@ -45,31 +45,24 @@ The hook runs each gate in order; when one refuses, fix the issue, then
 commit or push again. The legs of `check` here are OCE's:
 
 ```bash
-# OCE: pnpm check, as the push hook runs it
+# OCE: pnpm check, as the push hook runs it (the TypeScript family's sequence, with this
+# host's product gates in the two host slots)
 pnpm secrets:scan
-pnpm clean
-pnpm sdk-codegen              # regenerates the SDK (turbo, --continue, with the legs that follow)
-pnpm build
-pnpm type-check
-pnpm lint
-pnpm test
-pnpm test:widget
-pnpm test:e2e
-pnpm test:ui
-pnpm test:a11y
-pnpm test:widget:ui
-pnpm test:widget:a11y
-pnpm repo-validators:check
-pnpm lint:runtime-only
+pnpm format-check:root
+pnpm markdownlint-check:root
 pnpm lint:shell               # shellcheck over every tracked shell script
-pnpm subagents:check
-pnpm portability:check
-pnpm skills:check
-pnpm encoding:check
+pnpm lint:runtime-only
+turbo run --continue sdk-codegen                            # host slot: regenerates the SDK
+turbo run --continue build type-check lint test test:e2e   # the family's gate leg, every workspace
+turbo run --continue test:ui test:widget test:a11y test:widget:ui test:widget:a11y   # host slot
 pnpm knip:gate
 pnpm depcruise
-pnpm markdownlint-check:root
-pnpm format-check:root
+pnpm portability:check
+pnpm subagents:check
+pnpm skills:check
+pnpm encoding:check
+pnpm repo-validators:check    # the family's validators, then this host's
+pnpm docs-validators:check
 ```
 
 The host's gates outside `check` (OCE: the pull request's checks run CodeQL,

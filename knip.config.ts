@@ -77,7 +77,7 @@ const config: KnipConfig = {
         // the repo root by agent-tools' repo-check (the format and markdown gates
         // over the staged set and the tracked tree), never referenced from a root
         // script knip can parse. They stay root devDependencies because their
-        // configs (`.prettierrc.json`, `.markdownlint-cli2.jsonc`) and their exec
+        // configs (`prettier.config.ts`, `.markdownlint-cli2.jsonc`) and their exec
         // cwd are the root; scoped to this workspace so a stray copy elsewhere is
         // still reported.
         'markdownlint-cli2',
@@ -117,6 +117,10 @@ const config: KnipConfig = {
         'src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts',
         'src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts',
         'src/validators/markdown-links/validate-markdown-links.ts',
+        'src/validators/cited-paths/validate-cited-paths.ts',
+        'src/validators/cited-scripts/validate-cited-scripts.ts',
+        'src/validators/lineage-names/validate-no-lineage-names.ts',
+        'src/validators/family-conformance/validate-family-conformance.ts',
         'src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts',
         'src/validators/policy-reappraisal/validate-policy-reappraisal.ts',
         'src/validators/claim-freshness/validate-claim-freshness.ts',
@@ -173,6 +177,12 @@ const config: KnipConfig = {
         // Restatement-audit workflow stage entries: same string-entry-point
         // pattern as corpus-analysis above.
         'src/restatement-audit/workflows/*.workflow.ts',
+        // The restatement-audit build and ledger commands run through their
+        // package scripts (`tsx src/...`); listed so the stage metas and the
+        // gazetteer projection they import are traced from the real entry.
+        'src/restatement-audit/workflows/build/build-workflows.ts',
+        'src/restatement-audit/workflows/build/build-run-artefact.ts',
+        'src/restatement-audit/render-ledger-cli.ts',
         // Smoke checks: the smoke runner (`src/bin/run-smoke-tests.ts`)
         // discovers and spawns every `smoke-tests/*.smoke.ts`, so no import or
         // package script names them; each is an entry so what it imports from
