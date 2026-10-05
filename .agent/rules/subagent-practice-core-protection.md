@@ -1,13 +1,15 @@
 ---
 classification: situational
 description: Keep foundational Practice surfaces owner-edited
-trigger: surface:AGENTS.md,CLAUDE.md,.agent/practice-core/**/*,.agent/directives/**/*,.agent/rules/**/*
+trigger: surface:AGENTS.md,CLAUDE.md,.agent/practice-core/**/*,.agent/directives/**/*,.agent/rules/**/*,.claude/rules/**/*,.cursor/rules/**/*
 globs:
   - AGENTS.md
   - CLAUDE.md
   - .agent/practice-core/**/*
   - .agent/directives/**/*
   - .agent/rules/**/*
+  - .claude/rules/**/*
+  - .cursor/rules/**/*
 ---
 
 # Subagents Must Not Modify the Practice Core

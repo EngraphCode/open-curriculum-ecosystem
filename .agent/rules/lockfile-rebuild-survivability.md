@@ -6,6 +6,7 @@ globs:
   - "**/package.json"
   - pnpm-lock.yaml
   - pnpm-workspace.yaml
+  - .npmrc
 ---
 
 # Lockfile-Rebuild Survivability

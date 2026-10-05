@@ -355,14 +355,14 @@ portable thin-wrapper rule surface for platforms that scan `.agents/` directly.
 
 **Triggers that activate skills or directives:**
 
-| Trigger                          | What it activates                                                                                                                  |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `apply-architectural-principles` | All architectural principles via `.agent/rules/apply-architectural-principles.md`                                                  |
-| `napkin-always-active`           | `.agent/rules/napkin-always-active.md`, a canonical rule that points onward to `.agent/skills/knowledge/napkin/SKILL-CANONICAL.md` |
-| `use-start-right-skills`         | `.agent/rules/use-start-right-skills.md`, a canonical rule that points onward to the three start-right canonicals                  |
-| `follow-the-practice`            | Practice reading, which leads to skills                                                                                            |
-| `invoke-code-experts`            | All registered reviewers via `.agent/memory/executive/invoke-code-experts.md`                                                      |
-| `lint-after-edit`                | Lint checking (file-scoped to `**/*.ts`)                                                                                           |
+| Trigger                          | What it activates                                                                                                                                 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apply-architectural-principles` | All architectural principles via `.agent/rules/apply-architectural-principles.md`                                                                 |
+| `napkin-always-active`           | `.agent/rules/napkin-always-active.md`, a canonical rule that points onward to `.agent/skills/knowledge/napkin/SKILL-CANONICAL.md`                |
+| start-right at session open      | `AGENT.md`'s sentence ("All work MUST start with" a start-right skill), always loaded through `read-agent-md`; the former rule retired 2026-10-04 |
+| `follow-the-practice`            | Practice reading, which leads to skills                                                                                                           |
+| `invoke-code-experts`            | All registered reviewers via `.agent/memory/executive/invoke-code-experts.md`                                                                     |
+| `lint-after-edit`                | Lint checking (file-scoped to `**/*.ts`)                                                                                                          |
 
 #### Trigger Content Contract
 

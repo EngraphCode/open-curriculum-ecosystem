@@ -126,7 +126,7 @@ it by hand.
 | `.agent/rules/source-is-typescript-esm-only.md` | situational | `surface:source-authoring` |
 | `.agent/rules/stage-by-explicit-pathspec.md` | situational | `ceremony:commit` |
 | `.agent/rules/strict-validation-at-boundary.md` | situational | `surface:boundary-data — TypeScript and authored content where external data enters` |
-| `.agent/rules/subagent-practice-core-protection.md` | situational | `surface:AGENTS.md,CLAUDE.md,.agent/practice-core/**/*,.agent/directives/**/*,.agent/rules/**/*` |
+| `.agent/rules/subagent-practice-core-protection.md` | situational | `surface:AGENTS.md,CLAUDE.md,.agent/practice-core/**/*,.agent/directives/**/*,.agent/rules/**/*,.claude/rules/**/*,.cursor/rules/**/*` |
 | `.agent/rules/tdd-for-refactoring.md` | core | — |
 | `.agent/rules/test-immediate-fails.md` | situational | `surface:test-authoring` |
 | `.agent/rules/third-party-skills-require-security-review.md` | situational | `ceremony:skill-vendoring` |
