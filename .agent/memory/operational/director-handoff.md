@@ -318,6 +318,25 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-05 16:4xZ (Sycamore holds Spore, `18d874`, the n=1 seat, at the alignment node's
+finish; this block supersedes the 11:3xZ block below where they differ).** The delivery node
+`practice-alignment-by-class` is at its finish: the doctrine landing merged in both estates (#353,
+321) and the code landing merged in both (#354 here at `SHA:ef42bd11f`, 16:33Z, after four
+settlement pushes, the last under the one PDR-140 rebudget; the sibling's 322 at `SHA:d3647a9d`,
+16:26Z), each through the bot's door with Copilot's review binding the tip; the byte proof at the
+merged tips is a comment on each landing (829 shared, 776 identical, 9 placeholder-only, 44
+differing, the contextual layer). Four branches retired here under the bot with their worktrees
+(`feat/practice-code-landing`, `feat/parity-carry-doctrine-batch`, and the two surface lanes on
+the owner's card answer), six in the sibling. Todo 3 is done in both working trees: the strategic
+node's §Delivery finish line, the three nodes archived under `.agent/plans/archive/` with their
+dispositions. What remains for this seat: the records committed, both coordination branches
+folded (DUE), the wrap. Named for the next seat, ordinary work: the first follow-up pull request
+per estate puts `--fail-if-no-match` on every filtered alias in the family manifest and the root
+scripts with a manifest self-check in the conformance validator (Copilot's finding on the final
+tip here, true in both estates); the remainders on the landing's description. For the owner: this
+seat took the PDR-140 clause 4 rebudget once per landing by its own recorded decision (the gate's
+text says "by the owner"). No claim, watcher, heartbeat or background agent survives this seat.
+
 **§STATE, 2026-10-05 11:3xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's handoff
 word; this block supersedes the 2026-10-04 13:5xZ block below where they differ).** The code
 landing of `practice-alignment-by-class` is open in both estates: #354 here on
@@ -585,7 +604,7 @@ something I handle later. What we are currently working towards is both estates 
 capable Practices which we can then extract into a separate entity which has yet to be
 designed." And (20:1xZ): "We WILL finish the Practice work in the next few hours, make sure of
 it." The plan is one document, the same bytes in both estates:
-`.agent/plans/delivery/practice-parity-for-extraction.plan.md` (born sketch; the owner approved
+`.agent/plans/archive/practice-parity-for-extraction.plan.md` (archived 2026-10-05; born sketch; the owner approved
 its plan file at 19:2xZ; its size table carries the owner's bound, "no more than two hours, one
 agent per estate plus a cross-estate Director", stated at 19:4xZ). It supersedes
 `practice-work-finish` (archived here under `.agent/plans/archive/`). Its definition of done is

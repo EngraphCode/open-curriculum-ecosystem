@@ -478,6 +478,41 @@ lane holds T01, T02, T07, T13 and T21.
 
 ## Journal
 
+### 2026-10-05 16:4xZ — #354 merged; the alignment node at its finish in both estates (Sycamore holds Spore, 18d874, the n=1 seat)
+
+Pull request #354 merged at `SHA:ef42bd11f` (16:33:15Z) through the bot's door after four
+settlement pushes
+(`SHA:95173d56f`, `SHA:531be217b`, `SHA:5c6a3611c`, `SHA:6a4bd5e06`), the last under the one
+PDR-140 clause 4 rebudget taken by this seat's recorded decision on the description (the gate's
+text says "by the owner"; highlighted for the owner); the sibling's 322 merged at `SHA:d3647a9d`
+(16:26:59Z) after six. Each door required Copilot's review bound to the tip; this estate's door
+waited its ten-minute quiet window, which counts from the last review event, the bot's own reply
+included. The byte proof at the merged tips is a comment on each landing: 829 shared, 776
+identical, 9 placeholder-only, 44 differing, the contextual layer; no family-layer path differs.
+
+Cured here with tests, the same bytes as the sibling's: the setup action pinned to
+pnpm/action-setup v6.1.0 and setup-node v7.0.0 (the `windows-basic` setup failure under pnpm 12's
+cmd shim), the fan-in's one skipped result accepted only under `schema-drift-status`'s own
+condition, the conformance validator's presence readings and its optional-reads class, the
+fan-in's `if: always()` required, one family gate run per `check`, the depcruise gate's root
+containment, the `review-cost` alias fail-closed, the spawn-topology proof a smoke, the python
+helper's exits. Rejected with RUN evidence: Codex's Windows P1 (`windows-basic` SUCCESS, run
+37330034721), Copilot's knip claim (`knip-depcruise` SUCCESS, run 37335813488). Routed as signed
+lines: the cited scripts' `../` escape, the tracked `skills-lock.json` read, and Copilot's last
+finding on the final tip, true in both estates: the family manifest's `agent-tools:build`,
+`agent-tools:prevent-accidental-major-version` and `agent-tools:secret-scan` lack
+`--fail-if-no-match` while the hook comments say every agent-tools alias carries it; the first
+follow-up pull request per estate cures the class with a manifest self-check in the validator.
+
+Retired under the bot and read back absent, their clean worktrees removed first:
+`feat/practice-code-landing`, `feat/parity-carry-doctrine-batch` (#349, superseded by #354),
+`feat/parity-surface-directives` and `feat/parity-surface-subagents` (the owner's card answer);
+the local `docs/parity-ledger-revision-2` after `merge-base --is-ancestor` read its tip in
+`engraph`. Todo 3 here: the strategic node's §Delivery finish line with both shas; the three
+nodes archived under `.agent/plans/archive/` with their dispositions; `validate-plan-corpus` OK
+(146 files). Left for this seat: these records committed, the coordination branch folded (DUE),
+the wrap.
+
 ### 2026-10-05 11:3xZ — the code landing open as #354; the seat handed off at the owner's word (Crucible binds Slag, 7b999c, the n=1 seat)
 
 The sibling's 322 opened first (10:35Z) as the node orders it; this estate's branch reached the

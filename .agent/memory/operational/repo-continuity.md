@@ -37,6 +37,16 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-05T16:4xZ: the code landing merged in both estates; `practice-alignment-by-class`
+  at its finish** (Sycamore holds Spore, 18d874). #354 merged here at `SHA:ef42bd11f` after four
+  settlement pushes (the last under the one PDR-140 rebudget), the sibling's 322 at
+  `SHA:d3647a9d` after six; the byte proof at the merged tips on each landing. The four parity
+  lanes retired under the bot. The strategic node's §Delivery carries the finish line; the three
+  nodes are archived. Named for ordinary work: the fail-closed flag on the family manifest's
+  filtered aliases with a validator case.
+  moved for teachers: nothing / moved for the Practice: the family layer is one shape in both
+  estates, merged and proved.
+
 - **2026-10-05T11:3xZ: the code landing open as #354; the seat handed off at the owner's word**
   (Crucible binds Slag, 7b999c). #354 at `SHA:b79e0c23d` (twelve commits; the family shape with
   this host's product slots, the carries each way with their tests, the conformance check,
@@ -496,6 +506,15 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+STATE, 2026-10-05T16:4xZ (Sycamore holds Spore, 18d874, the n=1 seat, at the alignment node's finish):
+both landings are merged (#354 at `SHA:ef42bd11f`, 322 at `SHA:d3647a9d`); the node is archived
+with the finish line on the strategic node. Next safe steps, in order:
+
+1. `git status --branch` in the primary, first-hand; the coordination branch folds next.
+2. The first follow-up pull request per estate: `--fail-if-no-match` on every filtered alias in
+   `.agent/family/typescript/practice-operations.json` and the root scripts, with the manifest
+   self-check in `validate-family-conformance`; the same bytes in both estates.
 
 STATE, 2026-10-05T11:3xZ (Crucible binds Slag, 7b999c, the n=1 seat, at the owner's handoff word):
 the code landing is open in both estates (#354 here, 322 in the sibling); the doctrine landing is

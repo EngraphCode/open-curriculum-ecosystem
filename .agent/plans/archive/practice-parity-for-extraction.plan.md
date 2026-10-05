@@ -7,8 +7,8 @@ overview: >-
   carrying every capability one holds and the other lacks, and leave the extraction's design
   its inputs: a survey of the whole Practice a reader can recompute, the parity ledger, and
   the structural findings as evidence.
-status: superseded
-superseded_by: practice-system-review
+status: archived
+superseded_by: practice-alignment-by-class
 ratified_by: Jim Cresswell
 ratified_date: 2026-10-02
 ratified_where: >-
@@ -23,10 +23,12 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-10-03
+last_updated: 2026-10-05
 ---
 
 # Practice parity for extraction
+
+**Disposition (2026-10-05): archived**; superseded on 2026-10-03 by the system review step and then by `practice-alignment-by-class`, which carried its goal (two equally capable Practices) to the finish recorded in the strategic node's §Delivery of this date. The extraction thread it named is later work under PDR-143.
 
 The owner's words, 2026-10-02, verbatim: "What we are currently working towards is both
 estates having equally capable Practices which we can then extract into a separate entity
