@@ -54,7 +54,7 @@ export interface AuthoredSurfaceSpec {
   readonly excludedRoots: readonly string[];
   /**
    * The paths the walk may see: repo-relative files and the directories they
-   * imply, normally the tracked tree (`collectTrackedPaths`). A directory or
+   * imply, normally the tracked tree (`listTrackedPathSet`). A directory or
    * file outside the universe is never entered or read, so ignored material
    * (build output, local boundaries, vendored trees) is invisible without
    * anyone listing it.
