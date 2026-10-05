@@ -318,6 +318,20 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-05 00:3xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's
+compaction word).** The doctrine landing of `practice-alignment-by-class` is merged in the
+sibling (jimcresswell.net 321 at `SHA:4992af38`, main) and open here as #353 at `SHA:df70cd153`
+(the landed bytes plus 43 contextual-bound variants; #350 merged in and closed; five review
+findings cured and the threads resolved under the bot; Copilot re-requested at the tip). The
+byte proof at main there and this tip reads DRIFT 1 over 744 shared paths: the one drift is
+`subagent-practice-core-protection`'s two adapter-tree globs, added here at Copilot's finding,
+which the sibling's copy takes in its code landing. The owner's card answer of 2026-10-04:
+"Your words stand (Recommended)": a Core record names an estate by its name; PDR-142's clause is
+amended in the code landing. Next safe step: `merge-bot merge --pr 353 --expect
+copilot-pull-request-reviewer` once a review binds `SHA:df70cd153`; then the code landing
+(mechanism item 2), in the sibling first, then here. The live record is the sibling's napkin
+block of 2026-10-05T00:3xZ.
+
 **§STATE, 2026-10-04 19:0xZ (Crucible binds Slag, `7b999c`, the n=1 seat, at the owner's
 compaction word; this block supersedes the blocks below where they differ).** The definition's
 landings merged: #351 at `SHA:82cb7fba4` on engraph, jimcresswell.net 319 at `SHA:02178ff0b` on

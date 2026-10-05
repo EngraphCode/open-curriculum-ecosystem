@@ -37,6 +37,11 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-05T00:3xZ: the doctrine landing open as #353 at `SHA:df70cd153`** (the alignment
+  node's first landing; merged in the sibling as 321; the byte proof DRIFT 1, the one drift
+  owed to the sibling's code landing; the owner's card answer on Core records recorded). The
+  live state is the Director handoff's §STATE 2026-10-05 00:3xZ; the next safe step is the
+  merge of #353 when a review binds its tip, then the code landing (Crucible binds Slag, 7b999c).
 - **2026-10-04T19:0xZ: the Practice's canonical definition landed on engraph (#351,
   `SHA:82cb7fba4`) and on jimcresswell.net main (319, `SHA:02178ff0b`), the same bytes; the
   successor node `practice-alignment-by-class` ratified by four card answers and on this
