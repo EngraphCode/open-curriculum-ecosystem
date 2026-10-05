@@ -1,3 +1,4 @@
+import { err, ok, type Result } from '@oaknational/result';
 import { typeSafeEntries, typeSafeKeys } from '@oaknational/type-helpers';
 import { parse as parseYaml } from 'yaml';
 
@@ -155,6 +156,26 @@ export function checkFormatter(
     }
   }
   return drifts;
+}
+
+/**
+ * The root `package.json` fields the comparisons read: the scripts map (string
+ * bodies only) and the `packageManager` field as written.
+ *
+ * @param document - The parsed root `package.json`.
+ * @returns The fields, or an error when the document carries no scripts map.
+ */
+export function readRootPackage(document: unknown): Result<RootPackage, Error> {
+  if (!isJsonObject(document) || !isJsonObject(document.scripts)) {
+    return err(new Error('package.json has no scripts map'));
+  }
+  const scripts: Record<string, string> = {};
+  for (const [name, body] of typeSafeEntries(document.scripts)) {
+    if (typeof body === 'string') {
+      scripts[name] = body;
+    }
+  }
+  return ok({ scripts, packageManager: document.packageManager });
 }
 
 const PACKAGE_MANAGER_PATTERN = /^([a-z][a-z0-9-]*)@(\d+)\./;

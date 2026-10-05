@@ -188,14 +188,22 @@ def output_report_json(
     print(json.dumps(payload, indent=2))
 
 
+class OutdatedCommandFailed(RuntimeError):
+    """The outdated command itself failed, so no report can be read from it."""
+
+
 def run_outdated_check(manager: str, root: Path) -> List[Dict[str, str]]:
     command = MANAGER_COMMANDS[manager]["outdated"]
     result = run_command(command, cwd=root)
-    records = parse_outdated_payload(manager, result.stdout)
+    # Exit 0 means nothing outdated and exit 1 means something is, for every
+    # manager here; any other code (a registry outage, a refused login) is a
+    # failed command, never an empty report.
     if result.returncode not in (0, 1):
         sys.stderr.write(result.stderr)
-        return []
-    return records
+        raise OutdatedCommandFailed(
+            f"{' '.join(command)} exited {result.returncode}; the report cannot be read"
+        )
+    return parse_outdated_payload(manager, result.stdout)
 
 
 def apply_updates(manager: str, root: Path, major: bool) -> int:
@@ -251,7 +259,11 @@ def main() -> int:
         sys.stderr.write(f"[ERROR] {manager} CLI not found on PATH.\n")
         return 2
 
-    records = run_outdated_check(manager, root)
+    try:
+        records = run_outdated_check(manager, root)
+    except OutdatedCommandFailed as failure:
+        sys.stderr.write(f"[ERROR] {failure}\n")
+        return 2
 
     if args.json:
         output_report_json(root, manager, records, args.apply)
@@ -278,6 +290,9 @@ def main() -> int:
             sys.stderr.write(f"[ERROR] Update command failed with code {update_code}.\n")
             return update_code
         print(f"[OK] Applied updates using {manager}.")
+        # The outdated records were the reason to apply; applied, they are no
+        # longer a failure to report.
+        return 0
 
     return exit_code
 

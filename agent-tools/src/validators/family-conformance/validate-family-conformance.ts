@@ -3,10 +3,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
-import { typeSafeEntries, typeSafeKeys } from '@oaknational/type-helpers';
+import { typeSafeKeys } from '@oaknational/type-helpers';
 
 import { failureAsError } from '../../core/failure-as-error.js';
-import { isJsonObject, parseJsonTextResult } from '../../core/json.js';
+import { parseJsonTextResult } from '../../core/json.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
 
@@ -23,9 +23,14 @@ import {
   type HostValues,
 } from './family-conformance-manifest.js';
 import {
+  classifyRootFileAbsence,
+  collectPresentRootFiles,
+  type RootFilePresence,
+} from './family-conformance-root-files.js';
+import {
   computeDrifts,
+  readRootPackage,
   type ConformanceReading,
-  type RootPackage,
   type TreeSnapshot,
 } from './family-conformance-tree-helpers.js';
 
@@ -93,19 +98,20 @@ async function readHookBodies(
   return bodies;
 }
 
-async function presentRootFiles(names: readonly string[]): Promise<ReadonlySet<string>> {
-  const present = new Set<string>();
-  await Promise.all(
-    names.map(async (name) => {
+async function presentRootFiles(
+  names: readonly string[],
+): Promise<Result<ReadonlySet<string>, Error>> {
+  const readings = await Promise.all(
+    names.map(async (name): Promise<RootFilePresence> => {
       try {
         await fs.access(path.join(repoRoot, name));
-        present.add(name);
-      } catch {
-        // absent: the expected state for a forbidden file
+        return ok('present');
+      } catch (failure) {
+        return classifyRootFileAbsence(name, failure);
       }
     }),
   );
-  return present;
+  return collectPresentRootFiles(names, readings);
 }
 
 interface Declarations {
@@ -154,19 +160,6 @@ async function loadDeclarations(): Promise<Result<Declarations, Error>> {
   return ok({ manifest: manifest.value, host: host.value });
 }
 
-function readRootPackage(document: unknown): Result<RootPackage, Error> {
-  if (!isJsonObject(document) || !isJsonObject(document.scripts)) {
-    return err(new Error(`${ROOT_PACKAGE_REL_PATH} has no scripts map`));
-  }
-  const scripts: Record<string, string> = {};
-  for (const [name, body] of typeSafeEntries(document.scripts)) {
-    if (typeof body === 'string') {
-      scripts[name] = body;
-    }
-  }
-  return ok({ scripts, packageManager: document.packageManager });
-}
-
 async function readTree(manifest: FamilyManifest): Promise<Result<TreeSnapshot, Error>> {
   const rootFileNames = [manifest.formatter.config_file, ...manifest.formatter.forbidden];
   const [packageDocument, tsconfig, workflowText, liveHooks, familyHooks, present] =
@@ -184,6 +177,9 @@ async function readTree(manifest: FamilyManifest): Promise<Result<TreeSnapshot, 
   if (!tsconfig.ok) {
     return tsconfig;
   }
+  if (!present.ok) {
+    return present;
+  }
   const rootPackage = readRootPackage(packageDocument.value);
   if (!rootPackage.ok) {
     return rootPackage;
@@ -193,7 +189,7 @@ async function readTree(manifest: FamilyManifest): Promise<Result<TreeSnapshot, 
     tsconfig: tsconfig.value,
     workflowText,
     hooks: { live: liveHooks, family: familyHooks },
-    presentRootFiles: present,
+    presentRootFiles: present.value,
   });
 }
 

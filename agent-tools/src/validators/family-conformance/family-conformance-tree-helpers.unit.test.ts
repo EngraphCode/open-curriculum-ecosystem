@@ -7,6 +7,7 @@ import {
   checkFormatter,
   checkHooks,
   checkPackageManager,
+  readRootPackage,
   type HookBodies,
 } from './family-conformance-tree-helpers.js';
 
@@ -160,6 +161,31 @@ describe('checkFormatter', () => {
       'prettier.config.ts is missing at the root',
       ".prettierrc.json is present at the root; the family's one formatter configuration is prettier.config.ts",
     ]);
+  });
+});
+
+describe('readRootPackage', () => {
+  it('reads the string script bodies and the packageManager field as written', () => {
+    expect(
+      readRootPackage({
+        scripts: { check: 'pnpm check:all', build: 'turbo run build', broken: 7 },
+        packageManager: 'pnpm@12.4.2+sha512.abc',
+      }),
+    ).toEqual({
+      ok: true,
+      value: {
+        scripts: { check: 'pnpm check:all', build: 'turbo run build' },
+        packageManager: 'pnpm@12.4.2+sha512.abc',
+      },
+    });
+  });
+
+  it('reports a document without a scripts map', () => {
+    const reading = readRootPackage({ name: 'estate' });
+    expect(reading.ok).toBe(false);
+    if (!reading.ok) {
+      expect(reading.error.message).toBe('package.json has no scripts map');
+    }
   });
 });
 
