@@ -437,10 +437,10 @@ jobs:
   # tests on a Windows runner — the surface the native-Windows changeset
   # (upstream PR #891, carried by the fork) makes work: path separators and
   # drive letters, trusted git and gh resolution, LF normalisation, pnpm
-  # resolution for spawned processes. Advisory until the owner makes it a
-  # required check once it is green (the carrier plan's owner gate), so it is
-  # deliberately NOT in run-quality-gates' needs list yet; a failure here is
-  # visible on the checks tab and is the signal the ruling asks for.
+  # resolution for spawned processes. Required since the family's one CI shape
+  # (2026-10-05): it is in run-quality-gates' needs list like every job, so a
+  # failure here blocks the merge; the step summary and the checks tab carry
+  # the signal the ruling asks for.
   windows-basic:
     name: windows-basic
     permissions:

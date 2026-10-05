@@ -253,7 +253,8 @@ def main() -> int:
 
     package_json = json.loads(package_json_path.read_text(encoding="utf-8"))
     manager = detect_package_manager(root, package_json)
-    print(f"[INFO] Detected package manager: {manager}")
+    # Status lines go to stderr so `--json` leaves stdout as the one JSON document.
+    sys.stderr.write(f"[INFO] Detected package manager: {manager}\n")
 
     if not shutil.which(manager):
         sys.stderr.write(f"[ERROR] {manager} CLI not found on PATH.\n")
@@ -282,14 +283,14 @@ def main() -> int:
                 return 2
 
         if not records:
-            print("[INFO] Nothing to apply.")
+            sys.stderr.write("[INFO] Nothing to apply.\n")
             return 0
 
         update_code = apply_updates(manager, root, args.major)
         if update_code != 0:
             sys.stderr.write(f"[ERROR] Update command failed with code {update_code}.\n")
             return update_code
-        print(f"[OK] Applied updates using {manager}.")
+        sys.stderr.write(f"[OK] Applied updates using {manager}.\n")
         # The outdated records were the reason to apply; applied, they are no
         # longer a failure to report.
         return 0
