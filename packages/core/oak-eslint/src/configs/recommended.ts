@@ -250,6 +250,11 @@ const oakRecommendedConfig: TSESLint.FlatConfig.Config = {
           // mkdtemp temp trees; a fake fs would make the mutation proofs
           // theatre. The refounding module retires with the run (F1 §5), and
           // that plan's closure removes these entries.
+          '**/agent-tools/src/collaboration-state/coordination-home-consolidation.integration.test.ts',
+          '**/agent-tools/src/core/flag-path-resolve.integration.test.ts',
+          '**/agent-tools/tests/collaboration-state/state-integrity.integration.test.ts',
+          '**/agent-tools/tests/collaboration-state/watcher-staleness-io.integration.test.ts',
+          '**/agent-tools/tests/protocol-conformance/node-io.integration.test.ts',
           '**/agent-tools/src/refounding/refound-freeze.integration.test.ts',
           '**/agent-tools/src/refounding/refound-verify-freeze.integration.test.ts',
           '**/agent-tools/src/refounding/refound-inventory.integration.test.ts',

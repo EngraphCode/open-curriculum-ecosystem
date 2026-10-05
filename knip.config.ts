@@ -27,9 +27,6 @@ const config: KnipConfig = {
   ignoreBinaries: [
     // External tools not installed via npm
     'gitleaks',
-    // System binaries used in package.json scripts for port/process checks
-    'lsof',
-    'ps',
   ],
   ignoreIssues: {
     // Deploy boundary intentionally exposes the same handler as both a named
@@ -73,15 +70,14 @@ const config: KnipConfig = {
       entry: ['package.json'],
       project: [],
       ignoreDependencies: [
-        // Spawned as `pnpm exec prettier` and `pnpm exec markdownlint-cli2` from
-        // the repo root by agent-tools' repo-check (the format and markdown gates
-        // over the staged set and the tracked tree), never referenced from a root
-        // script knip can parse. They stay root devDependencies because their
-        // configs (`.prettierrc.json`, `.markdownlint-cli2.jsonc`) and their exec
-        // cwd are the root; scoped to this workspace so a stray copy elsewhere is
-        // still reported.
+        // Spawned as `pnpm exec markdownlint-cli2` from the repo root by
+        // agent-tools' repo-check (the markdown gate over the staged set and the
+        // tracked tree), never referenced from a root script knip can parse. It
+        // stays a root devDependency because its config
+        // (`.markdownlint-cli2.jsonc`) and its exec cwd are the root; scoped to
+        // this workspace so a stray copy elsewhere is still reported. Prettier is
+        // referenced by `prettier.config.ts`, so knip reads it as used.
         'markdownlint-cli2',
-        'prettier',
       ],
     },
     'agent-tools': {
@@ -117,6 +113,10 @@ const config: KnipConfig = {
         'src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts',
         'src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts',
         'src/validators/markdown-links/validate-markdown-links.ts',
+        'src/validators/cited-paths/validate-cited-paths.ts',
+        'src/validators/cited-scripts/validate-cited-scripts.ts',
+        'src/validators/lineage-names/validate-no-lineage-names.ts',
+        'src/validators/family-conformance/validate-family-conformance.ts',
         'src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts',
         'src/validators/policy-reappraisal/validate-policy-reappraisal.ts',
         'src/validators/claim-freshness/validate-claim-freshness.ts',

@@ -39,7 +39,6 @@ variants:
         fast pass, using at most its two targeted verification Reads when the speed
         contract permits them. Never explore; report only. Do not modify anything.
 ---
-
 ## Delegation Triggers
 
 Use this role for a fast, reproducible second opinion when the primary needs its current
@@ -111,7 +110,8 @@ quotable next step, write `STAKES: UNGROUNDED — reading missing` and continue;
 records the gap and the verdict table's owner/meta and UNVERIFIABLE rows absorb it.
 
 **Step 2 — Intake audit.** For each of the six supplied items, mark SUPPLIED or
-MISSING. Every MISSING or vague item goes to UNGROUNDED verbatim. Do not reconstruct a
+MISSING. OBJECTIVE FRAME is MISSING when `READING:` is absent; an absent `SOURCES:` is
+Step 3b's finding. Every MISSING or vague item goes to UNGROUNDED verbatim. Do not reconstruct a
 missing item from context. Then audit the CLAIMS WITHIN the supplied items: a field
 being present does not make its content grounded — any factual claim inside a supplied
 item that the supplied context cannot itself substantiate is marked on-trust and goes
@@ -139,8 +139,7 @@ line to UNGROUNDED.
   directive NAMED by file name or id. A named standing rule IS a citation: spend a
   budget Read to verify it exists only when your verdict turns on it, and NEVER mark a
   gate FAIL for complying with a standing rule the frame omitted to quote (the
-  Director-endorsed adjudication principle — pair-era tally run 8,
-  `.agent/reports/agentic-engineering/cricket-two-pair-tally-2026-07-26.md`: three
+  Director-endorsed adjudication principle — the lineage's pair-era tally, run 8: three
   WRONG-PRIORITY grounds all failed because the rules existed outside the frame). A
   cited forcing fact must also pass the necessity test: its content must actually force
   THIS gate (a citation whose substance is unrelated to the gate it defends does not
@@ -218,7 +217,7 @@ frame repair, whatever the work verdict, because a redirection steered by a fram
 incomplete or false inherits its gap: the first `CONTRADICTED:` line in Step 3b's order, else
 the first `OMITTED:` line, else the first `UNAUDITED:` line's source phrase, else "supply the
 sources verbatim in a `SOURCES:` block". When the frame verdict is SOUND, the redirection is
-the single highest-value change implied by the FIRST matching row above — or "none" when row
+the single highest-value change implied by the FIRST matching Step-4 row — or "none" when row
 7 (the clean all-PASS row) fired.
 
 ## Banned Moves
@@ -262,7 +261,7 @@ the single highest-value change implied by the FIRST matching row above — or "
   under STANCE adversarial each bullet also carries its question's counter-evidence
   line (the disconfirming quote or `NO COUNTER-EVIDENCE IN SUPPLIED CONTEXT`)
 - `FRAME VERDICT:` SOUND | NARROWED | CONTRADICTED, from Step 4b
-- `FRAME EVIDENCE:` up to 2 Step-3b lines verbatim, findings first (`CONTRADICTED:`,
+- `FRAME EVIDENCE:` up to 2 Step-3b or Step-4b lines verbatim, findings first (`CONTRADICTED:`,
   `OMITTED:`, `UNAUDITED:` or `FRAME: NO VERBATIM SOURCE`); on SOUND, `AUDITED: <N> items` and one
   `ADDRESSED:` line, or the `FRAME: NO OPEN SOURCE ITEM` line
 - `REDIRECTION:` from Step 5 — or "none"

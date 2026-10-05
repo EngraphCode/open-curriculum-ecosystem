@@ -29,9 +29,9 @@ is silently credited with words they did not write.
 
 The agent is about to author or edit any **outward, human-visible artefact**
 via shared credentials. In this repository that means the team bot account
-(`jimbot-oakington-iii[bot]`, the mandatory default) or — only in the
-owner-permitted exceptional cases — the owner account (`@jimCresswell`); the
-rule fires before:
+(the one the clone's merge-bot config names, the mandatory default) or — only
+in the owner-permitted exceptional cases — the owner account
+(`@jimCresswell`); the rule fires before:
 
 - a PR or issue **comment** (`gh pr comment`, `gh issue comment`, `gh api
   .../comments`);
@@ -43,10 +43,7 @@ rule fires before:
 
 It also fires when authoring on any non-GitHub outward surface (a vendor
 dashboard, external tracker, or published page) through credentials that
-identify a human rather than the agent. Notion page edits on `[AI Managed]` pages use
-a hybrid ledger: delivery-estate provenance on the visible line and the full agent/credential
-chain in a collapsed toggle. Their complete attribution contract is
-[`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md).
+identify a human rather than the agent.
 
 ## Action
 
@@ -136,11 +133,11 @@ visible in truncated comment lists where a trailing signature is not
   (carry PDR-027 name+UUID by construction).
 - **Not in scope:** content authored under the agent's *own* distinct account
   (where the actor is already visible) — though a marker there is harmless.
-- **Already covered, do not double-mark:** Notion page edits on `[AI Managed]` pages.
-  Their hybrid page-local ledger identifies the originating repository visibly and the
-  agent/session/credential chain in a collapsed toggle once per coherent change set, as required by
-  [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md). Do not add a separate
-  GitHub-style attribution trailer.
+- **Already covered, do not double-mark (OCE):** edits to OCE's knowledge-base
+  pages under its agent-managed title designation; their page-local change
+  ledger identifies the originating repository visibly and the
+  agent/session/credential chain once per coherent change set, as OCE's own
+  page-edit rule requires, so no separate marker is added there.
 - **In scope (reading side):** attributing past actions performed under shared
   credentials — use the comms stream and claim dispositions, never the GitHub
   actor field (see §Why).

@@ -3,6 +3,7 @@ name: Crosswalk Before Reconciling Drifted Docs
 polarity: pattern
 use_this_when: Two documents appear to conflict (an older brief vs a ratified plan, two doctrine surfaces describing one mechanism) and the tempting move is a bulk rewrite of one to match the other
 category: process
+layer: general
 status: emerging
 discovered: 2026-06-05
 proven_in: The 2026-06-05 EEF strategy-brief reconciliation (owner-corrected surgical outcome) — see §Worked Instance

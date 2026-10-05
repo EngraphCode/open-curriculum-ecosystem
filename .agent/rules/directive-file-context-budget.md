@@ -26,7 +26,7 @@ immediately before it. The deferral never stops the seat (PDR-063
 
 Files under `.agent/directives/` (`AGENT.md`, `principles.md`,
 `tdd-as-design.md`, `testing-strategy.md`,
-`schema-first-execution.md`, `orientation.md`,
+`orientation.md`,
 `agent-collaboration.md`, `user-collaboration.md`,
 `continuity-practice.md`, `operationalisation-contract.md`) are:
 

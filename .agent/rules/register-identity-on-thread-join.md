@@ -51,13 +51,13 @@ Use the platform-provided seed when available
 `PRACTICE_AGENT_SESSION_ID_CODEX`, or `CODEX_THREAD_ID`). **Cursor
 (Composer)** sets `PRACTICE_AGENT_SESSION_ID_CURSOR` from the
 composer `session_id` via the project `sessionStart` hook
-(`.cursor/hooks/oak-session-identity.mjs`; see
+(`.cursor/hooks/practice-session-identity.mjs`; see
 [`agent-tools/docs/agent-identity.md`](../../agent-tools/docs/agent-identity.md)
 and [Cursor Hooks](https://cursor.com/docs/hooks)). The same hook injects the
 derived display name and `session_id_prefix` (first six characters of
 `session_id`) into `additional_context` for thread registration when the
 integrated terminal does not see the Practice variable. A gitignored
-`.cursor/oak-composer-session.local.json` mirror (when agent-tools is built)
+`.cursor/practice-composer-session.local.json` mirror (when agent-tools is built)
 carries the same derived name and a suggested Composer tab title for
 copy/paste — Cursor hooks cannot set the tab label programmatically per
 [Hooks](https://cursor.com/docs/hooks). If the hook is disabled or
@@ -108,7 +108,7 @@ The complementary layers are, per PDR-029's 2026-04-21 Amendment Log
   on any platform performs the same walkthrough by reading the same
   markdown.
 - **Stale-identity audit** — a six-check documentation walkthrough in
-  [`/oak-consolidate-docs § Thread-register freshness`](../skills/knowledge/consolidate-docs/SKILL-CANONICAL.md#thread-register-freshness)
+  [`consolidate-docs` § Thread-register freshness](../skills/knowledge/consolidate-docs/SKILL-CANONICAL.md#thread-register-freshness)
   that the agent performs at consolidation time: stale `last_session`,
   orphan threads, missing fields, duplicate identity rows,
   active-threads ↔ next-session-file correspondence, and retired-record

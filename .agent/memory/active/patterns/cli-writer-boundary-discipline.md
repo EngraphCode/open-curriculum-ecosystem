@@ -3,6 +3,7 @@ name: CLI Writer Boundary Discipline
 polarity: pattern
 use_this_when: A command-line tool or hook is about to write a file whose path, name or content comes from a caller, a flag, an environment variable or another process — apply the three cells before the first pull request, not after review finds them
 category: code
+layer: general
 proven_in: "agent-tools: the atomic write in the collaboration-state writer (PR #55 round four, 2026-09-13); the link refusal in core/flag-path-resolve.ts; the two are not yet joined in one writer"
 proven_date: 2026-09-13
 barrier:

@@ -1,9 +1,16 @@
 ---
 classification: situational
-description: Tests MUST NOT mutate global state. Pass configuration as parameters.
-trigger: surface:test-authoring
+description: Keep tests isolated from global-state mutation
+trigger: surface:test-authoring — tests, smokes, test helpers, fixtures and setup files
 globs:
-  - "**/*.test.ts"
+  - "**/*.test.*"
+  - jcdotnet/e2e/**/*
+  - agent-tools/e2e-tests/**/*
+  - "**/smoke-tests/**/*"
+  - "**/test-helpers/**/*"
+  - "**/*setup.ts"
+  - "**/tests/**/*"
+  - "**/*fixture*.ts"
 ---
 
 # No Global State Manipulation in Tests
@@ -30,4 +37,6 @@ config, global setup or entry script — may read ambient env, validate it,
 and inject the result. Test files and a check's other setup files must not
 read or mutate `process.env`.
 
-See `docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md` for the full ADR.
+Operationalises `.agent/directives/testing-strategy.md` §Rules (No ambient global state
+access); the dependency-injection pattern is in `docs/engineering/testing-patterns.md`
+§In-Process Tests with Dependency Injection.

@@ -1,11 +1,16 @@
 ---
-classification: core
+classification: situational
 description: Data arriving from an external boundary (JSON.parse, API responses, file reads, SSE, WebSocket) is unknown; validate immediately to the exact expected shape (Zod, exhaustive guard, or SDK types) and never widen — as Record<string, unknown> is widening, not validation.
+trigger: surface:boundary-data — TypeScript and authored content where external data enters
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/content/**/*.json"
 ---
 
 # Strict Validation at External Boundaries
 
-Operationalises [ADR-032 (External Boundary Validation)](../../docs/architecture/architectural-decisions/032-external-boundary-validation.md), [ADR-055 (Zod Version Boundaries)](../../docs/architecture/architectural-decisions/055-zod-version-boundaries.md), and [ADR-153 (Constant-Type-Predicate Pattern)](../../docs/architecture/architectural-decisions/153-constant-type-predicate-pattern.md).
+Operationalises [`principles.md` §Compiler Time Types and Runtime Validation](../directives/principles.md) and [`validation-strategy.md`](../directives/validation-strategy.md).
 
 When data arrives from an external boundary (JSON.parse, API responses, file reads, SSE parsing, WebSocket messages), it is `unknown`. Validate immediately to the **exact known expected shape** using strict, complete validation (Zod schema, exhaustive type guard, or official SDK types). From that point on, use the validated type only. Never widen.
 
@@ -24,22 +29,25 @@ alone: a transient-file allowlist that exempted by basename before kind
 handling let a symlink wearing a transient name ride out of the symlink
 refusals, and a place-only design-token admission did the same in the same
 sitting (2026-08-19). An allowlist that deliberately admits along one axis (a
-string-only token allowlist; a path-only stale-invocation allowlist) binds
-that one axis and invents no other. Validate each axis the decision depends
-on, at the boundary the value crosses. A lookup table keyed by input text is an admission
-predicate as well: an object-literal flag table admitted inherited names until it was held as a
-`Map`, so that `toString` or `__proto__` is an unknown flag (OCE pull request 304, 2026-09-29;
-one instance).
+string-only token allowlist; OCE's path-only stale-invocation allowlist) binds that one axis and
+invents no other. Validate each axis the decision depends on, at the boundary the value crosses.
+A lookup table keyed by input text is an admission predicate as well: an object-literal flag
+table admitted inherited names until it was held as a `Map`, so that `toString` or `__proto__`
+is an unknown flag (OCE pull request 304, 2026-09-29; one instance).
 
-Owner ruling on tool surfaces (2026-07-28): **"Strict, all the time,
-everywhere"** — every MCP tool carries proper input AND output schemas, with
-realistic examples drawn from real data (graph tools were the founding
-instance). The dated tolerance from the same ruling — hand-authored runtime
-checks staying for now under the V1 deadline — is an exception with a named
-revisit (MCP-319 carries the schema follow-up), never doctrine.
+Owner ruling (2026-07-28): **"Strict, all the time, everywhere"** — every
+boundary the repository owns (authored content and configuration it reads,
+environment values, fetched data, tool inputs and outputs, hook and CLI
+inputs) carries a schema and is validated to it at entry, with realistic
+examples drawn from real data. The founding instances: in OCE every MCP tool
+carries input and output schemas (the graph tools first; the dated tolerance
+from the same ruling, hand-authored runtime checks staying for now under the
+V1 deadline, is an exception with a named revisit on OCE's tracker, never
+doctrine); in jimcresswell.net the entity model's validation in its site
+library.
 
-See `docs/governance/typescript-practice.md` §Compiler-time Types and
-Runtime Validation.
+See [`validation-strategy.md`](../directives/validation-strategy.md)
+§Compile-time types and §Runtime validation at the boundary.
 
 A boundary reader parses the shape and a judge applies the policy; a reader that rejects a value the
 policy should judge hides the news. Blazar lifts Corona's review of the rollout reader found

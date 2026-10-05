@@ -186,7 +186,7 @@ export function resolveBotIdentity(
 /**
  * The bot's login, its app slug, from the clone's merge-bot config: the only
  * account whose comment may declare a review vendor unavailable
- * (`pr-watch/declared-unavailable.ts`).
+ * (the review-vendor unavailability declaration `pr-watch` reads).
  */
 export function resolveMergeBotAppSlug(input: MergeBotResolveInput): Result<string, Error> {
   const configRoot = resolvePrimaryConfigRoot(input);

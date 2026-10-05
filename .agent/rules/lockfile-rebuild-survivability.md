@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: "On any dependency landing — a security-floor bump, version hold, a new or raised pnpm-workspace.yaml override, batch sweep, or single bump — run the cold rebuild test: resolve the declarations alone in an empty scratch directory (never beside the checkout's node_modules, which seeds the old lockfile back), then assert floors, holds, unchanged audit, and a green frozen install against the cold result. No size threshold; run it, never reason about it. Not for changes touching no dependency declaration. Failure shapes — a floor held only by the lockfile's recorded version, evaporating silently on rebuild; an override lagging its manifests until CI's ERR_PNPM_OUTDATED_LOCKFILE."
+description: "On any dependency landing — a security-floor bump, version hold, a new or raised pnpm-workspace.yaml override, batch sweep, or single bump — run the rebuild test: copy the tracked package.json files and pnpm-workspace.yaml into an empty directory, resolve them there with pnpm install --lockfile-only, then assert floors, holds, unchanged audit, and a green frozen install. No size threshold; run it, never reason about it. Not for changes touching no dependency declaration. Failure shapes — a floor held only by the lockfile's recorded version, evaporating silently on rebuild; a rebuild run beside node_modules, which pnpm seeds from node_modules/.pnpm/lock.yaml, so once the change is installed it passes without resolving anything; an override changed without regenerating the lockfile, which CI's frozen install refuses; a manifest moved under a standing override, which pnpm silently ignores."
 trigger: surface:dependency-management
 globs:
   - "**/package.json"
@@ -39,12 +39,35 @@ match the last install, and nothing was resolved (the second estate measured
 it on pnpm 12.4.2, under 30 ms, with and without `--lockfile-only`; the same
 declarations resolved cold picked up five in-range releases).
 
+Resolve the declarations cold, in an empty directory, never in a checkout with
+`node_modules`. There, `pnpm install` without a lockfile seeds its resolution
+from `node_modules/.pnpm/lock.yaml`: when the declarations match the last
+install, which is the ordinary state once the change has been installed, it
+prints `Already up to date` and writes the old lockfile back byte for byte, so
+every assertion below passes without anything having been resolved.
+`--lockfile-only` does not avoid this; only a directory with no
+`node_modules/.pnpm/lock.yaml` does. Measured on pnpm 12.4.2 (2026-09-17):
+beside `node_modules` the rebuild returned the committed lockfile in under
+30 ms, with and without `--lockfile-only`, while the same declarations
+resolved cold at the same moment picked up five in-range releases the
+committed lockfile did not have. The fallback is not new: pnpm 10.28.2 and
+11.20.0 carry the same `files[0] ?? clone(currentLockfile)` choice of wanted
+lockfile.
+
+Run the block in one shell from the repository root, where the pathspecs name
+every workspace manifest, and stay in that shell for the assertions:
+
 ```bash
-scratch="$(mktemp -d)"                         # empty: no install state to seed from
-git ls-files -z -- package.json '*/package.json' pnpm-workspace.yaml \
+scratch="$(mktemp -d)"   # empty: no install state to seed from
+git ls-files -z -- package.json '*/package.json' pnpm-workspace.yaml .npmrc \
   | xargs -0 tar -cf - | tar -xf - -C "$scratch"
 pnpm --dir "$scratch" install --lockfile-only --ignore-scripts   # resolve from declarations alone; no lifecycle scripts
 ```
+
+`git ls-files` names only tracked paths, so stage a new workspace's
+`package.json` first; the copied content is the working tree's. The committed
+lockfile is never touched. Copy `"$scratch/pnpm-lock.yaml"` into the checkout
+only when its state is the one you mean to commit, and before assertion 4.
 
 Then assert all four, and read each result rather than the exit code alone.
 The first three read `"$scratch/pnpm-lock.yaml"` and run
@@ -52,18 +75,15 @@ The first three read `"$scratch/pnpm-lock.yaml"` and run
 lockfile to be committed, once the cold result is that lockfile:
 
 1. **Floors** — every advisory-carrying package resolves at or above its fixed
-   version.
-2. **Holds** — every documented major hold still holds (this repo: `typescript`
-   on 6.x via manifest ranges, `@types/node` on 24.x via its override; both
-   documented in
+   version in `"$scratch/pnpm-lock.yaml"`.
+2. **Holds** — every documented major hold still holds there (this repo's
+   holds, each with how it is enforced and its lift condition, are listed in
    [`docs/engineering/build-system.md`](../../docs/engineering/build-system.md)
    §Dependency updates).
-3. **Audit** — `pnpm audit` is unchanged, with any deliberate deferral still
-   the only residue.
-4. **Frozen install** — `CI=true pnpm install --frozen-lockfile` exits 0.
-
-The committed lockfile is untouched until the cold result is the state to
-commit; copy it in then, never before.
+3. **Audit** — `pnpm --dir "$scratch" audit` is unchanged, with any deliberate
+   deferral still the only residue.
+4. **Frozen install** — `CI=true pnpm install --frozen-lockfile` exits 0 in the
+   checkout, against the lockfile you commit.
 
 **A byte-identical cold rebuild is the strongest pass.** A rebuild that merely
 satisfies all four assertions is still a pass: newly-published in-range
@@ -74,50 +94,58 @@ declared — fix the declaration, never re-pin by hand.
 
 ## The override-alignment corollary
 
-pnpm `overrides` rewrite the **effective specifier of direct dependencies**,
-not just transitive resolution. So an override left lagging behind the
-manifests it governs desyncs the lockfile: the lockfile records the override's
-specifier while the manifests carry their own.
+pnpm `overrides` replace the **effective specifier of every dependency they
+bind**, direct dependencies included, and the lockfile records the override's
+specifier and the overrides themselves. An override and the manifests it binds
+therefore drift apart in two ways, and pnpm treats them differently (measured
+in jimcresswell.net on pnpm 12.4.2, 2026-09-16):
 
-**This desync is invisible to every local gate** — no local hook runs a frozen
-install, so CI's `pnpm install --frozen-lockfile` is the first surface that
-sees it, failing with `ERR_PNPM_OUTDATED_LOCKFILE` and taking `install`,
-`secret-scan` and `run-quality-gates` down with it.
+- **An override changed without regenerating the lockfile fails loudly.** The
+  lockfile's recorded overrides no longer match the workspace's, and
+  `CI=true pnpm install --frozen-lockfile` stops with
+  `ERR_PNPM_LOCKFILE_CONFIG_MISMATCH` (verified by moving the `smol-toml` floor
+  to `>=1.7.2 <2` alone). No local hook runs a frozen install, so CI's is the
+  first surface that sees it, taking `install`, `secret-scan` and
+  `run-quality-gates` down with it.
+- **A manifest moved under a standing override is silent everywhere.** The
+  override still replaces that dependency's specifier, so the lockfile stays as
+  it was and the frozen install still exits 0 (verified by raising agent-tools'
+  `smol-toml` to `^1.9.0`, a range no published version satisfies, under the
+  `>=1.7.1 <2` floor). A manifest raise meant to pick up a new patch leaves the
+  old version installed with every gate green.
 
-Keep override and manifest specifiers aligned whenever a sweep moves either.
-The two drift directions differ, measured on this estate's pnpm 11.20.0
-(2026-09-25, the frozen lockfile check with `--lockfile-only` over a copy of
-the tracked manifests and lockfile): an override changed without regenerating
-the lockfile fails loudly (`ERR_PNPM_LOCKFILE_CONFIG_MISMATCH`); a manifest
-raised under a standing override passes silently, because the override still
-rewrites the specifier. So a moved override is caught at the first frozen
-install, and a moved manifest is caught by nothing: an override's comment names
-the manifests it rewrites, and they move together in one change.
+OCE measured the same two directions on its pnpm 11.20.0 (2026-09-25, the
+frozen lockfile check with `--lockfile-only` over a copy of the tracked
+manifests and lockfile): the moved override failed loudly with
+`ERR_PNPM_LOCKFILE_CONFIG_MISMATCH`, and the moved manifest passed silently.
+
+So an override's comment names the manifests it rewrites, and the override and
+those manifests move in the same change, with the lockfile regenerated.
 
 ## Worked instances
 
-- **MCP-151 (2026-07-25)**: the security slice (#530, six bounded floors) and
-  the estate-wide drift sweep (#531) were each tested by full delete-and-rebuild
-  and came back **byte-identical** — every floor, both major holds, and the
-  audit state proven declaration-derived rather than lockfile-retained.
-  Nobody recorded where those rebuilds ran; beside `node_modules` a
-  byte-identical result is the seeded lockfile written back (§Action), so the
-  proof stands only for a cold run.
-- **The corollary, same lane**: the sweep moved `@types/node` manifests to
-  `^24.13.3` while its override still read `^24.13.2`, producing exactly the
-  `ERR_PNPM_OUTDATED_LOCKFILE` desync above. Cured by aligning the override —
-  the same alignment `21fdff136` made for the esbuild security floor, and the
-  same class `docs/operations/troubleshooting.md` records for PR #296.
+- **A security slice and a drift sweep** (OCE MCP-151, #530 and #531,
+  2026-07-25): a slice setting bounded security floors and an estate-wide
+  drift sweep were each tested by full delete-and-rebuild and came back
+  **byte-identical**: every floor, the major holds and the audit state read
+  as declaration-derived rather than lockfile-retained. That was the
+  delete-and-rebuild recipe, which runs in the checkout, and beside
+  `node_modules` a byte-identical result does not prove the floors were
+  declared (see §Action).
+- **The corollary, same lane**: the sweep moved a type package's manifests one
+  patch ahead while its override still pinned the old patch, and CI's frozen
+  install failed with `ERR_PNPM_OUTDATED_LOCKFILE`. An older pnpm failed
+  loudly there; a newer one lets the same manifest move pass (the silent
+  direction above), so the loud failure is history, not current behaviour.
+  Cured by aligning the override with the manifests, the same alignment a
+  later security floor needed.
 
 ## Related Surfaces
 
-- [`docs/operations/troubleshooting.md`](../../docs/operations/troubleshooting.md)
-  §"Lockfile desync via pnpm overrides" — the diagnostic entry this rule makes
-  preventative.
-- [ADR-174](../../docs/architecture/architectural-decisions/174-dependency-vulnerability-scanning-quality-gate.md)
-  — overrides are temporary controls that must name the vulnerable dependency,
-  why the override is safe, and the condition for removal. This rule adds: and
-  they must survive a rebuild.
+- Overrides are temporary controls that must name the vulnerable dependency,
+  why the override is safe, and the condition for removal
+  ([`secops.md` §Dependencies and lockfile](../directives/secops.md#dependencies-and-lockfile)).
+  This rule adds: and they must survive a rebuild.
 - [`docs/engineering/build-system.md`](../../docs/engineering/build-system.md)
   — security `overrides` and `peerDependencyRules` belong in
   `pnpm-workspace.yaml`; a CVE floor earns an override, a tool-version pin does

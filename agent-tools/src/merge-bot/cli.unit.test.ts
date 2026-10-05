@@ -154,17 +154,20 @@ describe('runMergeBotCli mint-token --scope', () => {
     });
   });
 
-  it('lists every scope and its permissions in the usage text', async () => {
+  it('lists every scope with each permission at its level in the usage text', async () => {
     // USAGE is the discovery surface for a newly-required flag, and its list
     // is derived — this proves the derivation renders, not that a literal
-    // matches.
+    // matches. The level is on the scope's own line: two scopes share
+    // `contents` at read and at write, so a name alone would not say which
+    // one writes.
     const run = runWith({ args: ['--help'] });
 
     expect(await run.exit).toBe(0);
+    const lines = run.out().split('\n');
     for (const scope of TOKEN_SCOPE_NAMES) {
-      expect(run.out()).toContain(scope);
-      for (const permission of Object.keys(TOKEN_SCOPES[scope])) {
-        expect(run.out()).toContain(permission);
+      const line = lines.find((text) => text.startsWith(`    ${scope}: `)) ?? '';
+      for (const [permission, level] of Object.entries(TOKEN_SCOPES[scope])) {
+        expect(line).toContain(`${permission}: ${level}`);
       }
     }
   });
@@ -307,7 +310,7 @@ describe('runMergeBotCli mint-token', () => {
         JSON.stringify({
           appSlug: 'jimbot-oakington-iii',
           appId: '4352989',
-          repo: 'oaknational/oak-open-curriculum-ecosystem',
+          repo: 'acme/widgets',
         }),
       readFileImpl: (path: string) => {
         keyReads.push(path);

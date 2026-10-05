@@ -3,6 +3,7 @@ name: "Collaboration-CLI Interface Drift"
 polarity: anti-pattern
 use_this_when: "Composing any collaboration-CLI invocation from help text or skill prose alone, or reading a non-zero exit after a CLI write as proof the write failed."
 category: agent
+layer: general
 proven_in: "Longitudinal synthesis 2026-08-07, candidate C55 (adversary-surviving; novelty verified against the frictions register, which holds the instances but not the class): --help omitting required --id on write commands, claims heartbeat rejecting the sibling-standard --platform/--model while requiring --now (F-89), the commit-queue guard rejecting the commit skill's own prescribed label (F-116 family), heartbeat mode requiring a claim pre-claim roles cannot hold (F-73), and claims open crashing after a successful write."
 proven_date: 2026-08-07
 barrier:

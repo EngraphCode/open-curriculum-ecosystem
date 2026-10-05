@@ -9,9 +9,7 @@ Operationalises
 [PDR-011](../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md),
 [PDR-014](../practice-core/decision-records/PDR-014-consolidation-and-knowledge-flow-discipline.md),
 [PDR-024](../practice-core/decision-records/PDR-024-vital-integration-surfaces.md),
-[PDR-035](../practice-core/decision-records/PDR-035-agent-work-capabilities-belong-to-the-practice.md),
-and
-[ADR-131](../../docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.md).
+[PDR-035](../practice-core/decision-records/PDR-035-agent-work-capabilities-belong-to-the-practice.md).
 
 When you use the Practice itself, or a host-local tool that implements a
 Practice capability, capture fresh feedback in the napkin.

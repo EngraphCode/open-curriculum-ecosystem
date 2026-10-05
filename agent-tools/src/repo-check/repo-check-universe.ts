@@ -1,26 +1,22 @@
 /**
- * The tracked tree the root format and markdown gates run over, read from
- * git in three reads, each failing closed.
+ * The file universes the root gates read, both git's: the staged set for the
+ * pre-commit hook and the tracked tree for the root gates. The names never
+ * come from a disk walk, so a gate reads the same file list on every checkout
+ * and in CI (`repo-check-files.ts` carries the reasoning and the pure mapping
+ * this module composes); each gate then reads what it needs of the files git
+ * names.
  *
  * @remarks
- * A gate that read nothing must never pass as if it checked everything, so a
- * failed or empty git read is the gate's failure ({@link GitReadFailure}),
- * never an empty file list. The pure core ({@link trackedTreeReading}) reads
- * what git gave back; {@link readTrackedTree} runs git through the gate's
- * runtime, which resolves the trusted git and never uses a shell.
+ * Every read fails closed. A failed git read throws in git's own words, and a
+ * tracked listing that names no file throws too, since a gate that read
+ * nothing must never pass as if it checked everything.
  *
  * @packageDocumentation
  */
 
-import { err, flatMap, map, ok, type Result } from '@oaknational/result';
+import { err, ok, type Result } from '@oaknational/result';
 
-import {
-  gitFailed,
-  parseTrackedFiles,
-  toGitRunOutput,
-  type GitReadFailure,
-  type GitRunOutput,
-} from '../core/repository-paths.js';
+import { failureAsError } from '../core/failure-as-error.js';
 
 import {
   parseNulSeparatedPaths,
@@ -29,61 +25,71 @@ import {
 } from './repo-check-files.js';
 import type { RepoCheckRuntime } from './repo-check-types.js';
 
-/** What the three git reads gave back. */
-export interface TrackedTreeOutputs {
-  /** `git ls-files -z --deduplicate`: every tracked file, once even mid-merge. */
-  readonly tracked: GitRunOutput;
-  /**
-   * `git diff-files --name-only --diff-filter=DT -z`: tracked files deleted or
-   * retyped in the working tree, unstaged. The plumbing command never detects
-   * renames, so a deletion is never read as one half of a rename.
-   */
-  readonly gone: GitRunOutput;
-  /** `git ls-files --cached -s -z`: every index entry with its mode. */
-  readonly stage: GitRunOutput;
+/** A git read's standard output; a failed read throws in git's own words. */
+function gitOutput(runtime: RepoCheckRuntime, args: readonly string[], what: string): string {
+  const result = runtime.runCaptured('git', args);
+  if ((result.status ?? 1) !== 0) {
+    throw new Error(
+      result.stderr.trim() || `git ${args[0] ?? ''} failed while discovering ${what}`,
+    );
+  }
+  return result.stdout;
 }
 
-/** A read's output when git exited 0; otherwise the failure, in git's own words. */
-function succeeded(output: GitRunOutput): Result<string, GitReadFailure> {
-  return output.status === 0 ? ok(output.stdout) : err(gitFailed(output));
+/** Index entries that are symbolic links, read from their index modes. */
+function indexSymlinkPaths(runtime: RepoCheckRuntime): ReadonlySet<string> {
+  return parseSymlinkPaths(gitOutput(runtime, ['ls-files', '--cached', '-s', '-z'], 'symlinks'));
 }
 
-/**
- * The tracked tree from what the three git reads gave back.
- *
- * @param outputs - The three reads' outputs.
- * @returns The reading, or the first failure: a failed read, or a tracked
- *   listing that names no file (git read the wrong place).
- */
-export function trackedTreeReading(
-  outputs: TrackedTreeOutputs,
-): Result<TrackedTreeReading, GitReadFailure> {
-  return flatMap(parseTrackedFiles(outputs.tracked), (tracked) =>
-    flatMap(succeeded(outputs.gone), (gone) =>
-      map(succeeded(outputs.stage), (stage) => ({
-        tracked,
-        goneFromWorkingTree: new Set(parseNulSeparatedPaths(gone)),
-        symlinks: parseSymlinkPaths(stage),
-      })),
+/** The files staged for the next commit (added, copied, modified, renamed), without symlinks. */
+export function stagedFiles(runtime: RepoCheckRuntime): readonly string[] {
+  const names = parseNulSeparatedPaths(
+    gitOutput(
+      runtime,
+      ['diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z'],
+      'staged files',
     ),
   );
+  const symlinks = indexSymlinkPaths(runtime);
+  return names.filter((name) => !symlinks.has(name));
 }
 
 /**
- * Read the tracked tree through the gate's runtime.
+ * What git says about the tracked tree, in three reads:
  *
- * @param runtime - The gate's process runtime.
- * @returns The reading, or the first failure, with a killing signal named in
- *   git's standard error.
+ * - `ls-files -z --deduplicate`: each tracked file once, even mid-merge;
+ * - `diff-files --name-only --diff-filter=DT -z`: tracked files deleted or
+ *   retyped in the working tree and not yet staged (the plumbing command never
+ *   detects renames, so a deletion is never read as half of one);
+ * - `ls-files --cached -s -z`: the symlinks, from the index modes.
+ *
+ * @throws When a read fails, or when git lists no tracked file (it read the
+ *   wrong place).
  */
-export function readTrackedTree(
+export function readTrackedTree(runtime: RepoCheckRuntime): TrackedTreeReading {
+  const tracked = parseNulSeparatedPaths(
+    gitOutput(runtime, ['ls-files', '-z', '--deduplicate'], 'tracked files'),
+  );
+  if (tracked.length === 0) {
+    throw new Error('git listed no tracked file; run the gate from the repository root');
+  }
+  const gone = parseNulSeparatedPaths(
+    gitOutput(
+      runtime,
+      ['diff-files', '--name-only', '--diff-filter=DT', '-z'],
+      'tracked files deleted or retyped in the working tree',
+    ),
+  );
+  return { tracked, goneFromWorkingTree: new Set(gone), symlinks: indexSymlinkPaths(runtime) };
+}
+
+/** The tracked tree, or why git could not give it: {@link readTrackedTree}'s throw as a Result. */
+export function readTrackedTreeResult(
   runtime: RepoCheckRuntime,
-): Result<TrackedTreeReading, GitReadFailure> {
-  const run = (args: readonly string[]): GitRunOutput =>
-    toGitRunOutput(runtime.runCaptured('git', args));
-  return trackedTreeReading({
-    tracked: run(['ls-files', '-z', '--deduplicate']),
-    gone: run(['diff-files', '--name-only', '--diff-filter=DT', '-z']),
-    stage: run(['ls-files', '--cached', '-s', '-z']),
-  });
+): Result<TrackedTreeReading, string> {
+  try {
+    return ok(readTrackedTree(runtime));
+  } catch (error: unknown) {
+    return err(failureAsError(error, 'readTrackedTree').message);
+  }
 }

@@ -31,8 +31,8 @@ Files under `.agent/practice-core/` MUST NOT contain:
 - Cross-Practice paths into the host adapter: `../../skills/`,
   `../../commands/`, `../../memory/`, `../../plans/`,
   `../../experience/`, `../../rules/`, etc.
-- ADR references: no `ADR-NNN`, no links into
-  `docs/architecture/architectural-decisions/`.
+- ADR references: no `ADR-NNN`, no links into the repository's ADR
+  directory.
 - Commit references: no SHAs, no commit subjects, no
   `commit abcdef0` citations.
 - Host-local context sections, "host context note" sections, or
@@ -64,7 +64,7 @@ identifiers. It does NOT apply to:
 ## Why Stricter Than Prior Framings
 
 This is stricter than the earlier "Core self-containment" framing
-(under PDR-007 and ADR-124). The seam is tightened to a **single
+(under PDR-007). The seam is tightened to a **single
 permitted outgoing target** — the stable bridge index — because
 every additional outgoing surface from the Core into the host is a
 future portability defect.
@@ -81,7 +81,7 @@ critical-architectural-failure-shaped prior art for this rule.
 
 | Impulse | Wrong move | Right move |
 |---|---|---|
-| "Cite the ADR that adopts this PDR" | `[ADR-125](../../docs/architecture/architectural-decisions/125-...md)` inside a PDR | Record the host adoption in the bridge index and the host's ADR surface; the PDR mentions it abstractly as "(host adoption)" if at all |
+| "Cite the ADR that adopts or records this" | An ADR number (`ADR-150`) or a link to a host ADR inside a Core file | Name the concept the ADR records ("the host's continuity-surfaces decision") and record the pairing in the bridge index; when curing an existing citation, keep the sentence and replace only the number |
 | "Reference the host README" | `[Host README](../../../README.md)` | Reference the stable bridge index `.agent/practice-index.md`; the bridge index points outward |
 | "Note this only applies in this repo" | `## Host context note` inside the PDR | Move the note to the host adapter or the host's ADR; the PDR stays repo-independent |
 | "Cite the implementing commit" | `commit abc1234 implemented X` | Date + structural concept; commit SHAs do not belong in any permanent-doc surface (see `no-moving-targets-in-permanent-docs.md`) |
@@ -111,7 +111,8 @@ Three gates in `docs-validators:check` enforce parts of this rule:
   finding prints its `path:line:column` and the citation as written.
   The cure names the concept the ADR records in place of the number and
   keeps the sentence (PDR-079). Run it alone with
-  `pnpm --filter @oaknational/agent-tools validate-core-adr-citations`.
+  `pnpm --filter ./agent-tools validate-core-adr-citations` (pnpm's
+  directory selector, the same in every estate whatever the package scope).
 - `validate-reference-direction` refuses a resolvable link from the
   Core to anything outside it.
 - `validate-no-host-names-in-core-headings` enforces the host-name clause
@@ -125,7 +126,7 @@ Three gates in `docs-validators:check` enforce parts of this rule:
   bridge index (PDR-079) and heads the Core entry by its date and
   subject alone. With a repository root as its one argument it reads a
   sibling estate's tree by the same rule. Run it alone with
-  `pnpm --filter @oaknational/agent-tools validate-no-host-names-in-core-headings`.
+  `pnpm --filter ./agent-tools validate-no-host-names-in-core-headings`.
 
 An automated reviewer does not know this rule: it reads a Core path or a
 Core-relative link as "does not exist in this repository" and proposes

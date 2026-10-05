@@ -81,8 +81,8 @@ function instanceTierSurfaceAbsentFinding(surface: string, path: string): Substr
       `Instance-tier surface ${path} is absent by design: the ignore rules keep it out of ` +
       'every checkout and git tracks none of it, so a fresh checkout or a linked worktree ' +
       'carries none. Nothing to repair in this checkout: the live state belongs to the ' +
-      'coordination home (ADR-197), where the collaboration-state CLI seeds the claim ' +
-      'registries once the path is verified, and the first comms write creates the render.',
+      'coordination home (the registry contract), where the collaboration-state CLI seeds the ' +
+      'claim registries once the path is verified, and the first comms write creates the render.',
     evidence: [path],
   });
 }

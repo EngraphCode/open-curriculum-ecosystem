@@ -19,6 +19,18 @@ It complements, rather than replaces:
 
 ## Current Promoted Synthesis
 
+### Reviews of the Practice as a system
+
+Evidence for a decision the owner has taken; the decision itself lives in the record the
+review names.
+
+- [practice-system-review-2026-10.md](./practice-system-review-2026-10.md)
+  — the Practice as one system across two estates, read side by side from
+  what runs: the five-layer definition the owner ratified on 2026-10-04
+  (recorded in PDR-143), the divergence classes with a direction each, the
+  six placements decided, and the evidence rows per area; the same bytes as
+  the sibling estate's copy
+
 ### Proposal syntheses
 
 Proposal-status, **explicitly non-doctrine**: these documents propose and

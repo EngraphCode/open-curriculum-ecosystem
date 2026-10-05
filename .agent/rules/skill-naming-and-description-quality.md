@@ -20,7 +20,7 @@ routing defect with the same standing as a broken link.
 ## Trigger
 
 Fires whenever a skill is created, renamed, or its description edited
-or reviewed — Oak-authored canonicals first, and at the vendoring gate
+or reviewed — repo-authored canonicals first, and at the vendoring gate
 for external skills (a vendored skill with an unusable description is
 a routing defect to record, not silently accept).
 

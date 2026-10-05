@@ -11,6 +11,7 @@ globs:
   - .claude/**
   - .cursor/**
   - .agents/**
+  - .gemini/**
 ---
 
 # Record Generalisation Moves

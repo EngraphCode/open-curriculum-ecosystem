@@ -1,6 +1,6 @@
 ---
 name: assumptions-expert
-description: 'Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Invoke when plans are being drafted, marked decision-complete, propose 3+ agents, or assert blocking relationships.'
+description: 'Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Invoke when plans are being drafted, marked decision-complete, propose 3+ agents, assert blocking relationships, integrate a third-party vendor, or commit to technology choices before research.'
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 disallowedTools: Write, Edit, NotebookEdit
 color: orange

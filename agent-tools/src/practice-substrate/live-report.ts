@@ -26,11 +26,11 @@ import {
 import { type SubstrateFinding } from './types.js';
 
 // Subtraction guard, not a moving mirror: this pin forces a provenance-carrying
-// edit here whenever a manifest surface is added or retired. 21 since the
-// owner-authored estate restructure (#213, 2026-06-23) retired
-// memory-operational-tracks wholesale; update this constant in the same PR as
-// any future surface addition or retirement.
-const EXPECTED_MANIFEST_SURFACES = 22;
+// edit here whenever a manifest surface is added or retired. 24 since 2026-09-13,
+// when the documentation-sync-logs and deferred-controls-register surfaces were
+// declared; update this constant in the same PR as any future surface addition
+// or retirement.
+const EXPECTED_MANIFEST_SURFACES = 24;
 
 /**
  * The surfaces whose absence the readers classify, taken from the readers

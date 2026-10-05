@@ -1,5 +1,7 @@
 ---
 description: No-tools clustering synthesist for the corpus-analysis reduce workflow stage. Dispatched exclusively via the Workflow agent() agentType option; never invoke for interactive delegation. Clusters the inlined leaf signals into mechanism-grained candidates and answers only through the schema-forced structured output call.
+# No Gemini adapter: the Gemini adapter's body is the pointer to this template, which a
+# no-tools agent cannot read; the System prompt body is the Claude adapter's alone.
 platforms:
   - cursor
   - claude
@@ -28,13 +30,13 @@ codex:
     envelope behaviourally here) — and answer with the single required
     structured output call. Do not modify anything.
 ---
-
 # Corpus Reducer: No-Tools Clustering Synthesist
 
 Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
 `.claude/agents/corpus-reducer.md` (carries the System prompt block verbatim), the
 Cursor wrapper `.cursor/agents/corpus-reducer.md`, and the Codex adapter
-`.codex/agents/corpus-reducer.toml` (both load this template).
+`.codex/agents/corpus-reducer.toml` (both load this template). All three are generated
+from the declaration above by `pnpm portability:fix`.
 
 ## Purpose
 
@@ -62,7 +64,7 @@ leaf-signal inputs.
   structured output still arrives. Do not "tidy" the field: `tools: []` and
   omitting it both fall back to inherit-all, and `disallowedTools: *` is
   not honoured in frontmatter in bare or quoted form — the full findings
-  live in the corpus-voter template.
+  live in the corpus-voter template. The declaration spells it `tools: none`.
 - `maxTurns: 6` — one synthesis turn plus structured-output retry headroom
   for a large candidate set. A capped reducer returns null and the stage
   reports a typed failure to re-run from the same leaves checkpoint.

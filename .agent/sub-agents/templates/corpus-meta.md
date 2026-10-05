@@ -4,11 +4,6 @@ platforms:
   - cursor
   - claude
   - codex
-claude:
-  tools: Glob, Grep, Read
-  disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch, ReportFindings
-  maxTurns: 40
-  body: system-prompt
 cursor:
   description: Read-only recall-calibration synthesist for the corpus-analysis meta workflow stage. Dispatched by a corpus-analysis orchestrator, one call per run; never invoke for interactive delegation. Judges per-baseline recall matches, verifies corroboration home paths on disk before claiming them, and answers through the schema-forced structured output call.
   note: |-
@@ -18,6 +13,11 @@ cursor:
     read-only search solely to verify on-disk corroboration home paths, emit
     per-item judgments and prose only — never aggregate numbers — and answer
     with the single required structured output call.
+claude:
+  tools: Glob, Grep, Read
+  disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch, ReportFindings
+  maxTurns: 40
+  body: system-prompt
 codex:
   description: Read-only recall-calibration synthesist for the corpus-analysis meta workflow stage; judges per-baseline matches and verifies corroboration paths, emitting per-item judgments only.
   note: |-
@@ -30,13 +30,14 @@ codex:
     answer with the single required structured output call. Do not modify
     anything.
 ---
-
 # Corpus Meta: Read-Only Recall-Calibration Synthesist
 
 Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
 `.claude/agents/corpus-meta.md` (carries the System prompt block verbatim), the
-Cursor wrapper `.cursor/agents/corpus-meta.md`, and the Codex adapter
-`.codex/agents/corpus-meta.toml` (both load this template).
+Cursor wrapper `.cursor/agents/corpus-meta.md`, the Codex adapter
+`.codex/agents/corpus-meta.toml` and the Gemini adapter `.gemini/agents/corpus-meta.md`
+(the last three load this template). All four are generated from the declaration
+above by `pnpm portability:fix`.
 
 ## Purpose
 
@@ -52,8 +53,9 @@ aggregate (the v1 self-reported-recall defect).
 Read and apply `.agent/sub-agents/components/behaviours/reading-discipline.md`.
 Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
 
-These fire where the platform variant loads this template (the Cursor wrapper
-and the Codex adapter). The Claude wrapper deliberately does not load it: its
+These fire where the platform variant loads this template (the Cursor wrapper,
+the Codex adapter and the Gemini adapter). The Claude wrapper deliberately does
+not load it: its
 dispatch carries the System prompt block verbatim so the single meta call
 spends its turns on corroboration-path verification, not grounding reads —
 the dispatch supplies the complete judgment inputs.

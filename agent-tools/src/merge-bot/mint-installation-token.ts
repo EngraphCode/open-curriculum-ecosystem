@@ -7,7 +7,7 @@ import { err, ok, type Result } from '@oaknational/result';
 import type { TokenPermissions } from './token-scopes.js';
 
 /**
- * GitHub App installation-token minting for the oak merge bot (AIP-158).
+ * GitHub App installation-token minting for the merge bot (AIP-158).
  *
  * The merge bot is deliberately NOT a ruleset bypass actor: merges executed
  * with its installation token physically bind to required checks and thread
@@ -147,7 +147,7 @@ export function githubHeaders(bearer: string): Readonly<Record<string, string>> 
   return {
     accept: 'application/vnd.github+json',
     authorization: `Bearer ${bearer}`,
-    'user-agent': 'oak-merge-bot',
+    'user-agent': 'practice-merge-bot',
     'x-github-api-version': '2022-11-28',
   };
 }

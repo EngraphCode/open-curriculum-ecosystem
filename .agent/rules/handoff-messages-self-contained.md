@@ -6,8 +6,6 @@ description: Every handoff message must be self-contained — the receiver canno
 # Handoff Messages Must Be Self-Contained
 
 Operationalises
-[ADR-150 (Continuity Surfaces, Session Handoff, and Surprise Pipeline)](../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
-and
 [PDR-011 (Continuity Surfaces and the Surprise Pipeline)](../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md).
 Composes with [PDR-027 (Threads, Sessions, and Agent Identity)](../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md)
 identity-disclosure shape and [PDR-063 (Mid-Cycle Retirement Protocol)](../practice-core/decision-records/PDR-063-mid-cycle-retirement-protocol.md)

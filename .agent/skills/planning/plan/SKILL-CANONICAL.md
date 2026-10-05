@@ -9,8 +9,7 @@ description: Author a plan node in the ratified plan-node estate.
 Create a plan node aligned with the foundation documents, the planning
 discipline in
 [PDR-018](../../../practice-core/decision-records/PDR-018-planning-discipline.md),
-and the plan-node estate defined in
-[ADR-216](../../../../docs/architecture/architectural-decisions/216-plan-node-estate.md).
+and the plan-node estate (built first in OCE; one contract in both estates).
 The machine-enforced contract is the
 [plan-node schema](../../../plans/plan-node-schema.md); the estate validator
 runs in CI and at pre-commit.
@@ -18,11 +17,11 @@ runs in CI and at pre-commit.
 ## Before Writing
 
 When use value, needs, capabilities, journeys or delivery boundaries still
-need defining, use [`user-value`](../user-value/SKILL-CANONICAL.md)
-before treating those inputs as settled. It owns their structure and
-traceability; this skill owns implementation planning. Use it for local
-engineering contracts when their consumer, usefulness or wider contribution is
-unresolved.
+need defining, define them with a use-value pass (the `user-value` skill,
+where the estate carries it) before treating those inputs as settled. That
+pass owns their structure and traceability; this skill owns implementation
+planning. Use it for local engineering contracts when their consumer,
+usefulness or wider contribution is unresolved.
 
 A contract a step depends on is no different: hand the question to the skill
 that owns it, never plan around it or invent it. "What must this thing do,
@@ -42,7 +41,7 @@ definition only at a consequential gap.
 
 1. **Design gate**: Has the design intent been explored and confirmed
    with the project owner? If the scope is ambiguous or the approach
-   has multiple valid paths, run `oak-metacognition` first to explore
+   has multiple valid paths, run `metacognition` first to explore
    intent, constraints, and trade-offs before committing to a plan
    structure. Do not skip this step for non-trivial work.
 
@@ -86,7 +85,7 @@ definition only at a consequential gap.
 2. Read the directives:
    - `../../../directives/principles.md`
    - `../../../directives/testing-strategy.md`
-   - `../../../directives/schema-first-execution.md`
+   - `../../../directives/validation-strategy.md`
 
 3. Read the estate contract and templates:
    - `../../../plans/plan-node-schema.md` (the contract)
@@ -203,8 +202,9 @@ Every non-trivial plan MUST define:
    expensive path). Two budgets, distinct and neither restated here: PDR-132's
    round budget, which a slice must be stateable within, and PDR-140's
    settlement-push budget, which the pull request's description declares at
-   PR-open and the review cost gate reads and enforces at the push
-   (`agent-tools review-cost`, 2026-09-12). The plan's estimate is coarse by
+   PR-open and the review cost gate reads and enforces at the push, where the
+   estate carries that gate (OCE's `agent-tools review-cost`, 2026-09-12).
+   The plan's estimate is coarse by
    design — a slice that would need more than the declared default is a slice
    to split, not a larger number. Slicing at pickup CONSUMES the plan's disposition
    ledger

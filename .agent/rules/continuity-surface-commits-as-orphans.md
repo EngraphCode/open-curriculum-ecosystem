@@ -7,8 +7,6 @@ trigger: ceremony:commit
 # Continuity-Surface Commits Are Session-End Orphans
 
 Operationalises
-[ADR-150 (Continuity Surfaces, Session Handoff, and Surprise Pipeline)](../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
-and
 [PDR-011 (Continuity Surfaces and the Surprise Pipeline)](../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md).
 
 ## Rule

@@ -26,7 +26,8 @@ worked instance the same day: a seat's eight-leg suites every forty-five minutes
 ON-TRACK of 24 while it worked one direction of a two-way goal, and every DRIFTING reordered
 work inside the seat's own frame).
 
-Typing `$oak-cricket` asks the current seat to run the whole panel for its platform. The invoker
+Invoking the `cricket` skill by its platform adapter name (the host's skill prefix, then
+`cricket`) asks the current seat to run the whole panel for its platform. The invoker
 builds the frame from live context and starts immediately; missing information is labelled
 `MISSING`, not silently invented.
 
@@ -69,7 +70,7 @@ beats an evocative name); verify it against the platform adapter files (`.claude
 the same canonical judgement template; the smallest model executes the compiled procedure.
 Base templates live in `.agent/sub-agents/templates/`.
 
-Claude bindings (the effort-inversion quartet — model capability descends as effort climbs):
+Claude bindings: the effort-inversion quartet — model capability descends as effort climbs.
 
 | Role | Base template | Model | Effort |
 | --- | --- | --- | --- |
@@ -145,10 +146,7 @@ Label every dispatch and every tally row by the dual scale, so a reader sees tha
 as model power descends (owner ruling 2026-09-13): `Cricket judgement: highest power, low
 effort, <stance> frame` (fable), `high power, medium effort` (opus), `mid power, high effort`
 (sonnet), and `Cricket procedure: lowest power, xhigh effort, compiled procedure, <stance>
-frame` (haiku). The labelling was first written in the jimcresswell.net Practice's
-[cricket skill](https://github.com/jimCresswell/jimcresswell.net/blob/main/.agent/skills/cognition/cricket/SKILL-CANONICAL.md),
-where the owner gave the ruling, and came here through the Practice Box exchange of
-2026-09-24 unchanged.
+frame` (haiku).
 
 A return that has not arrived by one cadence is UNDELIVERED and is never reported as in progress: "a
 missing Cricket return is UNDELIVERED at one cadence, never "still running"" (the owner's correction
@@ -156,7 +154,7 @@ of 2026-09-07 as Jackal wakes Nocturne recorded it, event 58b01caa).
 
 ## Codex dispatch
 
-Oak adapts [OpenAI's Codex subagent workflow](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+This Practice adapts [OpenAI's Codex subagent workflow](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 into a fixed registered-role panel: unlike the upstream's general orchestration pattern, role TOML
 owns model and effort here, dispatch forks no parent context, and the adversarial wave reuses the
 same agents.

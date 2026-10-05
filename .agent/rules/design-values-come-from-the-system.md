@@ -71,8 +71,8 @@ compliant shape.
 - The design-showcase programme ticket and the hub true-up ticket
   (historical anchors, 2026-07-29: MCP-371 and MCP-372) — the enforcement
   carriers when this rule was minted.
-- [`invoke-design-system-expert`](invoke-design-system-expert.md) — the
-  reviewer dispatch that carries this axis.
+- [`invoke-code-experts`](invoke-code-experts.md) — the reviewer roster whose
+  `design-system-expert` row carries this axis.
 - [`no-moving-targets-in-permanent-docs`](no-moving-targets-in-permanent-docs.md)
   — the same single-source-of-truth principle applied to prose.
 

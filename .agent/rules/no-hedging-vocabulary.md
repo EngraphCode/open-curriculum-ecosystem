@@ -181,7 +181,7 @@ This group's in-scope surfaces are wider than the literal trip-list's
 (the `## In-Scope Surfaces` section below applies to the literal
 group): `.agent/practice-core/`, `.agent/plans/`, `.agent/reports/`,
 `.agent/memory/operational/`, `docs/architecture/`,
-`docs/governance/`, and any `**/*.plan.md` — continuity and thread
+and any `**/*.plan.md` — continuity and thread
 records are where holding-state language hides. Inline code is NOT
 excluded for this group (a backticked family member in a table row
 would otherwise dodge the block); fenced code blocks remain skipped.
@@ -193,10 +193,9 @@ names the plan, gate, or owner decision that resolves the work — see
 `agent-tools/tests/hook-policy/scoped-blocks-indefinite-deferral.unit.test.ts`.
 
 **Rejected patterns (design-time, 2026-06-10) — do not "complete" the
-family with these.** Bare `\bpark\b` is excluded: curriculum content
-legitimately names parks ("Hyde Park", "visiting the park"), and the
-inflected forms cover the deferral usage. `on ice` is excluded:
-skating/science lesson content uses it literally. `defer`/`deferred`
+family with these.** Bare `\bpark\b` is excluded: content prose
+legitimately names parks, and the inflected forms cover the deferral usage.
+`on ice` is excluded: content prose can use it literally. `defer`/`deferred`
 are excluded deliberately — a *sequenced deferral to a named gate* is
 legitimate repo vocabulary (PDR-026 deferral-honesty); the pathogen is
 deferral-to-nowhere, not deferral itself. Adding any of these would
@@ -204,11 +203,16 @@ trade a known false-positive flood for no real coverage gain.
 
 ## In-Scope Surfaces
 
+The hook's own scope is the source of truth: the `scoped_blocks` entry for the
+literal group in `.agent/hooks/policy.json` names the surfaces, and this list
+restates it for the reader. In jimcresswell.net:
+
 - `.agent/practice-core/`
 - `.agent/plans/`
 - `docs/architecture/`
-- `docs/governance/`
 - any `**/*.plan.md` anywhere in the tree
+
+OCE's hook scopes its governance documents directory as well, its elaboration-docs home.
 
 ## Excluded Surfaces (Why)
 
@@ -234,7 +238,7 @@ PDR-047 §Test 3 hedge-as-substance.
 Per PDR-044 §Innate immunity, the broad-fast layer "produces some
 false positives by design; it never silently misses a known
 pathogen." Technical-term references to ADR-documented architectural
-exceptions (composition-root carve-outs per ADR-078, NO-TRACER
+exceptions (composition-root carve-outs per the testing strategy, NO-TRACER
 carve-outs in graph-query plans, etc.) trip the surface and are
 dispositioned by the agent — usually by recognising that the term
 is naming a previously-ratified structural decision and proceeding

@@ -346,7 +346,7 @@ failure cause reaches the output file even when it does not notify.
 ## Why This Is a Rule, Not a Preference
 
 A single instance landed as a behavioural surface
-(`oak-start-right-team` SKILL §0 defaults to Monitor), but the
+(the `start-right-team` SKILL §0 defaults to Monitor), but the
 underlying choice — *which harness wrapper to use for any
 event-driven stream* — generalises beyond comms watching. Treating
 it as a general rule prevents the same Bash-background reflex from

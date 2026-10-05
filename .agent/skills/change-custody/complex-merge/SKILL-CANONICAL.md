@@ -27,7 +27,7 @@ Load `.agent/skills/change-custody/complex-merge/shared/complex-merge.md` and en
 1. Read `.agent/skills/change-custody/complex-merge/shared/complex-merge.md`.
 2. Resolve and read the referenced documents:
    - `.agent/rules/pre-merge-divergence-analysis.md`
-   - `docs/engineering/pre-merge-analysis.md`
+   - `.agent/reference/pre-merge-analysis.md`
    - [`semantic-merge` skill](../semantic-merge/SKILL-CANONICAL.md) — MANDATORY for any
      diverged agent memory/state file in the set (`napkin.md`, `repo-continuity.md`, thread
      `*.next-session.md` records, registers, anything with a `merge_class:` key). Git

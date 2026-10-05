@@ -62,7 +62,7 @@ description = "Gateway reviewer for non-trivial changes."
 config_file = "agents/code-expert.toml"
 
 [agents."config-expert"]
-description = "Tooling configuration reviewer (ESLint, TypeScript, Vitest, Prettier, Turbo)."
+description = "Tooling configuration reviewer (TypeScript, ESLint, Vitest, Prettier, Turbo, knip, dependency-cruiser, Husky)."
 config_file = "agents/config-expert.toml"
 
 [agents."corpus-mapper"]
@@ -94,7 +94,7 @@ description = "Fast xhigh-effort conscience check using a compiled decision proc
 config_file = "agents/cricket-procedure-xhigh.toml"
 
 [agents."design-system-expert"]
-description = "Design token and visual consistency specialist for both read-only review and active-workflow planning around DTCG JSON, CSS custom properties, three-tier token model, and theming in UI-shipping workspaces."
+description = "Design token and visual consistency specialist for both read-only review and active-workflow planning around the host's token model, CSS custom properties, tier discipline, and theming in UI-shipping workspaces."
 config_file = "agents/design-system-expert.toml"
 
 [agents."docs-adr-expert"]
@@ -130,7 +130,7 @@ description = "Release go/no-go readiness reviewer."
 config_file = "agents/release-readiness-expert.toml"
 
 [agents."security-expert"]
-description = "Security and privacy reviewer for auth, secrets, PII, and injection risks."
+description = "Security and privacy reviewer for auth, headers, secrets, PII, and injection risks."
 config_file = "agents/security-expert.toml"
 
 [agents."sentry-expert"]

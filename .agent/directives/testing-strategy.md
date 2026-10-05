@@ -11,22 +11,24 @@ split_strategy: "Move recipes to docs/engineering/testing-patterns.md and docs/e
 > Foundational definition (see [tdd-as-design.md](tdd-as-design.md)): a test
 > describes a system state, product code guides the system into it. They are
 > two halves of one act of design. This directive defines the test-type
-> taxonomy and shape rules; `tdd-as-design.md` defines *why* tests exist and
+> taxonomy and shape rules; `tdd-as-design.md` defines _why_ tests exist and
 > the atomic-landing invariant.
 
 ## Tooling
 
-- Vitest
-- React Testing Library
-- Supertest (E2E checks only; see §Development Workflow)
-- Playwright
+- Vitest (unit and integration; runtime logic)
+- React Testing Library (component integration, in-process)
+- Playwright (UI E2E checks in the browser, against a production build)
+- The HTTP E2E driver, the protocol client and the rendering-proof harness the
+  host declares (P9; §This host's bindings)
 
-Mutation testing (Stryker) is **meta-quality** — it audits the test surface,
-not the product, and is the constraint that makes coverage meaningful (a test
-that executes code without checking behaviour scores the same as one that
-describes it). Rollout sequencing:
-`mutation-testing-implementation.plan.md` (backlog). Formal home:
-[`validation-strategy.md`](validation-strategy.md).
+Mutation testing is **meta-quality** — it audits the test surface, not the
+product, and is the constraint that makes coverage meaningful (a test that
+executes code without checking behaviour scores the same as one that
+describes it). The instrument, where one is adopted, is the host's (P10;
+§This host's bindings); the claim-directed practice (write the mutant that
+would falsify the guard, prove the test bites) is in
+[`validation-strategy.md` §Prove the guard bites](validation-strategy.md).
 
 ## Philosophy
 
@@ -117,11 +119,11 @@ describes it). Rollout sequencing:
   `vi.useFakeTimers` or `vi.setSystemTime`.
   Product code must accept configuration, and a clock or scheduler, as
   parameters. See
-  [ADR-078][di]. For React components that fetch or derive async
+  [`no-global-state-in-tests`][di]. For React components that fetch or derive async
   state, the DI seam that makes this holdable is the view-binder
   split — views take state as props, a two-line binder owns the
   hook, tests render the view with literal states, zero mocks
-  (the `view-binder-di-seam` pattern in active memory).
+  (recorded in OCE as the `view-binder-di-seam` pattern).
 
 ## Rules
 
@@ -135,8 +137,8 @@ describes it). Rollout sequencing:
   too big — break it into smaller test+code pairs and land each
   as its own cycle. Every commit ends with all tests passing.
 - **Test real behaviour, not implementation details** - We should
-  be able to change *how* something works without breaking the test
-  that proves *that* it works.
+  be able to change _how_ something works without breaking the test
+  that proves _that_ it works.
 - **Test to interfaces, not internals** - Tests should be written
   to the interfaces, not the internals. Closely related to test
   behaviour not implementation.
@@ -152,8 +154,8 @@ describes it). Rollout sequencing:
   (Owner doctrine 2026-06-08; the specialisation of "assert
   effects, not constants" for flags.)
 - **Prove behaviour, never config or content** - The umbrella over
-  the rules above: a test proves observable behaviour *without
-  constraining implementation*. Two corollaries (owner doctrine
+  the rules above: a test proves observable behaviour _without
+  constraining implementation_. Two corollaries (owner doctrine
   2026-06-26): hashing a source and pinning the hash is the
   antithesis — it pins bytes, proves no behaviour, fails loud on a
   harmless change; and the cure for a **content-quality invariant**
@@ -162,11 +164,9 @@ describes it). Rollout sequencing:
   pin is never admissible: the cure for a pinned value is a test of
   the mechanism that generates it, asserting relations to the inputs
   the test injects, so it is red only when the mechanism breaks and
-  silent on upstream content drift (trigger artefact: the MCP-462
-  differential examples test that replaced three value-pinned
-  tests). A value that carries a decision is recorded in its owning
-  ADR and guaranteed by construction (one exported source) or by a
-  validator, never by a test.
+  silent on upstream content drift. A value that carries a decision is
+  recorded in its owning ADR and guaranteed by construction (one
+  exported source) or by a validator, never by a test.
 - **Pinning an absence is not proof** (owner doctrine 2026-08-19,
   verbatim: "tests should prove behaviour, not configuration, pinning
   a lack of something does not provide value"): an assertion that a
@@ -188,8 +188,8 @@ describes it). Rollout sequencing:
   behaviour"): a test asserting an exclusion counter, a stat field or the
   argument of a query the product made asserts what the configuration
   echoes back, not whether the restricted content flowed. The cure is a sentinel-content assertion
-  through the public result: the hidden lesson's keyword appears only
-  when the switch admits it. The generator to watch is testing at the
+  through the public result (in OCE: the hidden lesson's keyword
+  appears only when the switch admits it). The generator to watch is testing at the
   seam where the wiring is visible instead of the surface where the
   behaviour is observable.
 - **Assert relations to injected inputs, never literals of our own
@@ -248,9 +248,7 @@ describes it). Rollout sequencing:
   `xdescribe`) are forbidden outright. A check that needs an external
   resource fails fast with a helpful error, never silently skips. Validation
   scripts requiring external resources are standalone scripts, not
-  tests. Operationalises [ADR-011 (Use Vitest for
-  Testing)][adr-011-noskip] and [ADR-121 (Quality Gate
-  Surfaces)][adr-121-noskip].
+  tests.
 - **No conditional tests** - Conditional execution of any kind is a
   symptom of architectural failure: `skipIf`, `runIf`, conditional
   registration, runtime branching in test bodies, conditional
@@ -279,12 +277,10 @@ describes it). Rollout sequencing:
   absolute time: time the same operation at two input sizes and compare
   the ratio (about two for a doubling when linear). A fast machine hides
   a quadratic behind a small constant: a 200 KB word took 1.4 s locally
-  and 6.3 s on the runner, where the test timed out red (2026-09-10, the
-  Bash-guard matcher), and the two-size ratio would have shown it in ten
+  and 6.3 s on the runner, where the test timed out red (2026-09-10, in OCE,
+  the Bash-guard matcher), and the two-size ratio would have shown it in ten
   seconds.
 
-[adr-011-noskip]: ../../docs/architecture/architectural-decisions/011-vitest-for-testing.md
-[adr-121-noskip]: ../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md
 [no-cond]: ../rules/no-conditional-tests.md
 
 - **No ambient global state access** - Tests MUST NOT read or mutate
@@ -292,13 +288,13 @@ describes it). Rollout sequencing:
   replace the clock with `vi.useFakeTimers` or `vi.setSystemTime`. If a
   function needs configuration or the time, refactor it to accept the
   configuration, or a clock or scheduler, as a parameter. See
-  [ADR-078][di].
+  [`no-global-state-in-tests`][di].
   A validation check's composition root (a smoke or E2E check's runner
   config, global setup or entry script) may read ambient env, validate
   it, and inject the result. Test files and other setup files must not read
   or mutate `process.env`.
 
-[di]: ../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md
+[di]: ../rules/no-global-state-in-tests.md
 [testing-patterns-value-proxies]: ../../docs/engineering/testing-patterns.md#acceptance-value-proxies
 
 - **No process spawning in tests** - Test code MUST NOT
@@ -306,7 +302,7 @@ describes it). Rollout sequencing:
   instantiate tools that internally spawn processes (e.g.
   programmatic ESLint with TypeScript project service). This
   excludes vitest's own configured pool — the restriction is on
-  what *test code* does, not the runner. Process spawning creates
+  what _test code_ does, not the runner. Process spawning creates
   handles that prevent clean worker exit, causes CI hangs, and
   violates the principle of using the right tool for the job. Use
   the right tool: ESLint for boundary enforcement, Playwright for
@@ -330,8 +326,8 @@ describes it). Rollout sequencing:
   `readFileSync`-ed a plan JSON, asserted its `statuses` and finding
   tuples, and silently broke when a plan-estate relocation moved the file.
   If product code resolves `.agent/` paths, exercise it against an
-  injected file view (ADR-078), never a temporary directory and never
-  the live tree.
+  injected file view, never a temporary directory and never the live
+  tree.
 
 ### Prove the guard bites (mutation check on every gap-closing test)
 
@@ -391,7 +387,8 @@ not on error-shape absence.
   points define boundaries of responsibility. Integration points
   have integration tests. Naming convention:
   `*.integration.test.ts`.
-- System: The complete MCP server exposed via stdio transport.
+- System: a complete running system driven over its protocol channel; the
+  host names its systems and their channels (P11; §This host's bindings).
   Systems have E2E checks (validation, not tests; see §Out-of-process
   checks).
 
@@ -415,8 +412,7 @@ about testing CODE, not testing RUNNING SYSTEMS.
   within the test process. They trigger NO IO, have NO side effects
   outside the test process, and can contain SIMPLE fakes which must
   be injected as arguments to the function under test. Integration
-  tests are automatically run in CI/CD and include MCP protocol
-  compliance testing over in-process calls. **Important**: Integration
+  tests are automatically run in CI/CD. **Important**: Integration
   tests are NOT about testing a deployed or running system - they test
   how multiple code units integrate when imported and called directly.
   An HTTP surface is exercised below the listener, at a handler or
@@ -426,8 +422,8 @@ about testing CODE, not testing RUNNING SYSTEMS.
 
 #### Out-of-process checks
 
-Out-of-process checks validate a running *system*: the check and the
-system run in *separate processes*. Driving a system over a protocol
+Out-of-process checks validate a running _system_: the check and the
+system run in _separate processes_. Driving a system over a protocol
 channel, booting a built artefact, opening a socket, reading a
 filesystem: each is IO, so an out-of-process check is not a test and
 never lives in the in-process test run. It is a **validation surface**
@@ -438,10 +434,11 @@ causes of issues, and cast a wider net. The scope words stay, because
 the questions they name stay:
 
 - **E2E check**: proves a running system's behaviour over its protocol
-  channel (stdio or HTTP for an MCP server; the browser for a UI). It
-  drives the system and asserts on the response; it never manipulates
-  the surrounding environment, and only its harness boots the system.
-  Classification follows the **boundary, not the tool** (owner,
+  channel (stdio for a CLI, HTTP for a server, the browser for a UI; the
+  host's systems are in §This host's bindings, P11). It drives the system
+  and asserts on the response; it never
+  manipulates the surrounding environment, and only its harness boots
+  the system. Classification follows the **boundary, not the tool** (owner,
   2026-07-29): "It depends on if it is calling a black box running
   system over a network interface (E2E), or if it is importing code
   and running it inside the test (integration)." A harness driving a
@@ -453,9 +450,6 @@ the questions they name stay:
   A file named as an E2E check that imports product code and runs it
   in the test process is an integration test under the wrong name
   (`test-immediate-fails` item 20), whatever its suffix or directory.
-  An HTTP harness exercises the HTTP/JSON-RPC exchange but not SSE
-  transport serialisation; keep MCP-client-SDK E2E checks alongside it
-  for transport fidelity.
 
 - **Smoke check**: proves the SHIPPED FORM of a system is viable — the
   built artefact, invoked exactly as production invokes it (plain
@@ -473,9 +467,9 @@ the questions they name stay:
 ```typescript
 // ❌ This is NOT an integration test - it drives a running system, so
 // it is an E2E check, and as a test it is an error (network IO)
-describe('API Integration Test', () => {
-  it('should call the deployed API', async () => {
-    const response = await fetch('http://localhost:3000/api/users');
+describe("API Integration Test", () => {
+  it("should call the deployed API", async () => {
+    const response = await fetch("http://localhost:3000/api/users");
     // Testing a RUNNING SYSTEM over HTTP
   });
 });
@@ -485,12 +479,12 @@ describe('API Integration Test', () => {
 
 ```typescript
 // ✅ This IS an integration test - testing code units working together
-import { UserService } from './user-service';
-import { DatabaseAdapter } from './database-adapter';
+import { UserService } from "./user-service";
+import { DatabaseAdapter } from "./database-adapter";
 
-describe('UserService Integration Test', () => {
-  it('should retrieve users through the adapter', () => {
-    const mockDb = { query: () => [{ id: 1, name: 'Alice' }] };
+describe("UserService Integration Test", () => {
+  it("should retrieve users through the adapter", () => {
+    const mockDb = { query: () => [{ id: 1, name: "Alice" }] };
     const adapter = new DatabaseAdapter(mockDb); // Simple mock injected
     const service = new UserService(adapter);
 
@@ -508,9 +502,9 @@ exchange is permitted, loopback included (§Test Types).
 
 ### Stubs vs Fakes
 
-- **Runtime stubs**: plain functions that live in the SDK and are used in
-  product code stub mode (e.g. `createStubRetrievalService`). They return
-  canned data and have no test framework dependency.
+- **Runtime stubs**: plain functions that live in product code and are used when
+  product code runs in a stub mode. They return canned data and have no test
+  framework dependency.
 - **Test fakes**: simple functions or objects that live in `test-helpers/`
   directories and are used only in tests. They stand in for a dependency so
   the code under test can run. What the product sends through an output port
@@ -552,9 +546,10 @@ integration → E2E). There is a second, orthogonal axis: EXECUTION
 SURFACE. Scope-axis tests and checks typically execute source through a
 loader-assisted harness (vitest, tsx) while production executes built
 artefacts under plain `node` — and nothing at any scope level REQUIRES
-surface fidelity. An E2E check MAY boot the built artefact (the Oak
-Search CLI contract E2E boots `dist/bin/oaksearch.js` and is the worked
-example), but that coverage is incidental to its scope classification.
+surface fidelity. An E2E check MAY boot the built artefact (jimcresswell.net's
+Playwright suite runs against the production build its `e2e:server` script
+builds and serves, and OCE's CLI contract E2E booted its built binary), but
+that coverage is incidental to its scope classification.
 Smoke checks own the surface axis and make artefact fidelity MANDATORY:
 minimum behaviour scope, maximum surface fidelity. Defects that exist
 only in the built form — extensionless ESM import specifiers in
@@ -591,7 +586,7 @@ Minimum truth-sets by artefact class:
   reports ready; the health or initialize surface responds; SIGTERM
   produces a clean exit.
 - **Published package**: the PACKED form is the shipped form — `pnpm
-  pack` (or the registry-equivalent) installed into a clean consumer
+pack` (or the registry-equivalent) installed into a clean consumer
   workspace, then imported under plain `node`: every STATIC
   `exports`-map key is imported directly, and every wildcard subpath
   pattern (e.g. `./client/*`) is proven by importing at least one
@@ -679,11 +674,11 @@ the slicing was wrong.
 
 - ALWAYS USE TDD at ALL levels
 - Use Vitest for all in-process tests (unit + integration)
-- Use Supertest only in E2E checks that drive a separately running
-  system; an integration test calls the handler below the listener and
-  opens no socket (see §Test Types)
+- HTTP E2E checks use the HTTP E2E driver the host declares (P9), only
+  against a separately running system; an integration test calls the
+  handler below the listener and opens no socket (see §Test Types)
 - Use Playwright for UI E2E checks
-- Use the MCP client SDK for MCP protocol E2E checks
+- Protocol E2E checks use the protocol client the host declares (P9)
 - Use the canonical mocking approaches for the testing tools in use for a given test
 - Tests live next to the code they test, not in a `test` directory
   - Unit tests live next to the pure function file containing the
@@ -692,13 +687,14 @@ the slicing was wrong.
     containing the integration points they test. They MUST end in
     `*.integration.test.ts`
   - E2E checks live apart from product code, because they drive a
-    running *system* rather than importing it. Protocol and CLI E2E
+    running _system_ rather than importing it. Protocol and CLI E2E
     checks (Vitest) live in the workspace's `e2e-tests/` directory,
     named `*.e2e.test.ts` and run by the workspace's `test:e2e`. UI
-    E2E checks (Playwright) live in the directory the workspace's
-    Playwright config names as its `testDir`, named `*.spec.ts` and
-    run by the Playwright scripts that workspace's `package.json`
-    names. Either way a check is reachable from a CI-gated task,
+    and HTTP E2E checks (Playwright) live in the directory the
+    workspace's Playwright config names as its `testDir`, named as its
+    `testMatch` states and run by the Playwright scripts that
+    workspace's `package.json` names (the host's values: P12, §This
+    host's bindings). Either way a check is reachable from a CI-gated task,
     because a check that nothing runs is the worse defect (the
     reachability rule of §Smoke Checks)
 
@@ -773,9 +769,9 @@ running under `pnpm test`, CI timeouts that don't reproduce
 locally).
 
 - **Pattern 1 (preferred)**: Import and re-export
-  `baseTestConfig` from `@oaknational/workspace-config/vitest` (a
-  declared `workspace:*` devDependency — never a relative path out
-  of the workspace).
+  `baseTestConfig` from the workspace-config package's `vitest` export
+  (P2; a declared `workspace:*` devDependency — never a relative path
+  out of the workspace).
 - **Pattern 2 (custom)**: Define a workspace-specific config.
   Non-negotiable: `exclude` MUST contain `'**/*.e2e.test.ts'`.
   `include` SHOULD use explicit conventions (`*.unit.test.ts`,
@@ -783,8 +779,8 @@ locally).
 
 Workspaces with `*.e2e.test.ts` files MUST also have
 `vitest.e2e.config.ts` (extending `baseE2EConfig` from
-`@oaknational/workspace-config/vitest-e2e`, or workspace-specific)
-and a `test:e2e` script in `package.json`. A file they govern that drives a separately
+the workspace-config package's `vitest-e2e` export (P2), or
+workspace-specific) and a `test:e2e` script in `package.json`. A file they govern that drives a separately
 running system is an E2E check (§Out-of-process checks); one that
 imports product code and runs it in the test process is an integration
 test under the wrong name
@@ -794,8 +790,8 @@ in-process test run, which admits no IO.
 ## Test Assertion Placement
 
 Keep E2E check assertions on system/transport invariants; prove runtime
-stub semantics in SDK unit/integration tests, not by asserting
-server output against the same stub path.
+stub semantics in the owning workspace's unit/integration tests, not
+by asserting server output against the same stub path.
 
 ## Acceptance Value-Proxies
 
@@ -820,9 +816,15 @@ live owner-facing surface never pauses for a push gate. The first suspect in
 any gate-vs-environment collision is the harness's missing adaptation, never
 the schedule. Worked instances: a fixed-port Playwright `webServer` turned
 one seat's render server into a fleet-wide push outage (cure: an ephemeral
-port probed at config load — no `process.env` in config, `reuseExistingServer`
-stays `false`); a UI-test webServer inheriting `.env.local` refused a valid
-sink configuration (cure: the webServer pins its own observability env).
+port the harness's own server process binds and keeps for its whole life,
+serving the build from that socket, so no server this run did not start is
+ever proved; jimcresswell.net's site config, 2026-09-13, starts that process from
+global setup and hands its origin to the workers through the runner's own
+environment, read there only as the runner's internal handshake channel, so
+the environment never sets the harness's port or origin from outside); a
+UI-test webServer
+inheriting `.env.local` refused a valid sink configuration (cure: the
+webServer pins its own observability env).
 Corollary for guard design: when a guard bites the innocent, fix the shared
 context so the guard's premise holds per-worktree — never weaken the guard.
 
@@ -843,6 +845,31 @@ Four browser-specific proof categories for UI-shipping workspaces:
 3. **Responsive validation** — viewport and fluid layout coverage.
 4. **Theme/mode correctness** — light, dark, high-contrast passes.
 
-For MCP App HTML resources: serve content directly to Playwright
-(resource-level a11y), then verify via basic-host (integration-level).
-See ADR-147, `docs/governance/accessibility-practice.md`.
+See the accessibility practice document the host declares (§This host's
+bindings).
+
+## This host's bindings
+
+The values the shared text above names by parameter, for this host (OCE).
+The sibling estate's copy of this file carries its own section here;
+everything above it is the same text in both.
+
+- **P9, the test tooling set**: HTTP E2E checks use Supertest, only against
+  a separately running system; MCP protocol E2E checks use the MCP client
+  SDK; no rendering-proof harness is declared.
+- **P10, the mutation instrument**: Stryker, wired through the root `mutate`
+  turbo task, with a backlog rollout plan.
+- **P11, the systems under test**: the MCP server over stdio or HTTP; a UI
+  in the browser. Integration tests include MCP protocol compliance testing
+  over in-process calls. An HTTP harness exercises the HTTP/JSON-RPC exchange
+  but not SSE transport serialisation; keep MCP-client-SDK E2E checks
+  alongside it for transport fidelity.
+- **P12, E2E and smoke locations**: each workspace's `e2e-tests/` directory
+  with `*.e2e.test.ts` (Vitest, run by the workspace's `test:e2e`);
+  Playwright `*.spec.ts` under the config's `testDir`; smoke files under
+  `smoke-tests/`.
+- **Accessibility practice**:
+  [`docs/governance/accessibility-practice.md`](../../docs/governance/accessibility-practice.md).
+  For MCP App HTML resources: serve content directly to Playwright
+  (resource-level a11y), then verify via basic-host (integration-level);
+  see ADR-147.

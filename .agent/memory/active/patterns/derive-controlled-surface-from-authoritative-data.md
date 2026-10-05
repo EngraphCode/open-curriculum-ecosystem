@@ -3,6 +3,7 @@ name: Derive a Controlled Surface From the Authoritative Data
 polarity: pattern
 use_this_when: A surface you control (an enum, a parameter value space, a type, a listing page) mismatches an authoritative data source and the tempting move is a crosswalk or mapping layer between them
 category: architecture
+layer: general
 status: emerging
 discovered: 2026-05-27
 proven_in: The EEF focus-enum owner correction (2026-05-27) and the MCP landing-page under-listing cure — see §Worked Instances

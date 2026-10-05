@@ -218,7 +218,7 @@ function splitNul(text: string): string[] {
 }
 
 /** The failure a git run gave: its status, or none, and git's own standard error. */
-export function gitFailed(output: GitRunOutput): GitReadFailure {
+function gitFailed(output: GitRunOutput): GitReadFailure {
   return { kind: 'git-failed', status: output.status, stderr: output.stderr };
 }
 

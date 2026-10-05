@@ -16,7 +16,7 @@ import { absolutePath } from './live-types.js';
 
 /**
  * The reads the collaboration readers make of a repository, injected so a
- * test holds the files in memory (ADR-078).
+ * test holds the files in memory (the injected-seams rule).
  */
 export interface SubstrateReads {
   /** A repo file's UTF-8 text; rejects as `readFile` does, with code `ENOENT` when no file is there. */
@@ -41,7 +41,7 @@ export function liveSubstrateReads(repoRoot: string): SubstrateReads {
  * Read a surface whose absence the audit classifies: its text, or `undefined`
  * when no file is there. The read is the existence test, so nothing can change
  * between a check and the read (CodeQL `js/file-system-race`). Any other
- * failure is the `Err`, the original error intact (ADR-088).
+ * failure is the `Err`, the original error intact (the Result pattern).
  */
 export async function readTextIfPresent(
   reads: SubstrateReads,

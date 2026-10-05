@@ -3,6 +3,7 @@ name: "Memory-Surface Four-Part Lifecycle"
 polarity: pattern
 use_this_when: "Creating, reviewing or curating any memory surface that accumulates entries over time (a napkin, a continuity record, a register, a ledger), or explaining why one keeps growing."
 category: process
+layer: general
 proven_in: ".agent/directives/continuity-practice.md §Disposition of Continuity Surfaces"
 proven_date: 2026-09-17
 barrier:

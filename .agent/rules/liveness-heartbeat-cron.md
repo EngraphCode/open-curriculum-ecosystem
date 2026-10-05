@@ -31,8 +31,7 @@ by
 [PDR-078 (liveness-heartbeat contract)](../practice-core/decision-records/PDR-078-liveness-heartbeat-contract.md).
 The repo-bound phenotype substrate that operationalises the contract in
 this repository — the comms-event substrate shape, the canonical event
-kind / discriminator field, the watcher render token — is recorded in
-[ADR-186 (comms-event heartbeat lifecycle substrate)](../../docs/architecture/architectural-decisions/186-comms-event-heartbeat-lifecycle-substrate.md).
+kind / discriminator field, the watcher render token — lives in the `agent-tools` comms-event substrate.
 This rule is the operational adoption point: it cites the contract +
 phenotype pair as authoritative and prescribes the team-cadence-shaped
 discipline that every participating agent runs.
@@ -76,7 +75,7 @@ broadcast lands.
 
 ### Operational summary
 
-Binding norms preserved here for fast read; PDR-078 + ADR-186 are the
+Binding norms preserved here for fast read; PDR-078 and the `agent-tools` substrate are the
 authoritative source of substance.
 
 - Every active team member emits a heartbeat event at cadence ≤ 4
@@ -103,13 +102,12 @@ authoritative source of substance.
   invocation stands: both beats run, and neither pauses (the owner-word
   stand-down of §Exemptions below, PDR-078 §4, still stops a seat: that is
   the owner's word ending the seat's run, not a pause around a push).
-- The current repo phenotype (per ADR-186, emitter migrated
+- The current repo phenotype (emitter migrated
   2026-08-02) lands heartbeats in the canonical lifecycle shape: the
   agent-tools CLI's heartbeat mode (`comms send --tag heartbeat`)
   emits `kind='lifecycle'` + `event_type='heartbeat'` — the token
   cited from the exported `HEARTBEAT_EVENT_TYPE` constant, never a
   hand-typed literal — with the
-  [ADR-183](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md)
   `heartbeat` tag RETAINED through the migration window (the tag keeps
   F-146 exclusion, the `[HEARTBEAT]` render token, and unrebuilt
   seats' tag-only consumers working). The lifecycle envelope needs a
@@ -123,7 +121,7 @@ authoritative source of substance.
   thread by construction.
   Legacy `narrative + tags: ["heartbeat"]` events stay
   valid during the window, and every consumer counts BOTH shapes via
-  the shared dual filter (ADR-186 §Migration discipline). The
+  the shared dual filter (the substrate's migration discipline). The
   identity-tuple subject-line format:
 
 ```text
@@ -506,7 +504,7 @@ When an agent crosses the 10-minute threshold without heartbeat:
    before broadcasting; direct-ping first.
 2. **Per-claim disposition**:
    - **Claims with `handoff_record_path` field set**: read the named
-     handoff record (PDR-063 / ADR-182); surface to the natural-next
+     handoff record (PDR-063); surface to the natural-next
      agent named in the record or Director-route to a suitable agent.
    - **Claims without a handoff record**: surface as orphan-class;
      Director routes through dialogue to a natural-next-agent based on
@@ -625,8 +623,8 @@ the substance lives here for the same two reasons that govern
 [`comms-all-channels-watcher`](comms-all-channels-watcher.md): rule
 discoverability and trigger-loaded doctrine cost.
 
-The contract substance lives in PDR-078 (portable contract) and ADR-186
-(repo-bound phenotype). This rule's role is the operational adoption
+The contract substance lives in PDR-078 (portable contract) and the `agent-tools`
+comms substrate (repo-bound phenotype). This rule's role is the operational adoption
 point — the named place where every agent reads the binding norms,
 state thresholds, exemptions, and invocation shape at session
 bootstrap.
@@ -636,14 +634,10 @@ bootstrap.
 - [PDR-078 (liveness-heartbeat contract)](../practice-core/decision-records/PDR-078-liveness-heartbeat-contract.md)
   — the portable contract this rule operationalises. Cadence, threshold,
   redundancy rule, exemption set, and the structural cure live there.
-- [ADR-186 (comms-event heartbeat lifecycle substrate)](../../docs/architecture/architectural-decisions/186-comms-event-heartbeat-lifecycle-substrate.md)
-  — the repo-bound phenotype that operationalises PDR-078 here.
-  `[HEARTBEAT]` watcher token, at-most-once render guarantee, consumer
-  dual-filter contract during migration. See ADR-186 §Migration
-  discipline for the migration-window exit criterion.
-- [ADR-183 (comms-event tag-namespace substrate)](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md)
-  — the tag-namespace substrate ADR-186 composes through for the
-  `[HEARTBEAT]` render token during the migration window.
+- The `agent-tools` comms-event heartbeat substrate — the repo-bound
+  phenotype that operationalises PDR-078 here: `[HEARTBEAT]` watcher
+  token, at-most-once render guarantee, and the tag-namespace substrate it
+  composes through.
 - [PDR-027 (threads, sessions, and agent identity)](../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md)
   — identity tuple format in the heartbeat subject line.
 - [PDR-064 (coordinator handoff two moments)](../practice-core/decision-records/PDR-064-coordinator-handoff-two-moments.md)

@@ -87,8 +87,7 @@ work this content describes?". Two dispositions:
    compared with the same ranges cut from the pre-move blob (the surface as
    committed at `HEAD` before the move) and joined in that order; no snapshot
    of the whole file is written, because that commit stays in history as the
-   move commit's parent); and the
-   live surface
+   move commit's parent); and the live surface
    keeps only the live state and a one-line pointer to the archive (the path
    written inline as code: the link validator's target set excludes archive
    directories, and the commit gate refuses a markdown link into one). Git retains the literal
@@ -128,8 +127,7 @@ not the same as conserving its insight.
 
 The repeatable operational procedure for disposition #2 (a runbook per
 [PDR-120](../practice-core/decision-records/PDR-120-runbooks-are-a-content-kind-not-a-surface.md),
-embedded here in the doctrine it enacts; indexed in
-[`docs/operations/README.md`](../../docs/operations/README.md) §Runbook Index):
+embedded here in the doctrine it enacts):
 
 1. **Per entry, ask "live or finished?"** — never infer from age or fitness status.
    Every entry is read before anything moves. The reading may be done by the curating

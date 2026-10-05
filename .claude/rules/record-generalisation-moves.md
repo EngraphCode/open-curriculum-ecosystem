@@ -8,6 +8,7 @@ paths:
   - .claude/**
   - .cursor/**
   - .agents/**
+  - .gemini/**
 ---
 
 Read and follow `.agent/rules/record-generalisation-moves.md`.

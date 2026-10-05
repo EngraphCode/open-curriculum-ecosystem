@@ -76,11 +76,9 @@ watching seat's context for a signal one seat needed. The same message to a non-
 which has no s2s, goes where that seat reads (§Non-Claude seats are first-class). A message with a wider audience, a longer life or a consumer goes where that
 audience or mechanism reads, at occurrence (behaviour 2). Two sends that look like dialogue
 are knowledge-bearing: the reason an idea was rejected, and a lane assignment, whose first act
-on receipt is the claim. The owner gave this direction in the jimcresswell.net Practice, whose
-[`channel-by-audience-lifetime-and-consumer`](https://github.com/jimCresswell/jimcresswell.net/blob/main/.agent/rules/channel-by-audience-lifetime-and-consumer.md)
-rule first named the three selectors. The paragraph came here through the Practice Box exchange
-of 2026-09-24. It keeps this skill's timing (at occurrence) where that rule says "at the moment
-it is acted on".
+on receipt is the claim. The `channel-by-audience-lifetime-and-consumer` rule names the three
+selectors; this paragraph keeps this skill's timing (at occurrence) where that rule says "at the
+moment it is acted on".
 
 The split, in one line each:
 

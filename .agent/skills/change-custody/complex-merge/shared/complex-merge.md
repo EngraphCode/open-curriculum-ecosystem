@@ -9,7 +9,7 @@ last_updated: 2026-03-31
 # Complex Merge Workflow
 
 Structured process for merging significantly diverged branches. This workflow
-wraps the [Pre-Merge Divergence Analysis](../../../../../docs/engineering/pre-merge-analysis.md)
+wraps the [Pre-Merge Divergence Analysis](../../../../reference/pre-merge-analysis.md)
 guide into an agent-executable process, enhanced with operational patterns
 learned from the WS3 merge (2026-03-30).
 
@@ -18,7 +18,7 @@ learned from the WS3 merge (2026-03-30).
 Read these documents before starting:
 
 - `.agent/rules/pre-merge-divergence-analysis.md`
-- `docs/engineering/pre-merge-analysis.md`
+- `.agent/reference/pre-merge-analysis.md`
 - `.agent/directives/principles.md` (TDD, fail-fast, no compatibility layers)
 
 ## Phase 1: Measure the Divergence
@@ -186,5 +186,4 @@ Write session learnings to the napkin:
 ## References
 
 - `.agent/rules/pre-merge-divergence-analysis.md` — canonical rule
-- `docs/engineering/pre-merge-analysis.md` — detailed guide
-- `.agent/plans/sdk-and-mcp-enhancements/archive/completed/ws3-merge-main-into-branch.plan.md` — real-world example
+- `.agent/reference/pre-merge-analysis.md` — detailed guide

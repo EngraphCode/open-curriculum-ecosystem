@@ -142,6 +142,8 @@ jobs:
         run: pnpm portability:check
       - name: Run workspace-owned repo validators
         run: pnpm repo-validators:check
+      - name: Docs validators
+        run: pnpm docs-validators:check
       # Both legs self-build agent-tools, so they run here without the
       # build job. Until AIP-165, skills:check ran only in `pnpm check`
       # and encoding:check only there and at pre-push — neither was
@@ -435,10 +437,10 @@ jobs:
   # tests on a Windows runner — the surface the native-Windows changeset
   # (upstream PR #891, carried by the fork) makes work: path separators and
   # drive letters, trusted git and gh resolution, LF normalisation, pnpm
-  # resolution for spawned processes. Advisory until the owner makes it a
-  # required check once it is green (the carrier plan's owner gate), so it is
-  # deliberately NOT in run-quality-gates' needs list yet; a failure here is
-  # visible on the checks tab and is the signal the ruling asks for.
+  # resolution for spawned processes. Required since the family's one CI shape
+  # (2026-10-05): it is in run-quality-gates' needs list like every job, so a
+  # failure here blocks the merge; the step summary and the checks tab carry
+  # the signal the ruling asks for.
   windows-basic:
     name: windows-basic
     permissions:
@@ -480,10 +482,13 @@ jobs:
         shell: bash
         run: pnpm --filter @oaknational/agent-tools test
 
-  # Single required status check: fans in every gate above (the advisory
-  # schema-drift pair and the advisory windows-basic leg excepted, by design) and fails unless every
+  # Single required status check: fans in every job above (the family
+  # contract: one required context fed by every job) and fails unless every
   # one succeeded — failed, cancelled, AND skipped results all block (fail-closed,
-  # so adding an `if:` guard to a gate later cannot silently bypass it). Reusing
+  # so adding an `if:` guard to a gate later cannot silently bypass it), with one
+  # named exception: `schema-drift-status` skips by its own design on a fork's or
+  # Dependabot's pull request (a read-only token cannot write a commit status),
+  # and only under exactly that condition is its skipped result accepted. Reusing
   # the existing `run-quality-gates` context keeps the branch ruleset unchanged
   # while each split job blocks merge.
   run-quality-gates:
@@ -494,9 +499,12 @@ jobs:
       - install
       - static-checks
       - build
+      - schema-drift
+      - schema-drift-status
       - unit-tests
       - knip-depcruise
       - browser-tests
+      - windows-basic
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -508,10 +516,24 @@ jobs:
       - name: Verify every quality gate passed
         env:
           RESULTS: ${{ join(needs.*.result, ',') }}
+          # The one by-design skip: mirrors the `if` on schema-drift-status, so a
+          # skipped result is accepted only where that job's own condition
+          # excluded it, never because a gate grew an `if:` guard.
+          DRIFT_STATUS_RESULT: ${{ needs.schema-drift-status.result }}
+          DRIFT_STATUS_SKIPS_BY_DESIGN: ${{ github.actor == 'dependabot[bot]' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository) }}
         run: |
           echo "Gate results: $RESULTS"
+          skips_allowed=0
+          if [ "$DRIFT_STATUS_RESULT" = "skipped" ] && [ "$DRIFT_STATUS_SKIPS_BY_DESIGN" = "true" ]; then
+            echo "schema-drift-status skipped by design on this pull request (no commit status on a read-only token)."
+            skips_allowed=1
+          fi
           IFS=',' read -ra results <<< "$RESULTS"
           for result in "${results[@]}"; do
+            if [ "$result" = "skipped" ] && [ "$skips_allowed" -gt 0 ]; then
+              skips_allowed=$((skips_allowed - 1))
+              continue
+            fi
             if [ "$result" != "success" ]; then
               echo "::error::Quality gate result '$result' is not 'success' — blocking merge."
               exit 1

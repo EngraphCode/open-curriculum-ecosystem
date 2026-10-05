@@ -56,8 +56,7 @@ state.
   warnings are not deferrable; downgrading to `warn` is suppression
   with extra steps).
 - **Adding `eslint-disable` / `eslint-disable-next-line`** to
-  silence a rule. The
-  [`no-eslint-disable`](https://github.com/oaknational/oak-open-curriculum-ecosystem/blob/main/eslint-rules/eslint-rules/lib/rules/no-eslint-disable.ts)
+  silence a rule. The estate's ESLint plugin's `no-eslint-disable`
   rule already enforces this; the rule itself must never be exempted.
 - **Adding `// @ts-expect-error` / `// @ts-ignore`** to bypass a
   type error. Fix the type flow upstream — see
@@ -191,8 +190,8 @@ For this rule, a check or gate is any of:
 
 - A lint rule (ESLint, Prettier, markdownlint, custom eslint-rules).
 - A type-checker invocation (`tsc`, `pnpm type-check`).
-- A test in any test suite (`pnpm test`, `pnpm test:e2e`,
-  `pnpm test:widget`, `pnpm test:a11y`, etc.).
+- A test in any test suite (`pnpm test`, the end-to-end checks, the
+  host's rendering-proof instrument, etc.).
 - A static analysis tool (knip, depcruise, Sonar, CodeQL).
 - A pre-commit hook (`.husky/`, `.claude/hooks/`,
   `pre-tool-use` / `post-tool-use` agentic hooks).
@@ -202,8 +201,8 @@ For this rule, a check or gate is any of:
 - A practice-fitness threshold (`pnpm practice:fitness`).
 - A schema validation step (Zod, JSON-schema, OpenAPI codegen
   output validation).
-- A monitoring / observability assertion (Sentry uptime checks,
-  Sentry release boundary, CI deployment-validation steps).
+- A monitoring / observability assertion (uptime checks, CI
+  deployment-validation steps).
 
 If it produces a pass/fail signal, it is a gate, and the rule applies.
 
@@ -241,9 +240,8 @@ during the window — which they will not.
   PDR-126 (gates land strict, in one landing) — a new rule is not
   a "weakening" diff, so this clause names it explicitly.
 - `release-readiness-expert` enforces the rule at PR-ready gate.
-- `architecture-expert-fred` (principles-first) enforces the rule
-  on any architectural decision that proposes a gate-off-fix-gate-on
-  shape.
+- `assumptions-expert` enforces the rule on any plan or proposal
+  that schedules a gate-off-fix-gate-on shape.
 
 ## Cross-references
 

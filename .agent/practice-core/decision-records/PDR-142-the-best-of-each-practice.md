@@ -11,7 +11,8 @@ the owner's word that concept transfer is the goal and identical bytes only a
 means (the Decision's clause on concepts and bytes and its merged-text bullet; the Amendment
 Log), and again the same day on the owner's card on format at receipt (the same clause), and
 2026-09-25 on the owner's words on pace and goal and the authority class before a cure (the
-same section and §Boundaries; the Amendment Log)
+same section and §Boundaries; the Amendment Log), and 2026-10-04 on the owner's words of
+2026-10-03 on the measure, read per layer of the ratified definition (the Amendment Log)
 **Date**: 2026-09-21
 **Related**: [PDR-125](PDR-125-inter-practice-collaboration-protocol.md)
 (the inter-Practice protocol; clause 6's union posture, which this record
@@ -23,9 +24,9 @@ amend), [PDR-105](PDR-105-reference-direction-invariants.md) (portability),
 
 Several repositories carry one Practice, copied from one another at known
 points and evolved apart since. The owner's opening words of 2026-09-21,
-verbatim: "we transplanted the Practice from [the lineage] to [a second
+verbatim: "we transplanted the Practice from [OCE] to [a second
 estate]. In that process we improved and evolved the Practice. The Practice
-in [the lineage] also continued to evolve. We need to bring each Practice
+in [OCE] also continued to evolve. We need to bring each Practice
 instance up to the highest standards and best capabilities of each. We also
 have [a third estate] which has a Practice that is badly lagging, some of
 which needs replacing, and some bad ideas need removing." Later the same
@@ -72,7 +73,7 @@ avoided because of the future extraction". Of its pace (2026-09-21): "above all,
 both go slow and take your time, alignment is far more important than speed here". Of its
 goal (2026-09-24, relayed; 2026-09-25, the owner's words as recorded by the seat they were
 spoken to; the estates given as roles): "We are prioritising all [the second estate's]
-Practice innovations being integrated into [the lineage], then we review. This is a fixed
+Practice innovations being integrated into [OCE], then we review. This is a fixed
 process with an end, not an ongoing effort. Once the Practice contains the best of both it
 will be extracted into an installable entity."
 
@@ -115,8 +116,11 @@ the owner's word. What is removed is removed in every estate that carries it.
 
 ### How each kind travels
 
-- **Core decision records:** bytes, identical, naming no host (read through "Concepts travel"
-  below).
+- **Core decision records:** bytes, identical, naming no host in their doctrine (read through
+  "Concepts travel" below); where a Core record records an estate's act (a word given there, a
+  landing made there, a measure taken there), it names that estate by its name, never by a
+  role or a pronoun (the owner's word of 2026-09-30, "it's not 'the lineage', it's OCE", and
+  the owner's card answer of 2026-10-04 confirming it against this clause's earlier reading).
 - **Text the estates held at the copy point:** the donor's BYTES, by three-way merge from that
   point, where they carry the concept (read through "Concepts travel" below). One side moved:
   the evolved text is the candidate, never the verdict; newer is not
@@ -225,12 +229,12 @@ Owner direction 2026-09-21 (the opening words, the together-NOW word, the
 equal-partners word, and nine answers by card, each recorded verbatim with
 its question in the estate where it was given). Authored jointly by the two
 exchange seats, Brazier spins Temper in the second estate and
-Zephyr guards Leeward (281e44) in the lineage, on the shared rapid-comms
+Zephyr guards Leeward (281e44) in OCE, on the shared rapid-comms
 channel of 2026-09-21: two blind drafts, four real cases answered blind, a
 blind ordering of the shared work, four adversarial checks from the
 seats' own model family and one from another vendor's model (Whippoorwill
 holds Frost, 1e8a53), five versions, both signatures. Numbering allotted
-from the lineage estate, where PDR numbers are canonical; taken before the
+from the OCE estate, where PDR numbers are canonical; taken before the
 third estate's colliding records renumber above 141.
 
 ## Amendment Log
@@ -272,7 +276,7 @@ so.
 
 **Context.** Asked how a receiver treats a donor's bytes that its own format gate refuses, with
 option 1 a sentence letting each receiver normalise to its own format, the owner answered: "We
-are standardising the Practice between [the lineage] and [the second estate]. broadly I agree
+are standardising the Practice between [OCE] and [the second estate]. broadly I agree
 with option 1, but in this case we are also trying minimise the cost of the eventual extraction
 and replacement of the Practice". The seats' narrower words went back to the owner and were
 ratified by card. The final reviews of the entry above, in both estates, found its wording
@@ -422,3 +426,49 @@ packs per domain.
 **Falsifier.** A domain skill whose fundamentals cannot be separated from one host's layer
 without losing the skill, or an entity install that carries one host's layer as canonical. One
 such instance reopens this entry with the owner, and this log says so.
+
+### 2026-10-04 — the owner's words of 2026-10-03 on the measure, heard first-hand
+
+**Context.** The exchange this record defines was worked for two days as byte-level parity between
+the two estates, measured by the dry-run merge this record's §Prediction names. The owner, to the
+Director seat Crucible binds Slag (7b999c) on 2026-10-03, verbatim: "Yesterday I said finish
+within 2 hours as a guide, if the estimate hits four we have a problem. Today I said finish today.
+Now you are telling me that we need all of today and ten straight hours tomorrow. And I am telling
+you, that means we are doing it wrong. Why, why is bringing two estates of well understood files
+into alignment taking this long, question your framing and assumptions". And: "there are two
+estates with one system of development and value provision and contracts and authority and so on,
+and that system currently has divergences that we are trying to resolve". And: "The act of
+bringing the two instances of the Practice into alignment is how we explore what the Practice
+currently is".
+
+**Decision.** The dry-run merge stays an observable, never the headline (§Prediction's own
+caveat): the divergences are resolved from a model of the system, which PDR-143 §Decision now
+carries as the ratified definition in five layers, and §How each kind travels is read per layer:
+the general layer travels by concept (as written), the family layer by convention within a
+family, the contextual layer never, the accumulated layer never, and the loop's path between
+instances is the extraction's open question, not a travel rule of this record. The unit of
+landing is the estate, one pull request per class of divergence, never the hunk; the count of pull requests a
+plan implies is its cost and is counted before work starts.
+
+**Falsifier.** A divergence the model cannot class, or a landing by class that the dry-run merge
+shows regressing the text both estates already shared. One such instance reopens this entry with
+the owner, and this log says so.
+
+### 2026-10-05 — a Core record names an estate by its name where it records that estate's act
+
+**Context.** The doctrine landing of `practice-alignment-by-class` (jimcresswell.net 321,
+OCE #353) carried the Core's records as one text, and its reviewers raised the same finding in both
+estates: a Core record naming an estate ("OCE", "jimcresswell.net") reads as host-bound under
+this record's clause "naming no host". The conflict was put to the owner with that landing,
+never decided by the seat: the owner's word of 2026-09-30 ("it's not 'the lineage', it's OCE")
+against the clause. The owner's card answer of 2026-10-04, verbatim: "Your words stand".
+
+**Decision.** The clause in §How each kind travels now reads that a Core record names no host
+in its doctrine and names an estate by its name where it records that estate's act (a word
+given there, a landing made there, a measure taken there). A reviewer's finding on such a name
+is answered by this entry, not cured. The Core's heading gate (`validate-no-host-names-in-core-headings`)
+is unchanged: a host's name stays out of headings, where it would bind the record's subject.
+
+**Falsifier.** A Core record whose doctrine, not its account of an act, needs an estate's name
+to read true in a third estate. One such instance reopens this clause with the owner, and this
+log says so.
