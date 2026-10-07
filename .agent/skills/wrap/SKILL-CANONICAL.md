@@ -117,7 +117,14 @@ and Forge herds Vapor, event 5c30f92a of 2026-09-24).
    2026-09-15, verbatim: "the whole point of coordination branches is to
    have a common home for things like wraps"; to a lane, "write to the
    coordination branch, a later seat will handle the commit and push"). The
-   work-safety evidence names that branch as the wrap's home.
+   work-safety evidence names that branch as the wrap's home. The evidence is
+   REPORTED, in the wrap message and the closeout event, and never written
+   into a record: a napkin or thread-record line that restates a checkout's
+   branch, its ahead/behind or a worktree list is a copy of git's own state,
+   stale at the next checkout, and is the defect, not evidence (a seat wrote
+   the checkout's position into both records and corrected it within the
+   hour, 2026-10-07). A record carries only what git cannot recompute: why
+   the work sits where it does, and by whose word.
 3. **Run [`session-handoff`](../session-handoff/SKILL-CANONICAL.md)** —
    its session-shape check, steps, and deep loss scan (the class-by-class
    context scan, in lock-step with knowledge-safety-sweep's discipline).
