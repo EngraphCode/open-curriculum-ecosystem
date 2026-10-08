@@ -275,7 +275,11 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    state lives in the harness task-list, the napkin, and active claims. At
    session close, promote any short-lived signal worth keeping into the owning
    thread's next-session record lane-state promotion watchlist or into the
-   napkin; the rest lapse with the task-list and claims.
+   napkin; the rest lapse with the task-list and claims. A tactical signal is
+   an observation, a lesson or a pending decision; git state (the checked-out
+   branch, ahead/behind, the worktree list) is never one, because git
+   recomputes it and a record of it is stale by the next checkout
+   (2026-10-07).
 
 5. **Sync the authoritative next-action surfaces.** Update any active plan
    whose status, preconditions, or immediate next safe step changed this

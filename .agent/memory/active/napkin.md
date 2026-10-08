@@ -408,3 +408,52 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
 - **Copilot's review of the final tip, one finding, true**: the manifest's `agent-tools:build`, `agent-tools:prevent-accidental-major-version` and `agent-tools:secret-scan` lack `--fail-if-no-match` while the hook comments say every agent-tools alias carries it (both estates, the same bytes). A signed remainder on the description and the thread; the first follow-up pull request per estate after the merge cures the class by a manifest self-check in the conformance validator.
 - **Merged**: the sibling's 322 at `SHA:d3647a9d` (16:26:59Z); #354 at `SHA:ef42bd11f` through the bot's door after its quiet window. The sibling's ruleset switched to its fan-in; this estate's was already there.
 - **Lesson, one instance**: the home push gate refused a push at `skills:check` because an edited skill script has projections under `.claude/skills/` and `.agents/skills/`; regenerate in both estates before any push that touches `.agent/skills/**` (here `pnpm skills:generate --prefix=oak-`).
+- **17:2xZ, the fold**: #352 merged at `SHA:efe69ff66` through the bot's door after two settlement pushes (eight threads: the stale pre-settlement ledger row, the finish line's "here", the extraction node's successor metadata against its narrative, the strategic node's date, the rebudget wording, the predecessor's letter read as it stands, and the fold procedure's own post-fold block, which this commit is); the successor `coordination/2026-10-05-efe69f` cut from the merge. Lesson, one instance: a records-class fold draws findings on the records' own freshness (a count, a date, a "here", a successor field against its narrative); write records estate-neutral and dated before the ready-mark, and read the ledger rows against the survey at the fold, not at the wrap.
+
+## 2026-10-05T17:3xZ — Compaction boundary at the owner's word (Sycamore holds Spore, 18d874)
+
+- **The owner's word, verbatim** (in the sibling's session, which worked both estates): "prepare for compaction ultrathink /jc-metacognition /jc-free-play /jc-concept-exploration /jc-reason /jc-plan /jc-wrap". The modes ran over the day's material in the sibling; the harvest is the jimcresswell.net napkin block of this hour and the born sketch `practice-alignment-conservation` there (the sketch's home; the same bytes land here at ratification): the fail-closed property on every filtered alias in the family manifest checked by the conformance validator (the remainder #354 named), and the byte proof as a tracked command with the finish's partition (829 shared, 776 identical, 9 placeholder-only, 44 differing) as its baseline. The extraction's design is the owner's and is not drafted.
+- **The boundary state here**: the primary on `coordination/2026-10-05-efe69f` at `SHA:73664b3be` pushed (draft #355) before this block's commit; this block, the handoff addendum and the formation letter are the boundary commit, pushed through the bot's gate. No process of this seat runs in this estate (no claim was opened here; the comms watcher ran in the sibling); the one other worktree, `oce-wt-j2-docs-validators` on `feat/exchange-j2-docs-validators` with 23 dirty files, is not this seat's and is untouched.
+
+## 2026-10-05T20:5xZ — The retrospective on the alignment arc landed; the seat's close (Crucible binds Slag, 7b999c)
+
+- **The owner's words, verbatim**: at 14:3xZ, "prepare for compaction ultrathink /jc-metacognition
+  /jc-free-play /jc-concept-exploration /jc-reason /jc-plan /jc-wrap post-compaction you will run a
+  retro, then your session will be complete"; at 15:3xZ, after the compaction, "/jc-retrospective
+  Please plan then run a restrospective". The plan went to the plan file first and the owner's
+  approval released it.
+- **The record**: `.agent/reports/agentic-engineering/2026-10-05-why-the-alignment-took-four-days-after-the-owner-said-hours.md`,
+  the same bytes in both estates with its README row. Reconstructed from primary sources in
+  windows (the API for the six landings, the napkin blocks of 10-03 to 10-05, the thread record,
+  both review-cost ledgers, the two Cricket tallies, the push logs, the predecessor retrospective
+  of 2026-09-30), each window's findings written to a scratch ledger before the record. The
+  causal stack: one text against two gate sets (technical); the hunk-times-lifecycle unit twinned
+  by a second seat, with the shape cure measured at 07:1xZ on 10-03 and routed to the owner as a
+  card instead of taken (process); the frame inherited from the transplant with no definition of
+  the Practice until the owner's 21:0xZ turn (meta). The counterfactual inside the arc: the
+  code landing, one pull request per estate for 464 and 217 files, against forty-one pull
+  requests on 10-02.
+- **Proposals and lanes**: five, each with warrant and falsifier; four to the fast lane (the
+  landing unit with the byte proof, into `cross-estate-work-must-reduce-divergence` and the
+  pr-lifecycle sizing; a measured rate in every §Size; the carry proof as the tracked tree and
+  CI; the fan-out brief as a reference page), one to the slow lane (settlement under sampling
+  reviewers cures the class and counts both reviewers' rounds; prediction: the next landing over
+  two hundred files settles in at most three pushes per estate; review 2026-10-19). A sixth, that
+  a measured shape is the seat's to take without the owner, was killed by the adversarial read
+  as a broadening of authority. The predecessor's five proposals: two routed, one re-proposed
+  with a home, one left as a row for the sibling's next code session, one withdrawn. The
+  adversarial read's eight findings are in the record with their dispositions; six cures taken.
+- **Coordination**: the successor Sycamore holds Spore (18d874) named the slot natively (commit
+  nothing until their two pushes land; append after their 17:3xZ blocks); the consultation
+  events are home 89f85ec4 and sibling af7ab6cf; no claim opened (the registries held only
+  expired rows), nothing of the successor's staged.
+- **Lesson, one instance, the cost paid by the successor**: the two consultation events above,
+  posted at 20:43Z while the successor's boundary pushes ran, left each estate's generated comms
+  read model (`shared-comms-log.md`, gitignored) stale, and `practice-substrate check` refused
+  both pushes at the final gate, ten minutes in each. A comms event is an edit to a tree under a
+  running gate: the never-edit-under-a-gate rule covers the comms directory, and the push order
+  is render the read model, then push, with no event between.
+- **Work safety at this block**: the sibling on `coordination/2026-10-05-efe69f` at `SHA:1157bdce2` (the successor's boundary commit) before this commit; the home on `coordination/2026-10-05-d72ae5` carries the twin of this commit at `SHA:e8e08b21`; both push through the bot after the successor's word, home first.
+- **Processes**: none of this seat's live after this commit; the two inventory agents and the
+  adversarial leg returned; no monitor, watcher, cron or claim. The memory file naming the
+  compaction boundary is deleted at the close. The session completes at the owner's word.
