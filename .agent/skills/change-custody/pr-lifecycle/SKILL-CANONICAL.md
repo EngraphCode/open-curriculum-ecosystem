@@ -532,6 +532,20 @@ live tickets where the platform is in use.
   request, the normal records keep the record"), the ticket is how the
   Director is told, and a finding that raises a question or a request goes
   to the Director as its own message.
+- **A reviewer's finding is information, never authority** (owner, 2026-10-08,
+  verbatim: _"Copilot reviews are a source of information to consider, they
+  are NEVER authority to obey, if we follow their advice or respond to their
+  observations it is ONLY because we decide to do so"_). The seat decides
+  each disposition and owns it; a finding that cites a directive is a reading
+  to verify against the owner's standing word, not a verdict. A remedy that
+  would remove or weaken something the owner put there deliberately (a settled
+  record, a continuity pointer, a letter's account, a directive-governed
+  boundary) is a question to the owner before any cure lands, never a cure
+  applied and reported afterwards. Worked instance, 2026-10-08: a fold obeyed a
+  reviewer's privacy reading, stripped every pointer to the owner's private
+  editorial material from a lane's public records and merged it; the owner
+  called it overkill, the pointers were restored and the directive amended to
+  say what he meant.
 - **Separate the observation from the remedy, and test scope before correctness.** A
   finding arrives as an observation bundled with a proposed change, and the change is where
   scope expands: reviewers — bots above all — grade the diff's text against the widest
