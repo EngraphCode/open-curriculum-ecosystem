@@ -19,10 +19,24 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-09-08
+last_updated: 2026-10-10
 ---
 
 # Public packages — clock-aligned versioning and automatic publishing
+
+## Current authority amendment — 10 October 2026
+
+[ADR-233](../../../docs/architecture/architectural-decisions/233-retained-framework-and-configurable-instances.md)
+and `oce-rearchitecting-programme` supersede the older extraction-first order
+referenced below. Public consumption and complete package closure remain the
+boundary; CF-first is preferred, with actual independent work allowed in parallel.
+The initial mechanism uses one repository version. Clock-group refinement remains
+a separate proposed decision justified by real compatibility/release needs, not
+an automatic consequence of folder movement. A second consumer is not a gate on
+needed release capability or retention of potentially reusable mechanisms.
+The historical source discussion below is retained; it cannot reinstate the
+superseded order, app-local execution residue or team measurement. The publication
+delivery node now explicitly rebinds namespace/branch/rights for Engraph.
 
 ## Outcome
 
