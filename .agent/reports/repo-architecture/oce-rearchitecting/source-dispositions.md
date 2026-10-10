@@ -4,6 +4,12 @@
 the Engraph programme. Facts, inherited direction and proposed mechanisms remain
 separate. It is not a new exhaustive implementation, security or deployment audit.
 
+The owner's subsequent [corpus-first review decision](README.md#owner-decision-corpus-first-review-before-adoption)
+defers programme merge and adoption. This source map records the selected corpus
+used for the synthesis; it is not a complete file-by-file preservation account of
+all Education projects. The entire backup and its repo-local analysis will provide
+the basis for the later plan assessment. Original source pins below remain intact.
+
 ## Verified primary source baseline
 
 | Source | Exact version/status and read scope | Authority in this design |

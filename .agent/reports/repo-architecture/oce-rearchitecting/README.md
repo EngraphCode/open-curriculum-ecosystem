@@ -14,6 +14,32 @@ team measurement or team study is part of the work. [ADR-233](../../../../docs/a
 records settled direction; new detailed plans remain **sketches**. The engineering
 design below is proposed at its stated scope, not a claim of implementation.
 
+## Owner decision: corpus-first review before adoption
+
+On 10 October 2026, after the initial documentary submission, the owner deferred
+merge and adoption of this programme. First incorporate the entire Google Drive
+backup of the Education work as a preserved repository-local source corpus. Then
+repo-local agents analyse that corpus on its own terms before assessing this plan.
+The plan must not supply the organising frame for their initial corpus analysis.
+
+Preserve original material, provenance, versions, relationships and distinctions
+between adopted direction, proposals, superseded work and evidence. Inclusion in
+the corpus does not make a source a governing instruction. Backup completeness,
+knowledge preservation and programme coverage are separate questions; this design
+and its passing CI do not establish that everything valuable has survived.
+Existing source-access and publication boundaries remain applicable.
+
+This plan is a provisional synthesis of the examined sources. Record the later
+corpus analysis, plan comparison, omissions, distortions, authority conflicts and
+necessary corrections with their source basis. The owner reviews that outcome
+before merge or adoption; the hold is not cleared by CI or the earlier reviews.
+The substantive architecture stays unchanged pending those findings. Proposed
+first-tranche and continuation steps below are conditional on that review and
+subsequent normal ratification, not the next authorised implementation action.
+
+The backup incorporation and repo-local review are later work. This close-out
+records the decision; it neither performs that work nor claims its completion.
+
 ## Read path and editing authority
 
 1. [Architecture and open invariants](../../../../docs/architecture/oce-architecture.md)
@@ -77,9 +103,9 @@ dependency can reopen order without weakening qualification or losing mechanisms
 
 ## Startable first design tranche
 
-This tranche completes four finite contract decisions and prepares the first
-construction, rather than launching a new estate survey. Implementation begins
-only under the selected plan's ratification and normal gates.
+After the corpus-first review and adoption decision above, the proposed tranche
+completes four finite contract decisions and prepares the first construction.
+Implementation also requires the selected plan's ratification and normal gates.
 
 1. **Lead: CF binding.** Read the CF reconstruction, current geometry/adoption
    contracts and native first-delivery node. Work the parent relation and boundary

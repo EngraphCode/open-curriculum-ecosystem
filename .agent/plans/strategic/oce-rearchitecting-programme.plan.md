@@ -28,6 +28,17 @@ records the settled owner direction. This proposed programme implements it and
 supersedes `toolkit-re-architecture` as the current design route. Detailed plans
 remain sketches; incorporation does not fabricate implementation ratification.
 
+## Current adoption hold
+
+The owner's later 10 October decision defers merge and adoption of this programme
+until the entire Education Google Drive backup is incorporated as a preserved
+repo-local corpus, repo-local agents analyse the corpus first, and then assess
+this plan. The [programme entry](../../reports/repo-architecture/oce-rearchitecting/README.md#owner-decision-corpus-first-review-before-adoption)
+owns the exact sequence, evidence limits and review disposition. This sketch is a
+provisional synthesis, not proof of complete knowledge preservation. Passing CI
+and earlier design reviews do not clear the hold. The owner reviews the recorded
+outcome before adoption; substantive architecture remains unchanged meanwhile.
+
 ## Outcome
 
 OCE retains its complete capability innovation framework, with potentially

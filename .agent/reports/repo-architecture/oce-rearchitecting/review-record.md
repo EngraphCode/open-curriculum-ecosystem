@@ -5,6 +5,17 @@ fresh-implementer usability. It does not certify implementation or operational
 readiness. Specialist and adversarial agents share a model/source lineage;
 their scrutiny is useful but correlated, not independent empirical assurance.
 
+## Later owner decision and review limit
+
+The [corpus-first adoption hold](README.md#owner-decision-corpus-first-review-before-adoption)
+supersedes this record's earlier incorporation/continuation disposition. These
+reviews checked a bounded synthesis; they did not establish preservation of every
+valuable contribution across the Education corpus. Repository-local corpus
+analysis must precede the later assessment of this plan. Merge and adoption await
+that recorded assessment and the owner's review of its outcome. The earlier
+findings below remain evidence of their original scope, not a clearance of this
+new condition.
+
 ## Method and evidence
 
 Start Right refreshed the current project authorities, repository state and
