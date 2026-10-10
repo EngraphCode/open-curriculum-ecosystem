@@ -20,6 +20,16 @@ last_updated: 2026-09-08
 
 # Innovation Kit product-creation-system definition
 
+## OCE programme connection — 10 October 2026
+
+The existing outcome and ratification remain. `oce-framework-lifecycle-contracts`
+serves the Innovation Kit strategy and supplies one bounded composition/elevation
+profile to this architecture work. The
+[OCE programme](../../reports/repo-architecture/oce-rearchitecting/README.md)
+connects its retained mechanisms to CF, layered integrity and published instances.
+It does not reduce this programme to current MCP/search apps or move domain
+authority into the Kit. No team measurement is commissioned by that connection.
+
 ## Goal
 
 Oak has a durable, progressively disclosed definition of the Innovation Kit that conserves the

@@ -6,7 +6,14 @@
 
 ## Consumer data boundary (this monorepo)
 
-Code in **oak-open-curriculum-ecosystem** — SDK, MCP servers, search CLI, scripts, and agent workflows — must obtain curriculum and related data **only through the published Oak Open Curriculum HTTP API** (the contract published at `https://open-api.thenational.academy/api/v0/swagger.json` and materialised in codegen). **Do not** connect directly to Hasura, PostgreSQL, materialised view names, Elasticsearch indices, or any other internal Oak data or analytics systems from this repository. Naming or discussing implementation details (e.g. materialised view identifiers in public API or upstream service code) in reports or research is for **context and diagnosis**, not a pattern to replicate at the consumer boundary. The service that _implements_ the public API (for example, `oak-openapi` talking to a GraphQL layer) is upstream of this monorepo’s consumer contract.
+API-derived contracts must follow their authoritative API schema and authorised
+consumer boundary; no hand-authored duplicate API shape is introduced. This does
+not make one API the authority for every bulk, graph, search or new domain model.
+Distinct sources and layers require explicit rights, definitions, transformations
+and runtime integrity checks under the
+[OCE integrity architecture](oce-integrity-and-castr.md). This design does not
+authorise a new connection to Oak internal systems. Search access uses the owned
+search contract, not an accidental bypass of source authority.
 
 ## Problem Statement
 
@@ -22,9 +29,9 @@ Traditional API integration requires:
 
 ## Our Solution
 
-**Generate everything at compile time from the OpenAPI schema.**
+**Generate API-derived representations from the authoritative API schema.**
 
-This repository implements a pattern where a single OpenAPI specification drives all types, validators, and tooling through automated code generation.
+This repository implements a pattern where an authoritative OpenAPI specification drives its supported API-derived types, validators, and metadata through automated code generation.
 
 ### The Pipeline
 
@@ -50,7 +57,7 @@ This repository implements a pattern where a single OpenAPI specification drives
 │    - src/types/generated/api-schema/ (types, Zod schemas)      │
 │    - src/types/generated/api-schema/mcp-tools/ (tool metadata) │
 │    - src/types/generated/routing/url-helpers.ts                │
-│    - All fully typed, no runtime assertions needed             │
+│    - Typed outputs with runtime validation at boundaries             │
 └────────────────────┬────────────────────────────────────────────┘
                      ↓
 ┌─────────────────────────────────────────────────────────────────┐
@@ -58,49 +65,33 @@ This repository implements a pattern where a single OpenAPI specification drives
 │    - MCP servers import tool definitions directly              │
 │    - Search app imports request validators                     │
 │    - All apps import TypeScript types                          │
-│    - No manual type definitions anywhere                       │
+│    - No duplicate hand-authored API contract shapes                       │
 │    - No type assertions or 'any' types needed                  │
 └─────────────────────────────────────────────────────────────────┘
-```
-
-### The Key Principle
-
-**If the OpenAPI schema changes, running `pnpm sdk-codegen` is sufficient to update everything.**
-
-No manual code changes are required. The SDK regenerates, types update, validators adjust, and all consuming applications automatically get the changes through their imports.
-
-## Key Benefits
-
-### 1. Single Source of Truth
-
-The API schema is the **only** definition. Everything else derives from it:
-
-- TypeScript interfaces match the schema exactly
-- Zod validators enforce the same constraints
-- MCP tools expose the same parameters
-- Documentation reflects the actual API
-
-There is no drift because there's only one source.
-
-### 2. Automatic Updates
-
-When the API changes:
-
+```mermaid
+flowchart TD
+  S["Authoritative API schema"] --> G["Supported code generation"]
+  G --> T["TypeScript contracts"]
+  G --> V["Runtime validators"]
+  G --> M["MCP metadata"]
+  T --> C["SDK and capability consumers"]
+  V --> C
+  M --> C
 ```bash
 pnpm sdk-codegen  # Fetch schema, regenerate everything
 pnpm build        # Type errors show what broke
 ```
 
-TypeScript compilation failures immediately show what needs updating in consuming code. No surprises at runtime.
+TypeScript compilation failures immediately show what needs updating in consuming code. Runtime validation and explicit failure remain necessary for actual values, source drift and domain obligations.
 
 ### 3. Complete Type Safety
 
 - **No `any` types**: Everything is fully typed from the schema
 - **No type assertions**: No `as` casts needed
-- **No runtime validation failures**: Schema changes break at compile time
-- **IntelliSense works perfectly**: IDEs understand all types
+- **Compile-time and runtime checks**: generated types catch supported static incompatibilities; boundary validation still rejects invalid actual values
+- **Editor support**: emitted declarations expose the supported static contract
 
-### 4. Zero Drift
+### 4. Reduce duplicated definitions
 
 Traditional approach:
 
@@ -116,10 +107,10 @@ interface KeyStageInfo {
 Our approach:
 
 ```typescript
-// Generated from schema — always correct
+// Generated from the supported schema profile
 import type { components } from '@oaknational/curriculum-sdk';
 type KeyStageData = components['schemas']['KeyStageData'];
-// TypeScript enforces what the API actually returns
+// Static types describe the contract; runtime validation checks actual returns
 ```
 
 This extends to runtime self-description data, not just types. The

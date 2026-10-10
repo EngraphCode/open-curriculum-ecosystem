@@ -11,7 +11,8 @@ overview: >-
   from registry dependencies alone and rarely needing this repository. This
   node delivers the ratified design record, the measuring instruments and
   the one-page delivery node for every later step of the lane.
-status: ratified
+status: superseded
+superseded_by: oce-reusable-core-contracts
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-09-03
 ratified_where: >-
@@ -29,33 +30,25 @@ impact_areas:
   - design-system
 tickets:
   - MCP-661
-depends_on:
-  - plan: toolkit-publish-mechanism
-    kind: blocking
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner ratifies the design record slice D0a produces — the per-box
-      dispositions under the five-class test with their measurements, the
-      target workspace set of the new repository, the thinness ceilings, the
-      finish list with any dated exemptions, the search instance boundary
-      (including project-per-app or shared), the tool split, the template's
-      form and the dip threshold the move step must meet — together with the
-      delivery nodes D0a authors for the lane's later steps — or amends it on
-      the ticket.
-    expires: 2026-10-10
-  - awaiting: owner-decision
-    clears_when: >-
-      At ratification the owner names who creates the public repository
-      oaknational/oak-open-curriculum-mcp and says whether the existing
-      error-reporting project of the same name (ADR-159, ADR-163) is renamed
-      or shared; the scaffold step asserts the repository exists at its
-      start, and the cut-over step's own node carries the deploy-target gate.
-    expires: 2026-10-10
-last_updated: 2026-10-02
+depends_on: []
+owner_gates: []
+last_updated: 2026-10-10
 ---
 
 # Design the extraction of the MCP app product into oak-open-curriculum-mcp
+
+## Supersession — 10 October 2026
+
+This historical ratified record is superseded by `oce-reusable-core-contracts` under
+[ADR-233](../../../docs/architecture/architectural-decisions/233-retained-framework-and-configurable-instances.md).
+Its original stamp and body below are conserved as history, not current instructions.
+The per-box source map, thin-in-place technique, complete closure and staged handover remain useful. Design does not wait for publication; handover does. All reusable execution, conformance, build and operating mechanisms stay in OCE; app-owned custom script or domain-mechanism fallbacks are superseded.
+The [programme source/disposition report](../../reports/repo-architecture/oce-rearchitecting/source-dispositions.md)
+records retained mechanisms, replaced criteria and receiving nodes. Historical
+team-measurement instructions, app-local implementation allowances and expired
+decision gates below do not govern current work.
+
+## Historical record
 
 Priority by line: the owner, 2026-09-05, verbatim (recorded in the continuity record's
 current state; one instance): "Splitting out the Oak apps is the top priority in the Oak fork,

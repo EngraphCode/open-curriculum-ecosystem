@@ -8,10 +8,20 @@ last_reviewed: 2026-09-08
 
 # Architecture
 
-**Last Updated**: 2026-09-08
+**Last Updated**: 2026-10-10
 **Status**: Active architectural index
 
 ## Start Here
+
+For the current Engraph rearchitecting direction, begin with
+[OCE architecture and open invariants](oce-architecture.md) and
+[ADR-233](architectural-decisions/233-retained-framework-and-configurable-instances.md).
+The target combines [CF reconstruction](foundations/oce-cf-reconstruction.md),
+[instance contracts](oce-configuration-contracts.md),
+[integrity and Castr](oce-integrity-and-castr.md) and the full innovation framework.
+The implemented structure below remains a baseline, not a claim that the target
+has been constructed. App-local composition is current code to be separated;
+external instances will carry configuration over OCE-owned mechanisms.
 
 The architecture exists to turn Oak's openly licenced, fully sequenced and
 resourced curriculum into reusable primitives: generated SDKs, MCP and MCP App

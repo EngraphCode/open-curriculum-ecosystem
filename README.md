@@ -3,6 +3,20 @@
 
 # Oak Open Curriculum Ecosystem
 
+## Engraph OCE programme — 10 October 2026
+
+OCE remains the full capability innovation kit and framework, retaining all
+mechanisms and potentially reusable material. External apps will carry supported
+instance configuration over published OCE packages. CF construction, reusable-core
+reconstruction, layered curriculum integrity, Castr, publication and receiving
+responsibility form one incremental design. See the
+[architecture](docs/architecture/oce-architecture.md) and
+[instance guide](docs/development/oce-instance-development.md).
+This is the adopted direction and proposed design, not a completed implementation
+or a claim that packages are available. Dait and Clef remain distinct profiles;
+the framework extends beyond them and today's applications.
+
+
 The [Oak National Academy Open Curriculum](https://open-api.thenational.academy/)
 becomes AI-native infrastructure through four co-equal value streams: a
 [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)

@@ -8,6 +8,13 @@ split_strategy: 'Extract detailed sections to docs/engineering/ or governance do
 
 # Contributing to Oak Open Curriculum Ecosystem
 
+For the current Engraph OCE programme, read the
+[architecture](docs/architecture/oce-architecture.md) and
+[instance development guide](docs/development/oce-instance-development.md).
+Reusable execution and tooling contributions stay in OCE; external instances
+select supported configuration. No new package or service availability is implied.
+
+
 This guide is for Oak team members contributing to the repository. If you
 are an external reader, you are welcome to read, fork, and learn from the
 code under the MIT licence. We are not currently accepting external

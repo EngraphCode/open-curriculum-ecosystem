@@ -29,6 +29,8 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 
 ## Index
 
+- [ADR-233: Retained framework and configurable instances](233-retained-framework-and-configurable-instances.md) — current Engraph owner direction, 10 October 2026; detailed design remains proposed.
+
 - [ADR-001: ESM-Only Package](001-esm-only-package.md)
 - [ADR-002: Pure Functions First](002-pure-functions-first.md)
 - [ADR-003: Zod for Runtime Validation](003-zod-for-validation.md)
