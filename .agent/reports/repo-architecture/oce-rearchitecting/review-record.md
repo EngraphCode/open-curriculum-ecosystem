@@ -65,6 +65,14 @@ progression with sufficient support/accountable judgement, distinguish commissio
 research from owner authorship, and align cutover with assessed blue/green authority. Final documentary static checks are distinct from
 runtime assurance and the draft PR's required CI verdict.
 
+The final CI-led documentary pass corrected malformed OpenAPI diagram fences,
+root spacing, ADR table alignment and source-title emphasis. A focused cold-reader
+check of the restored OpenAPI reference found inherited absolute fidelity,
+live-freshness, exposure and migration claims. These now distinguish supported
+revision-bound generation, independent semantics/runtime checks, approved exposure
+and the current source-owned Castr integration boundary. This pass changes no
+application, generator, tool or CI configuration.
+
 ## Parallax audit envelope
 
 - **Target and intended reliance:** this dated architecture/plan set, reviewed as
