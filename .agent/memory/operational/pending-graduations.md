@@ -116,6 +116,36 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
+- **Anything coming in from the default branch is merged, never rebased**
+  `[captured: 2026-10-11 | source: the owner's ruling of 2026-10-02, verbatim in this estate's
+  Claude per-user memory, read first-hand at the third dedicated consolidation | target:
+  .agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md §Phase 1 step 1 (Divergence) and
+  .agent/rules/never-use-git-to-remove-work.md §Standard Git Only — No Improvised Mechanics, the
+  same bytes in both estates | trigger: the doctrine pull request of this pass | size: two
+  sentences in each home | status: due]`
+
+  Verbatim: "anything coming in from main must always be merged, not rebased, we must maintain the
+  shared history". For the homes: a branch is brought current by merging the default branch in,
+  never by a rebase, whatever a handoff or plan line says ("rebase onto the default branch first"
+  is overridden), because a rebase rewrites commits the shared history depends on (carrier pull
+  requests, the mirror branch, ancestry proofs); the lifecycle skill's "never rebase-and-force-push
+  an already-pushed branch" loses its condition, and the rule's dirty-tree paragraph no longer
+  reads a clean-tree rebase as permitted.
+
+- **A script used twice becomes a standardised agent tool, routed for sizing, never extended in place**
+  `[captured: 2026-10-11 | source: the owner's word of 2026-10-03 12:1xZ, verbatim in this
+  estate's Claude per-user memory, read first-hand at the third dedicated consolidation | target:
+  .agent/rules/use-built-agent-tools-cli.md §When The Built Tool Falls Short, a dated paragraph
+  after the 2026-06-24 one, the same bytes in both estates | trigger: the doctrine pull request of
+  this pass | size: one paragraph | status: due]`
+
+  Verbatim: "if a script is used repeatedly it should be made into a standardised agent tool in
+  the agent tools workspace". The second use is the signal: the script is named on the napkin
+  with its usage line and routed to the Director for sizing and a ledger row; the conversion is
+  work with criteria, sizing and value like any other, landing under agent-tools with its tests
+  through a pull request; the script is never extended in place, and keep-scratchpad is no longer
+  among the outcomes.
+
 - **Model-authored text crosses a trust boundary only through a harness-owned closed grammar**
   `[captured: 2026-10-11 | source: the slow-lane row of 2026-09-26 (Swallow holds Drift's concept
   exploration; two instances in one session, in different registers), decided at its 2026-10-10
