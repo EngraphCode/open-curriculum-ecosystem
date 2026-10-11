@@ -167,6 +167,162 @@ debt register, 2026-07-08).
   engineering instance stays in the pattern (its first cell); the directive line is the general
   form. The cure of F-218 is a code lane, not this graduation.
 
+### Drained 2026-10-11 from the two napkins (Corsair weaves Seabed, 459358)
+
+This estate's napkin (459 lines, 20 blocks, 2026-09-29 to 2026-10-05) and the sibling's (1,376
+lines, 37 blocks, to 2026-10-11) were read whole by the seat, every candidate lesson probed by
+phrase in both estates before it was written here (a control term first; a lesson a home already
+carries is not an entry). The entries sourced from the sibling's napkin sit in its register's batch
+of the same date; every target below is the same bytes in both estates unless marked. The napkins
+are rotated after this batch, so a source cites the block's heading, which the archive keeps
+byte-identical.
+
+- **A command shape carried across a compaction is not the command**
+  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T01:15Z and 02:32Z (Hazel: every
+  Bash call compound against the tool-boundary rule, found by reading an old handoff; the context
+  meter's first read after a compaction describing another moment, twice), 2026-10-03T13:2xZ
+  (Efreet: the direct-message command refused twice on a shape carried in a summary) | target: the
+  session-handoff skill under .agent/skills/, its resume step | trigger: the doctrine pull
+  request of this pass | size: one paragraph | status: due]`
+
+  At a resume after a compaction: the rules that govern the tool boundary are re-read before the
+  first command; a command's help is read before its first attempt, since a shape carried in a
+  summary is not the command; the context meter is read twice, a few calls apart, before anything
+  is priced on it.
+
+- **A finding that lives in a review body holds the door**
+  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T02:32Z (Hazel: Copilot's overview said
+  conflicts remained under "Findings: None"; three true contradictions) and 2026-10-02T17:48Z
+  (a watch counting threads fired READY under a body listing "previously missed" findings) |
+  target: .agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md, the door clause beside
+  the body-only-findings harvest | trigger: the doctrine pull request of this pass | size: two
+  sentences | status: due]`
+
+  A door or watch that counts review threads also reads the latest vendor review on the head and
+  holds while its body lists open or previously-missed findings; a sentence in a review body under
+  "Findings: None" is a finding to test, never prose.
+
+- **A finding on shared text is checked against the twin before a cure travels**
+  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T18:5xZ (Efreet: two reviewers raised
+  one sentence with opposite narrowings; the sibling's rule lacked the paragraph) and
+  2026-10-03T00:5xZ (eleven findings on #346) | target:
+  .agent/rules/review-feedback-defaults-to-triage.md §Action, beside the triage-by-risk entry of
+  the sibling's register | trigger: the doctrine pull request of this pass | size: one paragraph |
+  status: due]`
+
+  A reviewer's finding on text both estates carry is read against the twin before any cure
+  travels. Two reviewers' opposite narrowings of one sentence are cured by citing the governing
+  loop, never by restating it. A cure over the risk bar (a credential in a log, a validator that
+  can pass silently) travels to the sibling as the same bytes; a wording finding travels as a note.
+
+- **An exhausted fold budget freezes every seat's records until the fold merges**
+  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T18:5xZ (Efreet, 19:3xZ: the
+  review-cost gate refused a records push because the fold's settlement budget was spent) and
+  2026-10-03T13:2xZ (three fold findings on the one paragraph stating a decision) | target:
+  .agent/skills/coordination-fold/SKILL-CANONICAL.md, beside the ten-minute entry of the
+  sibling's register | trigger: the doctrine pull request of this pass | size: two sentences |
+  status: due]`
+
+  A records commit on a coordination branch whose draft is ready is a settlement push of the fold,
+  so a spent fold budget freezes every seat's records until the fold merges: fold early, or before
+  the ready-mark's review legs run. A records fold's findings land on the paragraph that states a
+  decision; a dated estimate line that records the hour's rulings cures count, contradiction and
+  wording in one push.
+
+- **Under gates that read the whole working tree, dependent halves land as one commit**
+  `[captured: 2026-10-11 | source: napkin blocks 2026-10-03T00:5xZ (Efreet: three refusals, two
+  halves whose gates read each other) and 2026-10-03T19:5xZ (a tracked file linking an
+  uncommitted new file); the sibling's napkin 2026-10-10T15:0xZ (Cedar: the partner's push failed
+  on a README row linking an untracked report) | target:
+  .agent/rules/stage-by-explicit-pathspec.md, the sentence "the gate reads the whole working tree
+  while it runs" | trigger: the doctrine pull request of this pass | size: one paragraph | status:
+  due]`
+
+  A pathspec commit runs the hooks over a temporary index holding only its paths while the link
+  validator reads the whole working tree: two halves whose gates read each other (a record and the
+  script that names it) land as one commit; a tracked file that links a not-yet-tracked file is
+  BLOCKING at every commit while both sit uncommitted, so the new file lands first or with its
+  riders; on a shared primary a report and its index row are committed together before anyone
+  pushes.
+
+- **A port is cut from the destination's own text; the cure is the passage, not the anchor**
+  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T01:15Z (Hazel: a raw patch duplicated
+  three passages and reversed one), 2026-10-02T20:4xZ (Efreet: an anchor at zero on the twin
+  because the passage wraps differently), 2026-10-03T00:5xZ (a carried validator's import
+  closure) and 2026-10-03T19:5xZ (a three-way merge landed one-sided edits in the clean regions)
+  | target: .agent/skills/change-custody/semantic-merge/SKILL-CANONICAL.md, the carry clauses,
+  and the cross-estate rule's carry step | trigger: the doctrine pull request of this pass | size:
+  one paragraph | status: due]`
+
+  A port is cut from the destination's own text with edits that assert their anchors; where the
+  twin's anchor reads zero because the passage wraps differently, the cured passage is applied to
+  the estate's own wording and proved byte-equal to the sibling's merged text. A three-way merge
+  of a conflicted shared file lands the other estate's one-sided edits in its clean regions, which
+  are a read the ledger never made. A carried module's import closure is read before the copy.
+
+- **Records that land in two estates are estate-neutral and dated; a later message settles an earlier line**
+  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T14:01Z (Hazel: seven stale or false
+  lines found by a peer's pass; a pull-request number without its estate), 2026-10-02T17:48Z (a
+  later, more specific message from the same author settles an earlier ambiguous line; the ack
+  asked and confirmed), 2026-10-05T16:3xZ (Sycamore: a records fold draws findings on a count, a
+  date, a "here") | target: .agent/rules/records-are-technical-not-emotional.md §Records carry
+  their authority honestly, and .agent/rules/handoff-messages-self-contained.md for the message
+  clause | trigger: the doctrine pull request of this pass | size: three sentences | status: due]`
+
+  A record that lands in two estates is written estate-neutral and dated before the ready-mark
+  (no "here", no live count without its date); a pull-request number names its estate wherever
+  both estates appear in one record. A later, more specific message from the same author settles
+  an earlier ambiguous line, and the reading is acknowledged back before it is acted on.
+
+- **A closed write list with nothing landed is itself the buffer**
+  `[captured: 2026-10-11 | source: napkin block 2026-10-02T02:32Z (Hazel, Cricket suite 14: a
+  grouped write list of 104 items, none landed) | target:
+  .agent/skills/knowledge/consolidate-until-done/SKILL-CANONICAL.md, the landing step | trigger:
+  the doctrine pull request of this pass | size: one sentence | status: due]`
+
+  Group the drain's writes by home surface early and land the memory-surface group first, since
+  it needs no pull request; a closed, grouped list with nothing landed is the buffer under
+  another name.
+
+- **Count from the whole listing, never from a tail**
+  `[captured: 2026-10-11 | source: napkin block 2026-10-02T18:5xZ (Efreet: a diff stat piped
+  through a tail of eight lines hid three of ten files) | target:
+  .agent/rules/read-diagnostic-artefacts-in-full.md, the examples | trigger: the doctrine pull
+  request of this pass | size: one sentence | status: due]`
+
+  A count is taken from the whole listing or the command's own summary line, never from a
+  tail or a head of it.
+
+- **A content proof reads decisions, not lines alone**
+  `[captured: 2026-10-11 | source: napkin block 2026-10-02T20:4xZ (Efreet: a six-file residue
+  script read zero while a 22-file line proof found absent lines in ten files, every one
+  superseded by a later decision); the same finding at this pass's open on the leftover omnibus
+  branches of the second consolidation | target: .agent/rules/worktree-hygiene.md, the
+  content-proof sentence | trigger: the doctrine pull request of this pass | size: one sentence |
+  status: due]`
+
+  Before a branch is retired as content-superseded, the proof reads each absent line against the
+  decision that superseded it, not the line's presence alone; a line absent by a later decision
+  is not lost work.
+
+- **A failed push is never answered as done**
+  `[captured: 2026-10-11 | source: napkin block 2026-10-02T00:10Z (Hazel: one chained command ran
+  the push, its echo, the thread replies and the push-done line; the push exited 1) | target:
+  .agent/rules/exit-codes-in-band-never-piped.md, one sentence beside the chain clause | trigger:
+  the doctrine pull request of this pass | size: one sentence | status: due]`
+
+  Every step after a push is gated on the push's exit with `&&`, and the remote is read against
+  the local tip before any sentence says "pushed".
+
+- **A smoke that resolves a binary through PATH fails the security rating**
+  `[captured: 2026-10-11 | source: napkin block 2026-10-03T00:5xZ (Efreet: SonarCloud on the
+  carried smoke, cured at d4a355624) | target: .agent/reference/shell-and-tooling-gotchas.md, one
+  bullet (both estates carry the smokes) | trigger: the doctrine pull request of this pass |
+  size: one bullet | status: due]`
+
+  SonarCloud's security rating fails a smoke that resolves pnpm or git through PATH; a smoke spawns
+  `process.execPath` with tsx and the resolved trusted git.
+
 ## Slow lane (PDR-130 — constitutional-class concepts, decided at their review date)
 
 Rows here are live deliverables under a named review gate, NOT decision-debt:
@@ -178,6 +334,7 @@ review — promote/kill applies only to not-yet-minted concepts.**
 
 | Concept | Prediction (by review) | Falsifier | Review |
 | --- | --- | --- | --- |
+| Settlement under sampling reviewers cures the class, not the instance, and the budget counts the rounds two reviewers add at every push (retrospective 2026-10-05, proposal 3; the record named this section as the row's home in both estates and no row existed until the third dedicated consolidation registered it on 2026-10-11) | the next landing of more than two hundred files settles in at most three pushes per estate | a class cure that draws a further round on the same class | 2026-10-19 |
 | Close-time single-lesson graduation (retrospective 2026-07-20 proposal 1): a captured lesson that is single-instance sufficient (PDR-100), has a nameable doctrine home, and needs no cross-seat synthesis graduates AT session close; the frozen-corpus constraint gates rotation and cross-seat synthesis only. Promotion target: `session-handoff` step 6b, landed under the PDR-101 quorum. Provenance: authored FAST-enacted in the retrospective, reclassified slow-lane at PR #450 review (PDR-130 §§2/4; Director-ratified 2026-07-20) | Pre-promotion observable, accrued in this row during the quarter: each clause-eligible lesson that recurs between capture and its homing is logged here as it occurs — the measured cost of batching while the clause stays unenacted (worked warrant: a June-documented class re-surfaced 2026-07-17 and re-bit three seats before homing, ~3 days from that re-surfacing). At review: promote if at least one recurrence class accrued; the post-promotion prediction (recurrence drops to ~zero) binds only after enactment | No recurrence accrues by review (the batching frame carries no measured cost — the entry is killed), or the accrual log itself goes untouched (the row is theatre; kill it by the register's own rule) | 2026-10-20 |
 | Blame-referent calibration (retrospective 2026-07-26, PDR-094 arc): agents calibrate to the most salient blame signal (accreted caution, or the last correction), not the standing policy, whenever the policy exists only in the owner's head; a WRITTEN owner-ratified policy line converts reversal-grade corrections on that axis into calibration-grade refinements. Provenance: `.agent/reports/agentic-engineering/2026-07-26-pdr-094-retention-arc-retrospective.md` §Meta root (v1–v2 hoard, v3 over-delete, v4 co-authored referent, all one arc) | By review: NO reversal-grade owner correction on the retention axis (the axis now carries its written line, PDR-094 v4); any retention correction observed is a refinement, not a reversal | A reversal-grade retention correction lands despite the written line — the written-referent cure is insufficient and the mechanism needs an action-time instrument (kill this row into that finding) | 2026-10-26 |
 | A signal is not the fact it stands for (candidate principle; consolidation 2026-09-13, PR #143; n = 1 seat-day — seven instances at one seat on 2026-09-12/13, so an observation by `one-instance-is-an-observation`): before a seat acts on an instrument's verdict, a reviewer's finding, a single instance or a fit to the data at hand, or writes one into a durable record, it states what the signal stands for, why it is present, against what it is compared, and what would show it wrong. Foundations: `.agent/research/cognitive-systems/structured-thinking/` (experimental-design-foundations, statistical-rigour-foundations), cited never restated. The always-loaded forms landed fast-lane with PR #143: the rule, the `verify-dont-trust` instrument clause, the `reason` warrant sentence, the pattern `signal-read-as-fact`. Routed here at PR #143's round one (PDR-130 §§2/4: a directive-tier line importing research frames is constitutional-class) | By review: at least one instance of the class, recorded in the pattern's filings or the review-cost ledger, arises in a signal kind the rule and the clause do not name — evidence the general framing is needed at the directive tier; then promote the line into `principles.md` | Every instance recorded by review is one the named fast-lane forms already cover, or none is recorded — the line is redundant with its fast-lane forms; kill the entry with this reasoning | 2026-12-15 (first consolidation on/after) |
