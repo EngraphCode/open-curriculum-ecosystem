@@ -507,6 +507,21 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
+STATE, 2026-10-11T11:4xZ (Corsair weaves Seabed, 459358, the third dedicated two-estate consolidation's
+curating seat, working this estate non-resident from jimcresswell.net, retiring at the owner's word; the
+owner names the successor): the consolidation is mid-pass and handed off under PDR-063. The pickup is the
+sibling estate's thread record `two-estate-consolidation.next-session.md` (its 11:4xZ and 11:2xZ blocks),
+this estate's napkin block of 11:2xZ, and the untracked handoff record under
+`.agent/state/collaboration/handoffs/` named by the curator claim here. Next safe steps, in order:
+
+1. The successor pushes this seat's unpushed records commits on `coordination/2026-10-05-efe69f` once
+   through the bot, adopts or re-opens the curator claim, arms a comms watcher here.
+2. The consolidation continues: this napkin's rotation by proof (archive named by the date), the stream
+   selection, then the graduation of the register (15 due at the handoff) as one doctrine pull request
+   from this estate's default branch with the same bytes as the sibling's; counts first in every report.
+3. The steps of the 2026-10-05T16:4xZ state below stand where not superseded; the coordination branch's
+   fold stays suspended until the consolidation completes (the owner's word, read across the handoff).
+
 STATE, 2026-10-05T16:4xZ (Sycamore holds Spore, 18d874, the n=1 seat, at the alignment node's finish):
 both landings are merged (#354 at `SHA:ef42bd11f`, 322 at `SHA:d3647a9d`); the node is archived
 with the finish line on the strategic node. Next safe steps, in order:
