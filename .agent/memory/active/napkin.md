@@ -465,3 +465,59 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
 - **Open for the owner, found by the reading**: three paused threads at the thread root (`agentic-mechanisms-discovery`, `data-sources-governance`, `eslint-no-throw-result-migration`) and one open conversation of 2026-04-26; the agent-tools candidates routed on 2026-10-03 (event 3ea642e5) with none converted; the sibling's records-class door (328) and its correction (334) not yet carried here; the leftover omnibus branches of the second consolidation (`docs/consolidation-2-routed-cures`, `docs/consolidation-2s-skills`) decided as carrying nothing left to land, deleted at the closeout by name.
 - **Work safety**: this commit on `coordination/2026-10-05-efe69f`, not pushed (the lean path; the home session's resume pushes or the fold does); no claim beyond the curator claim on the consolidation thread, standing to its TTL; the comms watcher expired at its backstop and is not re-armed at the boundary; no sub-agent since the owner's word.
 - **Resume order**: the home estate's thread record `two-estate-consolidation` at its 11:2xZ block, counts first; then this napkin's rotation, the stream selection, the graduation as one doctrine pull request from this estate's default branch with the same bytes as the sibling's.
+
+## 2026-10-13T13:0xZ — Compaction boundary at the owner's word; the review lane for #356 opened (Walrus seeks Maelstrom, 9585cc)
+
+- **The owner's words, verbatim**: at seating, "take your time to come up to speed on the repo in
+  general, then stop. Do not adopt any work yet, do not assume you know what work is happening
+  next"; at the rename, "We are going to review, correct, and merge [#356] ... this is early
+  discovery only"; after the discovery report, "Merge is not blocked on the corpus being added, but
+  adoption is. You are always permitted read-only access to Oak github, write access is forbidden
+  for now, that will change at a later date. Read the other PR. Reflect on how we get this planning
+  body properly integrated and cohesive and cogent"; then, "Before that, prepare for compaction,
+  that is the priority for now. Post compaction we will continue." The full quotations and the
+  discovery are in the thread record `oce-rearchitecting-programme`.
+- **Done this session**: the team grounding; the first-hand read of every line #356 adds or
+  changes; the discovery report; claim `b13d5c39` (reviewer); the thread record; the
+  repo-continuity row, state block and invariant line; the register entry for the Oak-access word.
+- **Observation (one instance)**: the comms concept gate refused a team-start body for the words
+  "on hold"; the cure that passed was to name the gate the text meant (the corpus review, then the
+  owner's decision). The same words stand in #356's own text in four places, which the merge will
+  correct for the owner's new word anyway.
+- **Observation (one instance)**: a `comms send` through the pnpm wrapper, piped to a tail, hid
+  that refusal behind `ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL`; the direct node invocation printed the
+  gate's own text. A refusal is read from the command's full output, never a tail of the wrapper's.
+- **Observation (three instances)**: the Monitor primitive caps a watcher at thirty minutes,
+  below the rule's 3600 s backstop; the watcher was re-armed on each expiry notification and each
+  re-arm was followed by one sweep since the last event, as the rule says.
+- **Observation (repeat of 2026-10-02)**: the write hook refused a scratch script carrying the
+  user-home absolute path; the `$HOME` form passed.
+- **Play seeds (associations, never findings)**: the programme's documents hedge what they do not
+  claim in nearly every paragraph; this reminded me of the metacognition directive's over-swing
+  after a correction (the review record says earlier drafts measured gate durations and the brief
+  forbade team measurement). The Cardinal Rule names one authority while the estate already runs
+  the bulk surface against upstream's bulk JSON Schema (ADR-222); Codex's finding may be pointing at
+  a directive already stale on one surface, a hypothesis to verify there first. The repository
+  README wears two identities on one page after #356, Oak's badges above an Engraph programme
+  section, a seed for the integration question. Discarded visibly: a pairing of the four expired
+  gates with the four-hour sittings; a musical reading of the names Clef and Castr.
+- **Loss scan**: the 3,600 lines of #356 read whole do not survive the compaction; the
+  decision-sufficient compression is the thread record's discovery section and its held hypotheses,
+  and the three reviewer findings stay on the pull request itself. Promises: none to peers; to the
+  owner, the Oak pull request read and the integration reflection, recorded as the next safe step.
+  Attribution inferences: that Codex authored the content is read from co-author trailers, not
+  observed; that the owner marked the pull request ready at about 11:00Z is read from the Codex
+  review's "Draft marked ready" trigger and his comment's timestamp. Blind-spot bounds: no Oak
+  surface read yet; no sub-agent used; the stream carried nothing but my own event. External bound:
+  the scan converges on my own reading; the outside eyes this session were the three reviewer
+  findings and the owner's one sentence that dissolved my largest "finding" (merge against
+  adoption). A further pass would only re-find these; the recursion closes here.
+- **Work safety, by whose word**: the records sit on the coordination branch by the lean pathspec
+  path (no contending claim or queue intent), pushed through the bot at this boundary if the push
+  gate admits it; the retired consolidation seat's four records commits ride the same push, as its
+  handoff said any seat's push would carry them. The fold stays suspended by the owner's word read
+  across that handoff.
+- **For the owner's word**: the operator profile's repo scope file still says every other access to
+  an Oak surface needs permission; the profile write and its push are the operator's instrument
+  (PDR-141), so the line waits for his word. Two expired plan gates (`semantic-search-showcase`,
+  `warranted-means-in-the-operating-environment`) still want renew, resolve or archive.

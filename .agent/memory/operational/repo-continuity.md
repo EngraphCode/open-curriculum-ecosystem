@@ -37,6 +37,14 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-13T13:0xZ: the review lane for pull request #356 (the retained-framework rearchitecting
+  programme, ADR-233) opened at the owner's word; the seat at its compaction boundary** (Walrus
+  seeks Maelstrom, 9585cc, n=1). The owner's rulings of the day: merge is not blocked on the
+  Education corpus, adoption is; read-only access to Oak GitHub is always permitted, writes stay
+  forbidden until he says otherwise. The discovery, the reviewer findings on the head and the resume
+  order are in the thread record `oce-rearchitecting-programme`. The consolidation's handoff state
+  of 2026-10-11 below stands; its claim is untouched and the fold stays suspended.
+
 - **2026-10-05T16:4xZ: the code landing merged in both estates; `practice-alignment-by-class`
   at its finish** (Sycamore holds Spore, 18d874). #354 merged here at `SHA:ef42bd11f` after four
   settlement pushes (the last under the one PDR-140 rebudget), the sibling's 322 at
@@ -458,6 +466,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
+| `oce-rearchitecting-programme` | The review, correction and merge of pull request #356 (the retained-framework rearchitecting programme, ADR-233) and the integration of that planning body with the estate's nodes, architecture documents and directives; opened 2026-10-13 at the owner's word. The owner's rulings, the discovery and the resume order live in the record. | [record](threads/oce-rearchitecting-programme.next-session.md) | claude-code / claude-fable-5-1 / Walrus seeks Maelstrom (9585cc) / reviewer at n=1, at its compaction boundary / 2026-10-13 |
 | `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-fable-5-1 / Crucible binds Slag (7b999c) / the Director across both estates, paused at the owner's compaction word / 2026-10-03, claude-code / claude-opus-5-5 / Marten mends Shadow (74fc02) / this estate's exchange seat, stopped at rest at the owner's word / 2026-09-25, claude-code / claude-opus-5 then claude-fable-5-1, then claude-opus-5-5 from 2026-09-23 / Zephyr guards Leeward (281e44) / curator, sole operator until 2026-09-17 15:31Z, then at n = 2 with Dynamo turns Temper (2a4c8a, the Oak integration lane) — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`), the 2026-09-16 branch as #152 (`cd847a2b3`) and the 2026-09-17 branch as #153 (`SHA:b5b0e70cd`), its successor as #155 (`SHA:65a929d9a`) and the 2026-09-19 branch as #156 (`SHA:44729c98c`) inside the owner-directed consolidation, then the 2026-09-20 branch as #159 (`SHA:efb2942e9`) and the three 2026-09-21 branches as #169, #170 and #171 (the live branch is named once, in Next Safe Steps below, never in this row); from 2026-09-21 09:2xZ at n = 2 with the guest exchange seat Brazier spins Temper (c70341) for the three-estate Practice exchange / 2026-09-21 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
@@ -506,6 +515,15 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `skills-estate-organisation` | PAUSED 2026-09-06 — fork ruling: no Oak-surface access. The standing agentic-skills-and-mechanisms lane; the skills-estate plan (WS0 reflection R1-adopted, rules reclassification ratified and landed); resume from the WS0 working record's last entry. | [record](threads/paused/skills-estate-organisation.next-session.md) | claude-code / claude-fable-5 / Skylark hunts Nimbus (e856d5) / skills-lane implementer — WS0 opened and ruled; #726 merged, #731 generator pair merged after the wrap (`1356579ca`) / 2026-08-03 |
 
 ## Next Safe Steps
+
+STATE, 2026-10-13T13:0xZ (Walrus seeks Maelstrom, 9585cc, the reviewer seat at n=1, at its compaction
+boundary at the owner's word): the review lane for pull request #356 is open under claim `b13d5c39`;
+the discovery is reported. Next safe steps for that seat, in order, from the thread record
+`oce-rearchitecting-programme`: verify the task list and re-arm the watcher only if absent; read Oak
+pull request 1000 read-only (the owner's word of the day permits every Oak GitHub read; writes stay
+forbidden); reflect on the integration of the planning body and report; plan the review with the
+owner; correct; merge. Merge is not blocked on the Education corpus; adoption is. The consolidation's
+state below stands untouched, and the coordination branch's fold stays suspended.
 
 STATE, 2026-10-11T11:4xZ (Corsair weaves Seabed, 459358, the third dedicated two-estate consolidation's
 curating seat, working this estate non-resident from jimcresswell.net, retiring at the owner's word; the
@@ -2912,6 +2930,10 @@ authority.
   permission"),
   under which a read of the public upstream also needs owner permission first; the
   2026-09-06 ruling governs. The disconnection mechanics stay checkout-local.
+  Owner word 2026-10-13, verbatim: "You are always permitted read-only access to Oak github,
+  write access is forbidden for now, that will change at a later date." Under it a read of any
+  Oak GitHub surface needs no permission; every write stays forbidden until he lifts it; the
+  2026-09-06 ruling's read half is superseded and its write half stands.
 - Strict validation happens only at boundaries.
 - No `process.env` read/write in test files or setup files.
 - `--no-verify` requires fresh per-invocation owner authorisation.
