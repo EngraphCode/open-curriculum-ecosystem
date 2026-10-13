@@ -51,3 +51,10 @@ quantifier — "finish the skill work", "all Practice skills have evals" —
 ranges over `.agent/skills` only; conflating any two mis-scopes sweeps,
 evals, reviews and lane quantifiers, so when a path, a command or a PR says
 "skills", resolve WHICH corpus before acting.
+
+## Knowledge: reports
+
+[Design reports](knowledge/design-reports/SKILL-CANONICAL.md) guides explanatory
+report design, derived summaries and coherent living-report maintenance. Faithful
+export repair remains with `chatgpt-report-normalisation`; cross-session knowledge
+conservation remains with `consolidate-docs`.

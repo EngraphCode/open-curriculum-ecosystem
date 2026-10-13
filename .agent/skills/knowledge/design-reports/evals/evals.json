@@ -1,0 +1,106 @@
+{
+  "skill_name": "design-reports",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a one-off briefing for municipal service managers explaining how the Cedar sensor-data pilot works and what they may rely on. Return the complete briefing, not an outline. Use only this synthetic evidence pack. S1: council engineering note, published 1 March 2026 and read 3 March: Cedar staff export a CSV weekly and email it to the maintenance contractor; there is no automated interface. S2: vendor announcement, 2 March, calls this 'connected operations'. S3: official vocabulary draft v0.3, 20 February: public consultation open; no adoption decision. Residents' forum minutes of 25 February dispute coverage of streets without sensors. S4: another city's 2024 controlled trial reports faster repairs with different hardware and staffing. No Cedar outcome study exists. Explain the actors, mechanism, status, uncertainty and what additional evidence would support an effect claim. This is an ordinary static report, not a request to establish monitoring.",
+      "expected_output": "A concise self-contained explanation organised for service managers, with a useful opening synthesis, a concrete manual transfer path, source-specific dates and carefully bounded effects. No scheduler or unnecessary companion.",
+      "assertions": [
+        "Produces the actual readable briefing rather than only an outline, checklist or plan.",
+        "Explains council staff to CSV to contractor as a manual mechanism; does not present the vendor's connected label as an automated API.",
+        "Separates official authorship, draft maturity, contested coverage and absent Cedar outcome evidence.",
+        "Does not transfer the other city's outcome to Cedar and explains why context and intervention differ.",
+        "Preserves source/date routes for pivotal claims and useful uncertainty in the opening.",
+        "Does not create a schedule, living-report estate or separate executive-summary document."
+      ],
+      "skills_expected": [
+        "design-reports"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Maintain this synthetic living pilot report and its companion summary from r4 to candidate r5. Return both complete revised documents, retaining useful evidence and corrections. No saving tools are available. Existing report: '# Ferry access pilot\n## Update 4 June\nTown C has signed its contract. A resident diary records inaccessible boarding on 30 May.\n## Update 2 June\nCorrection: last month's satisfaction figure was 18/30 respondents, not 80%.\n## Original account\nThree towns operate the service. All timetable and vessel data are openly reusable.\n| Town | State |\n| --- | --- |\n| A | Operating |\n| B | Operating |\n| C | Operating |\n## Sources\nOperator operations log checked 1 June.' Companion r4: 'All three towns operate an open-data pilot.' New evidence checked 5 June: operator log shows A and B operating, C contracted with no launch date; published licence v2 applies CC BY 4.0 to timetables only, vessel telemetry access and reuse are restricted. The diary is one observed access barrier, not a prevalence estimate. No additional survey has run. The service launch dates are part of the subject; editorial amendments are not.",
+      "expected_output": "Candidate r5 report with its own first executive summary, coherent current body, supporting sources and final history appendix; matching derived summary r5. Retains the diary and survey correction without treating either as new broad evidence.",
+      "assertions": [
+        "Returns both complete candidate documents and explicitly does not claim they were saved.",
+        "Makes the report's first substantive section an executive summary and places amendment history only in the final appendix.",
+        "Corrects three operating towns to two operating and one contracted in every current narrative, table and both summaries.",
+        "Separates timetable rights from telemetry restrictions everywhere the current account discusses openness.",
+        "Preserves 18/30 and the correction from 80%, and retains the dated accessibility observation with its single-case limit.",
+        "Identifies the companion as derived from report candidate r5 and keeps evidence dates distinct from editorial revision."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review and repair this synthetic r2 landscape under its existing commission. Return the corrected complete report and its short companion, with an account of any unsatisfied promise. Structure is already compliant. '# Canal data landscape\n## Executive summary\nAtlas and Beacon publish related material; an integration is not established.\n## Current explanation\nAtlas's official 12 May workshop note proposes exploring the Beacon format. Beacon owns that format. No Atlas adoption or governing mandate is recorded. LedgerLink is a core component used by analysts.\n| Relationship | Warrant |\n| --- | --- |\n| Atlas implements Beacon and is governed by Beacon | Workshop participation, 12 May |\n## Appendix A. Coverage\nC1 Atlas core; C2 Beacon core; C3 LedgerLink core. Screened 3/3. Core means a substantive mechanism explanation. Every material relationship must have a precise record with source, date, scope and limit.\n## Appendix B. Change log\n1 June: r2.' Companion r2 says only: 'The three-component landscape has been completely explained.' Additional evidence L1: LedgerLink manual dated 10 May describes analysts uploading CSV files to link event identifiers with location codes; identifiers may be reused between years, so the year is part of the join. L1 states no Atlas/Beacon integration. No other evidence is available.",
+      "expected_output": "A semantic repair that catches the stronger table edge despite correct headings and qualified prose, supplies LedgerLink's promised mechanism and required precise relationships, and qualifies the companion's coverage claim.",
+      "assertions": [
+        "Finds and corrects the unsupported implements/governed-by table claim despite the qualified narrative.",
+        "Retains the positive evidence of proposed exploration while stating that adoption/governance is unestablished, not disproved.",
+        "Provides substantive LedgerLink explanation, including year-sensitive identifier joining and the risk of an incorrect join.",
+        "Adds the promised source/date/scope/limit relationship records without inventing an Atlas/Beacon integration.",
+        "Reconciles companion coverage language with actual treatment; a heading, 3/3 count or prose mention alone is not accepted as completion.",
+        "Returns the repaired content and keeps history last rather than proposing a future repair."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Use these synthetic persistence receipts to finish a report-maintenance handoff; do not call tools or claim a write you did not perform. At start the canonical report is editorial r6/storage v20 and its companion editorial r6/storage v8. Candidate r7 corrects adoption status and matches its summary. A concurrent editor changed the report funding paragraph from 'grant ends in June' to 'renewal signed through December'. Report save with guard v20 failed because current v21 contains that funding change. A refreshed merge retained the December renewal and adoption correction; report save with guard v21 succeeded as storage v22/editorial r7. Summary save with guard v8 failed because another editor had added a language-access caveat; current summary storage version is v9/editorial r6. The reusable unsaved summary r7 draft is at drafts/ferry-summary-r7.md and lacks the new caveat. Return the exact current state, a coherent recovery action and a short reader-facing lag notice. The report has already saved successfully; no rollback has been requested.",
+      "expected_output": "Truthful partial-save account with exact successful report and lagging summary versions; recovery reads v9, preserves its caveat, derives from saved r7 and saves with an observed guard. No forced overwrite or rollback.",
+      "assertions": [
+        "States report editorial r7/storage v22 is saved and summary editorial r6/storage v9 still lags; r7 summary remains an unsaved draft.",
+        "Preserves both the December funding renewal and concurrent language-access caveat in the recovery requirements.",
+        "Requires refresh/merge from current summary and the saved report r7 with a current version guard; never removes the guard or blindly retries stale v8.",
+        "Retains the successful report save and gives an actionable lag notice and first unfinished action.",
+        "Does not claim actual storage, concurrency or atomic-save validation from these supplied receipts."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Prepare the compact maintenance outcome and corrected freshness wording for this synthetic living report. The existing executive summary says 'All services verified unchanged on 8 June'. Its latest substantive revision is 1 June; the report's governing contract requires checking service status and licences for A and B on each run. On 8 June, A's status and licence were inspected successfully, no material change since 1 June; B's status page failed after the allowed two meaningful attempts and its licence was not checked. B's last successful status/licence check was 15 May and had no cessation notice then. No adequate new evidence addresses B. Do not conduct research or invent a finding. Return publishable wording and a scoped receipt; do not write a new full report.",
+      "expected_output": "An incomplete-check result, A scoped no-change, B access/coverage gap with 15 May evidence preserved; no overall fresh or unchanged claim and no opening update stream.",
+      "assertions": [
+        "Replaces the blanket all-services unchanged claim with a precise A-only checked statement and unresolved B status/licence.",
+        "Preserves B's 15 May evidence date and does not treat failed retrieval as cessation, unchanged status or fresh verification.",
+        "Separates last attempt, last successful scoped checks, last substantive revision and evidence cutoff.",
+        "Records incomplete check and remaining action without manufacturing new findings or another introductory update.",
+        "Keeps the output proportionate to the requested compact wording and receipt."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Write the revised scope/coverage passage and current interpretation for this synthetic static catalogue report. The inherited fixed 1 April inventory has P01-P04: two core, one adjacent, one outside scope, all four screened from dated profiles; only P01 was freshly checked on 10 April. During that check, X5 was discovered and P02 was found also to be called RiverMesh. On 11 April, new documentary evidence warrants changing P04 from outside scope to adjacent, but old body prose still says P04 is excluded. The core tier promises explanation of operating mechanisms; P02 still has only a name. There is no source establishing P02's operating mechanism in the supplied material. Keep stable identities, distinguish screening and verification, and make the coverage honest without inventing missing facts.",
+      "expected_output": "Explicitly revised fixed inventory dispositions (two core/two adjacent if retaining tier with a gap, or a clearly explained P02 reclassification), stable P02 alias crosswalk, X5 separate addition, repaired P04 body and explicit unfulfilled P02 treatment.",
+      "assertions": [
+        "Keeps P01-P04 as the four-record inherited denominator; X5 is a later discovery, not silent expansion of that denominator.",
+        "Records RiverMesh as the P02 alias rather than a fifth independent inherited entity.",
+        "Corrects current P04 exclusion language and reconciles disposition counts with any declared P02 change.",
+        "Separates four screened profiles from only P01 freshly checked on 10 April.",
+        "Explicitly identifies the unsatisfied P02 substantive-treatment promise or revises its disposition transparently; does not invent its mechanism or claim complete explanation."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Resume an interrupted synthetic report-writing commission. Return the successor handoff and the bounded next action; no file or save tools are available. Current saved report r2 is at reports/canal.md, storage v12, and a completed source-scoping receipt covers S1-S4. A local candidate r3 at drafts/canal-r3.md adds S5 and a table, but that table has not been checked against the prose or S5. A completed r2 reviewer output is at reviews/canal-r2.md. Candidate r3 was authored but never saved or reviewed. A trigger fixture file exists, but there is no runner output. A separate summary was not commissioned. State what can be reused, what is current and what remains. Do not restart the accepted S1-S4 scoping.",
+      "expected_output": "Precise custody of saved r2, unsaved/unreviewed r3 and existing scoping/review; first action reads S5 and checks table/prose before review/save. Fixtures stay unexecuted.",
+      "assertions": [
+        "Names saved r2/storage v12 as current and candidate r3 as authored but unsaved and unreviewed.",
+        "Preserves exact draft/review paths and completed S1-S4 scope as reusable evidence.",
+        "Sets the first unfinished action to inspect S5 and the changed table/prose dependency, followed by required review and guarded save.",
+        "Does not call trigger fixtures evaluated or borrow r2's review as approval of r3.",
+        "Does not restart accepted scoping or invent a companion summary or scheduler."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "I only want faithful citation/export repair of a frozen 2024 report, preserving wording, order, historical findings and the original. It has broken citation tokens and I have paired Markdown/DOCX exports. Explain which workflow should handle this and what you will preserve. Do not rewrite it as a 2026 current-state report. No files are supplied yet.",
+      "expected_output": "Routes to chatgpt-report-normalisation's faithful repair remit; preserves the original and a clean sibling, does not perform unsolicited resynthesis or claim file operations.",
+      "assertions": [
+        "Routes faithful export/citation repair to chatgpt-report-normalisation rather than report redesign.",
+        "Preserves historical wording/order/evidence and the original; any repair is a distinct clean sibling.",
+        "Does not claim to have read, changed, saved or refreshed unavailable files.",
+        "Does not impose the living-report structure, fresh research, a scheduler or summary pair."
+      ]
+    }
+  ]
+}
