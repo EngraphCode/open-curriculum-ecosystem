@@ -31,11 +31,11 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
 - Controlling plan: none ratified. ADR-233 (on the branch) is the accepted direction by the owner's
   commission; the strategic node `oce-rearchitecting-programme` and the fourteen `oce-*` delivery
   nodes are sketches by their own stamps.
-- Next safe step, in order: (1) at the resume, read the task list first and re-arm the comms
-  watcher only if it is absent (§Re-arm recipe); (2) read Oak pull request 1000 read-only, the
-  owner's word of 2026-10-13; (3) reflect on how this planning body is integrated, cohesive and
-  cogent across the estate, the pull request and Oak's proposal, and report; (4) plan the review
-  with the owner; only then correct. Nothing is pushed to any Oak surface.
+- Next safe step, in order: (1) the owner answers the decision list in §Verdict (one word per
+  item); (2) merge `origin/engraph` into the PR branch, never rebase; (3) land the corrections
+  on that branch, one commit per concern, in the order §Verdict gives; (4) re-request the Codex
+  and Copilot reviews, resolve every thread, recheck; (5) merge at the owner's word; (6) the
+  continuity records. Nothing is pushed to any Oak surface.
 - Completed prerequisites: the full grounding; the first-hand read of every line the pull request
   adds or changes; the three reviewer findings on its head read.
 - Team expectation: n=1 unless the owner seats others; no Director seat is held in the estate.
@@ -120,12 +120,50 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
   the repository README carries Oak's badges and public-beta line above a new Engraph programme
   section.
 
+## Verdict of 2026-10-13 (post-compaction read of the whole body)
+
+Sensible at the direction and design altitudes; incomplete at the integration altitude. The
+direction is the owner's own and matches his public reply on Oak pull request 1000 of 2026-10-10.
+The design is internally coherent, and every baseline fact it rests on was verified first-hand at
+`SHA:efe69ff66`. The corrections, each with its warrant:
+
+1. The adoption gate, stated five times (strategic node, programme README, review record, source
+   dispositions, PR body) as blocking merge: restate as blocking ratification of the sketches and
+   any implementation pickup, by the owner's word of 2026-10-13. Resolves Copilot's second finding
+   (the review record's disposition may say "documentary incorporation"; not "plan ratification").
+2. `docs/strategy/README.md` lines 39-45 keep extraction-first as the current priority: a dated
+   2026-10-10 line pointing at ADR-233 is needed; the line is owner-word, so at his word.
+3. The Cardinal Rule (AGENT.md, principles.md, ADR-029/030) versus I07 and the pipeline page:
+   ADR-222 already made the upstream bulk JSON Schema a second authority, so shape A (amend the
+   rule to name the authority set, keep the generated-only discipline and the codegen-then-build
+   sufficiency) is recommended over shape B (narrow I07 back to one authority). Owner's decision.
+4. The pipeline page's deleted "Consumer data boundary" paragraph: restore it, naming the Clef
+   source-copy acquisition as a seam that needs its own authorisation; or record the loosening as
+   an ADR-233 line. Owner's decision; the first is recommended.
+5. Dait, Clef and TAB: define in one glossary line each, or replace with role names, keeping the
+   C-DATA and C-PRIV identifiers. Owner's decision on public naming.
+6. `public-packages-release` keeps `ratified` with an Outcome that promises clock groups: reword
+   that sentence as a later separate decision (Copilot's first finding); the status stays.
+7. ADR-233's index entry sits above ADR-001 with a stray blank line: move it to the "Start Here"
+   block or into numeric order.
+8. ADR-233's PR1000 paragraph: add the five-destination crosswalk the source dispositions already
+   imply (each Oak destination read as an OCE instance or distribution), so the partnering the
+   owner stated on the PR is legible on the record itself.
+9. The "No team measurement is commissioned" refrain in every node: trim to ADR-233 and the
+   README (prose, owner's taste).
+
+Checked and left alone: the fourteen sketches' frontmatter, serve edges and supersessions (the
+validators pass; the two extraction gates expire with the supersession); the removal of the Size
+table (the round budget still binds at authoring per PDR-132); the CF page's plan-id provenance
+table (pinned, not a moving target); `serves: TOOLS-2`.
+
 ## Lane state
 
 - Owning plan(s): none ratified; ADR-233 and the sketch strategic node on the branch.
 - Current objective: the discovery is done and reported; the next act is the Oak pull request read
   and the integration reflection, then planning with the owner.
-- Current state: the seat at its compaction boundary at the owner's word; claim `b13d5c39` held.
+- Current state: post-compaction; the verdict formed and reported (§Verdict); claim `b13d5c39`
+  held; the watcher armed while work is live.
 - Blockers / low-confidence areas: none blocking. The Cardinal Rule collision is constitutively
   the owner's decision when it is reached; prepare the two shapes, do not choose.
 - Promotion watchlist: the owner's Oak-access ruling is on the pending-graduations register
