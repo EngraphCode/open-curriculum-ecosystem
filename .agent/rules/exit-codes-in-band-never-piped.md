@@ -75,7 +75,9 @@ discipline held for expensive chains gets skipped.
   run to capture that.
 - **No `tail` or `head` on command output, ever** (owner ruling 2026-09-03,
   verbatim: "I think we need to stop using tail, it causes this same issue
-  over and over and over"). Truncation is the pipe hazard's twin: it hides
+  over and over and over"; recurred 2026-10-14: a watcher-liveness assertion piped
+  through `tail` with `|| rc=$?` read exit 0 on an unknown-flag failure, and the
+  wrap said "asserted live"). Truncation is the pipe hazard's twin: it hides
   the line that names the failure even when the exit is captured
   correctly. Worked instances the same morning: `enqueue … 2>/dev/null |
   tail -1` swallowed a schema refusal and fed a pnpm error line to the
@@ -109,7 +111,10 @@ discipline held for expensive chains gets skipped.
   non-zero exit inside a block that simply prints nothing; run the check
   as its own command and print its exit explicitly (a commit-message
   pre-check failed silently inside an `&&` chain and the gate caught it a
-  minute later, 2026-08-19).
+  minute later, 2026-08-19). A check that prints its reading and does not
+  gate is the same hole from the other side: a header-length check printed
+  104 and the commit ran into the hook (2026-10-14); bind the act to the
+  check's exit (`check && act`), never to its printed line.
 - **API writes: a status code is not a write, and loop silence is not
   success.** A REST review-request call returned 201 twice and minted no
   `review_requested` event; a `curl -sf | jq` loop swallowed four

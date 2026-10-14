@@ -310,7 +310,11 @@ established by a session-level mechanism and stable until the agent changes it â
 is governed by [`worktree-residency`](worktree-residency.md) (owner directive
 2026-07-31). Build before work (`pnpm --dir <path> install && pnpm --dir <path> build`,
 scoped to the worktree â€” the eslint plugin dist and the statusline both come from the
-build). From a worktree, collaboration-state commands need
+build). A fresh linked worktree installs itself on its first script run and holds no
+workspace package `dist`, so knip's config loader fails there until the package is built;
+knip and the dependency cruiser run by hand before a push, since the commit hooks run the
+formatter, markdownlint and the changed-files lint only (2026-10-14). From a worktree,
+collaboration-state commands need
 the primary path passed explicitly (`comms list/watch/inbox --comms-dir`, `claims
 --active`); only `comms send` auto-anchors to the primary, and a relative path silently
 lands worktree-local. Switching branches with dirty doctrine files carries a broken

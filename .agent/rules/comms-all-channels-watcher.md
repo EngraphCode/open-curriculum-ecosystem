@@ -166,7 +166,14 @@ notification, never itself a re-arm trigger: a process can emit its
 diagnostic line and still fail to die (the F-43 zombie class — co-writers on
 one seen-file), so re-arming on the line risks two live watchers on one
 cursor. `reason=supervisor-gone` arriving while the seat is demonstrably
-live is a probe misfire to investigate, not a routine re-arm.
+live is a probe misfire to investigate, not a routine re-arm. An expiry
+notification on a seat with no active work is not a re-arm cue either: the
+owner's standing word of 2026-08-14, "any agent that has no active work for
+an hour should go into cold pause. This is to prevent the monitors draining
+tokens for no value", outranks the re-arm clause, so an idle seat's expiry
+is the hour-of-no-work tripwire (a seat in the sibling estate re-armed
+fourteen times over seven idle hours, 2026-10-13, and the owner asked what
+useful had happened; the cure was the cold pause, the resume re-arming).
 `--supervisor-pid` is MANDATORY, not a hardening option: without it AND
 without the `timeout` prefix the watcher has no ORDERLY exit path of its
 own — only a fatal step, a step deadline, or an external kill ends it.

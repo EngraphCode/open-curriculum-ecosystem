@@ -386,7 +386,10 @@ Director's landing record of 2026-09-06, event f05a54da).
   widens** (2026-09-03, the no-word-split family): `prettier --write $FILES`
   exited 2 on one nonexistent path; `markdownlint` over the same string
   linted the whole tree, so its verdict said nothing about the named files.
-  Literal paths, one variable per file.
+  Literal paths, one variable per file. Recurred 2026-10-14: `prettier --check $FILES` and
+  `markdownlint` over an unsplit zsh variable printed their success lines over zero files; the
+  proof is the count line ("Linting: N files"); split with `set --` or `$(cat list)`, and BSD
+  `xargs` has no `-a`.
 - **`validate-markdown-links` reads a link from a tracked source to an
   untracked new file as broken** and labels it
   `tracked-source-to-untracked-target` (2026-09-03): a new ADR plus its
@@ -836,3 +839,22 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **SonarCloud's security rating fails a smoke that resolves `pnpm` or `git` through `PATH`**: a
   smoke spawns `process.execPath` with tsx and the resolved trusted git (both estates carry the
   smokes; cured in OCE on 2026-10-03).
+- **BSD `grep` has no `\b`**: `grep -o '\bok('` matched nothing and read as absence; a fixed
+  string (`grep -F`) or a python `in` test (2026-10-14).
+- **`git log --format=%cI` prints the committer's local offset (`+01:00`)**: a record stamp copied
+  from it with a `Z` suffix is wrong by the offset. A stamp is read from `date -u` at the moment
+  of writing, never from a commit time or the seat's sense of the hour (a stage's stamps ran an
+  hour fast and were corrected by the commit times, 2026-10-14).
+- **A fresh linked worktree installs its dependencies on the first script run** (1,289 packages
+  from the store in fifteen seconds, with the bootstrap) and holds no workspace package `dist`:
+  knip's config loader then fails on the first config that imports such a package ("No exports
+  main defined"), a crash class the knip gate refuses by design (F-147); build the package and
+  rerun. The commit hooks run prettier, markdownlint and the changed-files lint only; knip and
+  the dependency cruiser run by hand before a push (2026-10-14).
+- **`collaboration-state <topic> <action> --help` works only as separate words**; a quoted
+  "topic action" prints the topic index (2026-10-14).
+- **`agent-tools session-metadata` derives the transcript directory from the working directory's
+  project path**, so from a linked worktree it fails ENOENT. The context reading is the
+  transcript's newest assistant usage (input plus cache read plus cache creation, over the
+  window) under the primary's project directory until the command takes a project-directory
+  option (a friction in each estate's register, 2026-10-14).

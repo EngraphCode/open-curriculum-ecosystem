@@ -57,6 +57,14 @@ transplant, or an edit to any path that exists at the same relative location in 
    gate that pins a host's directory list is a host binding in disguise, so the list is computed
    from the workspace manifest (a dependency-cruiser gate pinned one estate's workspace roots,
    2026-10-05).
+   A code carry runs the type check before the tests: a port's seams are type errors first (a
+   reading literal without a carried field passed 905 tests and failed the type check,
+   2026-10-14). A shared constant whose members are host states is derived from the host's own
+   ladder, and the shared doctrine sentence is the invariant both lists satisfy (the records
+   merge set, five states in one estate and seven in the other, 2026-10-14); doc comments
+   copied with the code are read against the host's ladder. A carried test file that trips the
+   host's file-length gate is split by cohesion, its shared builder a test helper, never
+   trimmed (2026-10-14).
 3. **Measure at the close.** The activity closes only when neither number is above the baseline
    and at least one is below it (or both are zero), and every shared file that grew more
    divergent is named in the close record with its reason: phenotype by nature (an

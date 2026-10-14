@@ -90,7 +90,9 @@ An entry belongs ONLY if all three hold:
 The test: if you cannot name the *exact* rule / PDR / ADR / pattern / doc section
 the entry will be written into, it is probably not a graduation — find its real
 home above. An item only remains live decision-debt when it is genuinely settled
-doctrine, has a doctrine home, and that home just has not been authored yet.
+doctrine, has a doctrine home, and that home just has not been authored yet. An entry
+leaves this file by its exact title: the five bullets above share the entry shape, so a
+removal by shape takes them too (2026-10-14).
 
 ## Draining and dwell
 
