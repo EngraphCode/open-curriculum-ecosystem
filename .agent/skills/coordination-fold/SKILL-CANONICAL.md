@@ -63,7 +63,22 @@ resides on the coordination branch).
    rollover fold's review was a records slip; before the fold PR is marked
    ready, a read-only reviewer checks every carried record against the day's
    landings (shas, PR numbers, states), and on a repository whose Copilot
-   request is the operator's the timeline is read after the mark. The fold is
+   request is the operator's the timeline is read after the mark. The pass
+   runs BESIDE the opening push's gate, never after it (the gate was two to
+   four minutes on a records push where the retrospective of 2026-10-10
+   measured it, the pass about the same, and run in series the two spend
+   half the owner's ten-minute bound before the ready-mark); it is bounded
+   to the fold's own diff
+   (`git diff origin/<default>...HEAD --stat`), briefed with the finding
+   classes of the last three folds from their review-cost ledger rows (the
+   retrospective of 2026-10-10 §Reconstruction names six: stale state a
+   successor would act on, confidential material, a record's contract
+   against practice, scope, arithmetic, doctrine contradiction; a seventh
+   from 2026-10-03: a sentence about what a tool, hook or validator does
+   written without its source and its configuration opened, "already" and
+   "names none" its tells), and its
+   slips are cured in one push before the ready-mark (the owner's decision
+   of 2026-10-10 on that retrospective's proposal 3). The fold is
    the Director's ceremony in a team session and the seat's own at n=1; it
    takes the slot at its time unless a synced holder waits for a leg, and a
    worktree seat that must write a record into the primary's coordination
@@ -170,12 +185,32 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
    lifecycle skill's Phase 3 harvest reads and triages every non-required
    verdict (a code-quality vendor's gate among them) before the merge + zero
    unresolved review threads +
-   MERGEABLE. A fold is reviewed before it merges: where the host
-   does not review a ready pull request by itself, request the vendor review
-   at the ready-mark. A fold merged with no review took six true findings
-   after its merge (2026-09-21), and on 2026-10-01 one estate's vendor
-   reviews found two false entries in records the other estate had merged
-   unreviewed.
+   MERGEABLE. The vendor review is requested at the ready-mark (where the
+   host does not review a ready pull request by itself) and a records-class
+   fold never waits for it: `merge-bot merge` computes the class from the
+   pull request's changed files (every path documentation or Practice
+   prose, decided per path, `change-class.ts`; a seat never declares it) and
+   merges a records-class fold at checks green by name (the required
+   contexts above, read from the rules at run time; a pending check the
+   rules do not require — the vendor's own review run among them — does not
+   hold a records-class fold, a failed check of any name does) with zero
+   unresolved threads on the verdicts that differ from SETTLE-READY only by
+   the vendor leg, naming the ground in its evidence (the owner's ruling of 2026-09-03,
+   "Change the merge policy instead", as the door's behaviour; the owner's
+   decision of 2026-10-10 on the retrospective's proposal 1). The review is
+   harvested after the merge under PDR-140 clause 9(e): each finding is read
+   under clause 9(a), an over-bar finding cures in the successor's first
+   records commit, a below-bar one is rejected with rationale or routed. A
+   fold carrying a code path keeps the SETTLE-READY door. The history this
+   replaces, with its price: a fold merged with no review took six true
+   findings after its merge (2026-09-21), and on 2026-10-01 one estate's
+   vendor reviews found two false entries in records the other estate had
+   merged unreviewed; the clause those two instances graduated on 2026-10-02
+   ("a fold is reviewed before it merges") then cost four jimcresswell.net
+   folds 26 to 58 minutes of wall time against the owner's ten-minute bound,
+   nine vendor rounds of 4 to 8 minutes each for 39 findings, none of them
+   authority
+   (the retrospective of 2026-10-10).
 8. Bot REST merge at the FETCHED full head sha — fetched at merge time,
    never typed from memory, never expanded from an abbreviation — with
    `merge_method=merge`, never squash.
@@ -276,7 +311,15 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
     draft PR under BOT identity (GitHub refuses a pull request with no
     commits ahead of its base, so the draft cannot open at the cut,
     2026-09-27); broadcast the rotation on the canonical comms
-    stream so every seat re-homes. A fold entry is a few lines of state (the
+    stream so every seat re-homes. Then read the fold's clock from the API,
+    never from the seat's sense of time:
+    `pnpm --silent agent-tools coordination fold-clock --pr <fold PR> --successor <the successor's pushed sha>`
+    prints one line (the ready-mark, checks green on the same required
+    contexts the door reads, each vendor round, the merge, the successor's
+    arrival on CI, every interval in minutes from the ready-mark); paste it into the fold's
+    review-cost ledger row's Notes (a seat's reading of the push gate was
+    wrong by three times, the retrospective of 2026-10-10; the owner's bound
+    on a fold is ten minutes of wall time, his word of that day). A fold entry is a few lines of state (the
     merge sha, the successor's name, the gravity line), never a narrative of
     the fold: every sentence written here is a claim the next fold's reviewers
     price. A broadcast filled from a template by substitution is re-read whole
