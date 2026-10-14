@@ -1,9 +1,9 @@
 import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import type { PrStateReading } from '../pr-watch/state-types.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { ReadingUnavailableError, runMergeExecution, type MergeExecutionInput } from './merge.js';
+import { makeInput } from './test-helpers/merge-execution-input.js';
 import { settledReading, SETTLED_HEAD_OID } from './test-helpers/pr-state-reading.js';
 
 /**
@@ -40,28 +40,6 @@ function makeFetchPort(input: {
     };
   };
   return { fetchImpl, calls };
-}
-
-function makeInput(
-  reading: PrStateReading,
-  fetchImpl: GithubApiFetch,
-  overrides: Partial<MergeExecutionInput> = {},
-): MergeExecutionInput {
-  return {
-    identity: { appId: '1', keyPath: '/dev/null', owner: 'acme', repoName: 'widgets' },
-    prNumber: 42,
-    expectedReviewers: ['copilot-pull-request-reviewer'],
-    nowIso: '2026-08-06T09:00:00Z',
-    seams: {
-      mint: () =>
-        Promise.resolve(
-          ok({ token: 'test-token-value', expiresAt: '2026-08-06T10:00:00Z', installationId: 7 }),
-        ),
-      readReading: () => ok(reading),
-      fetchImpl,
-    },
-    ...overrides,
-  };
 }
 
 describe('runMergeExecution', () => {

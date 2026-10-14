@@ -54,6 +54,12 @@ export interface PrStateReading extends BindingHead {
   readonly number: number;
   /** The PR's html URL — the repository-scoped identity runs are matched against. */
   readonly url: string;
+  /**
+   * The author login as `gh pr view` spells it (`app/<slug>` for an App): the
+   * records-class door opens only for a GitHub App's pull request
+   * (`merge-bot/merge-records-checks.ts`).
+   */
+  readonly author: string;
   /** `OPEN` | `CLOSED` | `MERGED`. */
   readonly state: string;
   /** Draft PRs cannot merge via the sanctioned landing path — typed refusal. */

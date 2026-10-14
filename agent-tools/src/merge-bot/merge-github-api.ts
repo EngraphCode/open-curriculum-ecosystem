@@ -21,7 +21,8 @@ import type { BotIdentity } from './resolve-identity.js';
  * invites a supervisor retry against an already-merged PR.
  */
 
-const GITHUB_API = 'https://api.github.com';
+/** The one API host every bot write and read is pinned to (security H1). */
+export const GITHUB_API = 'https://api.github.com';
 
 /** Only the field this gate consumes; unknown repo fields are irrelevant here. */
 const mergeSettingsSchema = z.object({ allow_merge_commit: z.boolean() });
