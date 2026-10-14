@@ -66,6 +66,11 @@ transplant, or an edit to any path that exists at the same relative location in 
    landed an hour apart, 2026-10-02). A script that runs in both estates resolves the default
    branch the way the fold skill does, never by the name `main` (a containment check assumed
    that name on the sibling, 2026-10-05).
+   A divergence is never left standing because one estate's tooling lacks what the shared
+   doctrine names: the tooling is brought up as a code lane opened the day the gap is found,
+   and the doctrine lands as the same bytes once it has (the owner, 2026-10-14, on a fold
+   passage held back from the sibling for want of its merge tool's class detection: "There is
+   ONE Practice with local instances, if OCE needs an update, it needs an update").
 4. **Say the two measurements** beside the buffer counts in every close report of a two-estate
    activity.
 
