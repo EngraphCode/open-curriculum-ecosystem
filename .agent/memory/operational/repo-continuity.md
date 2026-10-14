@@ -37,7 +37,7 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
-- **2026-10-14T12:2xZ: the third dedicated two-estate consolidation's sibling stage landed on lane
+- **2026-10-14T11:2xZ: the third dedicated two-estate consolidation's sibling stage landed on lane
   `docs/consolidation-3`** (Flint guards Vapor, 9b835d, guest curator under the join ceremony; the
   curator claim of 2026-10-11 adopted in place). Pending graduations here 1, down from 16: the
   operator-profile half of the Oak GitHub read ruling, a write to the owner's own profile at his
