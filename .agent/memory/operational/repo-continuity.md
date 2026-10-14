@@ -55,7 +55,7 @@ forward-asks remain.
   owner's standing word; the live seat's three uncommitted files on the primary checkout are
   untouched. Next here at the owner's word: the six slow-lane rows, this record's own disposition
   (it stands over its limit), and the napkin's rotation once the live seat's uncommitted block is
-  committed.
+  committed. The slow lane was decided the same day at the owner's word: two rows promoted as carried by doctrine that now exists, four standing to their dates with the day's evidence logged in the register.
 
 - **2026-10-13T13:0xZ: the review lane for pull request #356 (the retained-framework rearchitecting
   programme, ADR-233) opened at the owner's word; the seat at its compaction boundary** (Walrus
