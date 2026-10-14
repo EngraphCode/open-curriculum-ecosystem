@@ -36,7 +36,11 @@ discipline held for expensive chains gets skipped.
   and read the task's output for `Traceback` before trusting it: a
   backgrounded edit script followed by a commit on `;` committed the
   unedited file when the script's assertion failed, and a grep for the
-  push line alone missed it (2026-09-20).
+  push line alone missed it (2026-09-20). Every step after a push is gated
+  on the push's exit with `&&`, and the remote is read against the local tip
+  before any sentence says "pushed": one chained command ran the push, its
+  echo, the thread replies and the push-done line while the push had exited
+  1 (2026-10-02).
 - For streamed-side-effect CLIs (comms sends, registry writes), also
   verify the effect landed (the event on the stream, the ref moved, the
   registry row changed) — a grep filter over a failed send returns empty

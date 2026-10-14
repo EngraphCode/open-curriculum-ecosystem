@@ -138,7 +138,11 @@ only; `superseded` requires a named `superseded_by` successor. Executed
 is not ratified. An owner gate that spans many items is presented as ONE
 numbered list taking one word, with declines by item number (PR #959's
 "Ratify all thirteen", 2026-09-03, on the estate's earlier one-word
-precedent over an enumerated scope).
+precedent over an enumerated scope). A sketch delivery node's own stamp
+gates nothing when the ratified strategic node names the target and
+delegates the authoring to the implementer at pickup; writing a wait on that
+stamp rebuilds a gate on the owner that the ruling forbids (2026-10-02 and
+2026-10-03).
 
 ## Frontmatter Contract (validator-enforced)
 
@@ -382,6 +386,23 @@ lines, heartbeat pauses, a records commit per event) is not the rate of the
 work: separate the two before an estimate is stated, and size a tested
 module copied with its tests in minutes, not as fresh code (an estimate of
 eight to ten seat-days against the owner's bound of two hours, 2026-10-02).
+
+The owner's time guide is a yardstick, never a deadline; the remaining time is
+re-estimated at every boundary and written on the node, and an estimate past
+twice the guide is a stop to reshape, never a re-size, because the cause is
+shape, not speed. The owner, 2026-10-02, verbatim: "Slow and steady is better
+than fast and wrong every time. The two hour goal is a yarstick not a deadline,
+quality matters far more than speed, esimate remaining time as you go, and if
+it looks like it is going to hit four hours there may be an issue, apply all
+appropriate planning and cognitive skills"; and 2026-10-03: "Now you are
+telling me that we need all of today and ten straight hours tomorrow. And I am
+telling you, that means we are doing it wrong ... question your framing and
+assumptions." The pull requests a plan implies are its cost, counted before
+work starts. An estimate is summed from the artefact's own closures (files,
+hunks, gate runs), never from feel. When two outputs must be the same bytes,
+one producer and `cmp`, never two authors; a report is sunk at authoring and
+findings on it are rows for one closing revision; a DRIFTING Cricket changes
+the next hour or is answered in writing.
 
 ## Completion and Archival
 

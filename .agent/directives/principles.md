@@ -661,6 +661,11 @@ paths, setup files) don't apply.
   check is an incomplete disposition. Operationalised in
   [testing-strategy.md §When a Defect Is Found](testing-strategy.md)
   and [`pr-comments-resolve-and-recheck.md`](../rules/pr-comments-resolve-and-recheck.md).
+- **The cure stops recurrence; symptom removal is hygiene** - The cure is the action that stops
+  the issue happening again, never the one that removes the symptom (the owner, 2026-10-07: "the
+  cure is the action that stops it from happening again, not the action the removes the
+  symptom"). A cure names the change to the generator (a skill, a rule, a validator, a hook)
+  first and alone; removing the symptom is hygiene, stated as such.
 - **Local broken code never leaves** — Broken code is never
   acceptable. The local-only constraint is not an excuse to tolerate
   brokenness; it is the discipline that prevents brokenness from
@@ -752,6 +757,13 @@ signal of value — grading only against expectations we authored measures our o
 assumptions. See [validation-strategy.md](validation-strategy.md) for the
 test/evaluate/assure frame, the assurance tiers, and the instrument-by-surface
 mapping.
+
+Text a model wrote (a program's printed output read as evidence, a command's argument tail, a
+flag value that becomes a path) crosses into host authority only after a harness-owned parser
+has admitted it against a closed grammar; what the grammar does not name is refused, and the
+refusal names it, never passed through. The engineering instance is the pattern
+`cli-writer-boundary-discipline`; this is its general form, promoted from the slow lane at its
+2026-10-10 review.
 
 ### Compiler Time Types and Runtime Validation
 

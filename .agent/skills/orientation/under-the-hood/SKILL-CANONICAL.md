@@ -329,7 +329,9 @@ last_visit: YYYY-MM-DD
 
 **Never record personal details** — no names, no emails, nothing identifying; the
 file is personal by location, not by identity. Update it as the conversation
-progresses. On read: if `schema_version` is missing, unknown, or the file fails to
+progresses: the newcomer's go-ahead to keep this file is the go-ahead for its
+updates, so no further prompt per write (the tour's go-ahead-before-any-state-change
+and this file's updates were read as a contradiction and settled this way, 2026-10-03). On read: if `schema_version` is missing, unknown, or the file fails to
 parse, treat the file as absent and fall back to stateless re-derivation — never
 guess at a migration mid-conversation. If the shape ever evolves, bump the version
 and migrate explicitly at write time.

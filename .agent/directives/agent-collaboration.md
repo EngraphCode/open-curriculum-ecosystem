@@ -83,6 +83,11 @@ sidebar for a short focused exchange, a joint decision when agents need a
 shared commitment with recorder or actor follow-through, and an owner
 escalation when peer agreement cannot resolve the block.
 
+On a shared primary the claims registry and the commit queue are the coordination; a direct
+message goes only when the peer must act (a hold to release, a push that will block their edits
+for minutes), batched into one (the owner, 2026-10-11: "stop messaging every little to Shrew,
+they are concentrating on a different task").
+
 **Liveness needs injected asymmetry.** Two peers both defaulting to
 "HOLD if no reply" is a mutual-politeness deadlock — no designated
 mover, so the shared resource never clears (worked instance

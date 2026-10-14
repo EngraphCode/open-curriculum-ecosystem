@@ -23,6 +23,13 @@ workspace count that changed because a package moved, is what the chosen path pr
 and a record that calls it an error sends the next reader to cure something that is not
 broken (2026-09-12).
 
+A record that lands in two estates is written estate-neutral and dated before
+the ready-mark: no "here", no live count without its date, and a pull-request
+number names its estate wherever both estates appear in one record (seven
+stale or false lines found by a peer's pass on one record and a pull-request
+number without its estate, 2026-10-02; a records fold drew findings on a count,
+a date and a "here", 2026-10-05).
+
 A record's REGISTER encodes its authority, and readers obey the register
 (a napkin observation written in the imperative hardened into a cited
 "owner ruling" within thirty minutes and stood a peer's monitors down,

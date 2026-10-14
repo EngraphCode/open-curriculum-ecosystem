@@ -48,6 +48,14 @@ The literal forbidden-pattern strings belong only in:
 In every other surface — every instructive context — the descriptive
 substitute is the correct shape.
 
+Three write-time refusals and their cures, each met once (2026-10-02 to
+2026-10-06): a record quoting an owner message that contains a user-home
+absolute path is refused, so the message is quoted in substance with the
+repo-relative path; a script carrying the checkout's absolute path is
+refused, where a `$HOME`-relative path passes; and a heredoc whose text
+carries a banned phrase is refused whatever the file, so a brief that must
+name such a phrase is written with the file tool.
+
 ## Why this rule exists
 
 The hook-policy matcher cannot distinguish "do not use X" from "use

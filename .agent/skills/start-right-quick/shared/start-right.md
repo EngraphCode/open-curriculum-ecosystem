@@ -51,6 +51,16 @@ session that grounds it; no citation, not ready to propose. And read
 inherited letters and records critically — drift accumulates, so their
 claims are checked against the artefacts, never assumed.
 
+A command shape carried across a compaction is not the command. At a resume
+after a compaction or a handoff: the rules that govern the tool boundary are
+re-read before the first command (every Bash call compound against the
+tool-boundary rule, found by reading an old handoff, 2026-10-02); a command's
+help is read before its first attempt, since a shape carried in a summary is
+not the command (a direct-message command refused twice on a shape carried in
+a summary, 2026-10-03); and the context meter is read twice, a few calls
+apart, before anything is priced on it (its first read after a compaction
+described another moment, twice, 2026-10-02).
+
 ### 1. Durable directives
 
 Read and internalise. **This foundation-directive reading is the

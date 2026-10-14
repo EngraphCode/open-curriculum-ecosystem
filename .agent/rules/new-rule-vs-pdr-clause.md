@@ -40,7 +40,10 @@ matching home; do not duplicate across multiple homes.
    it. Add the clause inside the PDR's Decision section under a new
    numbered heading, update the PDR's Revision history, and add a
    Falsifiability axis if the new clause is falsifiable independently of
-   the rest.
+   the rest. A reading of an owner's word that changes what a Core record
+   decides lands here, as an amendment of that record, dated and quoting the
+   word, never as a rule sentence that contradicts the record while the
+   record stands (2026-10-03).
 
 3. **New portable Practice contract → new PDR.**
    Use when the substance is a load-bearing contract with portable scope

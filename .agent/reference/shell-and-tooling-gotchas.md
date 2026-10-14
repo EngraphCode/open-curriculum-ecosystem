@@ -15,6 +15,8 @@ tool retires them.
   REMAINING chained commands invisibly: zsh's default `EQUALS` option
   performs command-path expansion on an unquoted word beginning with
   `=` (the `=cmd` form). Quote the separator or emit it with `printf`.
+  Recurred 2026-10-13 (an `echo ==label` separator in a chained inspection, the
+  rest of the chain lost): label with a leading `--` and a space.
 - **`GID` is a READONLY integer parameter in zsh** (2026-07-20).
   Assigning a uuid to it fails as "bad math expression"; never use it
   as a variable name (same family: `UID`, `EUID`, `EGID`).
@@ -26,7 +28,10 @@ tool retires them.
   does not word-split, and `"$n:a…"` reads `:a` as a path modifier, so write
   `${n}:`; run watch loops as `bash` scripts, prove a loop on a landed event
   before trusting its silence, and never pipe a Monitor through `grep` (the
-  filter goes inside the script, or the exit code is the pipe's).
+  filter goes inside the script, or the exit code is the pipe's). Recurred
+  2026-10-13: a doctrine probe passed its directory list as `$D` and every grep
+  read zero, the control term included; the control term is what showed it,
+  so a probe batch runs its known-positive term first and spells its paths out.
 - **A `:` straight after an unbraced parameter is a modifier, inside double
   quotes too** (verified 2026-10-01): zsh reads `$NAME:r` (and `:h`, `:t`,
   `:e`, and `:a` above) as a history-style modifier on the parameter, so
@@ -136,6 +141,14 @@ tool retires them.
   The muscle-memory `checkout -b` bundles create+switch and moves the
   shared primary; `git branch --show-current` after every
   branch-affecting command is the cheap tripwire.
+- **A checked-out lane with no commits of its own is re-pointed without a
+  reset** (2026-10-13): the hook refuses `git reset --hard` whatever the tree
+  holds, and the block is a concept to reappraise, not a command to swap. The
+  forward shape: `git switch --detach`, `git branch -d <lane>` (the safe
+  delete refuses an unmerged branch), `git switch -c <lane> <new base>`, then
+  `git merge --ff-only <parent>` to follow the parent afterwards; prove the
+  preconditions first (`git rev-list --count <base>..HEAD` is 0 and
+  `git status --porcelain` is empty), in the same command as the move.
 
 A fast-forward of the primary succeeds over staged ride-along files whose content equals the
 incoming tip: "the identical files were staged before the fast-forward, which git's two-way merge
@@ -792,3 +805,34 @@ Director's landing record of 2026-09-06, event f05a54da).
 - **Run `git check-ignore -v <path>` before adding a file under a state directory**: the
   handoffs directory is gitignored in both estates, so `git add` of a record there fails
   (2026-10-02).
+
+## 2026-10-14 consolidation batch (from the third dedicated consolidation's registers; each searched for in the permanent surfaces first)
+
+- **A carry between estates is proved by `git ls-files` and `git check-ignore -v`, never by a
+  green local gate**: a bare `build` ignore line swallowed a carried directory, so the local
+  gate passed and CI went red (2026-10-05). After copying a directory, `git ls-files` it in the
+  receiving tree and `git check-ignore -v` anything missing, before the commit.
+- **A sibling's gate that needs a browser takes one Playwright install per Playwright version**
+  (`pnpm --filter <app> exec playwright install chromium-headless-shell`), and knip's exit is
+  the verdict while its hint count is information: the two estates differ on
+  `treatConfigHintsAsErrors`, a family drift to name, not a finding (2026-10-05).
+- **A dry run under `TURBO_FORCE=true` needs `--cache=local:rw`**: `local:r` meets "WARNING no
+  caches are enabled" while `local:rw` is silent (2026-09-30); every place that names the remote
+  cache's team must agree, and `turbo config` on each host is the check that they do.
+- **A table transform rebuilds each row from its cells**; the closer's width check is
+  necessary, not sufficient, and `grep ' | |$'` finds the empty cell (2026-10-03).
+- **Markdownlint by explicit path still ignores `.agent/reports/**`**: lint a report by copying
+  it outside the repository with the repo config (2026-10-03).
+- **A commit pathspec that names a renamed or deleted path aborts the whole `git add`**: stage
+  what exists, commit by the full pathspec (2026-10-05).
+- **`pnpm --filter <name>` with no matching package prints "Scope: 0 of N" and exits 0**: a test
+  run's proof is its "Test Files" line, never the exit (2026-10-05).
+- **In Python, `open(p, "w").write(compute())` truncates the file before `compute()` runs**:
+  compute first, then open (2026-10-10).
+- **A sender probe against the live comms directory writes an event before its output step
+  fails**: a probe of the sender's refusal with its output at `/dev/null` left a one-word body on
+  the append-only stream (2026-10-02); both estates' CLI takes `--comms-dir`, so a probe points
+  it at a scratch directory.
+- **SonarCloud's security rating fails a smoke that resolves `pnpm` or `git` through `PATH`**: a
+  smoke spawns `process.execPath` with tsx and the resolved trusted git (both estates carry the
+  smokes; cured in OCE on 2026-10-03).

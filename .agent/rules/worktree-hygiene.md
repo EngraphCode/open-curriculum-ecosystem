@@ -195,7 +195,13 @@ in the worktree, and (b) its HEAD an ancestor of a freshly-fetched
 `origin/<base>` (`git merge-base --is-ancestor`) — or, where the branch
 landed by squash or is content-superseded, the content proof recorded
 instead: every file proven present newer on the base by content
-comparison, the comparison written down before the removal. Items passing both prune
+comparison, the comparison written down before the removal. A content proof
+reads decisions, not lines alone: before a branch is retired as
+content-superseded, each line absent from the base is read against the
+decision that superseded it, and a line absent by a later decision is not
+lost work (a six-file residue script read zero while a 22-file line proof
+found absent lines in ten files, every one superseded by a later decision,
+2026-10-02). Items passing both prune
 without a per-item ask: `git worktree remove` (never `--force` — its
 dirty-refusal is a safety net) plus `git worktree prune` for gone
 registrations, and plain branch deletion for proven local branches, with the bot's API

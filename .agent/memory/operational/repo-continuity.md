@@ -37,6 +37,26 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-14T12:2xZ: the third dedicated two-estate consolidation's sibling stage landed on lane
+  `docs/consolidation-3`** (Flint guards Vapor, 9b835d, guest curator under the join ceremony; the
+  curator claim of 2026-10-11 adopted in place). Pending graduations here 1, down from 16: the
+  operator-profile half of the Oak GitHub read ruling, a write to the owner's own profile at his
+  word. The sibling estate's register reaches 0 with this stage, its last entry being the carry into
+  this estate's wrap skill. What landed: twenty-two shared files took the sibling's graduation hunks
+  as bytes; seven shared-doctrine files are the same bytes as the sibling's settled copies
+  (owner-signal-interpretation, the cross-estate rule, downstream-checkout, consolidate-until-done,
+  wrap, PDR-117, the shell gotchas less one bullet about a gate unverified here); five
+  host-flavoured files took their shared passages only; five directive homes took the eight shared
+  texts the owner agreed on 2026-10-14. Left divergent with the reason named: the fold doctrine of
+  2026-10-10 in coordination-fold and pr-lifecycle, which names the sibling's merge-bot class
+  detection and fold clock that this estate's tooling lacks (this estate's door doctrine stands
+  until its tool learns the class, as its own prediction says); the sibling's harness-integrations
+  bullet about its own write hook; the two build-system documents. The lane is unpushed at the
+  owner's standing word; the live seat's three uncommitted files on the primary checkout are
+  untouched. Next here at the owner's word: the six slow-lane rows, this record's own disposition
+  (it stands over its limit), and the napkin's rotation once the live seat's uncommitted block is
+  committed.
+
 - **2026-10-13T13:0xZ: the review lane for pull request #356 (the retained-framework rearchitecting
   programme, ADR-233) opened at the owner's word; the seat at its compaction boundary** (Walrus
   seeks Maelstrom, 9585cc, n=1). The owner's rulings of the day: merge is not blocked on the

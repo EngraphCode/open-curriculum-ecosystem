@@ -42,10 +42,30 @@ transplant, or an edit to any path that exists at the same relative location in 
    diff shows that the estates differ; only history shows
    who decided (two instances on 2026-10-01: assertions one estate had deleted on purpose were
    restored in the other and removed again at review).
+   A conflicted file's clean regions, where one estate alone moved since the base, are read by
+   nobody in a three-way build and would land silently: each row's reading is applied to the
+   receiver's own file by its author, who reads the file whole and names the clean-region
+   readings in the landing line; nothing is taken from a clean region unread (the Director's
+   ruling of 2026-10-03, from a finding on the alignment ledger).
+   A port is cut from the destination's own text with edits that assert their anchors; where
+   the twin's anchor reads zero because the passage wraps differently, the cured passage is
+   applied to the estate's own wording and proved byte-equal to the sibling's merged text (a
+   raw patch duplicated three passages and reversed one, 2026-10-02). A carried module's import
+   closure is read before the copy (2026-10-03). A gate or validator that runs in both estates
+   is demonstrated on the other tree before it is called done; a seam test on carried shared
+   bytes is routed to the validator's own node, never added in one estate alone; and a one-body
+   gate that pins a host's directory list is a host binding in disguise, so the list is computed
+   from the workspace manifest (a dependency-cruiser gate pinned one estate's workspace roots,
+   2026-10-05).
 3. **Measure at the close.** The activity closes only when neither number is above the baseline
    and at least one is below it (or both are zero), and every shared file that grew more
    divergent is named in the close record with its reason: phenotype by nature (an
-   estate-specific worked instance), or a defect owed to a named seat with its cure.
+   estate-specific worked instance), or a defect owed to a named seat with its cure. The
+   measure is read at the close of a pair of landings, never mid-pair: each estate's review
+   changes the bytes until both merge (147 files at an open, 150 while twin pull requests
+   landed an hour apart, 2026-10-02). A script that runs in both estates resolves the default
+   branch the way the fold skill does, never by the name `main` (a containment check assumed
+   that name on the sibling, 2026-10-05).
 4. **Say the two measurements** beside the buffer counts in every close report of a two-estate
    activity.
 

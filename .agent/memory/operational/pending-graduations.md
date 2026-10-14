@@ -116,57 +116,6 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **Anything coming in from the default branch is merged, never rebased**
-  `[captured: 2026-10-11 | source: the owner's ruling of 2026-10-02, verbatim in this estate's
-  Claude per-user memory, read first-hand at the third dedicated consolidation | target:
-  .agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md §Phase 1 step 1 (Divergence) and
-  .agent/rules/never-use-git-to-remove-work.md §Standard Git Only — No Improvised Mechanics, the
-  same bytes in both estates | trigger: the doctrine pull request of this pass | size: two
-  sentences in each home | status: due]`
-
-  Verbatim: "anything coming in from main must always be merged, not rebased, we must maintain the
-  shared history". For the homes: a branch is brought current by merging the default branch in,
-  never by a rebase, whatever a handoff or plan line says ("rebase onto the default branch first"
-  is overridden), because a rebase rewrites commits the shared history depends on (carrier pull
-  requests, the mirror branch, ancestry proofs); the lifecycle skill's "never rebase-and-force-push
-  an already-pushed branch" loses its condition, and the rule's dirty-tree paragraph no longer
-  reads a clean-tree rebase as permitted.
-
-- **A script used twice becomes a standardised agent tool, routed for sizing, never extended in place**
-  `[captured: 2026-10-11 | source: the owner's word of 2026-10-03 12:1xZ, verbatim in this
-  estate's Claude per-user memory, read first-hand at the third dedicated consolidation | target:
-  .agent/rules/use-built-agent-tools-cli.md §When The Built Tool Falls Short, a dated paragraph
-  after the 2026-06-24 one, the same bytes in both estates | trigger: the doctrine pull request of
-  this pass | size: one paragraph | status: due]`
-
-  Verbatim: "if a script is used repeatedly it should be made into a standardised agent tool in
-  the agent tools workspace". The second use is the signal: the script is named on the napkin
-  with its usage line and routed to the Director for sizing and a ledger row; the conversion is
-  work with criteria, sizing and value like any other, landing under agent-tools with its tests
-  through a pull request; the script is never extended in place, and keep-scratchpad is no longer
-  among the outcomes.
-
-- **Model-authored text crosses a trust boundary only through a harness-owned closed grammar**
-  `[captured: 2026-10-11 | source: the slow-lane row of 2026-09-26 (Swallow holds Drift's concept
-  exploration; two instances in one session, in different registers), decided at its 2026-10-10
-  review by the third dedicated consolidation (Corsair weaves Seabed, 459358) | target:
-  principles.md §Agentic Quality, one paragraph, the same bytes in both estates, cross-referenced
-  from the pattern cli-writer-boundary-discipline | trigger: the next context below the
-  directive-file budget (the directive edit of this pass) | size: one paragraph | status: due]`
-
-  Promoted at its review date on the evidence: the landing toolkit's wrappers and the code-mode
-  reader (`agent-tools/src/codex-exec/command-records/harness-text.ts`, which reads the harness's
-  text by anchored patterns and never the program's) hold; the third boundary instance was found,
-  F-218 (`--event-id` checked only for being non-empty and then used as a file name, the cure
-  "give `--event-id` a closed grammar" named and still open); the falsifier never fired (no boundary
-  was found where admitting unparsed model-authored text is correct and safe, and no wrapper needed
-  argument pass-through). The principle, for its home: text a model wrote (a program's printed
-  output read as evidence, a command's argument tail, a flag value that becomes a path) crosses
-  into host authority only after a harness-owned parser has admitted it against a closed grammar;
-  what the grammar does not name is refused and named in the refusal, never passed through. The
-  engineering instance stays in the pattern (its first cell); the directive line is the general
-  form. The cure of F-218 is a code lane, not this graduation.
-
 ### Drained 2026-10-11 from the two napkins (Corsair weaves Seabed, 459358)
 
 This estate's napkin (459 lines, 20 blocks, 2026-09-29 to 2026-10-05) and the sibling's (1,376
@@ -177,164 +126,25 @@ of the same date; every target below is the same bytes in both estates unless ma
 are rotated after this batch, so a source cites the block's heading, which the archive keeps
 byte-identical.
 
-- **A command shape carried across a compaction is not the command**
-  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T01:15Z and 02:32Z (Hazel: every
-  Bash call compound against the tool-boundary rule, found by reading an old handoff; the context
-  meter's first read after a compaction describing another moment, twice), 2026-10-03T13:2xZ
-  (Efreet: the direct-message command refused twice on a shape carried in a summary) | target: the
-  session-handoff skill under .agent/skills/, its resume step | trigger: the doctrine pull
-  request of this pass | size: one paragraph | status: due]`
-
-  At a resume after a compaction: the rules that govern the tool boundary are re-read before the
-  first command; a command's help is read before its first attempt, since a shape carried in a
-  summary is not the command; the context meter is read twice, a few calls apart, before anything
-  is priced on it.
-
-- **A finding that lives in a review body holds the door**
-  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T02:32Z (Hazel: Copilot's overview said
-  conflicts remained under "Findings: None"; three true contradictions) and 2026-10-02T17:48Z
-  (a watch counting threads fired READY under a body listing "previously missed" findings) |
-  target: .agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md, the door clause beside
-  the body-only-findings harvest | trigger: the doctrine pull request of this pass | size: two
-  sentences | status: due]`
-
-  A door or watch that counts review threads also reads the latest vendor review on the head and
-  holds while its body lists open or previously-missed findings; a sentence in a review body under
-  "Findings: None" is a finding to test, never prose.
-
-- **A finding on shared text is checked against the twin before a cure travels**
-  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T18:5xZ (Efreet: two reviewers raised
-  one sentence with opposite narrowings; the sibling's rule lacked the paragraph) and
-  2026-10-03T00:5xZ (eleven findings on #346) | target:
-  .agent/rules/review-feedback-defaults-to-triage.md §Action, beside the triage-by-risk entry of
-  the sibling's register | trigger: the doctrine pull request of this pass | size: one paragraph |
-  status: due]`
-
-  A reviewer's finding on text both estates carry is read against the twin before any cure
-  travels. Two reviewers' opposite narrowings of one sentence are cured by citing the governing
-  loop, never by restating it. A cure over the risk bar (a credential in a log, a validator that
-  can pass silently) travels to the sibling as the same bytes; a wording finding travels as a note.
-
-- **An exhausted fold budget freezes every seat's records until the fold merges**
-  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T18:5xZ (Efreet, 19:3xZ: the
-  review-cost gate refused a records push because the fold's settlement budget was spent) and
-  2026-10-03T13:2xZ (three fold findings on the one paragraph stating a decision) | target:
-  .agent/skills/coordination-fold/SKILL-CANONICAL.md, beside the ten-minute entry of the
-  sibling's register | trigger: the doctrine pull request of this pass | size: two sentences |
-  status: due]`
-
-  A records commit on a coordination branch whose draft is ready is a settlement push of the fold,
-  so a spent fold budget freezes every seat's records until the fold merges: fold early, or before
-  the ready-mark's review legs run. A records fold's findings land on the paragraph that states a
-  decision; a dated estimate line that records the hour's rulings cures count, contradiction and
-  wording in one push.
-
-- **Under gates that read the whole working tree, dependent halves land as one commit**
-  `[captured: 2026-10-11 | source: napkin blocks 2026-10-03T00:5xZ (Efreet: three refusals, two
-  halves whose gates read each other) and 2026-10-03T19:5xZ (a tracked file linking an
-  uncommitted new file); the sibling's napkin 2026-10-10T15:0xZ (Cedar: the partner's push failed
-  on a README row linking an untracked report) | target:
-  .agent/rules/stage-by-explicit-pathspec.md, the sentence "the gate reads the whole working tree
-  while it runs" | trigger: the doctrine pull request of this pass | size: one paragraph | status:
-  due]`
-
-  A pathspec commit runs the hooks over a temporary index holding only its paths while the link
-  validator reads the whole working tree: two halves whose gates read each other (a record and the
-  script that names it) land as one commit; a tracked file that links a not-yet-tracked file is
-  BLOCKING at every commit while both sit uncommitted, so the new file lands first or with its
-  riders; on a shared primary a report and its index row are committed together before anyone
-  pushes.
-
-- **A port is cut from the destination's own text; the cure is the passage, not the anchor**
-  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T01:15Z (Hazel: a raw patch duplicated
-  three passages and reversed one), 2026-10-02T20:4xZ (Efreet: an anchor at zero on the twin
-  because the passage wraps differently), 2026-10-03T00:5xZ (a carried validator's import
-  closure) and 2026-10-03T19:5xZ (a three-way merge landed one-sided edits in the clean regions)
-  | target: .agent/skills/change-custody/semantic-merge/SKILL-CANONICAL.md, the carry clauses,
-  and the cross-estate rule's carry step | trigger: the doctrine pull request of this pass | size:
-  one paragraph | status: due]`
-
-  A port is cut from the destination's own text with edits that assert their anchors; where the
-  twin's anchor reads zero because the passage wraps differently, the cured passage is applied to
-  the estate's own wording and proved byte-equal to the sibling's merged text. A three-way merge
-  of a conflicted shared file lands the other estate's one-sided edits in its clean regions, which
-  are a read the ledger never made. A carried module's import closure is read before the copy.
-
-- **Records that land in two estates are estate-neutral and dated; a later message settles an earlier line**
-  `[captured: 2026-10-11 | source: napkin blocks 2026-10-02T14:01Z (Hazel: seven stale or false
-  lines found by a peer's pass; a pull-request number without its estate), 2026-10-02T17:48Z (a
-  later, more specific message from the same author settles an earlier ambiguous line; the ack
-  asked and confirmed), 2026-10-05T16:3xZ (Sycamore: a records fold draws findings on a count, a
-  date, a "here") | target: .agent/rules/records-are-technical-not-emotional.md §Records carry
-  their authority honestly, and .agent/rules/handoff-messages-self-contained.md for the message
-  clause | trigger: the doctrine pull request of this pass | size: three sentences | status: due]`
-
-  A record that lands in two estates is written estate-neutral and dated before the ready-mark
-  (no "here", no live count without its date); a pull-request number names its estate wherever
-  both estates appear in one record. A later, more specific message from the same author settles
-  an earlier ambiguous line, and the reading is acknowledged back before it is acted on.
-
-- **A closed write list with nothing landed is itself the buffer**
-  `[captured: 2026-10-11 | source: napkin block 2026-10-02T02:32Z (Hazel, Cricket suite 14: a
-  grouped write list of 104 items, none landed) | target:
-  .agent/skills/knowledge/consolidate-until-done/SKILL-CANONICAL.md, the landing step | trigger:
-  the doctrine pull request of this pass | size: one sentence | status: due]`
-
-  Group the drain's writes by home surface early and land the memory-surface group first, since
-  it needs no pull request; a closed, grouped list with nothing landed is the buffer under
-  another name.
-
-- **Count from the whole listing, never from a tail**
-  `[captured: 2026-10-11 | source: napkin block 2026-10-02T18:5xZ (Efreet: a diff stat piped
-  through a tail of eight lines hid three of ten files) | target:
-  .agent/rules/read-diagnostic-artefacts-in-full.md, the examples | trigger: the doctrine pull
-  request of this pass | size: one sentence | status: due]`
-
-  A count is taken from the whole listing or the command's own summary line, never from a
-  tail or a head of it.
-
-- **A content proof reads decisions, not lines alone**
-  `[captured: 2026-10-11 | source: napkin block 2026-10-02T20:4xZ (Efreet: a six-file residue
-  script read zero while a 22-file line proof found absent lines in ten files, every one
-  superseded by a later decision); the same finding at this pass's open on the leftover omnibus
-  branches of the second consolidation | target: .agent/rules/worktree-hygiene.md, the
-  content-proof sentence | trigger: the doctrine pull request of this pass | size: one sentence |
-  status: due]`
-
-  Before a branch is retired as content-superseded, the proof reads each absent line against the
-  decision that superseded it, not the line's presence alone; a line absent by a later decision
-  is not lost work.
-
-- **A failed push is never answered as done**
-  `[captured: 2026-10-11 | source: napkin block 2026-10-02T00:10Z (Hazel: one chained command ran
-  the push, its echo, the thread replies and the push-done line; the push exited 1) | target:
-  .agent/rules/exit-codes-in-band-never-piped.md, one sentence beside the chain clause | trigger:
-  the doctrine pull request of this pass | size: one sentence | status: due]`
-
-  Every step after a push is gated on the push's exit with `&&`, and the remote is read against
-  the local tip before any sentence says "pushed".
-
-- **A smoke that resolves a binary through PATH fails the security rating**
-  `[captured: 2026-10-11 | source: napkin block 2026-10-03T00:5xZ (Efreet: SonarCloud on the
-  carried smoke, cured at d4a355624) | target: .agent/reference/shell-and-tooling-gotchas.md, one
-  bullet (both estates carry the smokes) | trigger: the doctrine pull request of this pass |
-  size: one bullet | status: due]`
-
-  SonarCloud's security rating fails a smoke that resolves pnpm or git through PATH; a smoke spawns
-  `process.execPath` with tsx and the resolved trusted git.
-
 - **Oak GitHub reads are always permitted; writes stay forbidden until the owner lifts the ban**
   `[captured: 2026-10-13 | source: the owner's word of 2026-10-13 in the session of Walrus seeks
   Maelstrom (9585cc), verbatim in the napkin block of 13:0xZ and the repo-continuity invariant
-  line of the same day | target: .agent/rules/downstream-checkout-never-writes-upstream-surfaces.md,
-  the paragraph carrying the 2026-09-06 ruling, a dated amendment to its read half; the operator
-  profile's repo scope line at the owner's word | trigger: the next doctrine pull request from the
-  default branch | size: two sentences | status: due]`
+  line of the same day | target: the operator profile's repo scope line, at the owner's word (the rule half
+  landed in downstream-checkout-never-writes-upstream-surfaces.md on 2026-10-14) | trigger: the next doctrine pull request from the
+  default branch | size: one profile line | status: due]`
 
   Verbatim: "You are always permitted read-only access to Oak github, write access is forbidden for
   now, that will change at a later date." For the home: a read of any Oak GitHub surface needs no
   permission; a write of any kind stays forbidden until the owner lifts it by word; the 2026-09-06
-  ruling's read half is superseded and its write half stands.
+  ruling's read half is superseded and its write half stands. The rule half landed on 2026-10-14 as the same bytes in both
+  estates; this entry holds the operator-profile half, which is a write to the owner's own
+  profile and waits on his word.
+
+<!-- Fifteen entries graduated 2026-10-14 at the owner's word ("do it all") by the third dedicated
+consolidation's guest curator: the shared texts landed here as the same bytes the sibling estate
+settled, the closed-grammar paragraph in principles among them; the write-list entry was found
+already carried by this estate's consolidate-until-done skill. The one remaining entry holds the
+operator-profile half of the Oak GitHub read ruling. The commit and the homes are the record. -->
 
 ## Slow lane (PDR-130 — constitutional-class concepts, decided at their review date)
 
