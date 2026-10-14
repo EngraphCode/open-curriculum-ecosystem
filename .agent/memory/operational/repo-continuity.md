@@ -55,7 +55,7 @@ forward-asks remain.
   owner's standing word; the live seat's three uncommitted files on the primary checkout are
   untouched. Next here at the owner's word: the six slow-lane rows, this record's own disposition
   (it stands over its limit), and the napkin's rotation once the live seat's uncommitted block is
-  committed. The slow lane was decided the same day at the owner's word: two rows promoted as carried by doctrine that now exists, four standing to their dates with the day's evidence logged in the register.
+  committed. The slow lane was decided the same day at the owner's word: two rows promoted as carried by doctrine that now exists, four standing to their dates with the day's evidence logged in the register. The owner's word of the same day, verbatim: "There is ONE Practice with local instances, if OCE needs an update, it needs an update", so the fold passages of 2026-10-10 are not left divergent: the code lane `fix/merge-bot-records-class-and-fold-clock` is open here, cut from the default branch in a linked worktree, to bring this estate's merge tool the records-class detection and the fold clock (the sibling's pull request 328 as the change set; eight merge-bot files and the fold clock's eleven to carry, forty-one shared merge-bot files differing, this estate's own thirty-five watch files kept), its tests green in this estate's gate, after which the fold and lifecycle passages land as the same bytes; one pull request at the owner's push word.
 
 - **2026-10-13T13:0xZ: the review lane for pull request #356 (the retained-framework rearchitecting
   programme, ADR-233) opened at the owner's word; the seat at its compaction boundary** (Walrus
