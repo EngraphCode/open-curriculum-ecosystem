@@ -30,7 +30,7 @@ listener-vs-export boundary in a load-bearing way. Fred and Betty
 had agreed on a design that was internally elegant but wasn't
 keyed to what the code already did correctly.
 
-What the user said next surprised me: *"P1, the plan is bollocks,
+What the user said next surprised me: *"P1, the plan is bollards,
 we need a rewrite. Change the plan status to draft, add in all
 the discoveries and concerns so far as notes, then run Barney
 against the updated document."* No defending of the prior

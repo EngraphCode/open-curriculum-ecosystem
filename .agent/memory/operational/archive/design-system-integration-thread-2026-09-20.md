@@ -658,7 +658,7 @@ adjudication (`.agent/reports/design/plan-review-2026-08-02/`, on origin at
 
 - **Owner taste evidence from the day (the wow bar's only calibration data):**
   REJECTED out of hand: the current showcase page — bare type-ramp specimens, native
-  form-control switchboard, monochrome first paint ("a piece of crap… visually I would
+  form-control switchboard, monochrome first paint ("a piece of crud… visually I would
   reject it out of hand as incompetent"; "it is a _design_ showcase"). CALLED GOOD
   (with unenumerated tweaks pending): the canonical export's own pages — the Identity
   Switchboard switching a REAL lesson-page specimen ("The water cycle", masthead, nav,
@@ -3850,7 +3850,7 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
      while its focus order contradicts its visual order.
      **REJECTED by owner ruling 2026-09-06, verbatim: "We do NOT allow design by review in
      PRs, we have a vision that PR bots have no visibility of. Of course visual design should
-     be bloody coherent, that is not in question, but the fact that the mechanism is capable
+     be blooming coherent, that is not in question, but the fact that the mechanism is capable
      of producing incoherent designs is not a failure, it is power, that must be used
      appropriately and well, the reviewer is mixing concerns myopically."** The exemption
      stands as it implements R13; no refinement is owed, and no design-intent finding from a

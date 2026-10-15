@@ -157,6 +157,24 @@ homes (a common shape: a napkin entry mirrored into a comms event for
 untracked-tier visibility, or a lesson copied into both a pattern file and
 a distilled entry).
 
+## No swearing on the public surface
+
+The repository is public, so no tracked file of the Practice (`.agent/`) or of
+the key documentation (the root README, CONTRIBUTING and their peers) carries a
+swear word, the owner's verbatim included. Records keep his sentence and take
+The Good Place's censored words in place of the swearing (fork, shirt, bench,
+ash and their kin); rules and decision records carry none, censored or not, and
+mark the omission. The check and the replacement never read content (the site's
+content and entity graph, the CV, the LinkedIn drafts, curriculum data, design
+captures, generated packages), and history is not rewritten. Local per-user
+memory may keep the verbatim. The owner, 2026-10-14: "this is a public repo for
+a public surface, please remove all swearing from the head commit, no need to
+change history"; on the scope, the same day: "the swearing check should apply
+only to the Practice and key documentation, nothing else, and never to
+content". Unlike the rest of this rule, this section reaches every tracked
+file of the Practice, the `.agent/experience/` register included; each
+estate's agent-tools README names the command that runs the check.
+
 ## Scope boundary
 
 This rule governs records **of the owner's state**. It does not reach the

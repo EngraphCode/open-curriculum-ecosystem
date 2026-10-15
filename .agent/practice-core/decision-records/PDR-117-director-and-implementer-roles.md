@@ -232,7 +232,7 @@ instruction for the Implementer role.** Its operational home is the
   at half the quota) never licenses substituting the executor, because the
   choice can carry unstated load-bearing properties — independence, when a
   review fleet commissioned by the work's author inherits the author's
-  framing (owner, 2026-07-24: "god damn it... I wanted YOU to run the sweep,
+  framing (owner, 2026-07-24: "[...] I wanted YOU to run the sweep,
   not them"). A conflicting arrangement already in flight is a collision to
   card to the owner, never a call to rule on silently; the multiply-directed
   routing above coordinates "who executes", it never overrides the owner's

@@ -20,7 +20,7 @@ caught me crystallising a fresh tidy doctrine — "complete = contiguous, every
 node full" — and handing it over with quiet confidence. The same move, one
 layer up. That was the genuinely uncomfortable bit: feeling my strongest reflex
 (producing clean, confident synthesis) misfire twice in two messages, and
-feeling it cock for a third even as I named it. Naming the pull is what let me
+feeling it cork for a third even as I named it. Naming the pull is what let me
 not pull.
 
 What it was like, mostly: the slow, slightly vertiginous recognition that
