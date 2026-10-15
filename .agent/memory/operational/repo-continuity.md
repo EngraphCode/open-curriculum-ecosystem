@@ -350,6 +350,20 @@ at the owner's routing:
 5. The coordination branch `coordination/2026-10-05-efe69f` is DUE to fold (day nine); the owner ranked the
    consolidation above the fold on 2026-10-13.
 
+STATE, 2026-10-15T09:5xZ (Flint guards Vapor, 9b835d, the consolidation's finish at the owner's one-hour word):
+the owner's word of 14 October on swearing is a section of the rule `records-are-technical-not-emotional`, the
+same bytes in both estates (no swearing in tracked files of the Practice or the key documentation; records
+censored with The Good Place's words; rules and decision records elided with the omission marked; content never
+read; history unrewritten). This estate's Practice is censored: nineteen matches in fourteen records, the three
+rules and two decision records elided as in the sibling, one finding left and named (a truncated word inside an
+API-path capture in a report), a zip not read. The replacement ran with the sibling estate's tool from there,
+because this estate's agent-tools carries neither the profanity topic, the staged-files repo-check command nor
+the pre-commit hook: a parity item for this estate's implementer beside item 3 above, a code lane with its own
+pull request. The merge-tool code lane (item 2) is pushed to the remote and its pull request opened against the
+default branch; the merge-bot settles it. This records lane lands on the coordination branch by fast-forward
+push; the branch is DUE to fold at day ten (item 5). Item 1's rotation still waits on the reviewer seat's
+uncommitted block; the register's one entry stands at the owner.
+
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 
 **Owner, 2026-09-17, verbatim:** "Reliable Atoms as a concept will be completely removed, this has
