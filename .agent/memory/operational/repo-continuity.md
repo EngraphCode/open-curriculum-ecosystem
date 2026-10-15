@@ -364,6 +364,12 @@ default branch; the merge-bot settles it. This records lane lands on the coordin
 push; the branch is DUE to fold at day ten (item 5). Item 1's rotation still waits on the reviewer seat's
 uncommitted block; the register's one entry stands at the owner.
 
+STATE, 2026-10-15T11:1xZ (Flint guards Vapor, 9b835d, amendment at the owner's word): the `.agent/experience/`
+register is excluded from the censoring; the three experience records the pass above had censored are written
+back to their captured bytes in a forward commit on this lane; the research notes and probe data stay censored at
+his word; the rule's section carries the exclusion, the same bytes in both estates. The parity item's hook, when
+built here, honours the exclusion.
+
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 
 **Owner, 2026-09-17, verbatim:** "Reliable Atoms as a concept will be completely removed, this has

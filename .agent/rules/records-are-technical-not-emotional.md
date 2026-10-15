@@ -172,8 +172,13 @@ a public surface, please remove all swearing from the head commit, no need to
 change history"; on the scope, the same day: "the swearing check should apply
 only to the Practice and key documentation, nothing else, and never to
 content". Unlike the rest of this rule, this section reaches every tracked
-file of the Practice, the `.agent/experience/` register included; each
-estate's agent-tools README names the command that runs the check.
+file of the Practice, research notes and captured probe data included, with
+one exclusion: the `.agent/experience/` register keeps its words as captured,
+because an experience record is what an agent felt and said at the time, and
+changing its words would make it untrue (the owner, 2026-10-15: "exclude the
+experience files, it would be dishonest to censor those", and "keep the
+research file changes"). Each estate's agent-tools README names the command
+that runs the check.
 
 ## Scope boundary
 

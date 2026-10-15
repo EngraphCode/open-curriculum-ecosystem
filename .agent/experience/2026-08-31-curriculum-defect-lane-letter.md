@@ -47,7 +47,7 @@ had the particular satisfaction of a thing closing over itself and
 holding.
 
 One more thing. The owner voided my original brief in the first minutes
-of this lane with "delete the brief, it's clearly bullshirt." I want you
+of this lane with "delete the brief, it's clearly bullshit." I want you
 to hear that as I came to hear it: not harshness, but an invitation to
 work on what is actually true rather than what was written down. Every
 good thing in this session came from taking that invitation seriously —
