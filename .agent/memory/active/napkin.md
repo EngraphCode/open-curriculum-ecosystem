@@ -431,7 +431,8 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   by a second seat, with the shape cure measured at 07:1xZ on 10-03 and routed to the owner as a
   card instead of taken (process); the frame inherited from the transplant with no definition of
   the Practice until the owner's 21:0xZ turn (meta). The counterfactual inside the arc: the
-  code landing, one pull request per estate for 464 and 217 files, against forty-one pull
+  code landing, one pull request per estate for 464 and 217 files (the read of 10-05; the
+  merged tip's figures in the retrospective are 465 and 218), against forty-one pull
   requests on 10-02.
 - **Proposals and lanes**: five, each with warrant and falsifier; four to the fast lane (the
   landing unit with the byte proof, into `cross-estate-work-must-reduce-divergence` and the
