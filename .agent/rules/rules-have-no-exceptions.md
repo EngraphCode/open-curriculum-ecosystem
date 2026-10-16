@@ -66,7 +66,7 @@ instance (2026-07-15): a Director told the owner a boundary-locked seat
 "cannot do any work without word from you there, which the protocol forbids
 me requesting", citing the routing rule's prohibition while its next clause
 said a refusal that blocks every capable session is a matrix survivor and
-DOES surface. Owner, verbatim: "the rule always fucking applies and I am
+DOES surface. Owner, verbatim: "the rule always [...] applies and I am
 absolutely sick of the double think." Before declaring anything unfixable or
 forbidden, re-read the governing rule for its escalation clause; exhaust the
 team-side cures it names (including re-checking what a constrained seat's

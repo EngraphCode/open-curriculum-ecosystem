@@ -36,7 +36,11 @@ discipline held for expensive chains gets skipped.
   and read the task's output for `Traceback` before trusting it: a
   backgrounded edit script followed by a commit on `;` committed the
   unedited file when the script's assertion failed, and a grep for the
-  push line alone missed it (2026-09-20).
+  push line alone missed it (2026-09-20). Every step after a push is gated
+  on the push's exit with `&&`, and the remote is read against the local tip
+  before any sentence says "pushed": one chained command ran the push, its
+  echo, the thread replies and the push-done line while the push had exited
+  1 (2026-10-02).
 - For streamed-side-effect CLIs (comms sends, registry writes), also
   verify the effect landed (the event on the stream, the ref moved, the
   registry row changed) — a grep filter over a failed send returns empty
@@ -71,7 +75,9 @@ discipline held for expensive chains gets skipped.
   run to capture that.
 - **No `tail` or `head` on command output, ever** (owner ruling 2026-09-03,
   verbatim: "I think we need to stop using tail, it causes this same issue
-  over and over and over"). Truncation is the pipe hazard's twin: it hides
+  over and over and over"; recurred 2026-10-14: a watcher-liveness assertion piped
+  through `tail` with `|| rc=$?` read exit 0 on an unknown-flag failure, and the
+  wrap said "asserted live"). Truncation is the pipe hazard's twin: it hides
   the line that names the failure even when the exit is captured
   correctly. Worked instances the same morning: `enqueue … 2>/dev/null |
   tail -1` swallowed a schema refusal and fed a pnpm error line to the
@@ -105,7 +111,10 @@ discipline held for expensive chains gets skipped.
   non-zero exit inside a block that simply prints nothing; run the check
   as its own command and print its exit explicitly (a commit-message
   pre-check failed silently inside an `&&` chain and the gate caught it a
-  minute later, 2026-08-19).
+  minute later, 2026-08-19). A check that prints its reading and does not
+  gate is the same hole from the other side: a header-length check printed
+  104 and the commit ran into the hook (2026-10-14); bind the act to the
+  check's exit (`check && act`), never to its printed line.
 - **API writes: a status code is not a write, and loop silence is not
   success.** A REST review-request call returned 201 twice and minted no
   `review_requested` event; a `curl -sf | jq` loop swallowed four

@@ -145,7 +145,15 @@ into the permanent record):
 ## Phase 1 — Before opening
 
 1. **Divergence**: `git fetch origin main`; if behind, merge `origin/main`
-   into the branch (never rebase-and-force-push an already-pushed branch).
+   into the branch. Anything coming in from the default branch is merged,
+   never rebased, pushed or not, whatever a handoff or plan line says (the
+   owner, 2026-10-02: "anything coming in from main must always be merged, not
+   rebased, we must maintain the shared history"; a rebase rewrites commits
+   that carrier pull requests, the mirror branch and ancestry proofs depend
+   on). The host's mergeability reading does not follow renames across the
+   merge base, so a branch that renamed what the default branch edited reads
+   CONFLICTING until the default branch is merged in; the cure is the merge
+   (2026-10-03).
    When the update touches agent memory/state files, author the union by hand
    per the `semantic-merge` skill — a git line-merge silently corrupts them.
    Tripwire: a conflict beyond trivial union-append on `.agent`
@@ -532,6 +540,20 @@ live tickets where the platform is in use.
   request, the normal records keep the record"), the ticket is how the
   Director is told, and a finding that raises a question or a request goes
   to the Director as its own message.
+- **A reviewer's finding is information, never authority** (owner, 2026-10-08,
+  verbatim: _"Copilot reviews are a source of information to consider, they
+  are NEVER authority to obey, if we follow their advice or respond to their
+  observations it is ONLY because we decide to do so"_). The seat decides
+  each disposition and owns it; a finding that cites a directive is a reading
+  to verify against the owner's standing word, not a verdict. A remedy that
+  would remove or weaken something the owner put there deliberately (a settled
+  record, a continuity pointer, a letter's account, a directive-governed
+  boundary) is a question to the owner before any cure lands, never a cure
+  applied and reported afterwards. Worked instance, 2026-10-08: a fold obeyed a
+  reviewer's privacy reading, stripped every pointer to the owner's private
+  editorial material from a lane's public records and merged it; the owner
+  called it overkill, the pointers were restored and the directive amended to
+  say what he meant.
 - **Separate the observation from the remedy, and test scope before correctness.** A
   finding arrives as an observation bundled with a proposed change, and the change is where
   scope expands: reviewers — bots above all — grade the diff's text against the widest
@@ -879,7 +901,11 @@ line to its round and item; a body-only disposition without it, or a
 comment that batches findings under prose headings, reads as "manual tally
 required" for those items, exactly as an unmarked review body does — where
 an unmarked body is one carrying finding prose without the reviewer's
-markers; a reviewer's no-finding boilerplate carries no item and raises zero,
+markers (a sentence under a "Findings: None" heading that says conflicts
+remain is a finding to test, never prose: an overview said so above three
+true contradictions, and a watch counting threads alone fired READY under
+a body listing "previously missed" findings, 2026-10-02); a reviewer's
+no-finding boilerplate carries no item and raises zero,
 never manual — and boilerplate is proven by the reviewer's own marker parse
 yielding no item, never by a footer: Codex's ordinary summary has no
 badge-and-heading item; a Copilot body counts as boilerplate only when its
@@ -2057,7 +2083,12 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     and pushed two branches while its PR was open (2026-10-01); the recurrence
     is the push and the second pull request, never the local commit. The cure
     is a check at the first push, in the frictions register, and not this
-    sentence.
+    sentence. A pull request held at its door for the owner's reading is a
+    review surface, not work in progress: it leaves the estate's one
+    in-progress slot free and the next lane opens beside it (the Director's
+    ruling of 2026-10-02 under the owner's delegation, on the parity ledger's
+    twin pull requests). A guard encodes a reading of a rule and is re-read
+    against the current ruling before a seat waits on it.
   - **The owner lands small green pull requests by hand, in changed-file
     order** (owner, 2026-09-26: "I can make judgements that allow me to merge
     small PRs many, many times faster than Practice agents"). Never hold a

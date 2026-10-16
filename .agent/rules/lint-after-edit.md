@@ -37,7 +37,14 @@ uncommitted edit to a tracked file, a stale comms-log projection or an unconsoli
 link fails the next push whoever made the edit, so each write to the shared primary is
 linted at once with the gate's own command (`pnpm exec prettier --check --ignore-unknown
 -- <files>`, `pnpm exec markdownlint-cli2 --no-globs -- <files>`) and the render is
-refreshed before a push.
+refreshed before a push. No edit touches a working tree while its push gate runs: the gate
+reads the tree as it goes, so an edit mid-gate corrupts its read (2026-10-04). The rendered
+comms read model is gitignored and the substrate check reads it, so a comms event posted
+during a push gate is an edit to the tree under that gate: the push order is render the read
+model, push, and no event between (two consultation events posted while a successor's pushes
+ran cost ten minutes each at the final gate, 2026-10-05). A text both estates carry passes the
+sibling's `check:docs` before either estate pushes, because a validator only one estate runs
+refuses the shared text there alone (the doctrine landing of 2026-10-04).
 
 Key ESLint thresholds that bite during refactoring:
 

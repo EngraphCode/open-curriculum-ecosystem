@@ -66,7 +66,14 @@ doubt, and the two disciplines are one.
 
 This is deep, thoughtful work. It takes time. It must be done first hand.
 
-Secondhand knowledge is not enough. If you use subagents at all you MUST first-hand critically assess their work, responses, claims, and evidence, verifying sources.
+Secondhand knowledge is not enough. A consolidation is single-agent: the seat reads every
+piece itself and no sub-agent reads for it. The owner, 2026-10-11, verbatim: "Consolidation
+sessions are single agent only, work via subagents loses all direct understand and therefore
+loses lessons" (seventeen analysts over the notebooks, the stream and the memories were
+stopped at the word, and their output was not read as a substitute). A summary of a block is
+not the block: the understanding that makes a lesson homeable is formed only in the reading,
+and a seat that reads summaries homes plausible artefacts it has not understood. Reviewers and
+the Cricket panel verify and judge; they never read for the seat.
 
 Do not rush. Knowledge curation, conservation of insight, they are all that matters.
 
@@ -99,7 +106,13 @@ Before substantive work:
    recomputation, Director-confirmed). Prediction (PDR-130): with this step
    loaded, staged-base mismatches surface AT pickup and stale-base rotations
    drop to zero; if the check never fires across a quarter of staged
-   sessions, fold it into the general grounding line.
+   sessions, fold it into the general grounding line. Second instance
+   (2026-10-13): the dedicated seat's lane was cut from the default branch by
+   the worktree rule's default and lacked three days of records; a side agent
+   surfaced it before pickup, and the owner had the lane re-based onto the
+   coordination branch with the default branch merged in first. The mismatch
+   surfaced at pickup, as predicted, but by another reader; this step's own
+   check runs before the first edit, never after a staged cut is trusted.
 7. **Read the register for directive-bound entries, and declare the shape.**
    If any due entry in `pending-graduations.md` targets
    `.agent/directives/`, the pass needs a context below 30 % at the directive
@@ -144,14 +157,15 @@ Before substantive work:
    curating seat's context (owner, 2026-09-20: "Do not fill up the context pointlessly with
    giant files, pick one file, split it, analyse the pieces separately, then analyse the
    analyses to find what was lost by splitting, repeat"): split at entry or section
-   boundaries; one analyst per piece reports per entry (the status line verbatim, its class,
-   its cross-references, the cure surface it names) to a file; the seat reads the analyses and
-   then runs the join checks over the whole file by grep (every cross-reference resolves, every
-   id occurs once, a status stated in another entry agrees), because the join is where a split
-   loses information; and every analyst claim that bears on a move is verified first-hand at
-   its source before that entry moves. Worked instance (2026-09-20): two records of 3,794 and
-   4,612 lines read whole into one context cost about 160,000 tokens; the same reading by
-   pieces costs the seat the analyses alone.
+   boundaries; the seat reads one piece at a time and keeps its notes per entry as it goes
+   (the status line verbatim, its class, its cross-references, the cure surface it names),
+   never dispatching a piece to an analyst (the owner's word of 2026-10-11 in §Approach; a
+   fleet sent on this clause's earlier wording was stopped at the word); then it runs the join
+   checks over the whole file by grep (every cross-reference resolves, every id occurs once, a
+   status stated in another entry agrees), because the join is where a split loses
+   information. Worked instance (2026-09-20): two records of 3,794 and 4,612 lines read whole
+   into one context cost about 160,000 tokens; the reading by pieces, notes kept per piece,
+   holds one piece in context at a time.
    A context's budget for the job runs to the compaction itself, never to a wrap the seat
    chooses early: a seat cannot trigger its own compaction, so a wrap followed by
    "holding for the compaction" only stops the job (owner, 2026-09-20: "wrapping and pushing is
@@ -285,9 +299,10 @@ Never do these to satisfy the goal:
   exists) yields plausible artefacts that no mind has understood. The owner stopped a
   consolidation session over this on 2026-06-16, after three corrections had each changed the
   output and left the reflex, and affirmed the lesson. A rich harness invites orchestration,
-  so the first act of a consolidation is to open one raw source and read it. Where the owner
-  asks for a fleet, the seat still reads raw sources itself, checks every leg's verdicts back
-  against the source, and writes each lesson in its own words.
+  so the first act of a consolidation is to open one raw source and read it. No fleet reads for
+  a consolidation (the owner's word of 2026-10-11, §Approach); where the owner asks for
+  reviewers or a Cricket panel, they judge the seat's output, and the seat still reads every
+  raw source itself and writes each lesson in its own words.
 
 - Move content to an archive, backup, split file, shard, or differently named
   surface merely to change the fitness report.

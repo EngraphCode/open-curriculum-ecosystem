@@ -40,3 +40,19 @@ the held classes, lives in the
 [fleet-design-review rule](../rules/fleet-design-review-before-expensive-fleets.md);
 expensive trials belong to the main seat or an explicitly isolated worktree
 agent, never to a verifier.
+
+## Sub-agents, panes and monitors outside a Workflow run
+
+Facts about the harness's other agent surfaces, each paid for once (2026-10-02
+to 2026-10-08):
+
+- After a pane-teammate wave, stop the finished panes before the next wave
+  spawns, and read each judge's final text from its session transcript rather
+  than waiting on the return notification.
+- A sub-agent's report arrives as an agent message and nowhere else, so a
+  report needed past a compaction is written to a file before the boundary.
+- A Monitor's output file after its expiry is stale: read the stream fresh
+  before any hold line.
+- A worker's Write that the repository's write hook refuses arrives at the
+  dispatching seat as the hand-back message, not as a tool error in the
+  worker's own transcript.

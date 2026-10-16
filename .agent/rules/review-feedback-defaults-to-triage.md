@@ -10,6 +10,17 @@ Review feedback on a PR is information about the artefact, not an
 obligation to change it. The default response to a verified finding is a
 written disposition routing it to a named home or rejecting it with
 rationale; a cure in the PR is the exception that must earn its place.
+This holds for every reviewing agent, not only a pull request's reviewers:
+GitHub review bots, sub-reviewers dispatched by a seat, Cricket seats. The
+owner, 2026-10-14, verbatim: "Reviewing agents are NEVER a source of
+authority, they are ALWAYS a source of information to critically evaluate.
+ALWAYS". A reviewing agent's finding is a hypothesis: the seat verifies the
+rule's precondition and the owner's prior rulings first-hand before the
+finding reaches a record, a cure or the owner, and a finding never reaches
+the owner as an open question on the reviewer's authority (a reviewer read
+an invariant against the Cardinal Rule by surface analogy and the seat
+carried it to the owner as a directive decision when a decision record had
+already settled the pattern, 2026-10-13).
 The governing contract is
 [PDR-140](../practice-core/decision-records/PDR-140-review-response-pricing.md);
 this rule is its intake discipline for shepherded PRs, and it binds
@@ -48,7 +59,14 @@ finding's remedy; the observation still passes step 1.
    round-3 rejection of a conditional-guard class rested on "the expect
    throws first"; round 4 found `.not.toBeNull()` passes for
    `undefined`, so the guarded branch was reachable on a passing run —
-   the reviewer's finding was righter than the rejection).
+   the reviewer's finding was righter than the rejection). A finding on
+   text both estates carry is read against the twin before any cure
+   travels; two reviewers' opposite narrowings of one sentence are cured
+   by citing the governing loop, never by restating it; a cure over the
+   risk bar (a credential in a log, a validator that can pass silently)
+   travels to the sibling as the same bytes, and a wording finding travels
+   as a note (two reviewers on one sentence while the sibling's rule lacked
+   the paragraph, 2026-10-02; eleven findings on one twin, 2026-10-03).
 2. **Classify against the declared bar** (PDR-140 clause 2): does the
    defect mislead a consumer before the artefact's next verification
    point, or change what gets built? Evaluate against the surface where
@@ -82,7 +100,16 @@ finding's remedy; the observation still passes step 1.
    carrying over-bar cures and queued ledger writes only (PDR-140 clause 4
    and clause 9b). After that, every below-bar finding is dispositioned
    without a cure, and a later over-bar finding still cures, in a push
-   carrying nothing beyond that cure and any queued ledger writes.
+   carrying nothing beyond that cure and any queued ledger writes. The
+   owner's three words of 2026-10-02 govern the whole step: "we do not need
+   to pay attention to feedback, we need to triage it and _decide_ what we
+   do with it"; "the point of the PR response budgets is to reduce time
+   spent on PR ceremony. Cutting a new branch and a separate PR does not
+   serve that goal, does it?"; "we deal in risk, cost, value, assessement".
+   So one assessment per finding (risk, cost, value, home) comes before
+   anything is touched; at budget exhaustion the only moves are absorb into
+   work that already exists or decline with a reason, never a pull request
+   of its own; and a triage never cures all nor declines all.
 5. **Age-out (below-bar only)**: a below-bar finding on text unchanged
    since the last reviewed head is triaged normally but never reopens
    settled state or resets the settlement clock; an over-bar finding

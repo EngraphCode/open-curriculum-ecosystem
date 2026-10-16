@@ -182,7 +182,7 @@ token stance in the tango node's admission rules.
      while its focus order contradicts its visual order.
      **REJECTED by owner ruling 2026-09-06, verbatim: "We do NOT allow design by review in
      PRs, we have a vision that PR bots have no visibility of. Of course visual design should
-     be bloody coherent, that is not in question, but the fact that the mechanism is capable
+     be blooming coherent, that is not in question, but the fact that the mechanism is capable
      of producing incoherent designs is not a failure, it is power, that must be used
      appropriately and well, the reviewer is mixing concerns myopically."** The exemption
      stands as it implements R13; no refinement is owed, and no design-intent finding from a

@@ -63,8 +63,15 @@ should become a permanent agent-tools command — a TypeScript command under
 `agent-tools/src/`, TDD'd, with the hard-won lesson baked in — rather than
 leaving it as a scratchpad one-off. A per-session script is a once-cure that
 gets re-derived (often re-derived wrong); the permanent command amortises
-across every future agent. The owner decides build-now vs backlog vs
-keep-scratchpad.
+across every future agent. The owner decides build-now vs backlog.
+
+The owner closed the keep-scratchpad outcome on 2026-10-03, verbatim: "if a
+script is used repeatedly it should be made into a standardised agent tool in
+the agent tools workspace". The second use is the signal: the script is named
+on the napkin with its usage line and routed to the Director for sizing and a
+ledger row; the conversion is work with criteria, sizing and value like any
+other, landing under `agent-tools/src/` with its tests through a pull request;
+the script is never extended in place.
 
 ## "Re-create X" Inherits X's Old Form
 
