@@ -332,7 +332,8 @@ state blocks of 2026-09-21 to 2026-10-11 that stood here are archived byte-ident
 at the owner's routing:
 
 1. The consolidation's remainder here: the register's one entry (the operator-profile half of the Oak GitHub
-   read ruling) at the owner's word; the napkin's rotation by proof once the reviewer seat commits its block;
+   read ruling: one line in the owner's profile scope file for this repository line, written on his word
+   only, due since 2026-10-13); the napkin's rotation by proof once the reviewer seat commits its block;
    the close (the curator claim closed, the watcher stood down with its end event, the closeout event).
 2. The merge-tool code lane `fix/merge-bot-records-class-and-fold-clock`, done to its gate on 2026-10-14: one
    pull request against the default branch at the owner's push word; it and this records lane touch no file
@@ -362,13 +363,26 @@ the pre-commit hook: a parity item for this estate's implementer beside item 3 a
 pull request. The merge-tool code lane (item 2) is pushed to the remote and its pull request opened against the
 default branch; the merge-bot settles it. This records lane lands on the coordination branch by fast-forward
 push; the branch is DUE to fold at day ten (item 5). Item 1's rotation still waits on the reviewer seat's
-uncommitted block; the register's one entry stands at the owner.
+uncommitted block; the register's one entry is the operator-profile scope line named in item 1, written on his
+word only.
 
 STATE, 2026-10-15T11:1xZ (Flint guards Vapor, 9b835d, amendment at the owner's word): the `.agent/experience/`
 register is excluded from the censoring; the three experience records the pass above had censored are written
 back to their captured bytes in a forward commit on this lane; the research notes and probe data stay censored at
 his word; the rule's section carries the exclusion, the same bytes in both estates. The parity item's hook, when
 built here, honours the exclusion.
+
+STATE, 2026-10-16T10:3xZ (Flint guards Vapor, 9b835d, amendment at the owner's correction): "owner-gated" was
+abolished by PDR-100 and "at the owner" names no item, so work behind either phrase is lost; the two phrases this
+seat wrote above are corrected in place. The decisions put to him, exact: (1) the operator-profile scope line for
+this repository line, whose standing text says every Oak surface beyond `git fetch upstream` needs permission, to
+carry his word of 2026-10-13 (every read of Oak GitHub permitted, every write forbidden until he lifts it);
+written on his word only; the register's one entry graduates on the write. (2) The J2 worktree
+(`feat/exchange-j2-docs-validators`): twenty-one added and two modified files, validators for cited paths, cited
+scripts, markdown links and lineage names, uncommitted since 2026-09-29, no commit ahead of its base, 346 behind
+the default branch; commit and push to its branch, or drop. Work needing a seat, not him: this coordination
+branch at day eleven, over its lifetime; the four bot review comments on the merge-tool pull request (item 2
+above); the profanity tooling parity (item 3 above, the hook honouring the experience-register exclusion).
 
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 
