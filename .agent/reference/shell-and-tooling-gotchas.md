@@ -849,8 +849,10 @@ Director's landing record of 2026-09-06, event f05a54da).
   from the store in fifteen seconds, with the bootstrap) and holds no workspace package `dist`:
   knip's config loader then fails on the first config that imports such a package ("No exports
   main defined"), a crash class the knip gate refuses by design (F-147); build the package and
-  rerun. The commit hooks run prettier, markdownlint and the changed-files lint only; knip and
-  the dependency cruiser run by hand before a push (2026-10-14).
+  rerun. The commit hooks run prettier, markdownlint and the changed-files lint only, plus the
+  staged profanity check where the estate carries it; knip and the dependency cruiser run
+  inside the pre-push gate's `pnpm check`, never by hand beside it, so build the worktree's
+  packages before the push (2026-10-14).
 - **`collaboration-state <topic> <action> --help` works only as separate words**; a quoted
   "topic action" prints the topic index (2026-10-14).
 - **`agent-tools session-metadata` derives the transcript directory from the working directory's
