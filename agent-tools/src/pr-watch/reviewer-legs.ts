@@ -114,19 +114,23 @@ export function isSignedSelfReply(body: string): boolean {
  * reviews no later push (`review_on_push` false), the vendor has already
  * reviewed an earlier tip of this pull request (its one configured review
  * happened; before it, the leg stays owed so the first review is awaited
- * rather than raced), and nothing is requested on this tip. The leg then
- * settles as UNOWED, and a round whose threads are all resolved settles; a
- * review wanted on such a tip is requested by hand, and the request makes the
- * leg owed again. Binds Copilot's leg only: the rule is Copilot's. Applies
- * only to a tip the vendor has said nothing about: any body bound to this tip
- * (a substantive review, a quota marker, an unevaluable marker after a failed
- * request) is classified by the arms built for it, never by the
- * configuration's silence.
+ * rather than raced), and no round is asked of it since that review: not a
+ * pending request GitHub lists, and not a round asked at or after the
+ * standing review landed, read from the pull request's history
+ * (`round-requests.ts`), since this estate's pending-request surface never
+ * lists a bot. The leg then settles as UNOWED, and a round whose threads are
+ * all resolved settles; a review wanted on such a tip is requested by hand,
+ * and the request makes the leg owed again. Binds Copilot's leg only: the
+ * rule is Copilot's. Applies only to a tip the vendor has said nothing
+ * about: any body bound to this tip (a substantive review, a quota marker,
+ * an unevaluable marker after a failed request) is classified by the arms
+ * built for it, never by the configuration's silence.
  */
 function unowedByConfiguration(
   input: ComputeReviewerLegsInput,
   reviewer: string,
   tipBound: readonly HarvestedReview[],
+  awaits: (review: { readonly submittedAt: string }) => boolean,
 ): ReviewerLeg | undefined {
   const configuration = input.reviewConfiguration;
   if (tipBound.length > 0 || configuration.kind !== 'configured' || configuration.reviewOnPush) {
@@ -135,25 +139,24 @@ function unowedByConfiguration(
   if (normaliseLogin(reviewer) !== COPILOT_REVIEWER_LOGIN) {
     return undefined;
   }
-  const requested = input.reviewRequests.some(
-    (login) => normaliseLogin(login) === normaliseLogin(reviewer),
-  );
-  const reviewedAnEarlierTip = input.reviews.some(
-    (review) =>
-      normaliseLogin(review.author) === normaliseLogin(reviewer) &&
-      hasLanded(review) &&
-      !isSkipMarker(review.body) &&
-      review.commitOid !== '' &&
-      review.commitOid !== input.headRefOid,
-  );
-  if (requested || !reviewedAnEarlierTip) {
+  const standing = input.reviews
+    .filter(
+      (review) =>
+        normaliseLogin(review.author) === normaliseLogin(reviewer) &&
+        hasLanded(review) &&
+        !isSkipMarker(review.body) &&
+        review.commitOid !== '',
+    )
+    .sort((left, right) => left.submittedAt.localeCompare(right.submittedAt))
+    .at(-1);
+  if (standing === undefined || awaits(standing)) {
     return undefined;
   }
   return {
     reviewer,
     state: 'UNOWED',
     detail:
-      'not owed on this tip: the base branch reviews no later push (copilot_code_review review_on_push=false), the vendor reviewed an earlier tip of this pull request, and nothing is requested here; request a review by hand when one is wanted',
+      'not owed on this tip: the base branch reviews no later push (copilot_code_review review_on_push=false), the vendor reviewed an earlier tip of this pull request, and no round is asked of it since; request a review by hand when one is wanted',
   };
 }
 
@@ -205,7 +208,7 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
       detail: `tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)${bindingNote(quota, input)}${note}`,
     };
   }
-  const unowed = unowedByConfiguration(input, reviewer, tipBound);
+  const unowed = unowedByConfiguration(input, reviewer, tipBound, awaits);
   if (unowed !== undefined) {
     return unowed;
   }

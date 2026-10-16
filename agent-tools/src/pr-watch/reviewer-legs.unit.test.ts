@@ -430,6 +430,32 @@ describe('computeReviewerLegs — the base branch reviews no later push (review_
     expect(legs[0]?.state).toBe('OWED');
   });
 
+  it('OWED while a round asked of the vendor after its standing review stands in the pull request history: the pending surface lists no bot here', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      reviewConfiguration: NO_REVIEW_ON_PUSH,
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [earlier],
+      reviewRequests: [],
+      roundRequests: [{ reviewer: 'copilot-pull-request-reviewer', at: '2026-07-21T11:30:00Z' }],
+      now: T0,
+    });
+    expect(legs[0]?.state).toBe('OWED');
+  });
+
+  it('UNOWED when the only round asked of the vendor was answered by its standing review', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      reviewConfiguration: NO_REVIEW_ON_PUSH,
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [earlier],
+      reviewRequests: [],
+      roundRequests: [{ reviewer: 'copilot-pull-request-reviewer', at: '2026-07-21T10:30:00Z' }],
+      now: T0,
+    });
+    expect(legs[0]?.state).toBe('UNOWED');
+  });
+
   it('OWED before the vendor has reviewed any tip: the configured first review is awaited, never raced', () => {
     const legs = computeReviewerLegs({
       ...base,
