@@ -10,7 +10,7 @@ was written.
 
 The lane is retired: PR #403 closed unmerged (2026-07-20) with its state preserved on the pushed
 branch, preservation PR #705 closed and the branch deleted; the report and corpora are landed.
-The [thread record](threads/paused/codex-to-codex-hook-review-experiment.next-session.md) holds
+The [thread record](../threads/paused/codex-to-codex-hook-review-experiment.next-session.md) holds
 the experiment's frozen evidence, verdict and negative results; nothing resumes from here.
 
 
@@ -22,7 +22,7 @@ The second section, lines 2742 to 2751 of the same file:
 
 Thread concluded (WS0–WS7, PR #208 merged `a6b14a8a3`); findings homed in **PDR-094** + **ADR-199** + the
 `reports/agentic-engineering/` synthesis + keystone M4. Retired record:
-[`threads/retired/agent-collaboration-research.next-session.md`](threads/retired/agent-collaboration-research.next-session.md).
+[`threads/retired/agent-collaboration-research.next-session.md`](../threads/retired/agent-collaboration-research.next-session.md).
 **Standing residual** (not a reopened lane): the coordination-tier curator-pass — the ~1,707-event
 residual awaits body-read disposition; work-list + recipe in the retired record's §"WS7 Closeout".
 **Substrate correction (2026-07-03):** the events are no longer on live disk (removal unexplained —
