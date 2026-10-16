@@ -18,6 +18,7 @@ import {
   REVIEWS_QUERY,
 } from './harvests.js';
 import { parseReviewThreadPages } from './review-threads.js';
+import { readReviewConfigurationLeg } from './review-configuration-leg.js';
 import { readReviewRunsLeg } from './review-runs.js';
 import { parseRequestsHarvest } from './round-requests.js';
 import { composeReading, type UnavailableInput } from './state-compose.js';
@@ -191,6 +192,8 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         reviewThreads,
         reviews,
         reviewRuns,
+        // The base branch's configuration, from the view the reading composes from.
+        reviewConfiguration: readReviewConfigurationLeg({ run, gh, repo, view: confirm }),
         declared: options.expectedReviewers ?? [],
         unavailable: options.unavailable,
         readContent: contentReaderFor({ run, gh, repo, view: confirm, patchIdOf }),

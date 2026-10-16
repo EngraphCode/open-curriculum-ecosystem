@@ -1,3 +1,4 @@
+import type { ReviewConfiguration } from './review-configuration.js';
 import type { CompletionCommentReading } from './completion-comments.js';
 import type { DeclaredUnavailableReading } from './declared-unavailable.js';
 import type { BindingHead } from './content-binding.js';
@@ -106,6 +107,13 @@ export interface PrStateReading extends BindingHead {
    */
   readonly declaredUnavailable: DeclaredUnavailableReading;
   readonly reviewRuns: ReviewRunsLeg;
+  /**
+   * The base branch's automatic-review configuration (the `copilot_code_review`
+   * rule, read from the rules API with the reading): what the vendor reviews
+   * on its own, so a leg is owed only where the configuration or a request
+   * says so. `unread` keeps every expected leg owed, named as such.
+   */
+  readonly reviewConfiguration: ReviewConfiguration;
 }
 
 /** The closed verdict set. Adding a state is a reviewed contract change. */
