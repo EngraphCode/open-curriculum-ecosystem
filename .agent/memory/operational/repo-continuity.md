@@ -37,6 +37,32 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-16T16:0xZ: the merge tool derives what a tip is owed from this repository's review
+  configuration; pull request 359 merged by this estate's bot at the UNOWED leg** (Flint guards Vapor, 9b835d, the owner's routing of
+  2026-10-16: the tooling was over-coupled to Copilot reviewing every push; the `engraph` ruleset's
+  `copilot_code_review` rule reviews no later push, the same configuration as the sibling estate,
+  whose pull request 339 landed the same change this afternoon and was merged by its bot at the
+  UNOWED leg with no hand-made request). What the port does here: `pr state` reads the base branch's
+  rule with every reading; Copilot's leg reads UNOWED on a tip the vendor is not asked about once it
+  has reviewed an earlier tip and no Copilot body binds the tip; this estate's pending-request
+  surface never lists a bot, so the leg honours the rounds asked in the pull request's history
+  (`round-requests.ts`), the finding both vendors made and the cure; an unread or absent
+  configuration keeps every leg owed, named in the evidence; the lifecycle skill and the merge-bot
+  reference carry the same passages as the sibling's. Written against this estate's own `pr-watch`
+  shape rather than carried as bytes; the gh payloads the integration suites share moved to a test
+  helper at their second consumer. Parity items from the port, each with its home here: this estate
+  carries no suppressed-findings hold, so the sibling's cure for the hold on an unreviewed head
+  (Copilot's finding on 339) has no counterpart, and the hold itself is a parity gap; the sibling's
+  `pr tally` divergence (its own owed-ness without the configuration) is recorded on its thread
+  record and applies here if `pr tally` is carried. Observations of the day, one or two instances
+  each: the bot's `pull-request-work` token was refused 403 on the branch delete, the review
+  request, the thread reply and the thread resolution (pull request creation works), where the
+  lifecycle skill's item 5 records 201 for the request; the operator credential did each; Copilot's
+  rule registered no review at open for this bot-authored pull request and for 355 at ready-mark,
+  both first requests made by hand. Unchanged: the J2 worktree (put to the owner 2026-10-02, exact
+  on the sibling's thread record), the profanity tooling parity, the primary checkout's re-homing to
+  the successor when the reviewer seat commits.
+
 - **2026-10-14T11:2xZ: the third dedicated two-estate consolidation's sibling stage landed on lane
   `docs/consolidation-3`** (Flint guards Vapor, 9b835d, guest curator under the join ceremony; the
   curator claim of 2026-10-11 adopted in place). Pending graduations here 1, down from 16: the
