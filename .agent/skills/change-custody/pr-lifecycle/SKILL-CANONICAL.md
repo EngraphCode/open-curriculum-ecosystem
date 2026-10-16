@@ -1302,8 +1302,16 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    permanently unsatisfiable the moment a reviewer stops reviewing — on
    #390, claude[bot] posted a spend-limit skip review on the first commit
    and nothing on any later tip, so every subsequent tip would read owed
-   forever with no tip-specific marker obtainable). **OWED** — otherwise.
-   The gate never waits more than one timeout for any single reviewer.
+   forever with no tip-specific marker obtainable). **UNOWED** — the base
+   branch's `copilot_code_review` rule reviews no later push (`review_on_push`
+   false, read from the rules API with every reading), the vendor has reviewed
+   an earlier tip of this pull request, and nothing is requested on this tip:
+   the configuration owes this tip no review, the leg settles, and a request
+   made by hand makes it OWED again (the owner's word of 2026-10-16: the tooling
+   derives what is owed from the repository's review configuration, never from
+   an assumed review on every push; binds Copilot's leg only, the rule is
+   Copilot's). **OWED** — otherwise. The gate never waits more than one timeout
+   for any single reviewer.
    CRITICAL first-round rule: the EXPECTED reviewer set is not just "bots
    that previously reviewed this PR" — on a repo whose ruleset configures
    bot review on push, the first round is ALWAYS expected, so before any
@@ -1662,7 +1670,12 @@ grep -E "^-" | grep -v "^---"` and read every printed line — each is an
   bot requests Copilot on the new tip with the reviewers endpoint, item 5
   of the merge boundary), and a
   tip with no requested reviewer and no tip-bound review waits forever
-  looking healthy (two live instances, 2026-07-20). The request is
+  looking healthy (two live instances, 2026-07-20); a leg `pr state` reads
+  UNOWED (the configuration reviews no later push, item 3) needs no request
+  and settles, so request it only when a review of that tip is wanted, and
+  once a request is made the merge is not attempted until the request is read
+  back on the `reviewRequests` surface: a request not yet registered reads as
+  nothing asked, and the leg reads UNOWED in that minute. The request is
   CONDITIONAL on the tip the front door will verdict: Copilot reviews
   the first push and any tip it is requested on, so request it only
   when that tip's Copilot leg reads OWED — a request on an intermediate

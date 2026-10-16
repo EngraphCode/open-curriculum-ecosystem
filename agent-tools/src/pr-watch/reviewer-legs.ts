@@ -15,6 +15,7 @@
 import { bindingNote, reviewBinds, standingReviews, unboundNote } from './content-binding.js';
 import type { BindingHead } from './content-binding.js';
 import { normaliseLogin } from './logins.js';
+import { COPILOT_REVIEWER_LOGIN, type ReviewConfiguration } from './review-configuration.js';
 import { roundAwaiter, type RoundRequest } from './round-requests.js';
 import { isScopeDeclaredSkip, isSkipMarker } from './skip-markers.js';
 import { isVendorErrorReview, vendorErrorNote } from './vendor-error-reviews.js';
@@ -41,7 +42,8 @@ export interface HarvestedReview {
 export type ReviewerLeg =
   | {
       readonly reviewer: string;
-      readonly state: 'SATISFIED' | 'OWED';
+      /** UNOWED: the configuration reviews no later push and nothing is requested on this tip. */
+      readonly state: 'SATISFIED' | 'OWED' | 'UNOWED';
       readonly detail: string;
     }
   | {
@@ -61,6 +63,8 @@ export interface ComputeReviewerLegsInput extends BindingHead {
   readonly checksGreenAt: string | null;
   /** Injected clock (ISO) — the quiet-window and timeout legs are time-bound. */
   readonly now: string;
+  /** The base branch's automatic-review configuration; `unread` keeps every leg owed. */
+  readonly reviewConfiguration: ReviewConfiguration;
 }
 
 /** SKILL item 3/4: the checks-green timeout and settled quiet window (more than 10 min). */
@@ -103,6 +107,54 @@ const SIGNATURE_SUFFIX = /\([0-9a-f]{6}(?:-[0-9a-fA-F]{3})?\)$/u;
 export function isSignedSelfReply(body: string): boolean {
   const lastLine = (body.trimEnd().split('\n').at(-1) ?? '').trim();
   return lastLine.startsWith('—') && SIGNATURE_SUFFIX.test(lastLine);
+}
+
+/**
+ * A tip the configuration does not review: the base branch's Copilot rule
+ * reviews no later push (`review_on_push` false), the vendor has already
+ * reviewed an earlier tip of this pull request (its one configured review
+ * happened; before it, the leg stays owed so the first review is awaited
+ * rather than raced), and nothing is requested on this tip. The leg then
+ * settles as UNOWED, and a round whose threads are all resolved settles; a
+ * review wanted on such a tip is requested by hand, and the request makes the
+ * leg owed again. Binds Copilot's leg only: the rule is Copilot's. Applies
+ * only to a tip the vendor has said nothing about: any body bound to this tip
+ * (a substantive review, a quota marker, an unevaluable marker after a failed
+ * request) is classified by the arms built for it, never by the
+ * configuration's silence.
+ */
+function unowedByConfiguration(
+  input: ComputeReviewerLegsInput,
+  reviewer: string,
+  tipBound: readonly HarvestedReview[],
+): ReviewerLeg | undefined {
+  const configuration = input.reviewConfiguration;
+  if (tipBound.length > 0 || configuration.kind !== 'configured' || configuration.reviewOnPush) {
+    return undefined;
+  }
+  if (normaliseLogin(reviewer) !== COPILOT_REVIEWER_LOGIN) {
+    return undefined;
+  }
+  const requested = input.reviewRequests.some(
+    (login) => normaliseLogin(login) === normaliseLogin(reviewer),
+  );
+  const reviewedAnEarlierTip = input.reviews.some(
+    (review) =>
+      normaliseLogin(review.author) === normaliseLogin(reviewer) &&
+      hasLanded(review) &&
+      !isSkipMarker(review.body) &&
+      review.commitOid !== '' &&
+      review.commitOid !== input.headRefOid,
+  );
+  if (requested || !reviewedAnEarlierTip) {
+    return undefined;
+  }
+  return {
+    reviewer,
+    state: 'UNOWED',
+    detail:
+      'not owed on this tip: the base branch reviews no later push (copilot_code_review review_on_push=false), the vendor reviewed an earlier tip of this pull request, and nothing is requested here; request a review by hand when one is wanted',
+  };
 }
 
 function elapsedMs(fromIso: string, nowIso: string): number {
@@ -153,6 +205,23 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
       detail: `tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)${bindingNote(quota, input)}${note}`,
     };
   }
+  const unowed = unowedByConfiguration(input, reviewer, tipBound);
+  if (unowed !== undefined) {
+    return unowed;
+  }
+  return unservedLeg({ input, reviewer, reviewed, own, awaits, note });
+}
+
+/** A leg no substantive review serves: ended by the checks-green timeout arm, else OWED. */
+function unservedLeg(leg: {
+  readonly input: ComputeReviewerLegsInput;
+  readonly reviewer: string;
+  readonly reviewed: readonly HarvestedReview[];
+  readonly own: readonly HarvestedReview[];
+  readonly awaits: ReturnType<typeof roundAwaiter>;
+  readonly note: string;
+}): ReviewerLeg {
+  const { input, reviewer, reviewed, own, awaits, note } = leg;
   const unevaluableMarker = reviewed.some((review) => isSkipMarker(review.body));
   const qualifier = unevaluableMarker || note !== '' ? 'substantive ' : '';
   if (input.checksGreenAt !== null && elapsedMs(input.checksGreenAt, input.now) > QUIET_WINDOW_MS) {
@@ -172,56 +241,4 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
 /** Compute every expected reviewer's leg for the current tip, in declared order. */
 export function computeReviewerLegs(input: ComputeReviewerLegsInput): ReviewerLeg[] {
   return input.expectedReviewers.map((reviewer) => legFor(input, reviewer));
-}
-
-/** The most blocking unresolved leg, or `settled` when nothing is OWED. */
-export type BlockingLegVerdict =
-  | { readonly kind: 'settled' }
-  | {
-      readonly kind:
-        | 'SILENT-WAIT-RUN-DEAD'
-        | 'SILENT-WAIT-RUNS-UNREADABLE'
-        | 'SILENT-WAIT-NO-REVIEWER'
-        | 'WAITING-REVIEW-RUN-LIVE';
-      readonly reviewer: string;
-    };
-
-export interface MostBlockingLegInput {
-  readonly legs: readonly ReviewerLeg[];
-  readonly reviewRequests: readonly string[];
-  /** Reviewers with a live review run associated (bounded vendor mapping). */
-  readonly liveRunReviewers: readonly string[];
-  /** False when the run surface could not be read — deadness is then never asserted. */
-  readonly runsReadable: boolean;
-}
-
-/**
- * Resolve OWED legs to the most blocking per-reviewer verdict: a requested
- * reviewer with NO live run (run dead / never started) outranks an
- * unrequested reviewer, which outranks a benign live-run wait — so one
- * reviewer's live run can never mask another reviewer's stalled leg.
- */
-export function mostBlockingLeg(input: MostBlockingLegInput): BlockingLegVerdict {
-  const owed = input.legs.filter((leg) => leg.state === 'OWED');
-  const requested = new Set(input.reviewRequests.map((login) => normaliseLogin(login)));
-  const live = new Set(input.liveRunReviewers.map((login) => normaliseLogin(login)));
-
-  const runDead = owed.find(
-    (leg) => requested.has(normaliseLogin(leg.reviewer)) && !live.has(normaliseLogin(leg.reviewer)),
-  );
-  if (runDead !== undefined) {
-    // An unreadable run surface never asserts deadness (typed uncertainty).
-    return input.runsReadable
-      ? { kind: 'SILENT-WAIT-RUN-DEAD', reviewer: runDead.reviewer }
-      : { kind: 'SILENT-WAIT-RUNS-UNREADABLE', reviewer: runDead.reviewer };
-  }
-  const unrequested = owed.find((leg) => !requested.has(normaliseLogin(leg.reviewer)));
-  if (unrequested !== undefined) {
-    return { kind: 'SILENT-WAIT-NO-REVIEWER', reviewer: unrequested.reviewer };
-  }
-  const waiting = owed[0];
-  if (waiting !== undefined) {
-    return { kind: 'WAITING-REVIEW-RUN-LIVE', reviewer: waiting.reviewer };
-  }
-  return { kind: 'settled' };
 }
