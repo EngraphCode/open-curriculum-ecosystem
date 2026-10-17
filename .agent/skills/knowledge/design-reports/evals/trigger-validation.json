@@ -1,0 +1,50 @@
+[
+  {
+    "query": "Write an explanatory report on our municipal sensor data for service managers.",
+    "should_trigger": true
+  },
+  {
+    "query": "Turn this watch with prepended updates into a coherent current living report.",
+    "should_trigger": true
+  },
+  {
+    "query": "New evidence contradicts a table in this report; update the body and executive summaries.",
+    "should_trigger": true
+  },
+  {
+    "query": "Derive a concise executive summary from this report and preserve its uncertainty.",
+    "should_trigger": true
+  },
+  {
+    "query": "Maintain the current report and handle its summary's failed second save honestly.",
+    "should_trigger": true
+  },
+  {
+    "query": "This report counts all core projects but never explains one. Check its promised coverage.",
+    "should_trigger": true
+  },
+  {
+    "query": "Repair citation tokens in these paired exports without changing their wording or order.",
+    "should_trigger": false
+  },
+  {
+    "query": "Keep this frozen 2024 snapshot unchanged; tell me its file size.",
+    "should_trigger": false
+  },
+  {
+    "query": "Sort the raw CSV rows by timestamp.",
+    "should_trigger": false
+  },
+  {
+    "query": "Send the already-written alert to the named channel.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run the skill adapter generator and create a draft PR for these existing files.",
+    "should_trigger": false
+  },
+  {
+    "query": "Consolidate cross-session notes and graduate durable knowledge into its owning documents.",
+    "should_trigger": false
+  }
+]
