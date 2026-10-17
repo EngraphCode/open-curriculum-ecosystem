@@ -215,6 +215,11 @@ byte-identical.
   Copilot had reviewed at ready; GitHub read the tip CLEAN. The merging seat ran the door with the
   configured set the tip actually has (the Codex connector, whose review of the tip the door
   read); the tool's owed-ness derivation is the thing to fix, with a test on this shape.
+  The owner's standard for the fix, 2026-10-17, verbatim: "All PRs, unless utterly trivial, should
+  have at least one Copilot reivew". So the Copilot leg is satisfied by one Copilot review on the
+  pull request, whichever tip it bound, and owed only when none exists on a non-trivial pull
+  request; pull request 356 carried one, at ready on 2026-10-13. The lifecycle skill's "never the
+  set that happened to bind the tip" reads against this standard at the same touch.
 
 <!-- Fifteen entries graduated 2026-10-14 at the owner's word ("do it all") by the third dedicated
 consolidation's guest curator: the shared texts landed here as the same bytes the sibling estate

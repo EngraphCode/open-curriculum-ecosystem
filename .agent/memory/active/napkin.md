@@ -765,5 +765,12 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   retired on the remote and locally, the worktree removed. Three days of this lane's commits
   on engraph: the pull request's own three and the seven corrections, every one at a word that
   was not the seat's.
+- **Owner, after the merge, verbatim**: "All PRs, unless utterly trivial, should have at least one
+  Copilot reivew". The standard is per pull request, not per tip: 356 had its one review at ready
+  on 2026-10-13 and so met it; the door's Copilot leg should read one review on the pull request
+  as satisfied, and owed only when none exists on a non-trivial pull request. A side agent read the
+  seat's narrowed `--expect` as the shape the lifecycle skill's "never the set that happened to
+  bind the tip" forbids; the seat's warrant was the configuration, and the owner's standard now
+  makes that reading policy for the tool to carry rather than a seat to judge.
 - **Records**: the three principal files of 2026-10-14 are carried to the successor
   coordination branch (riding draft fold 360) with this block; the thread record re-trued.
