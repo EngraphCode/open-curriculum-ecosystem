@@ -16,7 +16,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-09-25
+last_updated: 2026-10-10
 ---
 
 # Capability Foundations programme
@@ -123,6 +123,32 @@ owns the grades and assurance bar; the [adoption profile](../../../docs/architec
 owns completion, first-build contracts and data/API criteria. This amendment
 receives those decisions without supplying a new ratification stamp for delivery
 sketches. The stable plan identity remains unchanged.
+
+### Owner direction — 10 October 2026 programme connection
+
+[ADR-233](../../../docs/architecture/architectural-decisions/233-retained-framework-and-configurable-instances.md)
+retains OCE as the full capability innovation framework, with every mechanism and
+potentially reusable responsibility in OCE and external app configuration over
+published packages. CF construction and extraction are distinct programme
+dimensions. Prefer affected CF foundations first without making the full heap,
+graph or target-unit catalogue a prerequisite for unrelated work.
+
+The [CF reconstruction account](../../../docs/architecture/foundations/oce-cf-reconstruction.md)
+owns this programme's ten existing-core dispositions, bounded first tranche,
+qualification/consumption and retirement contracts. The whole-estate CF direction
+covers generic, domain, tooling and platform capabilities with named owners;
+products remain assembled outputs above CF. Existing grade, origin and assurance
+obligations remain in force. The 5 October definite-architecture N proposals are
+explicitly unratified, with itemised decision homes; this amendment adds no new
+ratification stamp to them or to delivery sketches.
+
+Contract design, release design and thinning in place may proceed in parallel
+where their actual prerequisites permit. Applicable automatic enforcement blocks
+qualification; supported published package closure blocks independent external
+consumption/handover. No handover deadline or quality exception is supplied.
+No team timing, workload, throughput measurements or team studies are part of
+the programme design or acceptance. Software correctness, performance and
+consumed-form evidence retain their proper scopes.
 
 ## User groups and value
 
@@ -244,7 +270,7 @@ there). The extensions, each with its enforcing instrument:
 
 ## Mechanism
 
-- **Atom register first**: candidates enumerated from the existing
+- **Capability record from the first unit**: candidates are drawn from the existing
   `packages/core/*` members (brought up to the bar, not grandfathered),
   owner-directed new capabilities, the census's generic-foundation rows,
   measured independent clusters
@@ -254,10 +280,10 @@ there). The extensions, each with its enforcing instrument:
   artefact storing only non-recomputable human facts (identity, the
   one-line contract sentence, exact import specifier, misuse-register
   pointer, gate blockers, owner rulings, dependency budget, platform
-  and performance-contract flags); at-bar status is COMPUTED by the
-  conformance instrument at check time, never a stored column — and
-  the register doubles as the agent discovery index, so "does an atom
-  for this exist" is one read.
+  and performance-contract flags); at-bar status is derived from applicable revision-bound obligations and evidence,
+  never an enduring authored status. The record is also the discovery index. Start
+  with the selected finite unit and extend it as responsibilities are admitted;
+  an exhaustive estate catalogue is not a blocker to the first useful delivery.
 - **Scope, qualification and publication have distinct decisions.** Owner-directed
   value establishes scope, including completed definitions and provable contracts
   before application adoption. The full assurance bar establishes qualification.
@@ -267,12 +293,14 @@ there). The extensions, each with its enforcing instrument:
   implementation and evidence. New functionality is a new scope; defects reopen the
   affected claim. Reuse completed lower guarantees and valid evidence as composition
   advances, rather than repeatedly reopening their private mechanisms.
-- **Conformance instrument at tranche one**: a validator that
-  RECOMPUTES the bar — per-symbol TSDoc example-pair coverage, bench
-  presence, export-surface strictness, packed smoke — so atom status
-  is falsifiable structure, never a claim. Benchmark harness selection
-  is verified against current vendor documentation at the first
-  tranche's authoring, not prescribed here.
+- **Required evidence connection in the first tranche**: bind the smallest
+  shared instrument needed by the selected geometry contract, including production
+  correspondence, complete boundary enforcement and real consumed-form evidence.
+  Recompute applicable obligations from exact subjects and receipts; file/bench
+  presence and a packed smoke check alone cannot qualify a capability. Preserve
+  mathematical, test, mutation, type, performance and documentation warrants
+  separately. Verify concrete tooling interfaces at slice pickup, rather than
+  building an unbounded general assurance platform before the first unit.
 - **Per-tranche delivery nodes at pickup**, each a small-PR series
   (one atom or one coherent family per PR), declaring
   `serves: reliable-atoms-programme` — enumerate them by search,
