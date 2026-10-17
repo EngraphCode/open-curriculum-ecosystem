@@ -92,6 +92,14 @@ adds intended cure text elsewhere but leaves the contradicting source text in
 place has not fixed the defect. Re-read the original offending line or section,
 not only the new-content area, before declaring the tranche complete.
 
+A sentence that says what a tool, hook or validator does is written after
+opening the tool's source AND the configuration that wires it; one without the
+other is a guess, and "already" and "names none" are its tells (three
+over-claims caught by a reviewer in one night, 2026-10-03; two failed claims
+that had "checked the source or the configuration but not both", 2026-10-02).
+A host binding written at a carry is read back in the carried file with each
+path checked one at a time, never two listings read as one (2026-10-03).
+
 A claimed violation of a policed rule is checked against the validator that
 polices it before it is repeated to anyone. Every validator the estate owns is
 the first read for a claim in its domain, and its verdict outranks any

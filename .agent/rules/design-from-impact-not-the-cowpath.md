@@ -171,7 +171,7 @@ INTENT — what the system should allow, what a demonstration should show — is
 outside its visibility. Owner, 2026-09-06, verbatim, on a proposal to narrow
 a reading-order exemption: "We do NOT allow design by review in PRs, we have
 a vision that PR bots have no visibility of. Of course visual design should
-be bloody coherent, that is not in question, but the fact that the
+be [...] coherent, that is not in question, but the fact that the
 mechanism is capable of producing incoherent designs is not a failure, it
 is power, that must be used appropriately and well, the reviewer is mixing
 concerns myopically." Capability and use are separate concerns: coherence

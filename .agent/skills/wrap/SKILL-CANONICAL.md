@@ -56,7 +56,10 @@ A freeze order binds until the owner discharges it. After "prepare for
 compaction and stop all processes", the owner's follow-on questions reopen
 analysis, never spend: answering is always in order, STARTING anything — a
 fleet, a monitor, a subagent — is gated until the compaction lands (owner
-correction 2026-08-17, verbatim: "nope, you have to compact first"). Never
+correction 2026-08-17, verbatim: "nope, you have to compact first"). A
+start-right invocation discharges it (the owner, 2026-10-03, verbatim: "As a
+standing rule, if I invoke a start right skill and do not explicitly say that
+the freeze remains then the freeze/pause is lifted"). Never
 launch a long fleet into a context about to compact; its harvest lands in
 the thin post-compaction window. A compaction, manual or automatic, may end
 every session-scoped process — monitors, background loops, crons — and may
@@ -72,7 +75,13 @@ id first (the task list, the cron list, the process table) and re-arms
 only what that verification finds absent, so a survivor is never doubled.
 The durable records are written at the lane boundary, while there is room to
 think; the wrap is the reading-and-verifying pass over records that already
-exist, so a compaction that outruns the wrap loses nothing (2026-09-25).
+exist, so a compaction that outruns the wrap loses nothing (2026-09-25). A
+coordination fold past its DUE clock is never run inside a wrap called at the
+owner's compaction word: the wrap is one records commit and one push, and the
+fold is named in the report as the next session's first act. A seat read "merge
+the PR and then prepare for compaction" as licence to fold as well; three
+Copilot rounds and four gate runs later the compaction arrived mid-ceremony and
+the owner asked what had been lost (2026-10-09).
 
 Wrap invoked non-terminally at the owner's word ("begin your wrap, this is
 not the end of your session", 2026-09-03) runs the programme's
@@ -117,7 +126,14 @@ and Forge herds Vapor, event 5c30f92a of 2026-09-24).
    2026-09-15, verbatim: "the whole point of coordination branches is to
    have a common home for things like wraps"; to a lane, "write to the
    coordination branch, a later seat will handle the commit and push"). The
-   work-safety evidence names that branch as the wrap's home.
+   work-safety evidence names that branch as the wrap's home. The evidence is
+   REPORTED, in the wrap message and the closeout event, and never written
+   into a record: a napkin or thread-record line that restates a checkout's
+   branch, its ahead/behind or a worktree list is a copy of git's own state,
+   stale at the next checkout, and is the defect, not evidence (a seat wrote
+   the checkout's position into both records and corrected it within the
+   hour, 2026-10-07). A record carries only what git cannot recompute: why
+   the work sits where it does, and by whose word.
 3. **Run [`session-handoff`](../session-handoff/SKILL-CANONICAL.md)** —
    its session-shape check, steps, and deep loss scan (the class-by-class
    context scan, in lock-step with knowledge-safety-sweep's discipline).

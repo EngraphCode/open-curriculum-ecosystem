@@ -478,6 +478,21 @@ lane holds T01, T02, T07, T13 and T21.
 
 ## Journal
 
+### 2026-10-05 17:2xZ — the 2026-10-04-d2f44f branch folded as #352; the successor cut (Sycamore holds Spore, 18d874, the n=1 seat)
+
+Merged at 17:17Z as `SHA:efe69ff66` at head `SHA:e5232931e` (`engraph` at `SHA:ef42bd11f` merged in
+first, never a rebase; one file changed on both sides, the strategic node, resolved as a union in
+order). Successor `coordination/2026-10-05-efe69f` cut from `SHA:efe69ff66`, pushed; the folded
+branch deleted remotely under the bot and locally after `merge-base --is-ancestor` read both tips in
+`engraph`. The fold took two settlement pushes (`SHA:d3e1970c6`: the ledger row for #354 from the
+post-merge survey, the finish line naming each estate; `SHA:e5232931e`: the extraction node's
+`superseded_by` kept at its immediate successor, the strategic node dated, the rebudget named as
+once on each code landing) against eight threads over two rounds (Copilot five, Codex three): six
+cured, two signed as the fold procedure itself (the post-fold block lands in this commit, never on
+the verdicted tip), one signed read on the predecessor's letter. moved for teachers: nothing / moved
+for the Practice: the alignment node's finish is on `engraph` and on the sibling's `main`, the
+parity corpus closed to archived nodes, the review-cost ledger current for the landings.
+
 ### 2026-10-05 16:4xZ — #354 merged; the alignment node at its finish in both estates (Sycamore holds Spore, 18d874, the n=1 seat)
 
 Pull request #354 merged at `SHA:ef42bd11f` (16:33:15Z) through the bot's door after four

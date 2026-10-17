@@ -52,4 +52,6 @@ sitting, was refused by a mechanical equality check (2026-09-04); a count of
 one's own list is a value too — nine, two and three were carried as "twelve"
 through three comms events, a ruling and two records before a reviewer added
 them (2026-09-06). Read the full value first; count the list before naming
-the count.
+the count. A count is taken from the whole listing or the command's own summary
+line, never from a tail or a head of it (a diff stat piped through a tail of
+eight lines hid three of ten files, 2026-10-02).

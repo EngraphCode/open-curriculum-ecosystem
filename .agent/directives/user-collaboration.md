@@ -207,6 +207,17 @@ a pass, ask whether a computation, an existing rule or the owner's recorded word
 already answer it (four owner corrections of one shape in one afternoon, 2026-09-13;
 graduated 2026-10-01 at the owner's card).
 
+**Finish by doing the work, never by reframing it.** The owner, 2026-10-03: "At every turn you
+seem to be inventing complexity instead of getting on with a simple job"; "you prioritise
+finishing the work by doing the work, and I will try to do better, and we both ask each other
+questions". A reporting duty is one message, never a wait or a gate on the work; when a finish
+looks large, size it and start the smallest piece rather than move the boundary. Analysis and
+framing carry no review risk and landing diffs does, which is why a seat drifts to them.
+
+A script a seat runs twice is routed for sizing as an agent-tools command, never extended in
+place (the owner, 2026-10-03: "if a script is used repeatedly it should be made into a
+standardised agent tool in the agent tools workspace").
+
 **The owner decides; the estate rejects nothing.** A rule's considered-and-rejected
 paragraph is reasoning the owner may overrule, never the estate's verdict (owner,
 2026-09-30: "the estate doesn't reject anything, I am the one with authority"). A
@@ -237,6 +248,13 @@ Agents must not:
 
 Risk acceptance requires a human decision. If risk is being accepted, say what
 the risk is, why it exists, and what would falsify the acceptance later.
+
+What survives the Decision Lenses is decided and recorded by the seat; only an unknown,
+high-risk item reaches the owner (his standing word of 2026-10-03: "Anything that survives the
+lenses should be assessed for risk, anything unknown and high-risk should still come to me, but
+that is a high bar and I do not expect it to happen often"). Before any stamp, the seat
+highlights the sentences he would object to ("agents need to highlight things I might object to,
+and I need to read questions more carefully").
 
 **Owner-granted sequencing exceptions.** The owner may explicitly grant a
 scoped "working now, architectural excellence later" exception when a small

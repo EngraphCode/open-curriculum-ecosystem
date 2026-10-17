@@ -93,6 +93,13 @@ argue; they do not decide anything.
 - [retrospective-the-review-rounds-that-grew-2026-09-27.md](./retrospective-the-review-rounds-that-grew-2026-09-27.md)
   — the Director's retrospective, on the owner's brief relayed by Siren, on the review rounds that grew on the transplant runbook's rollback and the WIP clause (2026-09-26 to 27): the mechanism (a procedure written as prose, with the reviewers as its only test, under a per-PR budget the concept crossed), the five rivals against their falsifiers, a blind pre-open pass, six proposals.
 
+- [2026-10-05-why-the-alignment-took-four-days-after-the-owner-said-hours.md](./2026-10-05-why-the-alignment-took-four-days-after-the-owner-said-hours.md)
+  — the Director's retrospective on the alignment arc of 2026-10-01 to 2026-10-05, the same
+  bytes as the home estate's copy: the owner's words that bound it, the pull-request counts per
+  day in both estates, the causal stack (one text against two gate sets; the hunk-times-lifecycle
+  unit; the inherited frame), the counterfactual inside the arc, five proposals with lanes and the
+  predecessor's proposals read against the arc
+
 ### Cricket suite tallies
 
 - [cricket-suite-tally-2026-10-04-alignment-node.md](./cricket-suite-tally-2026-10-04-alignment-node.md)

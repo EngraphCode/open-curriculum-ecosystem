@@ -34,6 +34,7 @@ function composed(readInput: ReadReadingInput) {
       },
     ],
     commits: [HEAD],
+    reviewConfiguration: { kind: 'unread', reason: 'the test reading declares none' },
     requests: [],
     reviewThreads: { total: 0, unresolved: 0 },
     reviews: [

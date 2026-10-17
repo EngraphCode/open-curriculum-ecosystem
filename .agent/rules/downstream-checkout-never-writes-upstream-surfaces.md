@@ -24,7 +24,12 @@ of surfaces of its own: its repository, its tracker, its chat, its
 code-quality and error-reporting projects — the identity held below the
 tree. The upstream's surfaces are someone else's. A seat on a downstream
 checkout never reads the upstream repository's surfaces without the
-owner's permission and never writes to them at all.
+owner's permission and never writes to them at all. Which repository a
+checkout is, and so whose surfaces are its own, is read from its git remote,
+never from the directory it sits in: a method checkout under a path named
+for the upstream organisation was the fork by its `origin` URL (2026-10-07),
+and a reading from the surrounding directory name would have aimed its
+writes at the upstream.
 
 ## Trigger
 
@@ -41,7 +46,13 @@ repositories. Calls with no repository target (a `users/...` endpoint, a
   each time.** The one standing grant: a read-only `git fetch` of the
   upstream remote for comparison (owner verbatim, 2026-09-08: "you have
   standing permission to fetch the upstream remote for the purposes of
-  read-only comparison"). Nothing else is standing.
+  read-only comparison"). Nothing else is standing. Amended for Oak's
+  GitHub on 2026-10-13 (owner verbatim: "You are always permitted read-only
+  access to Oak github, write access is forbidden for now, that will change
+  at a later date"): a read of any Oak GitHub surface needs no permission;
+  a write of any kind stays forbidden until the owner lifts it by word. The
+  2026-09-06 ruling's read half is superseded there and its write half
+  stands.
 - **Writes to the upstream's surfaces are forbidden without exception**:
   no pull request, comment, review, issue, label, tracker ticket or chat
   message on the upstream's repository, tracker or chat.

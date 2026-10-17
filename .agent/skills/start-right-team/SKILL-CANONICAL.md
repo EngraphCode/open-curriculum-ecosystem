@@ -105,6 +105,19 @@ Run the same shared repository foundation as `start-right-quick`, then add the t
 This skill does not replace `start-right-quick` or `start-right-thorough`.
 It layers team bootstrapping on top of the shared start-right requirements.
 
+Every seat, the Director included, states the landing target and the finish
+condition in its first message, arms processes only for the gates on that path
+and stops them at the finish (the owner, 2026-10-02, verbatim: "you are working
+on a bounded task, not open ended, we must always understand the goal so that
+we are able to finish"). A lane carries its completion criterion, its sizing
+(files, commits, pushes, hours) and the ratified decision or owner word it
+serves before it starts; one that lacks any of the three is routed to the
+Director with the gap named (the owner, the same day: "NOTHING should be worked
+on without clear completion criteria, sizing, and an unambiguous and provable
+statement of how it provides ratified value. Run a fully Cricket suite"). The
+Cricket panel runs on the seat's plan at seating and after each re-plan
+(`cricket` §When to call the panel).
+
 ## Non-Negotiable Foundation
 
 1. Read `.agent/skills/start-right-quick/shared/start-right.md` end to end.

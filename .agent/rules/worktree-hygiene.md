@@ -195,7 +195,13 @@ in the worktree, and (b) its HEAD an ancestor of a freshly-fetched
 `origin/<base>` (`git merge-base --is-ancestor`) — or, where the branch
 landed by squash or is content-superseded, the content proof recorded
 instead: every file proven present newer on the base by content
-comparison, the comparison written down before the removal. Items passing both prune
+comparison, the comparison written down before the removal. A content proof
+reads decisions, not lines alone: before a branch is retired as
+content-superseded, each line absent from the base is read against the
+decision that superseded it, and a line absent by a later decision is not
+lost work (a six-file residue script read zero while a 22-file line proof
+found absent lines in ten files, every one superseded by a later decision,
+2026-10-02). Items passing both prune
 without a per-item ask: `git worktree remove` (never `--force` — its
 dirty-refusal is a safety net) plus `git worktree prune` for gone
 registrations, and plain branch deletion for proven local branches, with the bot's API
@@ -304,7 +310,13 @@ established by a session-level mechanism and stable until the agent changes it �
 is governed by [`worktree-residency`](worktree-residency.md) (owner directive
 2026-07-31). Build before work (`pnpm --dir <path> install && pnpm --dir <path> build`,
 scoped to the worktree — the eslint plugin dist and the statusline both come from the
-build). From a worktree, collaboration-state commands need
+build). A fresh linked worktree installs itself on its first script run and holds no
+workspace package `dist`, so knip's config loader fails there until the package is built;
+knip and the dependency cruiser run inside the pre-push gate's `pnpm check`, never by hand
+beside it, so a worktree's packages are built before the push; the commit hooks run the
+formatter, markdownlint and the changed-files lint only, plus the staged profanity check
+where the estate carries it (2026-10-14). From a worktree,
+collaboration-state commands need
 the primary path passed explicitly (`comms list/watch/inbox --comms-dir`, `claims
 --active`); only `comms send` auto-anchors to the primary, and a relative path silently
 lands worktree-local. Switching branches with dirty doctrine files carries a broken

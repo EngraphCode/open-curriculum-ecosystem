@@ -299,7 +299,22 @@ A skill change is complete when:
 - Hand-writing a platform adapter instead of generating it
 - Using fragile relative markdown links from skill files
 - Adding placeholder folders or unused resources
-- Editing a description without re-rendering the adapters
+- Editing a description without re-rendering the adapters: a
+  rule's or skill's frontmatter (name, description, declaration)
+  is part of the rendered adapters, so `pnpm portability:fix`
+  follows any rule frontmatter edit and `pnpm skills:generate`
+  any skill edit (the sibling estate under its prefix flag), both
+  before the push and in both estates when the bytes are shared;
+  `portability:check` does not read descriptions, `skills:check`
+  does. A new slash skill also needs its `Skill(<prefix>-<name>)`
+  entry in the tracked Claude settings, and a description
+  containing ": " is quoted or the declaration parser refuses it
+  (four seats, 2026-10-03 to 2026-10-08)
+- Adding a passage without reading it against the skill's other
+  sections and the rules it cites: a skills slice took six review
+  findings, every one a contradiction between an added passage and
+  a contract the same skill or a cited rule already stated
+  (2026-10-02), and two later rounds found the same class
 - Leaving reusable scripts or references outside the
   canonical skill folder
 - Hiding trigger conditions in the body instead of the

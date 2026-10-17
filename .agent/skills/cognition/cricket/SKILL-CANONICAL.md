@@ -40,6 +40,14 @@ The standing active-seat trigger is a real cycle or action boundary. Run both st
   `ON-TRACK` if the refutation fails; likewise try to refute that the frame carries its
   sources, then concede `SOUND`.
 
+The full panel runs on the seat's plan at seating and after each re-plan (the owner,
+2026-10-02: "NOTHING should be worked on without clear completion criteria, sizing, and an
+unambiguous and provable statement of how it provides ratified value. Run a fully Cricket
+suite"). A plan node written at a compaction boundary inherits the boundary's fatigue shape: at
+the resume, before the owner reads it, two Crickets in both stances read the sketch (a first
+sketch reproduced the instrument it was replacing, and two Crickets in both stances named it
+before the owner read the plan, 2026-10-04).
+
 Between owner interactions, use event-driven boundaries rather than a bare timer. Also call the
 panel on demand when:
 
@@ -207,6 +215,13 @@ data, and label them by stable role with power and effort marked `unpinned`.
   primary sources.
 - Adopt only findings that are correct, relevant to the current story, and proportionate.
   Route adjacent valid work instead of expanding the current loop.
+- Two legs that agree are a verdict; on any opposite pair from a reduced suite, the remaining
+  legs of the full suite run before either verdict is acted on (the owner, 2026-10-04: "when
+  we run a reduced Cricket suite and they give opposite results, follow up with the remainder
+  of the full Cricket suite"). A question that survives the lenses goes to the owner as a card
+  and, when he may be away, as a push notification of one line (the owner, the same day: "I
+  have enabled push notifications, so next time you have a question it should reach my mobile
+  device").
 - In a team session, send a split panel to the sitting Director with the complete verdicts and
   evidence. In a standalone session, surface the split to the user at the decision boundary.
 - Finish with a concise synthesis: convergence, divergence, accepted redirection, rejected

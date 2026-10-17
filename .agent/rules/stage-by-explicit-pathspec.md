@@ -74,7 +74,15 @@ The pre-commit gate reads the WORKING TREE; the commit captures the
 INDEX. And the gate reads the whole working tree while it runs: a worktree is
 frozen for the duration of its commit gate, so the next cycle's edits are
 staged as a script in scratch and applied after the gate exits (a later cycle's
-red tests failed the earlier cycle's gate, 2026-09-24). Four seats paid for that gap in one window (2026-08-14 →
+red tests failed the earlier cycle's gate, 2026-09-24). A pathspec commit runs
+the hooks over a temporary index holding only its paths while the link validator
+reads the whole working tree, with two consequences: two halves whose gates read
+each other (a record and the script that names it) land as one commit, and a
+tracked file that links a not-yet-tracked file is BLOCKING at every commit while
+both sit uncommitted, so the new file lands first or with its riders; on a
+shared primary a report and its index row are committed together before anyone
+pushes (three refusals in one night, 2026-10-03; a partner's push failed on a
+README row linking an untracked report, 2026-10-10). Four seats paid for that gap in one window (2026-08-14 →
 2026-09-02): a `git mv` staged the pre-cure blobs and left later
 Edit-tool edits unstaged at the destination paths, so the first commit
 shipped stale archive copies and thread replies cited cures the commit
