@@ -1,7 +1,7 @@
 # ADR-233: Retain the OCE framework and publish configurable mechanisms
 
-- **Status:** Accepted direction, 10 October 2026, from the owner's explicit
-  architecture commission. The detailed designs and new delivery nodes remain
+- **Status:** Accepted (as direction, 10 October 2026, from the owner's explicit
+  architecture commission). The detailed designs and new delivery nodes remain
   proposals; this record does not ratify them or claim implementation.
 - **Scope:** This Engraph development line. Oak is a separate, read-only evidence
   source. Eventual reconciliation does not determine its destination or timing.
