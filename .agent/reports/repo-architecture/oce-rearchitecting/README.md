@@ -17,7 +17,9 @@ design below is proposed at its stated scope, not a claim of implementation.
 ## Owner decision: corpus-first review before adoption
 
 On 10 October 2026, after the initial documentary submission, the owner deferred
-merge and adoption of this programme. First incorporate the entire Google Drive
+adoption of this programme; its merge is not held (his word of 2026-10-13:
+"Merge is not blocked on the corpus being added, but adoption is"; of 2026-10-14:
+"we can merge these files without acting on them yet"). First incorporate the entire Google Drive
 backup of the Education work as a preserved repository-local source corpus. Then
 repo-local agents analyse that corpus on its own terms before assessing this plan.
 The plan must not supply the organising frame for their initial corpus analysis.
@@ -32,7 +34,7 @@ Existing source-access and publication boundaries remain applicable.
 This plan is a provisional synthesis of the examined sources. Record the later
 corpus analysis, plan comparison, omissions, distortions, authority conflicts and
 necessary corrections with their source basis. The owner reviews that outcome
-before merge or adoption; the hold is not cleared by CI or the earlier reviews.
+before adoption; the hold is not cleared by CI or the earlier reviews.
 The substantive architecture stays unchanged pending those findings. Proposed
 first-tranche and continuation steps below are conditional on that review and
 subsequent normal ratification, not the next authorised implementation action.

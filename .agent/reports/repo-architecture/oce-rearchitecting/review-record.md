@@ -11,7 +11,7 @@ The [corpus-first adoption hold](README.md#owner-decision-corpus-first-review-be
 supersedes this record's earlier incorporation/continuation disposition. These
 reviews checked a bounded synthesis; they did not establish preservation of every
 valuable contribution across the Education corpus. Repository-local corpus
-analysis must precede the later assessment of this plan. Merge and adoption await
+analysis must precede the later assessment of this plan. Adoption awaits
 that recorded assessment and the owner's review of its outcome. The earlier
 findings below remain evidence of their original scope, not a clearance of this
 new condition.

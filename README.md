@@ -12,7 +12,7 @@ reconstruction, layered curriculum integrity, Castr, publication and receiving
 responsibility form one incremental design. See the
 [architecture](docs/architecture/oce-architecture.md) and
 [instance guide](docs/development/oce-instance-development.md).
-This is the adopted direction and proposed design, not a completed implementation
+This is the accepted direction and proposed design, not a completed implementation
 or a claim that packages are available. The curriculum infrastructure consumer and the exploratory pedagogy project remain distinct profiles;
 the framework extends beyond them and today's applications.
 

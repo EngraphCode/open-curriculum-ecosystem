@@ -30,8 +30,9 @@ remain sketches; incorporation does not fabricate implementation ratification.
 
 ## Current adoption hold
 
-The owner's later 10 October decision defers merge and adoption of this programme
-until the entire Education Google Drive backup is incorporated as a preserved
+The owner's later 10 October decision defers adoption of this programme (his word of
+2026-10-13: "Merge is not blocked on the corpus being added, but adoption is"; of 2026-10-14:
+"we can merge these files without acting on them yet") until the entire Education Google Drive backup is incorporated as a preserved
 repo-local corpus, repo-local agents analyse the corpus first, and then assess
 this plan. The [programme entry](../../reports/repo-architecture/oce-rearchitecting/README.md#owner-decision-corpus-first-review-before-adoption)
 owns the exact sequence, evidence limits and review disposition. This sketch is a
