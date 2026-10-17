@@ -296,7 +296,9 @@ diff carries the request (under the held-cure shape that is the slot's one
 sync push, so the cadence and the tip-bound gate meet at the same push); a
 pure sync requests nothing (§merge boundary item 5). Copilot's
 absence never blocks a merge on a docs-only bot-authored pull request (the
-owner's 2026-09-03 exception, §merge boundary item 5); on a code pull
+owner's 2026-09-03 exception, §merge boundary item 5; `merge-bot merge`
+reads the class from the diff and merges it at green, the review harvested
+after the merge); on a code pull
 request the configured Copilot leg is OWED until it binds the tip, and the
 bot obtains it with its own request (§Phase 1, §merge boundary). Suppressed findings are Copilot's own low-confidence
 bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
@@ -1494,12 +1496,25 @@ create` on such a branch exits non-zero with "a pull request for branch …
    configured leg bound plus the posted subagent review where a vendor
    is unavailable (item 3's owner ruling of 2026-09-10), never by the
    REST merge below. The exception stands for
-   the docs-only bot-authored class on its own grounds. Until the tool
-   learns that class, the merging seat
-   recomputes that gate by name and lands the merge through the sanctioned
-   REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
-   request merges within one CI round of green with no owner action; if one
-   waits on a reviewer leg again, the merge tool learns the class). The two
+   the docs-only bot-authored class on its own grounds, and the tool knows
+   the class: `merge-bot merge` computes it from
+   the pull request's changed files (every path documentation or Practice
+   prose, decided per path as above; `change-class.ts`), merges at checks
+   green BY NAME (the base branch's required contexts, read from its rules at
+   run time; a pending check the rules do not require, the vendor's own
+   review run among them, does not hold a records-class pull request, a
+   failed check of any name does) with zero unresolved threads on the
+   verdicts that differ from SETTLE-READY only by the vendor leg
+   (`RECORDS_CLASS_MERGE_STATES`), and names the ground in
+   its evidence; a
+   vendor review requested on the tip is harvested after the merge under
+   PDR-140 clause 9(e). The interim this clause carried until then ("until
+   the tool learns that class, the merging seat recomputes that gate by name
+   and lands the merge through the sanctioned REST endpoint as the bot")
+   ended as its own PDR-130 prediction said it would: four jimcresswell.net
+   folds waited on the leg between 2026-10-04 and 2026-10-10, and the tool
+   learned the class there (the retrospective of 2026-10-10; the owner's
+   decision on its proposal 1), carried to OCE at his word of 2026-10-14. The two
    non-bot shapes remain: the explicit
    `gh pr merge --merge` command, or ARMING auto-merge — permitted
    exactly and only **at settled-READY under a Director grant**
