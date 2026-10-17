@@ -54,7 +54,7 @@ Capability builders receive complete reusable contracts and an incremental CF
 construction path. Instance builders receive supported configuration and a complete
 published closure. Curriculum/domain owners retain meaning and authority. Teachers
 and learners may benefit from future services, but this programme does not claim
-educational outcomes from architectural conformance. Dait, Clef, other consumers and
+educational outcomes from architectural conformance. The curriculum infrastructure consumer, the exploratory pedagogy project, other consumers and
 new innovation work retain distinct scopes, evidence and decision authority.
 
 ## The bet

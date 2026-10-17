@@ -77,4 +77,4 @@ team study is commissioned, and no timings or staffing commitments are inferred.
 No full tuition/authoring service implementation, protected-data admission,
 participant research, national learner store, universal workflow/evidence engine
 or whole-catalogue gate. This node remains a proposed design binding, not ratification
-of those products. Dait and Clef keep their independently governed scope.
+of those products. The curriculum infrastructure consumer and the exploratory pedagogy project keep their independently governed scope.

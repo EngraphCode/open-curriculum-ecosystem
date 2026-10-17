@@ -38,7 +38,7 @@ One public or synthetic curriculum entity, its revision, repeated occurrence and
 
 ## User groups and value
 
-Domain builders receive a complete small contract; Clef and Dait integration owners can assess their own required preservation without inheriting each other’s storage or product scope.
+Domain builders receive a complete small contract; the integration owners of the exploratory pedagogy project and the curriculum infrastructure consumer can assess their own required preservation without inheriting each other’s storage or product scope.
 
 ## Mechanism
 
@@ -56,7 +56,7 @@ Use the integrity seam matrix. Distinguish canonical entity, revision, occurrenc
 
 1. Author the independent semantic fixture and source-to-domain mapping.
 2. Bind target representations and failure/correction behaviour; select only the contracts required by the first integrity slice.
-3. Review Clef C-DATA/PRIV obligations and Dait boundary separately; return the approved profile to the Castr integration and integrity implementation nodes.
+3. Review the exploratory pedagogy project's C-DATA/PRIV obligations and the curriculum infrastructure consumer's boundary separately; return the approved profile to the Castr integration and integrity implementation nodes.
 
 Each implementation PR is a bounded story with the repository’s default two-review-round
 budget; this is a changeset control, not a study of teams or an output metric.

@@ -107,7 +107,7 @@ application, generator, tool or CI configuration.
 - **Alternatives and defeaters:** smaller product-specific contracts versus a
   generic DSL; extraction-first versus CF-first within actual dependencies;
   one shared search runtime versus isolated configured instances; a narrower
-  typed API versus Clef's full preservation profile. The architecture states
+  typed API versus the exploratory pedagogy project's full preservation profile. The architecture states
   which counterexample would expose a gap or reopen a choice.
 - **Independence and uncertainty:** the cold reader had fresh task context, but
   all agents share a model/source lineage. Private source details are not public

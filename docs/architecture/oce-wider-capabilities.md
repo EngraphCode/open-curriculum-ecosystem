@@ -33,7 +33,7 @@ matter; completing an activity or receiving assistance is not automatically
 evidence of independent mastery. A graph, compiler or public curriculum API is
 supporting infrastructure, not itself a teaching method. Public curriculum access
 does not thereby require learner identification, transcripts or stored hypotheses.
-Clef and Dait retain their separately governed scope; full tuition is not silently
+The exploratory pedagogy project and the curriculum infrastructure consumer retain their separately governed scope; full tuition is not silently
 added to the first public-data profile.
 
 ## Retained responsibility map

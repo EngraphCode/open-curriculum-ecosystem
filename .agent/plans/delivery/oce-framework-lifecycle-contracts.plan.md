@@ -65,4 +65,4 @@ budget; this is a changeset control, not a study of teams or an output metric.
 
 ## Out of scope
 
-No product commission, team measurement, educational effectiveness study, universal platform or conflation of Dait/Clef.
+No product commission, team measurement, educational effectiveness study, universal platform or conflation of the curriculum infrastructure consumer with the exploratory pedagogy project.

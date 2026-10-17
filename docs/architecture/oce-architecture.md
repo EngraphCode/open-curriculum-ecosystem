@@ -14,15 +14,15 @@ work. Neither a catalogue of packages nor the current MCP application bounds OCE
 
 ## The distinct architectural dimensions
 
-| Dimension                  | Governing question                                              | Consequence                                                                                                                                               |
-| -------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Capability responsibility  | What complete guarantee does a consumer receive?                | Define it before choosing a package. One package can deliver several cohesive units; one service can compose many packages.                               |
-| CF grade and assurance     | What does a unit rely on, and what evidence justifies reliance? | Primitive independence, Component/Subsystem composition and qualification are separate from publication.                                                  |
-| Context and semantic layer | Which meanings and policies does the capability own?            | General foundations support domain capabilities; specialised domains and projections preserve their own semantics. No global number of layers is imposed. |
-| Source custody             | Where are mechanisms authored and maintained?                   | OCE retains all reusable mechanisms. A domain-specific mechanism can still be reusable.                                                                   |
-| Distribution               | What immutable supported artefact does a consumer install?      | Public exports, licences, dependency closure and compatibility are deliberate contracts.                                                                  |
-| Runtime and instance       | Where and under whose authority is it executed?                 | Several configured services, stores or indexes may consume the same mechanisms. Source co-location does not mandate co-deployment.                        |
-| Product authority          | Who chooses purposes and permitted behaviour?                   | A configuration selects within delegated powers; it cannot enlarge them. Dait and Clef remain distinct consumers and programmes.                          |
+| Dimension                  | Governing question                                              | Consequence                                                                                                                                                                                    |
+| -------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Capability responsibility  | What complete guarantee does a consumer receive?                | Define it before choosing a package. One package can deliver several cohesive units; one service can compose many packages.                                                                    |
+| CF grade and assurance     | What does a unit rely on, and what evidence justifies reliance? | Primitive independence, Component/Subsystem composition and qualification are separate from publication.                                                                                       |
+| Context and semantic layer | Which meanings and policies does the capability own?            | General foundations support domain capabilities; specialised domains and projections preserve their own semantics. No global number of layers is imposed.                                      |
+| Source custody             | Where are mechanisms authored and maintained?                   | OCE retains all reusable mechanisms. A domain-specific mechanism can still be reusable.                                                                                                        |
+| Distribution               | What immutable supported artefact does a consumer install?      | Public exports, licences, dependency closure and compatibility are deliberate contracts.                                                                                                       |
+| Runtime and instance       | Where and under whose authority is it executed?                 | Several configured services, stores or indexes may consume the same mechanisms. Source co-location does not mandate co-deployment.                                                             |
+| Product authority          | Who chooses purposes and permitted behaviour?                   | A configuration selects within delegated powers; it cannot enlarge them. The curriculum infrastructure consumer and the exploratory pedagogy project remain distinct consumers and programmes. |
 
 The former `core` directory is a current physical arrangement, not the target
 architecture. Its ten workspaces have [explicit reconstruction dispositions](foundations/oce-cf-reconstruction.md).
@@ -155,7 +155,7 @@ existing components, require reconstruction, or need a separate consumer design.
 | Plugins, skills and guidance                                | Existing authored sources and distribution artefacts; promotion/canonical-custody questions remain                                                | Versioned generated distribution; editorial/distribution owner, with Practice owning its own layer |
 | Future learning, teaching and tuition                       | Relevant consumer requirements are distinct from today's curriculum/API work; no full tutor is claimed                                            | Domain-specific future compositions; educational authority and service owner                       |
 
-Dait's current needs and Clef's wider requirements are not interchangeable.
+The curriculum infrastructure consumer's current needs and the exploratory pedagogy project's wider requirements are not interchangeable.
 This public architecture incorporates the generic owner-authorised obligations:
 the retained innovation framework, layered curriculum capabilities and end-to-end
 integrity. Restricted programme briefings, people and schedules are not replicated.
