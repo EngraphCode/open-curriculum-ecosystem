@@ -37,6 +37,86 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-17T15:0xZ: pull request 356, the retained-framework rearchitecting programme (ADR-233),
+  merged by the door at SETTLE-READY as `SHA:493951ad7`; adoption held, merge never held** (Walrus
+  seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). At the owner's word of 2026-10-17
+  the seat's four local commits were dropped before any push and the corrections re-landed from the
+  pull request's own head: the OpenAPI pipeline page back to the directive's wording (the owner:
+  "strict, everywhere, all the time", "never disable checks, never disable safeguards", no
+  special cases) with its consumer data boundary restored and sourced; the two exploratory projects
+  under neutral labels on every surface, not named yet; the hold stated as adoption, not merge,
+  the owner quoted; the public-packages node trued to its own amendment; ADR-233's status word, its
+  place in both indexes, a dated line in the strategy index. Three review threads answered and
+  resolved; the body restated. Standing rulings of the day, each on the graduation register with its
+  target: a clean and green pull request merges by the door, never at the owner's word; an ADR
+  numbering clash is settled by Oak's numbering (Oak at ADR-229 today; Engraph's 230 to 233 move
+  when Oak reaches them); a merge tool coupled to a third party's review configuration carries a
+  design bug (the door read Copilot OWED on 356's tip under `review_on_push: false`, GitHub CLEAN;
+  the seat ran the door with the configured set the tip had, the Codex connector). Forward asks, none
+  this lane's: a dedicated architecture session with the owner on points 1, 2, 3 and 7 of the
+  ADR-233 analysis (configuration-only against ADR-227 ruling 11 and ADR-154; the named product
+  repository and the junior-developer requirement undispositioned; decision 6 and invariant I07
+  against ADR-029/030; the two soft tests) before any adoption; the merge tool's owed-ness fix in
+  both estates; the plan-schema owner gates under PDR-100. Two local refs on this machine for the
+  owner's word: `archive/pr356-seat-work-2026-10-17` and the retired
+  `coordination/2026-10-05-efe69f` at `SHA:93363641a` (its content is on the successor branch).
+
+- **2026-10-17T14:1xZ: the J2 docs-validators worktree retired with zero loss, its question dissolved by
+  fact; the owner's rulings on this estate's open items; say OCE** (Flint guards Vapor, 9b835d, at the
+  owner's closing word). The validators staged since 2026-09-29 in `oce-wt-j2-docs-validators` landed on
+  this default branch on 2026-10-05 in pull request 354 (the practice code landing) with review fixes
+  the same day; the staged draft was an older copy of the same source that never compiled here. At the
+  owner's word ("if you are sure, then delete it") the worktree was retired by the standing grant for
+  proven paths (`never-use-git-to-remove-work`; `worktree-hygiene` item 6): fresh fetch; 23 of 23 paths
+  proven (8 byte-identical, 15 landed and since revised, 126 draft-only lines each read against the
+  decision that superseded them); 103 ignored entries dispositioned in the removal command (`.env.local`
+  identical to the primary's, husky's shims, the pinned shellcheck re-installed by its setup script, the
+  mcp app's fetched design assets, build output by name); the staged additions dropped from the index
+  and moved to the session scratchpad, the two modified files forward-written from HEAD, porcelain
+  empty, the tip an ancestor, `git worktree remove` without force, the branch deleted plain. This bullet
+  is the capture the removal rule requires in this estate (the napkin on the primary is the reviewer
+  seat's uncommitted file). The decision put to the owner on 2026-10-02 and carried by four seats was
+  moot from 2026-10-05: no seat listed the default branch. His rulings of this date on the items above:
+  the merge-tool work is needed in both repositories, in parallel, the defect being a design coupled to
+  one GitHub configuration; the missing suppressed-findings hold is a consistency choice for the seat
+  doing that work, since "if they are low confidence findings then ignoring them is a valid approach";
+  the bot's 403 refusals are "either a token freshness or a working directory issue" (the seat's
+  reading: the token was minted from a shell the harness had reset to the other estate's primary, so
+  re-mint from inside this checkout before any claim about permissions); Copilot's silence at open for
+  bot-authored pull requests is "possibly expected" since the subscription is his, so the agent requests
+  a review "ONLY once the agent is confident that the PR is ready, not simply because code was pushed";
+  the profanity tooling is jimcresswell.net's only for now, deliberately, so the parity item is closed.
+  His cost word: "half an hour is TOO LONG FOR A PR, ten minutes is reasonable"; this estate's
+  ten-minute quiet window after checks green waits for a review the configuration says never comes, and
+  its removal is part of the tool work. His naming word: say OCE, never "the sibling". Walrus seeks
+  Maelstrom is active in this estate on their branch; their uncommitted files are theirs. The
+  cross-estate thread record in jimcresswell.net carries the full list and the inherited-premise cure.
+- **2026-10-16T16:0xZ: the merge tool derives what a tip is owed from this repository's review
+  configuration; pull request 359 merged by this estate's bot at the UNOWED leg** (Flint guards Vapor, 9b835d, the owner's routing of
+  2026-10-16: the tooling was over-coupled to Copilot reviewing every push; the `engraph` ruleset's
+  `copilot_code_review` rule reviews no later push, the same configuration as the sibling estate,
+  whose pull request 339 landed the same change this afternoon and was merged by its bot at the
+  UNOWED leg with no hand-made request). What the port does here: `pr state` reads the base branch's
+  rule with every reading; Copilot's leg reads UNOWED on a tip the vendor is not asked about once it
+  has reviewed an earlier tip and no Copilot body binds the tip; this estate's pending-request
+  surface never lists a bot, so the leg honours the rounds asked in the pull request's history
+  (`round-requests.ts`), the finding both vendors made and the cure; an unread or absent
+  configuration keeps every leg owed, named in the evidence; the lifecycle skill and the merge-bot
+  reference carry the same passages as the sibling's. Written against this estate's own `pr-watch`
+  shape rather than carried as bytes; the gh payloads the integration suites share moved to a test
+  helper at their second consumer. Parity items from the port, each with its home here: this estate
+  carries no suppressed-findings hold, so the sibling's cure for the hold on an unreviewed head
+  (Copilot's finding on 339) has no counterpart, and the hold itself is a parity gap; the sibling's
+  `pr tally` divergence (its own owed-ness without the configuration) is recorded on its thread
+  record and applies here if `pr tally` is carried. Observations of the day, one or two instances
+  each: the bot's `pull-request-work` token was refused 403 on the branch delete, the review
+  request, the thread reply and the thread resolution (pull request creation works), where the
+  lifecycle skill's item 5 records 201 for the request; the operator credential did each; Copilot's
+  rule registered no review at open for this bot-authored pull request and for 355 at ready-mark,
+  both first requests made by hand. Unchanged: the J2 worktree (put to the owner 2026-10-02, exact
+  on the sibling's thread record), the profanity tooling parity, the primary checkout's re-homing to
+  the successor when the reviewer seat commits.
+
 - **2026-10-14T11:2xZ: the third dedicated two-estate consolidation's sibling stage landed on lane
   `docs/consolidation-3`** (Flint guards Vapor, 9b835d, guest curator under the join ceremony; the
   curator claim of 2026-10-11 adopted in place). Pending graduations here 1, down from 16: the

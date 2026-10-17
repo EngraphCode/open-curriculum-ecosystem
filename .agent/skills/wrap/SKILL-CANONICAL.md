@@ -56,10 +56,11 @@ A freeze order binds until the owner discharges it. After "prepare for
 compaction and stop all processes", the owner's follow-on questions reopen
 analysis, never spend: answering is always in order, STARTING anything — a
 fleet, a monitor, a subagent — is gated until the compaction lands (owner
-correction 2026-08-17, verbatim: "nope, you have to compact first"). A
-start-right invocation discharges it (the owner, 2026-10-03, verbatim: "As a
+correction 2026-08-17, verbatim: "nope, you have to compact first"). An
+owner-invoked start-right discharges it (the owner, 2026-10-03, verbatim: "As a
 standing rule, if I invoke a start right skill and do not explicitly say that
-the freeze remains then the freeze/pause is lifted"). Never
+the freeze remains then the freeze/pause is lifted"); a seat's own start-right
+lifts nothing, since the authority to lift a freeze is the owner's. Never
 launch a long fleet into a context about to compact; its harvest lands in
 the thin post-compaction window. A compaction, manual or automatic, may end
 every session-scoped process — monitors, background loops, crons — and may
