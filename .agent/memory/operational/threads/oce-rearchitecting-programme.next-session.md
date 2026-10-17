@@ -24,24 +24,34 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
 
 ## Current Continuation
 
-- Branch: the pull request's branch `docs/oce-rearchitecting-programme`, three commits over
-  `engraph` at the fold of #352; corrections land there, records on the coordination branch.
+- Branch: the pull request's branch `docs/oce-rearchitecting-programme`. Since 2026-10-17 it carries,
+  over the pull request's own head `SHA:5d6af55fd`, the forward merge of `engraph` `SHA:43b444c4e`
+  and seven correction commits by concern (`SHA:aa230f5e8` packages node, `SHA:25a832644` ADR-233
+  status, `SHA:289fde234` pipeline page and boundary, `SHA:8f894503c` neutral labels,
+  `SHA:455d5f2d7` hold wording, `SHA:a43e36ae1` strategy line, `SHA:4188ed7fa` indexes). The seat's
+  four earlier local commits and its uncommitted batch of 2026-10-14 were dropped at the owner's
+  word of 2026-10-17 and are held on the local ref `archive/pr356-seat-work-2026-10-17`, never
+  pushed. Records land on the live coordination branch.
 - Invocation pointer: continue from this record. Treat every live fact as a hypothesis until `gh`
   and `git` confirm it.
 - Controlling plan: none ratified. ADR-233 (on the branch) is the accepted direction by the owner's
   commission; the strategic node `oce-rearchitecting-programme` and the fourteen `oce-*` delivery
   nodes are sketches by their own stamps.
-- Next safe step, in order: (1) the owner answers the decision list in §Verdict (one word per
-  item); (2) merge `origin/engraph` into the PR branch, never rebase; (3) land the corrections
-  on that branch, one commit per concern, in the order §Verdict gives; (4) re-request the Codex
-  and Copilot reviews, resolve every thread, recheck; (5) merge at the owner's word; (6) the
-  continuity records. Nothing is pushed to any Oak surface.
+- Next safe step, in order: (1) the push read back on the pull request; (2) the three review
+  threads answered and resolved under the bot identity, the pull request body's hold paragraph
+  restated and the project names removed from it; (3) the merge door run (`merge-bot merge`,
+  the expected reviewer set from the repository's review configuration, the merge-base deletion
+  sweep first) and its owed-ness reading verified against the live pull request, since the owner
+  changed Copilot to trigger once per pull request on 2026-10-17; (4) the records committed and
+  carried to the successor coordination branch. Nothing is pushed to any Oak surface.
 - Completed prerequisites: the full grounding; the first-hand read of every line the pull request
   adds or changes; the three reviewer findings on its head read.
 - Team expectation: n=1 unless the owner seats others; no Director seat is held in the estate.
-- Acceptance bar: #356 merged to `engraph` with its corrections; the adoption gate stated the same
-  way in every place the pull request states it; the three reviewer findings dispositioned on the
-  pull request; the integration question answered with the owner and recorded where he says.
+- Acceptance bar: #356 merged by the door when clean and green (the owner, 2026-10-17: "Merge has
+  never and will never be at my word, if it is clean and green it gets merged"); the hold stated
+  as adoption, not merge, wherever the pull request states it; the three reviewer threads
+  dispositioned; points 1, 2, 3 and 7 of the ADR-233 analysis carried to a dedicated architecture
+  session with the owner before any adoption.
 
 ## The owner's words, verbatim (2026-10-13)
 
@@ -58,6 +68,26 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
   properly integrated and cohesive and cogent."
 - Then: "Before that, prepare for compaction, that is the priority for now. Post compaction we
   will continue."
+
+## The owner's words, verbatim (2026-10-14 and 2026-10-17)
+
+- 2026-10-14: "Oak GitHub is read only, until I say otherwise, obviously you can use GitHub";
+  "Reviewing agents are NEVER a source of authority, they are ALWAYS a source of information to
+  critically evaluate. ALWAYS"; "Your job is to get the PR into a mergeable state, and make sure
+  that the plans make sense in context. Your job is NOT to be altering ADRs or PDRs independently
+  of a conversation with me"; "Merge and adoption. I just meant we can merge these files without
+  acting on them yet".
+- 2026-10-17, on the Cardinal Rule question: "I can't be definite about a thing I know nothing
+  about, I cannot distinguish fiction from misunderstanding. What I can say is that ALL Practice
+  repos practice 'strict, everywhere, all the time' and 'never disable checks, never disable
+  safeguards', and I would never argue to add complexity or 'special cases'"; on the names:
+  "Don't name Clef or Dait, not yet, if you need a label you can say something like 'exploratory
+  pedagogy project' which is accurate but neutral"; on merging: "Merge has never and will never be
+  at my word, if it is clean and green it gets merged"; on numbering: "When we have an ADR
+  numbering clash, or anything similar, the numbering from the Oak branch wins and the Engraph
+  numbering is updated to accomodate"; on the review tooling: Copilot now triggers once per pull
+  request, and merge-tool assumptions coupled to that configuration "are considered design bugs
+  to fix".
 
 ## What the pull request is (the discovery, compressed)
 
@@ -127,30 +157,42 @@ direction is the owner's own and matches his public reply on Oak pull request 10
 The design is internally coherent, and every baseline fact it rests on was verified first-hand at
 `SHA:efe69ff66`. The corrections, each with its warrant:
 
-1. The adoption gate, stated five times (strategic node, programme README, review record, source
-   dispositions, PR body) as blocking merge: restate as blocking ratification of the sketches and
-   any implementation pickup, by the owner's word of 2026-10-13. Resolves Copilot's second finding
-   (the review record's disposition may say "documentary incorporation"; not "plan ratification").
-2. `docs/strategy/README.md` lines 39-45 keep extraction-first as the current priority: a dated
-   2026-10-10 line pointing at ADR-233 is needed; the line is owner-word, so at his word.
-3. The Cardinal Rule (AGENT.md, principles.md, ADR-029/030) versus I07 and the pipeline page:
-   ADR-222 already made the upstream bulk JSON Schema a second authority, so shape A (amend the
-   rule to name the authority set, keep the generated-only discipline and the codegen-then-build
-   sufficiency) is recommended over shape B (narrow I07 back to one authority). Owner's decision.
-4. The pipeline page's deleted "Consumer data boundary" paragraph: restore it, naming the Clef
-   source-copy acquisition as a seam that needs its own authorisation; or record the loosening as
-   an ADR-233 line. Owner's decision; the first is recommended.
-5. Dait, Clef and TAB: define in one glossary line each, or replace with role names, keeping the
-   C-DATA and C-PRIV identifiers. Owner's decision on public naming.
-6. `public-packages-release` keeps `ratified` with an Outcome that promises clock groups: reword
-   that sentence as a later separate decision (Copilot's first finding); the status stays.
-7. ADR-233's index entry sits above ADR-001 with a stray blank line: move it to the "Start Here"
-   block or into numeric order.
-8. ADR-233's PR1000 paragraph: add the five-destination crosswalk the source dispositions already
-   imply (each Oak destination read as an OCE instance or distribution), so the partnering the
-   owner stated on the PR is legible on the record itself.
-9. The "No team measurement is commissioned" refrain in every node: trim to ADR-233 and the
-   README (prose, owner's taste).
+The corrections as re-landed on 2026-10-17 from the pull request's own head, each at its word:
+
+1. The hold: adoption, never merge, wherever the pull request states it, the owner quoted in the
+   strategic node and the programme entry; README and VISION read the accepted direction, the
+   word of ADR-233's status line (`SHA:455d5f2d7`; the pull request body the same at the push).
+2. The strategy index: a dated line of 2026-10-10 in ADR-233's own words and the owner's
+   (`SHA:a43e36ae1`).
+3. The Cardinal Rule: the pull request had rewritten the pipeline page away from the directive
+   (regeneration no longer sufficient, consumer changes still required, no type widening gone);
+   one generator under the Codex P1, the page and ADR-233's silence on ADR-029/030. The owner's
+   word of 2026-10-17 settles the page: the directive governs, the page returns to engraph's
+   wording with the pull request's Castr paragraph kept (`SHA:289fde234`). How ADR-233's
+   decision 6 and invariant I07 read against ADR-029/030 goes to a dedicated architecture
+   session before adoption, with points 1, 2 and 7 of the ADR-233 analysis.
+4. The consumer data boundary paragraph: restored at the owner's word of 2026-10-13 ("fix this,
+   all Oak systems are no go"), with the two sources the estate already reads beside the API
+   under ADR-222 and ADR-157/173, the raw-CDN rule, and his words quoted; nothing the seat
+   authored (`SHA:289fde234`).
+5. The names: the two projects appear under "the exploratory pedagogy project" and "the
+   curriculum infrastructure consumer" on every surface, at the owner's word (`SHA:8f894503c`).
+   The owner's naming of 2026-10-14 (Base Clef, TAB Clef, Dait) is held in the napkin only.
+6. `public-packages-release`: title and overview match its own amendment; status stands
+   (`SHA:aa230f5e8`).
+7. ADR-233 in numeric order in both indexes with the pull request's entry text (`SHA:4188ed7fa`);
+   its status "Accepted (as direction, …)" (`SHA:25a832644`).
+8. The PR1000 crosswalk: dropped 2026-10-14 ("PR 1000 is not some external authority").
+9. The "No team measurement" refrain: left as the pull request wrote it; the trim was the seat's
+   taste and not needed for the brief.
+
+Routed, with their homes: the downstream-checkout rule's read clause and the plan-schema
+owner-gate question (PDR-100) on the graduation register; the owner's rulings of 2026-10-17 on
+merging, on ADR numbering and on the merge tool's coupling on the register with their targets;
+points 1, 2, 3 and 7 of the ADR-233 analysis to a dedicated architecture session before adoption.
+Withdrawn: the seat's earlier proposal of a standalone boundary ADR and a three-scope rule, which
+read the owner's access ruling as product architecture; the ruling has two scopes, Oak GitHub
+read-only and every other Oak system off limits, and the downstream-checkout rule is its home.
 
 Checked and left alone: the fourteen sketches' frontmatter, serve edges and supersessions (the
 validators pass; the two extraction gates expire with the supersession); the removal of the Size
@@ -160,20 +202,26 @@ table (pinned, not a moving target); `serves: TOOLS-2`.
 ## Lane state
 
 - Owning plan(s): none ratified; ADR-233 and the sketch strategic node on the branch.
-- Current objective: the discovery is done and reported; the next act is the Oak pull request read
-  and the integration reflection, then planning with the owner.
-- Current state: post-compaction; the verdict formed and reported (§Verdict); claim `b13d5c39`
-  held; the watcher armed while work is live.
-- Blockers / low-confidence areas: none blocking. The Cardinal Rule collision is constitutively
-  the owner's decision when it is reached; prepare the two shapes, do not choose.
-- Promotion watchlist: the owner's Oak-access ruling is on the pending-graduations register
-  (target: the downstream-checkout rule's read clause).
+- Current state (2026-10-17): the corrections re-landed from the pull request's head and pushed
+  as the bot; the threads, the body and the merge door are the next step above. Watcher and
+  heartbeat loop live (consumers: the sibling estate's seats on this machine). The principal's
+  three record files of 2026-10-14 plus this day's blocks are committed and carried to the
+  successor coordination branch `coordination/2026-10-16-f1e9d3`, which rides draft fold 360.
+- Blockers / low-confidence areas: none technical. Standing rulings that bind every seat on this
+  lane: reviewing agents are never a source of authority; the seat's job is the pull request
+  mergeable and the plans coherent in context, never altering ADRs or PDRs outside a conversation
+  with the owner; before any sentence lands the test is whether it is the owner's word, the pull
+  request's word or the directive's word; the merge is never at the owner's word; the two
+  projects are not named; Oak's numbering wins a clash.
+- Promotion watchlist: the register entries named above.
 
 ## Re-arm recipe at the resume
 
 Verify by the task list before anything is armed. The watcher is the canonical block in the comms
-all-channels watcher rule: the supervisor pid read from the harness session file matched on this
-session's id, the timeout binary the host resolves, the platform and model literals, armed as a
-Monitor at its 30-minute cap and re-armed on each expiry notification, each re-arm followed by one
-sweep since the last event. No heartbeat (the consumer-absent exemption; no peer on the registry),
-no cron, no sub-agent, no commit-queue intent.
+all-channels watcher rule (the supervisor pid read from the harness session file matched on this
+session's id, the timeout binary the host resolves, the platform and model literals, a Monitor at
+its 30-minute cap, re-armed on each expiry notification with one sweep since the last event). The
+heartbeat is the liveness rule's 4-minute Monitor loop on both legs, comms and claims, armed
+while a consumer exists (a sibling-estate seat reading this estate's registry counts; one did on
+2026-10-14 and 2026-10-16). Format with the worktree's own toolchain, never the principal's;
+commit by pathspec with the audit line; commitlint is strict.
