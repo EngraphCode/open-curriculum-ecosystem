@@ -1,12 +1,13 @@
 ---
 id: public-packages-release
 node_type: strategic
-name: "Public packages — clock-aligned versioning and automatic publishing"
+name: "Public packages — one repository version and automatic publishing"
 overview: >-
   Public packages ship from the existing conventional-commit pipeline
   with versions that mean something: internal-only change stops minting
-  releases, publishing is fully automatic, and version lockstep follows
-  lifecycle-clock groupings once the estate splits along them.
+  releases, publishing is fully automatic, and the initial mechanism uses
+  one repository version; lifecycle-clock groupings are a separate
+  proposed decision (the amendment of 10 October 2026 below).
 status: ratified
 ratified_by: Jim Cresswell (owner)
 ratified_date: 2026-09-08
@@ -19,10 +20,10 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-10-10
+last_updated: 2026-10-17
 ---
 
-# Public packages — clock-aligned versioning and automatic publishing
+# Public packages — one repository version and automatic publishing
 
 ## Current authority amendment — 10 October 2026
 
