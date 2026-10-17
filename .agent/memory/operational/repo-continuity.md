@@ -37,6 +37,30 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-17T15:0xZ: pull request 356, the retained-framework rearchitecting programme (ADR-233),
+  merged by the door at SETTLE-READY as `SHA:493951ad7`; adoption held, merge never held** (Walrus
+  seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). At the owner's word of 2026-10-17
+  the seat's four local commits were dropped before any push and the corrections re-landed from the
+  pull request's own head: the OpenAPI pipeline page back to the directive's wording (the owner:
+  "strict, everywhere, all the time", "never disable checks, never disable safeguards", no
+  special cases) with its consumer data boundary restored and sourced; the two exploratory projects
+  under neutral labels on every surface, not named yet; the hold stated as adoption, not merge,
+  the owner quoted; the public-packages node trued to its own amendment; ADR-233's status word, its
+  place in both indexes, a dated line in the strategy index. Three review threads answered and
+  resolved; the body restated. Standing rulings of the day, each on the graduation register with its
+  target: a clean and green pull request merges by the door, never at the owner's word; an ADR
+  numbering clash is settled by Oak's numbering (Oak at ADR-229 today; Engraph's 230 to 233 move
+  when Oak reaches them); a merge tool coupled to a third party's review configuration carries a
+  design bug (the door read Copilot OWED on 356's tip under `review_on_push: false`, GitHub CLEAN;
+  the seat ran the door with the configured set the tip had, the Codex connector). Forward asks, none
+  this lane's: a dedicated architecture session with the owner on points 1, 2, 3 and 7 of the
+  ADR-233 analysis (configuration-only against ADR-227 ruling 11 and ADR-154; the named product
+  repository and the junior-developer requirement undispositioned; decision 6 and invariant I07
+  against ADR-029/030; the two soft tests) before any adoption; the merge tool's owed-ness fix in
+  both estates; the plan-schema owner gates under PDR-100. Two local refs on this machine for the
+  owner's word: `archive/pr356-seat-work-2026-10-17` and the retired
+  `coordination/2026-10-05-efe69f` at `SHA:93363641a` (its content is on the successor branch).
+
 - **2026-10-17T14:1xZ: the J2 docs-validators worktree retired with zero loss, its question dissolved by
   fact; the owner's rulings on this estate's open items; say OCE** (Flint guards Vapor, 9b835d, at the
   owner's closing word). The validators staged since 2026-09-29 in `oce-wt-j2-docs-validators` landed on

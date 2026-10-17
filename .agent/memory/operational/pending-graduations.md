@@ -209,6 +209,12 @@ byte-identical.
   Verbatim: "I have changed the github copilot configuration to trigger once per PR, that
   invalidates some assumptions in the merge tool. Because the assumptions coupled the tool to a
   specific third party configuration they are considered design bugs to fix".
+  Worked instance the same afternoon: on pull request 356's corrected tip the door read
+  `copilot-pull-request-reviewer: OWED — no substantive review binds the current tip` while the
+  `integration branches` ruleset's `copilot_code_review` rule has `review_on_push: false` and
+  Copilot had reviewed at ready; GitHub read the tip CLEAN. The merging seat ran the door with the
+  configured set the tip actually has (the Codex connector, whose review of the tip the door
+  read); the tool's owed-ness derivation is the thing to fix, with a test on this shape.
 
 <!-- Fifteen entries graduated 2026-10-14 at the owner's word ("do it all") by the third dedicated
 consolidation's guest curator: the shared texts landed here as the same bytes the sibling estate

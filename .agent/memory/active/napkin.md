@@ -753,5 +753,17 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   window claim first and the enqueue names THAT claim, not the lane's files claim; the chained
   `complete` then closed the refused intent as if a commit had landed (intent 11090648), a
   false queue record that this line corrects.
+- **The door, twice**: with `--expect` Copilot and Codex the door refused SILENT-WAIT-NO-REVIEWER,
+  Copilot read as OWED on the new tip under a ruleset that reviews once per pull request
+  (`review_on_push: false`), the owner's named design bug in the flesh; GitHub read the tip CLEAN,
+  every check green, zero open threads, Codex's review bound to the tip. The door was run again
+  with the configured set the tip has, the Codex connector alone, as the merging seat's own
+  recomputation of the legs (the lifecycle skill's own provision), not as a hand-requested second
+  Copilot round against the owner's configuration and not as an `--unavailable` fiction.
+- **Merged**: pull request 356 merged at 15:01Z as `SHA:493951ad7` by the bot at SETTLE-READY on
+  the door's second run (the Codex leg bound to the tip, the quiet window elapsed). The branch
+  retired on the remote and locally, the worktree removed. Three days of this lane's commits
+  on engraph: the pull request's own three and the seven corrections, every one at a word that
+  was not the seat's.
 - **Records**: the three principal files of 2026-10-14 are carried to the successor
   coordination branch (riding draft fold 360) with this block; the thread record re-trued.

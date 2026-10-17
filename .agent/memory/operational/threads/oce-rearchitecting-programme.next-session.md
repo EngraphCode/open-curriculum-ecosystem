@@ -37,13 +37,17 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
 - Controlling plan: none ratified. ADR-233 (on the branch) is the accepted direction by the owner's
   commission; the strategic node `oce-rearchitecting-programme` and the fourteen `oce-*` delivery
   nodes are sketches by their own stamps.
-- Next safe step, in order: (1) the push read back on the pull request; (2) the three review
-  threads answered and resolved under the bot identity, the pull request body's hold paragraph
-  restated and the project names removed from it; (3) the merge door run (`merge-bot merge`,
-  the expected reviewer set from the repository's review configuration, the merge-base deletion
-  sweep first) and its owed-ness reading verified against the live pull request, since the owner
-  changed Copilot to trigger once per pull request on 2026-10-17; (4) the records committed and
-  carried to the successor coordination branch. Nothing is pushed to any Oak surface.
+- Next safe step: none on this lane. Pull request 356 merged on 2026-10-17 at 15:01Z as
+  `SHA:493951ad7` on `engraph`, by the bot at SETTLE-READY (the Codex connector's review bound to
+  the tip, the quiet window elapsed, GitHub CLEAN, every check green, no open thread). The branch is
+  retired on the remote and locally; the lane worktree is removed. What remains is not this lane's:
+  the dedicated architecture session on points 1, 2, 3 and 7 of the ADR-233 analysis before any
+  adoption; the merge tool's owed-ness derivation (its Copilot leg read OWED on this tip under a
+  ruleset that reviews once per pull request; on the register with the instance); the plan-schema
+  owner-gate question under PDR-100 (on the register). Two local refs stay on this machine for the
+  owner's word: `archive/pr356-seat-work-2026-10-17` (the seat's dropped commits and batch, never
+  pushed) and the retired `coordination/2026-10-05-efe69f` carrying `SHA:93363641a`, whose content
+  is `SHA:25e898e18` on the successor branch.
 - Completed prerequisites: the full grounding; the first-hand read of every line the pull request
   adds or changes; the three reviewer findings on its head read.
 - Team expectation: n=1 unless the owner seats others; no Director seat is held in the estate.
@@ -202,11 +206,8 @@ table (pinned, not a moving target); `serves: TOOLS-2`.
 ## Lane state
 
 - Owning plan(s): none ratified; ADR-233 and the sketch strategic node on the branch.
-- Current state (2026-10-17): the corrections re-landed from the pull request's head and pushed
-  as the bot; the threads, the body and the merge door are the next step above. Watcher and
-  heartbeat loop live (consumers: the sibling estate's seats on this machine). The principal's
-  three record files of 2026-10-14 plus this day's blocks are committed and carried to the
-  successor coordination branch `coordination/2026-10-16-f1e9d3`, which rides draft fold 360.
+- Current state (2026-10-17, 15:0xZ): merged and closed as the bullet above says; the claim
+  `b13d5c39` closes with the closeout event; the records are on `coordination/2026-10-16-f1e9d3`.
 - Blockers / low-confidence areas: none technical. Standing rulings that bind every seat on this
   lane: reviewing agents are never a source of authority; the seat's job is the pull request
   mergeable and the plans coherent in context, never altering ADRs or PDRs outside a conversation
