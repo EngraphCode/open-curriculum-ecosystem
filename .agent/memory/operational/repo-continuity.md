@@ -37,6 +37,36 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-17T14:1xZ: the J2 docs-validators worktree retired with zero loss, its question dissolved by
+  fact; the owner's rulings on this estate's open items; say OCE** (Flint guards Vapor, 9b835d, at the
+  owner's closing word). The validators staged since 2026-09-29 in `oce-wt-j2-docs-validators` landed on
+  this default branch on 2026-10-05 in pull request 354 (the practice code landing) with review fixes
+  the same day; the staged draft was an older copy of the same source that never compiled here. At the
+  owner's word ("if you are sure, then delete it") the worktree was retired by the standing grant for
+  proven paths (`never-use-git-to-remove-work`; `worktree-hygiene` item 6): fresh fetch; 23 of 23 paths
+  proven (8 byte-identical, 15 landed and since revised, 126 draft-only lines each read against the
+  decision that superseded them); 103 ignored entries dispositioned in the removal command (`.env.local`
+  identical to the primary's, husky's shims, the pinned shellcheck re-installed by its setup script, the
+  mcp app's fetched design assets, build output by name); the staged additions dropped from the index
+  and moved to the session scratchpad, the two modified files forward-written from HEAD, porcelain
+  empty, the tip an ancestor, `git worktree remove` without force, the branch deleted plain. This bullet
+  is the capture the removal rule requires in this estate (the napkin on the primary is the reviewer
+  seat's uncommitted file). The decision put to the owner on 2026-10-02 and carried by four seats was
+  moot from 2026-10-05: no seat listed the default branch. His rulings of this date on the items above:
+  the merge-tool work is needed in both repositories, in parallel, the defect being a design coupled to
+  one GitHub configuration; the missing suppressed-findings hold is a consistency choice for the seat
+  doing that work, since "if they are low confidence findings then ignoring them is a valid approach";
+  the bot's 403 refusals are "either a token freshness or a working directory issue" (the seat's
+  reading: the token was minted from a shell the harness had reset to the other estate's primary, so
+  re-mint from inside this checkout before any claim about permissions); Copilot's silence at open for
+  bot-authored pull requests is "possibly expected" since the subscription is his, so the agent requests
+  a review "ONLY once the agent is confident that the PR is ready, not simply because code was pushed";
+  the profanity tooling is jimcresswell.net's only for now, deliberately, so the parity item is closed.
+  His cost word: "half an hour is TOO LONG FOR A PR, ten minutes is reasonable"; this estate's
+  ten-minute quiet window after checks green waits for a review the configuration says never comes, and
+  its removal is part of the tool work. His naming word: say OCE, never "the sibling". Walrus seeks
+  Maelstrom is active in this estate on their branch; their uncommitted files are theirs. The
+  cross-estate thread record in jimcresswell.net carries the full list and the inherited-premise cure.
 - **2026-10-16T16:0xZ: the merge tool derives what a tip is owed from this repository's review
   configuration; pull request 359 merged by this estate's bot at the UNOWED leg** (Flint guards Vapor, 9b835d, the owner's routing of
   2026-10-16: the tooling was over-coupled to Copilot reviewing every push; the `engraph` ruleset's
