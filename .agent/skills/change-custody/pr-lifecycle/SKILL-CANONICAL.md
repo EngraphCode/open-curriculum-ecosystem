@@ -144,8 +144,12 @@ into the permanent record):
 
 ## Phase 1 — Before opening
 
-1. **Divergence**: `git fetch origin main`; if behind, merge `origin/main`
-   into the branch. Anything coming in from the default branch is merged,
+1. **Divergence**: fetch the default branch and, if behind, merge it into the
+   branch (`git remote set-head origin --auto`, then `git fetch origin <default>`
+   and merge `origin/<default>`, where `<default>` is what
+   `git symbolic-ref --short refs/remotes/origin/HEAD` prints less its `origin/`
+   prefix; never a hand-typed name, since the default branch differs between
+   estates). Anything coming in from the default branch is merged,
    never rebased, pushed or not, whatever a handoff or plan line says (the
    owner, 2026-10-02: "anything coming in from main must always be merged, not
    rebased, we must maintain the shared history"; a rebase rewrites commits

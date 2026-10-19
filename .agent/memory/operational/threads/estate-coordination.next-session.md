@@ -2918,6 +2918,10 @@ docs/consolidation-2i-practice-inventory at SHA:6425f0d81, clean; the Director's
 at SHA:84ec0680. this estate: the primary on coordination/2026-10-02-9fd05e level with the remote
 before this commit; the lane worktrees are Efreet lifts Scorch's. The local branch
 docs/consolidation-2-routed-cures stays until the directive clause lands (the node's todo 7).
+(Re-trued 2026-10-19 by Walrus seeks Maelstrom, 9585cc: the clause is on `engraph` in fuller words
+and the branch is proven of no use by content, as is docs/consolidation-2s-skills; the owner ordered
+both deleted; the seat's `git branch -D` was denied by the Bash policy, so the refs await his own
+command. The proof is repo-continuity §Next Safe Steps item 5 of that date.)
 
 Re-arm recipe, as if nothing survives; the resume verifies by id first (the task list) and re-arms
 only what is absent. Every process of this seat is a Monitor, thirty minutes, re-armed at expiry:
