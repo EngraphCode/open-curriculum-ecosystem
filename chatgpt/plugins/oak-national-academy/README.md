@@ -27,16 +27,20 @@ workflows. So here:
   paragraph; the description is the Claude workflow's, word for word (both carry a do-not-use
   boundary naming the sibling skills); and `license`, `compatibility` and `metadata` are added
   to match the shared skills;
-- there is no `.mcp.json`: bundling a server badged the plugin "desktop only" (observed in
-  the desktop app, 2026-09-07). Live data arrives through the Oak MCP server the user connects
-  themselves, as a ChatGPT connector or a direct Codex entry (see Sideload);
+- `.mcp.json` declares the Oak MCP server, `https://mcp.thenational.academy/mcp`. It was left
+  out until October because bundling a server badged a locally imported plugin "desktop only"
+  (observed in the desktop app, 2026-09-07). OpenAI's portal now refuses skills-only packages
+  (observed 2026-10-18), so the server is declared; whether a local import is still badged is
+  unconfirmed (MCP-765);
 - `interface.capabilities` is `[]`, the value the OpenAI sideload accepted on 2026-09-07.
 
-The last two, no `.mcp.json` and `capabilities: []`, and the agreement of the two manifests
-are recomputed by `agent-tools/tests/skills/chatgpt-plugin-package-invariants.integration.test.ts`:
-the manifest is parsed through a strict schema at both levels, the package root is held to
-exactly `.codex-plugin`, `README.md` and `skills`, so a companion file cannot appear unnoticed,
-and the root marketplace file must list exactly this package under the manifest's name.
+The last two, the declared server and `capabilities: []`, and the agreement of the two
+manifests are recomputed by `agent-tools/tests/skills/chatgpt-plugin-package-invariants.integration.test.ts`:
+the manifest is parsed through a strict schema at every level, the package root is held to
+exactly `.codex-plugin`, `.mcp.json`, `README.md`, `assets` and `skills`, so a companion file
+cannot appear unnoticed, the review block holds exactly five positive and three negative test
+cases and nothing else, and the root marketplace file must list exactly this package under the
+manifest's name.
 
 That validator fails the build when a shared copy drifts from its Claude source. An
 integration test, `agent-tools/tests/skills/chatgpt-merged-skill-derivation.integration.test.ts`,
@@ -61,7 +65,7 @@ the MCP-enabled skill's description is oak-skills' approved text, unchanged.
 
 ## Sideload for testing (desktop app)
 
-Steps observed in the Codex desktop app, 2026-09-07, and re-verified in the ChatGPT desktop app
+These steps predate the bundled `.mcp.json`. Steps observed in the Codex desktop app, 2026-09-07, and re-verified in the ChatGPT desktop app
 on 2026-09-09 with the package built from `00fa027eb` (marketplace added by path; all five skills
 listed with their current descriptions; no desktop-only badge; `$find-misconceptions` resolved a
 unit slug, called the misconception graph and quizzes, and attributed under OGL v3.0;
@@ -80,13 +84,19 @@ the merged skills say to match by suffix treating `-` and `_` as the same.
 
 ## Submitting through the OpenAI plugin portal
 
-The portal builds the plugin from its own steps (Info, MCP, Skills, Prompts) and never reads
-`.codex-plugin/plugin.json`. Its Skills step accepts a zip holding one `skills/` folder that
-contains the skill folders; a zip with the package at its root (manifest beside `skills/`) is
-refused with "Skill zip must contain one skill root or one directory of skill roots" (observed
-2026-09-09). The MCP step is where the Oak server (`https://mcp.thenational.academy/mcp`) is
-attached for the portal version.
+The portal takes the whole package as one ZIP, with the manifest at the ZIP's root, and reads
+the listing fields, skills, MCP configuration and review test cases from it (observed
+2026-10-18). It replaced the portal's form steps. The portal's own review form takes what this
+repository must not hold, because it is public: the demo video link and the reviewer test
+account.
+
+The portal also requires the package `name` to be the live app's ID,
+`app-6aa0141317a08191a8e8f74fbabeeff1`, and rejects any other name; an update's version must
+be above the published one (observed 2026-10-19). The name here stays `oak-national-academy`,
+the name Codex and workspace installs show; oaknational/oak-ai-plugins sets the ID when it
+builds the upload ZIP (MCP-767).
 
 ## Publishing
 
-The package is submitted to OpenAI's Plugin Directory through the portal's upload (MCP-107).
+The package is submitted to OpenAI's Plugin Directory through the portal (MCP-107), from the
+ZIP oaknational/oak-ai-plugins builds of its published copy.
