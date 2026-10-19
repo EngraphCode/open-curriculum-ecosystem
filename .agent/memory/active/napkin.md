@@ -875,3 +875,19 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   alone" is now covered by his direct word; the "deleted or pushed and in a PR" word stays relayed
   only); the thread record's 2026-10-19 words. The fold skill and the Director cadence read the
   rule; neither is edited here. Then stop, at his word.
+
+## 2026-10-19T09:4xZ — The owner's word on safe and complete work; this session's named exception (Walrus seeks Maelstrom, 9585cc)
+
+- **Owner, verbatim**: "All work is only considered safely recorded once it is pushed and in a PR,
+  work is only considered complete once it is merged. Work in all worktrees and branches must be
+  either made safe or, if it is of no use, deleted." Then: "That is the rule. This session remains
+  a named exception because I don't want to spend time on a merge right now."
+- **Homed**: the rule `worktree-hygiene`, a dated paragraph beside his 2026-09-24 words (the same
+  rule in its earlier form); the Director rulings ledger (row SAFE-AND-COMPLETE); repo-continuity's
+  Current State (the day's bullets now newest first) and §Next Safe Steps item 5; the thread
+  record's 2026-10-19 words. The second relayed word of pull request 360's body is now his direct
+  word; neither relayed word is on no record any more.
+- **This session's state under the rule**: safely recorded (every commit pushed, on draft pull
+  request 360); not complete (not merged), by his named exception. The two local-only branches
+  (`docs/consolidation-2-routed-cures`, `docs/consolidation-2s-skills`) fall under the third
+  sentence and are not this seat's; not acted on, reported to him.

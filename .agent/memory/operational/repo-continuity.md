@@ -37,6 +37,27 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-19T09:4xZ: the owner's word on safe and complete work; this session a named exception for the
+  merge** (Walrus seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). Verbatim: "All work is only
+  considered safely recorded once it is pushed and in a PR, work is only considered complete once it is
+  merged. Work in all worktrees and branches must be either made safe or, if it is of no use, deleted." Then:
+  "That is the rule. This session remains a named exception because I don't want to spend time on a merge
+  right now." Recorded as the 2026-10-19 paragraph of the rule `worktree-hygiene` (beside his words of
+  2026-09-24, the same rule in its earlier form) and as a row of the Director rulings ledger. This session's
+  work is safely recorded (pushed, in draft pull request 360) and not complete (not merged), by his named
+  exception. The two local-only branches of §Next Safe Steps item 5 fall under the rule's third sentence; not
+  acted on by this seat, reported to him.
+
+- **2026-10-19T09:3xZ: the owner's word on the fold cadence** (Walrus seeks Maelstrom, 9585cc, reviewer,
+  the owner-interface directly). Verbatim, after the seat's wrap report that "the 24-hour fold rule
+  stands": "the 24 hours is a rough guide, but obviously the actual need varies with how much work is
+  happening, there would be no point in folding every 24 hours if that was the only thing happeneing".
+  Recorded as the 2026-10-19 amendment of the rule `coordination-branch-24h-lifetime` (the clock is the
+  guide, the work on the branch decides whether a fold is due; the seat's reading for the DUE check is
+  flagged there as the seat's) and as a row of the Director rulings ledger. Of the two owner words that
+  pull request 360's body relays, "folds when useful, never by the clock alone" is now covered by his direct
+  word above; "all work must be deleted or pushed and in a PR, no exceptions" is covered by his direct word of 09:4xZ, the bullet above.
+
 - **2026-10-19T08:2xZ: the 356 lane wrapped at the owner's word; his sequencing of what follows** (Walrus
   seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). His word, verbatim: "The architecture
   work for decoupling the thin Oak apps is the next feature priority, we should deal with partial plans and
@@ -63,16 +84,6 @@ forward-asks remain.
   rides a pull request; the fold is at his word, not this wrap's. The napkin's rotation by proof is
   unblocked (the reviewer seat's block was committed on 2026-10-17); the consolidation gate reads due and
   unbounded for this close, a curator seat's after the partial plans by his ordering.
-
-- **2026-10-19T09:3xZ: the owner's word on the fold cadence** (Walrus seeks Maelstrom, 9585cc, reviewer,
-  the owner-interface directly). Verbatim, after the seat's wrap report that "the 24-hour fold rule
-  stands": "the 24 hours is a rough guide, but obviously the actual need varies with how much work is
-  happening, there would be no point in folding every 24 hours if that was the only thing happeneing".
-  Recorded as the 2026-10-19 amendment of the rule `coordination-branch-24h-lifetime` (the clock is the
-  guide, the work on the branch decides whether a fold is due; the seat's reading for the DUE check is
-  flagged there as the seat's) and as a row of the Director rulings ledger. Of the two owner words that
-  pull request 360's body relays, "folds when useful, never by the clock alone" is now covered by his direct
-  word above; "all work must be deleted or pushed and in a PR, no exceptions" remains relayed only.
 
 - **2026-10-17T15:0xZ: pull request 356, the retained-framework rearchitecting programme (ADR-233),
   merged by the door at SETTLE-READY as `SHA:493951ad7`; adoption held, merge never held** (Walrus
@@ -535,7 +546,9 @@ each with its measure:
    to a pull request or removes it under the removal rule's standing grant. Of the owner's words that pull
    request 360's body relays, "folds when useful, never by the clock alone" is covered by his direct word
    of 2026-10-19T09:3xZ (the rule's amendment); "all work must be deleted or pushed and in a PR, no
-   exceptions" was not heard by this seat and is on no record.
+   exceptions" is covered by his direct word of 2026-10-19T09:4xZ (the `worktree-hygiene` paragraph), under
+   which each of the two branches above is made safe (pushed and in a pull request) or, if of no use,
+   deleted; not done by this seat, reported to him.
 
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 

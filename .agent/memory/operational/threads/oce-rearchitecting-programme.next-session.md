@@ -111,6 +111,12 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
   the actual need varies with how much work is happening, there would be no point in folding every
   24 hours if that was the only thing happeneing". Recorded as the 2026-10-19 amendment of the rule
   `coordination-branch-24h-lifetime`; not this thread's substance beyond that.
+- Then (09:4xZ), the rule on safe and complete work: "All work is only considered safely recorded
+  once it is pushed and in a PR, work is only considered complete once it is merged. Work in all
+  worktrees and branches must be either made safe or, if it is of no use, deleted." And: "That is
+  the rule. This session remains a named exception because I don't want to spend time on a merge
+  right now." Recorded in the rule `worktree-hygiene`; this lane's records ride draft pull request
+  360, safely recorded and not complete, by his named exception.
 
 ## What the pull request is (the discovery, compressed)
 
