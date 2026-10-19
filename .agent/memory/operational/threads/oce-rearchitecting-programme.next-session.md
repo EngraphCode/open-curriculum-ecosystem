@@ -117,6 +117,10 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
   the rule. This session remains a named exception because I don't want to spend time on a merge
   right now." Recorded in the rule `worktree-hygiene`; this lane's records ride draft pull request
   360, safely recorded and not complete, by his named exception.
+- Then (10:0xZ), on the two local-only branches: "Analyse the two branches, if they are useful put
+  them in a draft PR, if they are not useful, delete them". Both proven of no use by content
+  (repo-continuity §Next Safe Steps item 5); the deletion command was denied by the Bash policy and
+  waits on his own hand.
 
 ## What the pull request is (the discovery, compressed)
 

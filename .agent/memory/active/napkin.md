@@ -891,3 +891,30 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   request 360); not complete (not merged), by his named exception. The two local-only branches
   (`docs/consolidation-2-routed-cures`, `docs/consolidation-2s-skills`) fall under the third
   sentence and are not this seat's; not acted on, reported to him.
+
+## 2026-10-19T10:0xZ — The two local-only branches analysed at the owner's word; of no use; deletion denied (Walrus seeks Maelstrom, 9585cc)
+
+- **Owner, verbatim**: "Analyse the two branches, if they are useful put them in a draft PR, if they
+  are not useful, delete them".
+- **The proof** (two scripts in the scratchpad, `landed.py` and `residue2.py`; their outputs in
+  `residue-2026-10-19.txt` and `residue2-2026-10-19.txt`): every added line of each commit (25
+  characters or more) checked byte-for-byte against `engraph` `SHA:493951ad7`'s copy of the same
+  file, then by five-word windows against the whitespace-normalised file and the whole `.agent` tree
+  for rewrapped or reworded landings, then each remaining line read by hand. Skills commit
+  `SHA:78547cb3f`: 86 of 109 byte-present, the rest rewrapped in the same files; the records say it
+  landed as `SHA:53f06c866` (pull request 341, merged 2026-10-02, an ancestor of `engraph`).
+  Routed-cures commit `SHA:f9f0a2ca6`: 287 of 345 byte-present, 329 by window; the 16 read by hand
+  are the archive clause (the continuity directive lines 82 to 92 and 158 to 166 and consolidate-docs
+  step 6b carry it in fuller words: no whole-file snapshot, ranges joined in file order, the move
+  commit's parent holds the file), F-219 (on `engraph` under a reworded heading with a fuller
+  entry), the commit skill's header check (`check-commit-message` before `git commit`, header 100,
+  subject lower-case), and PDR-075's "Accepted" status with its changelog and index rows, which the
+  record's own review of 2026-10-01 decided as Proposed; adopting the branch would revert a reviewed
+  decision. The 2026-10-11 handoff (Corsair weaves Seabed) had already read both as "nothing left
+  to land"; this is the successor's first-hand re-read it asked for.
+- **The act**: `git branch -D` on the first branch was denied by the Bash permission policy
+  (`never-use-git-to-remove-work` reads a branch delete as risk-class); not retried, no workaround
+  (`-d`, `update-ref`) tried, because the policy's refusal is the stop-and-surface moment. The refs
+  stay local; the owner runs the delete himself. No draft pull request opened: nothing to carry.
+- **Homed**: repo-continuity §Next Safe Steps item 5 (the proof, compressed) and a Current State
+  bullet; the estate-coordination thread record's holding line re-trued; this lane's thread record.

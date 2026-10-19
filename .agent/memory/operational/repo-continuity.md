@@ -37,6 +37,15 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-19T10:0xZ: the two local-only branches proven of no use at the owner's word; deletion denied by
+  the policy** (Walrus seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). His word: "Analyse
+  the two branches, if they are useful put them in a draft PR, if they are not useful, delete them". The
+  content proof and verdict are §Next Safe Steps item 5: `docs/consolidation-2s-skills` wholly on `engraph`
+  (pull request 341); `docs/consolidation-2-routed-cures` on `engraph` in fuller words or superseded by the
+  reviewed PDR-075 landing. No draft pull request opened. `git branch -D` was denied by the Bash permission
+  policy; the refs stay local for the owner's own command. The estate-coordination thread record's holding
+  line is re-trued.
+
 - **2026-10-19T09:4xZ: the owner's word on safe and complete work; this session a named exception for the
   merge** (Walrus seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). Verbatim: "All work is only
   considered safely recorded once it is pushed and in a PR, work is only considered complete once it is
@@ -539,16 +548,21 @@ each with its measure:
    point 5 beside them, before any adoption; the session's result lands as his words in ADR-233 and the
    nodes it ratifies. The seat test for every sentence stands: his word, the pull request's word or the
    directive's word.
-5. Not this wrap's and on no record until it: two local branches hold one commit each that no remote
-   carries, `docs/consolidation-2-routed-cures` (held by the estate-coordination thread record's condition,
-   the directive clause of its node's todo 7) and `docs/consolidation-2s-skills` (ten skills' lessons of
-   2026-10-02, named on no record); a seat proves each by content against the default branch and pushes it
-   to a pull request or removes it under the removal rule's standing grant. Of the owner's words that pull
-   request 360's body relays, "folds when useful, never by the clock alone" is covered by his direct word
-   of 2026-10-19T09:3xZ (the rule's amendment); "all work must be deleted or pushed and in a PR, no
-   exceptions" is covered by his direct word of 2026-10-19T09:4xZ (the `worktree-hygiene` paragraph), under
-   which each of the two branches above is made safe (pushed and in a pull request) or, if of no use,
-   deleted; not done by this seat, reported to him.
+5. Two local branches, each one commit that no remote carries, proven of no use by content on
+   2026-10-19T10:0xZ at the owner's word ("Analyse the two branches, if they are useful put them in a draft
+   PR, if they are not useful, delete them"): `docs/consolidation-2-routed-cures` (`SHA:f9f0a2ca6`) and
+   `docs/consolidation-2s-skills` (`SHA:78547cb3f`). The proof, against `engraph` at `SHA:493951ad7`: every
+   added line of the skills commit is in the same ten files, rewrapped (its content landed as
+   `SHA:53f06c866` in pull request 341, merged 2026-10-02); of the routed-cures commit's 345 added lines, 329
+   are present and the 16 others are on the default branch in fuller words (the archive clause in the
+   continuity directive and consolidate-docs step 6b, the friction F-219 entry, the commit skill's header
+   check) or superseded by a reviewed landing (PDR-075 "Accepted" with its changelog and index rows; the
+   record is Proposed by its own 2026-10-01 review, so adopting the branch would revert it). The holding
+   condition in the estate-coordination thread record (the directive clause, todo 7) is discharged by that
+   proof. The deletion command was denied by the Bash permission policy at 10:0xZ; the two refs stay local
+   until the owner runs `git branch -D` on them himself. Of the owner's words that pull request 360's body
+   relays, both are now his direct words of 2026-10-19 (the fold-lifetime rule's amendment; the
+   `worktree-hygiene` paragraph).
 
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 
