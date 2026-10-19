@@ -774,3 +774,90 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   makes that reading policy for the tool to carry rather than a seat to judge.
 - **Records**: the three principal files of 2026-10-14 are carried to the successor
   coordination branch (riding draft fold 360) with this block; the thread record re-trued.
+
+## 2026-10-19T08:2xZ — The wrap at the owner's word; the sequencing ruling; the loss scan and the metaloss (Walrus seeks Maelstrom, 9585cc)
+
+- **Owner, verbatim, 2026-10-19**: "please write a full hand off, we will pick this up later. The
+  architecture work for decoupling the thin Oak apps is the next feature priority, we should deal
+  with partial plans and fixes and graduations before that. Work related to [the curriculum
+  infrastructure consumer] will need careful attention from me, we do not have enough information
+  to make plans complete, but we should leave them in a stable state, that is not for this
+  session"; then "commit and push, no need to merge". The bracketed label replaces the project's
+  name at his word of 2026-10-17. The seat's reading of "the architecture work", not his word:
+  ADR-233's programme as merged in 356 (the app cut-over, handover and package-consumption nodes,
+  the configured-capability slice), opened by the dedicated architecture session on points 1, 2,
+  3 and 7 of the ADR-233 analysis; his word of 2026-09-05 ("Splitting out the Oak apps is the top
+  priority in the Oak fork, not necessarily in this fork") stands as history and today's word is
+  the current sequencing for this line.
+- **The modes' harvest (metacognition, reason, concept exploration)**: the fluent reading of
+  "partial plans and fixes and graduations before that" is hygiene first. The grounded reading is
+  that the three are the architecture session's inputs: the plan corpus is what the session
+  reads, so its sketches, supersessions and gates are made true before the decision, not after.
+  Measured on `engraph` at `SHA:493951ad7` this morning: 51 plan nodes at `status: sketch`
+  (fifteen of them the programme's `oce-*` nodes and its strategic node), 3 superseded, 78
+  ratified; two nodes still carrying expired owner gates (`semantic-search-showcase`,
+  `warranted-means-in-the-operating-environment`; the extraction plan's two gates went with its
+  supersession in 356, so the session-open alert reads four only until this branch takes
+  engraph's merge); the plans index and the 2026-09-06 archive move still disagree on where a
+  superseded node sits (repo-continuity §Next Safe Steps). The fixes: the merge tool's Copilot
+  leg per pull request (the register entry; pull request 358, the records-class door and the
+  fold clock, is open and another seat's); the commit queue's `complete` accepting a refused
+  intent (F-297 this hour); the seven lane commits without `--author` (recorded 2026-10-17,
+  uncurable without a force push). The graduations: the register's six entries, every one due.
+  The surfaces that touch the curriculum infrastructure consumer, the owner's own to plan: the
+  strategic node, `oce-curriculum-contracts`, `oce-domain-service-contracts`,
+  `oce-framework-lifecycle-contracts`, `docs/architecture/oce-integrity-and-castr.md`,
+  `docs/architecture/oce-wider-capabilities.md`, and the programme's README and
+  source-dispositions report; every one a sketch or a dated report by its own stamp, the
+  validators green at the merge, which is the stable state he asked for; nothing in them is
+  planned from here.
+- **Free play, the harvest (two kept, one discarded)**: kept, the napkin's rotation by proof was
+  waiting on "the reviewer seat's uncommitted block" (Flint's item 1 of 2026-10-14) and that
+  block was committed on 2026-10-17, so the rotation is unblocked for the next curator seat;
+  kept, the merge tool's defect was knowing one vendor's configuration too well, the same shape
+  as this seat's own 2026-10-14 swing (a rule reached for by surface analogy); discarded as
+  forced, a control-loop analogy for the escalate-then-decide oscillation.
+- **Loss scan (what no record held before this block)**: the owner's words of this date (above;
+  the thread record and repo-continuity carry them). Point 5 of the seven-point ADR-233 analysis
+  of 2026-10-14 (no verbatim owner word in ADR-233, so the record cannot be checked against his
+  words) had no disposition on any record, the verdict listing only the corrections and points 1,
+  2, 3 and 7; the seven points are now in the thread record from the transcript, point 5 open
+  beside them. The reason no watcher ran after 2026-10-17 16:0xZ: it expired idle after the lane
+  closed, and the owner's word of 2026-08-14 quoted in the watcher rule puts an idle seat into
+  cold pause rather than re-arming. Two local branches hold one commit each that no remote
+  carries: `docs/consolidation-2-routed-cures` is held by the estate-coordination thread record's
+  condition (the directive clause of its node's todo 7); `docs/consolidation-2s-skills` (ten
+  skills' lessons of 2026-10-02) is named on no record this seat can find; neither is this seat's,
+  and each is a seat's to prove by content and push or remove. The words "folds when useful,
+  never by the clock alone" and "all work must be deleted or pushed and in a PR, no exceptions"
+  are read by this seat only in pull request 360's body as another seat relayed them; they are on
+  no record, and the 24-hour-lifetime rule stands until a seat that heard the owner records it.
+- **Metaloss, the passes**: compressed reasoning — the seven points' full argument is now in the
+  thread record, decision-sufficient to open the session, not to decide it. Promises — the
+  ledger row for 356 written this hour; the lane claim `b13d5c39` in the closed archive; the
+  closeout and the two ruling relays on the comms log of 2026-10-17; each forward ask with a
+  taker (the owner, the merge-tool lane, a curator seat). Attribution inferences, flagged — that
+  pull request 358 is Flint guards Vapor's lane (the records say so; its author is the owner's
+  account); the two relayed owner words above; the seat's reading of "the architecture work".
+  Blind-spot bounds — this seat's memory of 13 to 17 October is a compaction summary; the side
+  agents' contexts are gone; the sibling estate's records were not read today; the watcher saw
+  nothing after 2026-10-17 16:0xZ, and the comms log's last event is this seat's of 15:09Z that
+  day. The index of homes is the repo-continuity bullet of this date. The external bound — the
+  counts above are a script's reading of engraph this morning, and the negatives ("no claim",
+  "no process", "on no record") are where outside eyes should look first. Fence sweep — no
+  tracked line on engraph names the two projects (a word-bounded search at `SHA:493951ad7`);
+  on this branch the napkin blocks of 13 and 14 October and the thread record quote the owner's
+  naming and his fence sentence, his call, unchanged. The fixed point — a third pass would only
+  re-find the relayed words and the compaction bound; the recursion closes here.
+- **The consolidation gate**: due — a lane closed with 356, the napkin is at critical and its
+  rotation is unblocked, the register holds six due entries. Not bounded for this close; a
+  curator seat's, after the partial plans by the owner's ordering.
+- **Entry points**: CLAUDE.md and GEMINI.md the bare pointer; AGENTS.md and skills.md the pointer
+  with the rules-index line, AGENTS.md with its code-review section and the generator's bootstrap
+  block, the generator's own check green this hour. No drift.
+- **Platform surfaces read**: the Claude plans directory present, its October files another
+  seat's (the sibling estate's profile work), nothing of this repository; Codex memories present
+  (an Oak AI plugin research task group of 2026-10-07 names this repository, its homing here
+  unverified, a curator's read); Cursor chats and prompt history present, not read; Gemini
+  present, not read. The per-user Claude buffer holds the rulings of 13 to 17 October as before;
+  nothing added today.

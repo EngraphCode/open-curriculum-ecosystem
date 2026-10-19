@@ -20,7 +20,7 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
 
 | agent_name             | platform    | model            | session_id_prefix | role                                                   | first_session | last_session |
 | ---------------------- | ----------- | ---------------- | ----------------- | ------------------------------------------------------ | ------------- | ------------ |
-| Walrus seeks Maelstrom | claude-code | claude-fable-5-1 | 9585cc            | reviewer at n=1; the owner-interface directly (no Director seat held) | 2026-10-13    | 2026-10-13   |
+| Walrus seeks Maelstrom | claude-code | claude-fable-5-1 | 9585cc            | reviewer at n=1; the owner-interface directly (no Director seat held) | 2026-10-13    | 2026-10-19   |
 
 ## Current Continuation
 
@@ -37,6 +37,11 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
 - Controlling plan: none ratified. ADR-233 (on the branch) is the accepted direction by the owner's
   commission; the strategic node `oce-rearchitecting-programme` and the fourteen `oce-*` delivery
   nodes are sketches by their own stamps.
+- The estate's next steps at the owner's word of 2026-10-19 are in repo-continuity §Next Safe
+  Steps: partial plans, fixes and graduations first, then the dedicated architecture session on
+  points 1, 2, 3 and 7 below, point 5 beside them (undispositioned until this record). The
+  surfaces that touch the curriculum infrastructure consumer are his to plan; they stay as
+  merged, the validators green, nothing planned from here.
 - Next safe step: none on this lane. Pull request 356 merged on 2026-10-17 at 15:01Z as
   `SHA:493951ad7` on `engraph`, by the bot at SETTLE-READY (the Codex connector's review bound to
   the tip, the quiet window elapsed, GitHub CLEAN, every check green, no open thread). The branch is
@@ -92,6 +97,16 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
   numbering is updated to accomodate"; on the review tooling: Copilot now triggers once per pull
   request, and merge-tool assumptions coupled to that configuration "are considered design bugs
   to fix".
+
+## The owner's words, verbatim (2026-10-19)
+
+- At the wrap: "please write a full hand off, we will pick this up later. The architecture work
+  for decoupling the thin Oak apps is the next feature priority, we should deal with partial plans
+  and fixes and graduations before that. Work related to [the curriculum infrastructure consumer]
+  will need careful attention from me, we do not have enough information to make plans complete,
+  but we should leave them in a stable state, that is not for this session"; then "commit and
+  push, no need to merge". The bracketed label replaces the project's name at his word of
+  2026-10-17.
 
 ## What the pull request is (the discovery, compressed)
 
@@ -203,11 +218,60 @@ validators pass; the two extraction gates expire with the supersession); the rem
 table (the round budget still binds at authoring per PDR-132); the CF page's plan-id provenance
 table (pinned, not a moving target); `serves: TOOLS-2`.
 
+## The seven points of the ADR-233 analysis (reported 2026-10-14, read-only)
+
+Recovered to this record at the wrap of 2026-10-19 from the session's transcript, compressed; the
+owner's word of 2026-10-14 was "the next step is to address all 7 points, I will start the
+conversation". Where ADR-233 holds: its nine decisions are consistent with each other and with the
+owner's prior rulings on record; each row of its amendments table maps to a real statement in
+ADR-227; decision 7 on Castr matches his only prior recorded word (repo-continuity, 2026-09-21);
+the "Standalone Practice direction" row is PDR-143; Oak pull request 1000 is "a proposed input,
+not the governing topology". Where it is ambiguous or silent, each the owner's to rule:
+
+1. Configuration-only versus thin domain logic. Decision 2 says external app repositories
+   "contain only instance-specific configuration and declarative references"; ADR-227 ruling 11
+   says Oak-specific config or domain logic "will be different, but always thin"; ADR-154 and the
+   principles say "as thin as possible, preferably configuration only". Non-reusable Oak domain
+   logic, which ruling 11 allowed, is not mentioned, and ADR-154 is not listed as amended. Two
+   readings coexist on what a handed-over app may contain. Open; the session's.
+2. The product repository and the junior-developer requirement. ADR-227 decisions 1 and 4 name
+   `oaknational/oak-open-curriculum-mcp` and make it a junior-developer repository (rulings 5, 7
+   and 8); ADR-233 has no row for either, and its scope says "eventual reconciliation does not
+   determine its destination or timing" without saying what is reconciled with what. Whether the
+   named repository and the requirement are superseded, retained for the Oak line, or deferred is
+   not stated. Open; the session's.
+3. ADR-029, ADR-030 and invariant I07. ADR-030 says the SDK is "the single source of truth for
+   all API-related information"; decision 6 and I07 say API-origin shapes derive from the API
+   schema and bulk and new domain profiles need their own explicit authority. The repository
+   already runs the bulk leg against upstream's bulk JSON Schema under ADR-222 and reads the
+   ontology under ADR-157 with no directive edit, so ADR-233 continues an existing pattern
+   without saying so, and lists neither ADR as preserved or amended. Whether a central curriculum
+   model is API-related information under ADR-030 is the owner's reading. Open; the session's.
+   The pull request's rewrite of the OpenAPI pipeline page, the same generator, was settled on
+   2026-10-17 by his word that the directive governs (`SHA:289fde234`).
+4. "Accepted direction" is not a template status. Settled on 2026-10-17: the status reads
+   "Accepted (as direction, 10 October 2026, …)", the template's word first (`SHA:25a832644`).
+5. No verbatim owner word. ADR-222 and ADR-227 quote his rulings and are their durable home;
+   ADR-233 rests on "the owner's explicit architecture commission, 10 October 2026" and on
+   private library editions named by title, so the record cannot be checked against his words.
+   On no record until this block: the verdict of 2026-10-13 routed points 1, 2, 3 and 7 and left
+   this one undispositioned. The seat's reading at the wrap: it belongs with the session, since
+   the cure is his words quoted in ADR-233, and the owner's words are the one kind of sentence
+   the seat may not write for him; his words of 13, 14 and 17 October are quoted in this record
+   and in the strategic node's hold, not in the ADR.
+6. "Preserves ADR-231" while four permanent docs name the organisation. Died on 2026-10-17 at
+   the re-examination (ADR-231 binds the mechanism layer, which the lineage validator passed);
+   the owner agreed to the list.
+7. Two soft tests. "Zero OCE changes in most cases" and "potential reuse is enough" rest on
+   judged words; I02 gives "ordinary" a falsifier, "potentially reusable" has none. Open; the
+   session's, which may find it intended.
+
 ## Lane state
 
 - Owning plan(s): none ratified; ADR-233 and the sketch strategic node on the branch.
-- Current state (2026-10-17, 15:0xZ): merged and closed as the bullet above says; the claim
-  `b13d5c39` closes with the closeout event; the records are on `coordination/2026-10-16-f1e9d3`.
+- Current state (2026-10-19, 08:2xZ): merged and closed as the bullet above says; the claim
+  `b13d5c39` is in the closed archive; wrapped at the owner's word, the loss scan and the metaloss
+  in the napkin block of this hour; no claim, watcher, heartbeat or process of this seat survives.
 - Blockers / low-confidence areas: none technical. Standing rulings that bind every seat on this
   lane: reviewing agents are never a source of authority; the seat's job is the pull request
   mergeable and the plans coherent in context, never altering ADRs or PDRs outside a conversation
