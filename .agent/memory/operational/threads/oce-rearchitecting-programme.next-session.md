@@ -107,6 +107,10 @@ session title he set is "Rearchitecting Plan Review and Integration". The claim 
   but we should leave them in a stable state, that is not for this session"; then "commit and
   push, no need to merge". The bracketed label replaces the project's name at his word of
   2026-10-17.
+- After the wrap report (09:3xZ), on the fold cadence: "the 24 hours is a rough guide, but obviously
+  the actual need varies with how much work is happening, there would be no point in folding every
+  24 hours if that was the only thing happeneing". Recorded as the 2026-10-19 amendment of the rule
+  `coordination-branch-24h-lifetime`; not this thread's substance beyond that.
 
 ## What the pull request is (the discovery, compressed)
 

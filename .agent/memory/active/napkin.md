@@ -861,3 +861,17 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   unverified, a curator's read); Cursor chats and prompt history present, not read; Gemini
   present, not read. The per-user Claude buffer holds the rulings of 13 to 17 October as before;
   nothing added today.
+
+## 2026-10-19T09:3xZ — The owner's word on the fold cadence, recorded (Walrus seeks Maelstrom, 9585cc)
+
+- **Owner, verbatim**, answering the wrap report's line that the 24-hour fold rule stands until a
+  seat that heard him records it: "the 24 hours is a rough guide, but obviously the actual need
+  varies with how much work is happening, there would be no point in folding every 24 hours if that
+  was the only thing happeneing. Record the update, then stop".
+- **Homed**: the rule `coordination-branch-24h-lifetime` (a dated amendment quoting him; the seat's
+  reading for the DUE check flagged as the seat's: the clock marks the boundary, the work on the
+  branch since the cut decides); the Director rulings ledger (row FOLD-CADENCE); repo-continuity's
+  Current State and §Next Safe Steps item 5 (the relayed word "folds when useful, never by the clock
+  alone" is now covered by his direct word; the "deleted or pushed and in a PR" word stays relayed
+  only); the thread record's 2026-10-19 words. The fold skill and the Director cadence read the
+  rule; neither is edited here. Then stop, at his word.

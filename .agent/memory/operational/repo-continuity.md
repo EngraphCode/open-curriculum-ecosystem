@@ -64,6 +64,16 @@ forward-asks remain.
   unblocked (the reviewer seat's block was committed on 2026-10-17); the consolidation gate reads due and
   unbounded for this close, a curator seat's after the partial plans by his ordering.
 
+- **2026-10-19T09:3xZ: the owner's word on the fold cadence** (Walrus seeks Maelstrom, 9585cc, reviewer,
+  the owner-interface directly). Verbatim, after the seat's wrap report that "the 24-hour fold rule
+  stands": "the 24 hours is a rough guide, but obviously the actual need varies with how much work is
+  happening, there would be no point in folding every 24 hours if that was the only thing happeneing".
+  Recorded as the 2026-10-19 amendment of the rule `coordination-branch-24h-lifetime` (the clock is the
+  guide, the work on the branch decides whether a fold is due; the seat's reading for the DUE check is
+  flagged there as the seat's) and as a row of the Director rulings ledger. Of the two owner words that
+  pull request 360's body relays, "folds when useful, never by the clock alone" is now covered by his direct
+  word above; "all work must be deleted or pushed and in a PR, no exceptions" remains relayed only.
+
 - **2026-10-17T15:0xZ: pull request 356, the retained-framework rearchitecting programme (ADR-233),
   merged by the door at SETTLE-READY as `SHA:493951ad7`; adoption held, merge never held** (Walrus
   seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). At the owner's word of 2026-10-17
@@ -522,9 +532,10 @@ each with its measure:
    carries, `docs/consolidation-2-routed-cures` (held by the estate-coordination thread record's condition,
    the directive clause of its node's todo 7) and `docs/consolidation-2s-skills` (ten skills' lessons of
    2026-10-02, named on no record); a seat proves each by content against the default branch and pushes it
-   to a pull request or removes it under the removal rule's standing grant. The owner's words that pull
-   request 360's body relays ("folds when useful, never by the clock alone"; "all work must be deleted or
-   pushed and in a PR, no exceptions") were not heard by this seat and are on no record.
+   to a pull request or removes it under the removal rule's standing grant. Of the owner's words that pull
+   request 360's body relays, "folds when useful, never by the clock alone" is covered by his direct word
+   of 2026-10-19T09:3xZ (the rule's amendment); "all work must be deleted or pushed and in a PR, no
+   exceptions" was not heard by this seat and is on no record.
 
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 
