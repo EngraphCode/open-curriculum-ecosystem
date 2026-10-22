@@ -611,3 +611,11 @@ the owner wants it kept).
   a status line. The Practice holds the principle (`validators-must-recompute-not-just-record`,
   PDR-119) for conformance and memory, not yet for run state. Candidate for a pattern instance
   on the next fan-out the estate runs.
+- **Environment defect (cloud, 08:31Z):** a plain `git push` from this seat ran the `.husky`
+  pre-push hook; its secret scan passed and its review-cost gate died at
+  `gh repo view --json nameWithOwner`, which the forge answered with HTTP 403: "GitHub GraphQL
+  is not available from Claude Code sessions; use the REST API". The gate's `gh` call is the
+  mechanism; the cure is at the tool (a REST read of the repository name), never a narrowing of
+  the gate. The push then went out under the standing cloud `HUSKY=0` ruling with its
+  substitute set run first, as `cloud-environment.md` directs; this line is the first record of
+  the review-cost gate meeting the GraphQL block, for the register of provisioning defects.
