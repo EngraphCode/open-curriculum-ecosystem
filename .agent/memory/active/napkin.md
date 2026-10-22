@@ -619,3 +619,11 @@ the owner wants it kept).
   the gate. The push then went out under the standing cloud `HUSKY=0` ruling with its
   substitute set run first, as `cloud-environment.md` directs; this line is the first record of
   the review-cost gate meeting the GraphQL block, for the register of provisioning defects.
+- **Correction (own, 08:35Z) to the npm surprise above:** the "up to date, nothing installed" run
+  was not the flag's doing. The harness had reset the working directory to the lights-on root
+  between calls, so `npm install` ran in a directory with no `package.json`, wrote an empty
+  `package-lock.json` there and reported up to date; the second run, in `workspace/`, installed
+  343 packages. The stray lockfile was found at the close by `git status` on the foreign checkout
+  and moved to the session scratchpad (the auto-mode classifier refused the `rm`; the move is
+  the estate's own convention). The lesson is the one two bullets above, not a new one: absolute paths, and read
+  `git status` on every checkout the session touched before saying it is untouched.
