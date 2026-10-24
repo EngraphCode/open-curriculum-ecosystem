@@ -601,8 +601,10 @@ live tickets where the platform is in use.
      case no such input exercises fails this conjunct and goes to state 3
      as a fixture at pickup, never to state 2 (PR #139, 2026-09-12). Once
      the declared settlement-push budget is spent, every finding goes to
-     state 3 whatever it exercises — the cost gate refuses the push, and
-     the reviewer blocks read the same items as observations.
+     state 3 whatever it exercises — the cost gate reports the spent budget
+     and the push proceeds (the owner, 2026-10-24: a push is never refused
+     on review cost; PDR-140's amendment of that date), and the reviewer
+     blocks read the same items as observations.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story
      hardening, adjacent design questions: raise a pointer ticket (never a

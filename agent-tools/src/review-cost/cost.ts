@@ -176,7 +176,7 @@ export function reviewCost(
     `settlement cost ${String(total)} of ${String(budget)}; rounds: ${costs.map((entry) => `${entry.head.slice(0, 9)} ${String(entry.cost)}`).join(', ')}`,
     ...(verdict === 'exhausted'
       ? [
-          'BUDGET-EXHAUSTED: no further settlement push; every remaining finding is dispositioned without a cure, or the budget is raised on the pull request by the owner',
+          'BUDGET-EXHAUSTED: the settlement budget is spent; the push proceeds (the owner, 2026-10-24: a push is never refused on review cost), every finding from here is dispositioned by triage, and a rebudget is a recorded decision',
         ]
       : []),
     ...(verdict === 'exhausted' && options.headAdvanced === true

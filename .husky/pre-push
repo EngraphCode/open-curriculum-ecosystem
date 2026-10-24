@@ -49,18 +49,17 @@ fi
 
 echo "💸 Pricing the review loop against the declared budget..."
 # The review cost gate (a pull request of 2026-09-12 took seven settlement
-# pushes against a declared budget of two, stopped only by the owner). Past the
-# budget, while the loop is not converging, the push is refused: the remaining
-# findings are dispositioned without a cure, or the owner raises the budget on
-# the pull request. Every pushed branch is priced from the captured ref lines,
-# so naming another branch cannot route around the gate; a TTY run with no ref
-# lines prices nothing.
+# pushes against a declared budget of two, stopped only by the owner). It
+# prices every pushed branch from the captured ref lines and prints the
+# verdict; past the budget the push still proceeds (the owner, 2026-10-24: a
+# push is never refused on review cost) and the findings from there are
+# dispositioned by triage. A non-zero exit is an operational failure only; a
+# TTY run with no ref lines prices nothing.
 pnpm --silent agent-tools:review-cost gate --refs-file "$pushed_refs"
 review_cost_status=$?
 rm "$pushed_refs"
 if [ "$review_cost_status" -ne 0 ]; then
-  echo "❌ Review cost gate refused the push (BUDGET-EXHAUSTED or unreadable)."
-  echo "💡 Disposition the remaining findings without a cure, or record a rebudget on the PR."
+  echo "❌ Review cost gate could not price the push (an operational failure, never the budget)."
   exit 1
 fi
 

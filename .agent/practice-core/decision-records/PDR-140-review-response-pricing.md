@@ -11,7 +11,7 @@ feedback to no action unless action is critically determined as
 worthwhile" — with the explicit constraint that auto-merge is not the
 answer, because "that just ignores feedback"; and, on sufficiency, the
 PR skill must correct its own loops without out-of-band skill pokes;
-amended 2026-09-07 and 2026-09-26 — see Amendment Log).
+amended 2026-09-07, 2026-09-26, 2026-10-01 and 2026-10-24 — see Amendment Log).
 **Date**: 2026-08-31
 
 ## Context
@@ -373,3 +373,20 @@ call. Recorded 2026-10-01 by the two-estate consolidation's retrospective seat a
 the owner's own word to owner-ratified text; the draft reconciliation a Director prepared on
 2026-09-28 (OCE comms events a847fc35, a3b0f6bd) is the instance, and nothing beyond the owner's
 word is carried.
+
+### 2026-10-24 — clause 4's tripwire is a report, never a refused push
+
+The owner, on a pre-push gate that refused the push of a fix because the pull
+request's settlement budget was spent, verbatim: "does blocking a push on an
+important fix sound like it is ever the right choice? The point of the tools
+is efficiency and value, not ceremony." Read into clause 4: the budget is the
+tripwire that forces the step-back decision, and it fires as the gate's
+printed verdict and the working notes' record, never as a refused push. The
+`review-cost gate` exits 0 for every priced verdict, exhausted included; an
+exhausted loop's findings go to Phase 4's state 3 as before, a rebudget is a
+recorded decision rather than a door, and the cure obligation survives
+exhaustion exactly as clause 4 already says. The instance, in the sibling
+estate: its pull request 340, 24 October, two settlement rounds spent (the
+opening head and a hand-resolved merge of its `main`, which the sync
+exemption could not cover), the refused push carrying the comms-log
+render-at-write cure; the same bytes of the gate land here.

@@ -8,10 +8,11 @@ import { runSurvey } from './survey.js';
 import { parseArgs, selectors, USAGE, type ParsedArgs } from './args.js';
 
 /**
- * `review-cost gate` — the pre-push guard: the review loop's cost against the
- * budget the pull request declares. Exit 0 within budget, warning or
- * converging; exit 3 (typed refusal, BUDGET-EXHAUSTED) when exhausted; exit 1
- * on an operational failure; exit 2 on usage. `--branch` resolves the open
+ * `review-cost gate` — the pre-push report: the review loop's cost against the
+ * budget the pull request declares. Exit 0 for every priced verdict, exhausted
+ * included: the gate reports and never refuses a push (the owner's ruling of
+ * 2026-10-24; PDR-140's amendment of that date), the budget governing triage,
+ * never the push. Exit 1 on an operational failure; exit 2 on usage. `--branch` resolves the open
  * pull request of the current branch and passes silently when there is none
  * (the first push opens it).
  */
@@ -59,7 +60,7 @@ export function parsePushedRefs(content: string): PushedRef[] {
 const SYNC_PUSH_EVIDENCE =
   "sync push: one merge of the pull request's base over the remote head, its tree exactly git's automatic merge — outside the settlement budget (PDR-140 clause 4), passes whatever the verdict";
 
-/** The gate's exit for one priced pull request; a sync push passes an exhausted loop. */
+/** The gate's exit for one priced pull request, always 0; a sync push says it sits outside the budget. */
 export function gateExit(
   result: CostReport,
   syncPush: boolean,
@@ -67,7 +68,7 @@ export function gateExit(
   if (result.verdict === 'exhausted' && syncPush) {
     return { code: 0, evidence: [...result.evidence, SYNC_PUSH_EVIDENCE] };
   }
-  return { code: result.verdict === 'exhausted' ? 3 : 0, evidence: result.evidence };
+  return { code: 0, evidence: result.evidence };
 }
 
 function render(

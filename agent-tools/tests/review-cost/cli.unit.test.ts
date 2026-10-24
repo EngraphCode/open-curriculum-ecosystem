@@ -89,7 +89,7 @@ describe('parsePushedRefs — the hook ref lines the gate prices', () => {
   });
 });
 
-describe('gateExit — a sync push passes an exhausted loop, and only a sync push', () => {
+describe('gateExit — every verdict passes; a sync push on an exhausted loop says it sits outside the budget', () => {
   const exhausted = {
     rounds: [],
     total: 61.41,
@@ -99,8 +99,8 @@ describe('gateExit — a sync push passes an exhausted loop, and only a sync pus
     evidence: ['BUDGET-EXHAUSTED'],
   } as const;
 
-  it('refuses an exhausted loop with exit 3 when the push is not a sync', () => {
-    expect(gateExit(exhausted, false)).toStrictEqual({ code: 3, evidence: ['BUDGET-EXHAUSTED'] });
+  it('passes an exhausted loop with exit 0 when the push is not a sync, its evidence unchanged', () => {
+    expect(gateExit(exhausted, false)).toStrictEqual({ code: 0, evidence: ['BUDGET-EXHAUSTED'] });
   });
 
   it('passes a sync push on an exhausted loop, saying why', () => {
