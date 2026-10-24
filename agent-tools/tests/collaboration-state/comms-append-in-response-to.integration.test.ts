@@ -149,8 +149,6 @@ describe('collaboration-state comms append --in-response-to (F-77)', () => {
         'state/active-claims.json',
         '--comms-dir',
         commsDir,
-        '--output',
-        'state/shared-log.md',
         '--now',
         '2026-05-24T10:18:00Z',
         '--title',
