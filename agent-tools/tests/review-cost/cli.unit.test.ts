@@ -89,7 +89,7 @@ describe('parsePushedRefs — the hook ref lines the gate prices', () => {
   });
 });
 
-describe('gateExit — every verdict passes; a sync push on an exhausted loop says it sits outside the budget', () => {
+describe('gateExit — an exhausted loop is held until the note records a decision for every push past the budget', () => {
   const exhausted = {
     rounds: [],
     total: 61.41,
@@ -97,21 +97,37 @@ describe('gateExit — every verdict passes; a sync push on an exhausted loop sa
     budgetPushes: 2,
     verdict: 'exhausted',
     evidence: ['BUDGET-EXHAUSTED'],
+    pushesPastBudget: 0,
   } as const;
 
-  it('passes an exhausted loop with exit 0 when the push is not a sync, its evidence unchanged', () => {
-    expect(gateExit(exhausted, false)).toStrictEqual({ code: 0, evidence: ['BUDGET-EXHAUSTED'] });
+  it('holds the first push past the budget with exit 3 and names the line to write', () => {
+    const exit = gateExit(exhausted, false, 0);
+    expect(exit.code).toBe(3);
+    expect(exit.evidence.at(-1)).toContain('HELD: this push is number 1 past the budget');
+    expect(exit.evidence.at(-1)).toContain('.agent/state/collaboration/review-rebudgets.md');
   });
 
-  it('passes a sync push on an exhausted loop, saying why', () => {
-    const exit = gateExit(exhausted, true);
+  it('passes the first push past the budget once one decision line is recorded', () => {
+    const exit = gateExit(exhausted, false, 1);
+    expect(exit.code).toBe(0);
+    expect(exit.evidence.at(-1)).toContain('rebudget decision recorded: 1 line(s)');
+  });
+
+  it('holds a second push past the budget until a second line exists', () => {
+    const second = { ...exhausted, pushesPastBudget: 1 } as const;
+    expect(gateExit(second, false, 1).code).toBe(3);
+    expect(gateExit(second, false, 2).code).toBe(0);
+  });
+
+  it('passes a sync push on an exhausted loop with no decision line, saying why', () => {
+    const exit = gateExit(exhausted, true, 0);
     expect(exit.code).toBe(0);
     expect(exit.evidence.at(-1)).toContain('outside the settlement budget (PDR-140 clause 4)');
   });
 
-  it('passes a loop within budget with its evidence unchanged, sync or not', () => {
+  it('passes a loop within budget with its evidence unchanged, sync or not, lines or none', () => {
     const within = { ...exhausted, total: 12, verdict: 'within', evidence: ['within'] } as const;
-    expect(gateExit(within, false)).toStrictEqual({ code: 0, evidence: ['within'] });
-    expect(gateExit(within, true)).toStrictEqual({ code: 0, evidence: ['within'] });
+    expect(gateExit(within, false, 0)).toStrictEqual({ code: 0, evidence: ['within'] });
+    expect(gateExit(within, true, 0)).toStrictEqual({ code: 0, evidence: ['within'] });
   });
 });

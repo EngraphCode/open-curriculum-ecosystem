@@ -50,16 +50,18 @@ fi
 echo "💸 Pricing the review loop against the declared budget..."
 # The review cost gate (a pull request of 2026-09-12 took seven settlement
 # pushes against a declared budget of two, stopped only by the owner). It
-# prices every pushed branch from the captured ref lines and prints the
-# verdict; past the budget the push still proceeds (the owner, 2026-10-24: a
-# push is never refused on review cost) and the findings from there are
-# dispositioned by triage. A non-zero exit is an operational failure only; a
-# TTY run with no ref lines prices nothing.
+# prices every pushed branch from the captured ref lines; past the budget
+# the push is held, here before the long check, until the seat has written
+# its decision as one line in the local note the gate names, then the same
+# push passes (the owner, 2026-10-24: the check makes the seat think, and
+# costs no comment, no further push and never the owner's word). A TTY run
+# with no ref lines prices nothing.
 pnpm --silent agent-tools:review-cost gate --refs-file "$pushed_refs"
 review_cost_status=$?
 rm "$pushed_refs"
 if [ "$review_cost_status" -ne 0 ]; then
-  echo "❌ Review cost gate could not price the push (an operational failure, never the budget)."
+  echo "❌ Review cost gate held the push: read its lines above (the budget is spent with no decision line recorded, or the pricing failed)."
+  echo "💡 One line in .agent/state/collaboration/review-rebudgets.md, then the same push again."
   exit 1
 fi
 

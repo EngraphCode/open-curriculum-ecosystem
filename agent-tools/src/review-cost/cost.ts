@@ -83,6 +83,8 @@ export interface CostReport {
   readonly budgetPushes: number;
   readonly verdict: CostVerdict;
   readonly evidence: readonly string[];
+  /** The settlement rounds reviewed after the one that crossed the budget. */
+  readonly pushesPastBudget: number;
 }
 
 const round2 = (value: number): number => Math.round(value * 100) / 100;
@@ -100,6 +102,22 @@ export function roundCost(measure: RoundMeasure, policy: CostPolicy): number {
   const reactive =
     hours === null ? 1 : 1 + policy.reactiveWeight * Math.max(0, 1 - hours / policy.reactiveHours);
   return round2(base * related * reactive);
+}
+
+/** The settlement rounds reviewed after the one that crossed the budget; zero while it holds. */
+export function roundsPastBudget(costs: readonly number[], budget: number): number {
+  let running = 0;
+  let crossedAt = -1;
+  costs.forEach((cost, index) => {
+    if (index === 0) {
+      return;
+    }
+    running += cost;
+    if (crossedAt === -1 && running >= budget) {
+      crossedAt = index;
+    }
+  });
+  return crossedAt === -1 ? 0 : costs.length - 1 - crossedAt;
 }
 
 // The one converging extension: the budget was crossed by THIS round, and this
@@ -164,19 +182,15 @@ export function reviewCost(
   const total = round2(settlement.reduce((sum, cost) => sum + cost, 0));
   const budget = round2(budgetPushes * policy.unitRound);
   const charged = costs.filter((entry, index) => index === 0 || entry.cost > 0);
-  const verdict = verdictFor(
-    total,
-    budget,
-    charged.map((entry) => entry.cost),
-    policy,
-    options,
-  );
+  const chargedCosts = charged.map((entry) => entry.cost);
+  const verdict = verdictFor(total, budget, chargedCosts, policy, options);
+  const pushesPastBudget = roundsPastBudget(chargedCosts, budget);
   const evidence = [
     `rounds ${String(costs.length)} (opening plus ${String(Math.max(0, costs.length - 1))} settlement), budget ${String(budgetPushes)} settlement pushes`,
     `settlement cost ${String(total)} of ${String(budget)}; rounds: ${costs.map((entry) => `${entry.head.slice(0, 9)} ${String(entry.cost)}`).join(', ')}`,
     ...(verdict === 'exhausted'
       ? [
-          'BUDGET-EXHAUSTED: the settlement budget is spent; the push proceeds (the owner, 2026-10-24: a push is never refused on review cost), every finding from here is dispositioned by triage, and a rebudget is a recorded decision',
+          "BUDGET-EXHAUSTED: the settlement budget is spent; a push from here needs the seat's recorded decision (one local line per push), and every finding from here is dispositioned by triage",
         ]
       : []),
     ...(verdict === 'exhausted' && options.headAdvanced === true
@@ -188,5 +202,5 @@ export function reviewCost(
         ]
       : []),
   ];
-  return { rounds: costs, total, budget, budgetPushes, verdict, evidence };
+  return { rounds: costs, total, budget, budgetPushes, verdict, evidence, pushesPastBudget };
 }

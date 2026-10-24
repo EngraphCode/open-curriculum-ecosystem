@@ -374,19 +374,23 @@ the owner's own word to owner-ratified text; the draft reconciliation a Director
 2026-09-28 (OCE comms events a847fc35, a3b0f6bd) is the instance, and nothing beyond the owner's
 word is carried.
 
-### 2026-10-24 — clause 4's tripwire is a report, never a refused push
+### 2026-10-24 — clause 4's tripwire is a hold the seat lifts by deciding, never the owner
 
 The owner, on a pre-push gate that refused the push of a fix because the pull
 request's settlement budget was spent, verbatim: "does blocking a push on an
 important fix sound like it is ever the right choice? The point of the tools
-is efficiency and value, not ceremony." Read into clause 4: the budget is the
-tripwire that forces the step-back decision, and it fires as the gate's
-printed verdict and the working notes' record, never as a refused push. The
-`review-cost gate` exits 0 for every priced verdict, exhausted included; an
-exhausted loop's findings go to Phase 4's state 3 as before, a rebudget is a
-recorded decision rather than a door, and the cure obligation survives
-exhaustion exactly as clause 4 already says. The instance, in the sibling
-estate: its pull request 340, 24 October, two settlement rounds spent (the
-opening head and a hand-resolved merge of its `main`, which the sync
-exemption could not cover), the refused push carrying the comms-log
-render-at-write cure; the same bytes of the gate land here.
+is efficiency and value, not ceremony", and, on the shape of the cure: "not
+blocking is one option, but either way the check must be a trigger that makes
+the agent think", with no comment and no further push added. Read into clause
+4: the budget is the tripwire that forces the step-back decision, and the
+gate makes that decision happen by holding the push, before the long check
+and for seconds, until the seat has written the decision as one line in the
+local, untracked note `.agent/state/collaboration/review-rebudgets.md`
+(`<pull request> — <date> — <reason>`, one line per push past the budget);
+the same push then passes. The rebudget is the seat's recorded decision, as
+clause 4 always said; the gate no longer names the owner as its lifter, and
+the wrap's ledger row carries the reasons. The cure obligation survives
+exhaustion exactly as before. The instance, 24 October: a coordination pull
+request with two settlement rounds spent (its opening head and a hand-resolved
+merge of the default branch, which the sync exemption could not cover), the
+refused push carrying the comms-log render-at-write cure.

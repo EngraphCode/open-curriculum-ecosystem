@@ -20,6 +20,7 @@ const REPORT: CostReport = {
   budget: 40,
   budgetPushes: 2,
   verdict: 'within',
+  pushesPastBudget: 0,
   evidence: [],
 };
 

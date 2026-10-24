@@ -601,9 +601,12 @@ live tickets where the platform is in use.
      case no such input exercises fails this conjunct and goes to state 3
      as a fixture at pickup, never to state 2 (PR #139, 2026-09-12). Once
      the declared settlement-push budget is spent, every finding goes to
-     state 3 whatever it exercises — the cost gate reports the spent budget
-     and the push proceeds (the owner, 2026-10-24: a push is never refused
-     on review cost; PDR-140's amendment of that date), and the reviewer
+     state 3 whatever it exercises — the cost gate holds the push for seconds,
+     before the check, until the seat has written its decision as one line
+     in the local note `.agent/state/collaboration/review-rebudgets.md`
+     (`<pull request> — <date> — <reason>`, one per push past the budget;
+     the owner, 2026-10-24: the check makes the seat think, and costs no
+     comment, no further push and never the owner's word), and the reviewer
      blocks read the same items as observations.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story

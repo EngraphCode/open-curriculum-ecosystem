@@ -20,3 +20,17 @@ export function readBudget(body: string): DeclaredBudget {
   }
   return { pushes: Number(match[1]), declared: true };
 }
+
+/**
+ * One rebudget decision in the local note: `<pull request> — <YYYY-MM-DD> — <reason>`
+ * (a colon or a hyphen serves as the dash), one line per push past the budget.
+ */
+const REBUDGET_LINE = /^\s*(\d+)\s*[—–:-]\s*\d{4}-\d{2}-\d{2}\s*[—–:-]\s*\S/u;
+
+/** How many rebudget decisions the note records for one pull request. */
+export function countRebudgets(note: string, pullRequest: number): number {
+  return note
+    .split('\n')
+    .map((line) => REBUDGET_LINE.exec(line))
+    .filter((match) => match !== null && Number(match[1]) === pullRequest).length;
+}
