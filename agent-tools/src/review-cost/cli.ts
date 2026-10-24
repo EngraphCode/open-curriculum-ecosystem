@@ -65,7 +65,7 @@ const SYNC_PUSH_EVIDENCE =
   "sync push: one merge of the pull request's base over the remote head, its tree exactly git's automatic merge — outside the settlement budget (PDR-140 clause 4), passes whatever the verdict";
 
 /** The local, untracked note of rebudget decisions: `<pull request> — <date> — <reason>` per line. */
-export const REBUDGET_NOTE = '.agent/state/collaboration/review-rebudgets.md';
+const REBUDGET_NOTE = '.agent/state/collaboration/review-rebudgets.md';
 
 function heldEvidence(needed: number, recorded: number): string {
   return (

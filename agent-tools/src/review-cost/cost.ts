@@ -105,7 +105,7 @@ export function roundCost(measure: RoundMeasure, policy: CostPolicy): number {
 }
 
 /** The settlement rounds reviewed after the one that crossed the budget; zero while it holds. */
-export function roundsPastBudget(costs: readonly number[], budget: number): number {
+function roundsPastBudget(costs: readonly number[], budget: number): number {
   let running = 0;
   let crossedAt = -1;
   costs.forEach((cost, index) => {
