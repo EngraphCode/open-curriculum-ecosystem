@@ -13,6 +13,7 @@ export const VALUE_FLAGS = {
   resolve: ['--pr', '--thread'],
   ready: ['--pr'],
   close: ['--pr', '--reason-file'],
+  'dispatch-workflow': ['--workflow'],
 } as const satisfies Readonly<Record<string, readonly string[]>>;
 
 /** A verb of the command, derived from the flag table so there is one source. */
@@ -26,6 +27,7 @@ export const PULL_REQUEST_VERBS: readonly PullRequestVerb[] = [
   'resolve',
   'ready',
   'close',
+  'dispatch-workflow',
 ];
 
 /** The typed request one invocation makes, one shape per verb. */
@@ -62,5 +64,11 @@ export type PullRequestRequest =
       readonly verb: 'close';
       readonly pr: number;
       readonly reasonFile: string;
+      readonly json: boolean;
+    }
+  | {
+      readonly verb: 'dispatch-workflow';
+      /** The workflow file's name as given; its shape is the verb's own check, before the mint. */
+      readonly workflow: string;
       readonly json: boolean;
     };

@@ -6,14 +6,15 @@
  */
 
 export const PULL_REQUEST_USAGE = `merge-bot pull-request <verb> [flags] [--json]
-  The bot's writes on a pull request's conversation, each as the BOT under one
-  installation token minted for the invocation with the pull-request-work
-  scope: the platform record itself says an agent did this, never the
-  signed-in human. Replaces the token=$(mint) && GH_TOKEN=$token gh … shell
-  idiom, which a worktree's Bash guard refuses and which cannot fail fast.
-  Every body or reason file is read from disk and sent verbatim; an empty
-  file refuses. The repository is the bot identity's (.github/merge-bot.json
-  at the clone's primary checkout).
+  The bot's writes on a pull request's conversation, and its workflow
+  dispatch, each as the BOT under one installation token minted for the
+  invocation at the scope that verb needs: the platform record itself says
+  an agent did this, never the signed-in human. Replaces the
+  token=$(mint) && GH_TOKEN=$token gh … shell idiom, which a worktree's Bash
+  guard refuses and which cannot fail fast. Every body or reason file is
+  read from disk and sent verbatim; an empty file refuses. The repository is
+  the bot identity's (.github/merge-bot.json at the clone's primary
+  checkout).
 
   open --branch <name> --title <text> --body-file <path> --wip-limit <n>
     Opens a DRAFT pull request from <branch> into the repository's default
@@ -37,6 +38,11 @@ export const PULL_REQUEST_USAGE = `merge-bot pull-request <verb> [flags] [--json
   close --pr <n> --reason-file <path>
     Posts the file as an issue comment, then closes the pull request.
     Refuses before either write when it is not open.
+  dispatch-workflow --workflow <file-name>
+    Dispatches the workflow at .github/workflows/<file-name> on the
+    repository's default branch, under a token minted at the
+    workflow-dispatch scope (the other verbs mint pull-request-work).
+    Refuses (exit 3) a name that is not a plain *.yml or *.yaml basename.
 
   --pr is a positive integer in every verb that takes it.
   --json puts EXACTLY the outcome object on stdout; diagnostics go to stderr.

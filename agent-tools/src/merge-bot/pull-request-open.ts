@@ -1,6 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
+import { readDefaultBranch } from './github-repository.js';
 import { restJson, restProbe, unexpectedStatus } from './github-rest.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import type { PullRequestOutcome } from './pull-request-report.js';
@@ -35,7 +36,6 @@ const COORDINATION_PREFIX = 'coordination/';
 /** GitHub lists at most this many per page; a full page means another may follow. */
 const PAGE_SIZE = 100;
 
-const repositorySchema = z.object({ default_branch: z.string().min(1) });
 const headListSchema = z.array(z.object({ number: z.number().int().positive() }));
 const openListSchema = z.array(z.object({ head: z.object({ ref: z.string() }) }));
 const openedSchema = z.object({
@@ -49,22 +49,6 @@ function refused(reason: string): OpenOutcome {
 
 function repoPath(repo: BotRepository): string {
   return `/repos/${repo.owner}/${repo.repoName}`;
-}
-
-/** The repository's default branch, as GitHub holds it now. */
-async function readDefaultBranch(
-  fetchImpl: GithubApiFetch,
-  token: string,
-  repo: BotRepository,
-): Promise<Result<string, Error>> {
-  const read = await restJson(
-    fetchImpl,
-    token,
-    { method: 'GET', path: repoPath(repo), label: 'GET /repos/{owner}/{repo}' },
-    200,
-    repositorySchema,
-  );
-  return read.ok ? ok(read.value.default_branch) : read;
 }
 
 /** Whether the remote holds the branch: a 200 says yes, a 404 says no, anything else fails. */

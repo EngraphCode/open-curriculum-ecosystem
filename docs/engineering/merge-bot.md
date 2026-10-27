@@ -441,10 +441,10 @@ pnpm agent-tools merge-bot retire --branch <name>
 ## Writing on a pull request's conversation
 
 `merge-bot pull-request <verb>` makes the bot's writes on a pull request's
-conversation, each invocation under one installation token it mints itself
-with the `pull-request-work` scope, so the platform record says an agent
-made the write and no seat composes a `GH_TOKEN="$token" gh …` shell line
-for it:
+conversation, and its workflow dispatch, each invocation under one
+installation token it mints itself at the scope that verb needs, so the
+platform record says an agent made the write and no seat composes a
+`GH_TOKEN="$token" gh …` shell line for it:
 
 ```bash
 pnpm agent-tools merge-bot pull-request open --branch <name> --title <text> --body-file <path> --wip-limit <n>
@@ -453,6 +453,7 @@ pnpm agent-tools merge-bot pull-request reply --pr <n> --comment <id> --body-fil
 pnpm agent-tools merge-bot pull-request resolve --pr <n> --thread <node-id>
 pnpm agent-tools merge-bot pull-request ready --pr <n>
 pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>
+pnpm agent-tools merge-bot pull-request dispatch-workflow --workflow <file-name>
 ```
 
 - The verb set and each verb's flag set are closed grammars: anything they
@@ -470,6 +471,12 @@ pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>
   and refuse as a typed value before writing: a thread on another pull
   request or already resolved; a pull request that is not an open draft; a
   pull request that is not open.
+- `dispatch-workflow` dispatches `.github/workflows/<file-name>` on the
+  repository's default branch, read from GitHub, under a token minted at the
+  `workflow-dispatch` scope rather than `pull-request-work`: a dispatch
+  needs `actions: write` alone, and the two scopes stay apart. A name that
+  is not a plain `*.yml` or `*.yaml` basename refuses (exit 3); a status
+  other than 204 is an operational failure naming it.
 - Exit map: 0 done, 1 operational failure (GitHub answered a status other
   than the one expected, named with GitHub's message), 2 usage, 3 typed
   refusal. `--json` puts exactly the outcome object on stdout.

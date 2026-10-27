@@ -1,10 +1,10 @@
-import { err } from '@oaknational/result';
+import { err, ok } from '@oaknational/result';
 
 import type { BranchArgSeams } from '../branch-arg.js';
 import { runMergeBotCli, type MergeBotCliInput } from '../cli.js';
 import type { PushMint } from '../push-mint.js';
 import { scriptedGithub, type GithubScript, type RecordedRequest } from './github-fetch-double.js';
-import { mintAnswering } from './push-cli-double.js';
+import { EXPIRES_AT, mintAnswering } from './push-cli-double.js';
 
 /**
  * The doubles behind the `merge-bot pull-request` front-door tests: GitHub
@@ -25,6 +25,29 @@ const MINT_ANSWERING: PushMint = mintAnswering(TOKEN);
 /** The mint a run that must mint nothing is given: reaching it fails the run, so a refusal that reached it would not read as one. */
 export const MINT_UNREACHED: PushMint = () =>
   Promise.resolve(err(new Error('the mint was reached')));
+
+/** A mint that answers `TOKEN` and records the scope of each mint it is asked for. */
+export function mintRecording(): { readonly mint: PushMint; readonly scopes: string[] } {
+  const scopes: string[] = [];
+  return {
+    scopes,
+    mint: (config) => {
+      scopes.push(config.scope);
+      return Promise.resolve(ok({ token: TOKEN, expiresAt: EXPIRES_AT, installationId: 55 }));
+    },
+  };
+}
+
+/** The dispatch verb's two calls, as GitHub answers them when the dispatch can proceed. */
+export const DISPATCH_SCRIPT: GithubScript = (request) => {
+  const line = `${request.method} ${request.url}`;
+  if (line === `GET ${API}`) {
+    return { status: 200, body: { default_branch: 'trunk' } };
+  }
+  return line === `POST ${API}/actions/workflows/upstream-carrier.yml/dispatches`
+    ? { status: 204, body: null }
+    : undefined;
+};
 
 const IDENTITY_CONFIG = JSON.stringify({
   appSlug: 'jimbot-oakington-iii',

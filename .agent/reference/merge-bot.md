@@ -493,10 +493,11 @@ pnpm agent-tools merge-bot retire --branch <name>
 ## Writing on a pull request's conversation
 
 `merge-bot pull-request <verb>` makes the bot's writes on a pull request's
-conversation, each invocation under one installation token it mints itself
-with the `pull-request-work` scope. It replaces the `token=$(mint)` and
-`GH_TOKEN="$token" gh …` shell lines for these writes, which a worktree's
-Bash guard refuses as a compound command and which cannot fail fast:
+conversation, and its workflow dispatch, each invocation under one
+installation token it mints itself at the scope that verb needs. It replaces
+the `token=$(mint)` and `GH_TOKEN="$token" gh …` shell lines for these
+writes, which a worktree's Bash guard refuses as a compound command and
+which cannot fail fast:
 
 ```bash
 pnpm agent-tools merge-bot pull-request open --branch <name> --title <text> --body-file <path> --wip-limit <n>
@@ -505,6 +506,7 @@ pnpm agent-tools merge-bot pull-request reply --pr <n> --comment <id> --body-fil
 pnpm agent-tools merge-bot pull-request resolve --pr <n> --thread <node-id>
 pnpm agent-tools merge-bot pull-request ready --pr <n>
 pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>
+pnpm agent-tools merge-bot pull-request dispatch-workflow --workflow <file-name>
 ```
 
 - The verb set is closed, and so is each verb's flag set: an unknown verb or
@@ -523,6 +525,14 @@ pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>
   request or is already resolved; `ready` refuses a pull request that is not
   an open draft; `close` posts the reason as an issue comment, then closes,
   and refuses before either write when the pull request is not open.
+- `dispatch-workflow` dispatches `.github/workflows/<file-name>` on the
+  repository's default branch, read from GitHub, under a token minted at the
+  `workflow-dispatch` scope — the one verb not minted at `pull-request-work`,
+  since a dispatch needs `actions: write` alone and the two scopes stay
+  apart (`token-scopes.ts`). It refuses (exit 3) a name that is not a plain
+  `*.yml` or `*.yaml` basename, and answers a status other than 204 as an
+  operational failure naming it. The cross-fork-integration skill's carrier
+  dispatch is its first consumer.
 - Exit map: 0 done, 1 operational failure (GitHub answered a status other
   than the one expected, named with GitHub's message; or the mint, a file
   read or the network failed), 2 usage, 3 typed refusal. `--json` puts

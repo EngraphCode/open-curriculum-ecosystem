@@ -68,6 +68,10 @@ describe('parsePullRequestArgs', () => {
       argv: ['close', '--pr', '42', '--reason-file', 'why.md'],
       request: { verb: 'close', pr: 42, reasonFile: 'why.md', json: false },
     },
+    {
+      argv: ['dispatch-workflow', '--workflow', 'upstream-carrier.yml', '--json'],
+      request: { verb: 'dispatch-workflow', workflow: 'upstream-carrier.yml', json: true },
+    },
   ])('parses the $request.verb verb to its typed request', ({ argv, request }) => {
     expect(parse(argv)).toEqual({ ok: true, value: request });
   });
@@ -88,6 +92,15 @@ describe('parsePullRequestArgs', () => {
     expect(message).toContain('--body-file');
     expect(message).toContain('ready');
     expect(message).toContain('--pr');
+
+    const dispatch = refusal(['dispatch-workflow', '--workflow', 'ci.yml', '--pr', '1']);
+    expect(dispatch).toContain('--pr');
+    expect(dispatch).toContain('--workflow');
+  });
+
+  it("admits any non-blank --workflow at the grammar: its shape is the verb's own refusal", () => {
+    expect(parse(['dispatch-workflow', '--workflow', 'ci/x.yml']).ok).toBe(true);
+    expect(refusal(['dispatch-workflow', '--workflow', ' '])).toContain('--workflow');
   });
 
   it('refuses a bare positional argument', () => {
@@ -105,6 +118,7 @@ describe('parsePullRequestArgs', () => {
     { argv: ['resolve', '--pr', '1'], flag: '--thread' },
     { argv: ['ready'], flag: '--pr' },
     { argv: ['close', '--pr', '1'], flag: '--reason-file' },
+    { argv: ['dispatch-workflow'], flag: '--workflow' },
   ])('refuses $argv.0 without $flag, naming it as required', ({ argv, flag }) => {
     const message = refusal(argv);
 

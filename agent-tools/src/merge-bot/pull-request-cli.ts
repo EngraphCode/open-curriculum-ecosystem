@@ -7,6 +7,7 @@ import type { BranchArgSeams } from './branch-arg.js';
 import { realFetch } from './github-fetch.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { parsePullRequestArgs } from './pull-request-args.js';
+import { dispatchWorkflow, workflowFile } from './pull-request-dispatch.js';
 import {
   closePullRequest,
   commentOnPullRequest,
@@ -29,18 +30,21 @@ import {
   type BotRepository,
   type MergeBotResolveInput,
 } from './resolve-identity.js';
+import type { TokenScopeName } from './token-scopes.js';
 
 /**
  * The `merge-bot pull-request` action: the bot's writes on a pull request's
- * conversation at the front door. The argv contract is `pull-request-args.ts`;
- * the writes are `pull-request-open.ts`, `pull-request-github.ts` and
- * `pull-request-graphql.ts`; the report is `pull-request-report.ts`. Exit
+ * conversation, and its workflow dispatch, at the front door. The argv
+ * contract is `pull-request-args.ts`; the writes are `pull-request-open.ts`,
+ * `pull-request-github.ts`, `pull-request-graphql.ts` and
+ * `pull-request-dispatch.ts`; the report is `pull-request-report.ts`. Exit
  * map: 0 done, 1 operational failure, 2 usage, 3 typed refusal.
  *
  * Everything that can refuse without GitHub is settled BEFORE the mint — the
- * identity, the body file and its emptiness — so a refusal never mints a
- * token it will not use. One token, minted with the `pull-request-work`
- * scope, then carries the one verb's calls and is dropped with the process.
+ * identity, the body file and its emptiness, the workflow file's shape — so
+ * a refusal never mints a token it will not use. One token, minted at the
+ * scope the verb needs and no wider, then carries the one verb's calls and
+ * is dropped with the process.
  */
 
 /** The action's composition surface. */
@@ -124,9 +128,9 @@ function bodiedWrite(request: BodiedRequest, repo: BotRepository, body: string):
   return (token, fetchImpl) => closePullRequest(fetchImpl, token, repo, request.pr, body);
 }
 
-/** The write for a verb that sends no body. */
+/** The write for a verb that sends no body and names a pull request. */
 function bareWrite(
-  request: Exclude<PullRequestRequest, BodiedRequest>,
+  request: Extract<PullRequestRequest, { verb: 'resolve' | 'ready' }>,
   repo: BotRepository,
 ): Write {
   return request.verb === 'resolve'
@@ -134,18 +138,24 @@ function bareWrite(
     : (token, fetchImpl) => markReadyForReview(fetchImpl, token, repo, request.pr);
 }
 
-/** Identity and the body — all of it BEFORE the mint. */
-async function prepare(
-  request: PullRequestRequest,
+/** The dispatch, once the file name passes its shape check; a name outside it is the refusal. */
+function dispatchPrepared(workflow: string, identity: BotIdentity): Prepared {
+  const file = workflowFile(workflow);
+  return file.ok
+    ? {
+        kind: 'ready',
+        identity,
+        write: (token, fetchImpl) => dispatchWorkflow(fetchImpl, token, identity, file.value),
+      }
+    : { kind: 'refused', reason: file.error.message };
+}
+
+/** The body file read and non-empty, for a verb that sends one. */
+async function bodiedPrepared(
+  request: BodiedRequest,
+  identity: BotIdentity,
   input: PullRequestActionInput,
 ): Promise<Prepared> {
-  const identity = resolveBotIdentity({}, input.identityInput);
-  if (!identity.ok) {
-    return { kind: 'failed', exit: 2, message: identity.error.message };
-  }
-  if (request.verb === 'resolve' || request.verb === 'ready') {
-    return { kind: 'ready', identity: identity.value, write: bareWrite(request, identity.value) };
-  }
   const file =
     request.verb === 'close'
       ? { flag: '--reason-file', path: request.reasonFile }
@@ -160,20 +170,42 @@ async function prepare(
       reason: `${file.flag} ${file.path} is empty; the file is sent verbatim, so nothing would be posted`,
     };
   }
-  return {
-    kind: 'ready',
-    identity: identity.value,
-    write: bodiedWrite(request, identity.value, body.value),
-  };
+  return { kind: 'ready', identity, write: bodiedWrite(request, identity, body.value) };
 }
 
-/** Mint the one token at the `pull-request-work` scope, make the write, report. */
+/** Identity and the verb's own precondition — all of it BEFORE the mint. */
+async function prepare(
+  request: PullRequestRequest,
+  input: PullRequestActionInput,
+): Promise<Prepared> {
+  const identity = resolveBotIdentity({}, input.identityInput);
+  if (!identity.ok) {
+    return { kind: 'failed', exit: 2, message: identity.error.message };
+  }
+  if (request.verb === 'dispatch-workflow') {
+    return dispatchPrepared(request.workflow, identity.value);
+  }
+  if (request.verb === 'resolve' || request.verb === 'ready') {
+    return { kind: 'ready', identity: identity.value, write: bareWrite(request, identity.value) };
+  }
+  return bodiedPrepared(request, identity.value, input);
+}
+
+/**
+ * The scope the verb's token is minted at, and no wider: the dispatch needs
+ * `actions: write` alone, and the conversation verbs the pull-request span.
+ */
+function scopeFor(verb: PullRequestRequest['verb']): TokenScopeName {
+  return verb === 'dispatch-workflow' ? 'workflow-dispatch' : 'pull-request-work';
+}
+
+/** Mint the one token at the verb's scope, make the write, report. */
 async function mintAndWrite(
   prepared: Extract<Prepared, { kind: 'ready' }>,
   request: PullRequestRequest,
   input: PullRequestActionInput,
 ): Promise<number> {
-  const minted = await input.mint({ ...prepared.identity, scope: 'pull-request-work' });
+  const minted = await input.mint({ ...prepared.identity, scope: scopeFor(request.verb) });
   if (!minted.ok) {
     input.stderr.write(`merge-bot pull-request ${request.verb}: ${minted.error.message}\n`);
     return 1;

@@ -8,8 +8,10 @@ import {
   BODY,
   BODY_FILE,
   CONVERSATION_SCRIPT,
+  DISPATCH_SCRIPT,
   GRAPHQL,
   MINT_UNREACHED,
+  mintRecording,
   runPullRequest,
   TOKEN,
 } from './test-helpers/pull-request-cli-double.js';
@@ -206,6 +208,60 @@ describe('merge-bot pull-request, front door', () => {
     expect(run.err).toContain('merge-bot pull-request comment:');
     expect(run.err).toContain('502');
     expect(run.err).toContain('Bad gateway');
+  });
+
+  it('dispatches a workflow on the default branch under a token minted at the workflow-dispatch scope', async () => {
+    const minting = mintRecording();
+    const run = await runPullRequest(
+      ['dispatch-workflow', '--workflow', 'upstream-carrier.yml', '--json'],
+      { script: DISPATCH_SCRIPT, mint: minting.mint },
+    );
+
+    expect(run.exit).toBe(0);
+    expect(JSON.parse(run.out)).toEqual({
+      kind: 'dispatched',
+      workflow: 'upstream-carrier.yml',
+      ref: 'trunk',
+    });
+    expect(minting.scopes).toEqual(['workflow-dispatch']);
+    expect(run.requests.at(-1)?.body).toEqual({ ref: 'trunk' });
+    expect(run.requests.every((request) => request.authorization === `Bearer ${TOKEN}`)).toBe(true);
+  });
+
+  it('mints the conversation verbs at the pull-request-work scope, one mint per invocation', async () => {
+    const minting = mintRecording();
+    const run = await runPullRequest(COMMENT, { script: CONVERSATION_SCRIPT, mint: minting.mint });
+
+    expect(run.exit).toBe(0);
+    expect(minting.scopes).toEqual(['pull-request-work']);
+  });
+
+  it.each(['ci/upstream-carrier.yml', '../x.yml', 'carrier.txt'])(
+    'refuses --workflow "%s" with exit 3, minting nothing: a plain *.yml or *.yaml basename alone is dispatched',
+    async (name) => {
+      const run = await runPullRequest(['dispatch-workflow', '--workflow', name, '--json'], {
+        mint: MINT_UNREACHED,
+      });
+
+      expect(run.exit).toBe(3);
+      expect(JSON.parse(run.out)).toMatchObject({ kind: 'refused' });
+      expect(run.out).toContain('--workflow');
+      expect(run.requests).toHaveLength(0);
+    },
+  );
+
+  it('exits 1 naming the status when the dispatch answers anything but 204', async () => {
+    const run = await runPullRequest(['dispatch-workflow', '--workflow', 'upstream-carrier.yml'], {
+      script: (request) =>
+        request.method === 'POST'
+          ? { status: 422, body: { message: 'Workflow does not have workflow_dispatch trigger' } }
+          : DISPATCH_SCRIPT(request),
+    });
+
+    expect(run.exit).toBe(1);
+    expect(run.out).toBe('');
+    expect(run.err).toContain('422');
+    expect(run.err).toContain('workflow_dispatch trigger');
   });
 
   it('exits 1, reaching GitHub not at all, when the mint fails', async () => {
