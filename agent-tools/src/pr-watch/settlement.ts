@@ -11,6 +11,7 @@ import { readingEvidence } from './settlement-evidence.js';
 import {
   allReviews,
   completionRefusals,
+  noticeEvidence,
   transportEvidence,
   refusalDecides,
 } from './completion-evidence.js';
@@ -91,6 +92,7 @@ function settledVerdict(input: {
   const shared = [
     ...legs.map((leg) => legLine(leg)),
     ...transportEvidence(reading),
+    ...noticeEvidence(reading),
     ...bodyTallyEvidence(reading),
     ...readingEvidence(reading),
   ];
@@ -216,6 +218,7 @@ function unclassifiedVerdict(
       ...refusals.map((refusal) => refusal.line),
       ...legs.map((leg) => legLine(leg)),
       ...transportEvidence(reading),
+      ...noticeEvidence(reading),
       ...readingEvidence(reading),
     ],
   };
@@ -234,6 +237,7 @@ function blockedVerdict(input: {
       `most blocking reviewer leg: ${blocking.reviewer}`,
       ...legs.filter((leg) => leg.state === 'OWED').map((leg) => legLine(leg)),
       ...transportEvidence(reading),
+      ...noticeEvidence(reading),
       ...refusals.map((refusal) => refusal.line),
       ...unmappedLiveRunEvidence(reading, blocking.kind),
       ...readingEvidence(reading),
