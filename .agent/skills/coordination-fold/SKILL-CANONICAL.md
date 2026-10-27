@@ -203,9 +203,11 @@ fold merges (a Director's ruling with the lane's agreement, 2026-09-07, events d
    lifecycle skill's Phase 3 harvest reads and triages every non-required
    verdict (a code-quality vendor's gate among them) before the merge + zero
    unresolved review threads +
-   MERGEABLE. The vendor review is requested at the ready-mark (where the
-   host does not review a ready pull request by itself) and a records-class
-   fold never waits for it: `merge-bot merge` computes the class from the
+   MERGEABLE. No vendor review is requested at the ready-mark by default
+   (the owner, 2026-10-27: a review is requested only for a stated reason,
+   never automatically; reviews are expensive); where the host's
+   configuration reviews a ready pull request by itself the review arrives
+   unasked, and a records-class fold never waits for it either way: `merge-bot merge` computes the class from the
    pull request's changed files (every path documentation or Practice
    prose, decided per path, `change-class.ts`; a seat never declares it) and
    merges a records-class fold at checks green by name (the required
