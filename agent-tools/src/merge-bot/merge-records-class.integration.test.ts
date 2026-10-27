@@ -96,7 +96,13 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
    * verdict ladder reads every reported check green.
    */
   const requiredUnreportedReading = (): PrStateReading =>
-    makeReading({ author: 'app/acme-bot', reviews: [], checksGreenAt: '2026-08-06T08:58:00Z' });
+    makeReading({
+      author: 'app/acme-bot',
+      reviews: [],
+      checksGreenAt: '2026-08-06T08:58:00Z',
+      namedChecks: [{ name: 'lint', bucket: 'passed' }],
+      checks: { total: 1, passed: 1, failed: 0, pending: 0 },
+    });
 
   /** The real fold shape: required checks green, the vendor's own review run still pending. */
   const vendorRunPendingReading = (): PrStateReading =>
@@ -133,11 +139,11 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
     expect(urls.findIndex((url) => url.includes('/pulls/42/files'))).toBeLessThan(
       urls.findIndex((url) => url.endsWith('/pulls/42/merge')),
     );
-    expect(urls.some((url) => url.includes('/rules/branches/main'))).toBe(true);
   });
 
-  it('holds a records fold on an owed leg until every REQUIRED context has reported on the tip, naming the missing ones', async () => {
-    const { fetchImpl, calls } = makeClassPort(recordsFiles);
+  it('holds a records fold on an owed leg until every REQUIRED context has reported on the tip, naming the missing ones and reading no files', async () => {
+    // A files read on this leg would surface as a reading failure, so a CHECKS-RUNNING refusal proves none happened.
+    const { fetchImpl, calls } = makeClassPort(recordsFiles, { failing: '/pulls/42/files' });
 
     const outcome = await runMergeExecution(makeInput(requiredUnreportedReading(), fetchImpl));
 
@@ -148,7 +154,18 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
       ),
     ).toBe(true);
     expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
-    expect(calls.some((call) => call.url.includes('/pulls/42/files'))).toBe(false);
+  });
+
+  it('holds a code-class pull request on an owed leg at CHECKS-RUNNING too while a required context is unreported: the class is not read there', async () => {
+    const { fetchImpl, calls } = makeClassPort([
+      { filename: 'agent-tools/src/merge-bot/merge.ts' },
+    ]);
+
+    const outcome = await runMergeExecution(makeInput(requiredUnreportedReading(), fetchImpl));
+
+    expect(refusedState(outcome)).toBe('CHECKS-RUNNING');
+    expect(refusedEvidence(outcome).some((line) => line.includes('not reported'))).toBe(true);
+    expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
   });
 
   it("merges a records fold whose only pending check is the vendor's own review run, naming what was set aside", async () => {

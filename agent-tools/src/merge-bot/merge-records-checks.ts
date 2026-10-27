@@ -25,12 +25,16 @@ import type { GithubApiFetch } from './mint-installation-token.js';
  * reported as pending, and recomputes the verdict over that reading before
  * the diff is classified. A FAILED check of any name still holds (a secret
  * scan or a dependency review is information the merge must not outrun),
- * and an unreported required context holds the fold at CHECKS-RUNNING — a
- * wait state the poll continues on — so the merge PUT is never sent before
- * the contexts GitHub will demand are green by name. The code class is
- * untouched: every live check binds it as before. The reads here (the pull
- * request's base, the branch's rules, then the files only when the
- * recomputed verdict could merge) run once per poll at the door.
+ * and an unreported required context holds the pull request at
+ * CHECKS-RUNNING — a wait state the poll continues on — whatever its class,
+ * since the class is not read there: on every verdict this door decides, the
+ * merge PUT is never sent before the contexts GitHub will demand are green
+ * by name. SETTLE-READY is outside the door — the verdict alone merges
+ * there, on the checks as reported, and nothing here is read. The code
+ * class is never loosened: every live check binds it as before. The reads
+ * here (the pull request's base, the branch's rules, then the files only
+ * when the recomputed verdict leaves CHECKS-RUNNING) run once per poll at
+ * the door.
  */
 
 /**
@@ -51,7 +55,11 @@ export interface NarrowedReading {
   readonly notReported: readonly string[];
 }
 
-/** The reading with pending non-required checks set aside and unreported required contexts pending. */
+/**
+ * The reading with pending non-required checks set aside and unreported
+ * required contexts pending, each name once (two rulesets may require the
+ * same context).
+ */
 export function narrowToRequired(
   reading: PrStateReading,
   required: readonly string[],
@@ -61,7 +69,7 @@ export function narrowToRequired(
     (check) => check.bucket !== 'pending' || requiredSet.has(check.name),
   );
   const reported = new Set(reading.namedChecks.map((check) => check.name));
-  const notReported = required.filter((name) => !reported.has(name));
+  const notReported = [...requiredSet].filter((name) => !reported.has(name));
   const namedChecks: readonly NamedCheck[] = [
     ...kept,
     ...notReported.map((name): NamedCheck => ({ name, bucket: 'pending' })),
@@ -178,11 +186,13 @@ function doorReadFailed(verdict: PrVerdict, error: Error): Result<ResolvedVerdic
 
 /**
  * At the door: the rules first (two cheap reads) and the verdict recomputed
- * over them; the files only when that verdict could merge — so a code-class
- * pull request waiting on its own required checks pays no files read per
- * poll, and a fold whose required context has not reported waits at
- * CHECKS-RUNNING without one. A records diff takes the recomputed verdict;
- * a code diff keeps the verdict as read, every live check binding it.
+ * over them. A recomputed CHECKS-RUNNING is returned for any class, the
+ * files unread — a code-class pull request waiting on its own required
+ * checks pays no files read per poll, and a pull request whose required
+ * context has not reported waits there whatever its diff. Otherwise the
+ * files are read and classified: a records diff takes the recomputed
+ * verdict; a code diff keeps the verdict as read, every live check binding
+ * it.
  */
 async function resolveAtTheDoor(
   input: ResolveInput,

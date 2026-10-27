@@ -168,10 +168,9 @@ function refused(reason: string, verdict: PrVerdict): Result<MergeOutcome, Error
 }
 
 /**
- * The verdict → class → eligibility → settings-gate → merge tail. The change
- * class is read from the diff only on a verdict where it decides (a records
- * class merges there, and at CHECKS-RUNNING it may set aside a pending check
- * the rules do not require, `merge-records-checks.ts`); a failed read there
+ * The verdict → class → eligibility → settings-gate → merge tail. The base
+ * branch's required contexts and the change class are read only on a verdict
+ * the records door decides (`merge-records-checks.ts`); a failed read there
  * is the same transient class as a failed PR-state read, so the poll loop
  * retries it within the budget rather than ending on one 502. Eligibility is
  * classified BEFORE the settings endpoint is touched: that GET is a fallible
@@ -198,7 +197,8 @@ async function gateAndMerge(context: {
     target: { identity: input.identity, prNumber: input.prNumber },
   });
   if (!resolved.ok) {
-    return err(new ReadingUnavailableError(`class reading failed: ${resolved.error.message}`));
+    const message = `door reading failed: ${resolved.error.message}`;
+    return err(new ReadingUnavailableError(message, { cause: resolved.error }));
   }
   const { verdict, changeClass } = resolved.value;
   const decide = (allowMergeCommit: boolean): MergeDecision =>

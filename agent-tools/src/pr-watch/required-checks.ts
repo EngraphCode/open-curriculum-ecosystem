@@ -18,8 +18,10 @@ import { parseWithSchema } from '../core/schema-parse.js';
  * carrying `required_status_checks`, at least one context, each named — so
  * a truncated or malformed rule is a parse error the caller sees, never a
  * rule that reads as requiring nothing (a door would then outrun the
- * contexts the branch really requires). Rules of every other type keep
- * their parameters unread.
+ * contexts the branch really requires). An empty contexts list is refused
+ * on the same ground: a rule of this type that names nothing is read as
+ * truncation, never as a branch requiring nothing. Rules of every other
+ * type keep their parameters unread.
  */
 
 const REQUIRED_STATUS_CHECKS = 'required_status_checks';

@@ -76,6 +76,13 @@ describe('narrowToRequired', () => {
     expect(narrowed.reading.checks.pending).toBe(1);
   });
 
+  it('reads a required context two rules name once, as one pending check', () => {
+    const narrowed = narrowToRequired(settledReading(), ['run-quality-gates', 'run-quality-gates']);
+
+    expect(narrowed.notReported).toStrictEqual(['run-quality-gates']);
+    expect(narrowed.reading.checks).toStrictEqual({ total: 2, passed: 1, failed: 0, pending: 1 });
+  });
+
   it('leaves a reading untouched when nothing pending is outside the rules', () => {
     const reading = settledReading();
 
