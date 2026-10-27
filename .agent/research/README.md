@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 9 September 2026
+**Last Updated**: 22 October 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -216,6 +216,13 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-10-22)
+
+- [The nature of the Practice, a review of lights-on, and their comparison](practice-nature-and-lights-on-comparison-2026-10-22.md):
+  the Practice read through its layers and the systems it is at once, a reproduced review of the
+  lights-on software factory, and a concept-level comparison closing with the concepts each could
+  take from the other.
 
 ## Recent Additions (2026-09-09)
 

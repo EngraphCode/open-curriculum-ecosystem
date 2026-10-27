@@ -176,7 +176,7 @@ the Practice itself"; the capability is Practice substance (PDR-035), the
 TypeScript is phenotype.
 
 **(h) Multi-vendor by construction.** Canonical content lives once in `.agent/`;
-thin adapters are generated for Claude, Cursor, Codex, Gemini and Windsurf; the
+thin adapters are generated for Claude, Cursor, Codex and Gemini; the
 entry points are deliberately vendor-named (`CLAUDE.md`, `AGENTS.md`,
 `GEMINI.md`) so that every agent lands on the same portable infrastructure. A
 cross-platform surface matrix records supported and unsupported states
@@ -597,8 +597,9 @@ of which such a tool would be one family-layer binding.
   as three commits (`0d2373aa9`, `3d4ebdc59`, `c5e8f493b`), each committed under the Claude
   cloud `HUSKY=0` ruling with its substitute set run first (branch guard,
   commit-message check, major-version guard, gitleaks over the outgoing range;
-  markdownlint and the docs validators also green), and pushed. The branch has
-  no pull request, so CI has not run on it; the owner has not asked for one.
+  markdownlint and the docs validators also green), and pushed. At the time of
+  writing the branch had no pull request, so CI had not run on it and the owner
+  had not asked for one; the owner asked for this pull request later that day.
 - Environment defect met on the way: a plain push ran the pre-push hook, whose
   review-cost gate calls `gh repo view --json`, and GitHub answered HTTP 403
   ("GraphQL is not available from Claude Code sessions"). Recorded in the
