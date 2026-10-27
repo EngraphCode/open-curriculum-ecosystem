@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-12
+last_updated: 2026-10-27
 ---
 
 # pr-tally — the review-round tally built by commit binding, with the step-back verdict
@@ -207,3 +207,4 @@ mechanism unchanged.
 | 2026-09-12 | PR #138 epoch two | An outdated inline thread returns `line: null` (eleven of the seventeen in the #135 recording), so a harvest reading `line` alone loses the anchor the anchor-and-substance deduplication needs | Pickup: todo 1's harvest reads `originalLine` and `originalStartLine` alongside `line`, and re-records the corpus with the widened query at pickup |
 | 2026-09-16 | The Director's 2026-09-12 boundary-9 record, carried to the dedicated consolidation | Hand-writing each suppressed-item disposition reference produced a wrong review id, a `thread <id>` key taken from the wrong review, and four rounds in which undispositioned body items stayed open | Pickup: todo 2's command prints, for every undispositioned body item, the one-line disposition template with the head, review id, anchor and item key filled in; the seat only chooses the marker and writes the rationale |
 | 2026-09-17 | PR #152 round two (Copilot, suppressed) | Under the peer-fork model a true finding on carried code is over the bar for this fork but cured in its own lane, never in the carrier's rounds. The tally reads the bar marker only (the scope prefix is not read), so such a finding counts as cure-worthy in the carrier round that raised it, and a carrier that keeps drawing carried-code findings cannot reach the terminal zero it has no means to cure towards. | Pickup: todo 1 decides whether a carrier's tally keeps carried-code findings out of `c[n]` (for example by reading `Out of scope,` on an over-bar marker as routed-elsewhere) and names where their count lives (the local work list), with a recorded carrier harvest as the fixture |
+| 2026-10-27 | The code-quality analyser's security and reliability triage | Two of this node's body parsers read text any GitHub user can write and backtrack super-linearly: the disposition-line pattern in `dispositions.ts` (roughly cubic) and the Codex-item pattern in `findings.ts` (quadratic, and live on every push through the review-cost gate). And `isSignedSelfReply` checks a comment's signature line but not its author, so any commenter's signed comment reads as the seat's disposition. | Cured by `quality-analyser-security-reliability-to-zero`: its unit 1 (both parsers made linear, with adversarial-input tests) and its units 13a and 13b (a self-login set checked against each signed comment's author; the recorded corpora unchanged). All three land before this node's todo 2, so the command reads author-bound signatures from its first run. |
