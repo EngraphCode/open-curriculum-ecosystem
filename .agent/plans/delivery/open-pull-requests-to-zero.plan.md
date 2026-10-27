@@ -63,13 +63,15 @@ disposition a signed reply on the pull request; a usefulness verdict in one para
 request (land, or close with the reason); for a landing, one sync of the default branch at the
 slot word, the cures pushed once through `merge-bot push`, the settle read through `pr state`,
 and `merge-bot merge` by merge commit; for a close, the bot closes it and the branch retires.
-Then the command: `merge-bot open-pr --branch <name> --title <text> --body-file <path>` opens a
-DRAFT pull request as the bot against the default branch through the REST pulls endpoint under the
-`pull-request-work` scope, refusing a branch the remote does not hold, a base that is not the
-default branch, or an open pull request already on that head; it reads the forge's open count first
-and refuses when the work-in-progress limit is met. Why this produces the outcome: the door and the
-reservation are the rules already written; this node only runs them to the end, and the command
-removes the one step that had no tool.
+Then the command: `merge-bot pull-request <verb>`, a closed verb set, each write made as the bot
+under a token minted for that invocation: `open` (a DRAFT pull request into the default branch,
+refusing a branch the remote does not hold, an open pull request already on that head, or an open
+count at the stated `--wip-limit`), `comment`, `reply`, `resolve`, `ready`, `close` and
+`dispatch-workflow` (the carrier replacement's runs). The set widened from `open` alone when the
+drain's first thread showed that every bot write except push, merge and retire was unreachable from
+a worktree seat: the guard refuses `gh` with a runtime token. Why this produces the outcome: the door
+and the reservation are the rules already written; this node only runs them to the end, and the
+command removes the one step that had no tool.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -80,9 +82,10 @@ removes the one step that had no tool.
 2. No merge was made with an unresolved thread, a red required check or a missing expected
    reviewer leg. Proof: `repo-safe` — `merge-bot merge` is the only merge path and refuses every
    such state by name.
-3. `merge-bot open-pr` opens a draft pull request as the bot and refuses the three named shapes
-   and the met limit, each refusal typed. Proof: `repo-safe` — its unit and integration tests; the
-   first real use is the pull request of the analyser plan's unit 1.
+3. `merge-bot pull-request` makes each of its seven writes as the bot and refuses the named
+   shapes and the met limit, each refusal typed, and no path prints or persists the token. Proof:
+   `repo-safe` — its unit and integration tests and a security read of the diff; the first real
+   uses are this node's own dispositions, and `open`'s is the analyser plan's unit 1.
 
 ## Todos
 
@@ -106,9 +109,10 @@ removes the one step that had no tool.
    closes with its receipt.
 5. **The coordination pull request #360** folds by the `coordination-fold` skill, its own
    ceremony, after the lanes above so the fold carries their records.
-6. **`merge-bot open-pr`.** TDD in `agent-tools/src/merge-bot/` (args, the GitHub call, the
-   refusals, the limit read), TSDoc, the README row, the merge-bot reference's bot-writes section
-   re-pointed at the command; its own pull request, about six files, opened with itself.
+6. **`merge-bot pull-request`.** TDD in `agent-tools/src/merge-bot/` (the closed grammar, one
+   GitHub module per transport, the refusals, the limit read), TSDoc, the merge-bot reference and
+   the bot-identity rule re-pointed at the command; its own pull request, opened with itself once
+   the count allows. Built first because the drain's writes needed it (ledger, 2026-10-27).
 
 ## Out of scope
 
@@ -130,4 +134,9 @@ removes the one step that had no tool.
 
 ## Review dispositions
 
-None yet.
+| Date | Source | Finding | Disposition |
+| --- | --- | --- | --- |
+| 2026-10-27 | The drain's first bot write (#362's thread reply) | The worktree Bash guard refuses `gh` with a runtime token, so the documented bot-write idiom cannot run and no agent-tools command replied, resolved, commented, marked ready, closed or dispatched as the bot. | Applied: todo 6 widened from `open` to the seven-verb `merge-bot pull-request`, built first (commit `a98f77c2c`, 127 tests; a token-safety read found no path that prints or persists the token). Routed to that command's own pull request: a `pull_requests: write`-only scope for the conversation verbs, token revocation at exit, and `printable()` over file paths in refusal text. |
+| 2026-10-27 | #357's own evaluation suite (`skill-evals run`, USD 2.70) | The skill fired on 11 of 12 triggers and passed 0 of 8 behavioural cases, with the skill and without it (delta 0). | Applied: closed with the evidence and the two gaps worth a re-authoring named on the pull request; the remote branch is the owner's to delete (retire deletes merged branches only). |
+| 2026-10-27 | #358's four review threads | Codex P1 (the door skipped required-context verification on the reviewer-leg states) and Copilot high (the rules schema failed open) hold; the early-return and permission findings do not (the zero-contexts return is fail-closed by design; the branch-rules read answered 200 under the merge token, RUN). | Applied: two cures test-first (`fd670e053`, `4c432cda6`, 8,035 tests green), two rejections with evidence on their threads. Routed: whether SETTLE-READY should also prove required contexts by name is a code-class door question for its own pull request. |
+| 2026-10-27 | #362's door verdict | The Codex connector's two failure comments of 2026-10-22 ("Failed" summary row, "usage limits reached" notice) are refused by `pr-watch/completion-comments.ts` as naming no reviewed commit, so the verdict is UNCLASSIFIED-EVIDENCE on every later tip and the door never opens for a pull request Codex failed on while over quota. Copilot is UNOWED on a later push (`review_on_push=false`) and its request is the operator's own write on this repository. | Applied: Copilot requested on the cured head as the operator (timeline 2026-10-27T14:55Z). Routed: the completion-comment reader learns the "Failed" row as an error review bound to its commit and the limits notice as a non-report, in its own pull request; until it lands, #362's landing is the owner's word (the door reads a stale vendor failure, not the pull request). |
