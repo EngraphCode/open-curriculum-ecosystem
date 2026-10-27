@@ -22,14 +22,14 @@ const sender = {
 } as const;
 
 // Identity emitted by the CLI under the env wiring used in the tests below
-// (PRACTICE_AGENT_SESSION_ID_CLAUDE seed + OAK_AGENT_IDENTITY_OVERRIDE name).
+// (PRACTICE_AGENT_SESSION_ID_CLAUDE seed + PRACTICE_AGENT_IDENTITY_OVERRIDE name).
 // Deriving via the same code path the CLI uses keeps the strict-equal
 // assertion honest without coupling the test to the v5 namespace constant.
 const senderWithId = deriveCollaborationIdentity({
   platform: sender.platform,
   model: sender.model,
   env: {
-    OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+    PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
     PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
   },
 }).agentId;
@@ -39,7 +39,7 @@ const recipientWithId = deriveCollaborationIdentity({
   platform: recipient.platform,
   model: recipient.model,
   env: {
-    OAK_AGENT_IDENTITY_OVERRIDE: recipient.agent_name,
+    PRACTICE_AGENT_IDENTITY_OVERRIDE: recipient.agent_name,
     CODEX_THREAD_ID: recipientCodexThreadId,
   },
 }).agentId;
@@ -97,7 +97,7 @@ describe('collaboration-state comms --tag flag (ADR-183)', () => {
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -157,7 +157,7 @@ describe('collaboration-state comms --tag flag (ADR-183)', () => {
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -199,7 +199,7 @@ describe('collaboration-state comms --tag flag (ADR-183)', () => {
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -252,7 +252,7 @@ describe('collaboration-state comms --body length gate (B2 / plan §B2)', () => 
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -292,7 +292,7 @@ describe('collaboration-state comms --body length gate (B2 / plan §B2)', () => 
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -341,7 +341,7 @@ describe('collaboration-state comms --body length gate (B2 / plan §B2)', () => 
         sender.model,
       ],
       env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
         PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
       },
       io: fake.runtime.io,
@@ -395,7 +395,7 @@ describe('collaboration-state comms --body length gate (B2 / plan §B2)', () => 
       ],
       env: {
         CODEX_THREAD_ID: '019e1867-a0a8-7c11-aae3-1bc48533a585',
-        OAK_AGENT_IDENTITY_OVERRIDE: recipient.agent_name,
+        PRACTICE_AGENT_IDENTITY_OVERRIDE: recipient.agent_name,
       },
       io: fake.runtime.io,
     });

@@ -15,7 +15,7 @@ tickets:
 depends_on:
   - plan: survey-machinery-deconstruction
     kind: beneficial
-last_updated: 2026-08-30
+last_updated: 2026-09-20
 ---
 
 # Workspace classification census
@@ -78,8 +78,10 @@ with a delta section, so its consumers stop reading a stale map.
 **Census subjects, defined mechanically:** the union of (i) every pnpm
 workspace member (per `pnpm-workspace.yaml`); (ii) the parent directory of
 every tracked `package.json` outside the member set; (ii-b) the parent
-directory of every tracked `.claude-plugin/plugin.json` manifest outside
-the member set (the owner-approved manifest arm, 2026-08-14 — plugin
+directory of every tracked plugin manifest (`.claude-plugin/plugin.json`
+or `.codex-plugin/plugin.json`, one suffix per manifest format) outside
+the member set (the owner-approved manifest arm, 2026-08-14, widened
+2026-09-20 — plugin
 surfaces such as `plugins/oak-open-curriculum/` carry no `package.json`
 and no code-extension files); (iii) every top-level path segment of
 `git ls-files` holding files in a stated code-extension set (declared in
@@ -213,6 +215,27 @@ open holding state.
 
 ## Amendment trail
 
+- **2026-09-20 — the manifest arm widened to a second manifest format; subject set 43→44.** Arm (ii-b)
+  now admits the parent directory of a tracked `.claude-plugin/plugin.json` or
+  `.codex-plugin/plugin.json` (the Codex manifest format; the OpenAI portal builds from its own steps and never reads it), held by tests. The owner's card of
+  2026-09-20 ("Cure here only what misleads operators") sent this cure to this line as ledger
+  item A5 of the 1.185.0 integration. `plugins/oak-open-curriculum-chatgpt` gains its row
+  (oak-leaf, the sibling's licence set); `facts.json` and `matrix.md` are regenerated, which also
+  clears the 20 stale facts entries the check reported on `engraph` at `93c35f285`.
+- **2026-09-17 — the manifest arm finds Claude plugin manifests only (found at the 1.185.0
+  sync).** Arm (ii-b) admits the parent directory of every tracked
+  `.claude-plugin/plugin.json`, and `agent-tools/src/workspace-census/subjects.ts` encodes the
+  same single suffix. The tree now also carries `plugins/oak-open-curriculum-chatgpt/`, whose
+  manifest is `.codex-plugin/plugin.json` (ADR-125's 2026-09-08 amendment), so that plugin
+  surface is never a census subject and the subject count under-reads by one. Widening the arm
+  and the rule is a code change in its own lane; this entry records the gap so the count is read
+  with it until then.
+- **2026-09-07 — admission mechanics of a top-level tier homed here from ADR-041 (measured
+  2026-09-06 on a refuted fork-only tier).** Admission requires upstream-owned edits: the census root constant, two dependency-cruiser
+  regexes, the workspace list and a row in ADR-041. A two-level workspace glob is invisible to
+  the single-level isolation validator; the census vocabulary has no class for a fork-owned
+  subject; `depcruise <root>` fails loudly, not silently, on a missing root. The ADR states the admission contract self-contained
+  and names no plan (no-moving-targets); this trail carries the measured instance.
 - **2026-08-30 — retired runnable research workspace reflected; subject set 45→43.** Owner
   direction moved the web-app-deconstruction's retained analysis/examples into the canonical
   `.agent/research/` tier and retired its accidental top-level runnable harness. The mechanical

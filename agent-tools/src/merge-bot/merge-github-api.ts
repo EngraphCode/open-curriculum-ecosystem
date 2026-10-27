@@ -2,12 +2,19 @@ import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { readJsonBody, sendGithubRequest, type GithubApiFetch } from './mint-installation-token.js';
+import { githubJsonHeaders } from './github-fetch.js';
+import {
+  githubHeaders,
+  readJsonBody,
+  sendGithubRequest,
+  type GithubApiFetch,
+} from './mint-installation-token.js';
 import type { BotIdentity } from './resolve-identity.js';
 
 /**
  * The merge execution's two REST calls: the settings-gate read and the merge
- * PUT. Split from `merge.ts` to keep both files inside the size gates. Every
+ * PUT, each with the header set every bot call sends (`githubHeaders`).
+ * Split from `merge.ts` to keep both files inside the size gates. Every
  * response body goes through the Result-translating reader — an unreadable
  * answer to the PUT, and any 5xx answer readable or not, reports the merge
  * state as UNKNOWN (security D2): the call was sent, so anything firmer
@@ -21,22 +28,6 @@ const mergeSettingsSchema = z.object({ allow_merge_commit: z.boolean() });
 
 const mergeResponseSchema = z.object({ merged: z.literal(true), sha: z.string().min(1) });
 
-/** The real fetch, wrapped to the port shape at this one boundary. */
-export function realFetch(): GithubApiFetch {
-  return async (url, init) => {
-    const response = await fetch(url, init);
-    return { status: response.status, json: () => response.json() };
-  };
-}
-
-function apiHeaders(token: string): Record<string, string> {
-  return {
-    accept: 'application/vnd.github+json',
-    authorization: `Bearer ${token}`,
-    'content-type': 'application/json',
-  };
-}
-
 /** Read the repo's `allow_merge_commit` — REQUIRED; a missing field refuses, never assumes. */
 export async function readMergeSettings(
   fetchImpl: GithubApiFetch,
@@ -46,7 +37,7 @@ export async function readMergeSettings(
   const sent = await sendGithubRequest(
     fetchImpl,
     `${GITHUB_API}/repos/${identity.owner}/${identity.repoName}`,
-    { method: 'GET', headers: apiHeaders(token) },
+    { method: 'GET', headers: githubHeaders(token) },
     'repo settings read',
   );
   if (!sent.ok) {
@@ -105,7 +96,7 @@ async function sendMergePut(
     `${GITHUB_API}/repos/${input.identity.owner}/${input.identity.repoName}/pulls/${input.prNumber}/merge`,
     {
       method: 'PUT',
-      headers: apiHeaders(token),
+      headers: githubJsonHeaders(token),
       body: JSON.stringify({ merge_method: 'merge', sha: input.headRefOid }),
     },
     'the merge PUT',

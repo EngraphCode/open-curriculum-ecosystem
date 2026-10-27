@@ -3,11 +3,13 @@ import { execFileSync } from 'node:child_process';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { parsePrTarget, type GhCommandExecutor, type PrTarget } from '../pr-watch/gh.js';
+import type { UnavailableInput } from '../pr-watch/state-compose.js';
 import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
 import { decideMergeAction, type MergeDecision } from './merge-decision.js';
-import { readMergeSettings, realFetch, putMerge } from './merge-github-api.js';
+import { realFetch } from './github-fetch.js';
+import { readMergeSettings, putMerge } from './merge-github-api.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import type { BotIdentity } from './resolve-identity.js';
@@ -15,20 +17,19 @@ import type { BotIdentity } from './resolve-identity.js';
 /**
  * The `merge-bot merge` execution: mint → read → verdict → gate → merge.
  *
- * Composes pr-watch's reading and verdict (one settlement implementation,
- * never a re-derivation) and merges over merge-bot's own fetch port so the
- * call shape is an HTTP body a test can pin. The PUT carries the VERDICTED
- * tip's sha — a tip that moves between verdict and merge gets the API's 409,
- * never an unverdicted merge. Merge method is `merge`, always: the repo
- * settings gate refuses when merge commits are disallowed rather than ever
- * changing method (the never-squash ruling as behaviour).
+ * Composes pr-watch's reading and verdict (one settlement implementation, never
+ * a re-derivation) and merges over merge-bot's own fetch port so the call shape
+ * is an HTTP body a test can pin. The PUT carries the VERDICTED tip's sha — a
+ * tip that moves between verdict and merge gets the API's 409, never an
+ * unverdicted merge. Merge method is `merge`, always: the repo settings gate
+ * refuses when merge commits are disallowed rather than ever changing method
+ * (the never-squash ruling as behaviour).
  */
 
 /**
- * A failed PR-state reading, typed so the poll loop can classify it as
- * retryable-within-budget (security H4): pr-watch's reader throws by design
- * on transients (mergeable UNKNOWN, a moved head, a gh non-zero exit), and
- * that throw must never escape into the usage-error exit path.
+ * A failed PR-state reading, typed so the poll loop can classify it as retryable-within-budget
+ * (security H4): pr-watch's reader throws by design on transients (mergeable UNKNOWN, a moved
+ * head, a gh non-zero exit), and that throw must never escape into the usage-error exit path.
  */
 export class ReadingUnavailableError extends Error {}
 
@@ -42,11 +43,10 @@ interface MergeExecutionSeams {
   readonly mintSeams?: MintSeams;
   readonly ghPath?: string;
   /**
-   * Base environment for the read-path gh executor. Defaults to
-   * `process.env` at the leaf (the default-seam pattern: reality enters at
-   * exactly one injectable point): Node REPLACES a provided child env rather
-   * than merging it, so pinning the read env forces constructing the whole
-   * environment, and gh needs PATH and friends underneath.
+   * Base environment for the read-path gh executor. Defaults to `process.env` at the leaf
+   * (the default-seam pattern: reality enters at exactly one injectable point): Node REPLACES
+   * a provided child env rather than merging it, so pinning the read env forces constructing
+   * the whole environment, and gh needs PATH and friends underneath.
    */
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }
@@ -57,6 +57,7 @@ export interface MergeExecutionInput {
   /** DECLARED expected reviewer set — required; a defaulted set never merges. */
   readonly expectedReviewers: readonly string[];
   readonly nowIso: string;
+  readonly unavailable?: UnavailableInput | undefined;
   readonly seams: MergeExecutionSeams;
 }
 
@@ -143,6 +144,7 @@ export async function runMergeExecution(
     target: target.value,
     ghPath: input.seams.ghPath,
     expectedReviewers: input.expectedReviewers,
+    unavailable: input.unavailable,
   });
   if (!reading.ok) {
     return reading;
