@@ -1,5 +1,5 @@
 ---
-description: After non-trivial changes, invoke code-expert as the gateway and the specialist reviewers the change profile names; the roster table maps what changed to the reviewer, and the host's executive catalogue adds its domain reviewers and path triggers.
+description: A review — a vendor's on a pull request (Copilot, Codex) or an agent reviewer's — is requested for a stated reason, never by default or by cadence (the owner, 2026-10-27, reviews are expensive); when one is taken, code-expert is the gateway, the roster table maps the reason to the reviewer, and the host's executive catalogue adds its domain reviewers and path triggers.
 alwaysApply: true
 ---
 

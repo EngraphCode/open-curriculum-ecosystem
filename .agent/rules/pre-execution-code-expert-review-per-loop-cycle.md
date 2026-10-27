@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: "Every /loop cycle: dispatch code-expert twice — pre-execution, before the implementer fan-out (per-site FIX/FALSE_POSITIVE/DEFER/SPLIT dispositions or scope feedback the fan-out brief absorbs), and post-execution as the gateway before commit. Plan names the reviewer set: fan-from-brief, specialists parallel from cycle-open. Set unknown: fan-from-verdict, code-expert routes first. Not for edits outside /loop cadence — invoke-code-experts covers those. Failure shapes: fanning out implementers with no returned pre-execution review; serialising a named-set cycle through code-expert as router."
+description: "A /loop cycle that takes a code-expert review for a stated reason (never by cadence — the owner, 2026-10-27) takes it at two moments: pre-execution, before the implementer fan-out (per-site FIX/FALSE_POSITIVE/DEFER/SPLIT dispositions or scope feedback the fan-out brief absorbs), and post-execution as the gateway before commit. Plan names the reviewer set: fan-from-brief, specialists parallel from cycle-open. Set unknown: fan-from-verdict, code-expert routes first. Not for edits outside /loop cadence — invoke-code-experts covers those. Failure shapes: fanning out implementers before a requested pre-execution review returns; serialising a named-set cycle through code-expert as router; a review taken because the cycle turned."
 trigger: ceremony:loop-cycle
 ---
 
@@ -15,14 +15,18 @@ cadence step in /loop cycle execution.
 
 ## Rule
 
-**On every /loop cycle, `code-expert` is dispatched twice: once
-pre-execution (before the implementer fan-out runs), and once
-post-execution (as the gateway before commit). Two review moments per
-cycle, never one.**
+**A /loop cycle takes a `code-expert` review for a stated reason — a
+remediation pass whose sites need per-site dispositions, a scope the plan
+leaves open, a risk surface the seat cannot read alone — never because the
+cycle turned (the owner, 2026-10-27: reviews are requested only with a good
+reason, never automatically; they are expensive). When the cycle takes it,
+it takes it at two moments: pre-execution (before the implementer fan-out
+runs) and post-execution (as the gateway before commit). Two review
+moments, never one.**
 
-The pre-execution dispatch is mandatory. A cycle that fans out
-implementers without a returned pre-execution review is a procedural
-defect, not a faster path.
+A cycle that requests the pre-execution review and fans out implementers
+before it returns wastes the request. A cycle with no reason records that
+in its cadence report and fans out.
 
 ## When (cadence position)
 
@@ -148,9 +152,9 @@ fan-out brief before dispatch.
 ## Reporting
 
 Per `invoke-code-experts.md` §"Coverage Tracking" and §"Reporting
-Requirement", every cycle's cadence report records both review
-invocations explicitly. Omitting the pre-execution review is the
-same kind of defect as omitting the gateway review.
+Requirement", every cycle's cadence report records the reviews taken and
+their stated reason, or that none was taken and why. A review taken at
+one moment and not the other is recorded as such.
 
 ## Source attribution
 
@@ -172,7 +176,7 @@ from cycle-open.
 ## Scope reading (adjudicated 2026-07-30)
 
 The apparent conflict between an AgentTool fence (a seat barred from
-sub-agent dispatch) and this rule's mandated review dissolves by SCOPE
+sub-agent dispatch) and a review this rule shapes dissolves by SCOPE
 reading plus seat transfer: the pre-execution-review obligation binds
 fan-out CYCLES, not fenced seats — a fenced seat routes the dispatch to a
 peer or the Director (the coordinator-delegates discipline), and the

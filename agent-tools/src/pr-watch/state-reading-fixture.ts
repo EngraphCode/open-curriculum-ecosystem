@@ -21,6 +21,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
   return {
     number: 999,
     url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/999',
+    author: 'app/el-graphael',
     state: 'OPEN',
     isDraft: false,
     mergeable: 'MERGEABLE',

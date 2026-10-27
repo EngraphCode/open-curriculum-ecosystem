@@ -1,15 +1,14 @@
-import { execFileSync } from 'node:child_process';
-
 import { err, ok, type Result } from '@oaknational/result';
 
-import { parsePrTarget, type GhCommandExecutor, type PrTarget } from '../pr-watch/gh.js';
+import { parsePrTarget, type PrTarget } from '../pr-watch/gh.js';
 import type { UnavailableInput } from '../pr-watch/state-compose.js';
 import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
-import { computePrVerdict } from '../pr-watch/states.js';
 import { decideMergeAction, type MergeDecision } from './merge-decision.js';
 import { realFetch } from './github-fetch.js';
 import { readMergeSettings, putMerge } from './merge-github-api.js';
+import { readExecutor } from './merge-read-env.js';
+import { resolveVerdict } from './merge-records-checks.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import type { BotIdentity } from './resolve-identity.js';
@@ -53,6 +52,8 @@ interface MergeExecutionSeams {
 
 export interface MergeExecutionInput {
   readonly identity: BotIdentity;
+  /** The bot's app slug: the only author the records door admits (`app/<slug>`). */
+  readonly appSlug: string;
   readonly prNumber: number;
   /** DECLARED expected reviewer set — required; a defaulted set never merges. */
   readonly expectedReviewers: readonly string[];
@@ -76,42 +77,6 @@ export type MergeOutcome =
       readonly evidence: readonly string[];
     };
 
-/**
- * The child environment for a READ-path gh call: pinned host, stripped
- * enterprise fallbacks, and NO token of any kind — reads run on the
- * session's own gh auth (keyring OAuth), writes on the minted token via
- * fetch. The split is the estate's standing identity discipline made
- * structural, and it is what keeps the `gh agent-task` review-run probe
- * alive: that surface refuses app installation tokens outright (F-156 —
- * the merge arm's first live firing died on exactly this, the probe
- * inheriting the minted GH_TOKEN). A stale ambient GH_TOKEN is stripped
- * for the same determinism the old write-path injection had: the read
- * identity is the keyring, never whatever token happened to be in the
- * environment. The host stays pinned (security H1): an ambient GH_HOST
- * would steer reads to another host while the merge PUT stays pinned to
- * api.github.com by construction (`merge-github-api.ts`) — the reading
- * and the act must run against the same host.
- */
-export function readEnv(
-  baseEnv: Readonly<Record<string, string | undefined>>,
-): Record<string, string | undefined> {
-  return {
-    ...baseEnv,
-    GH_HOST: 'github.com',
-    GH_ENTERPRISE_TOKEN: undefined,
-    GITHUB_ENTERPRISE_TOKEN: undefined,
-    GH_TOKEN: undefined,
-    GITHUB_TOKEN: undefined,
-  };
-}
-
-/** Wraps an executor so every read-path gh call runs on the keyring, host-pinned. */
-export function readExecutor(
-  baseEnv: Readonly<Record<string, string | undefined>>,
-): GhCommandExecutor {
-  return (file, args, options) => execFileSync(file, args, { ...options, env: readEnv(baseEnv) });
-}
-
 function defaultMint(input: MergeExecutionInput): () => Promise<Result<MintedToken, Error>> {
   return () =>
     mintForConfig({ ...input.identity, scope: 'pull-request-merge' }, input.seams.mintSeams ?? {});
@@ -133,8 +98,6 @@ export async function runMergeExecution(
       ),
     );
   }
-  const token = minted.value.token;
-
   const target = mergeTarget(input);
   if (!target.ok) {
     return target;
@@ -150,7 +113,7 @@ export async function runMergeExecution(
     return reading;
   }
 
-  return gateAndMerge({ input, reading: reading.value, token });
+  return gateAndMerge({ input, reading: reading.value, token: minted.value.token });
 }
 
 /**
@@ -205,14 +168,20 @@ function refused(reason: string, verdict: PrVerdict): Result<MergeOutcome, Error
 }
 
 /**
- * The verdict → eligibility → settings-gate → merge tail. Eligibility is
+ * The verdict → class → eligibility → settings-gate → merge tail. The base
+ * branch's required contexts are read on every verdict the bot's own pull
+ * request could merge on, and the change class only where it decides
+ * (`merge-records-checks.ts`); a failed read there
+ * is the same transient class as a failed PR-state read, so the poll loop
+ * retries it within the budget rather than ending on one 502. Eligibility is
  * classified BEFORE the settings endpoint is touched: that GET is a fallible
  * network call, so asking it first turned every documented typed refusal
  * (MERGED, CHECKS-RED, …) into an operational failure whenever the read
  * failed. The decision core is untouched — `allowMergeCommit: true` asks it
  * one question, whether this verdict is mergeable at all — and the REAL
  * setting then goes through the same function, so the never-squash refusal
- * keeps its one canonical wording.
+ * keeps its one canonical wording. A merge opened by the class carries its
+ * ground in the evidence beside the verdict's own lines.
  */
 async function gateAndMerge(context: {
   readonly input: MergeExecutionInput;
@@ -220,15 +189,32 @@ async function gateAndMerge(context: {
   readonly token: string;
 }): Promise<Result<MergeOutcome, Error>> {
   const { input, reading, token } = context;
-  const verdict = computePrVerdict(reading, input.nowIso);
+  const fetchImpl = input.seams.fetchImpl ?? realFetch();
+  const resolved = await resolveVerdict({
+    reading,
+    appSlug: input.appSlug,
+    nowIso: input.nowIso,
+    fetchImpl,
+    token,
+    target: { identity: input.identity, prNumber: input.prNumber },
+  });
+  if (!resolved.ok) {
+    const message = `door reading failed: ${resolved.error.message}`;
+    return err(new ReadingUnavailableError(message, { cause: resolved.error }));
+  }
+  const { verdict, changeClass } = resolved.value;
   const decide = (allowMergeCommit: boolean): MergeDecision =>
-    decideMergeAction({ verdict, allowMergeCommit, expectedDeclared: reading.expectedDeclared });
+    decideMergeAction({
+      verdict,
+      allowMergeCommit,
+      expectedDeclared: reading.expectedDeclared,
+      changeClass,
+    });
 
   const eligible = decide(true);
   if (eligible.kind === 'refuse') {
     return refused(eligible.reason, verdict);
   }
-  const fetchImpl = input.seams.fetchImpl ?? realFetch();
   const allowMergeCommit = await readMergeSettings(fetchImpl, token, input.identity);
   if (!allowMergeCommit.ok) {
     return allowMergeCommit;
@@ -237,7 +223,19 @@ async function gateAndMerge(context: {
   if (decision.kind === 'refuse') {
     return refused(decision.reason, verdict);
   }
+  return mergeVerdicted({ fetchImpl, token, input, reading, verdict, ground: decision.ground });
+}
 
+/** The merge PUT at the verdicted tip; the outcome's evidence is the verdict's lines plus the class ground, when one opened the door. */
+async function mergeVerdicted(context: {
+  readonly fetchImpl: GithubApiFetch;
+  readonly token: string;
+  readonly input: MergeExecutionInput;
+  readonly reading: PrStateReading;
+  readonly verdict: PrVerdict;
+  readonly ground: string | undefined;
+}): Promise<Result<MergeOutcome, Error>> {
+  const { fetchImpl, token, input, reading, verdict, ground } = context;
   const merged = await putMerge(fetchImpl, token, {
     identity: input.identity,
     prNumber: input.prNumber,
@@ -246,5 +244,6 @@ async function gateAndMerge(context: {
   if (!merged.ok) {
     return merged;
   }
-  return ok({ kind: 'merged', sha: merged.value, evidence: verdict.evidence });
+  const evidence = ground === undefined ? verdict.evidence : [...verdict.evidence, ground];
+  return ok({ kind: 'merged', sha: merged.value, evidence });
 }
