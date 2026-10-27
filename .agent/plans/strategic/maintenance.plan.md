@@ -2,7 +2,7 @@
 id: maintenance
 node_type: strategic
 name: "Maintenance — known defects are fixed, and stay fixed"
-overview: "The resting branch carries no known defect: every finding an analyser, a reviewer or a seat raises is fixed in the tree, and the class behind it is held by a gate where one exists."
+overview: "The resting branch carries no known analyser finding: every one is fixed in the tree, and the class behind it is held by a gate where one exists."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -21,9 +21,10 @@ last_updated: 2026-10-27
 
 ## Outcome
 
-The resting branch carries no known defect. Every finding an analyser, a reviewer or a seat raises
-is fixed in the tree, never dismissed (owner ruling 2026-09-08, verbatim: "We don't dismiss issues,
-we fix them."), and where a gate can hold the class, the class is held at commit time.
+The resting branch carries no known analyser finding. Every finding a code analyser raises is
+fixed in the tree, never dismissed (owner ruling 2026-09-08, verbatim: "We don't dismiss issues,
+we fix them."), and where a gate can hold the class, the class is held at commit time. Findings
+from reviewers are triaged under `review-feedback-defaults-to-triage` and PDR-140.
 
 ## User groups and value
 
