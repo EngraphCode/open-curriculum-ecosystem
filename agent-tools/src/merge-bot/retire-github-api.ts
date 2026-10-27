@@ -1,16 +1,16 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
-import { printable } from '../pr-watch/printable.js';
-import { githubJsonHeaders } from './github-fetch.js';
-import { readJsonBody, sendGithubRequest, type GithubApiFetch } from './mint-installation-token.js';
+import { postGraphql } from './github-graphql.js';
+import type { GithubApiFetch } from './mint-installation-token.js';
+import type { BotRepository } from './resolve-identity.js';
 import type { PlannedDelete } from './retire-decision.js';
 import type { DefaultBranchReading, RemoteRefReading } from './retire-parse.js';
 
 /**
- * The retire command's two calls to GitHub, both GraphQL so the branch name
- * travels in a JSON body and never in a URL path (where git-legal `#` and
- * `%` would be read as something else).
+ * The retire command's two calls to GitHub, both GraphQL (`github-graphql.ts`)
+ * so the branch name travels in a JSON body and never in a URL path (where
+ * git-legal `#` and `%` would be read as something else).
  *
  * The delete is `updateRefs` with `beforeOid`: a server-side compare-and-swap,
  * so a push landing after the proof is kept, not deleted. A stale `beforeOid`
@@ -19,7 +19,6 @@ import type { DefaultBranchReading, RemoteRefReading } from './retire-parse.js';
  * outcome from this answer: it reads the ref back.
  */
 
-const GRAPHQL_URL = 'https://api.github.com/graphql';
 const ZERO_OID = '0'.repeat(40);
 
 const REMOTE_REF_QUERY = `query($owner: String!, $name: String!, $ref: String!) {
@@ -48,8 +47,6 @@ const remoteRefSchema = z.object({
 
 const deleteSchema = z.object({ data: z.object({ updateRefs: z.looseObject({}) }) });
 
-const errorsSchema = z.object({ errors: z.array(z.object({ message: z.string() })).min(1) });
-
 /** The repository's node id, its default branch, and the remote ref, as GitHub reads them. */
 export interface RemoteRefState {
   readonly repositoryId: string;
@@ -58,52 +55,11 @@ export interface RemoteRefState {
   readonly ref: RemoteRefReading;
 }
 
-/** The repository the bot identity names. */
-export interface IdentityRepo {
-  readonly owner: string;
-  readonly repoName: string;
-}
-
-/** POST one GraphQL document; returns the parsed JSON body of a 200, or a failure naming GitHub's words. */
-async function postGraphql(
-  fetchImpl: GithubApiFetch,
-  token: string,
-  label: string,
-  document: { readonly query: string; readonly variables: Readonly<Record<string, string>> },
-): Promise<Result<unknown, Error>> {
-  const sent = await sendGithubRequest(
-    fetchImpl,
-    GRAPHQL_URL,
-    {
-      method: 'POST',
-      headers: githubJsonHeaders(token),
-      body: JSON.stringify(document),
-    },
-    label,
-  );
-  if (!sent.ok) {
-    return sent;
-  }
-  const body = await readJsonBody(sent.value, label);
-  if (!body.ok) {
-    return body;
-  }
-  const errors = errorsSchema.safeParse(body.value);
-  if (errors.success) {
-    const messages = errors.data.errors.map((entry) => printable(entry.message)).join('; ');
-    return err(new Error(`${label} answered with GraphQL errors: ${messages}`));
-  }
-  if (sent.value.status !== 200) {
-    return err(new Error(`${label} answered ${sent.value.status}`));
-  }
-  return ok(body.value);
-}
-
 /** Read the remote ref, the default branch, and the node id the delete needs, through the identity's own repository. */
 export async function readRemoteRefByApi(
   fetchImpl: GithubApiFetch,
   token: string,
-  repo: IdentityRepo,
+  repo: BotRepository,
   branch: string,
 ): Promise<Result<RemoteRefState, Error>> {
   const body = await postGraphql(fetchImpl, token, 'the remote ref read', {

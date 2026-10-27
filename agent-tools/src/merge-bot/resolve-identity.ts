@@ -50,6 +50,9 @@ export interface BotIdentity {
   readonly repoName: string;
 }
 
+/** The repository the bot identity names, as the GitHub calls address it. */
+export type BotRepository = Pick<BotIdentity, 'owner' | 'repoName'>;
+
 function isBlank(value: string | undefined): value is undefined | '' {
   return value === undefined || value === '';
 }

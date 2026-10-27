@@ -3,6 +3,7 @@ import { basename } from 'node:path';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { printable } from '../pr-watch/printable.js';
+import { isUrlSafeBranchName } from './branch-arg.js';
 
 /**
  * The text parsers behind `merge-bot retire`: what git prints, turned into
@@ -17,21 +18,6 @@ import { printable } from '../pr-watch/printable.js';
 
 const SHA_PATTERN = /^[0-9a-f]{40}$/;
 
-/**
- * The branch names this command will retire: ASCII letters, digits, dot,
- * underscore, hyphen and slash. A URL-safety policy on top of git's own ref
- * grammar (which `ref-format.ts` asks git for), not a replacement for it:
- * git accepts `#` and `%` in a branch name, and a URL or a server decoding a
- * path would read either as something else. A name outside the list is
- * retired by hand.
- */
-const RETIRABLE_BRANCH = /^[A-Za-z0-9._/-]+$/;
-
-/** Whether this command may retire a branch of this name (see `RETIRABLE_BRANCH`). */
-export function isRetirableBranchName(name: string): boolean {
-  return RETIRABLE_BRANCH.test(name);
-}
-
 /** The remote's default branch and its tip, from one `ls-remote --symref origin HEAD`. */
 export interface DefaultBranchReading {
   readonly name: string;
@@ -41,7 +27,7 @@ export interface DefaultBranchReading {
 /**
  * Read `git ls-remote --symref origin HEAD`: a `ref: refs/heads/<name>\tHEAD`
  * line, then `<sha>\tHEAD`. The name is server-supplied and lands in a later
- * argv, so it must be a retirable name and must not read as a flag.
+ * argv, so it must be a URL-safe name and must not read as a flag.
  */
 export function parseSymrefHead(stdout: string): Result<DefaultBranchReading, Error> {
   const lines = stdout.split('\n');
@@ -52,7 +38,7 @@ export function parseSymrefHead(stdout: string): Result<DefaultBranchReading, Er
       new Error(`the remote's HEAD could not be read from: ${printable(JSON.stringify(stdout))}`),
     );
   }
-  if (name.startsWith('-') || !isRetirableBranchName(name)) {
+  if (name.startsWith('-') || !isUrlSafeBranchName(name)) {
     return err(
       new Error(
         `the remote's default branch name "${printable(name)}" is outside the names this command handles`,

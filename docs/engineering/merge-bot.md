@@ -91,8 +91,12 @@ per-reviewer legs, quiet window — inside the same invocation, because a
 bot review can land in the seconds between (caught twice in forty
 minutes, #570/#574).
 
-For the OTHER bot writes (pushes, PR create/edit, comments, review
-replies, thread resolution, update-branch), mint a token and use it:
+The bot's writes on a pull request's conversation — opening a draft,
+commenting, replying on a review thread, resolving a thread, marking a draft
+ready, closing with a reason — are the typed command `merge-bot pull-request`
+(§Writing on a pull request's conversation below), and pushes are
+`merge-bot push`. For the bot writes no typed command carries yet (editing a
+title or body, update-branch, a reviewer request), mint a token and use it:
 
 ```bash
 token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
@@ -433,3 +437,39 @@ pnpm agent-tools merge-bot retire --branch <name>
   proofs and deletes by hand (`git merge-base --is-ancestor` twice, a REST
   delete as the bot, `git branch -d`); this command is that recipe with its
   proofs made structural.
+
+## Writing on a pull request's conversation
+
+`merge-bot pull-request <verb>` makes the bot's writes on a pull request's
+conversation, each invocation under one installation token it mints itself
+with the `pull-request-work` scope, so the platform record says an agent
+made the write and no seat composes a `GH_TOKEN="$token" gh …` shell line
+for it:
+
+```bash
+pnpm agent-tools merge-bot pull-request open --branch <name> --title <text> --body-file <path> --wip-limit <n>
+pnpm agent-tools merge-bot pull-request comment --pr <n> --body-file <path>
+pnpm agent-tools merge-bot pull-request reply --pr <n> --comment <id> --body-file <path>
+pnpm agent-tools merge-bot pull-request resolve --pr <n> --thread <node-id>
+pnpm agent-tools merge-bot pull-request ready --pr <n>
+pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>
+```
+
+- The verb set and each verb's flag set are closed grammars: anything they
+  do not name is a usage refusal (exit 2) naming what was expected, with the
+  usage text. `merge-bot pull-request --help` is the contract.
+- Every body or reason file is read from disk and sent verbatim; an empty
+  file refuses (exit 3) before anything is minted.
+- `open` writes a DRAFT from the branch into the repository's default
+  branch, read from GitHub, and refuses (exit 3, writing nothing) when the
+  remote does not hold the branch, when an open pull request already has
+  that head, or when the open pull requests whose head is not a
+  `coordination/` branch number at or above `--wip-limit`, a REQUIRED flag
+  with no default.
+- `resolve`, `ready` and `close` each read the state they depend on first
+  and refuse as a typed value before writing: a thread on another pull
+  request or already resolved; a pull request that is not an open draft; a
+  pull request that is not open.
+- Exit map: 0 done, 1 operational failure (GitHub answered a status other
+  than the one expected, named with GitHub's message), 2 usage, 3 typed
+  refusal. `--json` puts exactly the outcome object on stdout.

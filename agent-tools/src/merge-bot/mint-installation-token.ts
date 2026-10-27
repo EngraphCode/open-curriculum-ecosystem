@@ -129,9 +129,10 @@ export async function readJsonBody(
  *
  * This matters most for `422` on a token mint: GitHub answers "the
  * permissions requested are not granted to this installation", which names
- * the whole fix, while a bare status code sends the reader hunting.
+ * the whole fix, while a bare status code sends the reader hunting. The
+ * pull-request writes (`github-rest.ts`) enrich their failures the same way.
  */
-async function githubErrorDetail(response: {
+export async function githubErrorDetail(response: {
   readonly json: () => Promise<unknown>;
 }): Promise<string> {
   const body = await readJsonBody(response, 'error body');

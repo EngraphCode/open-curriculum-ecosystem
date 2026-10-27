@@ -79,9 +79,13 @@ round), per-reviewer legs, outstanding requests, live runs — inside the same i
 bot review can land in the seconds between (caught twice in forty
 minutes, #570/#574).
 
-For the OTHER bot writes (PR create/edit, comments, review replies, thread
-resolution, update-branch, and pushes where the estate's identity contract
-names the bot as the transport), mint a token and use it:
+The bot's writes on a pull request's conversation are one typed command,
+`merge-bot pull-request` (§Writing on a pull request's conversation below):
+opening a draft, commenting, replying on a review thread, resolving a
+thread, marking a draft ready, closing with a reason. Pushes where the
+estate's identity contract names the bot as the transport are
+`merge-bot push`. For the bot writes no typed command carries yet (editing a
+title or body, update-branch, a reviewer request), mint a token and use it:
 
 ```bash
 token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
@@ -274,11 +278,12 @@ Any PR mutation performed **by an agent** runs under the bot token, so the
 platform record itself says which actions were a human's and which were an
 agent's: opening PRs, editing titles/descriptions, commenting, replying to
 review threads, resolving threads, requesting reviewers, arming, merging.
+The conversation writes are the typed command, which mints the token itself:
 
 ```bash
-token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
-GH_TOKEN="$token" gh pr edit <n> --body-file …
-GH_TOKEN="$token" gh api …/comments/<id>/replies -f body=…
+pnpm agent-tools merge-bot pull-request open --branch <name> --title <text> --body-file <path> --wip-limit <n>
+pnpm agent-tools merge-bot pull-request reply --pr <n> --comment <id> --body-file <path>
+pnpm agent-tools merge-bot pull-request resolve --pr <n> --thread <node-id>
 ```
 
 Reads may use any credential — attribution matters for writes. Agents keep
@@ -484,3 +489,44 @@ pnpm agent-tools merge-bot retire --branch <name>
   never printed, only the repository parsed from it.
 - Whether a branch is wanted is the caller's judgement; the command checks
   no pull request.
+
+## Writing on a pull request's conversation
+
+`merge-bot pull-request <verb>` makes the bot's writes on a pull request's
+conversation, each invocation under one installation token it mints itself
+with the `pull-request-work` scope. It replaces the `token=$(mint)` and
+`GH_TOKEN="$token" gh …` shell lines for these writes, which a worktree's
+Bash guard refuses as a compound command and which cannot fail fast:
+
+```bash
+pnpm agent-tools merge-bot pull-request open --branch <name> --title <text> --body-file <path> --wip-limit <n>
+pnpm agent-tools merge-bot pull-request comment --pr <n> --body-file <path>
+pnpm agent-tools merge-bot pull-request reply --pr <n> --comment <id> --body-file <path>
+pnpm agent-tools merge-bot pull-request resolve --pr <n> --thread <node-id>
+pnpm agent-tools merge-bot pull-request ready --pr <n>
+pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>
+```
+
+- The verb set is closed, and so is each verb's flag set: an unknown verb or
+  flag, a missing or repeated flag, a `--pr` that is not a positive integer,
+  each is a usage refusal (exit 2) naming what was expected, with the usage
+  text. `merge-bot pull-request --help` is the contract.
+- Every body or reason file is read from disk and sent verbatim; an empty
+  file refuses (exit 3) before anything is minted.
+- `open` writes a DRAFT from the branch into the repository's default
+  branch, read from GitHub. It refuses (exit 3, writing nothing) when the
+  remote does not hold the branch, when an open pull request already has
+  that head, or when the open pull requests whose head is not a
+  `coordination/` branch number at or above `--wip-limit`. The limit is
+  REQUIRED: it is the seat's to state, so it has no default.
+- `resolve` reads the thread first and refuses one that is not on that pull
+  request or is already resolved; `ready` refuses a pull request that is not
+  an open draft; `close` posts the reason as an issue comment, then closes,
+  and refuses before either write when the pull request is not open.
+- Exit map: 0 done, 1 operational failure (GitHub answered a status other
+  than the one expected, named with GitHub's message; or the mint, a file
+  read or the network failed), 2 usage, 3 typed refusal. `--json` puts
+  exactly the outcome object on stdout.
+- The repository is the bot identity's, from `.github/merge-bot.json` at the
+  clone's primary checkout. Identity resolution and the mint are the ones
+  `merge-bot push` and `merge-bot retire` use.

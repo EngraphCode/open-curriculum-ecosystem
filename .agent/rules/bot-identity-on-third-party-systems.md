@@ -208,11 +208,14 @@ the first hop. Confirm the id from the API, never from prose:
   front door thereafter). Run the front door with the primary's built
   binary from the target worktree.
 
-- **PR creation, PR and issue comments, standalone inline review comments and
-  thread replies, thread resolution** — every bot-credential row of the map: a
-  minted installation token exported as `GH_TOKEN` for the `gh` invocation.
-  **Assign it first and stop if the mint fails** — never the
-  `GH_TOKEN=$(…) gh …` prefix form:
+- **PR creation, PR comments, thread replies, thread resolution, marking a
+  draft ready, closing** — the typed front door, which mints the token itself
+  and refuses by type (`pnpm agent-tools merge-bot pull-request <verb>`;
+  `.agent/reference/merge-bot.md` §Writing on a pull request's conversation).
+  **Every other bot-credential row of the map** (editing a title or body, a
+  standalone inline review comment, update-branch): a minted installation
+  token exported as `GH_TOKEN` for the `gh` invocation. **Assign it first and
+  stop if the mint fails** — never the `GH_TOKEN=$(…) gh …` prefix form:
 
   ```bash
   token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1

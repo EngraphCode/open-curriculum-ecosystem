@@ -65,6 +65,7 @@ pnpm agent-tools agent-identity --seed example-session-id-001 --format display
 pnpm agent-tools collaboration-state identity preflight --platform codex --model GPT-5
 pnpm agent-tools context-cost --glob '.agent/rules/*.md'
 pnpm agent-tools arc-metrics --vendor claude --json
+pnpm agent-tools merge-bot pull-request comment --pr 42 --body-file /tmp/reply.md
 pnpm agent-tools:claude-agent-ops status
 pnpm agent-tools:claude-agent-ops health
 pnpm agent-tools:cursor-session-from-claude-session find --last-hours 2
