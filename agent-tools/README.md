@@ -66,6 +66,7 @@ pnpm agent-tools collaboration-state identity preflight --platform codex --model
 pnpm agent-tools context-cost --glob '.agent/rules/*.md'
 pnpm agent-tools arc-metrics --vendor claude --json
 pnpm agent-tools merge-bot pull-request comment --pr 42 --body-file /tmp/reply.md
+pnpm agent-tools merge-bot pull-request dispatch-workflow --workflow upstream-carrier.yml
 pnpm agent-tools:claude-agent-ops status
 pnpm agent-tools:claude-agent-ops health
 pnpm agent-tools:cursor-session-from-claude-session find --last-hours 2
