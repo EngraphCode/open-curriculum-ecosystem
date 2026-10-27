@@ -15,6 +15,10 @@ handoff-record shape.
 
 **Every handoff message — directed comms-event, mid-cycle handoff record, continuation-pointer note, or any inter-agent transfer of work — MUST be self-contained. The receiver cannot read the sender's transcript; the message IS the entire information transfer.**
 
+A later, more specific message from the same author settles an earlier ambiguous line, and the
+receiver acknowledges its reading back before acting on it (2026-10-02: the ack was asked for
+and confirmed before the line was acted on).
+
 ## Why this rule exists
 
 Receiving agents cannot read the sending agent's transcript. This applies to:

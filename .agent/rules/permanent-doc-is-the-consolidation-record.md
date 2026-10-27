@@ -37,7 +37,14 @@ durable"):
    they close, archive, and stop being read. They carry the WORK.
 3. **Permanent documentation — ADRs, rules, PDRs, `docs/` — is the only
    durable tier.** Knowledge that must persist lands there AT OCCURRENCE,
-   not at a later consolidation.
+   not at a later consolidation. A running fold or gate blocks edits to
+   tracked files, never a new file: a decision that arrives while a gate
+   holds the tree is written into its permanent home as a new file at once,
+   linted so the running gate passes over it, and committed after the
+   successor cut; the stream carries the pointer and is never the home (the
+   owner, 2026-10-08: "comms events are not considered durable, they are
+   ephemeral, that is why we created editorial decision records for this
+   repo").
 
 Never call any of the temporary tiers "the durable record"; if one is,
 that is the defect to fix. Worked instance: a security finding lived only

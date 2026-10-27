@@ -214,7 +214,8 @@ on what it is: a valid intro or relief newer than your own intro means
 a successor took the mantle mid-teardown — run the handover above
 (sign-off reply, baseline `ts`, owner notified, status final-edit) and
 post no vacancy; a
-valid vacancy, or nothing newer, means the mantle is yours to vacate —
+valid vacancy newer than your intro means the tenure is already closed —
+post nothing; nothing newer means the mantle is yours to vacate —
 post the vacancy sign-off, naming your own intro's `ts` as the tenure
 it closes (step 2's tenure binding) and your last-processed baseline
 `ts` as the boundary successors sweep from, and final-edit the tenure

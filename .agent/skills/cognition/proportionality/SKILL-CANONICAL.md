@@ -143,6 +143,15 @@ names as a real defect.
 - **Assurance rigour** —
   [§Agentic Quality](../../../directives/principles.md#agentic-quality) risk-tiers assurance to
   the harm of getting it wrong, *"never uniform"*.
+- **Private instruments** — a wrong-instrument-weight instance. A tool the owner uses alone on
+  his machine takes the basest working version: one observation, one pull request, and no
+  reviewer fleet unless he asks. Reviewer and accessibility depth is sized by the audience: a
+  public service gets it, a private instrument does not. When he says a thing is SIMPLE, the
+  measure is what he must attend to, never the estate's doctrine. The owner, 2026-10-08, on a
+  local editor that had drawn six reviewers and a Cricket suite, verbatim: "you are building an
+  MVP editing app, which requires the basest ability to be read then changed... and you are
+  applying the a11y requirements of a public service, and thus wasting my time, my money, and
+  your attention."
 
 **When a domain instance exists, run it.** This skill does not substitute for the
 mechanical instrument; it is the reason to reach for one, and the fallback when a domain

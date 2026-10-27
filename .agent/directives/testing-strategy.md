@@ -649,6 +649,9 @@ specify is composed from many smaller pieces. Lower-level tests
 give fast feedback and pinpoint failures; higher-level tests
 prove the system delivers value as a whole. Both are required.
 
+A test file's opening comment names which surface each of its tests proves (the source, the
+configuration, the rendered adapter), so a reader knows what a green run certifies (2026-10-03).
+
 **The cycle is the same at every level**: write the failing test
 that specifies the next slice of behaviour, write the product
 code that makes it pass, refactor while keeping it green — all

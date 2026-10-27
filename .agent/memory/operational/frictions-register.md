@@ -4804,3 +4804,21 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
   JC.net's copy of the validator is read for the same walk before the cure is scoped.
 - **Target surface**: the validator (code).
 - **Status**: open; a code lane.
+
+### F-296 — `session-metadata` derives the transcript directory from the working directory's project path, so a linked worktree reads nothing (2026-10-14)
+
+- **Source**: the consolidation seat's notebook blocks of 2026-10-14 (on lane
+  `docs/consolidation-3` in a linked worktree, working this estate non-resident), the same day in
+  both estates.
+- **Surface**: `agent-tools session-metadata` (the project-directory derivation in its usage
+  reader).
+- **Observed**: from a lane worktree the command looked under a worktree-named project directory
+  and failed ENOENT; the seat read the context meter from the transcript's newest assistant usage
+  under the primary's project directory instead.
+- **Expected**: the command reads the session's transcript wherever the session runs, from a
+  linked worktree included.
+- **Candidate cure**: a `--project-dir` option, defaulting to the primary checkout's project
+  directory when the working directory is a linked worktree (`git rev-parse --git-common-dir`).
+- **Target surface**: agent-tools session-metadata (both estates).
+- **Status**: open; the gotchas reference carries the workaround.
+- **Owner direction status**: unsolicited (a seat's tool friction).

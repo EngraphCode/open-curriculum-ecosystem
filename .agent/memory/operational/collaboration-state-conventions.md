@@ -82,6 +82,9 @@ one; editing scope or intent in place rewrites history and breaks the
 `claim_id` citation chain that closed-claims archiving exists to preserve.
 `claims adopt` is the one sanctioned in-place identity rewrite (mid-cycle
 pickup, PDR-063), and it deliberately preserves the undertaking unchanged.
+Every `claims` action names the claim by its full `claim_id` (the UUID); the
+eight-character prefix the records cite is a citation form, and `claims heartbeat`
+given it answers "no active claim matches" (2026-10-14).
 
 ## Write-Safety Contract
 

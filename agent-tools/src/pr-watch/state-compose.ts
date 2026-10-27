@@ -9,6 +9,7 @@ import {
 import { defaultExpectedReviewers } from './expected-reviewers.js';
 import { hasLanded } from './reviewer-legs.js';
 import { commentRequests } from './round-requests.js';
+import type { ReviewConfiguration } from './review-configuration.js';
 import type { HarvestedComment } from './state-conversation.js';
 import type { ParsedStateView } from './state-fields.js';
 import type { PrStateReading } from './state-types.js';
@@ -36,6 +37,8 @@ export interface ComposeReadingInput {
   readonly reviewThreads: PrStateReading['reviewThreads'];
   readonly reviews: PrStateReading['reviews'];
   readonly reviewRuns: PrStateReading['reviewRuns'];
+  /** The base branch's automatic-review configuration, read with the reading. */
+  readonly reviewConfiguration: ReviewConfiguration;
   readonly declared: readonly string[];
   /** Vendors declared unavailable (`--unavailable`); none when absent. */
   readonly unavailable?: UnavailableInput | undefined;
@@ -85,6 +88,7 @@ export function composeReading(input: ComposeReadingInput): PrStateReading {
     completionComments,
     declaredUnavailable,
     reviewRuns: input.reviewRuns,
+    reviewConfiguration: input.reviewConfiguration,
     expectedReviewers,
     expectedDeclared: input.declared.length > 0,
     content: input.readContent(landed.map((review) => review.commitOid)),

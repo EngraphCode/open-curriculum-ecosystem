@@ -82,7 +82,7 @@ check-in cadence reads the DUE clock at each check-in as well.
    merge, however small and however well the author verified it (owner,
    2026-07-25, after dependency pin bumps were evaluated first-hand and
    committed straight to the coordination branch: "that's not a cure,
-   that's papering over a fuck up. Do not allow code into this repo
+   that's papering over a [mistake]. Do not allow code into this repo
    without a first hand review, not ever"; cured the same hour by a revert
    and a real pull request). Self-review is structurally blind and a
    direct commit forecloses every reviewer; the test is "is this code?",

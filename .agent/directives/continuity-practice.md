@@ -130,13 +130,15 @@ The repeatable operational procedure for disposition #2 (a runbook per
 embedded here in the doctrine it enacts):
 
 1. **Per entry, ask "live or finished?"** — never infer from age or fitness status.
-   Every entry is read before anything moves. The reading may be done by the curating
-   seat or by a set of readers over pieces of the surface, and the two differ only at
-   the join, so the obligation is met when the join checks pass (every cross-reference
-   resolves, every id occurs once, a status stated in another entry agrees), not when
-   one context has held every line (owner, 2026-09-20; the split method and its checks
-   are `consolidate-until-done` step 7). Each reader's claim that bears on a move is
-   verified at its source by the seat before that entry moves.
+   Every entry is read before anything moves. The reading is the curating seat's own: a surface
+   too large for one context is split into pieces the seat reads in turn with its notes kept as
+   it goes, never dispatched to readers (the owner, 2026-10-11: "Consolidation sessions are
+   single agent only, work via subagents loses all direct understand and therefore loses
+   lessons", withdrawing the set-of-readers reading of 2026-09-20), because a summary of a block
+   is not the block and the understanding that makes a lesson homeable is formed only in the
+   reading. The join checks (every cross-reference resolves, every id occurs once, a status
+   stated in another entry agrees) run at the seams between pieces; the split method and its
+   checks are `consolidate-until-done` step 7.
 2. **Route by disposition.** Finished and insight-homed → the entry joins the range to
    archive, but *verify the home holds it first* (the `verify-dont-trust` rule; "it's
    all homed" is a convenient claim to check, not trust). Finished and un-homed → route

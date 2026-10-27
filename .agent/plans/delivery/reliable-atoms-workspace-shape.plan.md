@@ -17,7 +17,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-10-02
+last_updated: 2026-10-10
 ---
 
 # Capability Foundations workspace shape
@@ -46,6 +46,14 @@ The workspace class and configuration names below are proposed implementation
 bindings, not existing executable surfaces. Physical budgets do not establish
 Primitive independence or semantic completion; the common architecture owns those
 requirements. Preserve the existing plan identity and sketch status.
+
+[ADR-233](../../../docs/architecture/architectural-decisions/233-retained-framework-and-configurable-instances.md)
+and the [CF reconstruction account](../../../docs/architecture/foundations/oce-cf-reconstruction.md)
+now own the programme connection. This node supplies class-specific structural
+enforcement, not the whole qualification mechanism. Its applicable outputs block
+qualification of affected governed units; contract/proof design may proceed in
+parallel. Neither this entire node nor the whole CF programme is a universal
+app-extraction gate. No team measurements or studies are commissioned.
 
 ## User groups and value
 
@@ -267,10 +275,14 @@ split).
 
 ## Out of scope
 
-- Where atom workspaces sit in the tree — ADR-041, ADR-154 and the basis
-  drive; the class binds shape, not placement.
-- Reshaping any existing `packages/core/*` member — each is its own tranche
-  under the programme; none is a reference for the class.
+- Where capability workspaces sit in the tree — ADR-233 and the controlling
+  architecture bind the target, with the exact coherent home selected in the
+  capability slice. Existing ADR-041/ADR-154 constraints are reconciled there;
+  the class binds shape, not placement, and does not perpetuate generic core.
+- Reshaping existing `packages/core/*` members — the CF reconstruction account
+  supplies all ten responsibility dispositions. Each is its own bounded slice;
+  no whole-workspace rename or present shape establishes qualification, and none
+  supplies a reference population for loosening this class.
 - The repo-wide report-only directory-concentration signal proposed in July
   2026 — still an unratified proposal, unaffected by the class.
 - The atom register and the conformance instrument themselves — the

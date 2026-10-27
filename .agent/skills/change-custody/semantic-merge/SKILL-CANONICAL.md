@@ -114,6 +114,16 @@ per class:
 The invariant across every class: **the merge is a union of concepts; no entry from either
 side is ever dropped to fit a structure or a limit.**
 
+A port between the two estates follows the same discipline with the destination's text as
+the base: the port is cut from the destination's own text with edits that assert their anchors
+(a raw patch duplicated three passages and reversed one, 2026-10-02); where the twin's anchor
+reads zero because the passage wraps differently, the cured passage is applied to the estate's
+own wording and proved byte-equal to the sibling's merged text; a three-way merge of a
+conflicted shared file lands the other estate's one-sided edits in its clean regions, which are
+a read nobody made, so each clean region is read by the receiving author (2026-10-03); and a
+carried module's import closure is read before the copy. The cure is the passage, never the
+anchor.
+
 ## Procedure
 
 1. **Preserve each side's CLEAN version first.** Before resolving, save the clean content
