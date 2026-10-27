@@ -53,6 +53,13 @@ const reviewRequestSchema = z
 const stateViewSchema = z.object({
   number: z.number(),
   url: z.string(),
+  // The pull request's author login as `gh pr view` spells it: a user's login,
+  // or `app/<slug>` for a GitHub App; a deleted account is null, read as
+  // 'unknown'. The records-class door reads it (`merge-records-checks.ts`).
+  author: z
+    .object({ login: z.string() })
+    .nullish()
+    .transform((value) => value?.login ?? 'unknown'),
   state: z.string(),
   // Drafts cannot merge via the sanctioned landing path — the verdict core
   // refuses them typed before any settlement read.
@@ -84,6 +91,8 @@ export const PR_STATE_VIEW_JSON_FIELDS: readonly string[] = typeSafeKeys(stateVi
 export interface ParsedStateView {
   readonly number: number;
   readonly url: string;
+  /** The author login as `gh pr view` spells it (`app/<slug>` for an App). */
+  readonly author: string;
   readonly state: string;
   readonly isDraft: boolean;
   readonly mergeable: string;
@@ -152,6 +161,7 @@ export function parseStateView(raw: unknown): ParsedStateView {
   return {
     number: parsed.number,
     url: parsed.url,
+    author: parsed.author,
     state: parsed.state,
     isDraft: parsed.isDraft,
     mergeable: parsed.mergeable,
