@@ -169,8 +169,9 @@ function refused(reason: string, verdict: PrVerdict): Result<MergeOutcome, Error
 
 /**
  * The verdict → class → eligibility → settings-gate → merge tail. The base
- * branch's required contexts and the change class are read only on a verdict
- * the records door decides (`merge-records-checks.ts`); a failed read there
+ * branch's required contexts are read on every verdict a GitHub App's pull
+ * request could merge on, and the change class only where it decides
+ * (`merge-records-checks.ts`); a failed read there
  * is the same transient class as a failed PR-state read, so the poll loop
  * retries it within the budget rather than ending on one 502. Eligibility is
  * classified BEFORE the settings endpoint is touched: that GET is a fallible

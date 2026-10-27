@@ -1,4 +1,4 @@
-import { ok, type Result } from '@oaknational/result';
+import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
@@ -21,10 +21,17 @@ import { parseWithSchema } from '../core/schema-parse.js';
  * contexts the branch really requires). An empty contexts list is refused
  * on the same ground: a rule of this type that names nothing is read as
  * truncation, never as a branch requiring nothing. Rules of every other
- * type keep their parameters unread.
+ * type keep their parameters unread, with one refusal: a
+ * `required_deployments` rule is a blocking gate GitHub evaluates beside the
+ * status checks, and this reader reads no deployments, so under such a rule
+ * "checks green by name" would be a partial reading of the branch's gates.
+ * No branch in the estate carries one (read 2026-10-27); the refusal keeps
+ * that a fact the door and the fold clock would notice.
  */
 
 const REQUIRED_STATUS_CHECKS = 'required_status_checks';
+/** A blocking gate this reader does not read; a branch carrying it is refused. */
+const REQUIRED_DEPLOYMENTS = 'required_deployments';
 
 /** Every rule names its type; the rest of the body is kept for the rule's own schema. */
 const ruleHeadSchema = z.looseObject({ type: z.string() });
@@ -43,6 +50,14 @@ export function parseRequiredChecks(value: unknown): Result<readonly string[], E
   }
   const contexts: string[] = [];
   for (const [index, rule] of rules.value.entries()) {
+    if (rule.type === REQUIRED_DEPLOYMENTS) {
+      return err(
+        new Error(
+          `branch rules: the ${REQUIRED_DEPLOYMENTS} rule at index ${index} is a blocking gate ` +
+            'this reader does not read, so checks cannot be called green by name under it',
+        ),
+      );
+    }
     if (rule.type === REQUIRED_STATUS_CHECKS) {
       const parsed = parseWithSchema({
         label: `branch rules: the ${REQUIRED_STATUS_CHECKS} rule at index ${index}`,

@@ -24,6 +24,25 @@ describe('parseRequiredChecks', () => {
     expect(parseRequiredChecks({ message: 'Not Found' }).ok).toBe(false);
   });
 
+  it('refuses a required_deployments rule, a blocking gate this reader does not read, naming it', () => {
+    const parsed = parseRequiredChecks([
+      { type: 'deletion' },
+      {
+        type: 'required_deployments',
+        parameters: { required_deployment_environments: ['production'] },
+      },
+      {
+        type: 'required_status_checks',
+        parameters: { required_status_checks: [{ context: 'CodeQL' }] },
+      },
+    ]);
+
+    expect(parsed.ok).toBe(false);
+    if (!parsed.ok) {
+      expect(parsed.error.message).toContain('required_deployments rule at index 1');
+    }
+  });
+
   it.each([
     ['no parameters', { type: 'required_status_checks' }],
     ['no contexts list', { type: 'required_status_checks', parameters: {} }],

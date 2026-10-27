@@ -1,78 +1,28 @@
 import { describe, expect, it } from 'vitest';
 
 import type { PrStateReading } from '../pr-watch/state-types.js';
-import type { GithubApiFetch } from './mint-installation-token.js';
 import { ReadingUnavailableError, runMergeExecution } from './merge.js';
 import { makeInput } from './test-helpers/merge-execution-input.js';
 import { settledReading } from './test-helpers/pr-state-reading.js';
+import {
+  CODE_FILES,
+  makeClassPort,
+  RECORDS_FILES,
+  refusedEvidence,
+  refusedState,
+} from './test-helpers/records-class-port.js';
 
 const makeReading = settledReading;
 
 /**
  * The records class at the execution level: the class is read from the diff
  * only on a verdict where it decides, a records fold merges while its vendor
- * leg is still owed, a code diff on the same verdict stays at the door, and a
- * settled verdict reads no files at all.
+ * leg is still owed once the required contexts are green by name, a code diff
+ * on the same verdict stays at the door, and an unreported required context
+ * holds any diff at CHECKS-RUNNING. The settled verdict has its own suite
+ * (`merge-records-settled.integration.test.ts`).
  */
 describe('runMergeExecution — the records class (the owner ruling of 2026-09-03)', () => {
-  /** A fetch port that also serves the changed files, the base ref and the base branch's rules. */
-  function makeClassPort(
-    files: readonly { filename: string }[],
-    options: {
-      readonly required?: readonly string[];
-      readonly failing?: string;
-      /** Rules served by page; absent, one page carrying `required`. */
-      readonly rulesPages?: readonly (readonly unknown[])[];
-    } = {},
-  ): { fetchImpl: GithubApiFetch; calls: { url: string }[] } {
-    const calls: { url: string }[] = [];
-    const required = options.required ?? ['run-quality-gates', 'CodeQL'];
-    const defaultRules = [
-      {
-        type: 'required_status_checks',
-        parameters: { required_status_checks: required.map((context) => ({ context })) },
-      },
-    ];
-    const rulesAnswer = (url: string): unknown => {
-      const page = Number(/[&?]page=(\d+)/u.exec(url)?.[1] ?? '1');
-      if (options.rulesPages === undefined) {
-        return page === 1 ? defaultRules : [];
-      }
-      return options.rulesPages[page - 1] ?? [];
-    };
-    const answer = (url: string): unknown => {
-      if (url.includes('/pulls/42/files')) {
-        return files;
-      }
-      if (url.endsWith('/pulls/42/merge')) {
-        return { merged: true, sha: 'mergesha1' };
-      }
-      if (url.endsWith('/pulls/42')) {
-        return { base: { ref: 'main' } };
-      }
-      return url.includes('/rules/branches/main') ? rulesAnswer(url) : { allow_merge_commit: true };
-    };
-    const fetchImpl: GithubApiFetch = (url) => {
-      calls.push({ url });
-      if (options.failing !== undefined && url.includes(options.failing)) {
-        return Promise.resolve({ status: 502, json: () => Promise.resolve({}) });
-      }
-      return Promise.resolve({ status: 200, json: () => Promise.resolve(answer(url)) });
-    };
-    return { fetchImpl, calls };
-  }
-
-  /** The refusal's verdict state, or undefined when the outcome was not a refusal. */
-  const refusedState = (
-    outcome: Awaited<ReturnType<typeof runMergeExecution>>,
-  ): string | undefined =>
-    outcome.ok && outcome.value.kind === 'refused' ? outcome.value.verdictState : undefined;
-  /** The refusal's evidence lines, or none when the outcome was not a refusal. */
-  const refusedEvidence = (
-    outcome: Awaited<ReturnType<typeof runMergeExecution>>,
-  ): readonly string[] =>
-    outcome.ok && outcome.value.kind === 'refused' ? outcome.value.evidence : [];
-
   /**
    * The bot's own pull request (the ruling's class), the vendor leg owed: no
    * review binds the tip, and the required contexts went green by name two
@@ -118,13 +68,8 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
       checks: { total: 3, passed: 2, failed: 0, pending: 1 },
     });
 
-  const recordsFiles = [
-    { filename: '.agent/memory/active/napkin.md' },
-    { filename: '.agent/memory/operational/repo-continuity.md' },
-  ];
-
   it('merges a records fold at checks green while the vendor leg is still owed, naming the ground', async () => {
-    const { fetchImpl, calls } = makeClassPort(recordsFiles);
+    const { fetchImpl, calls } = makeClassPort(RECORDS_FILES);
 
     const outcome = await runMergeExecution(makeInput(owedLegReading(), fetchImpl));
 
@@ -143,7 +88,7 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
 
   it('holds a records fold on an owed leg until every REQUIRED context has reported on the tip, naming the missing ones and reading no files', async () => {
     // A files read on this leg would surface as a reading failure, so a CHECKS-RUNNING refusal proves none happened.
-    const { fetchImpl, calls } = makeClassPort(recordsFiles, { failing: '/pulls/42/files' });
+    const { fetchImpl, calls } = makeClassPort(RECORDS_FILES, { failing: '/pulls/42/files' });
 
     const outcome = await runMergeExecution(makeInput(requiredUnreportedReading(), fetchImpl));
 
@@ -157,9 +102,7 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
   });
 
   it('holds a code-class pull request on an owed leg at CHECKS-RUNNING too while a required context is unreported: the class is not read there', async () => {
-    const { fetchImpl, calls } = makeClassPort([
-      { filename: 'agent-tools/src/merge-bot/merge.ts' },
-    ]);
+    const { fetchImpl, calls } = makeClassPort(CODE_FILES);
 
     const outcome = await runMergeExecution(makeInput(requiredUnreportedReading(), fetchImpl));
 
@@ -169,7 +112,7 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
   });
 
   it("merges a records fold whose only pending check is the vendor's own review run, naming what was set aside", async () => {
-    const { fetchImpl, calls } = makeClassPort(recordsFiles);
+    const { fetchImpl, calls } = makeClassPort(RECORDS_FILES);
 
     const outcome = await runMergeExecution(makeInput(vendorRunPendingReading(), fetchImpl));
 
@@ -205,7 +148,7 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
   });
 
   it('holds a records fold while a REQUIRED context is pending, whatever else is set aside', async () => {
-    const { fetchImpl, calls } = makeClassPort(recordsFiles, {
+    const { fetchImpl, calls } = makeClassPort(RECORDS_FILES, {
       required: ['run-quality-gates', 'CodeQL', 'secret-scan'],
     });
 
@@ -240,19 +183,9 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
     expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
   });
 
-  it('reads no files on a settled verdict: a failing files port cannot stop the merge there', async () => {
-    const { fetchImpl } = makeClassPort([{ filename: 'agent-tools/src/merge-bot/merge.ts' }], {
-      failing: '/pulls/42/files',
-    });
-
-    const outcome = await runMergeExecution(makeInput(makeReading(), fetchImpl));
-
-    expect(outcome.ok && outcome.value.kind === 'merged').toBe(true);
-  });
-
   it('reports a failed rules or files read on an owed leg as a retryable reading failure, never a merge', async () => {
-    const rules = makeClassPort(recordsFiles, { failing: '/rules/branches/' });
-    const files = makeClassPort(recordsFiles, { failing: '/pulls/42/files' });
+    const rules = makeClassPort(RECORDS_FILES, { failing: '/rules/branches/' });
+    const files = makeClassPort(RECORDS_FILES, { failing: '/pulls/42/files' });
 
     const onRules = await runMergeExecution(makeInput(owedLegReading(), rules.fetchImpl));
     const onFiles = await runMergeExecution(makeInput(owedLegReading(), files.fetchImpl));
@@ -272,8 +205,8 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
   });
 
   it('keeps CHECKS-RUNNING as read, naming the reason, when the rules or the files cannot be read this poll', async () => {
-    const rules = makeClassPort(recordsFiles, { failing: '/rules/branches/' });
-    const files = makeClassPort(recordsFiles, { failing: '/pulls/42/files' });
+    const rules = makeClassPort(RECORDS_FILES, { failing: '/rules/branches/' });
+    const files = makeClassPort(RECORDS_FILES, { failing: '/pulls/42/files' });
 
     const onRules = await runMergeExecution(makeInput(vendorRunPendingReading(), rules.fetchImpl));
     const onFiles = await runMergeExecution(makeInput(vendorRunPendingReading(), files.fetchImpl));
@@ -306,7 +239,7 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
         },
       },
     ];
-    const { fetchImpl, calls } = makeClassPort(recordsFiles, { rulesPages: [filler, secondPage] });
+    const { fetchImpl, calls } = makeClassPort(RECORDS_FILES, { rulesPages: [filler, secondPage] });
 
     const outcome = await runMergeExecution(makeInput(vendorRunPendingReading(), fetchImpl));
 
@@ -315,8 +248,8 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
   });
 
   it('closes the records door on a pull request a person authored, whatever its paths', async () => {
-    const pending = makeClassPort(recordsFiles);
-    const owed = makeClassPort(recordsFiles);
+    const pending = makeClassPort(RECORDS_FILES);
+    const owed = makeClassPort(RECORDS_FILES);
     const human = { author: 'jimCresswell' };
 
     const onPending = await runMergeExecution(
@@ -342,9 +275,7 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
   });
 
   it('reads no files while a code-class pull request waits on its own required checks', async () => {
-    const { fetchImpl, calls } = makeClassPort([
-      { filename: 'agent-tools/src/merge-bot/merge.ts' },
-    ]);
+    const { fetchImpl, calls } = makeClassPort(CODE_FILES);
     const requiredPending = makeReading({
       reviews: [],
       checksGreenAt: null,

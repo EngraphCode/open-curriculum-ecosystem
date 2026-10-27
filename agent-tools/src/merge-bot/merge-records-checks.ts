@@ -27,14 +27,19 @@ import type { GithubApiFetch } from './mint-installation-token.js';
  * scan or a dependency review is information the merge must not outrun),
  * and an unreported required context holds the pull request at
  * CHECKS-RUNNING — a wait state the poll continues on — whatever its class,
- * since the class is not read there: on every verdict this door decides, the
- * merge PUT is never sent before the contexts GitHub will demand are green
- * by name. SETTLE-READY is outside the door — the verdict alone merges
- * there, on the checks as reported, and nothing here is read. The code
- * class is never loosened: every live check binds it as before. The reads
- * here (the pull request's base, the branch's rules, then the files only
- * when the recomputed verdict leaves CHECKS-RUNNING) run once per poll at
- * the door.
+ * since the class is not read there. At SETTLE-READY the verdict alone
+ * merges and the class is never read, but a GitHub App's pull request
+ * proves its required contexts there too: the ladder settles on the checks
+ * as reported, so a required context with no check run yet would otherwise
+ * send the PUT into GitHub's own refusal (raised twice on pull request 358,
+ * 2026-10-27). On every verdict a GitHub App's pull request could merge on,
+ * then, the merge PUT is never sent before the contexts GitHub will demand
+ * are green by name; a person's pull request is never merged by the bot and
+ * reads none of this. The code class is never loosened: every live check
+ * binds it as before. The reads here (the pull request's base, the branch's
+ * rules, then the files only when the recomputed verdict leaves
+ * CHECKS-RUNNING on a verdict the class decides) run once per poll at the
+ * door.
  */
 
 /**
@@ -113,15 +118,14 @@ function withNote(verdict: PrVerdict, note: string): PrVerdict {
 }
 
 /**
- * The verdicts the records door opens on by the class, where the required
- * contexts decide: CHECKS-RUNNING (a pending check the rules do not require
- * may be set aside) and every records-merge verdict but SETTLE-READY (the
- * verdict alone merges there, and the class is never read).
+ * The verdicts on which a GitHub App's pull request proves its required
+ * contexts before anything else: CHECKS-RUNNING (a pending check the rules
+ * do not require may be set aside) and every verdict the records class
+ * merges on, SETTLE-READY among them (the verdict alone merges there, on
+ * the checks as reported).
  */
-function recordsDoorDecidesOn(state: PrVerdict['state']): boolean {
-  return (
-    state === 'CHECKS-RUNNING' || (state !== 'SETTLE-READY' && verdictMergesRecordsClass(state))
-  );
+function doorProvesOn(state: PrVerdict['state']): boolean {
+  return state === 'CHECKS-RUNNING' || verdictMergesRecordsClass(state);
 }
 
 /** The evidence line naming what the narrowing did, and the contexts the rules require. */
@@ -189,10 +193,11 @@ function doorReadFailed(verdict: PrVerdict, error: Error): Result<ResolvedVerdic
  * over them. A recomputed CHECKS-RUNNING is returned for any class, the
  * files unread — a code-class pull request waiting on its own required
  * checks pays no files read per poll, and a pull request whose required
- * context has not reported waits there whatever its diff. Otherwise the
- * files are read and classified: a records diff takes the recomputed
- * verdict; a code diff keeps the verdict as read, every live check binding
- * it.
+ * context has not reported waits there whatever its diff. A SETTLE-READY
+ * reading that proved its contexts is returned as read, the files unread:
+ * the verdict alone merges there. Otherwise the files are read and
+ * classified: a records diff takes the recomputed verdict; a code diff
+ * keeps the verdict as read, every live check binding it.
  */
 async function resolveAtTheDoor(
   input: ResolveInput,
@@ -202,7 +207,7 @@ async function resolveAtTheDoor(
   if (!narrowed.ok) {
     return doorReadFailed(verdict, narrowed.error);
   }
-  if (narrowed.value.state === 'CHECKS-RUNNING') {
+  if (narrowed.value.state === 'CHECKS-RUNNING' || verdict.state === 'SETTLE-READY') {
     return ok({ verdict: narrowed.value, changeClass: undefined });
   }
   const paths = await listChangedPaths(input.fetchImpl, input.token, input.target);
@@ -219,21 +224,25 @@ async function resolveAtTheDoor(
 
 /**
  * The verdict and the class together: the verdict as the core reads it on
- * every verdict the door does not decide; at the door, for a GitHub App's
+ * every verdict the door does not touch; at the door, for a GitHub App's
  * pull request, the verdict recomputed over the required contexts and the
- * class read from the diff; for a person's pull request the door stays
- * closed and the verdict says so.
+ * class read from the diff where it decides; for a person's pull request
+ * nothing is read, and where the class would have decided the verdict says
+ * why the door stayed closed.
  */
 export async function resolveVerdict(input: ResolveInput): Promise<Result<ResolvedVerdict, Error>> {
   const verdict = computePrVerdict(input.reading, input.nowIso);
-  if (!recordsDoorDecidesOn(verdict.state)) {
+  if (!doorProvesOn(verdict.state)) {
     return ok({ verdict, changeClass: undefined });
   }
   if (!isBotAuthored(input.reading.author)) {
     const note =
       `records-class door closed: the author ${input.reading.author} is not a GitHub App ` +
       "(the ruling of 2026-09-03 names bot-authored pull requests; a colleague's pull request is reviewed, never merged by the bot)";
-    return ok({ verdict: withNote(verdict, note), changeClass: undefined });
+    return ok({
+      verdict: verdict.state === 'SETTLE-READY' ? verdict : withNote(verdict, note),
+      changeClass: undefined,
+    });
   }
   return resolveAtTheDoor(input, verdict);
 }

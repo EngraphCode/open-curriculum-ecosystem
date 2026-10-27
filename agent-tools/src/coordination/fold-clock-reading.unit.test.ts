@@ -238,6 +238,23 @@ describe('parseRequiredChecksPages', () => {
     expect(pages).toStrictEqual({ ok: true, value: ['CodeQL'] });
     expect(parseRequiredChecksPages([{ type: 'deletion' }]).ok).toBe(false);
   });
+
+  it("surfaces the shared parser's refusal of a blocking rule it does not read, so the clock never calls checks green under it", () => {
+    const pages = parseRequiredChecksPages([
+      [{ type: 'deletion' }],
+      [
+        {
+          type: 'required_deployments',
+          parameters: { required_deployment_environments: ['live'] },
+        },
+      ],
+    ]);
+
+    expect(pages.ok).toBe(false);
+    if (!pages.ok) {
+      expect(pages.error.message).toContain('required_deployments rule at index 1');
+    }
+  });
 });
 
 describe('assembleReading', () => {

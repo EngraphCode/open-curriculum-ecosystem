@@ -16,10 +16,11 @@ import { earliest, latest, minutesBetween } from './fold-clock-time.js';
  * base branch's REQUIRED contexts on the tip — the merge door's own
  * definition for the records class, never every check-run, since a vendor's
  * review runs as a check-run of its own; a context is judged by its LATEST
- * run, as GitHub judges it, and a commit status counts as a run of its
- * context because a required context may be a status that publishes no
- * check-run), each vendor review round (`fold-clock-rounds.ts`), the merge,
- * and the successor's first check-run start when a successor tip is named.
+ * run, as GitHub judges it, a run with no instant yet holding the context
+ * open, and a commit status counts as a run of its context because a
+ * required context may be a status that publishes no check-run), each
+ * vendor review round (`fold-clock-rounds.ts`), the merge, and the
+ * successor's first check-run start when a successor tip is named.
  * Every interval is minutes from the ready-mark to one decimal, so a ledger
  * row carries the fold's shape in one line.
  */
@@ -70,20 +71,42 @@ export interface FoldClock {
 /** GitHub's required-check gate passes these conclusions; the merge door reads the same set. */
 const PASSING_CONCLUSIONS: ReadonlySet<string> = new Set(['success', 'neutral', 'skipped']);
 
-/** A run's position in execution order: its start, else its completion. */
-function anchor(run: CheckRunReading): number {
-  return Date.parse(run.startedAt ?? run.completedAt ?? '');
+/**
+ * A run's position in execution order: its start, else its completion;
+ * none for a run with neither (queued, not yet started) or with an instant
+ * that does not parse.
+ */
+function anchor(run: CheckRunReading): number | undefined {
+  const instant = run.startedAt ?? run.completedAt;
+  if (instant === undefined) {
+    return undefined;
+  }
+  const at = Date.parse(instant);
+  return Number.isNaN(at) ? undefined : at;
 }
 
-/** The latest run of one context (GitHub evaluates a context through its latest run). */
+/**
+ * The latest run of one context (GitHub evaluates a context through its
+ * latest run), or none while a run carries no anchor: an unanchored run
+ * cannot be ordered against the others, so the context stays open whatever
+ * order the API lists the runs in — unknown is never latest-known, as
+ * `pr-watch/check-rollup.ts` reads an undated run.
+ */
 function latestRun(runs: readonly CheckRunReading[]): CheckRunReading | undefined {
-  return runs.reduce<CheckRunReading | undefined>(
-    (best, run) => (best === undefined || anchor(run) > anchor(best) ? run : best),
-    undefined,
-  );
+  let best: { readonly run: CheckRunReading; readonly at: number } | undefined;
+  for (const run of runs) {
+    const at = anchor(run);
+    if (at === undefined) {
+      return undefined;
+    }
+    if (best === undefined || at > best.at) {
+      best = { run, at };
+    }
+  }
+  return best?.run;
 }
 
-/** The passing completion of each required context's LATEST run; a context whose latest run is not passing is missing. */
+/** The passing completion of each required context's LATEST run; a context whose latest run is not passing, or whose runs cannot be ordered, is missing. */
 function requiredGreen(
   required: readonly string[],
   runs: readonly CheckRunReading[],

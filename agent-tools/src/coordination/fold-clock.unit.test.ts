@@ -227,6 +227,24 @@ describe('computeFoldClock', () => {
     expect(rerunOpen.checksMissing).toStrictEqual(['run-quality-gates']);
   });
 
+  it('holds a context open while a queued run carries no instant yet, whichever order the API lists the runs in', () => {
+    const queued = {
+      name: 'run-quality-gates',
+      conclusion: undefined,
+      startedAt: undefined,
+      completedAt: undefined,
+    };
+    const success = run('run-quality-gates', '2026-10-10T11:32:30Z');
+    const codeql = run('CodeQL', '2026-10-10T11:29:35Z');
+
+    const queuedListedAfter = clockOf({ ...fold326, headCheckRuns: [success, queued, codeql] });
+    const queuedListedBefore = clockOf({ ...fold326, headCheckRuns: [queued, success, codeql] });
+
+    expect(queuedListedAfter.checksMissing).toStrictEqual(['run-quality-gates']);
+    expect(queuedListedBefore.checksMissing).toStrictEqual(['run-quality-gates']);
+    expect(queuedListedAfter.checksGreenAt).toBeUndefined();
+  });
+
   it('reads a commit status as a run of its context when the rules require it', () => {
     const clock = clockOf({
       ...fold326,
