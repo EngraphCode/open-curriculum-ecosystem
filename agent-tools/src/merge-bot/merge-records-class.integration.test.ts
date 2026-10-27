@@ -86,6 +86,25 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
     );
   });
 
+  it("keeps the door closed to another GitHub App's records fold on the same owed leg, naming the bot it is not, reading no files", async () => {
+    const { fetchImpl, calls } = makeClassPort(RECORDS_FILES, { failing: '/pulls/42/files' });
+
+    const outcome = await runMergeExecution(
+      makeInput({ ...owedLegReading(), author: 'app/some-other-app' }, fetchImpl),
+    );
+
+    expect(outcome.ok).toBe(true);
+    if (outcome.ok) {
+      expect(outcome.value.kind).toBe('refused');
+    }
+    expect(
+      refusedEvidence(outcome).some((line) =>
+        line.includes('the author app/some-other-app is not the merge bot app/acme-bot'),
+      ),
+    ).toBe(true);
+    expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
+  });
+
   it('holds a records fold on an owed leg until every REQUIRED context has reported on the tip, naming the missing ones and reading no files', async () => {
     // A files read on this leg would surface as a reading failure, so a CHECKS-RUNNING refusal proves none happened.
     const { fetchImpl, calls } = makeClassPort(RECORDS_FILES, { failing: '/pulls/42/files' });

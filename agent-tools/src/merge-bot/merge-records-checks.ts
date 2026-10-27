@@ -43,13 +43,13 @@ import type { GithubApiFetch } from './mint-installation-token.js';
  */
 
 /**
- * The ruling of 2026-09-03 names BOT-authored pull requests; a human
- * colleague's pull request is reviewed and never merged by the bot
- * (pr-lifecycle, the owner's word of 2026-08-03/04). `gh pr view` spells a
- * GitHub App author `app/<slug>`.
+ * The ruling of 2026-09-03 names the merge bot's OWN pull requests: a
+ * colleague's is reviewed and never merged by the bot (pr-lifecycle, the
+ * owner's word of 2026-08-03/04), and another GitHub App's is not the bot's
+ * (pull request 358, 2026-10-27). `gh pr view` spells an App author `app/<slug>`.
  */
-export function isBotAuthored(author: string): boolean {
-  return author.startsWith('app/');
+export function isBotAuthored(author: string, appSlug: string): boolean {
+  return author === `app/${appSlug}`;
 }
 
 export interface NarrowedReading {
@@ -107,6 +107,7 @@ export interface ResolvedVerdict {
 
 interface ResolveInput {
   readonly reading: PrStateReading;
+  readonly appSlug: string;
   readonly nowIso: string;
   readonly fetchImpl: GithubApiFetch;
   readonly token: string;
@@ -235,10 +236,10 @@ export async function resolveVerdict(input: ResolveInput): Promise<Result<Resolv
   if (!doorProvesOn(verdict.state)) {
     return ok({ verdict, changeClass: undefined });
   }
-  if (!isBotAuthored(input.reading.author)) {
+  if (!isBotAuthored(input.reading.author, input.appSlug)) {
     const note =
-      `records-class door closed: the author ${input.reading.author} is not a GitHub App ` +
-      "(the ruling of 2026-09-03 names bot-authored pull requests; a colleague's pull request is reviewed, never merged by the bot)";
+      `records-class door closed: the author ${input.reading.author} is not the merge bot app/${input.appSlug} ` +
+      "(the ruling of 2026-09-03 names the bot's own pull requests; any other author's is reviewed, never merged by the bot)";
     return ok({
       verdict: verdict.state === 'SETTLE-READY' ? verdict : withNote(verdict, note),
       changeClass: undefined,

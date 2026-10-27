@@ -20,11 +20,18 @@ const vendorPending = () =>
   });
 
 describe('isBotAuthored', () => {
-  it("reads gh's app/<slug> spelling as a GitHub App and anything else as a person", () => {
-    expect(isBotAuthored('app/jimbot-of-the-devonshire-jimbots')).toBe(true);
-    expect(isBotAuthored('jimCresswell')).toBe(false);
-    expect(isBotAuthored('copilot-pull-request-reviewer[bot]')).toBe(false);
-    expect(isBotAuthored('')).toBe(false);
+  const BOT = 'jimbot-of-the-devonshire-jimbots';
+
+  it("reads only gh's app/<slug> spelling of the CONFIGURED bot as the bot", () => {
+    expect(isBotAuthored(`app/${BOT}`, BOT)).toBe(true);
+  });
+
+  it('reads another GitHub App, the bare slug, a person and a reviewer account as not the bot', () => {
+    expect(isBotAuthored('app/dependabot', BOT)).toBe(false);
+    expect(isBotAuthored(BOT, BOT)).toBe(false);
+    expect(isBotAuthored('jimCresswell', BOT)).toBe(false);
+    expect(isBotAuthored('copilot-pull-request-reviewer[bot]', BOT)).toBe(false);
+    expect(isBotAuthored('', BOT)).toBe(false);
   });
 });
 

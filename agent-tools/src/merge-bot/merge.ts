@@ -52,6 +52,8 @@ interface MergeExecutionSeams {
 
 export interface MergeExecutionInput {
   readonly identity: BotIdentity;
+  /** The bot's app slug: the only author the records door admits (`app/<slug>`). */
+  readonly appSlug: string;
   readonly prNumber: number;
   /** DECLARED expected reviewer set — required; a defaulted set never merges. */
   readonly expectedReviewers: readonly string[];
@@ -96,8 +98,6 @@ export async function runMergeExecution(
       ),
     );
   }
-  const token = minted.value.token;
-
   const target = mergeTarget(input);
   if (!target.ok) {
     return target;
@@ -113,7 +113,7 @@ export async function runMergeExecution(
     return reading;
   }
 
-  return gateAndMerge({ input, reading: reading.value, token });
+  return gateAndMerge({ input, reading: reading.value, token: minted.value.token });
 }
 
 /**
@@ -169,7 +169,7 @@ function refused(reason: string, verdict: PrVerdict): Result<MergeOutcome, Error
 
 /**
  * The verdict → class → eligibility → settings-gate → merge tail. The base
- * branch's required contexts are read on every verdict a GitHub App's pull
+ * branch's required contexts are read on every verdict the bot's own pull
  * request could merge on, and the change class only where it decides
  * (`merge-records-checks.ts`); a failed read there
  * is the same transient class as a failed PR-state read, so the poll loop
@@ -192,6 +192,7 @@ async function gateAndMerge(context: {
   const fetchImpl = input.seams.fetchImpl ?? realFetch();
   const resolved = await resolveVerdict({
     reading,
+    appSlug: input.appSlug,
     nowIso: input.nowIso,
     fetchImpl,
     token,
