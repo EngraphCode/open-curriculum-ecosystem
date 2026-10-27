@@ -2,9 +2,6 @@ import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import type { PrVerdict } from '../pr-watch/state-types.js';
-import { classifyChangedPaths, type ChangeClass } from './change-class.js';
-import { verdictMergesRecordsClass } from './merge-decision.js';
 import { GITHUB_API } from './merge-github-api.js';
 import {
   githubHeaders,
@@ -17,9 +14,10 @@ import type { BotIdentity } from './resolve-identity.js';
 /**
  * The changed-files read behind the door's records class: the pull request's
  * files, every page, each file's name and (for a rename) its previous name,
- * classified by `change-class.ts`. Read only when the class can change the
- * outcome — a verdict the records class merges and SETTLE-READY does not —
- * so a typed refusal elsewhere never turns into a network failure here.
+ * for `change-class.ts` to classify. `merge-records-checks.ts` asks for it
+ * only when the class can change the outcome — at the door, once the
+ * required contexts are green by name — so a typed refusal elsewhere never
+ * turns into a network failure here.
  */
 
 const PER_PAGE = 100;
@@ -105,32 +103,4 @@ export async function listChangedPaths(
         'ceiling) — a pull request this size is never records-class; the SETTLE-READY door stands',
     ),
   );
-}
-
-/** Whether the class can change the outcome on this verdict by itself. */
-function classDecidesOn(state: PrVerdict['state']): boolean {
-  return state !== 'SETTLE-READY' && verdictMergesRecordsClass(state);
-}
-
-/**
- * The class, read only when it decides: a verdict the records class merges
- * (and SETTLE-READY does not) reads and classifies the files; every other
- * verdict is decided without a read, so its typed refusal stays typed. At
- * CHECKS-RUNNING the class matters only once the required contexts have
- * been read and found green (`merge-records-checks.ts` reads it there).
- */
-export async function classWhenItDecides(
-  verdict: PrVerdict,
-  fetchImpl: GithubApiFetch,
-  token: string,
-  target: ChangedFilesTarget,
-): Promise<Result<ChangeClass | undefined, Error>> {
-  if (!classDecidesOn(verdict.state)) {
-    return ok(undefined);
-  }
-  const paths = await listChangedPaths(fetchImpl, token, target);
-  if (!paths.ok) {
-    return paths;
-  }
-  return ok(classifyChangedPaths(paths.value));
 }

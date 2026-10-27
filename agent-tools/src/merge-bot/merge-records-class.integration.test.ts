@@ -73,8 +73,29 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
   ): readonly string[] =>
     outcome.ok && outcome.value.kind === 'refused' ? outcome.value.evidence : [];
 
-  /** The bot's own pull request (the ruling's class), the vendor leg owed: no review binds the tip and checks went green two minutes ago. */
+  /**
+   * The bot's own pull request (the ruling's class), the vendor leg owed: no
+   * review binds the tip, and the required contexts went green by name two
+   * minutes ago.
+   */
   const owedLegReading = (): PrStateReading =>
+    makeReading({
+      author: 'app/acme-bot',
+      reviews: [],
+      checksGreenAt: '2026-08-06T08:58:00Z',
+      namedChecks: [
+        { name: 'run-quality-gates', bucket: 'passed' },
+        { name: 'CodeQL', bucket: 'passed' },
+      ],
+      checks: { total: 2, passed: 2, failed: 0, pending: 0 },
+    });
+
+  /**
+   * The same owed leg on a tip that has reported only a check the rules do
+   * not name: no check run exists yet for either required context, so the
+   * verdict ladder reads every reported check green.
+   */
+  const requiredUnreportedReading = (): PrStateReading =>
     makeReading({ author: 'app/acme-bot', reviews: [], checksGreenAt: '2026-08-06T08:58:00Z' });
 
   /** The real fold shape: required checks green, the vendor's own review run still pending. */
@@ -112,6 +133,22 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
     expect(urls.findIndex((url) => url.includes('/pulls/42/files'))).toBeLessThan(
       urls.findIndex((url) => url.endsWith('/pulls/42/merge')),
     );
+    expect(urls.some((url) => url.includes('/rules/branches/main'))).toBe(true);
+  });
+
+  it('holds a records fold on an owed leg until every REQUIRED context has reported on the tip, naming the missing ones', async () => {
+    const { fetchImpl, calls } = makeClassPort(recordsFiles);
+
+    const outcome = await runMergeExecution(makeInput(requiredUnreportedReading(), fetchImpl));
+
+    expect(refusedState(outcome)).toBe('CHECKS-RUNNING');
+    expect(
+      refusedEvidence(outcome).some(
+        (line) => line.includes('not reported') && line.includes('(run-quality-gates, CodeQL)'),
+      ),
+    ).toBe(true);
+    expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
+    expect(calls.some((call) => call.url.includes('/pulls/42/files'))).toBe(false);
   });
 
   it("merges a records fold whose only pending check is the vendor's own review run, naming what was set aside", async () => {
@@ -196,16 +233,24 @@ describe('runMergeExecution — the records class (the owner ruling of 2026-09-0
     expect(outcome.ok && outcome.value.kind === 'merged').toBe(true);
   });
 
-  it('reports a failed files read on an owed leg as a retryable reading failure, never a merge', async () => {
+  it('reports a failed rules or files read on an owed leg as a retryable reading failure, never a merge', async () => {
+    const rules = makeClassPort(recordsFiles, { failing: '/rules/branches/' });
     const files = makeClassPort(recordsFiles, { failing: '/pulls/42/files' });
 
+    const onRules = await runMergeExecution(makeInput(owedLegReading(), rules.fetchImpl));
     const onFiles = await runMergeExecution(makeInput(owedLegReading(), files.fetchImpl));
 
-    expect(onFiles.ok).toBe(false);
-    if (!onFiles.ok) {
-      expect(onFiles.error).toBeInstanceOf(ReadingUnavailableError);
-      expect(onFiles.error.message).toContain('changed files read answered 502');
+    for (const [outcome, surface] of [
+      [onRules, 'branch rules read answered 502'],
+      [onFiles, 'changed files read answered 502'],
+    ] as const) {
+      expect(outcome.ok).toBe(false);
+      if (!outcome.ok) {
+        expect(outcome.error).toBeInstanceOf(ReadingUnavailableError);
+        expect(outcome.error.message).toContain(surface);
+      }
     }
+    expect(rules.calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
     expect(files.calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
   });
 

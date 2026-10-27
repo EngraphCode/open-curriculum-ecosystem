@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
-import type { PrVerdict } from '../pr-watch/state-types.js';
-import { classWhenItDecides, listChangedPaths } from './merge-changed-files.js';
+import { listChangedPaths } from './merge-changed-files.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 
 /**
  * Integration over an injected fetch port (a constant table, no network): the
- * changed-files read pages until a short page, carries a rename's both names,
- * and runs only on the verdicts where the class decides the merge.
+ * changed-files read pages until a short page and carries a rename's both
+ * names. Where the read happens — only at the door, once the required
+ * contexts are green by name — is proven at the execution level in
+ * `merge-records-class.integration.test.ts`.
  */
 
 const target = {
@@ -77,40 +78,5 @@ describe('listChangedPaths', () => {
     const paths = await listChangedPaths(fetchImpl, 'token', target);
 
     expect(paths.ok).toBe(false);
-  });
-});
-
-describe('classWhenItDecides', () => {
-  const owedLeg: PrVerdict = { state: 'SILENT-WAIT-NO-REVIEWER', evidence: [] };
-
-  it('reads and classifies on a verdict the records class merges', async () => {
-    const { fetchImpl, urls } = filesPort([[{ filename: '.agent/memory/active/napkin.md' }]]);
-
-    const changeClass = await classWhenItDecides(owedLeg, fetchImpl, 'token', target);
-
-    expect(changeClass).toStrictEqual({ ok: true, value: { kind: 'records', pathCount: 1 } });
-    expect(urls).toHaveLength(1);
-  });
-
-  it('reads nothing on SETTLE-READY, CHECKS-RUNNING or a verdict the class cannot change: a failing port is never reached', async () => {
-    const fetchImpl: GithubApiFetch = () =>
-      Promise.reject(new Error('the port must not be reached'));
-
-    for (const state of [
-      'SETTLE-READY',
-      'CHECKS-RUNNING',
-      'CHECKS-RED',
-      'THREADS-OPEN',
-      'DRAFT',
-      'MERGED',
-    ] as const) {
-      const changeClass = await classWhenItDecides(
-        { state, evidence: [] },
-        fetchImpl,
-        'token',
-        target,
-      );
-      expect(changeClass, state).toStrictEqual({ ok: true, value: undefined });
-    }
   });
 });

@@ -1,31 +1,36 @@
-import { ok, type Result } from '@oaknational/result';
+import { err, ok, type Result } from '@oaknational/result';
 
 import type { NamedCheck, PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
 import { classifyChangedPaths, type ChangeClass } from './change-class.js';
-import { classWhenItDecides, listChangedPaths } from './merge-changed-files.js';
+import { listChangedPaths } from './merge-changed-files.js';
 import { verdictMergesRecordsClass } from './merge-decision.js';
 import { readRequiredContexts, type RulesTarget } from './merge-required-contexts.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 
 /**
- * "Checks green by name" for the records class. The verdict core holds
- * CHECKS-RUNNING on ANY pending check run, and a vendor's review runs as a
- * check run on the tip for the whole round (`copilot-pull-request-reviewer`
- * on 326's tip, 2026-10-10), so a records-class pull request with the
- * review requested at its ready-mark would wait the whole round under the
- * unqualified verdict — the cost the owner's ruling of 2026-09-03 removes.
- * The fold skill's full condition is exactly the contexts the base branch's
- * rules require, read at run time, and no other name: for a records-class
- * reading this module sets aside every PENDING check the rules do not
- * require and recomputes the verdict. A FAILED check of any name still
- * holds (a secret scan or a dependency review is information the merge must
- * not outrun), and a required context the tip has not reported yet is
- * pending by construction. The code class is untouched: every live check
- * binds it as before. The reads here (the pull request's base, the branch's
- * rules, then the files only when the narrowing would move the verdict) run
- * once per poll on CHECKS-RUNNING; a failure leaves the verdict as read with
- * the reason in its evidence, never ending the poll.
+ * "Checks green by name" for the records class. The verdict core reads the
+ * checks the tip has REPORTED: it holds CHECKS-RUNNING on any pending check
+ * run — and a vendor's review runs as a check run on the tip for the whole
+ * round (`copilot-pull-request-reviewer` on 326's tip, 2026-10-10), so a
+ * records-class pull request with the review requested at its ready-mark
+ * would wait the whole round under the unqualified verdict, the cost the
+ * owner's ruling of 2026-09-03 removes — and it reaches the reviewer-leg
+ * states once every reported check is green, which a tip whose required
+ * context has no check run yet also satisfies. The fold skill's full
+ * condition is exactly the contexts the base branch's rules require, read
+ * at run time, and no other name: on every verdict the records door opens
+ * on, this module reads those contexts, sets aside every PENDING check the
+ * rules do not require, reads every required context the tip has not
+ * reported as pending, and recomputes the verdict over that reading before
+ * the diff is classified. A FAILED check of any name still holds (a secret
+ * scan or a dependency review is information the merge must not outrun),
+ * and an unreported required context holds the fold at CHECKS-RUNNING — a
+ * wait state the poll continues on — so the merge PUT is never sent before
+ * the contexts GitHub will demand are green by name. The code class is
+ * untouched: every live check binds it as before. The reads here (the pull
+ * request's base, the branch's rules, then the files only when the
+ * recomputed verdict could merge) run once per poll at the door.
  */
 
 /**
@@ -42,9 +47,11 @@ export interface NarrowedReading {
   readonly reading: PrStateReading;
   /** The pending, non-required checks set aside, by name. */
   readonly setAside: readonly string[];
+  /** The required contexts the tip has not reported, read as pending, by name. */
+  readonly notReported: readonly string[];
 }
 
-/** The reading with pending non-required checks set aside and absent required contexts pending. */
+/** The reading with pending non-required checks set aside and unreported required contexts pending. */
 export function narrowToRequired(
   reading: PrStateReading,
   required: readonly string[],
@@ -54,10 +61,11 @@ export function narrowToRequired(
     (check) => check.bucket !== 'pending' || requiredSet.has(check.name),
   );
   const reported = new Set(reading.namedChecks.map((check) => check.name));
-  const absent: readonly NamedCheck[] = required
-    .filter((name) => !reported.has(name))
-    .map((name) => ({ name, bucket: 'pending' }));
-  const namedChecks = [...kept, ...absent];
+  const notReported = required.filter((name) => !reported.has(name));
+  const namedChecks: readonly NamedCheck[] = [
+    ...kept,
+    ...notReported.map((name): NamedCheck => ({ name, bucket: 'pending' })),
+  ];
   const setAside = reading.namedChecks
     .filter((check) => check.bucket === 'pending' && !requiredSet.has(check.name))
     .map((check) => check.name);
@@ -65,6 +73,7 @@ export function narrowToRequired(
     namedChecks.filter((check) => check.bucket === bucket).length;
   return {
     setAside,
+    notReported,
     reading: {
       ...reading,
       namedChecks,
@@ -96,91 +105,125 @@ function withNote(verdict: PrVerdict, note: string): PrVerdict {
 }
 
 /**
- * The verdict recomputed over the required contexts, when the rules can be
- * read and the narrowing moves it; otherwise the verdict as read, with the
- * reason the narrowing did not apply when a read failed. A failed read here
- * never ends a poll: CHECKS-RUNNING is a wait state, the next poll reads
- * again, and the note keeps a persistent failure visible on every poll.
+ * The verdicts the records door opens on by the class, where the required
+ * contexts decide: CHECKS-RUNNING (a pending check the rules do not require
+ * may be set aside) and every records-merge verdict but SETTLE-READY (the
+ * verdict alone merges there, and the class is never read).
+ */
+function recordsDoorDecidesOn(state: PrVerdict['state']): boolean {
+  return (
+    state === 'CHECKS-RUNNING' || (state !== 'SETTLE-READY' && verdictMergesRecordsClass(state))
+  );
+}
+
+/** The evidence line naming what the narrowing did, and the contexts the rules require. */
+function narrowingNote(narrowed: NarrowedReading, required: readonly string[]): string {
+  const setAside =
+    narrowed.setAside.length === 0
+      ? []
+      : [
+          `${narrowed.setAside.length} pending check(s) the base branch's rules do not require ` +
+            `set aside (${narrowed.setAside.join(', ')})`,
+        ];
+  const notReported =
+    narrowed.notReported.length === 0
+      ? []
+      : [
+          `${narrowed.notReported.length} required context(s) the tip has not reported, ` +
+            `pending by construction (${narrowed.notReported.join(', ')})`,
+        ];
+  return `records-class: ${[...setAside, ...notReported].join('; ')}; required contexts ${required.join(', ')}`;
+}
+
+/**
+ * The verdict recomputed over the required contexts when the rules name at
+ * least one and the narrowing changes the reading; otherwise the verdict as
+ * read. Zero required contexts narrow nothing: an unprotected base never
+ * reads as "nothing binds" (every pending check would be set aside).
  */
 async function narrowedVerdict(
   input: ResolveInput,
   verdict: PrVerdict,
-): Promise<{ readonly verdict: PrVerdict; readonly moved: boolean }> {
+): Promise<Result<PrVerdict, Error>> {
   const required = await readRequiredContexts(input.fetchImpl, input.token, input.target);
   if (!required.ok) {
-    return {
-      verdict: withNote(
-        verdict,
-        `records-class narrowing unavailable this poll: ${required.error.message}`,
-      ),
-      moved: false,
-    };
+    return required;
   }
   const narrowed = narrowToRequired(input.reading, required.value);
-  if (required.value.length === 0 || narrowed.setAside.length === 0) {
-    return { verdict, moved: false };
+  const unchanged = narrowed.setAside.length === 0 && narrowed.notReported.length === 0;
+  if (required.value.length === 0 || unchanged) {
+    return ok(verdict);
   }
   const recomputed = computePrVerdict(narrowed.reading, input.nowIso);
-  const note =
-    `records-class: ${narrowed.setAside.length} pending check(s) the base branch's rules do not ` +
-    `require set aside (${narrowed.setAside.join(', ')}); required contexts ${required.value.join(', ')}`;
-  return { verdict: withNote(recomputed, note), moved: recomputed.state !== 'CHECKS-RUNNING' };
+  return ok(withNote(recomputed, narrowingNote(narrowed, required.value)));
 }
 
 /**
- * CHECKS-RUNNING: read the rules first (two cheap reads), and only when the
- * narrowing would move the verdict read the files — so a code-class pull
- * request waiting on its own required checks pays no files read per poll,
- * and a code-class pull request waiting only on the vendor's run keeps the
- * verdict as read.
+ * A read the door needs failed. At CHECKS-RUNNING the verdict as read keeps
+ * the poll going — a wait state, read again next poll — with the reason in
+ * its evidence so a persistent failure stays visible; on any other verdict
+ * the verdict as read would end the poll with a refusal naming the wrong
+ * cause, so the failure itself is returned and `merge.ts` types it as a
+ * retryable reading failure, the same class as a failed PR-state read.
  */
-async function resolveChecksRunning(
+function doorReadFailed(verdict: PrVerdict, error: Error): Result<ResolvedVerdict, Error> {
+  if (verdict.state !== 'CHECKS-RUNNING') {
+    return err(error);
+  }
+  return ok({
+    verdict: withNote(verdict, `records-class narrowing unavailable this poll: ${error.message}`),
+    changeClass: undefined,
+  });
+}
+
+/**
+ * At the door: the rules first (two cheap reads) and the verdict recomputed
+ * over them; the files only when that verdict could merge — so a code-class
+ * pull request waiting on its own required checks pays no files read per
+ * poll, and a fold whose required context has not reported waits at
+ * CHECKS-RUNNING without one. A records diff takes the recomputed verdict;
+ * a code diff keeps the verdict as read, every live check binding it.
+ */
+async function resolveAtTheDoor(
   input: ResolveInput,
   verdict: PrVerdict,
-): Promise<ResolvedVerdict> {
+): Promise<Result<ResolvedVerdict, Error>> {
   const narrowed = await narrowedVerdict(input, verdict);
-  if (!narrowed.moved) {
-    return { verdict: narrowed.verdict, changeClass: undefined };
+  if (!narrowed.ok) {
+    return doorReadFailed(verdict, narrowed.error);
+  }
+  if (narrowed.value.state === 'CHECKS-RUNNING') {
+    return ok({ verdict: narrowed.value, changeClass: undefined });
   }
   const paths = await listChangedPaths(input.fetchImpl, input.token, input.target);
   if (!paths.ok) {
-    return {
-      verdict: withNote(
-        verdict,
-        `records-class narrowing unavailable this poll: ${paths.error.message}`,
-      ),
-      changeClass: undefined,
-    };
+    return doorReadFailed(verdict, paths.error);
   }
   const changeClass = classifyChangedPaths(paths.value);
-  return changeClass.kind === 'records'
-    ? { verdict: narrowed.verdict, changeClass }
-    : { verdict, changeClass };
+  return ok(
+    changeClass.kind === 'records'
+      ? { verdict: narrowed.value, changeClass }
+      : { verdict, changeClass },
+  );
 }
 
 /**
- * The verdict and the class together: the verdict as the core reads it; the
- * class read only where it decides; and, for a reading held at
- * CHECKS-RUNNING, the verdict recomputed over the required contexts when the
- * diff is records-class.
+ * The verdict and the class together: the verdict as the core reads it on
+ * every verdict the door does not decide; at the door, for a GitHub App's
+ * pull request, the verdict recomputed over the required contexts and the
+ * class read from the diff; for a person's pull request the door stays
+ * closed and the verdict says so.
  */
 export async function resolveVerdict(input: ResolveInput): Promise<Result<ResolvedVerdict, Error>> {
   const verdict = computePrVerdict(input.reading, input.nowIso);
+  if (!recordsDoorDecidesOn(verdict.state)) {
+    return ok({ verdict, changeClass: undefined });
+  }
   if (!isBotAuthored(input.reading.author)) {
-    const classWouldMatter =
-      verdict.state === 'CHECKS-RUNNING' ||
-      (verdict.state !== 'SETTLE-READY' && verdictMergesRecordsClass(verdict.state));
     const note =
       `records-class door closed: the author ${input.reading.author} is not a GitHub App ` +
       "(the ruling of 2026-09-03 names bot-authored pull requests; a colleague's pull request is reviewed, never merged by the bot)";
-    return ok({
-      verdict: classWouldMatter ? withNote(verdict, note) : verdict,
-      changeClass: undefined,
-    });
+    return ok({ verdict: withNote(verdict, note), changeClass: undefined });
   }
-  if (verdict.state === 'CHECKS-RUNNING') {
-    return ok(await resolveChecksRunning(input, verdict));
-  }
-  const changeClass = await classWhenItDecides(verdict, input.fetchImpl, input.token, input.target);
-  return changeClass.ok ? ok({ verdict, changeClass: changeClass.value }) : changeClass;
+  return resolveAtTheDoor(input, verdict);
 }

@@ -68,6 +68,7 @@ describe('narrowToRequired', () => {
     );
 
     expect(narrowed.setAside).toStrictEqual([]);
+    expect(narrowed.notReported).toStrictEqual(['run-quality-gates']);
     expect(narrowed.reading.namedChecks).toStrictEqual([
       { name: 'CodeQL', bucket: 'passed' },
       { name: 'run-quality-gates', bucket: 'pending' },

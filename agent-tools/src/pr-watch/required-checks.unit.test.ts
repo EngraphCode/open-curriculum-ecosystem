@@ -23,6 +23,29 @@ describe('parseRequiredChecks', () => {
     expect(parseRequiredChecks([])).toStrictEqual({ ok: true, value: [] });
     expect(parseRequiredChecks({ message: 'Not Found' }).ok).toBe(false);
   });
+
+  it.each([
+    ['no parameters', { type: 'required_status_checks' }],
+    ['no contexts list', { type: 'required_status_checks', parameters: {} }],
+    [
+      'an empty contexts list',
+      { type: 'required_status_checks', parameters: { required_status_checks: [] } },
+    ],
+    [
+      'a nameless context',
+      { type: 'required_status_checks', parameters: { required_status_checks: [{ context: '' }] } },
+    ],
+  ])(
+    'refuses a required_status_checks rule carrying %s, naming the rule, never reading it as requiring nothing',
+    (shape, rule) => {
+      const parsed = parseRequiredChecks([{ type: 'deletion' }, rule]);
+
+      expect(parsed.ok, shape).toBe(false);
+      if (!parsed.ok) {
+        expect(parsed.error.message).toContain('required_status_checks rule at index 1');
+      }
+    },
+  );
 });
 
 describe('isBranchName', () => {
