@@ -216,7 +216,7 @@ the default branch, so unit 1 re-reads the push path first.
    splits the rest on the `·` separator, and reads the head SHA, the review id, the anchor (path and
    line split at `lastIndexOf(':')`) and the text; `pr-tally/findings.ts:35` → a string parse (badge
    prefix, first `</sub></sub>`, trailing `**`). Tests per criterion 5; the recorded-corpus suites
-   unchanged. About six files. First after unit 0: the live exposure.
+   unchanged. About six files. The first unit landed: the live exposure.
 2. **Request correlation and trace identity.** `correlation/index.ts` (`randomBytes(3)`),
    `logger/src/otel-format.ts` (SHA-256, the first 32 hex). Tests per criterion 6. Four files.
 3. **Retry jitter from the cryptographic source.** `sitemap-scanner.ts:125`
@@ -290,7 +290,10 @@ the default branch, so unit 1 re-reads the push path first.
     any cell padding, in the tightest identity), and a stacked narrow layout loses table semantics
     on older WebKit and changes the design system for four rows. About four files.
 
-Order: 0, then 1 (the live exposure), then 2 (the server-side change); units 3–10 and 12 have no
+Order: the merge-bot command that opens a draft pull request as the bot lands first, in its own
+pull request (the owner's word, 2026-10-27: build the agent tool first), because every unit's pull
+request opens through it; then 1 (the live exposure, the first defect fix), then 0 (the records, as
+their own pull request per `pr-lifecycle` §Phase 1), then 2 (the server-side change); units 3–10 and 12 have no
 file dependency on one another and follow in any order; 11 after 1–10. A seat the owner names alone
 holds one open pull request at a time (`pr-lifecycle` §The work-in-progress limit), so the thirteen
 land in sequence at about one seat-hour each including review: about thirteen seat-hours.
@@ -372,3 +375,4 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-10-27 | Owner, at plan review | "The reliable atoms concept is retired, this is just fixing defects"; asked which node a defect-fix plan serves: "Maintenance". | Applied: `serves: maintenance`, a new strategic node landed by unit 0 (serving TOOLS-1); `code-scanning-alerts-to-zero` re-pointed in the same unit. |
 | 2026-10-27 | Assumptions review, nits | Unit 2 has no file dependency; `findings.ts` also runs live; the pr-tally row should name unit 1; the LOW findings are the sibling's units 4 and 5; name the typegen tests; `recommended.unit.test.ts` is new. | Applied, each. |
 | 2026-10-27 | Owner, at recheck ("we have rules, follow them": `pr-lifecycle`, `proportionality`, `metacognition`, `principles.md`; "this is about fixing issues, not ceremony"), with a side seat's note | The `maintenance` node promised that reviewer and seat findings are fixed, where the estate triages them (`review-feedback-defaults-to-triage`, PDR-140) and the 2026-09-08 ruling covers analyser findings. The plan absorbed three adjacent observations as five units no finding names (one fence model across ten detectors with behaviour changes, author-bound signatures in two tools, a header grammar): the shape `pr-lifecycle` §Phase 4 records as a worked failure ("a container-aware parser nobody had asked for"). It scheduled three parallel lanes where `pr-lifecycle`'s work-in-progress limit gives a seat the owner names alone one open pull request. It would have opened a draft before ratification, where `pr-lifecycle` §Phase 1 says no draft waits for one. | Applied: the `maintenance` node's outcome names analyser findings only; the fence model is one helper for the three CommonMark detectors (unit 8) and the toggling seven are routed; the author check goes to `pr-tally`'s ledger as its own; the header grammar is routed; unit 2 narrowed to its two findings; thirteen units, landed one at a time; the nodes are stamped on the owner's word before the first push. |
+| 2026-10-27 | Cricket pair on the rechecked plan (both stances: ON-TRACK, frame NARROWED) | The order put four record files ahead of the live exposure under a one-pull-request limit, against the owner's "fixing issues, not ceremony"; the plan did not carry the owner's order that the bot's pull-request-opening command lands first; the solo limit, and the counting of the owner's own open pull requests toward it, were readings the owner should see stated in one line. | Applied: unit 1 leads and unit 0 follows as its own pull request; the tool dependency is named in the order; both readings are stated to the owner in the recheck report. |
