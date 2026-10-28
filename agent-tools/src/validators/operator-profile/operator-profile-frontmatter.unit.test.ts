@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import { unwrap } from '@oaknational/result';
+import { unwrap, unwrapErr } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -12,12 +12,12 @@ import {
 import { parseOperatorProfileDocument } from './operator-profile-document.js';
 import {
   deriveMachineKey,
-  deriveScopeKey,
   findCredentialLikeLines,
   machineKeyFromRelPath,
   type CredentialVocabulary,
   scopeKeyFromRelPath,
 } from './operator-profile-keys.js';
+import { scopeKeyFromManifestText, scopeKeyFromPackageName } from './operator-profile-scope-key.js';
 import { classifyProfileEntries } from './operator-profile-layout.js';
 import { resolveProfileRoot } from './operator-profile-root.js';
 
@@ -263,21 +263,32 @@ describe('findCredentialLikeLines — variables, bearer headers and wrapped valu
   });
 });
 
-describe('deriveScopeKey', () => {
-  it('derives owner--repository from https, scp-style and ssh remote forms', () => {
-    expect(deriveScopeKey('https://github.com/EngraphCode/open-curriculum-ecosystem.git')).toBe(
-      'engraphcode--open-curriculum-ecosystem',
-    );
-    expect(deriveScopeKey('git@github.com:oaknational/oak-open-curriculum-ecosystem.git')).toBe(
-      'oaknational--oak-open-curriculum-ecosystem',
-    );
-    expect(deriveScopeKey('ssh://git@github.com/Owner/Repo')).toBe('owner--repo');
+describe('scopeKeyFromPackageName', () => {
+  it('maps an unscoped manifest name to itself and a scoped one to scope--name, lowercased', () => {
+    expect(scopeKeyFromPackageName('example-sites')).toBe('example-sites');
+    expect(scopeKeyFromPackageName('@Example-Org/Example.Repo')).toBe('example-org--example.repo');
+    expect(scopeKeyFromPackageName('  @a/b  ')).toBe('a--b');
   });
 
-  it('returns undefined when the URL does not name exactly owner and repository', () => {
-    expect(deriveScopeKey('https://github.com/only-owner')).toBeUndefined();
-    expect(deriveScopeKey('https://gitlab.example/group/sub/repo.git')).toBeUndefined();
-    expect(deriveScopeKey('')).toBeUndefined();
+  it('returns undefined for a name the key grammar cannot carry', () => {
+    expect(scopeKeyFromPackageName('')).toBeUndefined();
+    expect(scopeKeyFromPackageName('@scope')).toBeUndefined();
+    expect(scopeKeyFromPackageName('a/b')).toBeUndefined();
+    expect(scopeKeyFromPackageName('@a/b/c')).toBeUndefined();
+    expect(scopeKeyFromPackageName('.hidden')).toBeUndefined();
+    expect(scopeKeyFromPackageName('~tilde')).toBeUndefined();
+  });
+});
+
+describe('scopeKeyFromManifestText', () => {
+  it('reads the name of a root manifest and derives the key', () => {
+    expect(unwrap(scopeKeyFromManifestText('{"name":"@a/b","private":true}'))).toBe('a--b');
+  });
+
+  it('names the reason when the manifest is not JSON, has no name, or has a name the grammar refuses', () => {
+    expect(unwrapErr(scopeKeyFromManifestText('not json'))).toContain('not JSON');
+    expect(unwrapErr(scopeKeyFromManifestText('{"private":true}'))).toContain('name');
+    expect(unwrapErr(scopeKeyFromManifestText('{"name":"a/b"}'))).toContain('scope key');
   });
 });
 

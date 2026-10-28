@@ -33,8 +33,11 @@ export const SCOPES_DIR_NAME = 'repos';
 /** Directory (inside the profile root) holding machine-scoped documents. */
 export const MACHINES_DIR_NAME = 'machines';
 
-/** `owner--repository`, lowercase; the scope file is `repos/<scope_key>.md`. */
-export const SCOPE_KEY_PATTERN = /^[a-z0-9][a-z0-9._-]*--[a-z0-9][a-z0-9._-]*$/;
+/**
+ * The root package name as a key, lowercase: `name`, or `scope--name` for a
+ * scoped `@scope/name`; the scope file is `repos/<scope_key>.md`.
+ */
+export const SCOPE_KEY_PATTERN = /^[a-z0-9][a-z0-9._-]*(?:--[a-z0-9][a-z0-9._-]*)?$/;
 
 /** The short host name, lowercase; the machine file is `machines/<machine_key>.md`. */
 export const MACHINE_KEY_PATTERN = /^[a-z0-9][a-z0-9.-]*$/;
@@ -61,7 +64,10 @@ const scopeFrontmatterSchema = z.strictObject({
   kind: z.literal('scope'),
   scope_key: z
     .string()
-    .regex(SCOPE_KEY_PATTERN, 'owner--repository, lowercase, from the origin remote'),
+    .regex(
+      SCOPE_KEY_PATTERN,
+      'the root package name, lowercase: name, or scope--name for a scoped @scope/name',
+    ),
 });
 
 const machineFrontmatterSchema = z.strictObject({
