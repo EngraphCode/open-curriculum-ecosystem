@@ -95,7 +95,7 @@ export interface RefusedCompletionComment {
 }
 
 /** A vendor's notice about its own service, by an expected reviewer: printed, deciding nothing. */
-export interface VendorNoticeComment {
+interface VendorNoticeComment {
   readonly id: string;
   readonly author: string;
   /** When the quoted text was written: the last edit, else the creation. */
