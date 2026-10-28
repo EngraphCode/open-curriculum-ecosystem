@@ -30,6 +30,17 @@ export function scopeKeyFromPackageName(packageName: string): string | undefined
   return SCOPE_KEY_PATTERN.test(key) ? key : undefined;
 }
 
+/** The manifest's own `name` field when it is a non-empty string, else undefined. */
+function manifestName(parsed: unknown): string | undefined {
+  if (typeof parsed !== 'object' || parsed === null || !('name' in parsed)) {
+    return undefined;
+  }
+  const { name } = parsed;
+  return Object.hasOwn(parsed, 'name') && typeof name === 'string' && name.trim() !== ''
+    ? name
+    : undefined;
+}
+
 /**
  * Derive the scope key from the text of a root `package.json`.
  *
@@ -43,9 +54,8 @@ export function scopeKeyFromManifestText(manifestText: string): Result<string, s
   } catch {
     return err('the root package.json is not JSON');
   }
-  const name =
-    typeof parsed === 'object' && parsed !== null && 'name' in parsed ? parsed.name : undefined;
-  if (typeof name !== 'string' || name.trim() === '') {
+  const name = manifestName(parsed);
+  if (name === undefined) {
     return err('the root package.json has no name');
   }
   const key = scopeKeyFromPackageName(name);
