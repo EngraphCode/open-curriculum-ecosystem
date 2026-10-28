@@ -144,10 +144,11 @@ carrier merge and landing proof names the first.
   `merge-bot pull-request dispatch-workflow` does not mint, so the mirror's
   dispatch stays a separate route for now), wait for that run to conclude
   `success` (a dispatch returns at once and orders nothing), and re-read the
-  mirror's tip as equal to the upstream tip. Second, as the bot, comment the
-  reason on the stale carrier and close it with
-  `pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>`,
-  then delete its branch. Third, dispatch the carrier workflow with
+  mirror's tip as equal to the upstream tip. Second, as the bot, close the
+  stale carrier with
+  `pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>`
+  (the command posts the reason as its comment, then closes), then delete its
+  branch. Third, dispatch the carrier workflow with
   `pnpm agent-tools merge-bot pull-request dispatch-workflow --workflow upstream-carrier.yml`,
   minted at `workflow-dispatch`, and wait for it; a scheduled run may have
   opened the carrier first, and either is accepted. Take

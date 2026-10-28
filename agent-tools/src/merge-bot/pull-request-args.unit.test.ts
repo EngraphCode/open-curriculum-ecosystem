@@ -5,7 +5,7 @@ import { parsePullRequestArgs } from './pull-request-args.js';
 import { failureMessage } from './test-helpers/result-failure.js';
 
 /**
- * The `merge-bot pull-request` argv contract: a closed grammar of six verbs,
+ * The `merge-bot pull-request` argv contract: a closed grammar of seven verbs,
  * each with its own closed flag set. Pure parsing over an injected ref-format
  * oracle (a constant answer), so no git binary is asked. What is proven: each
  * verb's full flag line parses to its typed request; every other shape — an
@@ -136,7 +136,7 @@ describe('parsePullRequestArgs', () => {
     expect(refusal(['comment', '--pr', '1', '--body-file', '--json'])).toContain('--body-file');
   });
 
-  it.each(['0', '-1', '1.5', '42x', 'abc', ''])(
+  it.each(['0', '-1', '1.5', '42x', 'abc', '', '100000000000000000000000'])(
     'refuses --pr "%s": a pull request number is a positive integer',
     (value) => {
       const message = refusal(['ready', '--pr', value]);

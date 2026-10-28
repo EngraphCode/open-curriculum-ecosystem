@@ -25,11 +25,23 @@ const API = 'https://api.github.com/repos/acme/widgets';
 const TOKEN = 'ghs_pull_request_token';
 
 describe('commentOnPullRequest', () => {
+  /** The pull request read the verb probes first, then the comment write. */
+  const commentScript =
+    (post: { status: number; body: unknown } | undefined): GithubScript =>
+    (request) => {
+      const line = `${request.method} ${request.url}`;
+      if (line === `GET ${API}/pulls/42`) {
+        return { status: 200, body: pullRequest('open') };
+      }
+      return line === `POST ${API}/issues/42/comments` ? post : undefined;
+    };
+
   it('POSTs the body verbatim as an issue comment and reads back the id and URL', async () => {
-    const github = scriptedGithub((request) =>
-      `${request.method} ${request.url}` === `POST ${API}/issues/42/comments`
-        ? { status: 201, body: { id: 9001, html_url: `${API}/pull/42#issuecomment-9001` } }
-        : undefined,
+    const github = scriptedGithub(
+      commentScript({
+        status: 201,
+        body: { id: 9001, html_url: `${API}/pull/42#issuecomment-9001` },
+      }),
     );
 
     const result = await commentOnPullRequest(github.fetchImpl, TOKEN, REPO, 42, 'Hello "there"\n');
@@ -43,17 +55,40 @@ describe('commentOnPullRequest', () => {
         url: `${API}/pull/42#issuecomment-9001`,
       },
     });
-    expect(github.requests[0]?.body).toEqual({ body: 'Hello "there"\n' });
-    expect(github.requests[0]?.authorization).toBe(`Bearer ${TOKEN}`);
+    expect(github.requests.at(-1)?.body).toEqual({ body: 'Hello "there"\n' });
+    expect(github.requests.at(-1)?.authorization).toBe(`Bearer ${TOKEN}`);
   });
 
-  it('fails naming the status and message on anything but a 201', async () => {
-    const github = scriptedGithub(() => ({ status: 404, body: { message: 'Not Found' } }));
+  it('refuses a number that is not a pull request, writing nothing: the issues endpoint would take an issue', async () => {
+    // Only the probe is scripted: a reached write would answer the double's
+    // failure status and the outcome would not be this refusal.
+    const github = scriptedGithub((request) =>
+      `${request.method} ${request.url}` === `GET ${API}/pulls/42`
+        ? { status: 404, body: { message: 'Not Found' } }
+        : undefined,
+    );
 
     const result = await commentOnPullRequest(github.fetchImpl, TOKEN, REPO, 42, 'x');
 
-    expect(failureMessage(result)).toContain('404');
-    expect(failureMessage(result)).toContain('Not Found');
+    expect(refusalReason(result)).toBe('#42 is not a pull request');
+  });
+
+  it('fails naming the status and message when the probe answers anything but 200 or 404', async () => {
+    const github = scriptedGithub(() => ({ status: 403, body: { message: 'Forbidden' } }));
+
+    const result = await commentOnPullRequest(github.fetchImpl, TOKEN, REPO, 42, 'x');
+
+    expect(failureMessage(result)).toContain('403');
+    expect(failureMessage(result)).toContain('Forbidden');
+  });
+
+  it('fails naming the status and message when the write answers anything but a 201', async () => {
+    const github = scriptedGithub(commentScript({ status: 500, body: { message: 'boom' } }));
+
+    const result = await commentOnPullRequest(github.fetchImpl, TOKEN, REPO, 42, 'x');
+
+    expect(failureMessage(result)).toContain('500');
+    expect(failureMessage(result)).toContain('boom');
   });
 });
 

@@ -113,9 +113,9 @@ describe('merge-bot pull-request, front door', () => {
     expect(run.exit).toBe(0);
     expect(run.out).toBe(`commented: #42 comment 9001 ${API}/pull/42#issuecomment-9001\n`);
     expect(run.err).toBe('');
-    expect(run.requests).toHaveLength(1);
-    expect(run.requests[0]?.authorization).toBe(`Bearer ${TOKEN}`);
-    expect(run.requests[0]?.body).toEqual({ body: BODY });
+    const write = run.requests.find((request) => request.url === `${API}/issues/42/comments`);
+    expect(write?.authorization).toBe(`Bearer ${TOKEN}`);
+    expect(write?.body).toEqual({ body: BODY });
   });
 
   it('puts exactly the outcome object on stdout under --json', async () => {
@@ -282,6 +282,9 @@ describe('merge-bot pull-request, front door', () => {
         }
         if (request.url.endsWith('/access_tokens')) {
           return { status: 201, body: { token: 'ghs_minted', expires_at: '2026-10-27T15:00:00Z' } };
+        }
+        if (request.url === `${API}/pulls/42`) {
+          return { status: 200, body: { node_id: 'PR_kwDOAbc', state: 'open', draft: false } };
         }
         return request.url === `${API}/issues/42/comments`
           ? { status: 201, body: { id: 1, html_url: `${API}/pull/42#issuecomment-1` } }

@@ -1,7 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
-import { restJson } from './github-rest.js';
+import { restJson, restProbe, unexpectedStatus } from './github-rest.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import type { PullRequestOutcome } from './pull-request-report.js';
 import type { BotRepository } from './resolve-identity.js';
@@ -39,6 +39,8 @@ export function refused(reason: string): Extract<PullRequestOutcome, { kind: 're
   return { kind: 'refused', reason };
 }
 
+const PULL_REQUEST_READ = 'GET /repos/{owner}/{repo}/pulls/{n}';
+
 /** The path of one pull request under the API root. */
 function pullsPath(repo: BotRepository, pr: number): string {
   return `/repos/${repo.owner}/${repo.repoName}/pulls/${String(pr)}`;
@@ -54,7 +56,7 @@ export async function readPullRequest(
   return restJson(
     fetchImpl,
     token,
-    { method: 'GET', path: pullsPath(repo, pr), label: 'GET /repos/{owner}/{repo}/pulls/{n}' },
+    { method: 'GET', path: pullsPath(repo, pr), label: PULL_REQUEST_READ },
     200,
     pullRequestSchema,
   );
@@ -83,7 +85,11 @@ async function postIssueComment(
   return posted.ok ? ok({ id: posted.value.id, url: posted.value.html_url }) : posted;
 }
 
-/** The `comment` verb. */
+/**
+ * The `comment` verb. The issues endpoint the comment goes through accepts an
+ * issue number as readily as a pull request's, so the pull request is probed
+ * first: a 404 is the typed refusal, any other status but 200 the failure.
+ */
 export async function commentOnPullRequest(
   fetchImpl: GithubApiFetch,
   token: string,
@@ -91,6 +97,20 @@ export async function commentOnPullRequest(
   pr: number,
   body: string,
 ): Promise<Result<Outcome<'commented'>, Error>> {
+  const probe = await restProbe(fetchImpl, token, {
+    method: 'GET',
+    path: pullsPath(repo, pr),
+    label: PULL_REQUEST_READ,
+  });
+  if (!probe.ok) {
+    return probe;
+  }
+  if (probe.value.status === 404) {
+    return ok(refused(`#${String(pr)} is not a pull request`));
+  }
+  if (probe.value.status !== 200) {
+    return err(unexpectedStatus(PULL_REQUEST_READ, probe.value.status, probe.value.detail));
+  }
   const posted = await postIssueComment(fetchImpl, token, repo, pr, body);
   return posted.ok
     ? ok({ kind: 'commented', pr, commentId: posted.value.id, url: posted.value.url })

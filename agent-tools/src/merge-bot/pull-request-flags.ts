@@ -93,8 +93,9 @@ export function positiveInteger(collected: Collected, flag: string): Result<numb
   if (!value.ok) {
     return value;
   }
-  return POSITIVE_INTEGER.test(value.value)
-    ? ok(Number(value.value))
+  const parsed = Number(value.value);
+  return POSITIVE_INTEGER.test(value.value) && Number.isSafeInteger(parsed)
+    ? ok(parsed)
     : err(usageError(`${flag} needs a positive integer, got "${printable(value.value)}"`));
 }
 
