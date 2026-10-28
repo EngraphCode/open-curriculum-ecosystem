@@ -284,10 +284,18 @@ to one of those is a code change whatever directory it sits in (a finding on a f
 merged on 2026-09-21).
 
 **Review request policy (the owner's word of 2026-10-27, standing).** A
-Copilot review, a Codex review or any agent review is requested only for a
-stated reason, never automatically — verbatim: "only request co-pilot
-reviews or other agent reviews when you have a good reason, don't do it
-automatically, they are expensive." This supersedes the grants of
+pull-request review — Copilot's, Codex's or any other vendor's on the pull
+request — is requested only for a stated reason, never automatically;
+verbatim: "only request co-pilot reviews or other agent reviews when you
+have a good reason, don't do it automatically, they are expensive." The one
+question, in the owner's words of 2026-10-28: "do we need a review in order
+for this work to be safe and effective?" — if yes and no review has
+occurred, request one; if no, none is requested, and a tool that requires
+one regardless is a broken tool, cured rather than obeyed. The policy binds
+pull-request reviewers only: the estate's own sub-agent reviewers
+(`code-expert` and the roster the `invoke-code-experts` rule names) are a
+different instrument under that rule's own terms (the owner, 2026-10-28:
+"there is a difference between subagents and PR reviewers"). This supersedes the grants of
 2026-07-26→29 (a Copilot request at open for every source-touching pull
 request, and for a docs-only pull request that changes a rule or a skill)
 and the per-push cadence that followed them. The repository's own

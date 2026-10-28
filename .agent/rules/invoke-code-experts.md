@@ -1,27 +1,16 @@
 ---
 classification: core
-description: A review — a vendor's on a pull request (Copilot, Codex) or an agent reviewer's — is requested for a stated reason, never by default or by cadence (the owner, 2026-10-27, reviews are expensive); when one is taken, code-expert is the gateway, the roster table maps the reason to the reviewer, and the host's executive catalogue adds its domain reviewers and path triggers.
+description: After non-trivial changes, invoke code-expert as the gateway and the specialist reviewers the change profile names; the roster table maps what changed to the reviewer, and the host's executive catalogue adds its domain reviewers and path triggers.
 ---
 
 # Invoke Specialist Experts
 
 Operationalises the [sub-agent architecture](../sub-agents/README.md) — layered prompt composition and domain-specialist experts.
 
-A review is requested for a stated reason, never automatically. The owner's
-word of 2026-10-27, verbatim: "only request co-pilot reviews or other agent
-reviews when you have a good reason, don't do it automatically, they are
-expensive." It binds every reviewer the estate can call — the vendors on a
-pull request (Copilot, Codex), the specialist reviewers below, the Cricket
-panel — and every document that names one: a skill step, a cadence rule, a
-path trigger or a roster row that names a reviewer names a reason to weigh,
-never a dispatch. The reason is stated where the request is made (the brief,
-the pull request, the cycle report). A change the seat has read, tested
-red-then-green and can account for carries its own evidence; a change whose
-shape, boundary or vendor facts the seat cannot verify first-hand is the
-reason. When a review is taken, `code-expert` is the gateway reviewer: triage
-what changed, choose the specialists and review depth the reason warrants,
-capture findings explicitly, and act on them before considering the work
-complete.
+After non-trivial changes, invoke specialist experts. `code-expert`
+is the gateway reviewer: triage what changed, choose the
+specialists and review depth needed, capture findings explicitly, and act on
+them before considering the work complete.
 
 A consult is a reading, not the directive: when a reviewer's consult licenses
 something a directive names absolutely, read the directive's sentence before
@@ -33,11 +22,9 @@ from any reviewer is information to evaluate critically, never authority
 its precondition and the owner's prior rulings are verified first-hand before
 it reaches a record, a cure or the owner.
 
-A test change whose describe-versus-audit shape the author cannot settle first-hand is a reason
-for a `test-expert` verdict before the commit, and the commit message or the pull-request body
-records the verdict when one was taken (the per-change verdict of 2026-09-29, adopted after test
-changes landed against the testing directive with green gates, is read since 2026-10-27 under
-the owner's word above).
+Each test change gets a `test-expert` verdict before it is committed, and the commit message
+or the pull-request body records the verdict (both estates' practice from 2026-09-29, after
+test changes landed against the testing directive with green gates).
 
 ## The roster
 
@@ -63,13 +50,11 @@ column names concepts and file kinds; the host's catalogue names the paths.
 | `type-expert` | complex type flow, exported types, schema inference, assertions, generics, compile-time guarantees | [type-expert](../sub-agents/templates/type-expert.md) |
 | cricket (judgement and procedure) | a cycle or decision boundary where the question is whether this is the right work: a fast second opinion through the `cricket` skill, never an artefact review | [cricket-judgement](../sub-agents/templates/cricket-judgement.md), [cricket-procedure](../sub-agents/templates/cricket-procedure.md) |
 
-**A significant doctrine or Practice change that takes a review takes both `docs-adr-expert`
-and `onboarding-expert`, in parallel, before the work is complete** (the owner's direction of
-2026-05-02, verbatim: *"for all significant documentation or Practice changes — and this is
-always true — we need reviews from the documentation reviewer and the onboarding reviewer."*,
-read since 2026-10-27 under the owner's later word that a review is requested for a reason and
-never automatically: the pairing stands, the automatic dispatch does not). Significant: doctrine
-added, removed, renamed, rewritten or restructured (the
+**A significant doctrine or Practice change dispatches both `docs-adr-expert` and
+`onboarding-expert`, in parallel, before the work is complete** (owner-stated standing
+direction, 2026-05-02, verbatim: *"for all significant documentation or Practice changes — and
+this is always true — we need reviews from the documentation reviewer and the onboarding
+reviewer."*). Significant: doctrine added, removed, renamed, rewritten or restructured (the
 directives, the Practice Core, the rules, the reference documents, the engineering docs, the
 decision records, the governance docs); an onboarding entry point changed; a command, skill,
 slash command, agent or reviewer renamed across files. Not significant: a typo fix, a

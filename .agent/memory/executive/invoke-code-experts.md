@@ -1,9 +1,7 @@
 # Invoke Specialist Experts
 
-A review is requested for a stated reason, never automatically (the owner,
-2026-10-27, carried by the reviewer-invocation rule: reviews are expensive).
-When one is taken, `code-expert` is the gateway reviewer and the change
-profile names the specialists. The
+After non-trivial changes, invoke `code-expert` plus all specialist experts
+required by the change profile. `code-expert` is the gateway reviewer. The
 general-layer roster below is the same in every Practice instance; each host
 adds its own domain reviewers and its path triggers in the last section of
 this file, §This host's reviewers and triggers.
@@ -207,9 +205,7 @@ semantics, a false "unchanged" claim about a sibling rule, and a triple
 restatement — at four agents for ~4 minutes wall each, against eleven
 post-push review waves the same morning (2026-08-31). An author's or a
 Director's critical pass is ONE lens; a doctrine record, plan node, or PDR
-whose premises the author cannot check first-hand takes the panel BEFORE the
-merge glide or the public push, the reason stated, never by default
-(2026-10-27). Point the panel
+gets the panel BEFORE the merge glide or the public push. Point the panel
 at the misinforming-surface class as well — a surface that misinforms
 its readers while every check it carries passes: the seat that
 has just diagnosed the class rebuilds it inside its own cure (two
@@ -316,26 +312,22 @@ the owner explicitly gives them implementation ownership.
 
 ## When to Invoke
 
-A review is taken for a stated reason, sized to the change (the owner,
-2026-10-27). Reasons:
+Non-trivial changes include:
 
-- A public API or contract changed, or a schema the consumers read.
-- A boundary, parser or trust surface the seat has not verified first-hand.
-- A structural refactor across workspaces or import directions.
-- A vendor fact asserted without a first-hand read.
-- An artefact that misinforms if wrong (a doctrine record, a plan node, a PDR)
-  whose premises the author did not check.
+- Completing a feature or user story
+- Fixing a non-trivial bug
+- Refactoring (especially structural changes)
+- Adding or modifying public APIs
+- Changes touching multiple files
+- Architectural modifications
 
-Not a reason by itself: that a change is non-trivial, touches several files,
-completes a story or fixes a bug. The reason is stated at the request; a
-change the seat has read, tested red-then-green and can account for carries
-its own evidence.
+Minor changes (single typo/comment-only edits with no behaviour impact) may use lighter review, but still require explicit rationale.
 
 ## Timing Tiers
 
 | Tier | When | What to invoke |
 |---|---|---|
-| After a change with a stated reason | When §When to Invoke names a reason | `code-expert` plus the specialists the reason names |
+| Immediately after change | After each non-trivial code change | `code-expert` plus all specialists matching the change profile |
 | Design-pressure checkpoint | Before implementing high-risk type/boundary changes | Relevant specialist(s) to review intended approach (for example `type-expert` before touching external-signal parsing) |
 | Before merge | Before the branch merges | Any applicable specialists not yet invoked during implementation |
 | Situational trigger | When the specific context arises | On-demand agents (see below) -- not tied to every change |
@@ -366,7 +358,7 @@ count.
 
 ## Required Reviewer Matrix
 
-When a review is taken, invoke:
+Always invoke:
 
 - `code-expert` (gateway — also responsible for flagging when specialists are missing, recommending review depth, and checking coverage)
 
@@ -418,12 +410,12 @@ play) follow in §This host's reviewers and triggers.
 a narrative doc); `docs-adr-expert` reviews structure and accuracy, `prose-expert`
 reviews craft.
 
-**Onboarding docs/path update**: a reason for `code-expert` + `docs-adr-expert`. Add `onboarding-expert` when the change affects onboarding journeys (human and/or AI), `start-right` discoverability, or ADR progressive disclosure.
+**Onboarding docs/path update**: Invoke `code-expert` + `docs-adr-expert` immediately. Add `onboarding-expert` when the change affects onboarding journeys (human and/or AI), `start-right` discoverability, or ADR progressive disclosure.
 
 **Significant documentation or Practice change**: Per the reviewer-invocation
 rule ([`invoke-code-experts`](../../rules/invoke-code-experts.md), the
-significant-change clause under its roster), a significant doc/Practice
-change that takes a review pairs `docs-adr-expert` with `onboarding-expert`
+significant-change clause under its roster),
+significant doc/Practice changes always pair `docs-adr-expert` with `onboarding-expert`
 (both reviewers, in parallel) — neither alone covers the failure surface the other catches.
 "Significant" includes: any new ADR/PDR/governance doc/rule; any rename or restructure
 across permanent doctrine surfaces; any change to onboarding entry points
