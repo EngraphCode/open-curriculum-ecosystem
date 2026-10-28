@@ -2,8 +2,8 @@ import { ok, type Result } from '@oaknational/result';
 
 import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
-import { MERGE_USAGE, parseMergeArgs, type MergeArgs } from './merge-args.js';
-import { verdictAwaitsSettlement } from './merge-decision.js';
+import { parseMergeArgs, type MergeArgs } from './merge-args.js';
+import { MERGE_USAGE } from './merge-usage.js';
 import {
   deadlineMessage,
   deadlinePassed,
@@ -217,10 +217,12 @@ async function pollUntilActionable(context: {
 
 /**
  * Whether this poll outcome is worth another poll, and the progress label if
- * so. Two retryable shapes: a wait-class verdict (it resolves by time), and a
- * failed READING after a working first poll (a transient — a FIRST-poll
- * failure is a broken environment and fails fast). Everything else lands on
- * a terminal path.
+ * so. Two retryable shapes: a refusal the decision marked as awaiting
+ * settlement (the verdict's own wait state, which resolves by time; a
+ * terminal refusal such as the author fence under an empty set never polls),
+ * and a failed READING after a working first poll (a transient — a
+ * FIRST-poll failure is a broken environment and fails fast). Everything
+ * else lands on a terminal path.
  */
 function retryLabel(
   outcome: Awaited<ReturnType<typeof runMergeExecution>>,
@@ -235,7 +237,7 @@ function retryLabel(
       ? `reading unavailable (${outcome.error.message})`
       : undefined;
   }
-  return outcome.value.kind === 'refused' && verdictAwaitsSettlement(outcome.value.verdictState)
+  return outcome.value.kind === 'refused' && outcome.value.awaitsSettlement
     ? outcome.value.verdictState
     : undefined;
 }

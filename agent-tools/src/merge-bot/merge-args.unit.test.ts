@@ -141,6 +141,44 @@ describe('parseMergeArgs', () => {
     }
   });
 
+  it('accepts --expect none as the DECLARED empty set: the seat judged no pull-request review necessary', () => {
+    const parsed = parseMergeArgs(['--pr', '42', '--expect', 'none']);
+
+    expect(parsed.ok).toBe(true);
+    if (parsed.ok) {
+      expect(parsed.value.expect).toEqual([]);
+    }
+  });
+
+  it('refuses --expect none beside a login: the set is empty or it is not', () => {
+    for (const args of [
+      ['--pr', '42', '--expect', 'none', '--expect', 'copilot-pull-request-reviewer'],
+      ['--pr', '42', '--expect', 'copilot-pull-request-reviewer', '--expect', 'none'],
+    ]) {
+      const parsed = parseMergeArgs(args);
+      expect(parsed.ok).toBe(false);
+      if (!parsed.ok) {
+        expect(parsed.error.message).toContain('--expect none');
+      }
+    }
+  });
+
+  it('refuses --unavailable under --expect none: no reviewer is expected, so none can be down', () => {
+    const parsed = parseMergeArgs([
+      '--pr',
+      '42',
+      '--expect',
+      'none',
+      '--unavailable',
+      'chatgpt-codex-connector=https://github.com/acme/widgets/pull/42#issuecomment-1',
+    ]);
+
+    expect(parsed.ok).toBe(false);
+    if (!parsed.ok) {
+      expect(parsed.error.message).toContain('no --expect declares');
+    }
+  });
+
   it('rejects blank, flag-shaped, and non-login --expect values (security D4)', () => {
     for (const bad of ['', '  ', '$(whoami)']) {
       const parsed = parseMergeArgs(['--pr', '42', '--expect', bad]);

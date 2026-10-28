@@ -359,7 +359,11 @@ the record either way.
 Merge by MERGE COMMIT as the bot through the one sanctioned front
 door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
 [--expect <reviewer> ...]` — `--expect` is repeated once per AVAILABLE
-reviewer in the repository's automatic-review configuration, the set
+reviewer in the repository's automatic-review configuration (or is
+`--expect none` when the seat has answered the owner's one question of
+2026-10-27, "do we need a review in order for this work to be safe and
+effective?", with no: upstream's own release, read first-hand in the sweep,
+its conflict resolutions under the full gate), the set
 pr-lifecycle's Phase 1 declares as the state machine's input for every round,
 never narrowed to the reviewers that happen to have bound the tip and never
 widened to a vendor declared unavailable: a reviewer left undeclared is
