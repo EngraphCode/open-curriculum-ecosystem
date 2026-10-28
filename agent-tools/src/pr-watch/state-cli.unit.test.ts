@@ -16,6 +16,7 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     number: 461,
     isDraft: false,
     url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
+    author: 'app/el-graphael',
     state: 'OPEN',
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
@@ -34,6 +35,7 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     completionComments: { reviews: [], refused: [] },
     declaredUnavailable: NO_DECLARATIONS,
     reviewRuns: { kind: 'read', runs: [] },
+    reviewConfiguration: { kind: 'unread', reason: 'the test reading declares none' },
     content: NO_CONTENT,
     ...overrides,
   };

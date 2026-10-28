@@ -2,10 +2,12 @@ import {
   computeReviewerLegs,
   hasLanded,
   isSignedSelfReply,
-  mostBlockingLeg,
   QUIET_WINDOW_MS,
 } from './reviewer-legs.js';
-import type { BlockingLegVerdict, ReviewerLeg } from './reviewer-legs.js';
+import type { ReviewerLeg } from './reviewer-legs.js';
+import { mostBlockingLeg } from './most-blocking-leg.js';
+import type { BlockingLegVerdict } from './most-blocking-leg.js';
+import { readingEvidence } from './settlement-evidence.js';
 import {
   allReviews,
   completionRefusals,
@@ -26,14 +28,6 @@ import { isVendorErrorReview } from './vendor-error-reviews.js';
  * since the latest tip-bound review — declaring SETTLE-READY inside the
  * window recreates the bot-round-still-composing hole).
  */
-
-function expectedSetEvidence(reading: PrStateReading): string[] {
-  return reading.expectedDeclared
-    ? []
-    : [
-        'expected reviewer set DEFAULTED from the observed surface — declare --expect for the first-round guarantee',
-      ];
-}
 
 function legLine(leg: ReviewerLeg): string {
   return `${leg.reviewer}: ${leg.state} — ${leg.detail}`;
@@ -98,8 +92,7 @@ function settledVerdict(input: {
     ...legs.map((leg) => legLine(leg)),
     ...transportEvidence(reading),
     ...bodyTallyEvidence(reading),
-    ...expectedSetEvidence(reading),
-    ...runsEvidence(reading),
+    ...readingEvidence(reading),
   ];
   const anchor = quietWindowAnchor(reading);
   const anchorMs = anchor === null ? Number.NaN : Date.parse(anchor);
@@ -152,7 +145,7 @@ function skippedRoundVerdict(
     return {
       state: 'SETTLED-NO-REVIEW',
       evidence: [
-        'round settled by TIMEOUT — an expected reviewer never reviewed this tip; not merge-eligible',
+        'round settled by TIMEOUT — an expected reviewer never reviewed this tip; not merge-eligible for a code-class pull request',
         ...shared,
       ],
     };
@@ -187,6 +180,7 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     roundRequests: reading.roundRequests,
     checksGreenAt: reading.checksGreenAt,
     now,
+    reviewConfiguration: reading.reviewConfiguration,
   });
   const blocking = mostBlockingLeg({
     legs,
@@ -222,8 +216,7 @@ function unclassifiedVerdict(
       ...refusals.map((refusal) => refusal.line),
       ...legs.map((leg) => legLine(leg)),
       ...transportEvidence(reading),
-      ...expectedSetEvidence(reading),
-      ...runsEvidence(reading),
+      ...readingEvidence(reading),
     ],
   };
 }
@@ -243,8 +236,7 @@ function blockedVerdict(input: {
       ...transportEvidence(reading),
       ...refusals.map((refusal) => refusal.line),
       ...unmappedLiveRunEvidence(reading, blocking.kind),
-      ...expectedSetEvidence(reading),
-      ...runsEvidence(reading),
+      ...readingEvidence(reading),
     ],
   };
 }

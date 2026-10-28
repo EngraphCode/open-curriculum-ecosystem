@@ -100,20 +100,29 @@ export async function runMergeAction(
   return pollUntilActionable({ parsed: parsed.value, ...bot.value, run: run.value, input });
 }
 
-// The identity, and the bot's login only when a reviewer is declared
-// unavailable: a declaration stands only as the bot's own comment
-// (declared-unavailable.ts).
+// The identity and the bot's login (its app slug): the records door admits
+// only the bot's own pull requests (merge-records-checks.ts), and a
+// declaration stands only as the bot's own comment (declared-unavailable.ts).
 function resolveBot(
   parsed: MergeArgs,
   identityInput: MergeBotResolveInput,
-): Result<{ readonly identity: BotIdentity; readonly poster: string | null }, Error> {
+): Result<
+  { readonly identity: BotIdentity; readonly appSlug: string; readonly poster: string | null },
+  Error
+> {
   const identity = resolveBotIdentity({}, identityInput);
   if (!identity.ok) {
     return identity;
   }
-  const poster: Result<string | null, Error> =
-    parsed.unavailable.length === 0 ? ok(null) : resolveMergeBotAppSlug(identityInput);
-  return poster.ok ? ok({ identity: identity.value, poster: poster.value }) : poster;
+  const appSlug = resolveMergeBotAppSlug(identityInput);
+  if (!appSlug.ok) {
+    return appSlug;
+  }
+  return ok({
+    identity: identity.value,
+    appSlug: appSlug.value,
+    poster: parsed.unavailable.length === 0 ? null : appSlug.value,
+  });
 }
 
 /** The ONE minted token and the wall-clock deadline derived from ITS expiry. */
@@ -159,6 +168,7 @@ function executionSeams(
 async function pollUntilActionable(context: {
   readonly parsed: MergeArgs;
   readonly identity: BotIdentity;
+  readonly appSlug: string;
   readonly poster: string | null;
   readonly run: MintedRun;
   readonly input: MergeActionInput;
@@ -185,6 +195,7 @@ async function pollUntilActionable(context: {
     }
     const outcome = await runMergeExecution({
       identity: context.identity,
+      appSlug: context.appSlug,
       prNumber: parsed.prNumber,
       expectedReviewers: parsed.expect,
       nowIso: at,

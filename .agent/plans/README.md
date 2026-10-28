@@ -30,12 +30,12 @@ successor becomes a delivery node or a unit inside an existing node here,
 and an owner decision becomes a gate row here — never a board in prose, a
 register file, or a queue surface such as repository issues.
 
-_Reading path (2026-09-03, MCP-673): start at the strategy index
-([`docs/strategy/README.md`](../../docs/strategy/README.md)) for the
-repository's strategic commitments. The extraction of the MCP app
-product into its own public repository is designed by the delivery plan
-`oak-open-curriculum-mcp-extraction`, which serves the strategic node
-`toolkit-re-architecture`. This index is the mechanism's home._
+_Current OCE read path (10 October 2026): start with the
+[programme route](../reports/repo-architecture/oce-rearchitecting/README.md), then
+the linked permanent architecture and native bounded nodes. The older
+`toolkit-re-architecture` and `oak-open-curriculum-mcp-extraction` records are
+superseded history. The strategy index remains the home of wider commitments;
+new detailed OCE nodes remain sketches until properly ratified._
 
 ## Layout
 

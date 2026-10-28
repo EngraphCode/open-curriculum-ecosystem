@@ -1,3 +1,4 @@
+import type { ReviewConfiguration } from './review-configuration.js';
 import type { CompletionCommentReading } from './completion-comments.js';
 import type { DeclaredUnavailableReading } from './declared-unavailable.js';
 import type { BindingHead } from './content-binding.js';
@@ -54,6 +55,12 @@ export interface PrStateReading extends BindingHead {
   readonly number: number;
   /** The PR's html URL — the repository-scoped identity runs are matched against. */
   readonly url: string;
+  /**
+   * The author login as `gh pr view` spells it (`app/<slug>` for an App): the
+   * records-class door opens only for a GitHub App's pull request
+   * (`merge-bot/merge-records-checks.ts`).
+   */
+  readonly author: string;
   /** `OPEN` | `CLOSED` | `MERGED`. */
   readonly state: string;
   /** Draft PRs cannot merge via the sanctioned landing path — typed refusal. */
@@ -106,6 +113,13 @@ export interface PrStateReading extends BindingHead {
    */
   readonly declaredUnavailable: DeclaredUnavailableReading;
   readonly reviewRuns: ReviewRunsLeg;
+  /**
+   * The base branch's automatic-review configuration (the `copilot_code_review`
+   * rule, read from the rules API with the reading): what the vendor reviews
+   * on its own, so a leg is owed only where the configuration or a request
+   * says so. `unread` keeps every expected leg owed, named as such.
+   */
+  readonly reviewConfiguration: ReviewConfiguration;
 }
 
 /** The closed verdict set. Adding a state is a reviewed contract change. */

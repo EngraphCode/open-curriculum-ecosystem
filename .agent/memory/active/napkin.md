@@ -919,6 +919,56 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
 - **Homed**: repo-continuity §Next Safe Steps item 5 (the proof, compressed) and a Current State
   bullet; the estate-coordination thread record's holding line re-trued; this lane's thread record.
 
+## 2026-10-22T08:xxZ — Practice nature and lights-on comparison (Altair mends Stillness, 01QP7m)
+
+Solo Claude cloud seat, analysis only; the owner asked for the nature of the Practice, a review of
+`jimCresswell/lights-on-software-factory` (Gojko Adzic's Claude Code factory boilerplate, read from
+a sibling checkout) and a comparison. Claim `378cffb2` on this file; no other OCE write. The report
+went to the owner in the session (scratchpad, not a tracked home; `.agent/research/` is its home if
+the owner wants it kept).
+
+- **Surprise (tooling):** `pnpm` 12.4.2 in the cloud image refused `pnpm -s <script>` with
+  "unexpected argument '-s'" and swallowed `--platform` when a package script was given flags
+  without `--`; `node agent-tools/dist/src/bin/agent-tools.js <topic> …` ran the same CLI
+  first time. Read the CLI's help before the first attempt (start-right says so; this seat did
+  not, and spent two calls).
+- **Surprise (tooling):** in a tree with no `node_modules`, `npm install --ignore-scripts
+  --omit=optional` printed "up to date in 385ms" and installed nothing; the same command without
+  `--omit=optional` installed 343 packages. A zero-count success is a tell; check `ls
+  node_modules/.bin` before trusting an installer's "up to date".
+- **Observation (harness):** the working directory reset between tool calls in a two-checkout
+  session, so a bounded `sed -n` on a relative path read the wrong repository once. Every path in a
+  multi-repo session is absolute.
+- **Observation (reviewers):** four read-only expert reads (code, security, architecture, test)
+  on a foreign 4k-line JavaScript tool found three defects this seat's own read missed and the
+  seat reproduced each with the tool's own debugger before relaying: an allowed `node` binary
+  launders any denied command through `node -e` for every role; `jest tests/` passes the
+  worker's file-scoped rule because a trailing slash counts as a file; a `file://` main-guard
+  comparing an unencoded `argv[1]` fails open on a path with a space. A docs-and-tooling review
+  is not below the reviewer system, and the reviewer's claim is a claim until reproduced.
+- **Pattern worth the exchange ladder (concept, not bytes):** lights-on's agents answer
+  enum-narrowed JSON schemas built per position and one deterministic tool derives the
+  append-only run record (dedupe on run and key, last wins, torn line skipped); no agent writes
+  a status line. The Practice holds the principle (`validators-must-recompute-not-just-record`,
+  PDR-119) for conformance and memory, not yet for run state. Candidate for a pattern instance
+  on the next fan-out the estate runs.
+- **Environment defect (cloud, 08:31Z):** a plain `git push` from this seat ran the `.husky`
+  pre-push hook; its secret scan passed and its review-cost gate died at
+  `gh repo view --json nameWithOwner`, which the forge answered with HTTP 403: "GitHub GraphQL
+  is not available from Claude Code sessions; use the REST API". The gate's `gh` call is the
+  mechanism; the cure is at the tool (a REST read of the repository name), never a narrowing of
+  the gate. The push then went out under the standing cloud `HUSKY=0` ruling with its
+  substitute set run first, as `cloud-environment.md` directs; this line is the first record of
+  the review-cost gate meeting the GraphQL block, for the register of provisioning defects.
+- **Correction (own, 08:35Z) to the npm surprise above:** the "up to date, nothing installed" run
+  was not the flag's doing. The harness had reset the working directory to the lights-on root
+  between calls, so `npm install` ran in a directory with no `package.json`, wrote an empty
+  `package-lock.json` there and reported up to date; the second run, in `workspace/`, installed
+  343 packages. The stray lockfile was found at the close by `git status` on the foreign checkout
+  and moved to the session scratchpad (the auto-mode classifier refused the `rm`; the move is
+  the estate's own convention). The lesson is the one two bullets above, not a new one: absolute paths, and read
+  `git status` on every checkout the session touched before saying it is untouched.
+
 ## 2026-10-27T13:1xZ — The analyser plan rechecked at the owner's word; three rule misses and one missing agent tool (Smelter herds Basalt, 871ba4)
 
 - **Owner, verbatim**: "why are you using an arbitrary script instead of the agent tools?"; "I don't

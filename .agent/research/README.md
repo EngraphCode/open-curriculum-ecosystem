@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 9 September 2026
+**Last Updated**: 22 October 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -163,6 +163,7 @@ developer-experience inputs used to improve Oak's agentic engineering system.
 | [openai_claude_gemini_apps_sdk_comparison.md](openai_claude_gemini_apps_sdk_comparison.md) | Cross-vendor app surface comparison | Host/UI surface differences around MCP and embedded experiences |
 | [user-value-method-review-2026-09-26.md](user-value-method-review-2026-09-26.md) | Framing and correction record of the `user-value` skill | The service-first framing corrected to use value across levels; three complementary bases with their bridges and crosswalks; two fresh-context exercises of the earlier draft and the limits of what they show |
 | [comprehensive-specification-framework-2026-09-26.md](comprehensive-specification-framework-2026-09-26.md) | Comprehensive specification framework and ratified three-skill delivery scope | Common records, profiles, connection contracts, evidence and change; Appendix E requires complete skill implementation and evals in PR #250; effectiveness remains provisional |
+| [practice-nature-and-lights-on-comparison-2026-10-22.md](practice-nature-and-lights-on-comparison-2026-10-22.md) | The nature of the Practice read through PDR-143's five layers, a reviewed read of Gojko Adzic's lights-on software factory boilerplate, and a concept-level comparison | The Practice is nine systems at once (constitution, learning loop, species, family contract, organisation, epistemology, enforced doctrine, multi-vendor substrate, product); lights-on is one deterministic family-level mechanism with reproduced fail-open defects in its regulator; five concepts OCE could take, led by run records derived from per-position agent schemas |
 
 ### 🔐 Authentication & Security
 
@@ -215,6 +216,13 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-10-22)
+
+- [The nature of the Practice, a review of lights-on, and their comparison](practice-nature-and-lights-on-comparison-2026-10-22.md):
+  the Practice read through its layers and the systems it is at once, a reproduced review of the
+  lights-on software factory, and a concept-level comparison closing with the concepts each could
+  take from the other.
 
 ## Recent Additions (2026-09-09)
 

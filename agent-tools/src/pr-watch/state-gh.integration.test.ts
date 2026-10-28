@@ -1,86 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
 import { textHasher } from './content-fixture.js';
+import { graphqlPayload, HEAD, PR_URL, viewPayload } from './test-helpers/state-gh-payloads.js';
 import { readPrStateReading } from './state-gh.js';
 import type { GhCommandExecutor } from './gh.js';
-import type { StateViewSeed } from './state-view-fixture.js';
 
 /**
  * IO-composition tests for `readPrStateReading` with an injected executor —
  * no real gh. The executor dispatches on argv shape, mirroring the surfaces
  * verified live 2026-07-21.
  */
-
-const HEAD = 'f'.repeat(40);
-const PR_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461';
-
-function viewPayload(oid: string = HEAD, overrides: Partial<StateViewSeed> = {}): string {
-  return JSON.stringify({
-    number: 461,
-    url: PR_URL,
-    state: 'OPEN',
-    isDraft: false,
-    mergeable: 'MERGEABLE',
-    mergeStateStatus: 'BLOCKED',
-    headRefOid: oid,
-    baseRefName: 'main',
-    statusCheckRollup: [
-      {
-        __typename: 'CheckRun',
-        name: 'secret-scan',
-        status: 'COMPLETED',
-        conclusion: 'SUCCESS',
-        completedAt: '2026-07-21T10:33:35Z',
-      },
-    ],
-    autoMergeRequest: null,
-    reviewRequests: [{ __typename: 'User', login: 'jimCresswell' }],
-    ...overrides,
-  });
-}
-
-function threadsPayload(): string {
-  return JSON.stringify([
-    {
-      data: {
-        repository: {
-          pullRequest: {
-            reviewThreads: { totalCount: 2, nodes: [{ isResolved: true }, { isResolved: true }] },
-          },
-        },
-      },
-    },
-  ]);
-}
-
-const commitsPayload = (): string =>
-  JSON.stringify([
-    { data: { repository: { pullRequest: { commits: { nodes: [{ commit: { oid: HEAD } }] } } } } },
-  ]);
-
-function reviewsPayload(): string {
-  return JSON.stringify([
-    {
-      data: {
-        repository: {
-          pullRequest: {
-            reviews: {
-              nodes: [
-                {
-                  author: { login: 'copilot-pull-request-reviewer' },
-                  state: 'COMMENTED',
-                  body: 'Reviewed.',
-                  submittedAt: '2026-07-21T12:00:00Z',
-                  commit: { oid: HEAD },
-                },
-              ],
-            },
-          },
-        },
-      },
-    },
-  ]);
-}
 
 interface ExecutorScript {
   readonly agentTaskList?: string | Error;
@@ -109,22 +38,6 @@ function agentTaskResponse(script: ExecutorScript, args: readonly string[]): str
     throw new Error(`unexpected agent-task view ${id}`);
   }
   return view;
-}
-
-const emptyConnection = (connection: string): string =>
-  JSON.stringify([{ data: { repository: { pullRequest: { [connection]: { nodes: [] } } } } }]);
-
-// Each harvest query, by the connection it reads; any other query reads reviews.
-const GRAPHQL_ANSWERS: readonly (readonly [string, () => string])[] = [
-  ['reviewThreads', threadsPayload],
-  ['comments(', () => emptyConnection('comments')],
-  ['timelineItems(', () => emptyConnection('timelineItems')],
-  ['commits(', commitsPayload],
-];
-
-function graphqlPayload(query: string | undefined): string {
-  const answer = GRAPHQL_ANSWERS.find(([marker]) => query?.includes(marker) === true);
-  return answer === undefined ? reviewsPayload() : answer[1]();
 }
 
 function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecutor {
