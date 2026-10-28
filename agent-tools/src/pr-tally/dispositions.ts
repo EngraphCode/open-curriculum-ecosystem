@@ -1,4 +1,6 @@
 import { isSignedSelfReply } from '../pr-watch/reviewer-legs.js';
+import { parseDispositionLine } from './disposition-line.js';
+import type { DispositionLine } from './disposition-line.js';
 import type { BodyFinding } from './findings.js';
 import type { RecordedHarvest } from './harvest.js';
 import { readBarMarker } from './markers.js';
@@ -15,12 +17,7 @@ import type { BarMarker } from './markers.js';
 type Review = RecordedHarvest['reviews'][number];
 type Thread = RecordedHarvest['reviewThreads'][number];
 
-interface BodyDispositionKey {
-  readonly headPrefix: string;
-  readonly reviewId: string;
-  readonly path: string;
-  readonly line: number;
-  readonly item: string;
+interface BodyDispositionKey extends DispositionLine {
   readonly marker: BarMarker | null;
 }
 
@@ -35,9 +32,6 @@ export interface BodyDispositions {
   readonly batches: readonly Batch[];
 }
 
-// The anchor may sit in a code span; the SHA may be a prefix.
-const DISPOSITION_LINE =
-  /^-?\s*\*\*[^*\n]+\*\*\s*·\s*head SHA:([0-9a-f]{7,40})\s*·\s*review (\S+)\s*·\s*`?([^`·\n]+?):(\d+)`?\s*·\s*(.+?)\s*·/u;
 // A head reference is the format's `head SHA:<sha>`; a cure citation is its
 // `Cured in SHA:<sha>` (bare or in a code span) and names no head. Any other
 // mention is read as a head only when the comment carries no head reference
@@ -55,19 +49,10 @@ function headsNamed(body: string): string[] {
   return [...body.matchAll(SHA_MENTION)].map((match) => match[1] ?? '');
 }
 
+// The line's fields (`disposition-line.ts`) with the marker its label carries.
 function parseKey(line: string): BodyDispositionKey | null {
-  const match = DISPOSITION_LINE.exec(line);
-  if (match === null) {
-    return null;
-  }
-  return {
-    headPrefix: match[1] ?? '',
-    reviewId: match[2] ?? '',
-    path: match[3] ?? '',
-    line: Number(match[4]),
-    item: (match[5] ?? '').trim(),
-    marker: readBarMarker(line.replace(BULLET, '')),
-  };
+  const fields = parseDispositionLine(line);
+  return fields === null ? null : { ...fields, marker: readBarMarker(line.replace(BULLET, '')) };
 }
 
 const isMarked = (line: string): boolean => readBarMarker(line.replace(BULLET, '')) !== null;
