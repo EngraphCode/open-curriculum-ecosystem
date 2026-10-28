@@ -27,7 +27,7 @@ and the [cross-platform matrix](./cross-platform-agent-surface-matrix.md).
 | Location       | Purpose                                                         |
 | -------------- | --------------------------------------------------------------- |
 | `agent-tools/` | TypeScript implementation of optional Practice-operational CLIs |
-| the host's user-facing plugin packages, where it ships them (in OCE, `plugins/*/`) | Product, not Practice (OCE's ADR-125 §Skill classes) |
+| the host's user-facing plugin packages, where it ships them (OCE shipped its own from this repository until 2026-10-21 and now builds them in oaknational/oak-ai-plugins) | Product, not Practice (OCE's ADR-125 §Skill classes) |
 
 `agent-tools/` is not portable Practice Core content and is not a platform adapter. It
 is the host's TypeScript implementation of capabilities that may need equivalents in

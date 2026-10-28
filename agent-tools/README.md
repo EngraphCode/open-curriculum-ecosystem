@@ -313,8 +313,9 @@ PRACTICE_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-ident
   bare prefix. Derivation, doctrine, the statusline hold-out, and a
   drift-tested example: [docs/agent-identity.md](docs/agent-identity.md).
 - `comms append` / `comms send` / `comms render` — append immutable
-  communication events and render `shared-comms-log.md`. Use `send` for the
-  low-boilerplate append-and-render path. `send` prints JSON with `event_id`,
+  communication events; every write renders `shared-comms-log.md` beside the
+  comms directory as part of the write, and `render` re-renders it on demand.
+  Use `send` for the low-boilerplate path with canonical paths resolved. `send` prints JSON with `event_id`,
   `event_path`, and `shared_log_path` so agents can verify the write target.
   Comms writes check the active-claims registry and refuse live collisions on
   the canonical PDR-076a `sameAgentRoutingKey` (the stable `id`); a matching
@@ -438,6 +439,25 @@ pnpm agent-tools collaboration-state comms validate
 # watch emits all channels — broadcast, group, directed, observed, lifecycle
 pnpm agent-tools commit-queue status
 ```
+
+## `coordination` quick reference
+
+- `successor-name [--base <ref>]` — prints the next coordination branch name,
+  `coordination/<UTC date>-<sha6>`, from the FULL sha the base ref resolves to;
+  read-only, never cuts the branch (the `cut-coordination-branch` skill does).
+- `fold-clock --pr <n> [--repo <owner>/<repo>] [--successor <sha>] [--gh <path>] [--json]` —
+  prints a fold's measured clock as one line for the review-cost ledger row: the
+  ready-mark (the last `ready_for_review`, else the opening), checks green on the
+  base branch's REQUIRED contexts (the merge door's own definition for the records
+  class; a vendor's review runs as a check-run and never counts; each context is
+  judged by its latest run, check-runs and commit statuses alike), each Bot review
+  round (a request answered by that Bot's next review; a newer request supersedes
+  an open one at once), the merge, and with
+  `--successor` the successor tip's first check-run start. Every interval is minutes
+  from the ready-mark. Read-only on the session's own `gh` login through the
+  keyring-pinned read executor (no ambient token). Exit 0 on success, 2 on any
+  error with stdout empty. The `coordination-fold` skill's step 10 pastes the line
+  into the ledger row's Notes.
 
 ## `commit-queue` quick reference
 

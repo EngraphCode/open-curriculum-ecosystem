@@ -106,7 +106,6 @@
     "pr-throughput": "cd .. && pnpm exec tsx agent-tools/src/pr-throughput/cli.ts",
     "under-the-hood-content-generate": "tsx src/bin/under-the-hood-content-generate.ts",
     "validate-under-the-hood-content": "cd .. && pnpm exec tsx agent-tools/src/bin/under-the-hood-content-generate.ts --check",
-    "validate-plugin-skill-copies": "cd .. && pnpm exec tsx agent-tools/src/validators/plugin-skill-copies/validate-plugin-skill-copies.ts",
     "validate-no-lineage-names": "cd .. && pnpm exec tsx agent-tools/src/validators/lineage-names/validate-no-lineage-names.ts",
     "validate-cited-scripts": "cd .. && pnpm exec tsx agent-tools/src/validators/cited-scripts/validate-cited-scripts.ts",
     "validate-cited-paths": "cd .. && pnpm exec tsx agent-tools/src/validators/cited-paths/validate-cited-paths.ts",

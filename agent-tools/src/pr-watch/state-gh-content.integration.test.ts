@@ -23,6 +23,7 @@ const COPILOT = 'copilot-pull-request-reviewer';
 const OPEN_VIEW: StateViewSeed = {
   number: 7,
   url: 'https://github.com/acme/widgets/pull/7',
+  author: { login: 'app/el-graphael' },
   state: 'OPEN',
   isDraft: false,
   mergeable: 'MERGEABLE',

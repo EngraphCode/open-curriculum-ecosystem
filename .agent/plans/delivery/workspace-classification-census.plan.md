@@ -15,7 +15,7 @@ tickets:
 depends_on:
   - plan: survey-machinery-deconstruction
     kind: beneficial
-last_updated: 2026-09-20
+last_updated: 2026-10-27
 ---
 
 # Workspace classification census
@@ -215,6 +215,13 @@ open holding state.
 
 ## Amendment trail
 
+- **2026-10-27 — the manifest arm has no subject (the 1.186.1 sync).** Upstream moved the plugins
+  to oaknational/oak-ai-plugins (MCP-775, 2026-10-21) and removed `claude/plugins/`,
+  `chatgpt/plugins/` and both root marketplace manifests, so no tracked `.claude-plugin/plugin.json`
+  or `.codex-plugin/plugin.json` remains and arm (ii-b) admits nothing. `rows.json` and `facts.json`
+  still carry the two plugin rows at their pre-rename paths (the 1.185.4 sync's ledger item B4):
+  the recorded 44 subjects include two the tree no longer has. The regeneration stays the
+  fork-surface job that ledger holds.
 - **2026-09-20 — the manifest arm widened to a second manifest format; subject set 43→44.** Arm (ii-b)
   now admits the parent directory of a tracked `.claude-plugin/plugin.json` or
   `.codex-plugin/plugin.json` (the Codex manifest format; the OpenAI portal builds from its own steps and never reads it), held by tests. The owner's card of

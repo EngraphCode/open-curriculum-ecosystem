@@ -242,7 +242,7 @@
         "PDR-049-memory-and-state-file-merge-semantics"
       ],
       "lifecycle": "live generated read model",
-      "writer_or_write_api": "pnpm agent-tools:collaboration-state -- comms render",
+      "writer_or_write_api": "every comms write (comms append, comms send, comms reply) renders it as part of the write; pnpm agent-tools:collaboration-state -- comms render re-renders it",
       "entry_identity": "rendered heading timestamp plus event identity from source fragment",
       "merge_class": "append-only-narrative",
       "schema_or_parser": "generated Markdown header plus renderer comparison",

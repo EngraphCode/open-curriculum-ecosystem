@@ -368,8 +368,11 @@ the tip (Copilot reviews the first push and any tip the bot requests it on)
 settles through the timeout to SETTLED-NO-REVIEW, which the front door
 refuses by name — the docs-only bot-authored class then lands through the
 sanctioned REST endpoint under the owner's exception below; any other pull
-request obtains the missing leg (the Copilot request as the bot; where a
-vendor is unavailable, a subagent review of any kind posted on the pull
+request lands with each configured leg as the tool reads it on the tip,
+SATISFIED or UNOWED (the configuration reviews no later push and nothing was
+requested: a review is requested on a tip only for a stated reason, never to
+fill a leg — the owner, 2026-10-27; where a review is wanted of a
+vendor that is unavailable, a subagent review of any kind posted on the pull
 request and reported back stands as the leg — owner ruling 2026-09-10,
 pr-lifecycle §review-round state machine item 3 — bound to the sha it
 reviewed: the premises record that sha and every push since, and those

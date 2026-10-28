@@ -82,8 +82,9 @@ while the procedure's substance homes in the skill.
    future mechanisms, not about the product's content (owner
    partition, 2026-08-02, given in OCE). Product- and end-user-facing
    capability is a separate domain, audience, and delivery mechanism
-   (OCE's first version: its plugin marketplace manifest). A capability that
-   fits no existing audience set does not stretch one — a new set
+   (OCE's first version was its plugin marketplace manifest; since
+   2026-10-21 its plugins are released from oaknational/oak-ai-plugins). A
+   capability that fits no existing audience set does not stretch one — a new set
    lands deliberately, recorded in the audience-set registry in
    [the Practice skills corpus README](../skills/README.md).
 

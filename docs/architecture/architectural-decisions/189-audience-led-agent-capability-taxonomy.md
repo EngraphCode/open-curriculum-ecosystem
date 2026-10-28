@@ -106,6 +106,13 @@ recorded independently.
   the packages: `.claude-plugin/marketplace.json` now points at `claude/plugins/oak-national-academy`
   and `.agents/plugins/marketplace.json` at `chatgpt/plugins/oak-national-academy`. The paths the
   2026-09-17 addendum names are the pre-rename ones.
+- **Addendum 2026-10-27 (the 1.186.1 sync).** Upstream moved the plugins to
+  oaknational/oak-ai-plugins, which builds, checks and releases them from 1.1.1 (MCP-773, MCP-774,
+  MCP-775; 2026-10-21). This tree carries no listing manifest and no plugin package: both
+  marketplace files, `claude/plugins/` and `chatgpt/plugins/` are removed with the skill-copy
+  validator and the plugin tests; the last versions are in this repository's history at release
+  v1.186.0. The listed-versus-installed distinction above now lives in that repository, and the two
+  addenda above name surfaces this tree no longer has.
 
 ## Validation
 

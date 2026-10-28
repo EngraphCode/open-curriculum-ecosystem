@@ -18,6 +18,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
   return {
     number: 42,
     url: 'https://github.com/acme/widgets/pull/42',
+    author: 'acme-bot',
     state: 'OPEN',
     isDraft: false,
     mergeable: 'MERGEABLE',

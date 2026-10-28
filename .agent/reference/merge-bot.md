@@ -304,13 +304,13 @@ reviewRequests` and the REST endpoint omit Bot requests), which is why
 outstanding request reads `WAITING-REVIEW-RUN-LIVE` until the review lands
 or the checks-green timeout arm ends the leg.
 
-**One review request per settlement push.** A review round is spent by a
+**At most one review request per settlement push, and only for a stated reason.** A review round is spent by a
 request, and on a repository without an on-push review ruleset every
 request is the seat's own act under the operator's credential: PR #62 took
 twenty-one explicit Copilot requests in four hours, one every ten to twelve
 minutes, while PDR-140 sat in the estate unapplied (2026-09-15). Request
-the review once per push that settles a round (a cure, a shape change); a
-pure sync push (main merged in, a rebase with no content change) requests
+the review at most once per push that settles a round (a cure, a shape change), and
+only for a stated reason; a pure sync push (main merged in, a rebase with no content change) requests
 nothing, and the declared intake on the pull request body bounds the loop.
 
 **What is owed is read from the repository's review configuration.** `pr

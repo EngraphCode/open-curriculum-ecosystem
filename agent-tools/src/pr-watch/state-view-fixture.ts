@@ -7,6 +7,7 @@
 export interface StateViewSeed {
   readonly number: number;
   readonly url: string;
+  readonly author: { readonly login: string };
   readonly state: string;
   readonly isDraft: boolean;
   readonly mergeable: string;
@@ -22,6 +23,7 @@ export function stateViewFixture(): StateViewSeed {
   return {
     number: 461,
     url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
+    author: { login: 'app/el-graphael' },
     state: 'OPEN',
     isDraft: false,
     mergeable: 'MERGEABLE',
