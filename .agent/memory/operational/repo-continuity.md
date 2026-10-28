@@ -37,6 +37,143 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-10-19T10:0xZ: the two local-only branches proven of no use at the owner's word; deletion denied by
+  the policy** (Walrus seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). His word: "Analyse
+  the two branches, if they are useful put them in a draft PR, if they are not useful, delete them". The
+  content proof and verdict are §Next Safe Steps item 5: `docs/consolidation-2s-skills` wholly on `engraph`
+  (pull request 341); `docs/consolidation-2-routed-cures` on `engraph` in fuller words or superseded by the
+  reviewed PDR-075 landing. No draft pull request opened. `git branch -D` was denied by the Bash permission
+  policy; the refs stay local for the owner's own command. The estate-coordination thread record's holding
+  line is re-trued.
+
+- **2026-10-19T09:4xZ: the owner's word on safe and complete work; this session a named exception for the
+  merge** (Walrus seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). Verbatim: "All work is only
+  considered safely recorded once it is pushed and in a PR, work is only considered complete once it is
+  merged. Work in all worktrees and branches must be either made safe or, if it is of no use, deleted." Then:
+  "That is the rule. This session remains a named exception because I don't want to spend time on a merge
+  right now." Recorded as the 2026-10-19 paragraph of the rule `worktree-hygiene` (beside his words of
+  2026-09-24, the same rule in its earlier form) and as a row of the Director rulings ledger. This session's
+  work is safely recorded (pushed, in draft pull request 360) and not complete (not merged), by his named
+  exception. The two local-only branches of §Next Safe Steps item 5 fall under the rule's third sentence; not
+  acted on by this seat, reported to him.
+
+- **2026-10-19T09:3xZ: the owner's word on the fold cadence** (Walrus seeks Maelstrom, 9585cc, reviewer,
+  the owner-interface directly). Verbatim, after the seat's wrap report that "the 24-hour fold rule
+  stands": "the 24 hours is a rough guide, but obviously the actual need varies with how much work is
+  happening, there would be no point in folding every 24 hours if that was the only thing happeneing".
+  Recorded as the 2026-10-19 amendment of the rule `coordination-branch-24h-lifetime` (the clock is the
+  guide, the work on the branch decides whether a fold is due; the seat's reading for the DUE check is
+  flagged there as the seat's) and as a row of the Director rulings ledger. Of the two owner words that
+  pull request 360's body relays, "folds when useful, never by the clock alone" is now covered by his direct
+  word above; "all work must be deleted or pushed and in a PR, no exceptions" is covered by his direct word of 09:4xZ, the bullet above.
+
+- **2026-10-19T08:2xZ: the 356 lane wrapped at the owner's word; his sequencing of what follows** (Walrus
+  seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). His word, verbatim: "The architecture
+  work for decoupling the thin Oak apps is the next feature priority, we should deal with partial plans and
+  fixes and graduations before that. Work related to [the curriculum infrastructure consumer] will need
+  careful attention from me, we do not have enough information to make plans complete, but we should leave
+  them in a stable state, that is not for this session" (the label replaces the name at his word of
+  2026-10-17). The seat's reading, not his: the three are the architecture session's inputs, made true
+  before the decision. Measured on `engraph` at `SHA:493951ad7`: 51 plan nodes at `status: sketch` (the
+  programme's fifteen `oce-*` nodes and its strategic node among them), 3 superseded, 78 ratified; two nodes
+  carrying expired owner gates (`semantic-search-showcase`, `warranted-means-in-the-operating-environment`;
+  the extraction plan's two went with its supersession, so the session-open alert reads four here only
+  until this branch takes engraph's merge); the plans index and the 2026-09-06 archive move still disagree
+  on a superseded node's place (§Next Safe Steps). The fixes with a home: the merge tool's Copilot leg per
+  pull request (the register; pull request 358, the records-class door and the fold clock, open); the commit
+  queue's `complete` accepting a refused intent (F-297); the plan-schema owner gates under PDR-100 (the
+  register). The graduations: the register's six entries, every one due. The surfaces touching the
+  curriculum infrastructure consumer, his to plan and left as merged with the validators green: the
+  strategic node, `oce-curriculum-contracts`, `oce-domain-service-contracts`,
+  `oce-framework-lifecycle-contracts`, `docs/architecture/oce-integrity-and-castr.md`,
+  `docs/architecture/oce-wider-capabilities.md`, the programme's README and source-dispositions report. The
+  seven points of the ADR-233 analysis are now in the thread record from the transcript, point 5 (no
+  verbatim owner word in ADR-233) found undispositioned and listed beside 1, 2, 3 and 7 for the session. The
+  records ride this coordination branch's draft at the owner's word of 2026-10-17 that every pushed branch
+  rides a pull request; the fold is at his word, not this wrap's. The napkin's rotation by proof is
+  unblocked (the reviewer seat's block was committed on 2026-10-17); the consolidation gate reads due and
+  unbounded for this close, a curator seat's after the partial plans by his ordering.
+
+- **2026-10-17T15:0xZ: pull request 356, the retained-framework rearchitecting programme (ADR-233),
+  merged by the door at SETTLE-READY as `SHA:493951ad7`; adoption held, merge never held** (Walrus
+  seeks Maelstrom, 9585cc, reviewer, the owner-interface directly). At the owner's word of 2026-10-17
+  the seat's four local commits were dropped before any push and the corrections re-landed from the
+  pull request's own head: the OpenAPI pipeline page back to the directive's wording (the owner:
+  "strict, everywhere, all the time", "never disable checks, never disable safeguards", no
+  special cases) with its consumer data boundary restored and sourced; the two exploratory projects
+  under neutral labels on every surface, not named yet; the hold stated as adoption, not merge,
+  the owner quoted; the public-packages node trued to its own amendment; ADR-233's status word, its
+  place in both indexes, a dated line in the strategy index. Three review threads answered and
+  resolved; the body restated. Standing rulings of the day, each on the graduation register with its
+  target: a clean and green pull request merges by the door, never at the owner's word; an ADR
+  numbering clash is settled by Oak's numbering (Oak at ADR-229 today; Engraph's 230 to 233 move
+  when Oak reaches them); a merge tool coupled to a third party's review configuration carries a
+  design bug (the door read Copilot OWED on 356's tip under `review_on_push: false`, GitHub CLEAN;
+  the seat ran the door with the configured set the tip had, the Codex connector). Forward asks, none
+  this lane's: a dedicated architecture session with the owner on points 1, 2, 3 and 7 of the
+  ADR-233 analysis (configuration-only against ADR-227 ruling 11 and ADR-154; the named product
+  repository and the junior-developer requirement undispositioned; decision 6 and invariant I07
+  against ADR-029/030; the two soft tests) before any adoption; the merge tool's owed-ness fix in
+  both estates; the plan-schema owner gates under PDR-100. Two local refs on this machine for the
+  owner's word: `archive/pr356-seat-work-2026-10-17` and the retired
+  `coordination/2026-10-05-efe69f` at `SHA:93363641a` (its content is on the successor branch).
+
+- **2026-10-17T14:1xZ: the J2 docs-validators worktree retired with zero loss, its question dissolved by
+  fact; the owner's rulings on this estate's open items; say OCE** (Flint guards Vapor, 9b835d, at the
+  owner's closing word). The validators staged since 2026-09-29 in `oce-wt-j2-docs-validators` landed on
+  this default branch on 2026-10-05 in pull request 354 (the practice code landing) with review fixes
+  the same day; the staged draft was an older copy of the same source that never compiled here. At the
+  owner's word ("if you are sure, then delete it") the worktree was retired by the standing grant for
+  proven paths (`never-use-git-to-remove-work`; `worktree-hygiene` item 6): fresh fetch; 23 of 23 paths
+  proven (8 byte-identical, 15 landed and since revised, 126 draft-only lines each read against the
+  decision that superseded them); 103 ignored entries dispositioned in the removal command (`.env.local`
+  identical to the primary's, husky's shims, the pinned shellcheck re-installed by its setup script, the
+  mcp app's fetched design assets, build output by name); the staged additions dropped from the index
+  and moved to the session scratchpad, the two modified files forward-written from HEAD, porcelain
+  empty, the tip an ancestor, `git worktree remove` without force, the branch deleted plain. This bullet
+  is the capture the removal rule requires in this estate (the napkin on the primary is the reviewer
+  seat's uncommitted file). The decision put to the owner on 2026-10-02 and carried by four seats was
+  moot from 2026-10-05: no seat listed the default branch. His rulings of this date on the items above:
+  the merge-tool work is needed in both repositories, in parallel, the defect being a design coupled to
+  one GitHub configuration; the missing suppressed-findings hold is a consistency choice for the seat
+  doing that work, since "if they are low confidence findings then ignoring them is a valid approach";
+  the bot's 403 refusals are "either a token freshness or a working directory issue" (the seat's
+  reading: the token was minted from a shell the harness had reset to the other estate's primary, so
+  re-mint from inside this checkout before any claim about permissions); Copilot's silence at open for
+  bot-authored pull requests is "possibly expected" since the subscription is his, so the agent requests
+  a review "ONLY once the agent is confident that the PR is ready, not simply because code was pushed";
+  the profanity tooling is jimcresswell.net's only for now, deliberately, so the parity item is closed.
+  His cost word: "half an hour is TOO LONG FOR A PR, ten minutes is reasonable"; this estate's
+  ten-minute quiet window after checks green waits for a review the configuration says never comes, and
+  its removal is part of the tool work. His naming word: say OCE, never "the sibling". Walrus seeks
+  Maelstrom is active in this estate on their branch; their uncommitted files are theirs. The
+  cross-estate thread record in jimcresswell.net carries the full list and the inherited-premise cure.
+- **2026-10-16T16:0xZ: the merge tool derives what a tip is owed from this repository's review
+  configuration; pull request 359 merged by this estate's bot at the UNOWED leg** (Flint guards Vapor, 9b835d, the owner's routing of
+  2026-10-16: the tooling was over-coupled to Copilot reviewing every push; the `engraph` ruleset's
+  `copilot_code_review` rule reviews no later push, the same configuration as the sibling estate,
+  whose pull request 339 landed the same change this afternoon and was merged by its bot at the
+  UNOWED leg with no hand-made request). What the port does here: `pr state` reads the base branch's
+  rule with every reading; Copilot's leg reads UNOWED on a tip the vendor is not asked about once it
+  has reviewed an earlier tip and no Copilot body binds the tip; this estate's pending-request
+  surface never lists a bot, so the leg honours the rounds asked in the pull request's history
+  (`round-requests.ts`), the finding both vendors made and the cure; an unread or absent
+  configuration keeps every leg owed, named in the evidence; the lifecycle skill and the merge-bot
+  reference carry the same passages as the sibling's. Written against this estate's own `pr-watch`
+  shape rather than carried as bytes; the gh payloads the integration suites share moved to a test
+  helper at their second consumer. Parity items from the port, each with its home here: this estate
+  carries no suppressed-findings hold, so the sibling's cure for the hold on an unreviewed head
+  (Copilot's finding on 339) has no counterpart, and the hold itself is a parity gap; the sibling's
+  `pr tally` divergence (its own owed-ness without the configuration) is recorded on its thread
+  record and applies here if `pr tally` is carried. Observations of the day, one or two instances
+  each: the bot's `pull-request-work` token was refused 403 on the branch delete, the review
+  request, the thread reply and the thread resolution (pull request creation works), where the
+  lifecycle skill's item 5 records 201 for the request; the operator credential did each; Copilot's
+  rule registered no review at open for this bot-authored pull request and for 355 at ready-mark,
+  both first requests made by hand. Unchanged: the J2 worktree (put to the owner 2026-10-02, exact
+  on the sibling's thread record), the profanity tooling parity, the primary checkout's re-homing to
+  the successor when the reviewer seat commits.
+
 - **2026-10-14T11:2xZ: the third dedicated two-estate consolidation's sibling stage landed on lane
   `docs/consolidation-3`** (Flint guards Vapor, 9b835d, guest curator under the join ceremony; the
   curator claim of 2026-10-11 adopted in place). Pending graduations here 1, down from 16: the
@@ -264,7 +401,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `oce-rearchitecting-programme` | The review, correction and merge of pull request #356 (the retained-framework rearchitecting programme, ADR-233) and the integration of that planning body with the estate's nodes, architecture documents and directives; opened 2026-10-13 at the owner's word. The owner's rulings, the discovery and the resume order live in the record. | [record](threads/oce-rearchitecting-programme.next-session.md) | claude-code / claude-fable-5-1 / Walrus seeks Maelstrom (9585cc) / reviewer at n=1, at its compaction boundary / 2026-10-13 |
+| `oce-rearchitecting-programme` | The review, correction and merge of pull request #356 (the retained-framework rearchitecting programme, ADR-233) and the integration of that planning body with the estate's nodes, architecture documents and directives; opened 2026-10-13 at the owner's word. The owner's rulings, the discovery and the resume order live in the record. | [record](threads/oce-rearchitecting-programme.next-session.md) | claude-code / claude-fable-5-1 / Walrus seeks Maelstrom (9585cc) / reviewer at n=1, the lane closed and wrapped / 2026-10-19 |
 | `estate-coordination` | The Director lane's thread record (founded 2026-08-13): journal, board, seat chain; `director-handoff.md` keeps the Brief and the live snapshot. Live state, the boundaries since 2026-09-03 (the Engraph fork; lead/support split) and the owner's standing open-PR-count goal live in the record. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-fable-5-1 / Crucible binds Slag (7b999c) / the Director across both estates, paused at the owner's compaction word / 2026-10-03, claude-code / claude-opus-5-5 / Marten mends Shadow (74fc02) / this estate's exchange seat, stopped at rest at the owner's word / 2026-09-25, claude-code / claude-opus-5 then claude-fable-5-1, then claude-opus-5-5 from 2026-09-23 / Zephyr guards Leeward (281e44) / curator, sole operator until 2026-09-17 15:31Z, then at n = 2 with Dynamo turns Temper (2a4c8a, the Oak integration lane) — #145 landed, the 2026-09-14 branch folded, #147 landed on premises (`0bd321131`), #149 landed (`514bfc06a`), the deep retrospective landed (`940c019a6`), the 2026-09-15 branch folded as #150 (`a07940ac9`), the 2026-09-16 branch as #152 (`cd847a2b3`) and the 2026-09-17 branch as #153 (`SHA:b5b0e70cd`), its successor as #155 (`SHA:65a929d9a`) and the 2026-09-19 branch as #156 (`SHA:44729c98c`) inside the owner-directed consolidation, then the 2026-09-20 branch as #159 (`SHA:efb2942e9`) and the three 2026-09-21 branches as #169, #170 and #171 (the live branch is named once, in Next Safe Steps below, never in this row); from 2026-09-21 09:2xZ at n = 2 with the guest exchange seat Brazier spins Temper (c70341) for the three-estate Practice exchange / 2026-09-21 ← claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead at n=2 with Buzzard lifts Eyrie (326bcb) in support from ~19:3xZ; earlier solo implementer — owner rulings landed (merge-bot config per-checkout; green-and-clean merges without waiting) / 2026-09-03 ← claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, contrast gate, hub migration, studio sync-back. Lane state, owner rulings and the fidelity register live in the record. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5-1 / Flounder turns Estuary (c5cc2c) / lead seat — PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03; the seven-item records residue is on the thread record §2026-09-05; claim b627b5af closed; the lane's next pickup (T1a-ii, or the residue) opens from a fresh claim / 2026-09-05 (seat chain: thread record) |
@@ -383,6 +520,49 @@ scripts, markdown links and lineage names, uncommitted since 2026-09-29, no comm
 the default branch; commit and push to its branch, or drop. Work needing a seat, not him: this coordination
 branch at day eleven, over its lifetime; the four bot review comments on the merge-tool pull request (item 2
 above); the profanity tooling parity (item 3 above, the hook honouring the experience-register exclusion).
+
+STATE, 2026-10-19T08:2xZ (Walrus seeks Maelstrom, 9585cc, the reviewer seat at n=1, the wrap at the owner's
+word; the lane of pull request 356 is closed and nothing of this seat runs). The owner's ordering of what
+follows, in his words of this date (§Current State): partial plans, fixes and graduations, then "the
+architecture work for decoupling the thin Oak apps" as the next feature priority; the surfaces touching the
+curriculum infrastructure consumer are his to plan and are left stable. Next safe steps for the next seat,
+each with its measure:
+
+1. The partial plans. The programme's fifteen `oce-*` sketches and its strategic node (every one
+   `status: sketch`, `last_updated: 2026-10-10`) read against the merged ADR-233 and the seven points in the
+   thread record `oce-rearchitecting-programme`; the two nodes with expired owner gates
+   (`semantic-search-showcase`, `warranted-means-in-the-operating-environment`) decided under PDR-100 with
+   the register's owner-gate entry; the three superseded nodes placed as the plans index says (§"Plans
+   estate — superseded-node placement to re-true" below); the other thirty-five sketches read for a
+   supersession or a stamp, not planned. This coordination branch takes engraph's merge first: the
+   programme's files are on engraph since 2026-10-17 and not on this branch.
+2. The fixes. The merge tool's Copilot leg per pull request (the register entry's standard: one Copilot
+   review per non-trivial pull request satisfies the leg; pull request 358 is open with the records-class
+   door and the fold clock, another seat's lane); `commit-queue complete` refusing an intent that never
+   reached a commit (F-297); the carries in the 2026-10-16 state above (the bot token's 403 refusals, the
+   profanity tooling parity, the `--fail-if-no-match` aliases).
+3. The graduations. The register's six due entries, each with its target named; the napkin's rotation by
+   proof, unblocked since 2026-10-17; the consolidation gate reads due (a lane closed; the napkin at
+   critical) and is a curator seat's, bounded to its own session.
+4. Then the dedicated architecture session with the owner on points 1, 2, 3 and 7 of the ADR-233 analysis,
+   point 5 beside them, before any adoption; the session's result lands as his words in ADR-233 and the
+   nodes it ratifies. The seat test for every sentence stands: his word, the pull request's word or the
+   directive's word.
+5. Two local branches, each one commit that no remote carries, proven of no use by content on
+   2026-10-19T10:0xZ at the owner's word ("Analyse the two branches, if they are useful put them in a draft
+   PR, if they are not useful, delete them"): `docs/consolidation-2-routed-cures` (`SHA:f9f0a2ca6`) and
+   `docs/consolidation-2s-skills` (`SHA:78547cb3f`). The proof, against `engraph` at `SHA:493951ad7`: every
+   added line of the skills commit is in the same ten files, rewrapped (its content landed as
+   `SHA:53f06c866` in pull request 341, merged 2026-10-02); of the routed-cures commit's 345 added lines, 329
+   are present and the 16 others are on the default branch in fuller words (the archive clause in the
+   continuity directive and consolidate-docs step 6b, the friction F-219 entry, the commit skill's header
+   check) or superseded by a reviewed landing (PDR-075 "Accepted" with its changelog and index rows; the
+   record is Proposed by its own 2026-10-01 review, so adopting the branch would revert it). The holding
+   condition in the estate-coordination thread record (the directive clause, todo 7) is discharged by that
+   proof. The deletion command was denied by the Bash permission policy at 10:0xZ; the two refs stay local
+   until the owner runs `git branch -D` on them himself. Of the owner's words that pull request 360's body
+   relays, both are now his direct words of 2026-10-19 (the fold-lifetime rule's amendment; the
+   `worktree-hygiene` paragraph).
 
 ### Reliable Atoms workspace class — owner rulings recorded (2026-09-14; left uncommitted, then committed in `f24683337` the same day)
 

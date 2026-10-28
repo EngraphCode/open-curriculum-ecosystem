@@ -1,6 +1,6 @@
 ---
 classification: situational
-description: Coordination branches fold twice a day, at 12:00Z and at the UTC rollover (owner, 2026-09-26), and live at most 24 hours — day-stamped name at the cut, convergence due at the next half-day boundary, converge-and-rotate shape, work products stay in worktrees.
+description: Coordination branches fold at 12:00Z and at the UTC rollover as the guide clock (owner, 2026-09-26); the 24 hours is a rough guide whose actual need varies with how much work the branch is carrying, and a fold on the clock alone, with nothing else happening, is not run (owner, 2026-10-19) — day-stamped name at the cut, converge-and-rotate shape, work products stay in worktrees.
 trigger: ceremony:branch-cut — Cutting a coordination branch, or session-open on one
 ---
 
@@ -22,6 +22,25 @@ branch folds twice a day, at 12:00Z and at the UTC rollover. The 24-hour
 bound stands as the ceiling; the half-day boundary is the DUE clock. The
 fold is the Director's ceremony and takes the first free landing slot. This
 file keeps its name so every citation of it stays valid.
+
+Amended again by the owner's word of 2026-10-19 (in-chat to the reviewer
+seat at n=1, after the seat reported that "the 24-hour fold rule stands";
+verbatim: "the 24 hours is a rough guide, but obviously the actual need
+varies with how much work is happening, there would be no point in folding
+every 24 hours if that was the only thing happeneing"): the clock is a
+guide, not what makes a fold due by itself. The need to fold varies with
+how much work the branch is carrying, and a fold whose only reason is the
+clock, on a branch where nothing else is happening, is not run. The seat's
+reading of that word for the DUE check of Action 2, flagged as the seat's:
+the check reads the work on the branch since its cut together with the
+clock (the fold skill already reads the commits since the cut at the DUE
+check); a branch past the boundary and carrying work folds; a branch past
+the boundary carrying nothing beyond the previous fold's own ceremony does
+not, and the seat says so on the stream instead of folding. The half-day
+boundary of 2026-09-26 reads the same way, since his reason does not turn
+on the window's length. What counts as enough work to fold is his to set
+if he wants a number; until then the folding seat judges it and names the
+work in the fold's record.
 
 ## Trigger
 
@@ -55,7 +74,9 @@ check-in cadence reads the DUE clock at each check-in as well.
    commit lands after 12:00Z would skip the midday fold). On a DUE branch, surface convergence to
    the Director (or, at n=1, act on it) before staking new work onto
    the branch. An overdue coordination branch is a defect to route, not
-   a home to build on.
+   a home to build on. Overdue reads with the 2026-10-19 amendment above:
+   the clock marks the boundary, the work on the branch decides whether
+   the fold is due.
 3. **Converge-and-rotate shape** (the worked shape from the founding
    instance): merge `origin/main` into the coordination branch, push,
    land the branch through its PR at full condition, then cut the fresh

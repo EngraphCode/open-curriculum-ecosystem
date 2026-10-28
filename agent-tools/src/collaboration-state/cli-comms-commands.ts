@@ -6,7 +6,11 @@ import {
   checkCommsTextAgainstConceptGates,
   formatCommsConceptGateRefusal,
 } from './comms-concept-gate.js';
-import { renderCommsLog, writeCommsEventWithReadback } from './comms-use-cases.js';
+import {
+  renderCommsLog,
+  sharedCommsLogPathFor,
+  writeCommsEventWithReadback,
+} from './comms-use-cases.js';
 import { resolveIdentity } from './cli-identity.js';
 import { optional, required, valueOrDefault, type Options } from './cli-options.js';
 import { cliIo, type CollaborationStateCliIo, type CliRuntime } from './cli-runtime.js';
@@ -117,6 +121,9 @@ export async function appendComms(
       write: (event, currentNowIso) =>
         io.writeCommsEvent({ commsDir, event, nowIso: currentNowIso }),
       read: () => io.readCommsEvents(commsDir),
+    },
+    output: {
+      writeText: (text) => io.writeTextFile({ filePath: sharedCommsLogPathFor(commsDir), text }),
     },
     event: tags.length > 0 ? { ...baseEvent, tags } : baseEvent,
   });

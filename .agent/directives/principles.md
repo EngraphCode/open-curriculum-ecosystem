@@ -758,12 +758,13 @@ assumptions. See [validation-strategy.md](validation-strategy.md) for the
 test/evaluate/assure frame, the assurance tiers, and the instrument-by-surface
 mapping.
 
-Text a model wrote (a program's printed output read as evidence, a command's argument tail, a
-flag value that becomes a path) crosses into host authority only after a harness-owned parser
+Text a model wrote crosses a write boundary into host authority (a path, a name or content a
+tool is about to write, a flag value that becomes a path) only after a harness-owned parser
 has admitted it against a closed grammar; what the grammar does not name is refused, and the
-refusal names it, never passed through. The engineering instance is the pattern
+refusal names it, never passed through. Reading a command's output as evidence is ordinary
+work, not that boundary. The engineering instance is the pattern
 `cli-writer-boundary-discipline`; this is its general form, promoted from the slow lane at its
-2026-10-10 review.
+2026-10-10 review and scoped to the write boundary at the review of 2026-10-16.
 
 ### Compiler Time Types and Runtime Validation
 

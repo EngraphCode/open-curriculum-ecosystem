@@ -169,7 +169,6 @@ describe('collaboration-state comms --tag flag (ADR-183)', () => {
 
   it('attaches ADR-183 tags to a narrative event via comms send --tag', async () => {
     const commsDir = 'state/comms';
-    const sharedLogPath = 'state/shared-log.md';
     const fake = createFakeCollaborationRuntime();
 
     const result = await runCollaborationStateCli({
@@ -181,8 +180,6 @@ describe('collaboration-state comms --tag flag (ADR-183)', () => {
         'state/active-claims.json',
         '--comms-dir',
         commsDir,
-        '--output',
-        sharedLogPath,
         '--now',
         '2026-05-24T10:18:00Z',
         '--title',
@@ -276,8 +273,6 @@ describe('collaboration-state comms --body length gate (B2 / plan §B2)', () => 
         'state/active-claims.json',
         '--comms-dir',
         'state/comms',
-        '--output',
-        'state/shared-log.md',
         '--now',
         '2026-05-26T07:00:00Z',
         '--title',

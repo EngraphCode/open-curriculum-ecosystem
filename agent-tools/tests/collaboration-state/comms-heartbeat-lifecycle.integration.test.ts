@@ -507,7 +507,6 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
 
   it('derives thread from the active claim row named by --claim-id via comms send --tag heartbeat (mirrors append path)', async () => {
     const commsDir = 'state/comms';
-    const sharedLogPath = 'state/shared-log.md';
     const seededRegistry: CollaborationRegistry = {
       schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
       claims: [
@@ -532,8 +531,6 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         'state/active-claims.json',
         '--comms-dir',
         commsDir,
-        '--output',
-        sharedLogPath,
         '--now',
         '2026-05-24T10:18:00Z',
         '--title',

@@ -1,5 +1,6 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
+import { countRebudgets } from './budget.js';
 import type { CostReport } from './cost.js';
 import { currentBranch, isSyncPush } from './git.js';
 import { currentRepo, openPullRequestFor } from './harvest.js';
@@ -10,8 +11,12 @@ import { parseArgs, selectors, USAGE, type ParsedArgs } from './args.js';
 /**
  * `review-cost gate` — the pre-push guard: the review loop's cost against the
  * budget the pull request declares. Exit 0 within budget, warning or
- * converging; exit 3 (typed refusal, BUDGET-EXHAUSTED) when exhausted; exit 1
- * on an operational failure; exit 2 on usage. `--branch` resolves the open
+ * converging. Exhausted, the push is HELD (exit 3) until the seat has recorded
+ * its decision as one line in the local rebudget note, one line per push past
+ * the budget; with the line present the same push passes. The hold runs before
+ * the long check, costs seconds, and is lifted by the seat alone: never the
+ * owner, never a comment, never another push (the owner, 2026-10-24; PDR-140's
+ * amendment of that date). Exit 1 on an operational failure; exit 2 on usage. `--branch` resolves the open
  * pull request of the current branch and passes silently when there is none
  * (the first push opens it).
  */
@@ -59,15 +64,53 @@ export function parsePushedRefs(content: string): PushedRef[] {
 const SYNC_PUSH_EVIDENCE =
   "sync push: one merge of the pull request's base over the remote head, its tree exactly git's automatic merge — outside the settlement budget (PDR-140 clause 4), passes whatever the verdict";
 
-/** The gate's exit for one priced pull request; a sync push passes an exhausted loop. */
+/** The local, untracked note of rebudget decisions: `<pull request> — <date> — <reason>` per line. */
+const REBUDGET_NOTE = '.agent/state/collaboration/review-rebudgets.md';
+
+function heldEvidence(needed: number, recorded: number): string {
+  return (
+    `HELD: this push is number ${String(needed)} past the budget and ${REBUDGET_NOTE} records ` +
+    `${String(recorded)} decision line(s) for this pull request. Decide whether another review round ` +
+    'is worth its cost; if it is, write the decision as one line, `<pull request> — <date> — <reason>`, ' +
+    'and run the same push again (this hold runs before the check; seconds). The decision is the ' +
+    "seat's: never the owner's, never a comment, never another push."
+  );
+}
+
+/**
+ * The gate's exit for one priced pull request: within budget passes; a sync push
+ * passes an exhausted loop; otherwise an exhausted loop passes only when the note
+ * records one decision for every push past the budget, this one included.
+ */
 export function gateExit(
   result: CostReport,
   syncPush: boolean,
+  rebudgets: number,
 ): { code: number; evidence: readonly string[] } {
-  if (result.verdict === 'exhausted' && syncPush) {
+  if (result.verdict !== 'exhausted') {
+    return { code: 0, evidence: result.evidence };
+  }
+  if (syncPush) {
     return { code: 0, evidence: [...result.evidence, SYNC_PUSH_EVIDENCE] };
   }
-  return { code: result.verdict === 'exhausted' ? 3 : 0, evidence: result.evidence };
+  const needed = result.pushesPastBudget + 1;
+  if (rebudgets >= needed) {
+    return {
+      code: 0,
+      evidence: [
+        ...result.evidence,
+        `rebudget decision recorded: ${String(rebudgets)} line(s) in ${REBUDGET_NOTE} for ${String(needed)} push(es) past the budget`,
+      ],
+    };
+  }
+  return { code: 3, evidence: [...result.evidence, heldEvidence(needed, rebudgets)] };
+}
+
+// The note is instance-tier state: absent until the first decision, never tracked.
+function recordedRebudgets(pullRequest: number): number {
+  return existsSync(REBUDGET_NOTE)
+    ? countRebudgets(readFileSync(REBUDGET_NOTE, 'utf8'), pullRequest)
+    : 0;
 }
 
 function render(
@@ -106,7 +149,11 @@ function gateOne(
     expectedReviewers: parsed.expect,
     ghPath: parsed.ghPath,
   });
-  const exit = gateExit(priced.report, pushIsSync(pushed, priced.baseRefOid));
+  const exit = gateExit(
+    priced.report,
+    pushIsSync(pushed, priced.baseRefOid),
+    recordedRebudgets(target.number),
+  );
   stdout.write(render(target, priced.report, exit.evidence, parsed.json));
   return exit.code;
 }

@@ -144,8 +144,12 @@ into the permanent record):
 
 ## Phase 1 — Before opening
 
-1. **Divergence**: `git fetch origin main`; if behind, merge `origin/main`
-   into the branch. Anything coming in from the default branch is merged,
+1. **Divergence**: fetch the default branch and, if behind, merge it into the
+   branch (`git remote set-head origin --auto`, then `git fetch origin <default>`
+   and merge `origin/<default>`, where `<default>` is what
+   `git symbolic-ref --short refs/remotes/origin/HEAD` prints less its `origin/`
+   prefix; never a hand-typed name, since the default branch differs between
+   estates). Anything coming in from the default branch is merged,
    never rebased, pushed or not, whatever a handoff or plan line says (the
    owner, 2026-10-02: "anything coming in from main must always be merged, not
    rebased, we must maintain the shared history"; a rebase rewrites commits
@@ -243,8 +247,8 @@ express word (owner standing rule, 2026-08-13: "don't request matt as a
 reviewer, don't tag anyone in a Linear ticket without my express request").
 Review requests and ticket mentions fire notifications at real people;
 pulling in a colleague's attention is the owner's call, never an agent
-default. Bot reviewers (Copilot, the Codex connector) stay within the
-standing grants; an owner-named exception binds for that instance only.
+default. Bot reviewers (Copilot, the Codex connector) are requested under the
+review request policy below; an owner-named exception binds for that instance only.
 
 Read `.github/pull_request_template.md` and fill it as a **communication
 artefact for reviewers**, never a file list: what changed, why it matters,
@@ -261,7 +265,8 @@ pull request is bounded by the review-round transitions and declares no intake):
 and ran five rounds and thirty-eight findings on records before the declaration was posted
 late. A records changeset is also pushed at waypoints, never per event: records commit at
 each state change, the push follows a landed merge or a shape change, and the review is
-requested once per settlement push (a pure sync push requests nothing; the merge-bot
+requested at most once per settlement push, and only for a stated reason (a pure sync
+push requests nothing; the merge-bot
 reference carries the rationing); on 2026-09-13 a records pull request pushed per event
 drew five rounds, each finding the next stale line.
 For a code-class changeset the writer's docblock states the CLOSED contract
@@ -291,14 +296,11 @@ have a good reason, don't do it automatically, they are expensive." The one
 question, in the owner's words of 2026-10-28: "do we need a review in order
 for this work to be safe and effective?" — if yes and no review has
 occurred, request one; if no, none is requested, and a tool that requires
-one regardless is a broken tool, cured rather than obeyed. The policy binds
+one regardless is a broken tool and is cured. The policy binds
 pull-request reviewers only: the estate's own sub-agent reviewers
 (`code-expert` and the roster the `invoke-code-experts` rule names) are a
 different instrument under that rule's own terms (the owner, 2026-10-28:
-"there is a difference between subagents and PR reviewers"). This supersedes the grants of
-2026-07-26→29 (a Copilot request at open for every source-touching pull
-request, and for a docs-only pull request that changes a rule or a skill)
-and the per-push cadence that followed them. The repository's own
+"there is a difference between subagents and PR reviewers"). The repository's own
 automatic review at open arrives unasked and is harvested like any other.
 After that, a reason is a diff the seat cannot account for first-hand: a
 vendor fact asserted unread, a boundary or parser the seat did not test
@@ -613,8 +615,13 @@ live tickets where the platform is in use.
      case no such input exercises fails this conjunct and goes to state 3
      as a fixture at pickup, never to state 2 (PR #139, 2026-09-12). Once
      the declared settlement-push budget is spent, every finding goes to
-     state 3 whatever it exercises — the cost gate refuses the push, and
-     the reviewer blocks read the same items as observations.
+     state 3 whatever it exercises — the cost gate holds the push for seconds,
+     before the check, until the seat has written its decision as one line
+     in the local note `.agent/state/collaboration/review-rebudgets.md`
+     (`<pull request> — <date> — <reason>`, one per push past the budget;
+     the owner, 2026-10-24: the check makes the seat think, and costs no
+     comment, no further push and never the owner's word), and the reviewer
+     blocks read the same items as observations.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story
      hardening, adjacent design questions: raise a pointer ticket (never a
@@ -1489,7 +1496,7 @@ create` on such a branch exits non-zero with "a pull request for branch …
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
    satisfies. The Copilot leg, when a review of the tip is wanted for a
-   stated reason (Phase 1's review request policy; never by default), is
+   stated reason (Phase 2's review request policy; never by default), is
    obtained by a review request on the tip,
    `POST repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
    `reviewers[]=copilot-pull-request-reviewer[bot]`, under the credential
@@ -1700,7 +1707,7 @@ grep -E "^-" | grep -v "^---"` and read every printed line — each is an
   or by content after a pure sync (state machine item 3), needs no request;
   an OWED leg is one a review of the tip is due on and has not bound; a push
   does not re-request, and a request on the new tip is made only for a stated
-  reason (Phase 1's review request policy, 2026-10-27), never to fill the
+  reason (Phase 2's review request policy, 2026-10-27), never to fill the
   leg; a leg `pr state` reads
   UNOWED (the configuration reviews no later push, item 3) needs no request
   and settles, so request it only when a review of that tip is wanted, and
