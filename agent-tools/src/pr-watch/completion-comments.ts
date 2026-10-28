@@ -40,6 +40,7 @@ import { resolveNamedCommit, type CommitRefusal } from './completion-reports.js'
 import { codeReviewRowQuote, type CodeReviewReport } from './completion-summary.js';
 import { normaliseLogin } from './logins.js';
 import type { HarvestedReview } from './reviewer-legs.js';
+import { isVendorErrorReview } from './vendor-error-reviews.js';
 import { isVendorNotice } from './vendor-notices.js';
 
 /** A comment's last edit: when, and by whom (`unknown` for a deleted account). */
@@ -77,7 +78,10 @@ export type CompletionCommentReview = HarvestedReview & {
  * words: the edit precondition, or why the body names no one commit
  * (`completion-reports.ts`).
  */
-export type RefusedPrecondition = CommitRefusal | 'edited by an account other than its author';
+export type RefusedPrecondition =
+  | CommitRefusal
+  | 'edited by an account other than its author'
+  | 'reports a failed run in a row the error classifier does not read';
 
 /** An expected reviewer's comment that fails a precondition: named and quoted, never silent. */
 export interface RefusedCompletionComment {
@@ -163,6 +167,12 @@ function noticeOf(comment: CompletionComment): VendorNoticeComment {
   return { id, author, reportedAt: reportedAt(comment), quote: quoteOf(comment.body) };
 }
 
+// A failed report whose row the error classifier does not read: the two grammars
+// are kept in step by this check, not by inspection.
+function unreadableFailure(report: CodeReviewReport): boolean {
+  return report.status === 'failed' && !isVendorErrorReview(report.row);
+}
+
 // A failed run's body is its row as posted, which the classifier knows; a
 // completed run's is the whole comment.
 function reviewOf(
@@ -204,6 +214,13 @@ export function readCompletionComments(
       const resolution = resolveNamedCommit(comment.body, input.commits);
       if ('refused' in resolution) {
         refused.push(refusedOf(comment, resolution.refused));
+      } else if (unreadableFailure(resolution.report)) {
+        // A failed row the classifier would not read as an error review would
+        // reach the legs as a substantive review and launder the failure into
+        // "reviewed"; the reader fails closed instead.
+        refused.push(
+          refusedOf(comment, 'reports a failed run in a row the error classifier does not read'),
+        );
       } else {
         reviews.push(reviewOf(comment, resolution.commitId, resolution.report));
       }
