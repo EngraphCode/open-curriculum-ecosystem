@@ -187,3 +187,19 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
 - **#358 MERGED** at `e22ba04c6` by the door (cure dist): "every expected reviewer leg settled; quiet window elapsed"; Copilot UNOWED (review_on_push=false, no round asked since), Codex SATISFIED by the declaration (comment 6447926776) with the tip-bound vendor error review ignored. Four polls of SETTLING-QUIET-WINDOW. The merge-base deletion sweep (the merged branch `fix/merge-bot-records-class-and-fold-clock`) is not discharged by the door.
 - **#363 in flight**: `origin/engraph` (`e22ba04c6`) merged cleanly into the carrier as `c0fc24f51`; pushing as the bot (full check). NEXT: `pull-request ready --pr 363`, verdict (`pr363-verdict.md`), declaration (`pr363-unavailable.md`, names `c0fc24f51…`), checks green, door via the cure dist (`--expect copilot-pull-request-reviewer --expect chatgpt-codex-connector --unavailable chatgpt-codex-connector=<url>`). No vendor review requested (owner's word 2026-10-27).
 - Then the #360 fold (coordination-fold skill): the primary checkout carries the uncommitted napkin entries and this thread record for the fold's sweep.
+
+## Lane state (2026-10-28 ~15:45Z, the owner's word: merge the open pull requests, then the analyser work)
+
+- **#363** (the 1.186.1 carrier) merged `0cb2bde6d` by the door with `--expect none`, the seat's
+  judgement that upstream's own release, read first-hand in the sweep, needed no pull-request review
+  (the owner's one question of 2026-10-28). `--expect none` is new: lane `fix/pr-watch-expect-none`
+  (`eebf42826`, stacked on the Codex-failure cure `1c86925b5`), both unopened as pull requests.
+- **#360** (this coordination branch's fold): the primary's records committed, the default branch
+  merged in at `0cb2bde6d` (two record conflicts resolved by concept), the source portion under the
+  estate's code-expert read; the body to be corrected (code-class, not records-class), then the
+  ready-mark and the door.
+- **The sub-agent correction** (the owner, 2026-10-28): lane
+  `docs/subagent-reviewers-distinct-from-pr-reviewers` (`7c4ea2343`), a records pull request for the
+  records door once its push passes the gate.
+- **Next**: the analyser plan's unit 0 (its lane holds the two nodes and the drain ledger), then
+  unit 1 (the three parsers of third-party review text).
