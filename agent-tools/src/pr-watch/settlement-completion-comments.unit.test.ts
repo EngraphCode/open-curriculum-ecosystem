@@ -48,7 +48,10 @@ const both = { expectedReviewers: [COPILOT, CODEX] };
 describe('computePrVerdict — the completion-comment transport', () => {
   it('a tip-bound completion comment satisfies a declared leg with no review object, and the evidence names the transport', () => {
     const verdict = computePrVerdict(
-      settledReading({ ...both, completionComments: { reviews: [codexClean(TIP)], refused: [] } }),
+      settledReading({
+        ...both,
+        completionComments: { reviews: [codexClean(TIP)], refused: [], notices: [] },
+      }),
       LATE_NOW,
     );
 
@@ -63,7 +66,10 @@ describe('computePrVerdict — the completion-comment transport', () => {
 
   it('a zero-findings completion comment is not handed to the body tally: the tally names review objects only', () => {
     const verdict = computePrVerdict(
-      settledReading({ ...both, completionComments: { reviews: [codexClean(TIP)], refused: [] } }),
+      settledReading({
+        ...both,
+        completionComments: { reviews: [codexClean(TIP)], refused: [], notices: [] },
+      }),
       LATE_NOW,
     );
 
@@ -80,6 +86,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
             { ...codexClean(TIP, '2026-07-21T12:20:00Z'), id: 'IC_3' },
           ],
           refused: [],
+          notices: [],
         },
       }),
       LATE_NOW,
@@ -94,7 +101,11 @@ describe('computePrVerdict — the completion-comment transport', () => {
     const verdict = computePrVerdict(
       settledReading({
         ...both,
-        completionComments: { reviews: [codexClean(TIP, '2026-07-21T12:55:00Z')], refused: [] },
+        completionComments: {
+          reviews: [codexClean(TIP, '2026-07-21T12:55:00Z')],
+          refused: [],
+          notices: [],
+        },
       }),
       LATE_NOW,
     );
@@ -109,7 +120,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
     const verdict = computePrVerdict(
       settledReading({
         ...both,
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [], notices: [] },
       }),
       LATE_NOW,
     );
@@ -122,7 +133,10 @@ describe('computePrVerdict — the completion-comment transport', () => {
 
   it("a declared reviewer's comment that failed a precondition is refused by that precondition, quoted", () => {
     const verdict = computePrVerdict(
-      settledReading({ ...both, completionComments: { reviews: [], refused: [EDITED] } }),
+      settledReading({
+        ...both,
+        completionComments: { reviews: [], refused: [EDITED], notices: [] },
+      }),
       LATE_NOW,
     );
 
@@ -146,7 +160,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
             submittedAt: '2026-07-21T12:06:00Z',
           },
         ],
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [], notices: [] },
       }),
       LATE_NOW,
     );
@@ -160,7 +174,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
       settledReading({
         ...both,
         reviewRequests: [CODEX],
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [], notices: [] },
         reviewRuns: {
           kind: 'read',
           runs: [
@@ -187,7 +201,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
       settledReading({
         ...both,
         reviewRequests: [CODEX],
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [], notices: [] },
         reviewRuns: {
           kind: 'read',
           runs: [
@@ -214,7 +228,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
         ...both,
         reviews: [],
         reviewRequests: [CODEX],
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [], notices: [] },
         reviewRuns: { kind: 'unavailable', reason: 'gh agent-task missing' },
       }),
       '2026-07-21T12:05:00Z',
@@ -240,7 +254,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
             submittedAt: '2026-07-21T12:06:00Z',
           },
         ],
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [], notices: [] },
       }),
       '2026-07-21T12:05:00Z',
     );
@@ -255,7 +269,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
         ...both,
         reviews: [],
         reviewRequests: [COPILOT],
-        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(OLD_TIP)], refused: [], notices: [] },
       }),
       '2026-07-21T12:05:00Z',
     );
@@ -272,7 +286,7 @@ describe('computePrVerdict — the completion-comment transport', () => {
       settledReading({
         ...both,
         reviews: [],
-        completionComments: { reviews: [codexClean(TIP)], refused: [] },
+        completionComments: { reviews: [codexClean(TIP)], refused: [], notices: [] },
       }),
       '2026-07-21T12:05:00Z',
     );
@@ -300,12 +314,54 @@ describe('computePrVerdict — the completion-comment transport', () => {
         completionComments: {
           reviews: [codexClean(OLD_TIP, '2026-07-21T12:25:00Z')],
           refused: [],
+          notices: [],
         },
       }),
       LATE_NOW,
     );
 
     expect(verdict.state).toBe('QUOTA-SKIPPED');
+    expect(verdict.evidence.join('\n')).not.toContain('refused');
+  });
+});
+
+describe("computePrVerdict — the vendor's notice", () => {
+  // The connector's usage-limits comment, as the reader returns it: a notice
+  // the evidence prints, and nothing more (decision note, amended 2026-10-27).
+  const NOTICE = {
+    id: 'IC_4',
+    author: CODEX,
+    reportedAt: '2026-07-21T12:11:00Z',
+    quote:
+      'Codex usage limits have been reached for code reviews. Please check with the admins of this repo to increase the limits ',
+  };
+  const NOTICE_LINE = `${CODEX}: vendor notice at 2026-07-21T12:11:00Z — "${NOTICE.quote}"`;
+
+  it('prints in the evidence of a settled round and decides nothing', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        completionComments: { reviews: [codexClean(TIP)], refused: [], notices: [NOTICE] },
+      }),
+      LATE_NOW,
+    );
+
+    expect(verdict.state).toBe('SETTLE-READY');
+    expect(verdict.evidence).toContain(NOTICE_LINE);
+  });
+
+  it("prints beside a blocking leg, and never as a refusal: the leg's own state names the reader's next act", () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        ...both,
+        reviews: [],
+        completionComments: { reviews: [], refused: [], notices: [NOTICE] },
+      }),
+      '2026-07-21T12:05:00Z',
+    );
+
+    expect(verdict.state).toBe('SILENT-WAIT-NO-REVIEWER');
+    expect(verdict.evidence).toContain(NOTICE_LINE);
     expect(verdict.evidence.join('\n')).not.toContain('refused');
   });
 });

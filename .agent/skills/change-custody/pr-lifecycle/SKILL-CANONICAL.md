@@ -1274,7 +1274,13 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    and the cure is a fresh result on the tip (an `@codex review` comment),
    never an edit; a summary whose Code Review row is still running is
    refused as such, and its cure is to run the door again when the row
-   completes. The refusal decides the verdict when the round is
+   completes; a summary whose Code Review row has Failed is the connector's
+   failed run on the commit it names (the decision record's amendment of
+   2026-10-27) — an error review, counted in the leg's detail and
+   satisfying no leg, which proves a declaration of that vendor's
+   unavailability on that head — and the connector's usage-limits comment
+   beside it is a vendor notice the evidence prints; neither is a
+   refusal. The refusal decides the verdict when the round is
    otherwise settled or when it is the blocking reviewer's; a live run
    outranks it, and a refusal on another reviewer rides in the evidence
    beside the blocking leg's own state. A declared STAND-IN takes a vendor's

@@ -72,7 +72,12 @@ tip. On a leg the tip satisfies, such a comment is a past round and is not
 reported. The refusal is the verdict when the round is otherwise settled or
 when it belongs to the blocking reviewer; a refusal on another reviewer rides
 in the evidence beside the blocking leg's own state, and a live run outranks
-it.
+it. A summary whose Code Review row is **Failed** is the connector's failed
+run on the commit it names (the decision note's amendment of 2026-10-27): an
+error review, which satisfies no leg, is counted in the leg's detail, and
+proves an `--unavailable` declaration on that head; without one the leg
+times out to `SETTLED-NO-REVIEW`. The connector's usage-limits comment is a
+vendor notice the evidence prints; neither is a refusal.
 The tool verifies only the vendor legs declared to it and refuses
 an empty set: the availability rule and the posted subagent leg are the
 merging seat's own recomputation, recorded on the landing premises (a

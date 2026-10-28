@@ -12,9 +12,12 @@ import type { CompletionComment, RefusedPrecondition } from './completion-commen
  * shape is `completion-comments-summary.unit.test.ts`); an expected
  * reviewer's comment failing one of
  * those preconditions is refused by name and quoted, never read as no
- * comment (decision note 2026-09-16). Fixture: shaped on the comment Codex
- * posted on pull request 160, round three (2026-09-20); the commit list is
- * synthetic.
+ * comment (decision note 2026-09-16). A vendor's notice about its own
+ * service, naming no commit, is neither: it is returned for the evidence to
+ * print (the decision note's amendment of 2026-10-27). Fixture: shaped on
+ * the comment Codex posted on pull request 160, round three (2026-09-20),
+ * and the usage-limits notice it posted on pull request 362 (2026-10-27);
+ * the commit list is synthetic.
  */
 const CODEX_CLEAN: CompletionComment = {
   id: 'IC_kwDORdPTys8AAAABVpbXsA',
@@ -45,6 +48,7 @@ function refusal(precondition: RefusedPrecondition, reportedAt = CODEX_CLEAN.cre
         quote: QUOTE,
       },
     ],
+    notices: [],
   };
 }
 
@@ -63,6 +67,7 @@ describe('readCompletionComments', () => {
         },
       ],
       refused: [],
+      notices: [],
     });
   });
 
@@ -80,6 +85,7 @@ describe('readCompletionComments', () => {
         },
       ],
       refused: [],
+      notices: [],
     });
   });
 
@@ -104,6 +110,7 @@ describe('readCompletionComments', () => {
     expect(read({ ...CODEX_CLEAN, author: 'el-graphael' })).toStrictEqual({
       reviews: [],
       refused: [],
+      notices: [],
     });
   });
 
@@ -133,6 +140,7 @@ describe('readCompletionComments', () => {
           quote: mention,
         },
       ],
+      notices: [],
     });
   });
 
@@ -196,10 +204,88 @@ describe('quoteOf', () => {
       'Codex reply\n| 📝 **Code Review** | ✅ **Completed** t | `1f97bfc` | New commits |',
       'Codex reply',
     ],
+    [
+      '| 📝 **Code Review** | ⚠️ **Failed** <relative-time datetime="t">t</relative-time><br/>We couldn’t complete this review. Comment `@codex review` to try again. | `8f2b7fd` | Manual request |',
+      '📝 **Code Review** | **Failed** | `8f2b7fd` | Manual request',
+    ],
   ])(
-    "takes a summary's Code Review row as its cells with the status cut to its word, else the comment's first non-empty line, bounded to 120 characters and stripped of terminal controls: %j",
+    "takes a summary's Code Review row, or a body that is one such row, as its cells with the status cut to its word, else the comment's first non-empty line, bounded to 120 characters and stripped of terminal controls: %j",
     (body, quote) => {
       expect(quoteOf(body)).toBe(quote);
     },
   );
+});
+
+describe("readCompletionComments — the connector's vendor notice", () => {
+  // The comment the connector posts beside a failed run while its account is
+  // over its usage quota, as posted on pull request 362 at 2026-10-27T15:06:00Z.
+  const NOTICE: CompletionComment = {
+    id: 'IC_kwDORdPTys8AAAABgC7w_A',
+    author: 'chatgpt-codex-connector',
+    body: 'Codex usage limits have been reached for code reviews. Please check with the admins of this repo to increase the limits by adding credits.',
+    createdAt: '2026-10-27T15:06:00Z',
+    lastEdit: null,
+  };
+  const NOTICE_QUOTE =
+    'Codex usage limits have been reached for code reviews. Please check with the admins of this repo to increase the limits ';
+
+  it("reads the usage-limits comment as the vendor's notice: no report, no refusal; quoted and timed for the evidence", () => {
+    expect(read(NOTICE)).toStrictEqual({
+      reviews: [],
+      refused: [],
+      notices: [
+        {
+          id: NOTICE.id,
+          author: NOTICE.author,
+          reportedAt: '2026-10-27T15:06:00Z',
+          quote: NOTICE_QUOTE,
+        },
+      ],
+    });
+  });
+
+  it('times a notice its author edited at the edit, whatever the case of the editor’s login', () => {
+    const edited = {
+      ...NOTICE,
+      lastEdit: { at: '2026-10-27T15:08:00Z', by: 'ChatGPT-Codex-Connector' },
+    };
+
+    expect(read(edited).notices.map((notice) => notice.reportedAt)).toStrictEqual([
+      '2026-10-27T15:08:00Z',
+    ]);
+  });
+
+  it("refuses a notice another account edited as edited: that text is not the vendor's", () => {
+    const edited = { ...NOTICE, lastEdit: { at: '2026-10-27T15:08:00Z', by: 'octocat' } };
+
+    expect(read(edited)).toStrictEqual({
+      reviews: [],
+      refused: [
+        {
+          id: NOTICE.id,
+          author: NOTICE.author,
+          reportedAt: '2026-10-27T15:08:00Z',
+          precondition: 'edited by an account other than its author',
+          quote: NOTICE_QUOTE,
+        },
+      ],
+      notices: [],
+    });
+  });
+
+  it('a notice by an author who is not an expected reviewer is neither read nor refused', () => {
+    expect(read({ ...NOTICE, author: 'el-graphael' })).toStrictEqual({
+      reviews: [],
+      refused: [],
+      notices: [],
+    });
+  });
+
+  it("a comment that quotes the notice's wording is no notice: it names no reviewed commit, and is refused", () => {
+    const quoting = { ...NOTICE, body: `Codex said "${NOTICE.body}" again.` };
+
+    expect(read(quoting).refused.map((comment) => comment.precondition)).toStrictEqual([
+      'names no reviewed commit',
+    ]);
+  });
 });
