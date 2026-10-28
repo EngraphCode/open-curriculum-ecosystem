@@ -389,6 +389,38 @@ describe('runMergeExecution — target grammar (security H2)', () => {
   });
 });
 
+describe('runMergeExecution — a set declared empty (the owner, 2026-10-27)', () => {
+  it('merges a tip whose expected set was declared none, the evidence naming the declaration', async () => {
+    // The seat judged this work needs no pull-request review to be safe and
+    // effective and declared so; the door reads the declaration, waits out
+    // the quiet window from checks green (08:00 against 09:00) and merges,
+    // carrying the judgement in the merge record.
+    const { fetchImpl, calls } = makeFetchPort({});
+    const declaredNone = makeReading({
+      expectedReviewers: [],
+      expectedDeclared: true,
+      reviews: [],
+    });
+
+    const outcome = await runMergeExecution(
+      makeInput(declaredNone, fetchImpl, { expectedReviewers: [] }),
+    );
+
+    expect(outcome.ok).toBe(true);
+    if (outcome.ok) {
+      expect(outcome.value.kind).toBe('merged');
+      if (outcome.value.kind === 'merged') {
+        expect(outcome.value.evidence.join('\n')).toContain('--expect none');
+      }
+    }
+    const mergeCall = calls.find((call) => call.url.endsWith('/pulls/42/merge'));
+    expect(JSON.parse(String(mergeCall?.init?.body))).toEqual({
+      merge_method: 'merge',
+      sha: HEAD_OID,
+    });
+  });
+});
+
 describe('runMergeExecution — what is owed is read from the review configuration (the owner, 2026-10-16)', () => {
   const OLD_TIP = 'b'.repeat(40);
   const reviewedAnEarlierTip = makeReading({

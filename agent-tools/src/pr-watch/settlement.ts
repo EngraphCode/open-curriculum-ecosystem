@@ -7,7 +7,7 @@ import {
 import type { ReviewerLeg } from './reviewer-legs.js';
 import { mostBlockingLeg } from './most-blocking-leg.js';
 import type { BlockingLegVerdict } from './most-blocking-leg.js';
-import { readingEvidence } from './settlement-evidence.js';
+import { readingEvidence, settledLead } from './settlement-evidence.js';
 import {
   allReviews,
   completionRefusals,
@@ -44,7 +44,7 @@ function legLine(leg: ReviewerLeg): string {
 // 15:44:32Z, seven minutes after the round's last real review — the exclusion
 // of signed self-replies did not catch it, because an empty body carries no
 // signature to detect; nor is a vendor error review activity. With no
-// tip-bound review (every leg SKIPPED), it anchors on checks-green.
+// tip-bound review (every leg SKIPPED, or none expected), it anchors on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
   const tipBound = allReviews(reading)
     .filter((review) => reviewBinds(review, reading))
@@ -117,10 +117,7 @@ function settledVerdict(input: {
   if (skipped !== undefined) {
     return skipped;
   }
-  return {
-    state: 'SETTLE-READY',
-    evidence: ['every expected reviewer leg settled; quiet window elapsed', ...shared],
-  };
+  return { state: 'SETTLE-READY', evidence: [settledLead(legs), ...shared] };
 }
 
 /**
@@ -155,14 +152,16 @@ function skippedRoundVerdict(
   return undefined;
 }
 
-// An EMPTY expected set can never settle (SKILL CRITICAL first-round rule: an
-// initial tip must not read merge-ready before the first bot round). Fires
-// when --expect is undeclared and nothing is observable yet.
+// An UNDECLARED empty expected set can never settle (SKILL CRITICAL first-round
+// rule: an initial tip must not read merge-ready before the first bot round).
+// Fires when --expect is undeclared and nothing is observable yet; a set
+// DECLARED empty (`--expect none`, expect-flag.ts) is the seat's judgement that
+// the work needs no review, and settles through the quiet window instead.
 function emptyExpectedSetVerdict(reading: PrStateReading): PrVerdict {
   return {
     state: 'SILENT-WAIT-NO-REVIEWER',
     evidence: [
-      'expected reviewer set is EMPTY (undeclared and nothing observed on an initial tip) — declare --expect; the first-round guarantee cannot hold vacuously',
+      'expected reviewer set is EMPTY (undeclared and nothing observed on an initial tip) — declare --expect, a login per configured reviewer or none when the work needs no review; the first-round guarantee cannot hold vacuously',
       ...runsEvidence(reading),
     ],
   };
@@ -170,7 +169,7 @@ function emptyExpectedSetVerdict(reading: PrStateReading): PrVerdict {
 
 /** Resolve the reviewer-leg half of the verdict for an otherwise-green PR. */
 export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerdict {
-  if (reading.expectedReviewers.length === 0) {
+  if (reading.expectedReviewers.length === 0 && !reading.expectedDeclared) {
     return emptyExpectedSetVerdict(reading);
   }
   const legs = computeReviewerLegs({

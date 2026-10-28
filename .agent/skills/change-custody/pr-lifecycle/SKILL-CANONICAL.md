@@ -758,7 +758,9 @@ contradicts (2026-10-02).
   gives it a tool form. For a single verdict,
   `pnpm agent-tools pr state <n> --expect <login> [--expect <login> ...]`,
   with one `--expect` per available configured reviewer as for the merge
-  (the flag declares the whole expected set), computes the front door's
+  (the flag declares the whole expected set; `--expect none` declares it
+  empty when the seat has judged the work needs no pull-request review to be
+  safe and effective — the owner's one question, 2026-10-27), computes the front door's
   reading once and never merges. Do NOT use
   `pnpm agent-tools:pr-watch <n> --watch --interval 60` as the watch: run
   through the unified entrypoint, that path buffers every line until exit, so
@@ -892,7 +894,7 @@ lowercase hex characters, bare or inside a code span), `Routed to <home>`, or
 count reads the marker only, so a disposition whose sentence lacks the verb
 is still counted there. The suppressed-findings hold (§Copilot review policy
 above) is the one reader of the verb: on a body-only line the sentence is
-everything after the first ` — ` (space, em dash, space) following the item,
+everything after the first `—` (space, em dash, space) following the item,
 so an item is never read as a sentence; a line with no separator carries no
 sentence and lifts nothing. A reply on a review thread inherits the thread's head and
 anchor from the harvest. A finding that lives only in a review body (a
@@ -1201,7 +1203,7 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    by the timeout). A review BINDS the tip exactly (it names the tip
    commit) or by content: the commit it names carries the same patch as the
    tip against its merge base with the base branch as read now (`git
-   patch-id --verbatim` of each commit's diff from GitHub's compare
+patch-id --verbatim` of each commit's diff from GitHub's compare
    endpoint). A PURE SYNC is a merge of the base that leaves that patch
    unchanged; a clean merge is not always pure, since a base change inside
    a hunk's context lines changes the patch. `pr state` names the inference
@@ -1365,7 +1367,9 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    door declares the configured reviewers AVAILABLE, and a subagent
    review posted on the pull request stands as a leg** (owner ruling
    2026-09-10). Concretely: `--expect` once per available configured
-   reviewer — never the set that happened to bind the tip, never a
+   reviewer, or `--expect none` when the seat has answered the owner's one
+   question (2026-10-27: "do we need a review in order for this work to be
+   safe and effective?") with no — never the set that happened to bind the tip, never a
    reviewer declared unavailable, and a running door carries the set declared
    when it was armed (when the ruling an `--expect` set rests on changes
    mid-poll, stop the poll before any merge call, read the pull request
@@ -1383,12 +1387,16 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    Opus review and Copilot; #116's adversarial leg read 39e9cc36f and the
    four pushes after it were its cures, the sync and one landing defect). The tool verifies only the vendor legs declared to it
    (`computeReviewerLegs` reads the `--expect` logins; `parseMergeArgs`
-   refuses an empty set), so the subagent leg is the MERGING SEAT's own
+   refuses an UNDECLARED set, and `--expect none` declares it empty), so the
+   subagent leg is the MERGING SEAT's own
    recomputation — the posted review and its dispositions named on the
    landing premises, the same seat-side check item 5 names for the tally
-   state — and with NO configured vendor available the front door cannot
-   be invoked at all: that case is the owner's call at the moment it
-   arises, and a machine-checked subagent-leg input is the named
+   state — and with NO configured vendor available the seat answers the
+   owner's one question (2026-10-27): a review the work needs for its safety
+   or effectiveness is a subagent review posted on the pull request and
+   recomputed by the seat; a review it does not need is `--expect none`,
+   which the door reads as the declaration it is; a machine-checked
+   subagent-leg input is the named
    follow-up on the agent-tools-watch-commands node. **A reviewer silent
    on EVERY pull request at once is that
    vendor's availability, never a pull-request shape**: read its own
@@ -1721,7 +1729,7 @@ grep -E "^-" | grep -v "^---"` and read every printed line — each is an
   clears it when the review lands. `gh agent-task list` enumerates
   coding-agent sessions (`--json id,name,createdAt,completedAt`;
   `completedAt` null = in flight) and `gh agent-task view <session-id>
-  --json` maps a run to its PR (the list JSON carries no PR number; the
+--json` maps a run to its PR (the list JSON carries no PR number; the
   PR-number positional is interactive-only — vendor shapes verified
   2026-07-21). Its contract is item 4's: an OBSERVED live session mapped
   to the PR is a measured guard and blocks settlement; a run's ABSENCE is
@@ -2071,7 +2079,7 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     "WIP slot reserved: <owner>/<name> <branch>" on its repository's
     coordination stream, then reads the count first-hand from the forge for
     every repository (`gh pr list --repo <owner>/<name> --state open --limit
-    1000` on GitHub: the target always named, and a limit above the default
+1000` on GitHub: the target always named, and a limit above the default
     page of thirty), leaving out each repository's coordination PR, then reads
     every repository's stream for reservations posted before its own that
     had not lapsed when it read the count. It opens only while the count

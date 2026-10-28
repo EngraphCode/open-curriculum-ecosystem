@@ -2,7 +2,8 @@ import { ok, type Result } from '@oaknational/result';
 
 import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
-import { MERGE_USAGE, parseMergeArgs, type MergeArgs } from './merge-args.js';
+import { parseMergeArgs, type MergeArgs } from './merge-args.js';
+import { MERGE_USAGE } from './merge-usage.js';
 import { verdictAwaitsSettlement } from './merge-decision.js';
 import {
   deadlineMessage,

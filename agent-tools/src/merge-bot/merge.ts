@@ -55,7 +55,7 @@ export interface MergeExecutionInput {
   /** The bot's app slug: the only author the records door admits (`app/<slug>`). */
   readonly appSlug: string;
   readonly prNumber: number;
-  /** DECLARED expected reviewer set — required; a defaulted set never merges. */
+  /** DECLARED expected reviewer set — required; empty only when declared `none` (expect-flag.ts). */
   readonly expectedReviewers: readonly string[];
   readonly nowIso: string;
   readonly unavailable?: UnavailableInput | undefined;

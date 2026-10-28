@@ -39,7 +39,12 @@ export interface ComposeReadingInput {
   readonly reviewRuns: PrStateReading['reviewRuns'];
   /** The base branch's automatic-review configuration, read with the reading. */
   readonly reviewConfiguration: ReviewConfiguration;
-  readonly declared: readonly string[];
+  /**
+   * The declared expected reviewer set: `null` when `--expect` was not given
+   * (the set defaults to the observed surface and the reading says so), an
+   * empty array when it was declared `none` (expect-flag.ts).
+   */
+  readonly declared: readonly string[] | null;
   /** Vendors declared unavailable (`--unavailable`); none when absent. */
   readonly unavailable?: UnavailableInput | undefined;
   readonly readContent: (reviewedOids: readonly string[]) => ContentLeg;
@@ -55,9 +60,7 @@ export interface ComposeReadingInput {
  */
 export function composeReading(input: ComposeReadingInput): PrStateReading {
   const expectedReviewers =
-    input.declared.length > 0
-      ? input.declared
-      : defaultExpectedReviewers(input.view.reviewRequests, input.reviews);
+    input.declared ?? defaultExpectedReviewers(input.view.reviewRequests, input.reviews);
   const completionComments = readCompletionComments({
     comments: input.comments,
     commits: input.commits,
@@ -90,7 +93,7 @@ export function composeReading(input: ComposeReadingInput): PrStateReading {
     reviewRuns: input.reviewRuns,
     reviewConfiguration: input.reviewConfiguration,
     expectedReviewers,
-    expectedDeclared: input.declared.length > 0,
+    expectedDeclared: input.declared !== null,
     content: input.readContent(landed.map((review) => review.commitOid)),
   };
 }

@@ -384,6 +384,28 @@ describe('computePrVerdict — base currency and vacuous sets', () => {
     expect(verdict.evidence.join('\n')).toContain('EMPTY');
   });
 
+  it('a set DECLARED empty (--expect none) settles once the quiet window after checks green elapses, naming the declaration', () => {
+    // The owner's word of 2026-10-27: the one question is whether the work
+    // needs a review to be safe and effective; a seat that judged it does
+    // not says so, and the verdict carries that judgement into the record.
+    const verdict = computePrVerdict(
+      settledReading({ expectedReviewers: [], expectedDeclared: true, reviews: [] }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SETTLE-READY');
+    expect(verdict.evidence.join('\n')).toContain('--expect none');
+    expect(verdict.evidence.join('\n')).toContain('safe and effective');
+  });
+
+  it('a set DECLARED empty still waits out the quiet window after checks green', () => {
+    // Checks green at 12:00 in the fixture; 12:05 is inside the window.
+    const verdict = computePrVerdict(
+      settledReading({ expectedReviewers: [], expectedDeclared: true, reviews: [] }),
+      '2026-07-21T12:05:00Z',
+    );
+    expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
+  });
+
   it('a missing quiet-window anchor holds the window open, never silently settles', () => {
     const verdict = computePrVerdict(
       settledReading({

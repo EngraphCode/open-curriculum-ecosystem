@@ -43,7 +43,11 @@ It mints its own least-privilege token (`pull-request-merge`), reads the
 settlement verdict, and merges ONLY on SETTLE-READY — merge-commit method
 always, the VERDICTED tip's sha pinned in the call (a moved tip answers
 409), refusing by verdict name on everything else with exit 3. `--expect`
-is required: source it from the repository's automatic-review
+is required (`--expect none` declares the set EMPTY: the seat has judged, by
+the owner's one question of 2026-10-27 — "do we need a review in order for
+this work to be safe and effective?" — that the work needs no pull-request
+review, and the merge evidence names the declaration); otherwise source it
+from the repository's automatic-review
 configuration, declaring the reviewers AVAILABLE — a vendor declared
 unavailable on the stream (an outage, such as the Codex connector's
 2026-09-10 usage-limit notice) is not declared, and a subagent review

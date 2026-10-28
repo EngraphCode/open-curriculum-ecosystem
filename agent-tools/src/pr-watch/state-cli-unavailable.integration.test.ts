@@ -47,7 +47,7 @@ function composed(readInput: ReadReadingInput) {
       },
     ],
     reviewRuns: { kind: 'read', runs: [] },
-    declared: readInput.expectedReviewers,
+    declared: readInput.expectedReviewers ?? null,
     unavailable: readInput.unavailable,
     readContent: () => NO_CONTENT,
   });
