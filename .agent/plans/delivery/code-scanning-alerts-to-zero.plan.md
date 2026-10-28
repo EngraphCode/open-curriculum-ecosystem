@@ -7,7 +7,7 @@ status: sketch
 ratified_by: null
 ratified_date: null
 ratified_where: null
-serves: reliable-atoms-programme
+serves: maintenance
 impact_areas:
   - practice-and-estate
   - analytics-and-observability
@@ -15,7 +15,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-17
+last_updated: 2026-10-27
 ---
 
 # Code-scanning alerts to zero on the resting branch, and held there
@@ -40,25 +40,24 @@ whose every line is a fact about the code, not an unread signal.
   twenty-seven findings it cannot tell from the last seat's backlog; each re-reads them. Value: the
   backlog is gone and the gate keeps it gone, so the next seat reads only what its own change
   introduced.
-- **Consumers of the atoms the findings sit in** — the agent-tools runtime, the logger's
-  trace derivation, the server's correlation id, the schema cache and the drift check. Value:
-  primitives whose security-sensitive behaviour is deliberate and tested rather than
-  incidental.
+- **Consumers of the modules the findings sit in** — the agent-tools runtime, the server's
+  bundler configuration, the type generator, the schema cache and the drift check. Value:
+  modules whose security-sensitive behaviour is deliberate and tested rather than incidental.
 
 ## Problem
 
 Twenty-seven alerts are open on the resting branch (the hosting service's alerts query for
 that branch, read 2026-09-06) from two analysers whose findings both land in the hosting
 service's code-scanning surface: nine from CodeQL and eighteen from the code-quality
-analyser's security rules, uploaded alongside its own quality gate. They fall into eight
+analyser's security rules, uploaded alongside its own quality gate. The pseudo-random and
+weak-hash alerts among them are fixed by `quality-analyser-security-reliability-to-zero`, with the
+code-quality analyser's other security and reliability issues. This node owns the other six
 classes:
 
 | Class | Rule | Sites | What the rule sees |
 | --- | --- | --- | --- |
 | Network data written to a file | `js/http-to-file-access` | 3 | a fetched document, or text derived from it, reaches a file write: two writes in the schema cache, one in the drift check |
 | Executable searched on PATH | `S4036` | 9 | `spawn`/`exec` of `git`, `pnpm`, `node` and others by bare name, in the runtime, the server's bundler configuration and tooling |
-| Pseudo-random number generator | `S2245` | 3 | `Math.random` in a correlation id, a retry backoff, a chunking helper |
-| Weak hash | `S4790` | 1 | MD5 deriving a trace id from a correlation id |
 | Clear-text protocol literal | `S5332` | 4 | `http://` literals in test configuration and helpers |
 | Polynomial regular expression | `js/polynomial-redos` | 2 | a lazy match inside a bracketed quantifier over untrusted HTML, and the report generator's keyword pattern matched over fetched definitions |
 | Missing rate limiting | `js/missing-rate-limiting` | 4 | route handlers on the MCP server (two in the authorisation routes, one in the proxy's routes, one registered by the bootstrap helpers) with no in-process limiter, by decision: ADR-219 places the control at the edge |
@@ -106,13 +105,6 @@ accepts for that query and no other.
   owning workspace's `node_modules/.bin` absolute path or `process.execPath` with the
   script. The trusted-git allowlist is never extended to per-user installs to cover the
   other binaries. Each resolver is unit-tested for the refusal of an unresolved name.
-- **Pseudo-random number generator.** The correlation id takes its random part from the
-  platform's cryptographic generator; the backoff jitter and the chunking helper take a
-  cryptographic integer where the analyser requires it, since the cost is nil and the cure
-  is smaller than the argument.
-- **Weak hash.** The trace-id derivation states its purpose — a stable sixteen-byte
-  identifier, not a secret — and moves to a current hash truncated to the identifier's width,
-  with a test that pins the width and the stability of the mapping.
 - **Clear-text protocol literal.** Fixtures that never dial their host take an `https`
   literal, a fix. A localhost loopback in a test helper or test-runner configuration is a
   code cure per site: the literal leaves the source — configuration, or a helper shape the
@@ -143,8 +135,8 @@ accepts for that query and no other.
   raw, with a test over a value carrying them; the generated output is byte-identical for
   every value the generator inlines today.
 - **The gate.** The pull-request workflow already runs both analysers as required checks;
-  this node adds the proof that a new alert of any of the seven analysed classes blocks a
-  merge, and the reading command that shows the resting branch at zero. The eighth class,
+  this node adds the proof that a new alert of any of the five analysed classes blocks a
+  merge, and the reading command that shows the resting branch at zero. The sixth class,
   missing rate limiting, is excluded from the query by the owner's ruling, so no required
   check can fail on a new instance of it; its control is the edge (ADR-219), and the probe
   does not carry it.
@@ -161,10 +153,9 @@ the gate turns "zero" from a snapshot into an invariant.
    own record; the landing seat reads it at closing and records the reading, dated, on the
    lane's closing event as an observation, never as a corpus fact.
 2. Every cured site has a test that fails on the previous behaviour: the refusal of a
-   non-absolute executable, the cryptographic source of the random part, the trace-id width
-   and stability, the linear-time extraction over a pathological input, the output description's closed vocabulary, the generator's escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
+   non-absolute executable, the linear-time extraction over a pathological input, the output description's closed vocabulary, the generator's escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
 3. No alert on the resting branch carries a dismissed, accepted-risk or won't-fix state, and the missing-rate-limiting query raises none because the tracked configuration excludes it, explained by the code comment at each route citing ADR-219 and the two edge WAFs. Proof: `repo-safe` for the four comments and the `query-filters` entry; `owner-held` for the service's state — the alerts query for dismissed alerts and for open `js/missing-rate-limiting` alerts, both empty, read at closing and recorded as a dated observation.
-4. A pull request introducing one new instance of each of the seven analysed classes is
+4. A pull request introducing one new instance of each of the five analysed classes is
    blocked by a required check. The owner-ruled exclusion of `js/missing-rate-limiting` means
    no required check can fail on a new instance of that class; it is not probed, and its
    control is the edge rule ADR-219 states.
@@ -175,21 +166,19 @@ the gate turns "zero" from a snapshot into an invariant.
 ## Out of scope
 
 - Snoozing, marking "won't fix" or dismissing in the hosting service or the analyser's own console: no state lives there that the tree cannot explain; the one exception this node takes (missing rate limiting) is owner-ruled, dated, and a tracked exclusion of one query in the CodeQL configuration, not a dismissal.
-- The code-quality analyser's non-security quality backlog (its own quality profile), which
-  has its own tracking thread and plan lineage; this node touches only findings that reach
-  the code-scanning surface.
+- The code-quality analyser's issues outside the code-scanning surface: its BLOCKER, HIGH and
+  MEDIUM security and reliability issues are `quality-analyser-security-reliability-to-zero`'s,
+  and its maintainability backlog is its own quality profile's; this node touches only findings
+  that reach the code-scanning surface.
 - Rewriting the drift check's or the schema cache's purpose; both keep their contracts.
 - Raising or lowering the analysers' rule sets, or excluding any path from them; this node
   clears what they report today.
 
 ## Todos
 
-Eight PR-shaped units, each a single story inside the small-PR bands and its round budget,
-independent unless stated:
+Seven PR-shaped units, each a single story inside the small-PR bands and its round budget,
+independent unless stated (numbered as cited elsewhere in the estate):
 
-1. **Random and hash primitives.** The correlation id, the backoff jitter, the chunking
-   helper and the trace-id derivation, with their tests: about eight files, no
-   configuration.
 2. **The regular expressions.** The script-body extraction and the report generator's
    keyword pattern rewritten linear-time, each with its pathological-input test: four files.
 3. **Network data written to a file.** The drift check's closed-vocabulary description with
@@ -235,8 +224,8 @@ independent unless stated:
 
 The six clauses of the plan-body first-principles check, applied at authoring:
 
-- **Shape.** The tests prove behaviour the estate owns — a refusal, a source of randomness,
-  a width, a linear bound, a closed vocabulary — never that an analyser's rule fires.
+- **Shape.** The tests prove behaviour the estate owns — a refusal, a linear bound, a closed
+  vocabulary, an escaped line separator — never that an analyser's rule fires.
 - **Landing path.** Tests take the estate's existing tier names so the existing runners
   include them; configuration changes live in the analysers' tracked configuration files,
   including the one query exclusion; the node takes no service-side state.
@@ -269,6 +258,7 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-08 | PR #95 round one (Copilot, Codex) | The pause mechanism named a Sonar issue-ignore block and a CodeQL query filter or path exclusion: automatic analysis reads no file-based rule ignore, and both CodeQL shapes silence the rule beyond the four sites, against ADR-219; criteria 1 and 3 filed the hosting service's alert state as `repo-safe` against the boundary-of-certainty amendment. | Applied: the dismissal is once per site in each analyser's own record, explained by the route comments, never a path exclusion or query filter; criteria 1 and 3 split into `repo-safe` (the comments) and `owner-held` (the service's alert state, read as a dated observation). |
 | 2026-09-08 | PR #95 round three (Codex) | The four findings are CodeQL alerts with no matching code-quality issue, so a per-issue act in that analyser was unperformable; the rules tier claimed a policy amendment that has not landed; the showcase plan's live-index proofs (its criteria 1 and 8) contradict the boundary-of-certainty amendment. | Applied: the dismissal names only the code-scanning record, with the code-quality shape stated conditionally; the rules tier names the amendment as pending in its own pull request. Carried: the showcase proofs to the census of plan bodies asserting external state, named by criterion. |
 | 2026-09-17 | Owner answer (the dedicated consolidation's question on the mechanism) | The rules tier (`41235118c`) and this node described one dismissal per alert while `.github/codeql/codeql-config.yml` carried a `query-filters` exclusion of the query (`bd7a3509e`), both 2026-09-10. Owner, verbatim: "a permanent exclusion is allowed, but ONLY for that one issue". | Applied: the overview, goal, mechanism, the rate-limiting class, criterion 3, out of scope, unit 6 and the landing-path check re-trued to the tracked exclusion; ADR-219, the disposition policy, the two rules and the quality-tooling playbook amended in the same change. The route comments' defence-in-depth wording stays owed in unit 6. |
+| 2026-10-27 | Owner, at the security and reliability triage | The Reliable Atoms concept is retired ("this is just fixing defects"); defect-fix plans serve a `maintenance` strategic node. The triage's plan, `quality-analyser-security-reliability-to-zero`, carries the code-quality analyser's BLOCKER, HIGH and MEDIUM security and reliability issues, which include this node's pseudo-random and weak-hash sites. | Applied: `serves: maintenance`; the pseudo-random and weak-hash sites leave this node's user groups, problem table, mechanism, criterion 2 and units (the units keep their numbers, which other documents cite); the gate and criterion 4 count five analysed classes. |
 
 Round five's two findings were dispositioned on PR #56's replies under the PDR-140 step-back and
 named only on the lane-closed comms event of 2026-09-06 until the consolidation fold the same day
