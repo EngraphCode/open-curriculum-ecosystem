@@ -90,3 +90,53 @@ describe('extractBodyFindings â€” findings from review bodies, by the reviewerâ€
     ).toStrictEqual({ items: [], manual: true });
   });
 });
+
+describe('Codex items are read by their fixed parts, in linear time', () => {
+  const badge =
+    '**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>';
+  const none = { items: [], manual: false };
+
+  it('reads an item whose closing bold is followed by whitespace, and none without a closing bold or a space after the badge', () => {
+    expect(
+      extractBodyFindings({ author: CODEX, body: `${badge}  Trailing space**  ` }).items.map(
+        (item) => item.key,
+      ),
+    ).toStrictEqual(['Trailing space']);
+    expect(extractBodyFindings({ author: CODEX, body: `${badge}  No closing bold` })).toStrictEqual(
+      none,
+    );
+    expect(extractBodyFindings({ author: CODEX, body: `${badge}Unspaced**` })).toStrictEqual(none);
+    expect(
+      extractBodyFindings({
+        author: CODEX,
+        body: `**<sub><sub>![Px Badge](u)</sub></sub>  Heading**`,
+      }),
+    ).toStrictEqual(none);
+  });
+
+  /**
+   * A heading is required. The one-regex reader accepted a badge line that
+   * closed its bold over whitespace alone as an item with an empty key.
+   */
+  it('reads a badge line with a whitespace-only heading as no item', () => {
+    expect(extractBodyFindings({ author: CODEX, body: `${badge}   **` })).toStrictEqual(none);
+  });
+
+  /**
+   * Before the cure the item pattern re-scanned from every sub closer and
+   * across every run of whitespace: this line, 512 closers each followed by
+   * 512 spaces (268,326 characters, no closing bold), took 15.0 s on the
+   * authoring host (2026-10-28, quiet, measured once), fifteen times this
+   * test's budget.
+   */
+  it(
+    'classifies a badge line of 512 sub closers and 262,144 spaces within one second',
+    { timeout: 1000 },
+    () => {
+      const line = `**<sub><sub>![P1 Badge](u)</sub></sub>${`</sub></sub>${' '.repeat(512)}`.repeat(512)}`;
+      const started = performance.now();
+      expect(extractBodyFindings({ author: CODEX, body: line })).toStrictEqual(none);
+      expect(performance.now() - started).toBeLessThan(1000);
+    },
+  );
+});

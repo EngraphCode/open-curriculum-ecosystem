@@ -19,7 +19,7 @@ depends_on:
   - plan: code-quality-binding-per-checkout
     kind: beneficial
 owner_gates: []
-last_updated: 2026-10-27
+last_updated: 2026-10-28
 ---
 
 # Code-quality analyser security and reliability findings to zero, and held there by the lint gate
@@ -138,7 +138,8 @@ error.
   in the unit that lands after every cure, with one pathogen fixture per rule, so the commit hook
   (changed workspaces) and `pnpm check` (all workspaces) refuse the class from then on.
 
-Named behaviour changes (each red-first): nested curly quotes mark only the inner span (unit 1);
+Named behaviour changes (each red-first): nested curly quotes mark only the inner span, and a disposition line with an empty item or a
+Codex badge line with no heading makes no finding (unit 1);
 trace-id values change (unit 2); the parenthetical synonym capture is the innermost span (unit 5);
 inline-link alt text cannot contain `[` (unit 7); no tab stop where nothing scrolls (unit 12).
 
@@ -376,3 +377,4 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-10-27 | Assumptions review, nits | Unit 2 has no file dependency; `findings.ts` also runs live; the pr-tally row should name unit 1; the LOW findings are the sibling's units 4 and 5; name the typegen tests; `recommended.unit.test.ts` is new. | Applied, each. |
 | 2026-10-27 | Owner, at recheck ("we have rules, follow them": `pr-lifecycle`, `proportionality`, `metacognition`, `principles.md`; "this is about fixing issues, not ceremony"), with a side seat's note | The `maintenance` node promised that reviewer and seat findings are fixed, where the estate triages them (`review-feedback-defaults-to-triage`, PDR-140) and the 2026-09-08 ruling covers analyser findings. The plan absorbed three adjacent observations as five units no finding names (one fence model across ten detectors with behaviour changes, author-bound signatures in two tools, a header grammar): the shape `pr-lifecycle` §Phase 4 records as a worked failure ("a container-aware parser nobody had asked for"). It scheduled three parallel lanes where `pr-lifecycle`'s work-in-progress limit gives a seat the owner names alone one open pull request. It would have opened a draft before ratification, where `pr-lifecycle` §Phase 1 says no draft waits for one. | Applied: the `maintenance` node's outcome names analyser findings only; the fence model is one helper for the three CommonMark detectors (unit 8) and the toggling seven are routed; the author check goes to `pr-tally`'s ledger as its own; the header grammar is routed; unit 2 narrowed to its two findings; thirteen units, landed one at a time; the nodes are stamped on the owner's word before the first push. |
 | 2026-10-27 | Cricket pair on the rechecked plan (both stances: ON-TRACK, frame NARROWED) | The order put four record files ahead of the live exposure under a one-pull-request limit, against the owner's "fixing issues, not ceremony"; the plan did not carry the owner's order that the bot's pull-request-opening command lands first; the solo limit, and the counting of the owner's own open pull requests toward it, were readings the owner should see stated in one line. | Applied: unit 1 leads and unit 0 follows as its own pull request; the tool dependency is named in the order; both readings are stated to the owner in the recheck report. |
+| 2026-10-28 | Unit 1 authoring (Smelter herds Basalt, 871ba4) | The one-regex readers of the disposition line and the Codex item accepted a whitespace-only item and a whitespace-only heading as findings with an empty key: an accident of the patterns' backtracking, not the intake contract's shape. | Applied: the field readers require the item and the heading; both shapes are red-first tests in unit 1 and named with the unit's behaviour changes. |

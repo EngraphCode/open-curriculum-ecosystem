@@ -37,3 +37,26 @@ describe('isScopeDeclaredSkip', () => {
     expect(isScopeDeclaredSkip('The body "Review skipped: quota reached" is quoted.')).toBe(false);
   });
 });
+
+describe('quotation spans are read in linear time', () => {
+  /**
+   * The curly span's class excludes its own opener. Before the cure the
+   * pattern re-scanned to the end of the body from every unclosed opener:
+   * this body of 131,072 openers took 31.1 s on the authoring host
+   * (2026-10-28, quiet, measured once), thirty times this test's budget.
+   */
+  it(
+    'classifies a body of 131,072 unclosed curly openers within one second',
+    { timeout: 1000 },
+    () => {
+      const body = '“'.repeat(131_072);
+      const started = performance.now();
+      expect(isSkipMarker(body)).toBe(false);
+      expect(performance.now() - started).toBeLessThan(1000);
+    },
+  );
+
+  it('reads a marker in the outer span of nested curly quotes: only the inner span is quotation', () => {
+    expect(isSkipMarker('Codex wrote “review skipped “today” on this tip”.')).toBe(true);
+  });
+});
