@@ -146,7 +146,7 @@ pnpm profile:sync pull || echo "profile not pulled: read the line above — a co
 # link between a check and a read would otherwise enter the session unread.
 SCOPE="$(cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" && node -p 'const n = (require("./package.json").name ?? "").trim(); const m = /^(?:@([^/]+)\/)?([^/@]+)$/.exec(n); m ? [m[1], m[2]].filter(Boolean).join("--").toLowerCase() : ""' 2>/dev/null)"
 MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
-pnpm profile:check --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md" \
+pnpm profile:check --emit index.md ${SCOPE:+--emit repos/$SCOPE.md} --emit "machines/$MACHINE.md" \
   || echo "profile not read: the check refused it or the tooling is not built yet — fix, or return here after install and build"
 ```
 

@@ -137,7 +137,7 @@ scopes by repository identity instead.
    # prints nothing, and nothing prints unless every document conformed).
    SCOPE="$(cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" && node -p 'const n = (require("./package.json").name ?? "").trim(); const m = /^(?:@([^/]+)\/)?([^/@]+)$/.exec(n); m ? [m[1], m[2]].filter(Boolean).join("--").toLowerCase() : ""' 2>/dev/null)"
    MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
-   <the host's profile check> --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md"
+   <the host's profile check> --emit index.md ${SCOPE:+--emit repos/$SCOPE.md} --emit "machines/$MACHINE.md"
    ```
 
 8. **Checkout-local profile tiers are retired.** A host that kept a
