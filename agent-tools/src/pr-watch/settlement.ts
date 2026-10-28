@@ -147,7 +147,7 @@ function skippedRoundVerdict(
     return {
       state: 'SETTLED-NO-REVIEW',
       evidence: [
-        'round settled by TIMEOUT — an expected reviewer never reviewed this tip; not merge-eligible',
+        'round settled by TIMEOUT — an expected reviewer never reviewed this tip; not merge-eligible for a code-class pull request',
         ...shared,
       ],
     };

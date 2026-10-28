@@ -2,7 +2,8 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import type { UnavailableDeclaration } from '../pr-watch/declared-unavailable.js';
 import { parseUnavailableFlag } from '../pr-watch/unavailable-flag.js';
-import { SETTLEMENT_WAIT_STATES } from './merge-decision.js';
+import { RECORDS_CLASS_DESCRIPTION } from './change-class.js';
+import { RECORDS_CLASS_MERGE_STATES, SETTLEMENT_WAIT_STATES } from './merge-decision.js';
 
 /**
  * The argv contract for `merge-bot merge`. Split from `merge-cli.ts` to keep
@@ -27,11 +28,18 @@ export interface MergeArgs {
 }
 
 export const MERGE_USAGE = `merge-bot merge --pr <number> --expect <reviewer> [--expect <reviewer> ...] [--unavailable <reviewer>=<comment-url> ...] [--json] [--interval <seconds>] [--max-polls <n>]
-  Merges the PR via the sanctioned REST path when — and only when — the
-  settlement verdict is SETTLE-READY: merge-commit method always (refusing
-  when repo settings disallow merge commits, never a squash fallback), the
-  VERDICTED tip's sha in the body (a moved tip answers 409 — an operational
-  failure, exit 1 — never an unverdicted merge). Wait-class verdicts
+  Merges the PR via the sanctioned REST path: a code-class PR when — and only
+  when — the settlement verdict is SETTLE-READY; merge-commit method always
+  (refusing when repo settings disallow merge commits, never a squash
+  fallback), the VERDICTED tip's sha in the body (a moved tip answers 409 — an
+  operational failure, exit 1 — never an unverdicted merge). A BOT-AUTHORED records-class PR
+  (${RECORDS_CLASS_DESCRIPTION}; the class is read from the PR's changed
+  files, never declared; a person's PR keeps the SETTLE-READY door) also merges on ${RECORDS_CLASS_MERGE_STATES.join(', ')}:
+  checks green BY NAME (the base branch's required contexts, read from its
+  rules at run time; a pending check the rules do not require — a vendor's own
+  review run among them — does not hold a records-class PR, a failed check of
+  any name does), zero unresolved threads, the vendor leg not waited on and
+  harvested after the merge (the owner's ruling of 2026-09-03). Wait-class verdicts
   (${SETTLEMENT_WAIT_STATES.join(', ')}) poll under ONE minted
   token (default ${DEFAULT_INTERVAL_SECONDS}s x ${DEFAULT_MAX_POLLS} polls; --interval x --max-polls must not exceed
   ${MAX_BUDGET_SECONDS}s, keeping the whole budget inside GitHub's one-hour
