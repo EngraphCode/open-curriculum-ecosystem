@@ -10,14 +10,19 @@
  * code span on one line is a reviewer reporting what was said, so a finding
  * that quotes a marker is still a review. A quoted LINE (`>`) is still read,
  * since a vendor posts its own marker in a blockquote, and a marker missed
- * there would read its body as a review.
+ * there would read its body as a review. A curly span runs to its closer or
+ * to the next opener, whichever comes first, so nested curly quotes mark only
+ * the inner span.
  *
  * @packageDocumentation
  */
 
 const SKIP_PATTERN = /review skipped|unable to review/iu;
 const QUOTA_PATTERN = /spend limit|overage|quota/iu;
-const QUOTED_SPAN = /"[^"\n]*"|“[^”\n]*”|`[^`\n]*`/gu;
+// Each span's class excludes its own opener as well as its closer, so an
+// unclosed opener is abandoned at the next opener instead of re-scanned from
+// every one: linear over a body of any size (the analyser's S8786 finding).
+const QUOTED_SPAN = /"[^"\n]*"|“[^“”\n]*”|`[^`\n]*`/gu;
 
 function unquoted(body: string): string {
   return body.replaceAll(QUOTED_SPAN, ' ');
