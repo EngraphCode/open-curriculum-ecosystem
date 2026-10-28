@@ -81,7 +81,7 @@ const STATE_VALUE_HANDLERS: Readonly<
   '--expect': (state, value) => {
     const parsed = parseExpectValue(value);
     if (!parsed.ok) {
-      throw parsed.error;
+      throw new Error(`${parsed.error.message}\n\n${usage()}`);
     }
     state.expect.push(parsed.value);
   },

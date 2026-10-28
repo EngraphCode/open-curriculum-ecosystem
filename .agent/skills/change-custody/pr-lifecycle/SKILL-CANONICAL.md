@@ -894,7 +894,7 @@ lowercase hex characters, bare or inside a code span), `Routed to <home>`, or
 count reads the marker only, so a disposition whose sentence lacks the verb
 is still counted there. The suppressed-findings hold (§Copilot review policy
 above) is the one reader of the verb: on a body-only line the sentence is
-everything after the first `—` (space, em dash, space) following the item,
+everything after the first ` — ` (space, em dash, space) following the item,
 so an item is never read as a sentence; a line with no separator carries no
 sentence and lifts nothing. A reply on a review thread inherits the thread's head and
 anchor from the harvest. A finding that lives only in a review body (a
@@ -1203,7 +1203,7 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    by the timeout). A review BINDS the tip exactly (it names the tip
    commit) or by content: the commit it names carries the same patch as the
    tip against its merge base with the base branch as read now (`git
-patch-id --verbatim` of each commit's diff from GitHub's compare
+   patch-id --verbatim` of each commit's diff from GitHub's compare
    endpoint). A PURE SYNC is a merge of the base that leaves that patch
    unchanged; a clean merge is not always pure, since a base change inside
    a hunk's context lines changes the patch. `pr state` names the inference
@@ -1261,13 +1261,7 @@ patch-id --verbatim` of each commit's diff from GitHub's compare
    and the cure is a fresh result on the tip (an `@codex review` comment),
    never an edit; a summary whose Code Review row is still running is
    refused as such, and its cure is to run the door again when the row
-   completes; a summary whose Code Review row has Failed is the connector's
-   failed run on the commit it names (the decision record's amendment of
-   2026-10-27) — an error review, counted in the leg's detail and
-   satisfying no leg, which proves a declaration of that vendor's
-   unavailability on that head — and the connector's usage-limits comment
-   beside it is a vendor notice the evidence prints; neither is a
-   refusal. The refusal decides the verdict when the round is
+   completes. The refusal decides the verdict when the round is
    otherwise settled or when it is the blocking reviewer's; a live run
    outranks it, and a refusal on another reviewer rides in the evidence
    beside the blocking leg's own state. A declared STAND-IN takes a vendor's
@@ -1729,7 +1723,7 @@ grep -E "^-" | grep -v "^---"` and read every printed line — each is an
   clears it when the review lands. `gh agent-task list` enumerates
   coding-agent sessions (`--json id,name,createdAt,completedAt`;
   `completedAt` null = in flight) and `gh agent-task view <session-id>
---json` maps a run to its PR (the list JSON carries no PR number; the
+  --json` maps a run to its PR (the list JSON carries no PR number; the
   PR-number positional is interactive-only — vendor shapes verified
   2026-07-21). Its contract is item 4's: an OBSERVED live session mapped
   to the PR is a measured guard and blocks settlement; a run's ABSENCE is
@@ -2079,7 +2073,7 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
     "WIP slot reserved: <owner>/<name> <branch>" on its repository's
     coordination stream, then reads the count first-hand from the forge for
     every repository (`gh pr list --repo <owner>/<name> --state open --limit
-1000` on GitHub: the target always named, and a limit above the default
+    1000` on GitHub: the target always named, and a limit above the default
     page of thirty), leaving out each repository's coordination PR, then reads
     every repository's stream for reservations posted before its own that
     had not lapsed when it read the count. It opens only while the count

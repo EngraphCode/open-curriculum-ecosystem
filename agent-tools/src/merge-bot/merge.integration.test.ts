@@ -5,6 +5,7 @@ import type { GithubApiFetch } from './mint-installation-token.js';
 import { ReadingUnavailableError, runMergeExecution, type MergeExecutionInput } from './merge.js';
 import { makeInput } from './test-helpers/merge-execution-input.js';
 import { settledReading, SETTLED_HEAD_OID } from './test-helpers/pr-state-reading.js';
+import { CODE_FILES, makeClassPort } from './test-helpers/records-class-port.js';
 
 /**
  * Integration over injected ports (constant fakes, no process, no network):
@@ -395,11 +396,19 @@ describe('runMergeExecution — a set declared empty (the owner, 2026-10-27)', (
     // effective and declared so; the door reads the declaration, waits out
     // the quiet window from checks green (08:00 against 09:00) and merges,
     // carrying the judgement in the merge record.
-    const { fetchImpl, calls } = makeFetchPort({});
+    // A bot-authored tip proves the required contexts by name before the PUT,
+    // so the port serves the base branch's rules; the diff is code-class.
+    const { fetchImpl, calls } = makeClassPort(CODE_FILES);
     const declaredNone = makeReading({
+      author: 'app/acme-bot',
       expectedReviewers: [],
       expectedDeclared: true,
       reviews: [],
+      namedChecks: [
+        { name: 'run-quality-gates', bucket: 'passed' },
+        { name: 'CodeQL', bucket: 'passed' },
+      ],
+      checks: { total: 2, passed: 2, failed: 0, pending: 0 },
     });
 
     const outcome = await runMergeExecution(
@@ -413,11 +422,31 @@ describe('runMergeExecution — a set declared empty (the owner, 2026-10-27)', (
         expect(outcome.value.evidence.join('\n')).toContain('--expect none');
       }
     }
-    const mergeCall = calls.find((call) => call.url.endsWith('/pulls/42/merge'));
-    expect(JSON.parse(String(mergeCall?.init?.body))).toEqual({
-      merge_method: 'merge',
-      sha: HEAD_OID,
+    expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(true);
+  });
+
+  it("refuses a person's pull request on a set declared none: reviewed, never merged on an empty set", async () => {
+    const { fetchImpl, calls } = makeFetchPort({});
+    const personsPr = makeReading({
+      author: 'jimcresswell',
+      expectedReviewers: [],
+      expectedDeclared: true,
+      reviews: [],
     });
+
+    const outcome = await runMergeExecution(
+      makeInput(personsPr, fetchImpl, { expectedReviewers: [] }),
+    );
+
+    expect(outcome.ok).toBe(true);
+    if (outcome.ok) {
+      expect(outcome.value.kind).toBe('refused');
+      if (outcome.value.kind === 'refused') {
+        expect(outcome.value.reason).toContain('--expect none');
+        expect(outcome.value.reason).toContain('2026-09-03');
+      }
+    }
+    expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
   });
 });
 

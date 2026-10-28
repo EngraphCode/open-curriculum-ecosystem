@@ -8,7 +8,7 @@ import { decideMergeAction, type MergeDecision } from './merge-decision.js';
 import { realFetch } from './github-fetch.js';
 import { readMergeSettings, putMerge } from './merge-github-api.js';
 import { readExecutor } from './merge-read-env.js';
-import { resolveVerdict } from './merge-records-checks.js';
+import { isBotAuthored, resolveVerdict } from './merge-records-checks.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import type { BotIdentity } from './resolve-identity.js';
@@ -42,10 +42,9 @@ interface MergeExecutionSeams {
   readonly mintSeams?: MintSeams;
   readonly ghPath?: string;
   /**
-   * Base environment for the read-path gh executor. Defaults to `process.env` at the leaf
-   * (the default-seam pattern: reality enters at exactly one injectable point): Node REPLACES
-   * a provided child env rather than merging it, so pinning the read env forces constructing
-   * the whole environment, and gh needs PATH and friends underneath.
+   * Base environment for the read-path gh executor; `process.env` at the leaf by default (reality
+   * enters at one injectable point). Node REPLACES a provided child env, so a pinned read env
+   * must carry PATH and friends itself.
    */
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }
@@ -208,6 +207,8 @@ async function gateAndMerge(context: {
       verdict,
       allowMergeCommit,
       expectedDeclared: reading.expectedDeclared,
+      declaredEmpty: reading.expectedReviewers.length === 0,
+      botAuthored: isBotAuthored(reading.author, input.appSlug),
       changeClass,
     });
 

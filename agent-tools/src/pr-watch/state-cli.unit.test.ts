@@ -118,6 +118,13 @@ describe('runPrStateCli', () => {
     expect(stderr.text).toContain('--expect none');
   });
 
+  it('refuses a non-login --expect value with the usage text, like every other usage error', () => {
+    const { exit, stderr } = run(['state', '461', '--expect', '$(whoami)']);
+    expect(exit).toBe(2);
+    expect(stderr.text).toContain('--expect must be a GitHub login or none');
+    expect(stderr.text).toContain('pr state <pr-number|github-pull-url>');
+  });
+
   it('rejects an unknown action with usage on stderr and exit 2', () => {
     const { exit, stderr } = run(['status', '461']);
     expect(exit).toBe(2);

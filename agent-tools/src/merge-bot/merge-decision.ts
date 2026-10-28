@@ -75,6 +75,10 @@ export interface MergeDecisionInput {
   readonly verdict: PrVerdict;
   readonly allowMergeCommit: boolean;
   readonly expectedDeclared: boolean;
+  /** The expected set declared EMPTY (`--expect none`): no review is awaited, by the seat's judgement. */
+  readonly declaredEmpty: boolean;
+  /** The pull request's author is the merge bot itself (`app/<slug>`). */
+  readonly botAuthored: boolean;
   /** The class read from the diff, when the caller read it; absent, only SETTLE-READY merges. */
   readonly changeClass?: ChangeClass;
 }
@@ -109,13 +113,29 @@ function codeClassSuffix(input: MergeDecisionInput): string {
   return `; a records-class pull request would merge here, but the diff is code-class (${named})`;
 }
 
-export function decideMergeAction(input: MergeDecisionInput): MergeDecision {
+/** The refusals the declared set alone decides, before any verdict is read. */
+function declaredSetRefusal(input: MergeDecisionInput): MergeDecision | undefined {
   if (!input.expectedDeclared) {
     return {
       kind: 'refuse',
       reason:
         'the expected reviewer set was DEFAULTED from the observed surface — declare --expect from the repository automatic-review configuration; a defaulted set cannot back an irreversible merge',
     };
+  }
+  if (input.declaredEmpty && !input.botAuthored) {
+    return {
+      kind: 'refuse',
+      reason:
+        "--expect none declares no review for a pull request the merge bot did not author — a person's pull request is reviewed, never merged on an empty set (the ruling of 2026-09-03 names the bot's own pull requests)",
+    };
+  }
+  return undefined;
+}
+
+export function decideMergeAction(input: MergeDecisionInput): MergeDecision {
+  const refusal = declaredSetRefusal(input);
+  if (refusal !== undefined) {
+    return refusal;
   }
   if (input.verdict.state === 'MERGED') {
     return {

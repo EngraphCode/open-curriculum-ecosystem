@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { declaredExpectedSet, EXPECT_NONE, parseExpectValue } from './expect-flag.js';
+import { declaredExpectedSet, parseExpectValue } from './expect-flag.js';
 
 /**
  * The `--expect` flag's grammar, shared by `pr state` and `merge-bot merge`:
@@ -21,8 +21,13 @@ describe('parseExpectValue', () => {
     });
   });
 
-  it('reads none as the reserved declaration, never as a login', () => {
-    expect(parseExpectValue(EXPECT_NONE)).toStrictEqual({ ok: true, value: { kind: 'none' } });
+  it('reads none as the reserved declaration in any case, never as a login', () => {
+    for (const spelling of ['none', 'None', 'NONE']) {
+      expect(parseExpectValue(spelling), spelling).toStrictEqual({
+        ok: true,
+        value: { kind: 'none' },
+      });
+    }
   });
 
   it('refuses a blank, flag-shaped or non-login value, naming the flag and the alternative', () => {

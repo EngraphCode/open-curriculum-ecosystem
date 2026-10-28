@@ -13,8 +13,8 @@ import { err, ok, type Result } from '@oaknational/result';
  * @packageDocumentation
  */
 
-/** The reserved `--expect` value declaring the expected set empty. */
-export const EXPECT_NONE = 'none';
+/** The reserved `--expect` value declaring the expected set empty, read in any case. */
+const EXPECT_NONE = 'none';
 
 /** One parsed `--expect` value. */
 export type ExpectValue =
@@ -24,13 +24,14 @@ export type ExpectValue =
  * GitHub login grammar plus the app `[bot]` suffix. A blank or garbage
  * `--expect` value would satisfy the declared-set gate while naming a
  * reviewer that can never be OWED — the one-token way around the
- * settlement guarantee (security D4). `none` is read before the grammar.
+ * settlement guarantee (security D4). `none` is read before the grammar,
+ * in any case, so no spelling of it becomes a forever-OWED login.
  */
 const EXPECT_GRAMMAR = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})?(?:\[bot\])?$/u;
 
 /** Parse one `--expect` value: a login, or the reserved `none`. */
 export function parseExpectValue(value: string): Result<ExpectValue, Error> {
-  if (value === EXPECT_NONE) {
+  if (value.toLowerCase() === EXPECT_NONE) {
     return ok({ kind: 'none' });
   }
   if (!EXPECT_GRAMMAR.test(value)) {

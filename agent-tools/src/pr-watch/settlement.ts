@@ -7,7 +7,7 @@ import {
 import type { ReviewerLeg } from './reviewer-legs.js';
 import { mostBlockingLeg } from './most-blocking-leg.js';
 import type { BlockingLegVerdict } from './most-blocking-leg.js';
-import { readingEvidence, settledLead } from './settlement-evidence.js';
+import { declaredEmptyEvidence, readingEvidence, settledLead } from './settlement-evidence.js';
 import {
   allReviews,
   completionRefusals,
@@ -91,6 +91,7 @@ function settledVerdict(input: {
   const { reading, legs, now } = input;
   const shared = [
     ...legs.map((leg) => legLine(leg)),
+    ...declaredEmptyEvidence(reading),
     ...transportEvidence(reading),
     ...noticeEvidence(reading),
     ...bodyTallyEvidence(reading),
@@ -117,7 +118,7 @@ function settledVerdict(input: {
   if (skipped !== undefined) {
     return skipped;
   }
-  return { state: 'SETTLE-READY', evidence: [settledLead(legs), ...shared] };
+  return { state: 'SETTLE-READY', evidence: [settledLead(reading), ...shared] };
 }
 
 /**

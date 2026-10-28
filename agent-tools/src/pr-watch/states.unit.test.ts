@@ -406,6 +406,52 @@ describe('computePrVerdict — base currency and vacuous sets', () => {
     expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
   });
 
+  it('a set DECLARED empty settles beside an outstanding request and a live run, and names both', () => {
+    // The declaration is the seat's judgement, so neither holds the round;
+    // the record of the irreversible act must still say what was in flight.
+    const verdict = computePrVerdict(
+      settledReading({
+        expectedReviewers: [],
+        expectedDeclared: true,
+        reviews: [],
+        reviewRequests: [COPILOT],
+        reviewRuns: {
+          kind: 'read',
+          runs: [
+            { id: 'run-1', name: 'Review', createdAt: '2026-07-21T12:01:00Z', completedAt: null },
+          ],
+        },
+      }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SETTLE-READY');
+    const evidence = verdict.evidence.join('\n');
+    expect(evidence).toContain(`${COPILOT}: review requested on this tip and not expected`);
+    expect(evidence).toContain('review run is live');
+  });
+
+  it('a set DECLARED empty does not override a refused unavailability declaration', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        expectedReviewers: [],
+        expectedDeclared: true,
+        reviews: [],
+        declaredUnavailable: {
+          standIns: [],
+          refused: [
+            {
+              login: COPILOT,
+              url: 'https://github.com/acme/widgets/pull/999#issuecomment-1',
+              refusal: 'names a reviewer that is not expected',
+            },
+          ],
+        },
+      }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('UNCLASSIFIED-EVIDENCE');
+  });
+
   it('a missing quiet-window anchor holds the window open, never silently settles', () => {
     const verdict = computePrVerdict(
       settledReading({
