@@ -24,7 +24,7 @@ on the default branch.
 | --- | --- | --- | --- | --- | --- | --- |
 | Smelter herds Basalt | claude-code | claude-fable-5-1 | 871ba4 | solo seat (its own Director): the analyser triage and plan, the drain of the open pull requests, the merge-bot write command; delegated three bounded implementer agents and one security read in-session | 2026-10-27 | 2026-10-27 |
 
-## Lane state (2026-10-27, written at the owner's compaction word)
+## Lane state at 2026-10-27 (the owner's compaction word; the 2026-10-28 state below supersedes it where they differ)
 
 The owner's words that govern this thread, in order: "Make sure that your intended work is fully
 recorded in a plan, then start merging the open PRs, draft and non-draft, keep it all minimal
@@ -106,19 +106,20 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
 
 ## Next safe step
 
-1. Read ahead/behind on every branch above first-hand before any act (a background push launched
-   before the compaction reports to nobody); read the three agents' commits from their branches,
-   not from memory, and check the task list for agents still alive.
-2. If the owner has merged #362 or spoken on the limit: open the pr-watch cure's pull request first
-   (`merge-bot pull-request open --wip-limit <the owner's number>`), land it through the door, then
-   the tool's pull request, then #358 and #363 through the door, then the analyser plan's units 1,
-   0, 2 to 12 in that order.
-3. If not: wait on the owner; nothing else opens. The round-two dispositions on #358 can be posted
-   once the cure commit exists (they are outward acts of the seat's initiative, so after the
-   compaction freeze lifts).
-4. Worktree hygiene at the end: `pr-362`, `pr-357`, `pr-358`, `carrier-363`,
-   `merge-bot-pr-writes`, `pr-watch-codex-failure` are this session's; each is retired by content
-   check when its branch has landed, never by force.
+1. Read `git status --branch` on the primary and `gh pr list` first-hand before any act.
+2. Land the analyser plan's unit 0 (lane `chore/sonar-security-reliability-triage`, a records pull
+   request for the records door), then unit 1 (the three parsers of third-party review text, the live
+   exposure) from a worktree cut from the default branch.
+3. Open the two tool lanes as pull requests, the Codex-failure cure
+   (`fix/pr-watch-codex-failure-evidence`) first and the empty-set declaration
+   (`fix/pr-watch-expect-none`) after it lands; each carries the estate's reviews on its body and takes
+   the door with `--expect none`.
+4. The follow-up lanes the fold's reviews routed: the review-cost gate's hold (the hook's guidance
+   lines dead under `sh -e`, the hold counting reviewed rounds where PDR-140 says pushes, the
+   unrounded crossing test and its duplicated loop) and the comms write path (a render that fails
+   after the write; renders published out of order).
+5. Worktree hygiene: `merge-bot-pr-writes`, `pr-watch-codex-failure` and `sonar-sec-rel-triage` are
+   this session's; each is retired by content check when its branch has landed, never by force.
 
 ## Updates after the compaction word
 
@@ -194,12 +195,12 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   judgement that upstream's own release, read first-hand in the sweep, needed no pull-request review
   (the owner's one question of 2026-10-28). `--expect none` is new: lane `fix/pr-watch-expect-none`
   (`eebf42826`, stacked on the Codex-failure cure `1c86925b5`), both unopened as pull requests.
-- **#360** (this coordination branch's fold): the primary's records committed, the default branch
-  merged in at `0cb2bde6d` (two record conflicts resolved by concept), the source portion under the
-  estate's code-expert read; the body to be corrected (code-class, not records-class), then the
-  ready-mark and the door.
-- **The sub-agent correction** (the owner, 2026-10-28): lane
-  `docs/subagent-reviewers-distinct-from-pr-reviewers` (`7c4ea2343`), a records pull request for the
-  records door once its push passes the gate.
+- **#360** (the coordination branch `coordination/2026-10-16-f1e9d3`): folded 2026-10-28 16:12Z as
+  `32c907304` by the door with `--expect none`, after the estate's code-expert read of its source
+  (four findings routed to two follow-up lanes) and a records pass (sixteen findings: two cured before
+  the push, the rest in the successor's first records commit); one Codex round at the ready-mark, its
+  two P2 findings the same two defects, routed. Successor `coordination/2026-10-28-32c907`.
+- **The sub-agent correction** (the owner, 2026-10-28): landed as 364 (`efff8050f`, the records door,
+  15:48Z); its six review findings cured on the fold before its push.
 - **Next**: the analyser plan's unit 0 (its lane holds the two nodes and the drain ledger), then
   unit 1 (the three parsers of third-party review text).

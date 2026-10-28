@@ -847,7 +847,7 @@ Written from the home estate, jimcresswell.net, working this estate non-resident
   "no process", "on no record") are where outside eyes should look first. Fence sweep — no
   tracked line on engraph names the two projects (a word-bounded search at `SHA:493951ad7`);
   on this branch the napkin blocks of 13 and 14 October and the thread record quote the owner's
-  naming and his fence sentence, his call, unchanged. The fixed point — a third pass would only
+  naming and his fence sentence, his call, unchanged (corrected 2026-10-28 by Smelter herds Basalt: a word-bounded `git grep` at `SHA:32c907304` finds eight tracked lines naming them, four in this napkin's blocks of 13–17 October and four in the programme thread record, so the sweep's negative was wrong; the call stays the owner's). The fixed point — a third pass would only
   re-find the relayed words and the compaction bound; the recursion closes here.
 - **The consolidation gate**: due — a lane closed with 356, the napkin is at critical and its
   rotation is unblocked, the register holds six due entries. Not bounded for this close; a
@@ -1068,7 +1068,7 @@ the owner wants it kept).
 - **Done**: `--expect none` landed in the door's lane (`fix/pr-watch-expect-none`, `eebf42826`; nine
   tests red before it, 924 green after). #363 merged through it at `0cb2bde6d`, the declaration in
   the merge evidence and quoted on the pull request. The carrier worktree and the two merged lanes'
-  worktrees retired; the three merged branches retired by the tool (remote, tracking and local names).
+  worktrees retired; the three merged branches (the 1.186.1 carrier, `fix/merge-bot-records-class-and-fold-clock-cures`, `ccr-ba173ef1-gscfgg`) retired by the tool (remote, tracking and local names); 358's own head `fix/merge-bot-records-class-and-fold-clock` stays in the owner's worktree.
 - **Slip**: splitting `merge-args.ts` (250 lines, at the gate) by cutting from its first constant to
   the end of its usage text carried the `MergeArgs` interface into the usage module; tsc caught it
   (two importers lost the type). Cut a block by its two named ends, and read what sits between them.

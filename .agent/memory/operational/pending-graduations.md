@@ -163,7 +163,7 @@ byte-identical.
 - **A clean and green pull request merges by the door; the merge is never at the owner's word**
   `[captured: 2026-10-17 | source: the owner's word of 2026-10-17 to Walrus seeks Maelstrom
   (9585cc), verbatim in the napkin block of 2026-10-17T14-15Z | target:
-  .agent/skills/pr-lifecycle/SKILL-CANONICAL.md, the merge step, one sentence with the owner's
+  .agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md, the merge step, one sentence with the owner's
   line verbatim; any thread record or plan that says "merge at the owner's word" re-trued at its
   next touch | trigger: the next doctrine pull request from the default branch | size: one
   sentence | status: due]`
@@ -175,7 +175,7 @@ byte-identical.
 - **An ADR numbering clash is settled by the Oak branch's numbering; Engraph renumbers**
   `[captured: 2026-10-17 | source: the owner's word of 2026-10-17 to Walrus seeks Maelstrom
   (9585cc), verbatim in the napkin block of 2026-10-17T14-15Z | target:
-  .agent/skills/cross-fork-integration/SKILL-CANONICAL.md, its numbering-collision step, with the
+  .agent/skills/change-custody/cross-fork-integration/SKILL-CANONICAL.md, its numbering-collision step, with the
   owner's line verbatim; docs/architecture/architectural-decisions/README.md, the authoring
   guidance, one sentence | trigger: the next doctrine pull request from the default branch | size:
   two sentences | status: due]`
@@ -202,9 +202,9 @@ byte-identical.
   `[captured: 2026-10-17 | source: the owner's word of 2026-10-17 to Walrus seeks Maelstrom
   (9585cc), verbatim in the napkin block of 2026-10-17T14-15Z; relayed on the comms stream the same
   hour | target: the merge tool's owed-ness derivation (agent-tools pr-watch) and
-  .agent/skills/pr-lifecycle/SKILL-CANONICAL.md where it describes what a tip is owed; the fix is
+  .agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md where it describes what a tip is owed; the fix is
   the merge-tool lane's, in both estates | trigger: the merge-tool lane's next pickup | size: a
-  tooling fix with its tests, routed | status: due]`
+  tooling fix with its tests, routed | status: superseded 2026-10-28: the owner's word of 2026-10-27/28 (a pull-request review is requested only for a stated reason; the one question is whether the work needs a review to be safe and effective) is on the default branch in pr-lifecycle §Phase 2, and the owed-ness derivation landed in 359]`
 
   Verbatim: "I have changed the github copilot configuration to trigger once per PR, that
   invalidates some assumptions in the merge tool. Because the assumptions coupled the tool to a
