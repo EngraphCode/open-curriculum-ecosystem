@@ -56,3 +56,12 @@ pre-commit gates ran in CI, `run-quality-gates` and `CodeQL` green on `6acc7231e
 **Landing.** `66b74dbc2`, a merge commit as the bot through the REST endpoint with the verdicted
 head pinned (second parent `6acc7231e`); the mirror tip `5165866` is an ancestor of `engraph`; the
 carrier branch deleted as the bot with read-back.
+
+## Addendum, 2026-10-27 — the 1.186.1 sync removes the renamed roots
+
+Upstream moved the plugins to oaknational/oak-ai-plugins (MCP-775, 2026-10-21; release 1.186.1).
+B3's two re-truings are re-trued again at that sync: the skills README's row and paragraph name
+oaknational/oak-ai-plugins, and ADR-189 gains a 2026-10-27 addendum. B4 stands and widens: the
+census's two plugin rows (`plugins/oak-open-curriculum`, `plugins/oak-open-curriculum-chatgpt`) now
+name subjects the tree holds under no path, and arm (ii-b) of the census admits nothing; the
+regeneration remains the fork-surface job held here, recorded on the census plan's amendment trail.
