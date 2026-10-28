@@ -150,7 +150,11 @@ describe('readPrStateReading — the completion-comment transport', () => {
       execFileSync: executor(WITH_TIP, []),
     });
 
-    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
+    expect(reading.completionComments).toStrictEqual({
+      reviews: [BOUND_TO_HEAD],
+      refused: [],
+      notices: [],
+    });
   });
 
   it('a comment naming a commit on a later page of the harvest binds it: the list is the whole history', () => {
@@ -164,7 +168,11 @@ describe('readPrStateReading — the completion-comment transport', () => {
       ),
     });
 
-    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
+    expect(reading.completionComments).toStrictEqual({
+      reviews: [BOUND_TO_HEAD],
+      refused: [],
+      notices: [],
+    });
   });
 
   it('a DEFAULTED expected set that holds the commenter (an outstanding request) reads its comment', () => {
@@ -178,7 +186,11 @@ describe('readPrStateReading — the completion-comment transport', () => {
     });
 
     expect(reading.expectedDeclared).toBe(false);
-    expect(reading.completionComments).toStrictEqual({ reviews: [BOUND_TO_HEAD], refused: [] });
+    expect(reading.completionComments).toStrictEqual({
+      reviews: [BOUND_TO_HEAD],
+      refused: [],
+      notices: [],
+    });
   });
 
   it("reads an expected reviewer's comment it edited itself as a review of the commit it names, timed at the edit", () => {
@@ -204,6 +216,7 @@ describe('readPrStateReading — the completion-comment transport', () => {
     expect(reading.completionComments).toStrictEqual({
       reviews: [{ ...BOUND_TO_HEAD, submittedAt: '2026-07-21T12:11:00Z' }],
       refused: [],
+      notices: [],
     });
   });
 
@@ -238,6 +251,7 @@ describe('readPrStateReading — the completion-comment transport', () => {
           quote: "Codex Review: Didn't find any major issues.",
         },
       ],
+      notices: [],
     });
   });
 
@@ -250,6 +264,6 @@ describe('readPrStateReading — the completion-comment transport', () => {
 
     expect(reading.expectedDeclared).toBe(false);
     expect(reading.expectedReviewers).not.toContain(CODEX);
-    expect(reading.completionComments).toStrictEqual({ reviews: [], refused: [] });
+    expect(reading.completionComments).toStrictEqual({ reviews: [], refused: [], notices: [] });
   });
 });

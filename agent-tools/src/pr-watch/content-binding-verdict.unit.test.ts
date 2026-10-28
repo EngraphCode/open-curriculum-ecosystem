@@ -189,7 +189,7 @@ describe('computePrVerdict — completion comments bound by content', () => {
     return verdictOf({
       expectedReviewers: [COPILOT, CODEX],
       reviews: [{ ...beforeTheSync, commitOid: TIP }],
-      completionComments: { reviews: [review], refused: [] },
+      completionComments: { reviews: [review], refused: [], notices: [] },
       content,
     });
   }
@@ -221,6 +221,7 @@ describe('computePrVerdict — completion comments bound by content', () => {
       completionComments: {
         reviews: [comment('IC_3', '**Reviewed commit:** `bbbbbbbbbb`')],
         refused: [],
+        notices: [],
       },
       content: synced(PATCH),
       roundRequests: [{ reviewer: CODEX, at: '2026-07-21T11:45:00Z' }],
