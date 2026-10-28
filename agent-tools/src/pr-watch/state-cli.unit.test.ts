@@ -32,7 +32,7 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     expectedReviewers: ['copilot-pull-request-reviewer'],
     expectedDeclared: true,
     reviews: [],
-    completionComments: { reviews: [], refused: [] },
+    completionComments: { reviews: [], refused: [], notices: [] },
     declaredUnavailable: NO_DECLARATIONS,
     reviewRuns: { kind: 'read', runs: [] },
     reviewConfiguration: { kind: 'unread', reason: 'the test reading declares none' },

@@ -12,7 +12,11 @@ import type { CompletionComment } from './completion-comments.js';
  * summary Codex kept on pull request 264, whole, as read on 2026-09-28
  * (created 00:14:53Z, last edited by the connector at 00:47:53Z), and the
  * Running row from the same comment's edit of 00:43:33Z. The other commit and
- * the Security Review row are synthetic.
+ * the Security Review row are synthetic. The Failed row, the connector's
+ * report of a run it could not complete, is the summary it kept on pull
+ * request 362 as read on 2026-10-27 (created 2026-10-22T09:19:04Z, last
+ * edited by the connector at 15:05:57Z), with the state block that summary
+ * carries on its second line.
  */
 
 const CODEX = 'chatgpt-codex-connector';
@@ -61,18 +65,15 @@ const SUMMARY: CompletionComment = {
   lastEdit: { at: '2026-09-28T00:47:53Z', by: CODEX },
 };
 
-function read(comment: CompletionComment) {
-  return readCompletionComments({
-    comments: [comment],
-    commits: [OTHER, TIP],
-    reviewers: REVIEWERS,
-  });
+function read(comment: CompletionComment, commits: readonly string[] = [OTHER, TIP]) {
+  return readCompletionComments({ comments: [comment], commits, reviewers: REVIEWERS });
 }
 
-function refusal(precondition: string, reportedAt: string, quote: string) {
+function refusal(precondition: string, reportedAt: string, quote: string, id = SUMMARY.id) {
   return {
     reviews: [],
-    refused: [{ id: SUMMARY.id, author: CODEX, reportedAt, precondition, quote }],
+    refused: [{ id, author: CODEX, reportedAt, precondition, quote }],
+    notices: [],
   };
 }
 
@@ -91,6 +92,7 @@ describe("readCompletionComments — the connector's per-pull-request summary", 
         },
       ],
       refused: [],
+      notices: [],
     });
   });
 
@@ -183,5 +185,85 @@ describe("readCompletionComments — the connector's per-pull-request summary", 
     expect(read(twice).refused.map((comment) => comment.precondition)).toStrictEqual([
       'names several reviewed commits',
     ]);
+  });
+});
+
+const FAILED_HEAD = '8f2b7fd38f2ae98898b7c23c3edfcacfd1694ed8';
+const FAILED_AT = '2026-10-27T15:05:57Z';
+const FAILED_ROW =
+  '| 📝 **Code Review** | ⚠️ **Failed** <relative-time datetime="2026-10-27T15:05:50.901506Z">2026-10-27T15:05:50.901506Z</relative-time><br/>We couldn’t complete this review. Comment `@codex review` to try again. | `8f2b7fd` | Manual request |';
+const FAILED_QUOTE = '📝 **Code Review** | **Failed** | `8f2b7fd` | Manual request';
+const STATE_BLOCK =
+  '<!-- codex-review-state:v1 {"code_review":{"commit_sha":"8f2b7fd38f2ae98898b7c23c3edfcacfd1694ed8","has_any_findings":true,"has_unresolved_findings":true,"status":"failed"},"security_review":{"commit_sha":null,"has_any_findings":null,"has_unresolved_findings":null,"status":null}} -->';
+const FAILED_SUMMARY: CompletionComment = {
+  id: 'IC_kwDORdPTys8AAAABebr1Sg',
+  author: CODEX,
+  body: summaryBody([FAILED_ROW]),
+  createdAt: '2026-10-22T09:19:04Z',
+  lastEdit: { at: FAILED_AT, by: CODEX },
+};
+
+describe("readCompletionComments — the connector's failed run", () => {
+  const failedRun = {
+    id: FAILED_SUMMARY.id,
+    author: CODEX,
+    state: 'COMMENTED',
+    body: FAILED_ROW,
+    commitOid: FAILED_HEAD,
+    submittedAt: FAILED_AT,
+    transport: 'completion-comment',
+  };
+
+  it("reads a summary whose Code Review row is Failed as the vendor's failed run on the commit the row names: a review bound to it whose body is the row as posted, at the edit", () => {
+    expect(read(FAILED_SUMMARY, [OTHER, FAILED_HEAD])).toStrictEqual({
+      reviews: [failedRun],
+      refused: [],
+      notices: [],
+    });
+  });
+
+  it('reads the live summary whole, the state block on its second line included', () => {
+    const marker = '<!-- codex-pull-request-review-summary -->\n';
+    const live = {
+      ...FAILED_SUMMARY,
+      body: FAILED_SUMMARY.body.replace(marker, `${marker}${STATE_BLOCK}\n`),
+    };
+
+    expect(read(live, [OTHER, FAILED_HEAD])).toStrictEqual({
+      reviews: [failedRun],
+      refused: [],
+      notices: [],
+    });
+  });
+
+  it('refuses a Failed row naming a commit that is not in the pull request, quoting the row with its status cut to the word', () => {
+    expect(read(FAILED_SUMMARY)).toStrictEqual(
+      refusal(
+        'names a commit that is not in the pull request',
+        FAILED_AT,
+        FAILED_QUOTE,
+        FAILED_SUMMARY.id,
+      ),
+    );
+  });
+
+  it('a Failed row beside a completed Code Review row names several reviewed commits', () => {
+    const both = { ...FAILED_SUMMARY, body: summaryBody([COMPLETED_ROW, FAILED_ROW]) };
+
+    expect(
+      read(both, [OTHER, TIP, FAILED_HEAD]).refused.map((comment) => comment.precondition),
+    ).toStrictEqual(['names several reviewed commits']);
+  });
+
+  it("a Failed row in a comment that is not the summary names no reviewed commit: the row is the connector's report only in the summary", () => {
+    const reply = {
+      ...FAILED_SUMMARY,
+      body: `The summary said:\n\n${FAILED_ROW}\n`,
+      lastEdit: null,
+    };
+
+    expect(
+      read(reply, [OTHER, FAILED_HEAD]).refused.map((comment) => comment.precondition),
+    ).toStrictEqual(['names no reviewed commit']);
   });
 });
