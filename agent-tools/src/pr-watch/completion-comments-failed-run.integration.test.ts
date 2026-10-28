@@ -246,3 +246,26 @@ describe('the verdict over the failed run and the notice', () => {
     );
   });
 });
+
+describe('a failed row the reader accepts but the error classifier does not', () => {
+  // The reader's row grammar ends at the line; the classifier's requires every
+  // trailing cell closed by a pipe. A row between the two would reach the legs
+  // as a substantive review of the head, so the reader refuses it by name.
+  const OPEN_TAIL_ROW = FAILED_ROW.replace(/\|\s*$/u, '');
+  const openTail = readCompletionComments({
+    comments: [{ ...SUMMARY, body: SUMMARY_BODY.replace(FAILED_ROW, OPEN_TAIL_ROW) }, NOTICE],
+    commits: [OLD, HEAD],
+    reviewers: [COPILOT, CODEX],
+  });
+
+  it('is the shape the two grammars disagree on', () => {
+    expect(isVendorErrorReview(OPEN_TAIL_ROW)).toBe(false);
+  });
+
+  it('is refused by name and reaches no leg as a review', () => {
+    expect(openTail.reviews).toStrictEqual([]);
+    expect(openTail.refused.map((refusal) => refusal.precondition)).toStrictEqual([
+      'reports a failed run in a row the error classifier does not read',
+    ]);
+  });
+});

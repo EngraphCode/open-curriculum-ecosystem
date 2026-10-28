@@ -313,8 +313,9 @@ PRACTICE_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-ident
   bare prefix. Derivation, doctrine, the statusline hold-out, and a
   drift-tested example: [docs/agent-identity.md](docs/agent-identity.md).
 - `comms append` / `comms send` / `comms render` — append immutable
-  communication events and render `shared-comms-log.md`. Use `send` for the
-  low-boilerplate append-and-render path. `send` prints JSON with `event_id`,
+  communication events; every write renders `shared-comms-log.md` beside the
+  comms directory as part of the write, and `render` re-renders it on demand.
+  Use `send` for the low-boilerplate path with canonical paths resolved. `send` prints JSON with `event_id`,
   `event_path`, and `shared_log_path` so agents can verify the write target.
   Comms writes check the active-claims registry and refuse live collisions on
   the canonical PDR-076a `sameAgentRoutingKey` (the stable `id`); a matching
