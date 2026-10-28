@@ -505,14 +505,12 @@ describe('claim CLI reports', () => {
       now: nowIso,
       'created-at': nowIso,
       'event-id': 'event-one',
-      output: join('/repo', '.agent/state/collaboration/shared-comms-log.md'),
     });
   });
 
   it('does not resolve a coordination home when every send path is explicit', () => {
     const explicitPaths = options({
       'comms-dir': '/custom/comms',
-      output: '/custom/shared-comms-log.md',
       active: '/custom/active-claims.json',
     });
 
@@ -524,18 +522,13 @@ describe('claim CLI reports', () => {
   });
 
   it('formats comms send output from resolved write paths', () => {
-    expect(
-      formatCommsSendResult(
-        options({ 'comms-dir': '/custom/comms', output: '/custom/shared-comms-log.md' }),
-        'event-one',
-      ),
-    ).toBe(
-      // The event path is host-joined from the comms dir, so its JSON form is
-      // derived (the shared log path is echoed verbatim and stays literal).
+    expect(formatCommsSendResult(options({ 'comms-dir': '/custom/comms' }), 'event-one')).toBe(
+      // Both paths are host-joined from the comms dir, so their JSON forms are
+      // derived: the event beneath it, the shared log beside it.
       '{\n' +
         '  "event_id": "event-one",\n' +
         `  "event_path": ${JSON.stringify(join('/custom/comms', 'event-one.json'))},\n` +
-        '  "shared_log_path": "/custom/shared-comms-log.md"\n' +
+        `  "shared_log_path": ${JSON.stringify(join('/custom', 'shared-comms-log.md'))}\n` +
         '}\n',
     );
   });

@@ -11,6 +11,10 @@ After non-trivial changes, invoke specialist experts. `code-expert`
 is the gateway reviewer: triage what changed, choose the
 specialists and review depth needed, capture findings explicitly, and act on
 them before considering the work complete.
+Pull-request (vendor) reviews — Copilot's, Codex's — are a different instrument,
+requested under the pr-lifecycle skill's review request policy for a stated reason,
+never automatically; this rule governs the estate's own reviewers (the owner,
+2026-10-28: "there is a difference between subagents and PR reviewers").
 
 A consult is a reading, not the directive: when a reviewer's consult licenses
 something a directive names absolutely, read the directive's sentence before

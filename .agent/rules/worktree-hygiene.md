@@ -392,6 +392,20 @@ bound as a route to it, the owner selected "No bound" (card answer,
 2026-09-26, relayed by the Director; one instance), and the Director's
 programme then read pull requests opened beside those merged.
 
+**The rule in the owner's words of 2026-10-19** (in-chat to the reviewer seat at
+n=1, after the seat reported that the relayed form "all work must be deleted or
+pushed and in a PR, no exceptions" was on no record; verbatim): "All work is only
+considered safely recorded once it is pushed and in a PR, work is only considered
+complete once it is merged. Work in all worktrees and branches must be either made
+safe or, if it is of no use, deleted." And of the session that heard it: "That is
+the rule. This session remains a named exception because I don't want to spend
+time on a merge right now." The two states are distinct and both his: pushed and
+in a pull request is safely recorded; merged is complete. A branch or worktree that
+is neither is in neither state, whatever its ref says. An exception to the
+completion half is his to name, per session, with its reason, as he named this
+one; none was named for the recording half. The 2026-09-24 words above are the
+same rule in his earlier form.
+
 System residue (`.DS_Store` and its kind) is gitignored, and is deleted where it is found
 (owner, 2026-08-02). It is not work, and no seat's claim covers it.
 
