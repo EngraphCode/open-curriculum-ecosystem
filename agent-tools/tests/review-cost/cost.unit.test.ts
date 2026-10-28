@@ -229,3 +229,15 @@ describe('reviewCost — the opening round is priced, never charged; settlement 
     expect(reviewCost([], 4).budget).toBe(80);
   });
 });
+
+describe('pushesPastBudget — the rounds reviewed after the one that crossed the budget', () => {
+  it('is zero while the budget holds and zero on the crossing round itself', () => {
+    expect(reviewCost(PR_139_LIKE.slice(0, 2), 2).pushesPastBudget).toBe(0);
+    expect(reviewCost(PR_139_LIKE.slice(0, 3), 2).pushesPastBudget).toBe(0);
+  });
+
+  it('counts each reviewed round after the crossing', () => {
+    const later = [...PR_139_LIKE, measure({ head: 'r4', findings: 3, commentChars: 2000 })];
+    expect(reviewCost(later, 2).pushesPastBudget).toBe(1);
+  });
+});

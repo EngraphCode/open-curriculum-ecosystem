@@ -300,3 +300,15 @@ line about the same subject was re-trued on the carrier. Standard for all of A1â
     `not-found.ts` are recorded as implementation-only in the current-source truth set. Own small lane in the
     audit: one registry item per authored refusal body (three), and their review entries turned
     from `excluded` to `reviewed` with the item ids.
+
+## Addendum, 2026-10-27 â€” the 1.186.1 sync removes the plugin surfaces
+
+Upstream moved the plugins to oaknational/oak-ai-plugins (MCP-775, 2026-10-21; release 1.186.1):
+`claude/plugins/`, `chatgpt/plugins/`, both root marketplace manifests, `validate-plugin-skill-copies`
+and the four plugin integration tests are gone from both lines' trees, the last versions at release
+v1.186.0. Items whose subject that removal takes: A3 (the audience-registry row; upstream re-trued it
+to oaknational/oak-ai-plugins in the same change, and the carrier's resolution kept this line's row
+with that fact), A9 (the `.agents/` index row omitting a manifest the tree no longer carries; the row
+reads true as it stands) and B1 (the Windows cure to a test deleted with its validator; the test was
+taken as deleted at the sync). A11 persists in moved form: upstream's 2026-10-21 amendment to ADR-125
+still writes "the Claude Code plugin"; held for the Oak line as before.

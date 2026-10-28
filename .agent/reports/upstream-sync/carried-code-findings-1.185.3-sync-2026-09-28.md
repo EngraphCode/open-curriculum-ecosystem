@@ -22,3 +22,13 @@ tests reading committed files through that helper.
 
 None found. The carrier workflow's receipt was accurate at its time; the mirror was at the upstream
 tip at pickup; the generators changed nothing on the merged tree.
+
+## Addendum, 2026-10-27 — the 1.186.1 sync removes the test
+
+A1's subject, `agent-tools/tests/skills/plugin-listing-invariants.integration.test.ts`, left both
+lines' trees when upstream moved the plugins to oaknational/oak-ai-plugins (MCP-775, 2026-10-21;
+release 1.186.1); its last version is at release v1.186.0, and the plugin tests were ported to that
+repository's CI (ADR-125's 2026-10-21 amendment). Nothing of A1 remains to cure here. The helper it
+read through, `test-helpers/repo-doc.ts`, keeps `readRepoDocument` alone (`readRepoBytes` and
+`listRepoDirectory` went with their one consumer); the class A1 named persists in that function's two
+remaining test readers.

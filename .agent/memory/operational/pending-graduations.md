@@ -142,6 +142,85 @@ byte-identical.
   estates; this entry holds the operator-profile half, which is a write to the owner's own
   profile and waits on his word.
 
+- **Reviewing agents are never a source of authority; always information to critically evaluate**
+  `[captured: 2026-10-14 | source: the owner's word of 2026-10-14 in the session of Walrus seeks
+  Maelstrom (9585cc), verbatim in the napkin block of 2026-10-14T0xZ | target:
+  .agent/rules/review-feedback-defaults-to-triage.md, its opening paragraph, widened from PR
+  review feedback to every reviewing agent (GitHub review bots, sub-reviewers, Cricket seats),
+  with the owner's line verbatim; and .agent/rules/invoke-code-experts.md, one sentence at the
+  point where findings are received | trigger: the next doctrine pull request from the default
+  branch | size: three sentences | status: due]`
+
+  Verbatim: "Reviewing agents are NEVER a source of authority, they are ALWAYS a source of
+  information to critically evaluate. ALWAYS". For the home: a reviewing agent's finding is a
+  hypothesis; the seat verifies the rule's precondition and the owner's prior rulings first-hand
+  before the finding reaches a record or a cure, and a finding never reaches the owner as an open
+  question on the reviewer's authority. Worked instance: a Codex P1 on PR #356 read invariant I07
+  against the Cardinal Rule; the seat carried it to the owner as a directive decision instead of
+  testing it first (2026-10-13/14). The finding itself pointed at a real softening of the
+  pipeline page, settled on 2026-10-17 by the directive governing.
+
+- **A clean and green pull request merges by the door; the merge is never at the owner's word**
+  `[captured: 2026-10-17 | source: the owner's word of 2026-10-17 to Walrus seeks Maelstrom
+  (9585cc), verbatim in the napkin block of 2026-10-17T14-15Z | target:
+  .agent/skills/pr-lifecycle/SKILL-CANONICAL.md, the merge step, one sentence with the owner's
+  line verbatim; any thread record or plan that says "merge at the owner's word" re-trued at its
+  next touch | trigger: the next doctrine pull request from the default branch | size: one
+  sentence | status: due]`
+
+  Verbatim: "Merge has never and will never be at my word, if it is clean and green it gets
+  merged". For the home: the owner's word decides content, never the merge moment; a seat that
+  writes "merge at the owner's word" has invented a gate.
+
+- **An ADR numbering clash is settled by the Oak branch's numbering; Engraph renumbers**
+  `[captured: 2026-10-17 | source: the owner's word of 2026-10-17 to Walrus seeks Maelstrom
+  (9585cc), verbatim in the napkin block of 2026-10-17T14-15Z | target:
+  .agent/skills/cross-fork-integration/SKILL-CANONICAL.md, its numbering-collision step, with the
+  owner's line verbatim; docs/architecture/architectural-decisions/README.md, the authoring
+  guidance, one sentence | trigger: the next doctrine pull request from the default branch | size:
+  two sentences | status: due]`
+
+  Verbatim: "When we have an ADR numbering clash, or anything similar, the numbering from the Oak
+  branch wins and the Engraph numbering is updated to accomodate. This is to minimise the work
+  required when we merge the Engraph branch back to the Oak branch". Measured 2026-10-17: Oak's
+  default branch tops out at ADR-229; Engraph holds 230, 231, 232 and 233 above it, so each moves
+  when Oak's numbering reaches it.
+
+- **Plan-schema owner gates reinvented what PDR-100 abolished**
+  `[captured: 2026-10-14 | source: the owner's word of 2026-10-14 to Walrus seeks Maelstrom
+  (9585cc), verbatim in the napkin block of 2026-10-14T0xZ | target: .agent/plans/plan-node-schema.md
+  §Owner gates, the session-open drift alert hook and its validator; the decision is the owner's,
+  the register row keeps it from being lost | trigger: a curator pass | size: a Practice change,
+  routed | status: due]`
+
+  Verbatim: "what the fuck is an 'owner gate' -- ceremony has been invented, and then declared a
+  blocker". PDR-100 (2026-06-16) abolished owner-gating; the plan schema's owner gates with an
+  expiry clock and a session-open alert arrived on 2026-07-22. Four expired gates are reported at
+  every session open; two belong to the extraction plan that pull request 356 supersedes.
+
+- **A merge tool coupled to a third party's review configuration carries a design bug**
+  `[captured: 2026-10-17 | source: the owner's word of 2026-10-17 to Walrus seeks Maelstrom
+  (9585cc), verbatim in the napkin block of 2026-10-17T14-15Z; relayed on the comms stream the same
+  hour | target: the merge tool's owed-ness derivation (agent-tools pr-watch) and
+  .agent/skills/pr-lifecycle/SKILL-CANONICAL.md where it describes what a tip is owed; the fix is
+  the merge-tool lane's, in both estates | trigger: the merge-tool lane's next pickup | size: a
+  tooling fix with its tests, routed | status: due]`
+
+  Verbatim: "I have changed the github copilot configuration to trigger once per PR, that
+  invalidates some assumptions in the merge tool. Because the assumptions coupled the tool to a
+  specific third party configuration they are considered design bugs to fix".
+  Worked instance the same afternoon: on pull request 356's corrected tip the door read
+  `copilot-pull-request-reviewer: OWED — no substantive review binds the current tip` while the
+  `integration branches` ruleset's `copilot_code_review` rule has `review_on_push: false` and
+  Copilot had reviewed at ready; GitHub read the tip CLEAN. The merging seat ran the door with the
+  configured set the tip actually has (the Codex connector, whose review of the tip the door
+  read); the tool's owed-ness derivation is the thing to fix, with a test on this shape.
+  The owner's standard for the fix, 2026-10-17, verbatim: "All PRs, unless utterly trivial, should
+  have at least one Copilot reivew". So the Copilot leg is satisfied by one Copilot review on the
+  pull request, whichever tip it bound, and owed only when none exists on a non-trivial pull
+  request; pull request 356 carried one, at ready on 2026-10-13. The lifecycle skill's "never the
+  set that happened to bind the tip" reads against this standard at the same touch.
+
 <!-- Fifteen entries graduated 2026-10-14 at the owner's word ("do it all") by the third dedicated
 consolidation's guest curator: the shared texts landed here as the same bytes the sibling estate
 settled, the closed-grammar paragraph in principles among them; the write-list entry was found

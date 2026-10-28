@@ -5,6 +5,7 @@ import { enforceCommsConceptGates, resolveCommsBody } from './cli-comms-commands
 import {
   createDirectedCommsMessage,
   replyToDirectedCommsMessage,
+  sharedCommsLogPathFor,
   writeCommsEventWithReadback,
 } from './comms-use-cases.js';
 import { resolveIdentity } from './cli-identity.js';
@@ -139,6 +140,10 @@ async function writeDirectedMessage(input: {
           event,
         }),
       read: () => input.io.readCommsEvents(input.commsDir),
+    },
+    output: {
+      writeText: (text) =>
+        input.io.writeTextFile({ filePath: sharedCommsLogPathFor(input.commsDir), text }),
     },
   });
 
