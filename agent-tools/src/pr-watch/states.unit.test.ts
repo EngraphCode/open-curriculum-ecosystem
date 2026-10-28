@@ -407,6 +407,51 @@ describe('computePrVerdict — base currency and vacuous sets', () => {
     expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
   });
 
+  it('a set DECLARED empty anchors its window on checks green, not on a review that landed before it', () => {
+    // Checks green at 12:00; a review landed at 11:50; 12:07 is seven minutes
+    // after checks green, so the window is open whatever the review's age.
+    const verdict = computePrVerdict(
+      settledReading({
+        expectedReviewers: [],
+        expectedDeclared: true,
+        reviews: [
+          {
+            author: COPILOT,
+            state: 'COMMENTED',
+            body: 'Reviewed.',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T11:50:00Z',
+          },
+        ],
+      }),
+      '2026-07-21T12:07:00Z',
+    );
+    expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
+    expect(verdict.evidence.join('\n')).toContain('after 2026-07-21T12:00:00Z');
+  });
+
+  it('a set DECLARED empty does not extend its window for a review that lands after checks green', () => {
+    // The declaration waits for no reviewer: a review at 12:08 leaves the
+    // window measured from checks green at 12:00, elapsed by 12:11.
+    const verdict = computePrVerdict(
+      settledReading({
+        expectedReviewers: [],
+        expectedDeclared: true,
+        reviews: [
+          {
+            author: COPILOT,
+            state: 'COMMENTED',
+            body: 'Reviewed.',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:08:00Z',
+          },
+        ],
+      }),
+      '2026-07-21T12:11:00Z',
+    );
+    expect(verdict.state).toBe('SETTLE-READY');
+  });
+
   it('a set DECLARED empty settles beside an outstanding request and a live run, and names both', () => {
     // The declaration is the seat's judgement, so neither holds the round;
     // the record of the irreversible act must still say what was in flight.

@@ -39,13 +39,17 @@ function legLine(leg: ReviewerLeg): string {
 // bodies. The window is a proxy for "a reviewer may still be composing", so it
 // must measure REVIEWER activity; an empty-bodied review is the thread-reply
 // artefact (the API creates one per reply under the replier's identity), and
-// anchoring on it measures the seat's own dispositioning instead. Worked
-// instance 2026-09-15 (#147): the anchor sat on the seat's own reply at
-// 15:44:32Z, seven minutes after the round's last real review — the exclusion
-// of signed self-replies did not catch it, because an empty body carries no
-// signature to detect; nor is a vendor error review activity. With no
+// anchoring on it measures the seat's own dispositioning instead (worked
+// instance 2026-09-15, #147: the anchor sat on the seat's own empty-bodied
+// reply seven minutes after the round's last real review, which no signature
+// could catch); nor is a vendor error review activity. With no
 // tip-bound review (every leg SKIPPED, or none expected), it anchors on checks-green.
+// A set DECLARED empty awaits no reviewer: its window is the settle period after
+// checks green alone, and a review that lands neither opens nor extends it.
 function quietWindowAnchor(reading: PrStateReading): string | null {
+  if (reading.expectedDeclared && reading.expectedReviewers.length === 0) {
+    return reading.checksGreenAt;
+  }
   const tipBound = allReviews(reading)
     .filter((review) => reviewBinds(review, reading))
     .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))

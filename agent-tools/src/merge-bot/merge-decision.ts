@@ -24,15 +24,27 @@ import { describeOffenders, type ChangeClass } from './change-class.js';
 /** The decision: merge (with the ground when a class, not the verdict, opened the door), or a typed refusal. */
 export type MergeDecision =
   | { readonly kind: 'merge'; readonly ground?: string }
-  | { readonly kind: 'refuse'; readonly reason: string };
+  | {
+      readonly kind: 'refuse';
+      readonly reason: string;
+      /**
+       * The refusal is the verdict's own wait state, which a bounded poll may
+       * outwait; every other refusal (a declared set that cannot merge, an
+       * author the empty set does not admit, MERGED, the settings gate) is
+       * terminal, and the poll loop ends on it at once.
+       */
+      readonly awaitsSettlement: boolean;
+    };
 
 /**
  * The verdicts a bounded poll may legitimately outwait: each resolves by
  * time alone — checks finishing, a live review run completing, the quiet
  * window elapsing. Every other verdict needs an operator act or is
- * terminal, so polling on it would burn the budget silently; the CLI
- * refuses those immediately instead. Exported as the ONE authority the
- * usage text derives from — the list must never be transcribed by hand.
+ * terminal, so polling on it would burn the budget silently; the decision
+ * marks a refusal as awaiting settlement only when the verdict is one of
+ * these AND nothing else refused, and the CLI polls on that mark alone.
+ * Exported as the ONE authority the usage text derives from — the list must
+ * never be transcribed by hand.
  */
 export const SETTLEMENT_WAIT_STATES = [
   'SETTLING-QUIET-WINDOW',
@@ -120,6 +132,7 @@ function declaredSetRefusal(input: MergeDecisionInput): MergeDecision | undefine
       kind: 'refuse',
       reason:
         'the expected reviewer set was DEFAULTED from the observed surface — declare --expect from the repository automatic-review configuration; a defaulted set cannot back an irreversible merge',
+      awaitsSettlement: false,
     };
   }
   if (input.declaredEmpty && !input.botAuthored) {
@@ -127,6 +140,7 @@ function declaredSetRefusal(input: MergeDecisionInput): MergeDecision | undefine
       kind: 'refuse',
       reason:
         "--expect none declares no review for a pull request the merge bot did not author — a person's pull request is reviewed, never merged on an empty set (the ruling of 2026-09-03 names the bot's own pull requests)",
+      awaitsSettlement: false,
     };
   }
   return undefined;
@@ -141,6 +155,7 @@ export function decideMergeAction(input: MergeDecisionInput): MergeDecision {
     return {
       kind: 'refuse',
       reason: 'verdict MERGED — the PR was merged by another actor; this invocation merged nothing',
+      awaitsSettlement: false,
     };
   }
   const ground = recordsGround(input);
@@ -148,6 +163,7 @@ export function decideMergeAction(input: MergeDecisionInput): MergeDecision {
     return {
       kind: 'refuse',
       reason: `verdict ${input.verdict.state} — only SETTLE-READY merges${codeClassSuffix(input)}`,
+      awaitsSettlement: verdictAwaitsSettlement(input.verdict.state),
     };
   }
   if (!input.allowMergeCommit) {
@@ -155,6 +171,7 @@ export function decideMergeAction(input: MergeDecisionInput): MergeDecision {
       kind: 'refuse',
       reason:
         'repo settings no longer allow merge commits (allow_merge_commit is false) — the never-squash ruling stands; restore the setting rather than changing method',
+      awaitsSettlement: false,
     };
   }
   return ground === undefined ? { kind: 'merge' } : { kind: 'merge', ground };

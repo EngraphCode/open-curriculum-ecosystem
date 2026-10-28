@@ -71,6 +71,7 @@ describe('the records class at the door', () => {
       kind: 'refuse',
       reason:
         'verdict SILENT-WAIT-NO-REVIEWER — only SETTLE-READY merges; a records-class pull request would merge here, but the diff is code-class (.claude/settings.json)',
+      awaitsSettlement: false,
     });
   });
 
@@ -97,6 +98,8 @@ describe('the records class at the door', () => {
       expect(decision, state).toStrictEqual({
         kind: 'refuse',
         reason: `verdict ${state} — only SETTLE-READY merges`,
+        // Only running checks resolve by time; every other state here is terminal.
+        awaitsSettlement: state === 'CHECKS-RUNNING',
       });
       expect(verdictMergesRecordsClass(state), state).toBe(false);
     }
@@ -126,6 +129,7 @@ describe('the records class at the door', () => {
       kind: 'refuse',
       reason:
         'repo settings no longer allow merge commits (allow_merge_commit is false) — the never-squash ruling stands; restore the setting rather than changing method',
+      awaitsSettlement: false,
     });
   });
 });
@@ -270,6 +274,7 @@ describe('the code-class suffix on an empty change set', () => {
       kind: 'refuse',
       reason:
         'verdict SILENT-WAIT-NO-REVIEWER — only SETTLE-READY merges; a records-class pull request would merge here, but the diff is code-class (no changed path)',
+      awaitsSettlement: false,
     });
   });
 });
@@ -289,7 +294,20 @@ describe("decideMergeAction — a set declared empty merges the bot's own pull r
     if (decision.kind === 'refuse') {
       expect(decision.reason).toContain('--expect none');
       expect(decision.reason).toContain('2026-09-03');
+      expect(decision.awaitsSettlement).toBe(false);
     }
+  });
+
+  it("refuses a person's pull request on an empty set while its checks run as a terminal refusal: no poll outwaits an author the set does not admit", () => {
+    const decision = decideMergeAction({
+      verdict: { state: 'CHECKS-RUNNING', evidence: [] },
+      allowMergeCommit: true,
+      expectedDeclared: true,
+      declaredEmpty: true,
+      botAuthored: false,
+    });
+    expect(decision).toMatchObject({ kind: 'refuse', awaitsSettlement: false });
+    expect(decision.kind === 'refuse' ? decision.reason : '').toContain('did not author');
   });
 
   it("merges the bot's own pull request on an empty set once settled", () => {

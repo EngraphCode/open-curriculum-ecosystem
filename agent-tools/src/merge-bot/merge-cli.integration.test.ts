@@ -413,3 +413,24 @@ describe('runMergeBotCli merge', () => {
     ).toContain('merge-base deletion sweep');
   });
 });
+
+describe('runMergeBotCli merge — the author fence under an empty set', () => {
+  it("refuses a person's pull request under --expect none on the first poll, even while checks run: the author fence is terminal", async () => {
+    const run = runMerge({
+      args: ['--pr', '42', '--expect', 'none'],
+      readings: [
+        settledReading({
+          checks: { total: 3, passed: 2, failed: 0, pending: 1 },
+          namedChecks: [{ name: 'e2e', bucket: 'pending' }],
+          checksGreenAt: null,
+          expectedReviewers: [],
+          expectedDeclared: true,
+        }),
+      ],
+    });
+
+    expect(await run.exit).toBe(3);
+    expect(run.errText()).toContain('did not author');
+    expect(run.sleeps).toEqual([]);
+  });
+});

@@ -62,9 +62,8 @@ export interface MergeExecutionInput {
 }
 
 /**
- * The execution outcome: merged, or a typed refusal the caller reports by
- * name. BOTH arms carry the verdict's evidence lines (security H3): an
- * irreversible act must record the grounds it fired on, machine-readably.
+ * The execution outcome: merged, or a typed refusal reported by name. BOTH arms
+ * carry the verdict's evidence (security H3): an irreversible act records its grounds.
  */
 export type MergeOutcome =
   | { readonly kind: 'merged'; readonly sha: string; readonly evidence: readonly string[] }
@@ -73,6 +72,8 @@ export type MergeOutcome =
       readonly reason: string;
       /** The verdict as a FIELD, so the poll loop reads it by name, never by parsing prose. */
       readonly verdictState: PrVerdict['state'];
+      /** Whether the poll loop may outwait this refusal (`merge-decision.ts`); a terminal one ends it. */
+      readonly awaitsSettlement: boolean;
       readonly evidence: readonly string[];
     };
 
@@ -161,26 +162,23 @@ function defaultReadReading(
   };
 }
 
-/** A typed refusal carrying the verdict it fired on, by name and by evidence. */
-function refused(reason: string, verdict: PrVerdict): Result<MergeOutcome, Error> {
-  return ok({ kind: 'refused', reason, verdictState: verdict.state, evidence: verdict.evidence });
+/** The decision's refusal carried as the outcome, with the verdict it fired on. */
+type Refusal = Extract<MergeDecision, { kind: 'refuse' }>;
+function refused(decision: Refusal, verdict: PrVerdict): Result<MergeOutcome, Error> {
+  const { state: verdictState, evidence } = verdict;
+  return ok({ ...decision, kind: 'refused', verdictState, evidence });
 }
 
 /**
- * The verdict → class → eligibility → settings-gate → merge tail. The base
- * branch's required contexts are read on every verdict the bot's own pull
- * request could merge on, and the change class only where it decides
- * (`merge-records-checks.ts`); a failed read there
- * is the same transient class as a failed PR-state read, so the poll loop
- * retries it within the budget rather than ending on one 502. Eligibility is
- * classified BEFORE the settings endpoint is touched: that GET is a fallible
- * network call, so asking it first turned every documented typed refusal
- * (MERGED, CHECKS-RED, …) into an operational failure whenever the read
- * failed. The decision core is untouched — `allowMergeCommit: true` asks it
- * one question, whether this verdict is mergeable at all — and the REAL
- * setting then goes through the same function, so the never-squash refusal
- * keeps its one canonical wording. A merge opened by the class carries its
- * ground in the evidence beside the verdict's own lines.
+ * The verdict → class → eligibility → settings-gate → merge tail. The base's
+ * required contexts are read on every verdict the bot's own pull request
+ * could merge on, the change class only where it decides
+ * (`merge-records-checks.ts`); a failed read there is the transient class the
+ * poll loop retries. Eligibility is classified BEFORE the settings GET (a
+ * fallible call that once turned every typed refusal into an operational
+ * failure): the decision is asked with `allowMergeCommit: true` first, then
+ * with the REAL setting, so the never-squash refusal keeps its one wording. A
+ * merge the class opened carries its ground beside the verdict's lines.
  */
 async function gateAndMerge(context: {
   readonly input: MergeExecutionInput;
@@ -214,7 +212,7 @@ async function gateAndMerge(context: {
 
   const eligible = decide(true);
   if (eligible.kind === 'refuse') {
-    return refused(eligible.reason, verdict);
+    return refused(eligible, verdict);
   }
   const allowMergeCommit = await readMergeSettings(fetchImpl, token, input.identity);
   if (!allowMergeCommit.ok) {
@@ -222,7 +220,7 @@ async function gateAndMerge(context: {
   }
   const decision = decide(allowMergeCommit.value);
   if (decision.kind === 'refuse') {
-    return refused(decision.reason, verdict);
+    return refused(decision, verdict);
   }
   return mergeVerdicted({ fetchImpl, token, input, reading, verdict, ground: decision.ground });
 }
