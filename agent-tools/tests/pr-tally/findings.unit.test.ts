@@ -91,7 +91,7 @@ describe('extractBodyFindings â€” findings from review bodies, by the reviewerâ€
   });
 });
 
-describe('Codex items are read by their fixed parts, in linear time', () => {
+describe('Codex items are read by their fixed parts', () => {
   const badge =
     '**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>';
   const none = { items: [], manual: false };
@@ -126,17 +126,12 @@ describe('Codex items are read by their fixed parts, in linear time', () => {
    * Before the cure the item pattern re-scanned from every sub closer and
    * across every run of whitespace: this line, 512 closers each followed by
    * 512 spaces (268,326 characters, no closing bold), took 15.0 s on the
-   * authoring host (2026-10-28, quiet, measured once), fifteen times this
-   * test's budget.
+   * authoring host (2026-10-28, quiet, measured once), past the harness's
+   * timeout; the fixed-part reader reads it in milliseconds. No ceiling is
+   * asserted (testing-strategy, no wall-clock ceilings in gated tests).
    */
-  it(
-    'classifies a badge line of 512 sub closers and 262,144 spaces within one second',
-    { timeout: 1000 },
-    () => {
-      const line = `**<sub><sub>![P1 Badge](u)</sub></sub>${`</sub></sub>${' '.repeat(512)}`.repeat(512)}`;
-      const started = performance.now();
-      expect(extractBodyFindings({ author: CODEX, body: line })).toStrictEqual(none);
-      expect(performance.now() - started).toBeLessThan(1000);
-    },
-  );
+  it('reads a badge line of 512 sub closers and 262,144 spaces as no item', () => {
+    const line = `**<sub><sub>![P1 Badge](u)</sub></sub>${`</sub></sub>${' '.repeat(512)}`.repeat(512)}`;
+    expect(extractBodyFindings({ author: CODEX, body: line })).toStrictEqual(none);
+  });
 });

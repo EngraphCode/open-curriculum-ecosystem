@@ -4,6 +4,11 @@ import { parseDispositionLine } from '../../src/pr-tally/disposition-line.js';
 import { readBodyDispositions } from '../../src/pr-tally/dispositions.js';
 import type { RecordedHarvest } from '../../src/pr-tally/harvest.js';
 
+// Two surfaces: the disposition line's field reader (`parseDispositionLine`),
+// and the signed-comment reader (`readBodyDispositions`) that composes it with
+// the signature predicate and the marker grammar — the live path the
+// review-cost gate runs on every push.
+
 const HEAD = 'abcdef0123456789abcdef0123456789abcdef01';
 const SIGNATURE = '\n\n— Nettle guards Pistil (2de368)';
 
@@ -91,21 +96,16 @@ describe('readBodyDispositions — the field reader on the live path', () => {
    * Before the cure one regex read the line and backtracked across its
    * whitespace in cubic time: this line, 640 spaces before the anchor and 640
    * after the fourth separator (1,332 characters, no closing separator), took
-   * 25.1 s on the authoring host (2026-10-28, quiet, measured once),
-   * twenty-five times this test's budget.
+   * 25.1 s on the authoring host (2026-10-28, quiet, measured once), past the
+   * harness's timeout; the field reader reads it in milliseconds. No ceiling
+   * is asserted (testing-strategy, no wall-clock ceilings in gated tests).
    */
-  it(
-    'reads a marked line padded with 1,280 spaces as a batched disposition within one second',
-    { timeout: 1000 },
-    () => {
-      const line = `- **Over-bar** · head SHA:abcdef0 · review r1 ·${' '.repeat(640)}p:1 ·${' '.repeat(640)}`;
-      const started = performance.now();
-      const { keys, batches } = readBodyDispositions(harvestOf(line));
-      expect(performance.now() - started).toBeLessThan(1000);
-      expect(keys).toStrictEqual([]);
-      expect(batches.map((batch) => batch.heads)).toStrictEqual([['abcdef0']]);
-    },
-  );
+  it('reads a marked line padded with 1,280 spaces as a batched disposition', () => {
+    const line = `- **Over-bar** · head SHA:abcdef0 · review r1 ·${' '.repeat(640)}p:1 ·${' '.repeat(640)}`;
+    const { keys, batches } = readBodyDispositions(harvestOf(line));
+    expect(keys).toStrictEqual([]);
+    expect(batches.map((batch) => batch.heads)).toStrictEqual([['abcdef0']]);
+  });
 
   it('reads a signed comment of two recorded lines as two keys carrying their markers', () => {
     const { keys, batches } = readBodyDispositions(
