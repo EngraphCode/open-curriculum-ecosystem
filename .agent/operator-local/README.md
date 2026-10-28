@@ -10,8 +10,8 @@ repository, linked worktree and clone on the machine reads the same files:
 - `~/.practice/profile/index.md` — true of the operator everywhere, on every
   machine and in every repository;
 - `~/.practice/profile/repos/<scope-key>.md` — true of one repository line,
-  keyed by the `origin` remote's owner and name (for this line,
-  `engraphcode--open-curriculum-ecosystem`), never by a path;
+  keyed by the root package.json name (`name`, or `scope--name` for a
+  scoped name), never by a remote or a path;
 - `~/.practice/profile/machines/<machine-key>.md` — true of one machine,
   keyed by the short host name, which is what lets the root be a private
   git repository the operator syncs between machines.

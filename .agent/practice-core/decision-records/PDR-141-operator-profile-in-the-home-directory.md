@@ -84,13 +84,14 @@ scopes by repository identity instead.
    repository-scoped fact lives in `~/.practice/profile/repos/<scope-key>.md`;
    a machine-scoped fact in `~/.practice/profile/machines/<machine-key>.md`
    (decision 10).
-3. **The scope key** is the repository's identity, never its path: the
-   `origin` remote's owner and repository name, lowercased, joined with
-   `--` (`<owner>--<repository>`; a host's own key is a fact of that host,
-   never named in this record). A fork
-   and its upstream therefore hold separate scope files, which is correct:
-   the facts differ by line. A repository with no `origin` remote has no
-   scope file until it has one; readers proceed on the shared index.
+3. **The scope key** is the repository's identity, never its path and never
+   its address: the root `package.json` `name`, lowercased; a scoped
+   `@scope/name` becomes `scope--name` (amended 2026-10-28; a host's own
+   key is a fact of that host, never named in this record). Every clone,
+   fork and mirror of one repository therefore reads one scope file, and a
+   move between owners or hosts changes nothing. A repository whose root
+   manifest has no name has no scope file; readers proceed on the shared
+   index.
 4. **Strictly optional.** A missing root, index, scope or machine file is
    the expected condition, not a defect: readers proceed on tracked
    defaults and say nothing. Nothing may fail, warn or block on the
@@ -125,9 +126,7 @@ scopes by repository identity instead.
    this machine's file, in that order. Because the location is the home directory, no primary-checkout
    resolution is needed: a linked worktree, a second clone and a session in
    any other Practice repository read the same files. The scope key is
-   derived from the `origin` remote in its `https://host/owner/repo`,
-   `git@host:owner/repo` and `ssh://git@host/owner/repo` forms alike, with or
-   without `.git`:
+   derived from the root manifest's name (decision 3):
 
    ```bash
    # The host's profile check — named in its Practice index; the Core names no
@@ -136,9 +135,7 @@ scopes by repository identity instead.
    # (amended 2026-09-21: a file replaced by a link between a check and a read
    # would otherwise enter the session unread; a named document that is absent
    # prints nothing, and nothing prints unless every document conformed).
-   SCOPE="$(git remote get-url origin 2>/dev/null \
-     | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
-     | tr '[:upper:]' '[:lower:]')"
+   SCOPE="$(node -p 'const n = (require("./package.json").name ?? "").trim(); const m = /^(?:@([^/]+)\/)?([^/@]+)$/.exec(n); m ? [m[1], m[2]].filter(Boolean).join("--").toLowerCase() : ""' 2>/dev/null)"
    MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
    <the host's profile check> --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md"
    ```
@@ -274,6 +271,20 @@ a fact of that host. OCE made these changes in one pull request, its
 decisions 11 and 14 sentences under the owner's card of 2026-09-23 ("Yes, one
 cure push"); the second estate took all four under the owner's card of the
 same day, where they arrived as OCE's cure.
+
+## Amendment 2026-10-28 — the scope key is the package name, never the origin
+
+The owner's ruling of 2026-10-28, after a repository moved between owners on
+2026-10-27 and its scope file went unread: a repository never names its own
+remote location, since every repository must push, clone and fork across
+owners and addresses; where a per-repository identifier is needed it is the
+root `package.json` name, never a specific origin. The move is the instance
+that fired the falsifier: the key derived from the new origin matched no
+file and, by decision 4, nothing said so. Decision 3 and the derivation in
+decision 7 are amended in place; the contract's `scope_key` pattern admits
+the unscoped form, a MINOR bump to 1.1.0 under decision 9 with every
+estate's validator moved together; an existing scope file is renamed to the
+new key on the operator's word (decision 14).
 
 ## Boundaries
 

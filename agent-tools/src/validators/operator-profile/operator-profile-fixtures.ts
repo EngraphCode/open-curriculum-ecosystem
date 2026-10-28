@@ -51,6 +51,20 @@ operator: Jim
 - Commit identity is the estate's bot.
 `;
 
+const VALID_SCOPE_UNSCOPED = `---
+practice_profile: operator-profile
+schema_version: 1
+kind: scope
+scope_key: example-sites
+updated: 2026-10-28
+ratified: true
+---
+
+# Scope: a repository whose root package name has no scope
+
+- The key is the name itself.
+`;
+
 const VALID_MACHINE = `---
 practice_profile: operator-profile
 schema_version: 1
@@ -113,12 +127,12 @@ const SCOPE_KEY_UNDERIVED = `---
 practice_profile: operator-profile
 schema_version: 1
 kind: scope
-scope_key: "EngraphCode/open-curriculum-ecosystem"
+scope_key: "@Example-Org/example-repo"
 updated: 2026-09-14
 ratified: true
 ---
 
-# The remote's owner/repo form, not the derived key
+# The manifest's raw scoped name, not the derived key
 `;
 
 const MACHINE_KEY_UPPERCASE = `---
@@ -164,6 +178,13 @@ export const PROFILE_FIXTURES: readonly ProfileFixture[] = [
   },
   { name: 'valid index', ...AT_INDEX, frontmatterValid: true, content: VALID_INDEX },
   { name: 'valid scope', ...AT_SCOPE, frontmatterValid: true, content: VALID_SCOPE },
+  {
+    name: 'valid scope, unscoped package name',
+    kind: 'scope',
+    relPath: 'repos/example-sites.md',
+    frontmatterValid: true,
+    content: VALID_SCOPE_UNSCOPED,
+  },
   { name: 'valid machine', ...AT_MACHINE, frontmatterValid: true, content: VALID_MACHINE },
   {
     name: 'missing required ratified',
@@ -180,7 +201,7 @@ export const PROFILE_FIXTURES: readonly ProfileFixture[] = [
     content: SCOPE_WITHOUT_KEY,
   },
   {
-    name: 'scope_key in underived owner/repo form',
+    name: "scope_key in the manifest's raw scoped form",
     ...AT_SCOPE,
     frontmatterValid: false,
     content: SCOPE_KEY_UNDERIVED,

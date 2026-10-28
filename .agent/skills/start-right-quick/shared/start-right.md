@@ -126,8 +126,8 @@ repository the operator syncs between machines. Pull the profile first,
 then run the check — it exits 0 and says so when nothing is there, and it
 refuses a document carrying a credential-shaped line before anything is
 read into the session — asking it to emit the index, the current
-repository's scope file (keyed by the `origin` remote's owner and name in
-any of its https, scp-style or ssh forms, never a path) and this machine's
+repository's scope file (keyed by the root package.json name, `name` or
+`scope--name` for a scoped name, never a remote or a path) and this machine's
 file (keyed by the short host name); a named document that is absent
 prints nothing, and nothing prints unless every document conformed.
 
@@ -144,9 +144,7 @@ pnpm profile:sync pull || echo "profile not pulled: read the line above — a co
 # The check prints the documents it validated from the same reads it checked
 # (--emit), so nothing reopens a path after the check: a file replaced by a
 # link between a check and a read would otherwise enter the session unread.
-SCOPE="$(git remote get-url origin 2>/dev/null \
-  | sed -E 's#^(ssh://)?(https?://)?([A-Za-z0-9._-]+@)?[^/:]+[:/]##; s#\.git$##; s#/#--#' \
-  | tr '[:upper:]' '[:lower:]')"
+SCOPE="$(node -p 'const n = (require("./package.json").name ?? "").trim(); const m = /^(?:@([^/]+)\/)?([^/@]+)$/.exec(n); m ? [m[1], m[2]].filter(Boolean).join("--").toLowerCase() : ""' 2>/dev/null)"
 MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
 pnpm profile:check --emit index.md --emit "repos/${SCOPE:-none}.md" --emit "machines/$MACHINE.md" \
   || echo "profile not read: the check refused it or the tooling is not built yet — fix, or return here after install and build"
