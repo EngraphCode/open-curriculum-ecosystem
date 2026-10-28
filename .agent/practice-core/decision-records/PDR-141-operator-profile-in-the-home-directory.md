@@ -137,7 +137,7 @@ scopes by repository identity instead.
    # (amended 2026-09-21: a file replaced by a link between a check and a read
    # would otherwise enter the session unread; a named document that is absent
    # prints one line naming it, and no document prints unless all conformed).
-   SCOPE="$(cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" && node -p 'const n = (require("./package.json").name ?? "").trim(); const m = /^(?:@([^/]+)\/)?([^/@]+)$/.exec(n); m ? [m[1], m[2]].filter(Boolean).join("--").toLowerCase() : ""' 2>/dev/null)"
+   SCOPE="$(cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" && node -p 'const n = (require("./package.json").name ?? "").trim(); const m = /^(?:@([^/]+)\/)?([^/@]+)$/.exec(n); const k = m ? [m[1], m[2]].filter(Boolean).join("--").toLowerCase() : ""; /^[a-z0-9][a-z0-9._-]*(?:--[a-z0-9][a-z0-9._-]*)?$/.test(k) ? k : ""' 2>/dev/null)"
    MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
    <the host's profile check> --emit index.md ${SCOPE:+--emit repos/$SCOPE.md} --emit "machines/$MACHINE.md"
    ```
