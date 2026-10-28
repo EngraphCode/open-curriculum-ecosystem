@@ -204,3 +204,41 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   15:48Z); its six review findings cured on the fold before its push.
 - **Next**: the analyser plan's unit 0 (its lane holds the two nodes and the drain ledger), then
   unit 1 (the three parsers of third-party review text).
+
+## Lane state (2026-10-28 18:4xZ, at the owner's word to stop the sub-agents and review)
+
+- **Landed since the fold**, each through the door with `--expect none`, no requested vendor round,
+  each lane merging the default branch once before its push: 366 (the analyser plan's unit 0: the
+  `maintenance` strategic node, the analyser delivery node, `code-scanning-alerts-to-zero`
+  re-pointed, the drain ledger; `77453f9d8`, the records door), 368 (the Codex failed-run cure with
+  the row-grammar fence and the knip fix; `79e383ad1`), 369 (unit 1: the three readers of
+  third-party review text in linear forms, a new `pr-tally/disposition-line.ts`, red-first by file
+  swap, the estate's code-expert's test finding cured before the push; `7a875d793`), 370 (`--expect
+  none`, the empty-set declaration, after the estate's code-expert and security-expert reads; one
+  Codex round at the ready-mark, its two P2 findings verified and cured in `976206bc0`;
+  `007fdef1a`).
+- **Committed, unopened**: the bot's pull-request writes command and the dispatch-workflow verb on
+  `feat/merge-bot-pull-request-writes` (worktree `merge-bot-pr-writes`), found unlanded at the
+  closing inventory, read by the estate's code-expert, its `comment` verb now confirming a pull
+  request (`561e09d45`); it merges the default branch, pushes from its own worktree, opens and takes
+  the door next.
+- **Wrong on the remote**: `coordination/2026-10-28-32c907` holds the writes lane's tip
+  (`934515e02`) because the push tool sent the checked-out commit of the worktree it ran from under
+  the named branch; the records commits (`e8852d612` and this one) are local on the primary. The
+  cure is a force-with-lease push of the primary's tip from the primary, at the owner's word, and a
+  tool fix so `merge-bot push --branch X` refuses when X is not checked out.
+- **Retired** on content check and ancestry proof: the branches and worktrees of 366, 368, 369 and
+  370. Open and another seat's: 365.
+- **Routed, each with a home on this record and the pull-request bodies**: the push tool's named
+  branch versus checked-out commit; the review-cost gate's hold (the hook's guidance lines dead under
+  `sh -e`; the hold counting reviewed rounds where PDR-140 says pushes; the unrounded crossing test;
+  the duplicated loop); the comms write path (a render that fails after the write; renders published
+  out of order); the writes command's conversation verbs minting the wide `pull-request-work` scope
+  where `pull_requests: write` alone would do, its WIP count counting every author's open pull
+  requests, its thread refusal comparing the number without the repository, the hoisted GraphQL
+  error path's bare status, and tests asserting request order and count; the expect-none
+  declaration's optional `expectedReviewers?` carrying two meanings, the door's merge record living
+  on stdout alone, `is_bot` as a second leg, the app slug unchecked against the signing App; the
+  Codex cure's review-object body as the proof of the declaration and the older-commit test gap.
+- **Next for the analyser plan**: units 2 to 14 in the node's order, each from a worktree cut after
+  its dependency lands; the owner's ratifying stamp on the two nodes born sketch.
