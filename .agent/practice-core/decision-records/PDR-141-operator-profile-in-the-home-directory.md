@@ -94,7 +94,9 @@ scopes by repository identity instead.
    index.
 4. **Strictly optional.** A missing root, index, scope or machine file is
    the expected condition, not a defect: readers proceed on tracked
-   defaults and say nothing. Nothing may fail, warn or block on the
+   defaults; a named document that is absent is reported in one printed
+   line (its path, so a drifted key is seen; amended 2026-10-28) and
+   nothing else happens. Nothing may fail, warn or block on the
    profile's ABSENCE, and no correctness property of the estate may depend
    on the profile at all (`principles.md` §Any User, Any Machine). A PRESENT
    document that violates the contract or carries a credential-shaped line
@@ -134,7 +136,7 @@ scopes by repository identity instead.
    # the same reads it checked, so nothing reopens a path after the check
    # (amended 2026-09-21: a file replaced by a link between a check and a read
    # would otherwise enter the session unread; a named document that is absent
-   # prints nothing, and nothing prints unless every document conformed).
+   # prints one line naming it, and no document prints unless all conformed).
    SCOPE="$(cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" && node -p 'const n = (require("./package.json").name ?? "").trim(); const m = /^(?:@([^/]+)\/)?([^/@]+)$/.exec(n); m ? [m[1], m[2]].filter(Boolean).join("--").toLowerCase() : ""' 2>/dev/null)"
    MACHINE="$(hostname -s | tr '[:upper:]' '[:lower:]')"
    <the host's profile check> --emit index.md ${SCOPE:+--emit repos/$SCOPE.md} --emit "machines/$MACHINE.md"
@@ -284,7 +286,10 @@ file and, by decision 4, nothing said so. Decision 3 and the derivation in
 decision 7 are amended in place; the contract's `scope_key` pattern admits
 the unscoped form, a MINOR bump to 1.1.0 under decision 9 with every
 estate's validator moved together; an existing scope file is renamed to the
-new key on the operator's word (decision 14).
+new key on the operator's word (decision 14). Decision 4 gains, at the same
+word, one printed line for a named document that is absent: the silence
+decision 4 chose is how the loss hid for a day, and one line is a trigger
+that makes the agent think without failing, warning or blocking.
 
 ## Boundaries
 

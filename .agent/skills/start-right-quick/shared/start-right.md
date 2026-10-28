@@ -129,7 +129,7 @@ read into the session — asking it to emit the index, the current
 repository's scope file (keyed by the root package.json name, `name` or
 `scope--name` for a scoped name, never a remote or a path) and this machine's
 file (keyed by the short host name); a named document that is absent
-prints nothing, and nothing prints unless every document conformed.
+prints one line naming it, and no document prints unless all conformed.
 
 The check and the sync need the host's tooling (agent-tools, installed and
 built): on a cold clone run this step after the install and build below,

@@ -8,6 +8,10 @@ tag in both repositories; the other repository's slug is never written here
 
 ## [jimcresswell.net] 2026-10-28 — PDR-141 amended: the scope key is the root package name, never the origin
 
+- Decision 4, at the owner's word of 2026-10-28: a named document that is absent
+  prints one line naming it, so a drifted key is seen; the silence the decision
+  chose is how the loss hid for a day. The check, its smoke and the grounding
+  prose follow.
 - PDR-141 decision 3 and the derivation in decision 7 are amended at the owner's
   ruling of 2026-10-28 (a repository never names its own remote location; a
   per-repository identifier is the root `package.json` name, never a specific

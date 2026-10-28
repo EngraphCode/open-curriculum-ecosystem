@@ -23,7 +23,9 @@
  * check, from the same read the check validated, so a caller never reopens
  * a path after the check (a file replaced by a link in between would
  * otherwise enter the session unread). A named document that is absent
- * prints nothing; nothing prints unless every document conformed.
+ * prints one line naming it, so a drifted key is seen rather than hidden by
+ * the silence of strict optionality; no document prints unless every
+ * present document conformed.
  *
  * This check is not part of the commit or push gates by design — the
  * profile is per person, and nothing in the repository may depend on it.
@@ -88,14 +90,20 @@ function reportFailures(root: string, failures: readonly DocumentFailure[]): voi
   }
 }
 
-/** Print the named conforming documents, in the order asked, from the check's own reads. */
+/**
+ * Print the named conforming documents, in the order asked, from the check's
+ * own reads; a named document that is absent prints one line saying so, the
+ * trigger that makes a reader notice a key that matches no file.
+ */
 function emitDocuments(documents: readonly ConformingDocument[], emit: readonly string[]): void {
   for (const relPath of emit) {
     const document = documents.find((candidate) => candidate.relPath === relPath);
-    if (document !== undefined) {
-      writeLine(`=== ${relPath} ===`);
-      writeLine(document.content);
+    if (document === undefined) {
+      writeLine(`  · no document at ${relPath}; nothing read for it`);
+      continue;
     }
+    writeLine(`=== ${relPath} ===`);
+    writeLine(document.content);
   }
 }
 
