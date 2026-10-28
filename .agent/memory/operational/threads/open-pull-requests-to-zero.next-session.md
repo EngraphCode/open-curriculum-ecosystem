@@ -12,9 +12,9 @@ merge_class: index-narrative-tables
 **Purpose**: land or close every open pull request on this repository through the front door, after
 a full-surface harvest, a triage of every finding and a usefulness verdict; then give the merge-bot
 the writes it lacked; then start the analyser plan's units. Owning plans:
-[`open-pull-requests-to-zero.plan.md`](../../../plans/delivery/open-pull-requests-to-zero.plan.md)
+`.agent/plans/delivery/open-pull-requests-to-zero.plan.md`
 (the drain and the tool) and
-[`quality-analyser-security-reliability-to-zero.plan.md`](../../../plans/delivery/quality-analyser-security-reliability-to-zero.plan.md)
+`.agent/plans/delivery/quality-analyser-security-reliability-to-zero.plan.md`
 (the analyser findings, after the drain). Both nodes are sketch on the lane branch below, not yet
 on the default branch.
 
