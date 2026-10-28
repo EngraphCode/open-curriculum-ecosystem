@@ -42,7 +42,7 @@ function declaredEmpty(reading: PrStateReading): boolean {
  */
 export function settledLead(reading: PrStateReading): string {
   return declaredEmpty(reading)
-    ? 'no reviewer leg is expected: the set was declared empty (--expect none) — the seat judged this work needs no pull-request review to be safe and effective; quiet window elapsed since checks green'
+    ? `no reviewer leg is expected: the set was declared empty (--expect none) — the seat judged this work needs no pull-request review to be safe and effective; quiet window elapsed since checks green; the door merges an empty set for the merge bot's own pull requests only, and this one's author is ${reading.author}`
     : 'every expected reviewer leg settled; quiet window elapsed';
 }
 

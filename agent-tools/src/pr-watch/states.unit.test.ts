@@ -395,6 +395,7 @@ describe('computePrVerdict — base currency and vacuous sets', () => {
     expect(verdict.state).toBe('SETTLE-READY');
     expect(verdict.evidence.join('\n')).toContain('--expect none');
     expect(verdict.evidence.join('\n')).toContain('safe and effective');
+    expect(verdict.evidence.join('\n')).toContain("this one's author is app/el-graphael");
   });
 
   it('a set DECLARED empty still waits out the quiet window after checks green', () => {
