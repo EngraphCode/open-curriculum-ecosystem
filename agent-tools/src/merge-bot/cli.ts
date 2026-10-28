@@ -2,7 +2,7 @@ import type { Result } from '@oaknational/result';
 
 import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
-import { MERGE_USAGE } from './merge-args.js';
+import { MERGE_USAGE } from './merge-usage.js';
 import { runMergeAction, type MergeActionInput } from './merge-cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';

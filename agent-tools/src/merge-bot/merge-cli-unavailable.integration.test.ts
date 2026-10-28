@@ -84,7 +84,7 @@ function reading(author: string) {
           },
         ],
         reviewRuns: { kind: 'read', runs: [] },
-        declared: options.expectedReviewers ?? [],
+        declared: options.expectedReviewers ?? null,
         unavailable: options.unavailable,
         readContent: () => NO_CONTENT,
       }),
