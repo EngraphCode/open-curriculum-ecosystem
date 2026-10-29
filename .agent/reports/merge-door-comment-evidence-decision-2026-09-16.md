@@ -90,6 +90,31 @@ refusal names WHICH precondition failed and quotes what it saw. A near-miss that
 silence puts the reader back where they started (Director's point, and it survives the
 reframing intact).
 
+**Amended 2026-10-27 — the third shape: a run the vendor could not complete.** The connector
+over its usage quota posts no review object. It rewrites its summary's Code Review row to
+**Failed**, naming the head it tried (`| 📝 **Code Review** | ⚠️ **Failed** … | `8f2b7fd` |
+Manual request |`, pull requests 358 and 362, read first-hand that day), and posts a plain
+comment: "Codex usage limits have been reached for code reviews. Please check with the admins
+of this repo to increase the limits by adding credits." Read as it stood, the door refused
+both as naming no reviewed commit, and a declaration of the vendor's unavailability could not
+be proven, because its proof wanted an error review OBJECT, which the connector never posts:
+a pull request the connector failed on could not reach SETTLE-READY by any path. This is the
+error above in a third coat — the transport read as the evidence, and a vendor's answer read
+as noise. The Failed row IS the vendor's answer: it looked at that commit and could not
+review it. So the door reads the row, on preconditions 1 to 3, as the vendor's failed run on
+that commit: a review whose body is the row as posted, which the error-review classifier
+knows by its status word (the connector's closed vocabulary — Completed, Running, Failed —
+not its message), so it satisfies no leg, is counted in the leg's detail, and proves a
+declaration of unavailability on that head. The notice names no commit and reports nothing;
+it is the vendor's word on its own service, so the door returns it as a notice the evidence
+prints and nothing waits on. Neither is a refusal, and nothing else changed: a comment by an
+expected reviewer that is not a report, a Failed or Running row, or the recorded notice is
+still refused by name. A failed run is not a review, so the leg stays owed until the
+checks-green timeout ends it (SETTLED-NO-REVIEW, not merge-eligible); the stand-in declared
+under the 2026-09-28 ruling, now provable, is the path to SETTLE-READY.
+`agent-tools/src/pr-watch/completion-comments.ts`, `completion-summary.ts`,
+`vendor-error-reviews.ts` and `vendor-notices.ts` carry the readings.
+
 ## Disposition
 
 - **#147**: landed on recorded premises at the owner's word, 2026-09-16, without waiting for

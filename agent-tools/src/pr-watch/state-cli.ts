@@ -1,4 +1,5 @@
 import type { UnavailableDeclaration } from './declared-unavailable.js';
+import { declaredExpectedSet, parseExpectValue, type ExpectValue } from './expect-flag.js';
 import { parsePrTarget, type PrTarget } from './gh.js';
 import type { UnavailableInput } from './state-compose.js';
 import { readPrStateReading } from './state-gh.js';
@@ -17,7 +18,8 @@ import { PR_VERDICT_STATES, type PrStateReading } from './state-types.js';
 export interface ReadReadingInput {
   readonly target: PrTarget;
   readonly ghPath?: string;
-  readonly expectedReviewers: readonly string[];
+  /** Absent when `--expect` was not given; empty when it was `none` (expect-flag.ts). */
+  readonly expectedReviewers?: readonly string[];
   /** Vendors declared unavailable; absent when none is declared. */
   readonly unavailable?: UnavailableInput;
 }
@@ -40,7 +42,8 @@ interface ParsedStateArgs {
   readonly json: boolean;
   readonly ghPath?: string;
   readonly help: boolean;
-  readonly expect: readonly string[];
+  /** `null` when undeclared; empty when declared `none` (expect-flag.ts). */
+  readonly expect: readonly string[] | null;
   readonly unavailable: readonly UnavailableDeclaration[];
 }
 
@@ -50,7 +53,7 @@ interface MutableStateArgs {
   json: boolean;
   help: boolean;
   positionals: string[];
-  expect: string[];
+  expect: ExpectValue[];
   unavailable: UnavailableDeclaration[];
 }
 
@@ -76,7 +79,11 @@ const STATE_VALUE_HANDLERS: Readonly<
     state.ghPath = value;
   },
   '--expect': (state, value) => {
-    state.expect.push(value);
+    const parsed = parseExpectValue(value);
+    if (!parsed.ok) {
+      throw new Error(`${parsed.error.message}\n\n${usage()}`);
+    }
+    state.expect.push(parsed.value);
   },
   '--unavailable': (state, value) => {
     state.unavailable.push(parseUnavailableFlag(value));
@@ -126,11 +133,15 @@ function parseStateArgs(args: readonly string[]): ParsedStateArgs {
   if (!state.help && state.positionals.length !== 1) {
     throw new Error(`expected exactly one PR number or URL\n\n${usage()}`);
   }
+  const expect = declaredExpectedSet(state.expect);
+  if (!expect.ok) {
+    throw new Error(`${expect.error.message}\n\n${usage()}`);
+  }
   return {
     pr: state.positionals[0] ?? '',
     json: state.json,
     help: state.help,
-    expect: state.expect,
+    expect: expect.value,
     unavailable: state.unavailable,
     ...(state.repo === undefined ? {} : { repo: state.repo }),
     ...(state.ghPath === undefined ? {} : { ghPath: state.ghPath }),
@@ -163,7 +174,7 @@ function runStateAction(input: ActionInput & { readonly rest: readonly string[] 
   const target = parsePrTarget(parsed.pr, parsed.repo);
   const reading = input.read({
     target,
-    expectedReviewers: parsed.expect,
+    ...(parsed.expect === null ? {} : { expectedReviewers: parsed.expect }),
     ...(parsed.ghPath === undefined ? {} : { ghPath: parsed.ghPath }),
     ...(parsed.unavailable.length === 0
       ? {}
@@ -216,7 +227,7 @@ function noPoster(): string {
 
 function usage(): string {
   return [
-    'pr state <pr-number|github-pull-url> [--repo <owner/repo>] [--json] [--expect <login>]... [--unavailable <login>=<comment-url>]... [--gh <absolute-path>]',
+    'pr state <pr-number|github-pull-url> [--repo <owner/repo>] [--json] [--expect <login>|none]... [--unavailable <login>=<comment-url>]... [--gh <absolute-path>]',
     '',
     'Resolves the pr-lifecycle compound read (checks BY NAME, review threads, auto-merge',
     'intent, per-reviewer legs over the FULL review harvest, agent-task review-run',
@@ -225,8 +236,10 @@ function usage(): string {
     // change and this text must not drift behind it.
     `${PR_VERDICT_STATES.join(' | ')}.`,
     '--expect declares the expected reviewer set (repeatable; SKILL: sourced from the',
-    "repository's automatic-review configuration). Undeclared, it defaults to the",
-    'observed surface and the verdict says so. Read-only: never arms, merges, or',
+    "repository's automatic-review configuration); --expect none declares it EMPTY, the",
+    "seat's judgement that the work needs no pull-request review to be safe and effective",
+    "(the owner's word of 2026-10-27), and the verdict names the declaration. Undeclared,",
+    'it defaults to the observed surface and the verdict says so. Read-only: never arms, merges, or',
     'requests reviews. --json prints the full reading and verdict. --unavailable declares a',
     "vendor down by the bot's comment on the pull request (declared-unavailable.ts).",
     '',

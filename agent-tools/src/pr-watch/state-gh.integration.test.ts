@@ -437,6 +437,17 @@ describe('readPrStateReading', () => {
     expect(reading.expectedReviewers).toEqual(['copilot-pull-request-reviewer']);
   });
 
+  it('a set declared EMPTY (--expect none) is declared, never defaulted from the observed surface', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      expectedReviewers: [],
+      execFileSync: makeExecutor({}, []),
+    });
+    expect(reading.expectedDeclared).toBe(true);
+    expect(reading.expectedReviewers).toEqual([]);
+  });
+
   it('degrades the runs leg to a typed unavailable when gh agent-task fails', () => {
     const reading = readPrStateReading({
       target: { number: 461 },

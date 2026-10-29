@@ -10,6 +10,16 @@
  * The Copilot body is recorded five times, each state COMMENTED: three on
  * 2026-09-13 and two on 2026-09-28.
  *
+ * The Codex connector posts no review object for a run it could not
+ * complete: it rewrites its summary comment's Code Review row to the status
+ * **Failed**, naming the commit it tried, and `completion-comments.ts` reads
+ * that row as a review whose body is the row as posted. The status word is
+ * the connector's closed vocabulary (Completed, Running, Failed), so such a
+ * body is an error review whatever the row's message, matched whole: a row
+ * quoted inside prose, or followed by any text, is not one. Recorded on pull
+ * requests 358 and 362, 2026-10-27, each beside a usage-limits notice
+ * (`vendor-notices.ts`).
+ *
  * This module imports nothing, so both estates carry the same bytes.
  *
  * @packageDocumentation
@@ -20,6 +30,12 @@ const VENDOR_ERROR_BODIES: readonly string[] = [
   'Copilot encountered an error and was unable to review this pull request. You can try again by re-requesting a review.',
 ];
 
+// The connector's Failed row, whole: its review cell, its status cell opening
+// with the bold status word, its commit cell as an inline-code prefix of at
+// least seven hex characters, and any further cells, each free of a pipe.
+const CODEX_FAILED_ROW =
+  /^\| [^|]*\*\*Code Review\*\* \| [^|]*\*\*Failed\*\*[^|]*\| `[0-9a-f]{7,40}` \|(?: [^|]*\|)*$/u;
+
 function collapsed(body: string): string {
   return body.trim().replaceAll(/\s+/gu, ' ');
 }
@@ -27,13 +43,14 @@ function collapsed(body: string): string {
 const KNOWN = new Set(VENDOR_ERROR_BODIES.map(collapsed));
 
 /**
- * Whether a review body is a recorded vendor error body: the vendor could not
- * review.
+ * Whether a review body is a vendor's error body, recorded whole or the
+ * connector's Failed row: the vendor could not review.
  *
  * @param body - The review's body.
  */
 export function isVendorErrorReview(body: string): boolean {
-  return KNOWN.has(collapsed(body));
+  const whole = collapsed(body);
+  return KNOWN.has(whole) || CODEX_FAILED_ROW.test(whole);
 }
 
 /**

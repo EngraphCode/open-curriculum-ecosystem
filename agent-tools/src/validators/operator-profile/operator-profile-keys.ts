@@ -2,25 +2,7 @@
  * Operator profile — key derivation and the credential tripwire. Pure.
  */
 
-import { parseGitRemoteUrl } from '../../core/git-remote-url.js';
-import { MACHINE_KEY_PATTERN, SCOPE_KEY_PATTERN } from './operator-profile-schema.js';
-
-/**
- * Derive the scope key from an `origin` remote URL: the owner and repository
- * name, lowercased, joined with `--`. Accepts the `https://host/owner/repo(.git)`,
- * `git@host:owner/repo(.git)` and `ssh://git@host/owner/repo(.git)` forms.
- *
- * @param originUrl - the remote URL as `git remote get-url origin` prints it
- * @returns the scope key, or undefined when the URL does not name owner/repo
- */
-export function deriveScopeKey(originUrl: string): string | undefined {
-  const remote = parseGitRemoteUrl(originUrl);
-  if (remote === undefined) {
-    return undefined;
-  }
-  const key = `${remote.owner}--${remote.repoName}`.toLowerCase();
-  return SCOPE_KEY_PATTERN.test(key) ? key : undefined;
-}
+import { MACHINE_KEY_PATTERN } from './operator-profile-schema.js';
 
 /**
  * Derive the machine key from a host name: the short (first-label) form,

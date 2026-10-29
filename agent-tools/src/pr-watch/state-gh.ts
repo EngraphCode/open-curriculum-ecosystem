@@ -50,7 +50,11 @@ export interface ReadPrStateOptions {
   readonly ghPath?: string;
   readonly execFileSync?: GhCommandExecutor;
   readonly exists?: PathExistsCheck;
-  /** The declared expected reviewer set (`--expect`, repeatable). */
+  /**
+   * The declared expected reviewer set (`--expect`, repeatable): absent, the
+   * set is undeclared and defaults; empty, it was declared `none`
+   * (expect-flag.ts).
+   */
   readonly expectedReviewers?: readonly string[];
   /** Hashes a diff to its patch-id; the trusted git's `patch-id` by default. */
   readonly patchIdOf?: PatchIdOf;
@@ -194,7 +198,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
         reviewRuns,
         // The base branch's configuration, from the view the reading composes from.
         reviewConfiguration: readReviewConfigurationLeg({ run, gh, repo, view: confirm }),
-        declared: options.expectedReviewers ?? [],
+        declared: options.expectedReviewers ?? null,
         unavailable: options.unavailable,
         readContent: contentReaderFor({ run, gh, repo, view: confirm, patchIdOf }),
       });

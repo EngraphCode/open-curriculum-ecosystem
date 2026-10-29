@@ -140,12 +140,18 @@ carrier merge and landing proof names the first.
   that the carrier workflow's own schedule cannot break, because that workflow
   opens nothing while any carrier is open. First, with the stale carrier still
   open, the mirror: where it is behind the upstream tip, dispatch the mirror
-  workflow under the merge-bot's `upstream-mirror-dispatch` scope, wait for that
-  run to conclude `success` (a dispatch returns at once and orders nothing), and
-  re-read the mirror's tip as equal to the upstream tip. Second, as the bot,
-  comment the reason on the stale carrier, close it and delete its branch. Third,
-  dispatch the carrier workflow under `workflow-dispatch` and wait for it; a
-  scheduled run may have opened the carrier first, and either is accepted. Take
+  workflow under the merge-bot's `upstream-mirror-dispatch` scope (a scope
+  `merge-bot pull-request dispatch-workflow` does not mint, so the mirror's
+  dispatch stays a separate route for now), wait for that run to conclude
+  `success` (a dispatch returns at once and orders nothing), and re-read the
+  mirror's tip as equal to the upstream tip. Second, as the bot, close the
+  stale carrier with
+  `pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>`
+  (the command posts the reason as its comment, then closes), then delete its
+  branch. Third, dispatch the carrier workflow with
+  `pnpm agent-tools merge-bot pull-request dispatch-workflow --workflow upstream-carrier.yml`,
+  minted at `workflow-dispatch`, and wait for it; a scheduled run may have
+  opened the carrier first, and either is accepted. Take
   up the one open carrier, confirming its head is the mirror's tip
   (worked instance: the carrier at
   release 1.181.4, replaced by hand on 2026-09-17 after sitting 76 commits
@@ -359,7 +365,11 @@ the record either way.
 Merge by MERGE COMMIT as the bot through the one sanctioned front
 door, `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
 [--expect <reviewer> ...]` — `--expect` is repeated once per AVAILABLE
-reviewer in the repository's automatic-review configuration, the set
+reviewer in the repository's automatic-review configuration (or is
+`--expect none` when the seat has answered the owner's one question of
+2026-10-27, "do we need a review in order for this work to be safe and
+effective?", with no: upstream's own release, read first-hand in the sweep,
+its conflict resolutions under the full gate), the set
 pr-lifecycle's Phase 1 declares as the state machine's input for every round,
 never narrowed to the reviewers that happen to have bound the tip and never
 widened to a vendor declared unavailable: a reviewer left undeclared is

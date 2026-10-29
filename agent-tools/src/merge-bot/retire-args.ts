@@ -1,8 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { printable } from '../pr-watch/printable.js';
-import { readBranchArg, type BranchArgSeams } from './branch-arg.js';
-import { isRetirableBranchName } from './retire-parse.js';
+import { isUrlSafeBranchName, readBranchArg, type BranchArgSeams } from './branch-arg.js';
 
 /**
  * The argv contract for `merge-bot retire`. Two flags: `--branch`, required,
@@ -107,7 +106,7 @@ export function parseRetireArgs(
   if (branch === undefined) {
     return err(new Error(`--branch is required\n${RETIRE_USAGE}`));
   }
-  if (!isRetirableBranchName(branch)) {
+  if (!isUrlSafeBranchName(branch)) {
     return err(
       new Error(
         `"${printable(branch)}" holds characters outside ASCII letters, digits and . _ / - ; retire it by hand`,

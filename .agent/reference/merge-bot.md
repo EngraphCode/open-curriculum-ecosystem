@@ -43,7 +43,11 @@ It mints its own least-privilege token (`pull-request-merge`), reads the
 settlement verdict, and merges ONLY on SETTLE-READY — merge-commit method
 always, the VERDICTED tip's sha pinned in the call (a moved tip answers
 409), refusing by verdict name on everything else with exit 3. `--expect`
-is required: source it from the repository's automatic-review
+is required (`--expect none` declares the set EMPTY: the seat has judged, by
+the owner's one question of 2026-10-27 — "do we need a review in order for
+this work to be safe and effective?" — that the work needs no pull-request
+review, and the merge evidence names the declaration); otherwise source it
+from the repository's automatic-review
 configuration, declaring the reviewers AVAILABLE — a vendor declared
 unavailable on the stream (an outage, such as the Codex connector's
 2026-09-10 usage-limit notice) is not declared, and a subagent review
@@ -79,9 +83,13 @@ round), per-reviewer legs, outstanding requests, live runs — inside the same i
 bot review can land in the seconds between (caught twice in forty
 minutes, #570/#574).
 
-For the OTHER bot writes (PR create/edit, comments, review replies, thread
-resolution, update-branch, and pushes where the estate's identity contract
-names the bot as the transport), mint a token and use it:
+The bot's writes on a pull request's conversation are one typed command,
+`merge-bot pull-request` (§Writing on a pull request's conversation below):
+opening a draft, commenting, replying on a review thread, resolving a
+thread, marking a draft ready, closing with a reason. Pushes where the
+estate's identity contract names the bot as the transport are
+`merge-bot push`. For the bot writes no typed command carries yet (editing a
+title or body, update-branch, a reviewer request), mint a token and use it:
 
 ```bash
 token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
@@ -106,7 +114,8 @@ are defined in `agent-tools/src/merge-bot/token-scopes.ts`:
 
 | scope                  | permissions                                                   | for                                                                           |
 | ---------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | update-branch, push, PR create/edit, comment, review reply, thread resolution |
+| `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | update-branch, push, PR create/edit (what `merge-bot pull-request open` mints) |
+| `pull-request-conversation` | `pull_requests: write` | comment, review reply, thread resolution, the ready mark, the close (what `merge-bot pull-request` mints for those verbs) |
 | `pull-request-merge`   | `pull_requests: write`, `contents: write`                     | the merge act alone (what `merge-bot merge` mints itself)                     |
 | `code-scanning-alerts` | `security_events: read`                                       | reading code-scanning alerts                                                  |
 | `workflow-dispatch`    | `actions: write`                                              | dispatching a workflow; re-running a failed job                               |
@@ -151,12 +160,13 @@ permissions investigation.
   lane routes the mechanical key-turn to the Director as proxy — judgment
   stays with the lane seat.
 
-`pull-request-work` is wider than several of its listed uses need: the
-conversation half (comments, review replies, PR edits) requires
-`pull_requests: write` alone, while only merge, push and update-branch need
-`contents`/`workflows`. Splitting it is MCP-391, gated on establishing what
-the GraphQL thread-resolution mutation requires. Read the set as honest for
-the span as named, not as minimal for each member.
+`pull-request-work` is wider than PR create/edit needs: only merge, push and
+update-branch need `contents`/`workflows`. The conversation writes (comments,
+review replies, thread resolution, the ready mark, the close) are
+`pull-request-conversation`, `pull_requests: write` alone, since 2026-10-29:
+the MCP-391 split, made at the review of `merge-bot pull-request` and proved
+on that command's own pull request, the GraphQL mutations included. Read
+`pull-request-work` as honest for the span as named.
 
 **A `403` reading `Resource not accessible by integration` is a
 wrong-`--scope` symptom, not a broken bot** (observed 2026-07-29 from a
@@ -274,11 +284,12 @@ Any PR mutation performed **by an agent** runs under the bot token, so the
 platform record itself says which actions were a human's and which were an
 agent's: opening PRs, editing titles/descriptions, commenting, replying to
 review threads, resolving threads, requesting reviewers, arming, merging.
+The conversation writes are the typed command, which mints the token itself:
 
 ```bash
-token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
-GH_TOKEN="$token" gh pr edit <n> --body-file …
-GH_TOKEN="$token" gh api …/comments/<id>/replies -f body=…
+pnpm agent-tools merge-bot pull-request open --branch <name> --title <text> --body-file <path> --wip-limit <n>
+pnpm agent-tools merge-bot pull-request reply --pr <n> --comment <id> --body-file <path>
+pnpm agent-tools merge-bot pull-request resolve --pr <n> --thread <node-id>
 ```
 
 Reads may use any credential — attribution matters for writes. Agents keep
@@ -484,3 +495,59 @@ pnpm agent-tools merge-bot retire --branch <name>
   never printed, only the repository parsed from it.
 - Whether a branch is wanted is the caller's judgement; the command checks
   no pull request.
+
+## Writing on a pull request's conversation
+
+`merge-bot pull-request <verb>` makes the bot's writes on a pull request's
+conversation, and its workflow dispatch, each invocation under one
+installation token it mints itself at the scope that verb needs. It replaces
+the `token=$(mint)` and `GH_TOKEN="$token" gh …` shell lines for these
+writes, which a worktree's Bash guard refuses as a compound command and
+which cannot fail fast:
+
+```bash
+pnpm agent-tools merge-bot pull-request open --branch <name> --title <text> --body-file <path> --wip-limit <n>
+pnpm agent-tools merge-bot pull-request comment --pr <n> --body-file <path>
+pnpm agent-tools merge-bot pull-request reply --pr <n> --comment <id> --body-file <path>
+pnpm agent-tools merge-bot pull-request resolve --pr <n> --thread <node-id>
+pnpm agent-tools merge-bot pull-request ready --pr <n>
+pnpm agent-tools merge-bot pull-request close --pr <n> --reason-file <path>
+pnpm agent-tools merge-bot pull-request dispatch-workflow --workflow <file-name>
+```
+
+- The verb set is closed, and so is each verb's flag set: an unknown verb or
+  flag, a missing or repeated flag, a `--pr` that is not a positive integer,
+  each is a usage refusal (exit 2) naming what was expected, with the usage
+  text. `merge-bot pull-request --help` is the contract.
+- Every body or reason file is read from disk and sent verbatim; an empty
+  file refuses (exit 3) before anything is minted.
+- `open` writes a DRAFT from the branch into the repository's default
+  branch, read from GitHub. It refuses (exit 3, writing nothing) when the
+  remote does not hold the branch, when an open pull request already has
+  that head, or when the open lanes number at or above `--wip-limit`: a lane
+  is an open pull request whose head is not a `coordination/` branch and
+  whose author is not Dependabot (neither is a lane under the
+  work-in-progress limit; every other author's counts). The limit is
+  REQUIRED: it is the seat's to state, so it has no default.
+- `resolve` reads the thread first and refuses one that is not on that pull
+  request or is already resolved; `ready` refuses a pull request that is not
+  an open draft; `close` posts the reason as an issue comment, then closes,
+  and refuses before either write when the pull request is not open.
+- Each verb mints the scope it needs and no wider (`token-scopes.ts`):
+  `open` the `pull-request-work` span (its branch read needs `contents`);
+  `comment`, `reply`, `resolve`, `ready` and `close` the
+  `pull-request-conversation` scope, `pull_requests: write` alone.
+- `dispatch-workflow` dispatches `.github/workflows/<file-name>` on the
+  repository's default branch, read from GitHub, under a token minted at the
+  `workflow-dispatch` scope, since a dispatch needs `actions: write` alone
+  and the scopes stay apart. It refuses (exit 3) a name that is not a plain
+  `*.yml` or `*.yaml` basename, and answers a status other than 204 as an
+  operational failure naming it. The cross-fork-integration skill's carrier
+  dispatch is its first consumer.
+- Exit map: 0 done, 1 operational failure (GitHub answered a status other
+  than the one expected, named with GitHub's message; or the mint, a file
+  read or the network failed), 2 usage, 3 typed refusal. `--json` puts
+  exactly the outcome object on stdout.
+- The repository is the bot identity's, from `.github/merge-bot.json` at the
+  clone's primary checkout. Identity resolution and the mint are the ones
+  `merge-bot push` and `merge-bot retire` use.

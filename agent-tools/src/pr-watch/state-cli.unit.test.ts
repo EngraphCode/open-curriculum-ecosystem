@@ -32,7 +32,7 @@ function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
     expectedReviewers: ['copilot-pull-request-reviewer'],
     expectedDeclared: true,
     reviews: [],
-    completionComments: { reviews: [], refused: [] },
+    completionComments: { reviews: [], refused: [], notices: [] },
     declaredUnavailable: NO_DECLARATIONS,
     reviewRuns: { kind: 'read', runs: [] },
     reviewConfiguration: { kind: 'unread', reason: 'the test reading declares none' },
@@ -96,6 +96,33 @@ describe('runPrStateCli', () => {
     );
     expect(exit).toBe(0);
     expect(capture[0]?.expectedReviewers).toEqual(['copilot-pull-request-reviewer', 'claude']);
+  });
+
+  it('passes --expect none through as the DECLARED empty set', () => {
+    const capture: ReadReadingInput[] = [];
+    const { exit } = run(['state', '461', '--expect', 'none'], { capture });
+    expect(exit).toBe(0);
+    expect(capture[0]?.expectedReviewers).toEqual([]);
+  });
+
+  it('leaves the set undeclared when --expect is absent, so the reading defaults it and says so', () => {
+    const capture: ReadReadingInput[] = [];
+    const { exit } = run(['state', '461'], { capture });
+    expect(exit).toBe(0);
+    expect(capture[0]).not.toHaveProperty('expectedReviewers');
+  });
+
+  it('refuses --expect none beside a login as a usage error', () => {
+    const { exit, stderr } = run(['state', '461', '--expect', 'none', '--expect', 'claude']);
+    expect(exit).toBe(2);
+    expect(stderr.text).toContain('--expect none');
+  });
+
+  it('refuses a non-login --expect value with the usage text, like every other usage error', () => {
+    const { exit, stderr } = run(['state', '461', '--expect', '$(whoami)']);
+    expect(exit).toBe(2);
+    expect(stderr.text).toContain('--expect must be a GitHub login or none');
+    expect(stderr.text).toContain('pr state <pr-number|github-pull-url>');
   });
 
   it('rejects an unknown action with usage on stderr and exit 2', () => {

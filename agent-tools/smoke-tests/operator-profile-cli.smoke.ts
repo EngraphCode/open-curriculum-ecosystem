@@ -27,7 +27,7 @@ import { OPERATOR_PROFILE_CONTRACT_REL_PATH } from '../src/validators/operator-p
  * 4. A symlinked `repos/` directory is refused as not regular and never
  *    descended: a conforming document behind it is never named or counted.
  * 5. `--emit` prints a named conforming document from the check's own read
- *    after a conforming check, prints nothing for an absent name, and prints
+ *    after a conforming check, prints one line for an absent name, and prints
  *    nothing at all when the check refused; an argument the grammar does not
  *    name is refused with exit 2.
  */
@@ -165,8 +165,9 @@ try {
     `--emit index.md on a conforming root expected the document, got ${String(emitted.status)}\n${emitted.stdout}${emitted.stderr}`,
   );
   check(
-    !emitted.stdout.includes('=== repos/absent--scope.md ==='),
-    'an absent named document printed a header',
+    !emitted.stdout.includes('=== repos/absent--scope.md ===') &&
+      emitted.stdout.includes('no document at repos/absent--scope.md'),
+    'an absent named document must print its one line and no header',
   );
 } finally {
   rmSync(root, { recursive: true, force: true });
