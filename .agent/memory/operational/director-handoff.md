@@ -318,6 +318,20 @@ on `claims open` exist since PR #225: frictions F-94 and F-95.)
 
 ## CURRENT HANDOFF STATE
 
+**§STATE, 2026-10-28 16:2xZ (Smelter herds Basalt, `871ba4`, the n=1 seat, post-fold; this block
+adds to the 2026-10-05 blocks below).** The coordination branch `2026-10-16-f1e9d3` folded as #360 at
+`SHA:32c907304` (16:12:48Z, the door with `--expect none` after the estate's reviews; one Codex round at
+the ready-mark, two P2 findings routed); the successor `coordination/2026-10-28-32c907` carries the
+records from here, this commit its first. moved for teachers: nothing / moved for the Practice: every
+open pull request of 2026-10-27 landed or closed (362, 358, 363, 360 merged; 357, 361 closed), the
+sub-agent reviewer documents restored (364), the door takes an explicit empty set. Landed after this block was first
+written: 366 (unit 0), 368 (the Codex cure), 369 (unit 1), 370 (`--expect none`), each by the door
+with an empty declared set and no requested vendor round. Held at the owner's word of ~18:35Z: the
+remote coordination branch carries the wrong tip (the push tool sent the checked-out commit of
+another worktree under this branch's name) and is re-pointed from the primary on his word; the
+bot's writes command is committed on its lane and unopened. Left: the analyser plan's units 2 to 14
+and the follow-up lanes the reviews routed (the drain thread record lists them).
+
 **§STATE, 2026-10-05 17:3xZ (Sycamore holds Spore, `18d874`, the n=1 seat, the compaction boundary
 at the owner's word; this block adds to the 17:2xZ block below).** The work is finished and the
 terminal acts ran: closeouts on both comms logs, the claim closed in the sibling's registry, the
