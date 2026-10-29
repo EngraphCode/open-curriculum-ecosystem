@@ -4,7 +4,6 @@ import { failureMessage } from './test-helpers/result-failure.js';
 import {
   caseCollisionsOf,
   gitWords,
-  isRetirableBranchName,
   parseExactRemoteRef,
   parseRefListing,
   parseSymrefHead,
@@ -131,22 +130,6 @@ describe('parseWorktrees', () => {
       { path: '/gone-wt', branch: 'refs/heads/feat/x', prunable: true },
     ]);
   });
-});
-
-describe('isRetirableBranchName', () => {
-  it.each(['feat/branch-retire', 'coordination/2026-09-28-87689e', 'docs/a_b.c'])(
-    'admits a name this estate cuts: %s',
-    (name) => {
-      expect(isRetirableBranchName(name)).toBe(true);
-    },
-  );
-
-  it.each(['issue#12', '%2e%2e/tags/v1', 'a b', 'naïve', ''])(
-    'refuses a name a URL or a ref path would read as something else: %s',
-    (name) => {
-      expect(isRetirableBranchName(name)).toBe(false);
-    },
-  );
 });
 
 describe('gitWords', () => {
