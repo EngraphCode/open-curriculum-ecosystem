@@ -1,6 +1,7 @@
 import type { Result } from '@oaknational/result';
 
 import type { GithubApiFetch } from './mint-installation-token.js';
+import type { BotRepository } from './resolve-identity.js';
 import {
   baseMismatch,
   classifyRemoteReadback,
@@ -10,7 +11,7 @@ import {
   type RetirePlan,
 } from './retire-decision.js';
 import type { RetireGitPort } from './retire-git-port.js';
-import { readRemoteRefByApi, requestRefDelete, type IdentityRepo } from './retire-github-api.js';
+import { readRemoteRefByApi, requestRefDelete } from './retire-github-api.js';
 import type { DefaultBranchReading } from './retire-parse.js';
 import type { NameReport, RetireOutcome } from './retire-report.js';
 
@@ -32,7 +33,7 @@ export interface ExecuteSeams {
   /** Mints the `branch-retire` token; called only when a remote delete is planned. */
   readonly mintToken: () => Promise<Result<string, Error>>;
   readonly fetchImpl: GithubApiFetch;
-  readonly repo: IdentityRepo;
+  readonly repo: BotRepository;
 }
 
 /** The branch and the default it was proven on, as the caller names them. */

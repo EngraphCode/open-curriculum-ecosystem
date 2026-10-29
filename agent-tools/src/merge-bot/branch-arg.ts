@@ -17,6 +17,21 @@ import { isLegalBranchName, realRefFormatOracle, type RefFormatOracle } from './
  */
 export const DEFAULT_BRANCH_NAMES: ReadonlySet<string> = new Set(['main', 'master']);
 
+/**
+ * The branch names `merge-bot retire` and `merge-bot pull-request open` act
+ * on: ASCII letters, digits, dot, underscore, hyphen and slash. A URL-safety
+ * policy on top of git's own ref grammar (which `ref-format.ts` asks git
+ * for), not a replacement for it: git accepts `#` and `%` in a branch name,
+ * and a URL or a server decoding a path would read either as something
+ * else. A name outside the list is handled by hand.
+ */
+const URL_SAFE_BRANCH = /^[A-Za-z0-9._/-]+$/;
+
+/** Whether a branch name may travel in a URL path or query as it is (see `URL_SAFE_BRANCH`). */
+export function isUrlSafeBranchName(name: string): boolean {
+  return URL_SAFE_BRANCH.test(name);
+}
+
 /** The seams the branch check will construct for itself when not supplied one. */
 export interface BranchArgSeams {
   readonly refFormatOracle?: RefFormatOracle;

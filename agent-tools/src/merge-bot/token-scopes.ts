@@ -54,8 +54,9 @@ type TokenPermissionSet = Readonly<Record<string, PermissionLevel>>;
 
 export const TOKEN_SCOPES = {
   /**
-   * Everything the bot does to land and review code: merge, update-branch,
-   * push, PR create/edit, comment, review reply, thread resolution.
+   * Everything the bot does to land code and open or edit a pull request:
+   * merge, update-branch, push, PR create/edit. The writes on a pull
+   * request's conversation are `pull-request-conversation` below.
    *
    * Named for the whole span deliberately — an earlier draft called this
    * `code-landing`, which excludes members it grants.
@@ -71,19 +72,33 @@ export const TOKEN_SCOPES = {
    * distinction is the likely mechanism; the two observations are the
    * evidence, and only they are relied on here.
    *
-   * WIDER THAN MOST OF ITS USES, knowingly. Per GitHub's endpoint→permission
-   * metadata, the conversation half of this span — comments, review replies,
-   * PR create/edit, reviewer requests — needs `pull_requests: write` ALONE;
-   * only merge, push and update-branch need the other two. Splitting it is
-   * MCP-391, gated on establishing what the GraphQL `resolveReviewThread`
-   * mutation requires, which the REST metadata does not cover. Until then
-   * this set is the honest one for the span as named, not the minimal one
-   * for each member of it.
+   * WIDER THAN SOME OF ITS USES, knowingly. Per GitHub's endpoint→permission
+   * metadata, PR create/edit and reviewer requests need `pull_requests: write`
+   * alone; only merge, push and update-branch need the other two. The
+   * conversation writes — comments, review replies, thread resolution, the
+   * ready mark, the close — are `pull-request-conversation` below since
+   * 2026-10-29: the MCP-391 split, made at the review of the writes command
+   * and proved on that command's own pull request. This set stays the honest
+   * one for the span as named.
    */
   'pull-request-work': {
     pull_requests: 'write',
     contents: 'write',
     workflows: 'write',
+  },
+
+  /**
+   * The bot's writes on a pull request's CONVERSATION — an issue comment, a
+   * review reply, a thread resolution, the ready mark, the close — each of
+   * which needs `pull_requests: write` alone: the REST calls by GitHub's
+   * endpoint→permission metadata, the two GraphQL mutations by the same
+   * permission on the pull request they mutate. What `merge-bot pull-request`
+   * mints for those verbs: a comment has no business holding contents and
+   * workflows write for its one call. `open` stays on `pull-request-work`,
+   * since its branch read needs `contents`.
+   */
+  'pull-request-conversation': {
+    pull_requests: 'write',
   },
 
   /**

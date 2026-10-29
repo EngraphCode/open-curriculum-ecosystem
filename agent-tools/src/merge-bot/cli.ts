@@ -1,11 +1,15 @@
 import type { Result } from '@oaknational/result';
+import { typeSafeHasOwn } from '@oaknational/type-helpers';
 
 import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import { MERGE_USAGE } from './merge-usage.js';
 import { runMergeAction, type MergeActionInput } from './merge-cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
-import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
+import { mintForConfig, type MintSeams } from './mint-for-config.js';
+import { MINT_TOKEN_USAGE, runMintTokenAction } from './mint-token-cli.js';
+import { PULL_REQUEST_USAGE } from './pull-request-usage.js';
+import { runPullRequestAction, type PullRequestActionInput } from './pull-request-cli.js';
 import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
 import { RETIRE_USAGE } from './retire-args.js';
@@ -17,8 +21,7 @@ import type { PushGitReads, TokenFileStore } from './push-git.js';
 import type { PushMint } from './push-mint.js';
 import type { RetireGitPort } from './retire-git-port.js';
 import type { GitRunner } from '../collaboration-state/coordination-home.js';
-import { resolveMintTokenConfig } from './resolve-config.js';
-import { permissionLevelsFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
+import type { MergeBotResolveInput } from './resolve-identity.js';
 
 /**
  * CLI for the `merge-bot` topic (AIP-158, MCP-508).
@@ -42,17 +45,17 @@ import { permissionLevelsFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
  * branch's tip: the remote one as the bot by compare-and-swap, under the
  * `branch-retire` scope, minted only when that delete is due.
  *
- * `merge-bot mint-token` prints a short-lived GitHub App installation token
- * to stdout (and nothing else there), for the OTHER bot writes
- * (gh pr create/edit, comments, review replies, thread resolution,
- * update-branch). Assign it, then use it — never the `GH_TOKEN=$(…) gh …`
- * prefix form, which cannot fail fast: a failing mint leaves `GH_TOKEN`
- * empty, `gh` reads empty as UNSET, and the command runs as the signed-in
- * human.
+ * `merge-bot pull-request` makes the bot's writes on a pull request's
+ * conversation — open a draft, comment, reply, resolve a thread, mark
+ * ready, close, dispatch a workflow — each under one token minted at the
+ * scope that verb needs (`pull-request-work` for the open,
+ * `pull-request-conversation` for the conversation verbs, `workflow-dispatch`
+ * for the dispatch), so no seat composes a `GH_TOKEN=$(…) gh …` shell line.
  *
- * ```bash
- * token=$(pnpm --silent agent-tools merge-bot mint-token --scope <scope-name>) || exit 1
- * ```
+ * `merge-bot mint-token` prints a short-lived GitHub App installation token
+ * to stdout (and nothing else there), for the bot writes no typed command
+ * carries yet (update-branch, a reviewer request); `mint-token-cli.ts`
+ * carries the assign-then-use discipline.
  *
  * The bot is absent from the protections ruleset's bypass list — its one
  * bypass is the separate code-owner review gate (owner ruling 2026-07-21,
@@ -79,6 +82,7 @@ export interface MergeBotCliInput {
   readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
   /** Injection seams for tests. */
   readonly fetchImpl?: GithubApiFetch;
+  /** The file reader: the private key for the mint, and the pull-request action's body and reason files. */
   readonly readFileImpl?: (path: string) => Promise<string>;
   readonly nowEpochSeconds?: () => number;
   /** Merge-action seams (same discipline as the block above). */
@@ -92,35 +96,19 @@ export interface MergeBotCliInput {
   readonly tokenFiles?: TokenFileStore;
   /** Push seam: git's answers about HEAD and origin. */
   readonly gitReads?: PushGitReads;
-  /** Push and retire seam: the token mint. Unset, each mints with `mintForConfig` over `fetchImpl`, `readFileImpl` and `nowEpochSeconds`; set, the mint's seams never reach them, though `fetchImpl` still carries the retire's GraphQL calls. `mint-token` and `merge` never read it. */
+  /** Push, retire and pull-request seam: the token mint. Unset, each mints with `mintForConfig` over `fetchImpl`, `readFileImpl` and `nowEpochSeconds`; set, the mint's seams never reach them, though `fetchImpl` still carries the action's own GitHub calls. `mint-token` and `merge` never read it. */
   readonly mintImpl?: PushMint;
   /** Retire-action seam: git as the command asks of it. */
   readonly retireGitPort?: RetireGitPort;
-  /** Push and retire seam: the `--branch` check's oracle. */
+  /** Push, retire and pull-request seam: the `--branch` check's oracle. */
   readonly branchArgSeams?: BranchArgSeams;
 }
 
-const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
-  Prints a short-lived GitHub App installation token (stdout carries ONLY the
-  token unless --json, which bundles the token into the printed object). The
-  clone's .github/merge-bot.json is the single authority for the bot identity:
-  per-checkout and never tracked (create it from .github/merge-bot.json.example),
-  read at the clone's primary checkout so every worktree sees the one copy; the
-  private key lives at ~/.config/<appSlug>/private-key.pem, derived from it.
-  Flags are explicit operator overrides (cross-repo invocation, tests) — not a
-  resolution tier.
-
-  --scope is REQUIRED and has no default: a token carries only the permissions
-  its mint requests, so defaulting would make the most privileged scope the
-  silent one. Scopes and what each permits are defined in token-scopes.ts.
-${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionLevelsFor(name).join(', ')}\n`).join('')}
-  A 403 reading "Resource not accessible by integration" means the wrong
-  --scope, not a broken bot: an ungranted permission fails the mint with a 422.
-  Other 403s (ruleset refusals, rate limits) are not scope problems.
-
+const USAGE = `${MINT_TOKEN_USAGE}
 ${MERGE_USAGE}
 ${PUSH_USAGE}
-${RETIRE_USAGE}`;
+${RETIRE_USAGE}
+${PULL_REQUEST_USAGE}`;
 
 /** The mint's injection seams, the same for every action that mints. */
 function mintSeamsFrom(input: MergeBotCliInput): MintSeams {
@@ -131,15 +119,25 @@ function mintSeamsFrom(input: MergeBotCliInput): MintSeams {
   };
 }
 
+/** The identity's seams, the same for every action. */
+function identityInputFrom(input: MergeBotCliInput): MergeBotResolveInput {
+  return {
+    envHome: input.env.HOME,
+    repoRoot: input.repoRoot,
+    readConfigFileImpl: input.readConfigFileImpl,
+    runGitImpl: input.runGitImpl,
+  };
+}
+
+/** The mint as the push, retire and pull-request actions take it: injected whole, or composed over the seams. */
+function mintFrom(input: MergeBotCliInput): PushMint {
+  return input.mintImpl ?? ((config) => mintForConfig(config, mintSeamsFrom(input)));
+}
+
 /** Forward the CLI's injection seams to the merge action. */
 function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
   return {
-    identityInput: {
-      envHome: input.env.HOME,
-      repoRoot: input.repoRoot,
-      readConfigFileImpl: input.readConfigFileImpl,
-      runGitImpl: input.runGitImpl,
-    },
+    identityInput: identityInputFrom(input),
     stdout: input.stdout,
     stderr: input.stderr,
     ...mintSeamsFrom(input),
@@ -152,13 +150,8 @@ function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
 /** Forward the seams the push and retire actions share (`git-action-input.ts`), composing the mint. */
 function gitActionInputFrom(input: MergeBotCliInput): GitActionInput {
   return {
-    mint: input.mintImpl ?? ((config) => mintForConfig(config, mintSeamsFrom(input))),
-    identityInput: {
-      envHome: input.env.HOME,
-      repoRoot: input.repoRoot,
-      readConfigFileImpl: input.readConfigFileImpl,
-      runGitImpl: input.runGitImpl,
-    },
+    mint: mintFrom(input),
+    identityInput: identityInputFrom(input),
     repoRoot: input.repoRoot ?? process.cwd(),
     stdout: input.stdout,
     stderr: input.stderr,
@@ -189,14 +182,36 @@ function retireActionInputFrom(input: MergeBotCliInput): RetireActionInput {
   };
 }
 
-function writeSuccess(outcome: MintedToken, json: boolean, input: MergeBotCliInput): void {
-  if (json) {
-    input.stdout.write(`${JSON.stringify(outcome)}\n`);
-    return;
-  }
-  input.stdout.write(`${outcome.token}\n`);
-  input.stderr.write(`token expires ${outcome.expiresAt}\n`);
+/** Forward the CLI's injection seams to the pull-request action: identity, the mint, GitHub, the file reader. */
+function pullRequestActionInputFrom(input: MergeBotCliInput): PullRequestActionInput {
+  return {
+    identityInput: identityInputFrom(input),
+    mint: mintFrom(input),
+    fetchImpl: input.fetchImpl,
+    readFileImpl: input.readFileImpl,
+    branchArgSeams: input.branchArgSeams,
+    stdout: input.stdout,
+    stderr: input.stderr,
+  };
 }
+
+/** One action: the argv after its name, and the CLI's seams. */
+type Action = (rest: readonly string[], input: MergeBotCliInput) => Promise<number>;
+
+/** The closed set of actions, each forwarding the seams it takes. */
+const ACTIONS = {
+  'mint-token': (rest, input) =>
+    runMintTokenAction(rest, {
+      identityInput: identityInputFrom(input),
+      mintSeams: mintSeamsFrom(input),
+      stdout: input.stdout,
+      stderr: input.stderr,
+    }),
+  merge: (rest, input) => runMergeAction(rest, mergeActionInputFrom(input)),
+  push: (rest, input) => runPushAction(rest, pushActionInputFrom(input)),
+  retire: (rest, input) => runRetireAction(rest, retireActionInputFrom(input)),
+  'pull-request': (rest, input) => runPullRequestAction(rest, pullRequestActionInputFrom(input)),
+} as const satisfies Readonly<Record<string, Action>>;
 
 export async function runMergeBotCli(input: MergeBotCliInput): Promise<number> {
   const [action, ...rest] = input.args;
@@ -208,42 +223,9 @@ export async function runMergeBotCli(input: MergeBotCliInput): Promise<number> {
     input.stderr.write(USAGE);
     return 2;
   }
-  if (action === 'merge') {
-    return runMergeAction(rest, mergeActionInputFrom(input));
-  }
-  if (action === 'push') {
-    return runPushAction(rest, pushActionInputFrom(input));
-  }
-  if (action === 'retire') {
-    return runRetireAction(rest, retireActionInputFrom(input));
-  }
-  if (action !== 'mint-token') {
+  if (!typeSafeHasOwn(ACTIONS, action)) {
     input.stderr.write(`merge-bot: unknown action "${action}"\n${USAGE}`);
     return 2;
   }
-  return runMintTokenAction(rest, input);
-}
-
-async function runMintTokenAction(
-  rest: readonly string[],
-  input: MergeBotCliInput,
-): Promise<number> {
-  const config = resolveMintTokenConfig(rest, {
-    envHome: input.env.HOME,
-    repoRoot: input.repoRoot,
-    readConfigFileImpl: input.readConfigFileImpl,
-    runGitImpl: input.runGitImpl,
-  });
-  if (!config.ok) {
-    input.stderr.write(`merge-bot mint-token: ${config.error.message}\n`);
-    return 2;
-  }
-
-  const outcome = await mintForConfig(config.value, mintSeamsFrom(input));
-  if (!outcome.ok) {
-    input.stderr.write(`merge-bot mint-token: ${outcome.error.message}\n`);
-    return 1;
-  }
-  writeSuccess(outcome.value, config.value.json, input);
-  return 0;
+  return ACTIONS[action](rest, input);
 }
