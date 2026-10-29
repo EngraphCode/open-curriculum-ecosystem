@@ -101,7 +101,7 @@ async function prepare(parsed: PushArgs, input: PushActionInput): Promise<Prepar
     return { kind: 'refused', reason: target.value.reason };
   }
   const { branch } = target.value;
-  const commit = await settleCommitFor(branch, parsed.branch === undefined, reads);
+  const commit = await settleCommitFor(branch, reads);
   return commit.ok
     ? {
         kind: 'ready',
