@@ -16,6 +16,10 @@ import type { BotIdentity } from './resolve-identity.js';
  * shares. Names compare without case, since a branch differing only in case
  * from the default one breaks every fetch on a case-insensitive disk.
  *
+ * A named branch must be the one HEAD is on: the push writes HEAD's commit
+ * under the name given, and on 2026-10-28 a name that was not HEAD's branch
+ * sent a lane's commits under the coordination branch's name. A typed refusal.
+ *
  * The origin read is trusted only when origin names the repository the push
  * goes to, over https or ssh, since the push itself goes to the configured
  * repository's URL, never to `origin`. It is a snapshot: a fetch does not move an existing
@@ -36,8 +40,7 @@ const SET_HEAD_CURE = 'run `git remote set-head origin --auto`';
 const NO_SUCH_REMOTE_STATUS = 2;
 
 /** The refusal for a HEAD on no branch. */
-const DETACHED_HEAD =
-  'HEAD is detached — there is no branch to push; check a branch out, or name the target with --branch';
+const DETACHED_HEAD = 'HEAD is detached — there is no branch to push; check a branch out';
 
 /** The branch to push, or the typed refusal. */
 export type TargetBranch =
@@ -66,6 +69,15 @@ function refuseBranchName(branch: string): string | undefined {
     return `"${printable(branch)}" reads as a full ref — name the branch alone; the push always writes refs/heads/<branch>`;
   }
   return DEFAULT_BRANCH_NAMES.has(branch.toLowerCase()) ? defaultBranchRefusal(branch) : undefined;
+}
+
+/** The refusal for a named branch that is not the one HEAD is on; undefined when none was named or it is. */
+function notCheckedOut(named: string | undefined, current: string | undefined): string | undefined {
+  if (named === undefined || named === current) {
+    return undefined;
+  }
+  const onHead = current === undefined ? 'HEAD is detached' : `HEAD is on "${printable(current)}"`;
+  return `--branch "${printable(named)}" is not the branch HEAD is on (${onHead}); the push writes HEAD's commit under the name given, so check "${printable(named)}" out, or run the push from its worktree`;
 }
 
 /** The branch HEAD is on, or undefined for a detached HEAD. */
@@ -158,22 +170,21 @@ export function settleCommit(read: GitCommandResult): Result<string, Error> {
  * Settle the commit for a settled branch, as one snapshot of HEAD. The branch
  * is read first and the commit last, with origin's reads between; a checkout
  * that changed branch in that interval would pair the first branch with the
- * second branch's commit. So when the branch came from HEAD it is read again
- * after the commit, and a different answer fails the push before the mint. A
- * named branch takes HEAD's commit wherever HEAD is, and is not asked.
+ * second branch's commit. So the branch is read again after the commit, and
+ * a different answer fails the push before the mint. A named branch is
+ * HEAD's branch too, settled so by {@link settleTargetBranch}, and is asked
+ * the same.
  *
  * @param branch - The settled target branch.
- * @param fromHead - Whether the branch was read from HEAD, never named.
  * @param reads - git's answers naming HEAD's commit and its branch.
  * @returns The commit's full object name, or the failure naming the cure.
  */
 export async function settleCommitFor(
   branch: string,
-  fromHead: boolean,
   reads: Pick<PushGitReads, 'headCommit' | 'currentBranch'>,
 ): Promise<Result<string, Error>> {
   const commit = settleCommit(await reads.headCommit());
-  if (!commit.ok || !fromHead) {
+  if (!commit.ok) {
     return commit;
   }
   const now = currentBranchFrom(await reads.currentBranch());
@@ -191,7 +202,8 @@ export async function settleCommitFor(
 
 /**
  * Settle the branch a push writes: the one named, or the one HEAD is on;
- * refused by name first, then against the default branch origin names.
+ * refused by name first, then when the named one is not HEAD's, then
+ * against the default branch origin names.
  *
  * @param named - The branch given with `--branch`, or undefined for HEAD's branch.
  * @param reads - git's answers about HEAD's branch and origin.
@@ -202,18 +214,26 @@ export async function settleTargetBranch(
   reads: Pick<PushGitReads, 'currentBranch' | 'originUrls' | 'originHead'>,
   repository: Repository,
 ): Promise<Result<TargetBranch, Error>> {
-  const current = named === undefined ? currentBranchFrom(await reads.currentBranch()) : ok(named);
+  const current = currentBranchFrom(await reads.currentBranch());
   if (!current.ok) {
     return current;
   }
-  const branch = current.value;
+  const branch = named ?? current.value;
   if (branch === undefined) {
     return ok(refused(DETACHED_HEAD));
   }
-  const byName = refuseBranchName(branch);
-  if (byName !== undefined) {
-    return ok(refused(byName));
-  }
+  const refusal = refuseBranchName(branch) ?? notCheckedOut(named, current.value);
+  return refusal === undefined
+    ? againstDefaultBranch(branch, reads, repository)
+    : ok(refused(refusal));
+}
+
+/** The target once its name is admitted: refused when it is the default branch origin names. */
+async function againstDefaultBranch(
+  branch: string,
+  reads: Pick<PushGitReads, 'originUrls' | 'originHead'>,
+  repository: Repository,
+): Promise<Result<TargetBranch, Error>> {
   const trusted = trustOrigin(await reads.originUrls(), repository);
   if (!trusted.ok) {
     return trusted;
