@@ -85,7 +85,7 @@ function required(collected: Collected, flag: string): Result<string, Error> {
   return value === undefined ? err(usageError(`${flag} is required`)) : ok(value);
 }
 
-const POSITIVE_INTEGER = /^[1-9][0-9]*$/;
+const POSITIVE_INTEGER = /^[1-9]\d*$/;
 
 /** A positive integer flag: a pull request number, a comment id, a limit. */
 export function positiveInteger(collected: Collected, flag: string): Result<number, Error> {

@@ -16,7 +16,7 @@ import { EXPIRES_AT, mintAnswering } from './push-cli-double.js';
 export const TOKEN = 'sekrit-pull-request-token';
 export const API = 'https://api.github.com/repos/acme/widgets';
 export const GRAPHQL = 'https://api.github.com/graphql';
-export const BODY_FILE = '/tmp/body.md';
+export const BODY_FILE = '/srv/repo/.agent/state/body.md';
 export const BODY = 'The body, verbatim.\n';
 
 /** A mint that answers `TOKEN`: what a run that reaches GitHub is given, unless a case gives another. */

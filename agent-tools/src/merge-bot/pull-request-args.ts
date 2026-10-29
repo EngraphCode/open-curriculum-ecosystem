@@ -143,11 +143,8 @@ export function parsePullRequestArgs(
 ): Result<PullRequestRequest, Error> {
   const [verb, ...flags] = rest;
   if (verb === undefined || !isVerb(verb)) {
-    return err(
-      usageError(
-        `${verb === undefined ? 'a verb is required' : `unknown verb "${printable(verb)}"`}; the verbs are ${PULL_REQUEST_VERBS.join(', ')}`,
-      ),
-    );
+    const problem = verb === undefined ? 'a verb is required' : `unknown verb "${printable(verb)}"`;
+    return err(usageError(`${problem}; the verbs are ${PULL_REQUEST_VERBS.join(', ')}`));
   }
   const collected = collectFlags(verb, flags);
   return collected.ok ? REQUESTS[verb](collected.value, seams) : collected;

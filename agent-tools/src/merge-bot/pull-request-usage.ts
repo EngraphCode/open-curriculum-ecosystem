@@ -53,5 +53,5 @@ export const PULL_REQUEST_USAGE = `merge-bot pull-request <verb> [flags] [--json
   mint, a file read or the network failed), 2 usage, 3 typed refusal.
 
   Example:
-    pnpm agent-tools merge-bot pull-request comment --pr 42 --body-file /tmp/reply.md
+    pnpm agent-tools merge-bot pull-request comment --pr 42 --body-file ./reply.md
 `;
