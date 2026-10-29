@@ -20,7 +20,12 @@ const threadReadSchema = z.object({
       .object({
         __typename: z.string(),
         isResolved: z.boolean().optional(),
-        pullRequest: z.object({ number: z.number().int().positive() }).optional(),
+        pullRequest: z
+          .object({
+            number: z.number().int().positive(),
+            repository: z.object({ nameWithOwner: z.string().min(1) }),
+          })
+          .optional(),
       })
       .nullable(),
   }),
@@ -42,7 +47,13 @@ const readyMarkedSchema = z.object({
 });
 
 const THREAD_READ = `query($id: ID!) {
-  node(id: $id) { __typename ... on PullRequestReviewThread { isResolved pullRequest { number } } }
+  node(id: $id) {
+    __typename
+    ... on PullRequestReviewThread {
+      isResolved
+      pullRequest { number repository { nameWithOwner } }
+    }
+  }
 }`;
 
 const RESOLVE_THREAD = `mutation($id: ID!) {
@@ -53,14 +64,34 @@ const MARK_READY = `mutation($id: ID!) {
   markPullRequestReadyForReview(input: { pullRequestId: $id }) { pullRequest { isDraft } }
 }`;
 
-/** What the thread read rules out: not a thread, on another pull request, or already resolved. */
-function threadRefusal(node: ThreadNode, pr: number, thread: string): string | undefined {
+/** A pull request as the thread read names it, for the refusal: `owner/name#number`. */
+function pullRequestName(repository: string, number: number): string {
+  return `${repository}#${String(number)}`;
+}
+
+/**
+ * What the thread read rules out: not a thread, on another pull request
+ * (another repository's pull request of the same number included: a node id
+ * is global, the number is not), or already resolved.
+ */
+function threadRefusal(
+  node: ThreadNode,
+  repo: BotRepository,
+  pr: number,
+  thread: string,
+): string | undefined {
   if (node === null || node.__typename !== 'PullRequestReviewThread') {
     return `"${thread}" does not name a review thread`;
   }
-  const on = node.pullRequest?.number;
-  if (on !== pr) {
-    return `thread "${thread}" is on pull request #${on === undefined ? '?' : String(on)}, not #${String(pr)}`;
+  const expected = `${repo.owner}/${repo.repoName}`;
+  const on = node.pullRequest;
+  const elsewhere =
+    on === undefined ||
+    on.number !== pr ||
+    on.repository.nameWithOwner.toLowerCase() !== expected.toLowerCase();
+  if (elsewhere) {
+    const where = on === undefined ? '?' : pullRequestName(on.repository.nameWithOwner, on.number);
+    return `thread "${thread}" is on pull request ${where}, not ${pullRequestName(expected, pr)}`;
   }
   return node.isResolved === true ? `thread "${thread}" is already resolved` : undefined;
 }
@@ -69,6 +100,7 @@ function threadRefusal(node: ThreadNode, pr: number, thread: string): string | u
 export async function resolveReviewThread(
   fetchImpl: GithubApiFetch,
   token: string,
+  repo: BotRepository,
   pr: number,
   thread: string,
 ): Promise<Result<Outcome<'resolved'>, Error>> {
@@ -82,7 +114,7 @@ export async function resolveReviewThread(
   if (!read.ok) {
     return read;
   }
-  const refusal = threadRefusal(read.value.data.node, pr, thread);
+  const refusal = threadRefusal(read.value.data.node, repo, pr, thread);
   if (refusal !== undefined) {
     return ok(refused(refusal));
   }

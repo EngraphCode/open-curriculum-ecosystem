@@ -3,8 +3,9 @@ import { describe, expect, it } from 'vitest';
 import { dispatchWorkflow, workflowFile, type WorkflowFile } from './pull-request-dispatch.js';
 import {
   connectionRefused,
-  requestLines,
+  requestTo,
   scriptedGithub,
+  writes,
   type GithubScript,
 } from './test-helpers/github-fetch-double.js';
 import { failureMessage } from './test-helpers/result-failure.js';
@@ -87,8 +88,9 @@ describe('dispatchWorkflow', () => {
       ok: true,
       value: { kind: 'dispatched', workflow: 'upstream-carrier.yml', ref: 'trunk' },
     });
-    expect(requestLines(github.requests)).toEqual([`GET ${API}`, `POST ${DISPATCHES}`]);
-    expect(github.requests[1]?.body).toEqual({ ref: 'trunk' });
+    const post = requestTo(github.requests, 'POST', DISPATCHES);
+    expect(writes(github.requests)).toEqual([post]);
+    expect(post?.body).toEqual({ ref: 'trunk' });
     expect(github.requests.every((request) => request.authorization === `Bearer ${TOKEN}`)).toBe(
       true,
     );
@@ -118,7 +120,7 @@ describe('dispatchWorkflow', () => {
     const result = await dispatchWorkflow(github.fetchImpl, TOKEN, REPO, carrier());
 
     expect(failureMessage(result)).toContain('500');
-    expect(requestLines(github.requests)).toEqual([`GET ${API}`]);
+    expect(writes(github.requests)).toEqual([]);
   });
 
   it('fails as a value, never a throw, when the connection drops', async () => {

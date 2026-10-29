@@ -54,7 +54,21 @@ export function scriptedGithub(script: GithubScript): {
 export const connectionRefused: GithubApiFetch = () =>
   Promise.reject(new Error('connection reset'));
 
-/** The recorded request's method and URL, for assertions on the order of calls. */
+/** The recorded requests' method and URL lines, for assertions on which calls were made. */
 export function requestLines(requests: readonly RecordedRequest[]): string[] {
   return requests.map((request) => `${request.method} ${request.url}`);
+}
+
+/** The recorded requests that write (anything but a GET), for assertions that nothing was written. */
+export function writes(requests: readonly RecordedRequest[]): RecordedRequest[] {
+  return requests.filter((request) => request.method !== 'GET');
+}
+
+/** The one recorded request with that method and URL, for assertions on what a call carried. */
+export function requestTo(
+  requests: readonly RecordedRequest[],
+  method: string,
+  url: string,
+): RecordedRequest | undefined {
+  return requests.find((request) => request.method === method && request.url === url);
 }

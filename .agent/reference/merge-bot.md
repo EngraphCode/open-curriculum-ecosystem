@@ -114,7 +114,8 @@ are defined in `agent-tools/src/merge-bot/token-scopes.ts`:
 
 | scope                  | permissions                                                   | for                                                                           |
 | ---------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | update-branch, push, PR create/edit, comment, review reply, thread resolution |
+| `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | update-branch, push, PR create/edit (what `merge-bot pull-request open` mints) |
+| `pull-request-conversation` | `pull_requests: write` | comment, review reply, thread resolution, the ready mark, the close (what `merge-bot pull-request` mints for those verbs) |
 | `pull-request-merge`   | `pull_requests: write`, `contents: write`                     | the merge act alone (what `merge-bot merge` mints itself)                     |
 | `code-scanning-alerts` | `security_events: read`                                       | reading code-scanning alerts                                                  |
 | `workflow-dispatch`    | `actions: write`                                              | dispatching a workflow; re-running a failed job                               |
@@ -159,12 +160,13 @@ permissions investigation.
   lane routes the mechanical key-turn to the Director as proxy — judgment
   stays with the lane seat.
 
-`pull-request-work` is wider than several of its listed uses need: the
-conversation half (comments, review replies, PR edits) requires
-`pull_requests: write` alone, while only merge, push and update-branch need
-`contents`/`workflows`. Splitting it is MCP-391, gated on establishing what
-the GraphQL thread-resolution mutation requires. Read the set as honest for
-the span as named, not as minimal for each member.
+`pull-request-work` is wider than PR create/edit needs: only merge, push and
+update-branch need `contents`/`workflows`. The conversation writes (comments,
+review replies, thread resolution, the ready mark, the close) are
+`pull-request-conversation`, `pull_requests: write` alone, since 2026-10-29:
+the MCP-391 split, made at the review of `merge-bot pull-request` and proved
+on that command's own pull request, the GraphQL mutations included. Read
+`pull-request-work` as honest for the span as named.
 
 **A `403` reading `Resource not accessible by integration` is a
 wrong-`--scope` symptom, not a broken bot** (observed 2026-07-29 from a
@@ -522,18 +524,23 @@ pnpm agent-tools merge-bot pull-request dispatch-workflow --workflow <file-name>
 - `open` writes a DRAFT from the branch into the repository's default
   branch, read from GitHub. It refuses (exit 3, writing nothing) when the
   remote does not hold the branch, when an open pull request already has
-  that head, or when the open pull requests whose head is not a
-  `coordination/` branch number at or above `--wip-limit`. The limit is
+  that head, or when the open lanes number at or above `--wip-limit`: a lane
+  is an open pull request whose head is not a `coordination/` branch and
+  whose author is not Dependabot (neither is a lane under the
+  work-in-progress limit; every other author's counts). The limit is
   REQUIRED: it is the seat's to state, so it has no default.
 - `resolve` reads the thread first and refuses one that is not on that pull
   request or is already resolved; `ready` refuses a pull request that is not
   an open draft; `close` posts the reason as an issue comment, then closes,
   and refuses before either write when the pull request is not open.
+- Each verb mints the scope it needs and no wider (`token-scopes.ts`):
+  `open` the `pull-request-work` span (its branch read needs `contents`);
+  `comment`, `reply`, `resolve`, `ready` and `close` the
+  `pull-request-conversation` scope, `pull_requests: write` alone.
 - `dispatch-workflow` dispatches `.github/workflows/<file-name>` on the
   repository's default branch, read from GitHub, under a token minted at the
-  `workflow-dispatch` scope — the one verb not minted at `pull-request-work`,
-  since a dispatch needs `actions: write` alone and the two scopes stay
-  apart (`token-scopes.ts`). It refuses (exit 3) a name that is not a plain
+  `workflow-dispatch` scope, since a dispatch needs `actions: write` alone
+  and the scopes stay apart. It refuses (exit 3) a name that is not a plain
   `*.yml` or `*.yaml` basename, and answers a status other than 204 as an
   operational failure naming it. The cross-fork-integration skill's carrier
   dispatch is its first consumer.

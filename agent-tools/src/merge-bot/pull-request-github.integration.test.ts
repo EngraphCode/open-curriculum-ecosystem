@@ -8,7 +8,9 @@ import {
 import {
   connectionRefused,
   requestLines,
+  requestTo,
   scriptedGithub,
+  writes,
   type GithubScript,
 } from './test-helpers/github-fetch-double.js';
 import { refusalReason } from './test-helpers/refusal-reason.js';
@@ -16,8 +18,9 @@ import { failureMessage } from './test-helpers/result-failure.js';
 
 /**
  * The REST writes on an existing pull request, against a scripted GitHub:
- * comment, reply and close, the refusal the close raises before writing, and
- * the failure a status other than the expected one raises. No network, no IO.
+ * comment, reply and close, what each write carries, the refusal the close
+ * raises with nothing written, and the failure a status other than the
+ * expected one raises. No network, no IO.
  */
 
 const REPO = { owner: 'acme', repoName: 'widgets' };
@@ -55,8 +58,9 @@ describe('commentOnPullRequest', () => {
         url: `${API}/pull/42#issuecomment-9001`,
       },
     });
-    expect(github.requests.at(-1)?.body).toEqual({ body: 'Hello "there"\n' });
-    expect(github.requests.at(-1)?.authorization).toBe(`Bearer ${TOKEN}`);
+    const comment = requestTo(github.requests, 'POST', `${API}/issues/42/comments`);
+    expect(comment?.body).toEqual({ body: 'Hello "there"\n' });
+    expect(comment?.authorization).toBe(`Bearer ${TOKEN}`);
   });
 
   it('refuses a number that is not a pull request, writing nothing: the issues endpoint would take an issue', async () => {
@@ -106,7 +110,8 @@ describe('replyToReviewComment', () => {
       ok: true,
       value: { kind: 'replied', pr: 42, commentId: 778, url: `${API}/pull/42#discussion_r778` },
     });
-    expect(github.requests[0]?.body).toEqual({ body: 'Fixed.' });
+    const reply = requestTo(github.requests, 'POST', `${API}/pulls/42/comments/777/replies`);
+    expect(reply?.body).toEqual({ body: 'Fixed.' });
   });
 
   it('fails naming the status and message when the comment is not on that pull request', async () => {
@@ -154,13 +159,17 @@ describe('closePullRequest', () => {
     );
 
     expect(result).toEqual({ ok: true, value: { kind: 'closed', pr: 42, commentId: 9003 } });
-    expect(requestLines(github.requests)).toEqual([
-      `GET ${API}/pulls/42`,
-      `POST ${API}/issues/42/comments`,
-      `PATCH ${API}/pulls/42`,
-    ]);
-    expect(github.requests[1]?.body).toEqual({ body: 'Superseded by #43.\n' });
-    expect(github.requests[2]?.body).toEqual({ state: 'closed' });
+    const reason = `POST ${API}/issues/42/comments`;
+    const close = `PATCH ${API}/pulls/42`;
+    expect(requestTo(github.requests, 'POST', `${API}/issues/42/comments`)?.body).toEqual({
+      body: 'Superseded by #43.\n',
+    });
+    expect(requestTo(github.requests, 'PATCH', `${API}/pulls/42`)?.body).toEqual({
+      state: 'closed',
+    });
+    // The one ordering that is the contract: the reason is on the record before the close.
+    const lines = requestLines(github.requests);
+    expect(lines.indexOf(reason)).toBeLessThan(lines.indexOf(close));
   });
 
   it('refuses before either write when the pull request is not open', async () => {
@@ -169,7 +178,7 @@ describe('closePullRequest', () => {
     const result = await closePullRequest(github.fetchImpl, TOKEN, REPO, 42, 'x');
 
     expect(refusalReason(result)).toContain('not open');
-    expect(github.requests).toHaveLength(1);
+    expect(writes(github.requests)).toEqual([]);
   });
 
   it('fails naming the posted comment when the close PATCH is refused after the reason landed', async () => {
@@ -191,7 +200,7 @@ describe('closePullRequest', () => {
     const result = await closePullRequest(github.fetchImpl, TOKEN, REPO, 42, 'x');
 
     expect(failureMessage(result)).toContain('404');
-    expect(github.requests).toHaveLength(1);
+    expect(writes(github.requests)).toEqual([]);
   });
 
   it('fails as a value, never a throw, when the connection drops', async () => {

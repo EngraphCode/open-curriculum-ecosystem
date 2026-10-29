@@ -153,7 +153,7 @@ export const CONVERSATION_SCRIPT: GithubScript = (request) => {
         node: {
           __typename: 'PullRequestReviewThread',
           isResolved: false,
-          pullRequest: { number: 42 },
+          pullRequest: { number: 42, repository: { nameWithOwner: 'acme/widgets' } },
         },
       },
     },

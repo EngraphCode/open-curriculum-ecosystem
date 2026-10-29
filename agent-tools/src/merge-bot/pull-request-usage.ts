@@ -20,8 +20,9 @@ export const PULL_REQUEST_USAGE = `merge-bot pull-request <verb> [flags] [--json
     Opens a DRAFT pull request from <branch> into the repository's default
     branch. Refuses (exit 3) when the remote does not hold the branch, when
     an open pull request already has that head, or when the count of open
-    pull requests whose head is not a coordination/ branch is at or above
-    --wip-limit. All four flags are REQUIRED: the limit is the seat's to
+    pull requests whose head is not a coordination/ branch and whose author
+    is not Dependabot is at or above --wip-limit (neither is a lane). All
+    four flags are REQUIRED: the limit is the seat's to
     state, so it has no default. --branch is a git branch name in ASCII
     letters, digits and . _ / -. Prints the new number and URL.
   comment --pr <n> --body-file <path>
@@ -41,7 +42,8 @@ export const PULL_REQUEST_USAGE = `merge-bot pull-request <verb> [flags] [--json
   dispatch-workflow --workflow <file-name>
     Dispatches the workflow at .github/workflows/<file-name> on the
     repository's default branch, under a token minted at the
-    workflow-dispatch scope (the other verbs mint pull-request-work).
+    workflow-dispatch scope (open mints pull-request-work; comment, reply,
+    resolve, ready and close mint pull-request-conversation).
     Refuses (exit 3) a name that is not a plain *.yml or *.yaml basename.
 
   --pr is a positive integer in every verb that takes it.

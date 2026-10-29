@@ -4,18 +4,19 @@ import { openPullRequest, type OpenInput } from './pull-request-open.js';
 import {
   connectionRefused,
   requestLines,
+  requestTo,
   scriptedGithub,
+  writes,
   type GithubScript,
-  type RecordedRequest,
 } from './test-helpers/github-fetch-double.js';
 import { refusalReason } from './test-helpers/refusal-reason.js';
 import { failureMessage } from './test-helpers/result-failure.js';
 
 /**
  * The `open` verb against a scripted GitHub: the reads that precede the
- * write, in order, each refusal they can raise, the draft POST and what it
- * carries, and the failures a status other than the expected one raises.
- * No network, no IO.
+ * write, each refusal they can raise and that nothing is written after one,
+ * the draft POST and what it carries, and the failures a status other than
+ * the expected one raises. No network, no IO.
  */
 
 const REPO = { owner: 'acme', repoName: 'widgets' };
@@ -28,12 +29,14 @@ const INPUT: OpenInput = {
   wipLimit: 3,
 };
 
-/** An open pull request in a listing, with its head ref. */
-function openPr(number: number, ref: string): unknown {
-  return { number, head: { ref } };
+/** An open pull request in a listing: its head ref and its author, null for an account that is gone. */
+function openPr(number: number, ref: string, login: string | null = 'octocat'): unknown {
+  return { number, head: { ref }, user: login === null ? null : { login } };
 }
 
-/** GitHub as it reads when the open can proceed: two open lane pull requests and one coordination one. */
+const DEPENDABOT = openPr(10, 'dependabot/npm_and_yarn/zod-4.2.0', 'dependabot[bot]');
+
+/** GitHub as it reads when the open can proceed: two lanes (one by an account that is gone), a coordination one, Dependabot's. */
 function happyScript(overrides: Partial<Record<string, GithubScript>> = {}): GithubScript {
   return (request) => {
     const line = `${request.method} ${request.url}`;
@@ -56,7 +59,8 @@ function happyScript(overrides: Partial<Record<string, GithubScript>> = {}): Git
         body: [
           openPr(7, 'feat/a'),
           openPr(8, 'coordination/2026-10-27-abc123'),
-          openPr(9, 'fix/b'),
+          openPr(9, 'fix/b', null),
+          DEPENDABOT,
         ],
       };
     }
@@ -80,14 +84,16 @@ describe('openPullRequest', () => {
       ok: true,
       value: { kind: 'opened', number: 42, url: 'https://github.com/acme/widgets/pull/42' },
     });
-    expect(requestLines(github.requests)).toEqual([
-      `GET ${API}`,
-      `GET ${API}/branches/feat/x`,
-      `GET ${API}/pulls?state=open&head=acme:feat/x&per_page=1`,
-      `GET ${API}/pulls?state=open&per_page=100&page=1`,
-      `POST ${API}/pulls`,
-    ]);
-    const post = github.requests.at(-1);
+    expect(requestLines(github.requests)).toEqual(
+      expect.arrayContaining([
+        `GET ${API}`,
+        `GET ${API}/branches/feat/x`,
+        `GET ${API}/pulls?state=open&head=acme:feat/x&per_page=1`,
+        `GET ${API}/pulls?state=open&per_page=100&page=1`,
+      ]),
+    );
+    const post = requestTo(github.requests, 'POST', `${API}/pulls`);
+    expect(writes(github.requests)).toEqual([post]);
     expect(post?.body).toEqual({
       title: 'feat: x',
       head: 'feat/x',
@@ -113,7 +119,7 @@ describe('openPullRequest', () => {
     const result = await openPullRequest(github.fetchImpl, TOKEN, REPO, INPUT);
 
     expect(refusalReason(result)).toContain('feat/x');
-    expect(requestLines(github.requests)).not.toContain(`POST ${API}/pulls`);
+    expect(writes(github.requests)).toEqual([]);
   });
 
   it('refuses, naming the existing pull request, when an open one already has that head', async () => {
@@ -129,16 +135,32 @@ describe('openPullRequest', () => {
     const result = await openPullRequest(github.fetchImpl, TOKEN, REPO, INPUT);
 
     expect(refusalReason(result)).toContain('#31');
-    expect(requestLines(github.requests)).not.toContain(`POST ${API}/pulls`);
+    expect(writes(github.requests)).toEqual([]);
   });
 
-  it('refuses at the limit, counting open pull requests whose head is not a coordination branch', async () => {
+  it('refuses at the limit, counting the lanes: not the coordination branch, not Dependabot, every other author', async () => {
     const github = scriptedGithub(happyScript());
 
     const result = await openPullRequest(github.fetchImpl, TOKEN, REPO, { ...INPUT, wipLimit: 2 });
 
     expect(refusalReason(result)).toContain('2 lane pull requests');
-    expect(requestLines(github.requests)).not.toContain(`POST ${API}/pulls`);
+    expect(writes(github.requests)).toEqual([]);
+  });
+
+  it("counts a third lane by any other author, where Dependabot's did not count", async () => {
+    const github = scriptedGithub(
+      happyScript({
+        [`GET ${API}/pulls?state=open&per_page=100&page=1`]: () => ({
+          status: 200,
+          body: [openPr(7, 'feat/a'), openPr(9, 'fix/b'), DEPENDABOT, openPr(11, 'chore/c', 'ada')],
+        }),
+      }),
+    );
+
+    const result = await openPullRequest(github.fetchImpl, TOKEN, REPO, { ...INPUT, wipLimit: 3 });
+
+    expect(refusalReason(result)).toContain('3 lane pull requests');
+    expect(writes(github.requests)).toEqual([]);
   });
 
   it('follows the listing to the next page when a page holds 100, so a count past 100 is exact', async () => {
@@ -223,7 +245,7 @@ describe('openPullRequest', () => {
 
     await openPullRequest(github.fetchImpl, TOKEN, REPO, { ...INPUT, body, title: 'a "b" c' });
 
-    const post: RecordedRequest | undefined = github.requests.at(-1);
+    const post = requestTo(github.requests, 'POST', `${API}/pulls`);
     expect(post?.body).toMatchObject({ title: 'a "b" c', body });
   });
 });

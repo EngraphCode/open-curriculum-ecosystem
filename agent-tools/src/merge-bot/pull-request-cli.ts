@@ -134,7 +134,7 @@ function bareWrite(
   repo: BotRepository,
 ): Write {
   return request.verb === 'resolve'
-    ? (token, fetchImpl) => resolveReviewThread(fetchImpl, token, request.pr, request.thread)
+    ? (token, fetchImpl) => resolveReviewThread(fetchImpl, token, repo, request.pr, request.thread)
     : (token, fetchImpl) => markReadyForReview(fetchImpl, token, repo, request.pr);
 }
 
@@ -191,12 +191,12 @@ async function prepare(
   return bodiedPrepared(request, identity.value, input);
 }
 
-/**
- * The scope the verb's token is minted at, and no wider: the dispatch needs
- * `actions: write` alone, and the conversation verbs the pull-request span.
- */
+/** The scope the verb's token is minted at, and no wider; `token-scopes.ts` carries each row's warrant. */
 function scopeFor(verb: PullRequestRequest['verb']): TokenScopeName {
-  return verb === 'dispatch-workflow' ? 'workflow-dispatch' : 'pull-request-work';
+  if (verb === 'dispatch-workflow') {
+    return 'workflow-dispatch';
+  }
+  return verb === 'open' ? 'pull-request-work' : 'pull-request-conversation';
 }
 
 /** Mint the one token at the verb's scope, make the write, report. */

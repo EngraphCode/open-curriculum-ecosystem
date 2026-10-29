@@ -13,8 +13,9 @@ import type { BotRepository } from './resolve-identity.js';
  * hold. The default branch is read, never assumed. The remote must hold the
  * branch; no open pull request may already have it as head; and the open
  * lane count must sit under the limit the seat states, where a coordination
- * branch's pull request is not a lane and is not counted. Each read that
- * fails its condition is a typed refusal, and nothing is written after one.
+ * branch's pull request and Dependabot's are not lanes and are not counted.
+ * Each read that fails its condition is a typed refusal, and nothing is
+ * written after one.
  */
 
 /** What the seat asks to open. */
@@ -33,11 +34,26 @@ export type OpenOutcome = Extract<PullRequestOutcome, { kind: 'opened' | 'refuse
 /** Head refs with this prefix are coordination branches, not lanes, and are not counted. */
 const COORDINATION_PREFIX = 'coordination/';
 
+/** Dependabot's pull requests are not lanes either (the owner's word, 2026-10-17) and are not counted. */
+const DEPENDABOT_LOGIN = 'dependabot[bot]';
+
 /** GitHub lists at most this many per page; a full page means another may follow. */
 const PAGE_SIZE = 100;
 
 const headListSchema = z.array(z.object({ number: z.number().int().positive() }));
-const openListSchema = z.array(z.object({ head: z.object({ ref: z.string() }) }));
+const openListSchema = z.array(
+  z.object({
+    head: z.object({ ref: z.string() }),
+    /** GitHub answers null for an author whose account is gone. */
+    user: z.object({ login: z.string() }).nullable(),
+  }),
+);
+
+/** One open pull request as the lane count reads it: its head ref and its author's login. */
+interface OpenEntry {
+  readonly ref: string;
+  readonly author: string | undefined;
+}
 const openedSchema = z.object({
   number: z.number().int().positive(),
   html_url: z.string().min(1),
@@ -96,13 +112,13 @@ async function openPullRequestWithHead(
   return listed.ok ? ok(listed.value[0]?.number) : listed;
 }
 
-/** Every open pull request's head ref, following the listing while a page is full. */
-async function openHeadRefs(
+/** Every open pull request's head ref and author, following the listing while a page is full. */
+async function openEntries(
   fetchImpl: GithubApiFetch,
   token: string,
   repo: BotRepository,
-): Promise<Result<readonly string[], Error>> {
-  const refs: string[] = [];
+): Promise<Result<readonly OpenEntry[], Error>> {
+  const entries: OpenEntry[] = [];
   for (let page = 1; ; page += 1) {
     const listed = await restJson(
       fetchImpl,
@@ -118,16 +134,25 @@ async function openHeadRefs(
     if (!listed.ok) {
       return listed;
     }
-    refs.push(...listed.value.map((entry) => entry.head.ref));
+    entries.push(
+      ...listed.value.map((entry) => ({ ref: entry.head.ref, author: entry.user?.login })),
+    );
     if (listed.value.length < PAGE_SIZE) {
-      return ok(refs);
+      return ok(entries);
     }
   }
 }
 
-/** The open lane count: open pull requests whose head is not a coordination branch. */
-function laneCount(heads: readonly string[]): number {
-  return heads.filter((ref) => !ref.startsWith(COORDINATION_PREFIX)).length;
+/** A lane: an open pull request that is neither a coordination branch's nor Dependabot's. */
+function isLane(entry: OpenEntry): boolean {
+  return (
+    !entry.ref.startsWith(COORDINATION_PREFIX) && entry.author?.toLowerCase() !== DEPENDABOT_LOGIN
+  );
+}
+
+/** The open lane count, which the limit is read against. */
+function laneCount(entries: readonly OpenEntry[]): number {
+  return entries.filter((entry) => isLane(entry)).length;
 }
 
 /** The three reads that can refuse, in order; undefined when the open may proceed. */
@@ -153,11 +178,11 @@ async function refusalBeforeOpen(
       refused(`pull request #${String(existing.value)} is already open from "${input.branch}"`),
     );
   }
-  const heads = await openHeadRefs(fetchImpl, token, repo);
-  if (!heads.ok) {
-    return heads;
+  const entries = await openEntries(fetchImpl, token, repo);
+  if (!entries.ok) {
+    return entries;
   }
-  const lanes = laneCount(heads.value);
+  const lanes = laneCount(entries.value);
   return ok(
     lanes >= input.wipLimit
       ? refused(

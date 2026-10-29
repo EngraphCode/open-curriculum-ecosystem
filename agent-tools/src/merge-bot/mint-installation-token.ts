@@ -127,19 +127,20 @@ export async function readJsonBody(
  * body is absent, non-JSON, or not the documented error shape. Never throws
  * and never masks the caller's status-derived failure — it only enriches it.
  *
- * This matters most for `422` on a token mint: GitHub answers "the
- * permissions requested are not granted to this installation", which names
- * the whole fix, while a bare status code sends the reader hunting. The
- * pull-request writes (`github-rest.ts`) enrich their failures the same way.
+ * This matters most for `422` on a token mint, where GitHub's message names
+ * the whole fix and a bare status sends the reader hunting; `github-rest.ts`
+ * and `github-graphql.ts` enrich their failures the same way.
  */
 export async function githubErrorDetail(response: {
   readonly json: () => Promise<unknown>;
 }): Promise<string> {
   const body = await readJsonBody(response, 'error body');
-  if (!body.ok) {
-    return '';
-  }
-  const parsed = GITHUB_ERROR_BODY_SCHEMA.safeParse(body.value);
+  return body.ok ? githubErrorDetailOf(body.value) : '';
+}
+
+/** {@link githubErrorDetail} for a body already read. */
+export function githubErrorDetailOf(body: unknown): string {
+  const parsed = GITHUB_ERROR_BODY_SCHEMA.safeParse(body);
   return parsed.success ? ` — ${parsed.data.message}` : '';
 }
 

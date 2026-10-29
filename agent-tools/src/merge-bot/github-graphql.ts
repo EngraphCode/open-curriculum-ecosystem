@@ -4,7 +4,13 @@ import { z } from 'zod';
 import { parseWithSchema } from '../core/schema-parse.js';
 import { printable } from '../pr-watch/printable.js';
 import { githubJsonHeaders } from './github-fetch.js';
-import { readJsonBody, sendGithubRequest, type GithubApiFetch } from './mint-installation-token.js';
+import { unexpectedStatus } from './github-rest.js';
+import {
+  githubErrorDetailOf,
+  readJsonBody,
+  sendGithubRequest,
+  type GithubApiFetch,
+} from './mint-installation-token.js';
 
 /**
  * The one GraphQL POST behind the merge-bot's GraphQL calls: the retire
@@ -15,7 +21,9 @@ import { readJsonBody, sendGithubRequest, type GithubApiFetch } from './mint-ins
  *
  * GitHub answers a GraphQL failure with a 200 and an `errors` array as often
  * as with a non-200, so the errors are read first on every answer, and a
- * body carrying them is a failure whatever the status.
+ * body carrying them is a failure whatever the status. A non-200 without
+ * them fails naming the status and GitHub's message, as the REST calls do,
+ * so a 403 reads as the wrong-scope symptom it is and not as a bare number.
  */
 
 const GRAPHQL_URL = 'https://api.github.com/graphql';
@@ -46,7 +54,9 @@ export async function postGraphql(
   }
   const body = await readJsonBody(sent.value, label);
   if (!body.ok) {
-    return body;
+    return sent.value.status === 200
+      ? body
+      : err(unexpectedStatus(label, sent.value.status, ` — ${body.error.message}`));
   }
   const errors = errorsSchema.safeParse(body.value);
   if (errors.success) {
@@ -54,7 +64,7 @@ export async function postGraphql(
     return err(new Error(`${label} answered with GraphQL errors: ${messages}`));
   }
   if (sent.value.status !== 200) {
-    return err(new Error(`${label} answered ${sent.value.status}`));
+    return err(unexpectedStatus(label, sent.value.status, githubErrorDetailOf(body.value)));
   }
   return ok(body.value);
 }

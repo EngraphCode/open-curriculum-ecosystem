@@ -149,7 +149,8 @@ describe('merge-bot pull-request, front door', () => {
     expect(run.requests.every((request) => request.authorization === `Bearer ${TOKEN}`)).toBe(true);
   });
 
-  it('opens a draft through the front door, the body file as the pull request body', async () => {
+  it('opens a draft through the front door at the pull-request-work scope, the body file as the pull request body', async () => {
+    const minting = mintRecording();
     const run = await runPullRequest(
       [
         'open',
@@ -163,6 +164,7 @@ describe('merge-bot pull-request, front door', () => {
         '3',
       ],
       {
+        mint: minting.mint,
         script: (request) => {
           const line = `${request.method} ${request.url}`;
           if (line === `GET ${API}`) {
@@ -183,7 +185,9 @@ describe('merge-bot pull-request, front door', () => {
 
     expect(run.exit).toBe(0);
     expect(run.out).toContain('#43');
-    expect(run.requests.at(-1)?.body).toMatchObject({ body: BODY, draft: true, base: 'trunk' });
+    const post = run.requests.find((request) => request.url === `${API}/pulls`);
+    expect(post?.body).toMatchObject({ body: BODY, draft: true, base: 'trunk' });
+    expect(minting.scopes).toEqual(['pull-request-work']);
   });
 
   it('exits 3 with the refusal object when a verb refuses on what GitHub holds', async () => {
@@ -228,13 +232,23 @@ describe('merge-bot pull-request, front door', () => {
     expect(run.requests.every((request) => request.authorization === `Bearer ${TOKEN}`)).toBe(true);
   });
 
-  it('mints the conversation verbs at the pull-request-work scope, one mint per invocation', async () => {
-    const minting = mintRecording();
-    const run = await runPullRequest(COMMENT, { script: CONVERSATION_SCRIPT, mint: minting.mint });
+  it.each([
+    { verb: 'comment', args: COMMENT },
+    { verb: 'reply', args: ['reply', '--pr', '42', '--comment', '777', '--body-file', BODY_FILE] },
+    { verb: 'resolve', args: ['resolve', '--pr', '42', '--thread', 'PRRT_kwDOAbc'] },
+    { verb: 'ready', args: ['ready', '--pr', '42'] },
+    { verb: 'close', args: ['close', '--pr', '42', '--reason-file', BODY_FILE] },
+  ])(
+    'mints $verb at the pull-request-conversation scope, pull_requests write alone, one mint per invocation',
+    async ({ args }) => {
+      const minting = mintRecording();
+      const run = await runPullRequest(args, { script: CONVERSATION_SCRIPT, mint: minting.mint });
 
-    expect(run.exit).toBe(0);
-    expect(minting.scopes).toEqual(['pull-request-work']);
-  });
+      expect(run.exit).toBe(0);
+      expect(minting.scopes).toEqual(['pull-request-conversation']);
+      expect(TOKEN_SCOPES['pull-request-conversation']).toEqual({ pull_requests: 'write' });
+    },
+  );
 
   it.each(['ci/upstream-carrier.yml', '../x.yml', 'carrier.txt'])(
     'refuses --workflow "%s" with exit 3, minting nothing: a plain *.yml or *.yaml basename alone is dispatched',
@@ -272,7 +286,7 @@ describe('merge-bot pull-request, front door', () => {
     expect(run.requests).toHaveLength(0);
   });
 
-  it('with its production mint, mints the pull-request-work scope and hands GitHub that token', async () => {
+  it('with its production mint, mints the pull-request-conversation scope and hands GitHub that token', async () => {
     const keyPath = join('/test-home', '.config', 'jimbot-oakington-iii', 'private-key.pem');
     const run = await runPullRequest(COMMENT, {
       files: { [BODY_FILE]: BODY, [keyPath]: privateKey },
@@ -295,9 +309,8 @@ describe('merge-bot pull-request, front door', () => {
 
     expect(run.exit).toBe(0);
     const mint = run.requests.find((request) => request.url.endsWith('/access_tokens'));
-    expect(mint?.body).toMatchObject({ permissions: TOKEN_SCOPES['pull-request-work'] });
-    const comment = run.requests.at(-1);
-    expect(comment?.url).toBe(`${API}/issues/42/comments`);
+    expect(mint?.body).toMatchObject({ permissions: TOKEN_SCOPES['pull-request-conversation'] });
+    const comment = run.requests.find((request) => request.url === `${API}/issues/42/comments`);
     expect(comment?.authorization).toBe('Bearer ghs_minted');
     expect(run.requests.some((request) => request.url === GRAPHQL)).toBe(false);
   });
