@@ -144,8 +144,12 @@ into the permanent record):
 
 ## Phase 1 — Before opening
 
-1. **Divergence**: `git fetch origin main`; if behind, merge `origin/main`
-   into the branch. Anything coming in from the default branch is merged,
+1. **Divergence**: fetch the default branch and, if behind, merge it into the
+   branch (`git remote set-head origin --auto`, then `git fetch origin <default>`
+   and merge `origin/<default>`, where `<default>` is what
+   `git symbolic-ref --short refs/remotes/origin/HEAD` prints less its `origin/`
+   prefix; never a hand-typed name, since the default branch differs between
+   estates). Anything coming in from the default branch is merged,
    never rebased, pushed or not, whatever a handoff or plan line says (the
    owner, 2026-10-02: "anything coming in from main must always be merged, not
    rebased, we must maintain the shared history"; a rebase rewrites commits
@@ -243,8 +247,8 @@ express word (owner standing rule, 2026-08-13: "don't request matt as a
 reviewer, don't tag anyone in a Linear ticket without my express request").
 Review requests and ticket mentions fire notifications at real people;
 pulling in a colleague's attention is the owner's call, never an agent
-default. Bot reviewers (Copilot, the Codex connector) stay within the
-standing grants; an owner-named exception binds for that instance only.
+default. Bot reviewers (Copilot, the Codex connector) are requested under the
+review request policy below; an owner-named exception binds for that instance only.
 
 Read `.github/pull_request_template.md` and fill it as a **communication
 artefact for reviewers**, never a file list: what changed, why it matters,
@@ -261,7 +265,8 @@ pull request is bounded by the review-round transitions and declares no intake):
 and ran five rounds and thirty-eight findings on records before the declaration was posted
 late. A records changeset is also pushed at waypoints, never per event: records commit at
 each state change, the push follows a landed merge or a shape change, and the review is
-requested once per settlement push (a pure sync push requests nothing; the merge-bot
+requested at most once per settlement push, and only for a stated reason (a pure sync
+push requests nothing; the merge-bot
 reference carries the rationing); on 2026-09-13 a records pull request pushed per event
 drew five rounds, each finding the next stale line.
 For a code-class changeset the writer's docblock states the CLOSED contract
@@ -283,22 +288,35 @@ holds executables beside its prose (hooks, scripts, skill scripts), and a change
 to one of those is a code change whatever directory it sits in (a finding on a fold
 merged on 2026-09-21).
 
-**Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
-Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
-selective (important-or-risky only). Selective means by risk, never by
-class: on 2026-10-02 every vendor round on seat-written doctrine found a
-true defect, including bytes the twin estate had merged unreviewed, so a
-docs-only pull request that changes a rule or a skill requests the
-review. Cadence is at-open plus
-substance-triggered (a reshaped diff), never per intermediate cure push;
-on a code pull request the last push that changes the pull request's own
-diff carries the request (under the held-cure shape that is the slot's one
-sync push, so the cadence and the tip-bound gate meet at the same push); a
-pure sync requests nothing (§merge boundary item 5). Copilot's
-absence never blocks a merge on a docs-only bot-authored pull request (the
-owner's 2026-09-03 exception, §merge boundary item 5); on a code pull
-request the configured Copilot leg is OWED until it binds the tip, and the
-bot obtains it with its own request (§Phase 1, §merge boundary). Suppressed findings are Copilot's own low-confidence
+**Review request policy (the owner's word of 2026-10-27, standing).** A
+pull-request review — Copilot's, Codex's or any other vendor's on the pull
+request — is requested only for a stated reason, never automatically;
+verbatim: "only request co-pilot reviews or other agent reviews when you
+have a good reason, don't do it automatically, they are expensive." The one
+question, in the owner's words of 2026-10-28: "do we need a review in order
+for this work to be safe and effective?" — if yes and no review has
+occurred, request one; if no, none is requested, and a tool that requires
+one regardless is a broken tool and is cured. The policy binds
+pull-request reviewers only: the estate's own sub-agent reviewers
+(`code-expert` and the roster the `invoke-code-experts` rule names) are a
+different instrument under that rule's own terms (the owner, 2026-10-28:
+"there is a difference between subagents and PR reviewers"). The repository's own
+automatic review at open arrives unasked and is harvested like any other.
+After that, a reason is a diff the seat cannot account for first-hand: a
+vendor fact asserted unread, a boundary or parser the seat did not test
+red-then-green, seat-written doctrine whose premises were not checked
+first-hand (every vendor round on such doctrine found a true defect,
+2026-10-02), a change whose shape the seat doubts — stated where the
+request is made. An intermediate cure push, a pure sync, a push the seat
+has read and tested, and the passing of a round are never reasons.
+Copilot's absence never blocks a merge on a docs-only bot-authored pull
+request (the owner's 2026-09-03 exception, §merge boundary item 5;
+`merge-bot merge` reads the class from the diff and merges it at green, the
+review harvested after the merge); on a code pull request the configured
+Copilot leg reads UNOWED on a tip the configuration does not review and
+nothing was requested on (state machine item 3), and the round settles on
+it; the leg is OWED only while a review of that tip is due and has not
+bound (§merge boundary). Suppressed findings are Copilot's own low-confidence
 bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
 finding gets a reasoned decline with the falsifier recorded, never a
 speculative cure or a silent skip. **They hold the merge** (the owner's card
@@ -597,8 +615,13 @@ live tickets where the platform is in use.
      case no such input exercises fails this conjunct and goes to state 3
      as a fixture at pickup, never to state 2 (PR #139, 2026-09-12). Once
      the declared settlement-push budget is spent, every finding goes to
-     state 3 whatever it exercises — the cost gate refuses the push, and
-     the reviewer blocks read the same items as observations.
+     state 3 whatever it exercises — the cost gate holds the push for seconds,
+     before the check, until the seat has written its decision as one line
+     in the local note `.agent/state/collaboration/review-rebudgets.md`
+     (`<pull request> — <date> — <reason>`, one per push past the budget;
+     the owner, 2026-10-24: the check makes the seat think, and costs no
+     comment, no further push and never the owner's word), and the reviewer
+     blocks read the same items as observations.
   3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
      Correct-but-elsewhere, correct-but-disproportionate, out-of-story
      hardening, adjacent design questions: raise a pointer ticket (never a
@@ -750,7 +773,9 @@ contradicts (2026-10-02).
   gives it a tool form. For a single verdict,
   `pnpm agent-tools pr state <n> --expect <login> [--expect <login> ...]`,
   with one `--expect` per available configured reviewer as for the merge
-  (the flag declares the whole expected set), computes the front door's
+  (the flag declares the whole expected set; `--expect none` declares it
+  empty when the seat has judged the work needs no pull-request review to be
+  safe and effective — the owner's one question, 2026-10-27), computes the front door's
   reading once and never merges. Do NOT use
   `pnpm agent-tools:pr-watch <n> --watch --interval 60` as the watch: run
   through the unified entrypoint, that path buffers every line until exit, so
@@ -1351,7 +1376,9 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    door declares the configured reviewers AVAILABLE, and a subagent
    review posted on the pull request stands as a leg** (owner ruling
    2026-09-10). Concretely: `--expect` once per available configured
-   reviewer — never the set that happened to bind the tip, never a
+   reviewer, or `--expect none` when the seat has answered the owner's one
+   question (2026-10-27: "do we need a review in order for this work to be
+   safe and effective?") with no — never the set that happened to bind the tip, never a
    reviewer declared unavailable, and a running door carries the set declared
    when it was armed (when the ruling an `--expect` set rests on changes
    mid-poll, stop the poll before any merge call, read the pull request
@@ -1369,12 +1396,16 @@ c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    Opus review and Copilot; #116's adversarial leg read 39e9cc36f and the
    four pushes after it were its cures, the sync and one landing defect). The tool verifies only the vendor legs declared to it
    (`computeReviewerLegs` reads the `--expect` logins; `parseMergeArgs`
-   refuses an empty set), so the subagent leg is the MERGING SEAT's own
+   refuses an UNDECLARED set, and `--expect none` declares it empty), so the
+   subagent leg is the MERGING SEAT's own
    recomputation — the posted review and its dispositions named on the
    landing premises, the same seat-side check item 5 names for the tally
-   state — and with NO configured vendor available the front door cannot
-   be invoked at all: that case is the owner's call at the moment it
-   arises, and a machine-checked subagent-leg input is the named
+   state — and with NO configured vendor available the seat answers the
+   owner's one question (2026-10-27): a review the work needs for its safety
+   or effectiveness is a subagent review posted on the pull request and
+   recomputed by the seat; a review it does not need is `--expect none`,
+   which the door reads as the declaration it is; a machine-checked
+   subagent-leg input is the named
    follow-up on the agent-tools-watch-commands node. **A reviewer silent
    on EVERY pull request at once is that
    vendor's availability, never a pull-request shape**: read its own
@@ -1472,7 +1503,9 @@ create` on such a branch exits non-zero with "a pull request for branch …
    Claude Code Review's standing verdict and NO Copilot leg expected; for
    that class a timeout-settled round IS merge-eligible. Grounds: the
    Claude review posts no review on a clean tip, so the leg never
-   satisfies. The Copilot leg is obtained by a review request on the tip,
+   satisfies. The Copilot leg, when a review of the tip is wanted for a
+   stated reason (Phase 2's review request policy; never by default), is
+   obtained by a review request on the tip,
    `POST repos/{owner}/{repo}/pulls/{n}/requested_reviewers` with
    `reviewers[]=copilot-pull-request-reviewer[bot]`, under the credential
    that registers it in the estate (`.agent/reference/merge-bot.md` names
@@ -1485,21 +1518,35 @@ create` on such a branch exits non-zero with "a pull request for branch …
    timeline or the GraphQL `reviewRequests` connection, since gh's
    requested-reviewers list never shows a Bot request, and never through
    the draft/ready toggle, which fires nothing on a pull request already
-   undrafted once. After a sync push, read `pr state` on the synced tip: a
-   leg it reads SATISFIED, exactly or by content (state machine item 3),
-   needs nothing; a leg it reads OWED (the sync changed the pull request's
-   own diff, or its content could not be read) is requested on that tip,
-   Copilot by that one request. A CODE pull
-   request lands only through the front door with every AVAILABLE
-   configured leg bound plus the posted subagent review where a vendor
-   is unavailable (item 3's owner ruling of 2026-09-10), never by the
-   REST merge below. The exception stands for
-   the docs-only bot-authored class on its own grounds. Until the tool
-   learns that class, the merging seat
-   recomputes that gate by name and lands the merge through the sanctioned
-   REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
-   request merges within one CI round of green with no owner action; if one
-   waits on a reviewer leg again, the merge tool learns the class). The two
+   undrafted once. After a push, read `pr state` on the new tip: a leg it
+   reads SATISFIED, exactly or by content (state machine item 3), needs
+   nothing; a leg it reads UNOWED (the configuration reviews no later push
+   and nothing is requested) settles, and is requested only for a stated
+   reason; a leg it reads OWED (a review of this tip is due and has not
+   bound) waits for it. A CODE pull request lands only through the front
+   door with every configured leg as the tool reads it on the tip —
+   SATISFIED or UNOWED, or the posted subagent review where a vendor is
+   unavailable and a review was wanted (item 3's owner ruling of
+   2026-09-10) — never by the REST merge below. The exception stands for
+   the docs-only bot-authored class on its own grounds, and the tool knows
+   the class: `merge-bot merge` computes it from
+   the pull request's changed files (every path documentation or Practice
+   prose, decided per path as above; `change-class.ts`), merges at checks
+   green BY NAME (the base branch's required contexts, read from its rules at
+   run time; a pending check the rules do not require, the vendor's own
+   review run among them, does not hold a records-class pull request, a
+   failed check of any name does) with zero unresolved threads on the
+   verdicts that differ from SETTLE-READY only by the vendor leg
+   (`RECORDS_CLASS_MERGE_STATES`), and names the ground in
+   its evidence; a
+   vendor review requested on the tip is harvested after the merge under
+   PDR-140 clause 9(e). The interim this clause carried until then ("until
+   the tool learns that class, the merging seat recomputes that gate by name
+   and lands the merge through the sanctioned REST endpoint as the bot")
+   ended as its own PDR-130 prediction said it would: four jimcresswell.net
+   folds waited on the leg between 2026-10-04 and 2026-10-10, and the tool
+   learned the class there (the retrospective of 2026-10-10; the owner's
+   decision on its proposal 1), carried to OCE at his word of 2026-10-14. The two
    non-bot shapes remain: the explicit
    `gh pr merge --merge` command, or ARMING auto-merge — permitted
    exactly and only **at settled-READY under a Director grant**
@@ -1666,11 +1713,10 @@ grep -E "^-" | grep -v "^---"` and read every printed line — each is an
 - **Silent-wait sweep after every push (PDR-132)**: read each expected
   reviewer's leg on the new tip. A leg `pr state` reads SATISFIED, exactly
   or by content after a pure sync (state machine item 3), needs no request;
-  an OWED leg must be REQUESTED on the new tip — a push does not re-request (the
-  bot requests Copilot on the new tip with the reviewers endpoint, item 5
-  of the merge boundary), and a
-  tip with no requested reviewer and no tip-bound review waits forever
-  looking healthy (two live instances, 2026-07-20); a leg `pr state` reads
+  an OWED leg is one a review of the tip is due on and has not bound; a push
+  does not re-request, and a request on the new tip is made only for a stated
+  reason (Phase 2's review request policy, 2026-10-27), never to fill the
+  leg; a leg `pr state` reads
   UNOWED (the configuration reviews no later push, item 3) needs no request
   and settles, so request it only when a review of that tip is wanted, and
   once a request is made the merge is not attempted until the request is read

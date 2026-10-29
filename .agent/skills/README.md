@@ -35,15 +35,16 @@ landing procedure, as a new row here.
 | Audience set | Audience | Home | Delivery mechanism |
 | --- | --- | --- | --- |
 | Practice skills corpus | agents and humans building this repository and its mechanisms | `.agent/skills/` | generated platform adapters (`.claude/skills/`, `.agents/skills/`) |
-| Product skills (OCE: curriculum and teacher skills) | the host's users (OCE: teachers and other users of its curriculum content) | the host's plugin manifest (OCE: `.claude-plugin/marketplace.json`) | Claude plugin marketplace |
+| Product skills (OCE: curriculum and teacher skills) | the host's users (OCE: teachers and other users of its curriculum content) | the host's plugin repository (OCE: oaknational/oak-ai-plugins, since 2026-10-21) | Claude and ChatGPT plugins |
 
 Three corpora share the word "skills" and nothing else (owner, 2026-08-17:
 "the current skills lane is ONLY about the Practice skills, it is not about
 the user facing skills"): the Practice skills here in `.agent/skills`; the
-user-facing product skills, where the host has them (OCE's Claude plugin under
-`claude/plugins/` — for any Claude host, never "the Claude Code plugin",
-owner, 2026-09-17 — and its ChatGPT and Codex package under
-`chatgpt/plugins/`), with their own lane and owners; and third-party
+user-facing product skills, where the host has them (OCE's Claude plugin — for
+any Claude host, never "the Claude Code plugin", owner, 2026-09-17 — and its
+ChatGPT and Codex package, built and released from oaknational/oak-ai-plugins
+since 2026-10-21 and in this repository's history up to release v1.186.0), with
+their own lane and owners; and third-party
 vendor-managed skills installed by the host's vendored-skills installer (OCE's
 `skills` script) into `.agents/skills` (the
 `third-party-skills-require-security-review` rule governs them). Every lane

@@ -32,7 +32,16 @@ const SUPPRESSED_HEADER = /^### Suppressed comments \((\d+)\)\s*$/mu;
 // An item opens with a bold `path:line` on its own line; the block's own
 // sub-heading (`**Previously missed (N)** — …`) is bold too but carries no anchor.
 const SUPPRESSED_ITEM = /^\*\*([^*\n]+?):(\d+)\*\*\s*$/u;
-const CODEX_ITEM = /^\*\*<sub><sub>!\[P\d Badge\][^\n]*?<\/sub><\/sub>\s+(.+?)\*\*\s*$/u;
+// A Codex item line is `**<sub><sub>![P<n> Badge](…)</sub></sub>  <heading>**`,
+// read by its fixed parts: the badge prefix, the first sub closer, at least
+// one space, the heading, the closing bold at the line's end (trailing
+// whitespace allowed). One regex over the line backtracked across its
+// whitespace in cubic time (the analyser's S8786 finding).
+const CODEX_BADGE_OPEN = '**<sub><sub>![P';
+const CODEX_BADGE_CLOSE = ' Badge]';
+const SUB_CLOSER = '</sub></sub>';
+const BOLD = '**';
+const DIGIT = /^\d$/u;
 
 function substanceAfter(lines: readonly string[], start: number): string {
   const text: string[] = [];
@@ -73,12 +82,37 @@ function copilotFindings(body: string): BodyFindings {
   };
 }
 
+// The index just past the badge's `![P<n> Badge]`, or -1 when the line does not open with one.
+function codexBadgeEnd(line: string): number {
+  const digitAt = CODEX_BADGE_OPEN.length;
+  const opens =
+    line.startsWith(CODEX_BADGE_OPEN) &&
+    DIGIT.test(line.charAt(digitAt)) &&
+    line.startsWith(CODEX_BADGE_CLOSE, digitAt + 1);
+  return opens ? digitAt + 1 + CODEX_BADGE_CLOSE.length : -1;
+}
+
+// The heading of a Codex item line (leading whitespace removed), or null when
+// the line is not one: a heading is required, so a badge line that closes its
+// bold over whitespace alone is no item.
+function codexHeading(line: string): string | null {
+  const badgeEnd = codexBadgeEnd(line);
+  const closer = badgeEnd === -1 ? -1 : line.indexOf(SUB_CLOSER, badgeEnd);
+  const trimmed = line.trimEnd();
+  if (closer === -1 || !trimmed.endsWith(BOLD)) {
+    return null;
+  }
+  const spaced = trimmed.slice(closer + SUB_CLOSER.length, -BOLD.length);
+  const heading = spaced.trimStart();
+  return spaced === heading || heading === '' ? null : heading;
+}
+
 function codexFindings(body: string): BodyFindings {
   const items = body
     .split('\n')
-    .map((line) => CODEX_ITEM.exec(line))
-    .filter((match): match is RegExpExecArray => match !== null)
-    .map((match) => ({ key: (match[1] ?? '').trim(), path: null, line: null, substance: '' }));
+    .map(codexHeading)
+    .filter((heading): heading is string => heading !== null)
+    .map((heading) => ({ key: heading.trim(), path: null, line: null, substance: '' }));
   // Two items under one heading share a key and carry no anchor to tell them
   // apart: one line would disposition both, so the body reads manual.
   const headings = new Set(items.map((item) => item.key));

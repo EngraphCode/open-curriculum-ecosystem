@@ -18,6 +18,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
   return {
     number: 42,
     url: 'https://github.com/acme/widgets/pull/42',
+    author: 'acme-bot',
     state: 'OPEN',
     isDraft: false,
     mergeable: 'MERGEABLE',
@@ -42,7 +43,7 @@ export function settledReading(overrides: Partial<PrStateReading> = {}): PrState
         submittedAt: '2026-08-06T08:05:00Z',
       },
     ],
-    completionComments: { reviews: [], refused: [] },
+    completionComments: { reviews: [], refused: [], notices: [] },
     declaredUnavailable: NO_DECLARATIONS,
     reviewRuns: { kind: 'read', runs: [] },
     reviewConfiguration: { kind: 'unread', reason: 'the test reading declares none' },

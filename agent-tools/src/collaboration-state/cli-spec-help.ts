@@ -39,7 +39,7 @@ export const commsAppendHelp =
 export const commsSendHelp =
   'comms send --title <title> (--body <body> | --body-file <path>) ' +
   '--platform <platform> --model <model> ' +
-  '[--comms-dir <dir>] [--output <path>] [--active <path>] [--repo-root <path>] [--now <iso>] ' +
+  '[--comms-dir <dir>] [--active <path>] [--repo-root <path>] [--now <iso>] ' +
   '[--event-id <id>] [--tag <tag>...] [--in-response-to <id>] ' +
   '(--body and --body-file are mutually exclusive; ' +
   '--body-file reads the file literally and bypasses shell interpretation; ' +

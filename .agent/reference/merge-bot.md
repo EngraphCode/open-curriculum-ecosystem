@@ -43,7 +43,11 @@ It mints its own least-privilege token (`pull-request-merge`), reads the
 settlement verdict, and merges ONLY on SETTLE-READY — merge-commit method
 always, the VERDICTED tip's sha pinned in the call (a moved tip answers
 409), refusing by verdict name on everything else with exit 3. `--expect`
-is required: source it from the repository's automatic-review
+is required (`--expect none` declares the set EMPTY: the seat has judged, by
+the owner's one question of 2026-10-27 — "do we need a review in order for
+this work to be safe and effective?" — that the work needs no pull-request
+review, and the merge evidence names the declaration); otherwise source it
+from the repository's automatic-review
 configuration, declaring the reviewers AVAILABLE — a vendor declared
 unavailable on the stream (an outage, such as the Codex connector's
 2026-09-10 usage-limit notice) is not declared, and a subagent review
@@ -309,13 +313,13 @@ reviewRequests` and the REST endpoint omit Bot requests), which is why
 outstanding request reads `WAITING-REVIEW-RUN-LIVE` until the review lands
 or the checks-green timeout arm ends the leg.
 
-**One review request per settlement push.** A review round is spent by a
+**At most one review request per settlement push, and only for a stated reason.** A review round is spent by a
 request, and on a repository without an on-push review ruleset every
 request is the seat's own act under the operator's credential: PR #62 took
 twenty-one explicit Copilot requests in four hours, one every ten to twelve
 minutes, while PDR-140 sat in the estate unapplied (2026-09-15). Request
-the review once per push that settles a round (a cure, a shape change); a
-pure sync push (main merged in, a rebase with no content change) requests
+the review at most once per push that settles a round (a cure, a shape change), and
+only for a stated reason; a pure sync push (main merged in, a rebase with no content change) requests
 nothing, and the declared intake on the pull request body bounds the loop.
 
 **What is owed is read from the repository's review configuration.** `pr

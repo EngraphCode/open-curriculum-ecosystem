@@ -4822,3 +4822,22 @@ Observed twice on 2026-09-29 by the Director: `.agent/rules/.logs` refused by th
 - **Target surface**: agent-tools session-metadata (both estates).
 - **Status**: open; the gotchas reference carries the workaround.
 - **Owner direction status**: unsolicited (a seat's tool friction).
+
+### F-297 — `commit-queue complete` accepts an intent the guard refused, so a chained ceremony records a landing that never happened (2026-10-17)
+
+- **Source**: the reviewer seat's napkin block of 2026-10-17T14-15Z (Walrus seeks Maelstrom,
+  9585cc), on the primary checkout of this estate; registered at the wrap of 2026-10-19.
+- **Surface**: `agent-tools commit-queue` (`complete`).
+- **Observed**: the guard refused the records intent (the window claim named was the lane's files
+  claim, not the bare `git:index/head` claim the ceremony opens first); the seat's chained
+  `complete` then closed the refused intent 11090648 as if a commit had landed, a false queue
+  record corrected only in the napkin.
+- **Expected**: `complete` refuses an intent that never reached `pre_commit` or carries no commit,
+  naming the phase it found, so a chain cannot record a landing that did not happen.
+- **Candidate cure**: `complete` reads the intent's phase and refuses (exit 2) unless the phase is
+  `pre_commit` with the staged fingerprint verified, or a commit SHA is supplied and
+  `git cat-file -e` finds it; a refused guard moves its intent to `abandoned` itself (the F-172
+  shape), so the seat's chain has nothing left to complete.
+- **Target surface**: agent-tools commit-queue (both estates).
+- **Status**: open.
+- **Owner direction status**: unsolicited (a seat's tool friction).

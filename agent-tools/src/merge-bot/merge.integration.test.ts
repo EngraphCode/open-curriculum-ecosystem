@@ -1,10 +1,11 @@
 import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import type { PrStateReading } from '../pr-watch/state-types.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { ReadingUnavailableError, runMergeExecution, type MergeExecutionInput } from './merge.js';
+import { makeInput } from './test-helpers/merge-execution-input.js';
 import { settledReading, SETTLED_HEAD_OID } from './test-helpers/pr-state-reading.js';
+import { CODE_FILES, makeClassPort } from './test-helpers/records-class-port.js';
 
 /**
  * Integration over injected ports (constant fakes, no process, no network):
@@ -40,28 +41,6 @@ function makeFetchPort(input: {
     };
   };
   return { fetchImpl, calls };
-}
-
-function makeInput(
-  reading: PrStateReading,
-  fetchImpl: GithubApiFetch,
-  overrides: Partial<MergeExecutionInput> = {},
-): MergeExecutionInput {
-  return {
-    identity: { appId: '1', keyPath: '/dev/null', owner: 'acme', repoName: 'widgets' },
-    prNumber: 42,
-    expectedReviewers: ['copilot-pull-request-reviewer'],
-    nowIso: '2026-08-06T09:00:00Z',
-    seams: {
-      mint: () =>
-        Promise.resolve(
-          ok({ token: 'test-token-value', expiresAt: '2026-08-06T10:00:00Z', installationId: 7 }),
-        ),
-      readReading: () => ok(reading),
-      fetchImpl,
-    },
-    ...overrides,
-  };
 }
 
 describe('runMergeExecution', () => {
@@ -408,6 +387,66 @@ describe('runMergeExecution — target grammar (security H2)', () => {
       expect(outcome.error.message).toContain('grammar');
     }
     expect(calls.some((call) => call.url.endsWith('/merge'))).toBe(false);
+  });
+});
+
+describe('runMergeExecution — a set declared empty (the owner, 2026-10-27)', () => {
+  it('merges a tip whose expected set was declared none, the evidence naming the declaration', async () => {
+    // The seat judged this work needs no pull-request review to be safe and
+    // effective and declared so; the door reads the declaration, waits out
+    // the quiet window from checks green (08:00 against 09:00) and merges,
+    // carrying the judgement in the merge record.
+    // A bot-authored tip proves the required contexts by name before the PUT,
+    // so the port serves the base branch's rules; the diff is code-class.
+    const { fetchImpl, calls } = makeClassPort(CODE_FILES);
+    const declaredNone = makeReading({
+      author: 'app/acme-bot',
+      expectedReviewers: [],
+      expectedDeclared: true,
+      reviews: [],
+      namedChecks: [
+        { name: 'run-quality-gates', bucket: 'passed' },
+        { name: 'CodeQL', bucket: 'passed' },
+      ],
+      checks: { total: 2, passed: 2, failed: 0, pending: 0 },
+    });
+
+    const outcome = await runMergeExecution(
+      makeInput(declaredNone, fetchImpl, { expectedReviewers: [] }),
+    );
+
+    expect(outcome.ok).toBe(true);
+    if (outcome.ok) {
+      expect(outcome.value.kind).toBe('merged');
+      if (outcome.value.kind === 'merged') {
+        expect(outcome.value.evidence.join('\n')).toContain('--expect none');
+      }
+    }
+    expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(true);
+  });
+
+  it("refuses a person's pull request on a set declared none: reviewed, never merged on an empty set", async () => {
+    const { fetchImpl, calls } = makeFetchPort({});
+    const personsPr = makeReading({
+      author: 'jimcresswell',
+      expectedReviewers: [],
+      expectedDeclared: true,
+      reviews: [],
+    });
+
+    const outcome = await runMergeExecution(
+      makeInput(personsPr, fetchImpl, { expectedReviewers: [] }),
+    );
+
+    expect(outcome.ok).toBe(true);
+    if (outcome.ok) {
+      expect(outcome.value.kind).toBe('refused');
+      if (outcome.value.kind === 'refused') {
+        expect(outcome.value.reason).toContain('--expect none');
+        expect(outcome.value.reason).toContain('2026-09-03');
+      }
+    }
+    expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
   });
 });
 

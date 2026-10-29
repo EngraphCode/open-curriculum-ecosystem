@@ -46,7 +46,11 @@ always, the VERDICTED tip's sha pinned in the call (a moved tip answers
 is required and takes each reviewer's GraphQL login without the `[bot]`
 suffix (`copilot-pull-request-reviewer`, `chatgpt-codex-connector`); with the
 suffix no review matches and every leg reads OWED (three refused runs,
-2026-09-14). Source it from the repository's automatic-review
+2026-09-14). `--expect none` declares the set EMPTY: the seat has judged, by
+the owner's one question of 2026-10-27 ("do we need a review in order for this
+work to be safe and effective?"), that the work needs no pull-request review;
+the quiet window then runs from checks green and the merge evidence names the
+declaration. Otherwise source it from the repository's automatic-review
 configuration, declaring the reviewers AVAILABLE — a vendor declared
 unavailable on the stream (an outage, such as the Codex connector's
 2026-09-10 usage-limit notice) is not declared, and a subagent review
@@ -72,7 +76,12 @@ tip. On a leg the tip satisfies, such a comment is a past round and is not
 reported. The refusal is the verdict when the round is otherwise settled or
 when it belongs to the blocking reviewer; a refusal on another reviewer rides
 in the evidence beside the blocking leg's own state, and a live run outranks
-it.
+it. A summary whose Code Review row is **Failed** is the connector's failed
+run on the commit it names (the decision note's amendment of 2026-10-27): an
+error review, which satisfies no leg, is counted in the leg's detail, and
+proves an `--unavailable` declaration on that head; without one the leg
+times out to `SETTLED-NO-REVIEW`. The connector's usage-limits comment is a
+vendor notice the evidence prints; neither is a refusal.
 The tool verifies only the vendor legs declared to it and refuses
 an empty set: the availability rule and the posted subagent leg are the
 merging seat's own recomputation, recorded on the landing premises (a

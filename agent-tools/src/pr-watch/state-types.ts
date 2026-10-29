@@ -55,6 +55,12 @@ export interface PrStateReading extends BindingHead {
   readonly number: number;
   /** The PR's html URL — the repository-scoped identity runs are matched against. */
   readonly url: string;
+  /**
+   * The author login as `gh pr view` spells it (`app/<slug>` for an App): the
+   * records-class door opens only for a GitHub App's pull request
+   * (`merge-bot/merge-records-checks.ts`).
+   */
+  readonly author: string;
   /** `OPEN` | `CLOSED` | `MERGED`. */
   readonly state: string;
   /** Draft PRs cannot merge via the sanctioned landing path — typed refusal. */
@@ -95,9 +101,11 @@ export interface PrStateReading extends BindingHead {
   /**
    * The second transport of a reviewer's reported result: an expected
    * reviewer's completion comments, each read as a review bound to the one
-   * commit it names or refused by name (`completion-comments.ts`). The legs
-   * read both transports; a refusal is quoted in the verdict when that
-   * reviewer's leg is OWED or timed out.
+   * commit it names (a failed run's as an error review) or refused by name,
+   * and the vendor's notices about its own service, which the evidence
+   * prints (`completion-comments.ts`). The legs read both transports; a
+   * refusal is quoted in the verdict when that reviewer's leg is OWED or
+   * timed out.
    */
   readonly completionComments: CompletionCommentReading;
   /**
