@@ -227,6 +227,9 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   the named branch; the records commits (`e8852d612` and this one) are local on the primary. The
   cure is a force-with-lease push of the primary's tip from the primary, at the owner's word, and a
   tool fix so `merge-bot push --branch X` refuses when X is not checked out.
+  (Cured 2026-10-29 13:3xZ without force: the writes lane landed as 371, `0b1d0f7bb`, making the
+  mis-pushed tip an ancestor of `engraph`; the coordination branch merged `origin/engraph` and
+  pushed as a fast-forward, `47b43bce9`. The tool fix is Maple turns Spore's next lane.)
 - **Retired** on content check and ancestry proof: the branches and worktrees of 366, 368, 369 and
   370. Open and another seat's: 365.
 - **Routed, each with a home on this record and the pull-request bodies**: the push tool's named
