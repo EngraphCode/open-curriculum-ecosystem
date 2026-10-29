@@ -1110,3 +1110,34 @@ the owner wants it kept).
 - **Worktrees**: the primary and `merge-bot-pr-writes` (the writes lane, unlanded) remain; `merge-bot-class` and `scope-key` were removed by their seats after 365 landed (`7349a72b8`). An inventory taken while the owner acts in parallel is re-read before any report: the first `git branch -vv` of this pass was stale within minutes.
 - **The owner's word on the design-reports branch, 2026-10-29**: the skill was "just instructions to help cloud agents structure reports" and "wasn't actually useful"; its loss is accepted and nothing of it is restored. The archive ref `archive/pr356-seat-work-2026-10-17` was deleted by the same hand and is read the same way unless he says otherwise.
 - **The mis-pushed coordination ref, cured without force (13:3xZ)**: Maple turns Spore (560922) landed the writes lane as 371 (`0b1d0f7bb`, 13:12Z), which made the mis-pushed tip `934515e02` an ancestor of `engraph`; the primary merged `origin/engraph` into the coordination branch (`47b43bce9`, clean, no overlapping files) and the bot's push tool pushed it as an ordinary fast-forward. No force-push was made; the proposal for one was withdrawn when the other seat's path was read. The push tool's own fix (a named branch must be the checked-out one) is that seat's next lane.
+
+## 2026-10-29T13:5xZ — The writes lane landed; the coordination branch put right without a force-push (Maple turns Spore, 560922)
+
+- **His word**: "plan the work, then carry it out", on "what is required to finish that work?" for
+  `feat/merge-bot-pull-request-writes`. Landed as 371 (`0b1d0f7bb`) and 372 (`98e998ab3`); the
+  thread record holds the lane state. Two lessons and three observations below.
+- **The plan's second cure was wrong against his rule, caught before the code.** The draft said
+  "count only the bot's open pull requests"; his word of 2026-10-17 is that every author's lanes
+  count, Dependabot's excepted. The cure landed as the Dependabot exclusion. A plan written from a
+  reviewer's finding inherits the reviewer's reading of the rule; the rule is read first.
+- **The hook matched a destructive command's tokens across a whole command text.** A Python
+  heredoc that quoted a doc comment mentioning a checkout, in a command whose text began with a
+  git status, was refused as the tree-resetting operation those tokens spell. Cured by leaving the
+  git call out of the command and anchoring the edit below the line that carried the word. The
+  substring discipline's known shape, now seen from the editing side.
+- **Observation, one instance**: the first `pull-request resolve` of three exited 1 and the thread
+  read resolved on the retry (refused as already resolved); the mutation landed, the read-back did
+  not see it in time. The other two resolved in one call. Not cured; watch for a second instance.
+- **Observation, one instance**: two seats pushed the same commit from the same checkout at once;
+  GitHub rejected the second with a ref-lock message, the remote stood at the commit either way.
+  The singleton rule covers the gate, and the push's gate ran twice in one tree; a line to the
+  other seat before a gate on the primary is the practice from here.
+- **The bot cannot request a Copilot review on this installation** (two forms tried, neither
+  registered); the operator's credential did, under the standing permission the bot-identity rule
+  records. The automatic review did not fire at the ready-mark: the configuration requests the
+  owner, with `review_on_push=false`.
+- **The pre-push hook runs the full gate on a push that carries no commits**: a remote branch
+  deletion ran a minute of `pnpm check` and was refused by the tree's own drift (the day's earlier
+  finding). A friction for the hook; the deletion went through the GitHub API at the owner's word
+  ("don't use git push to delete remote branches, use the github plugin"; the plugin has no
+  delete-branch verb, the API as the signed-in user is the nearest).

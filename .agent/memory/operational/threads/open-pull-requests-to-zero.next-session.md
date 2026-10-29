@@ -245,3 +245,47 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   Codex cure's review-object body as the proof of the declaration and the older-commit test gap.
 - **Next for the analyser plan**: units 2 to 14 in the node's order, each from a worktree cut after
   its dependency lands; the owner's ratifying stamp on the two nodes born sketch.
+
+## Lane state (2026-10-29 13:5xZ, the writes lane and the push fix landed at the owner's word; Maple turns Spore, 560922)
+
+- **The owner's words, verbatim, in order.** "feat/merge-bot-pull-request-writes what is required
+  to finish that work?"; then "yes please, plan the work, then carry it out" (the team, plan and
+  reason skills invoked). The plan's verdict, approved: land the lane first, then put the
+  coordination branch right by merging its remote tip once the lane is on `engraph`, with no
+  force-push.
+- **Todo 6 of the node is done.** 6a: pull request 371 (`feat/merge-bot-pull-request-writes`),
+  merged at `0b1d0f7bb` (13:12Z) through the door, carries the command (`open`, `comment`,
+  `reply`, `resolve`, `ready`, `close`, `dispatch-workflow`) with the five routed findings cured
+  (the node's ledger has a row per finding), the analyser's three findings on its new code cured
+  (a `/tmp` fixture path read as a publicly writable directory; a digit class; a nested template),
+  and the one Copilot review's three findings cured (the branch encoded in the branches path and
+  the head query as the required-contexts reader encodes a ref; the file path through `printable`
+  before stderr; the action description naming the per-verb scopes). 6b: pull request 372
+  (`fix/merge-bot-push-named-branch-must-be-checked-out`), merged at `98e998ab3`: `merge-bot
+  push --branch X` refuses when X is not the branch HEAD is on, before origin is read and before
+  any mint; the real-git smoke settles HEAD's own branch by name. Both branches retired through
+  the bot, both worktrees removed; the claim closed.
+- **The narrow scope, proved by use.** `pull-request-conversation` (`pull_requests: write` alone)
+  carried 371's own comments, ready-mark, three replies and four thread resolutions, the GraphQL
+  mutations included; `open` stayed on `pull-request-work`. The MCP-391 question is closed by the
+  pull request's own timeline. One observation, not a finding: the first `resolve` of the three
+  exited 1 while the thread read resolved on the next call, which refused it as already resolved;
+  the other two resolved in one call.
+- **Reviews.** No automatic review fired at the ready-mark (the configuration requested the owner;
+  `review_on_push=false`). One Copilot review was requested on 371 with its reason on the pull
+  request, through the operator's credential under the standing permission, since the bot's own
+  request did not register on this installation (the timeline carries the owner's request, not
+  the bot's). Its three findings were cured in one settlement push; the door then read the
+  Copilot leg OWED on the new tip, and the seat declared the set empty (`--expect none`) with the
+  judgement on the pull request: the tip carried the cures alone, gated and tested. 372 merged
+  under the same declaration with no review, by the seat's judgement for a change of that size
+  with red-first tests.
+- **The coordination branch.** GitHub closed draft 367 at 371's merge, since 371's merge made the
+  mis-pushed head part of `engraph`; Smelter herds Basalt merged `engraph` into the local branch
+  (`47b43bce9`), recorded the cure (`4eeb612df`) and opened the replacement draft, pull request
+  373, as the bot with the new command. Two seats pushed the same commit from the same checkout at
+  once; the second push was rejected by the ref lock, which is the harmless shape of that race,
+  and both gates ran in one tree at the same time, which the singleton rule forbids: from here a
+  gate on the primary takes a line to the other seat first (Smelter's word, taken up).
+- **Next for this thread**: nothing routed here remains for the writes lane; the other routed items
+  of 2026-10-28 keep their homes above; the analyser plan's units continue in their node's order.
