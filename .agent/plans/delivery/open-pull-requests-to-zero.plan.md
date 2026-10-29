@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-10-27
+last_updated: 2026-10-29
 ---
 
 # The open pull requests landed or closed, and the merge-bot command that opens one
@@ -113,6 +113,16 @@ command removes the one step that had no tool.
    GitHub module per transport, the refusals, the limit read), TSDoc, the merge-bot reference and
    the bot-identity rule re-pointed at the command; its own pull request, opened with itself once
    the count allows. Built first because the drain's writes needed it (ledger, 2026-10-27).
+   Found unlanded at the drain seat's closing inventory; sliced at the owner's word of
+   2026-10-29 ("plan the work, then carry it out"):
+   - **6a.** The lane's pull request: the branch merged with the default branch, the five
+     findings the review routed to it cured with their tests (the ledger rows of 2026-10-29),
+     the node amended, opened with the command itself, landed through the door.
+   - **6b.** `merge-bot push --branch X` refuses when X is not the checked-out branch (a typed
+     refusal, exit 3, red test first in `push-target-branch.integration.test.ts`), its own small
+     pull request after 6a lands: the push tool sent a worktree's checked-out commit under the
+     coordination branch's name on 2026-10-28, which is how that branch's remote tip came to
+     hold this lane's commits.
 
 ## Out of scope
 
@@ -150,3 +160,9 @@ command removes the one step that had no tool.
 | 2026-10-28 | #363's refused door (SILENT-WAIT-NO-REVIEWER: the Copilot leg OWED on a tip the configuration never reviewed) and the owner's word on it, verbatim: "The framing of the question is wrong. It is not about ceremony. It is NEVER about ceremony. The ONLY question is 'do we need a review in order for this work to be safe and effective?' if the answer is yes, and a review has not occured, request a review. A tool that requires an action regardless of the value of that action is a broken tool" | The door had no way to declare that no pull-request review is needed: an empty expected set was only ever the undeclared default, and never settled. | Applied: `--expect none` declares the set empty by the seat's judgement, shared by `pr state` and the door through one grammar (`pr-watch/expect-flag.ts`); the reading marks it declared, settlement runs the quiet window from checks green, and the SETTLE-READY evidence names the declaration (`fix/pr-watch-expect-none`, `eebf42826`, nine tests red before it). #363 merged through it at `0cb2bde6d`. |
 | 2026-10-28 | The owner, on the reviewer rules rewritten in `7ee1e9eb1`, verbatim: "there is a difference between subagents and PR reviewers" | The ruling of 2026-10-27 was applied to the estate's own sub-agent reviewers (the `invoke-code-experts` rule and catalogue, the loop-cycle rule, two Cursor adapters) as well as to the pull-request vendors. | Applied: the five documents return to their text at `96146227d`, and the lifecycle skill's policy binds pull-request reviewers only, carrying the owner's one question verbatim (`docs/subagent-reviewers-distinct-from-pr-reviewers`, `7c4ea2343`, a records pull request). |
 | 2026-10-28 | The restoration lane's first push, failed at `skills:check` | A worktree reused from a closed lane (#357) kept an ignored `evals/results` directory under the skills tree, and the adapter generator refuses a skills directory with no canonical. | Applied: the directory moved to the session scratchpad and the push repeated; recorded for the tool node: a reused worktree's ignored files survive the checkout, so a tree-walking validator reads them. |
+| 2026-10-29 | The writes command's review (the drain seat's closing read, routed to this lane's pull request) | The conversation verbs minted the wide `pull-request-work` scope (contents and workflows write) where `pull_requests: write` alone would do. | Applied in 6a: the `pull-request-conversation` scope (`pull_requests: write`), minted by `comment`, `reply`, `resolve`, `ready` and `close`; `open` keeps `pull-request-work` for its branch read; proved on the lane's own pull request, the MCP-391 question included. |
+| 2026-10-29 | The same review | The open verb's work-in-progress count counted every author's open pull requests. | Applied in 6a as the limit rule reads: every author's lanes count, external ones included; Dependabot's pull requests are not lanes (the owner, 2026-10-17) and are left out beside the coordination branch's. |
+| 2026-10-29 | The same review | The thread refusal compared the pull request number without the repository. | Applied in 6a: the read carries `repository { nameWithOwner }`; a thread on another repository's pull request of the same number is refused by name. |
+| 2026-10-29 | The same review | The hoisted GraphQL error path reported a bare status. | Applied in 6a: a non-200 carries GitHub's message as the REST path does (`unexpectedStatus`), and a non-JSON body keeps its status. |
+| 2026-10-29 | The same review | Tests asserted request order and count. | Applied in 6a: each write is found by method and URL and its body asserted; "no write" is no non-GET request; the one ordering kept is the close verb's reason before its PATCH; the scripted double still fails any unscripted call. |
+| 2026-10-29 | The coordination branch's remote tip found holding this lane's commits (2026-10-28) | `merge-bot push --branch X` pushes the checkout's HEAD under the name X, never X's own tip, and never checks X is checked out. | Applied in 6b; the branch itself is put right without a force-push: once 6a lands, the remote tip's commits are the default branch's ancestors, so the remote tip is merged into the local coordination branch and pushed normally. |
