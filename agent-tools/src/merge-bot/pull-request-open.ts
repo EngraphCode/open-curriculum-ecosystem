@@ -77,7 +77,7 @@ async function remoteHoldsBranch(
   const label = 'GET /repos/{owner}/{repo}/branches/{branch}';
   const probe = await restProbe(fetchImpl, token, {
     method: 'GET',
-    path: `${repoPath(repo)}/branches/${branch}`,
+    path: `${repoPath(repo)}/branches/${encodeURIComponent(branch)}`,
     label,
   });
   if (!probe.ok) {
@@ -103,7 +103,7 @@ async function openPullRequestWithHead(
     token,
     {
       method: 'GET',
-      path: `${repoPath(repo)}/pulls?state=open&head=${repo.owner}:${branch}&per_page=1`,
+      path: `${repoPath(repo)}/pulls?state=open&head=${encodeURIComponent(`${repo.owner}:${branch}`)}&per_page=1`,
       label: 'GET /repos/{owner}/{repo}/pulls?head=',
     },
     200,

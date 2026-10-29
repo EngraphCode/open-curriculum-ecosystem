@@ -6,6 +6,7 @@ import { typeSafeHasOwn } from '@oaknational/type-helpers';
 import type { BranchArgSeams } from './branch-arg.js';
 import { realFetch } from './github-fetch.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
+import { printable } from '../pr-watch/printable.js';
 import { parsePullRequestArgs } from './pull-request-args.js';
 import { dispatchWorkflow, workflowFile } from './pull-request-dispatch.js';
 import {
@@ -100,9 +101,10 @@ async function readBody(
     return ok(await read(path));
   } catch (cause) {
     return err(
-      new Error(`cannot read ${path}: ${cause instanceof Error ? cause.message : String(cause)}`, {
-        cause,
-      }),
+      new Error(
+        `cannot read ${printable(path)}: ${cause instanceof Error ? cause.message : String(cause)}`,
+        { cause },
+      ),
     );
   }
 }
@@ -167,7 +169,7 @@ async function bodiedPrepared(
   if (body.value.trim() === '') {
     return {
       kind: 'refused',
-      reason: `${file.flag} ${file.path} is empty; the file is sent verbatim, so nothing would be posted`,
+      reason: `${file.flag} ${printable(file.path)} is empty; the file is sent verbatim, so nothing would be posted`,
     };
   }
   return { kind: 'ready', identity, write: bodiedWrite(request, identity, body.value) };

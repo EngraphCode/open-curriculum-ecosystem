@@ -170,7 +170,7 @@ describe('merge-bot pull-request, front door', () => {
           if (line === `GET ${API}`) {
             return { status: 200, body: { default_branch: 'trunk' } };
           }
-          if (line === `GET ${API}/branches/feat/x`) {
+          if (line === `GET ${API}/branches/feat%2Fx`) {
             return { status: 200, body: { name: 'feat/x' } };
           }
           if (line.startsWith(`GET ${API}/pulls?state=open`)) {

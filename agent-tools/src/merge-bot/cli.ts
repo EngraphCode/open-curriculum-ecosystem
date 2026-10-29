@@ -47,8 +47,10 @@ import type { MergeBotResolveInput } from './resolve-identity.js';
  *
  * `merge-bot pull-request` makes the bot's writes on a pull request's
  * conversation — open a draft, comment, reply, resolve a thread, mark
- * ready, close — each under one token minted with the `pull-request-work`
- * scope, so no seat composes a `GH_TOKEN=$(…) gh …` shell line for them.
+ * ready, close, dispatch a workflow — each under one token minted at the
+ * scope that verb needs (`pull-request-work` for the open,
+ * `pull-request-conversation` for the conversation verbs, `workflow-dispatch`
+ * for the dispatch), so no seat composes a `GH_TOKEN=$(…) gh …` shell line.
  *
  * `merge-bot mint-token` prints a short-lived GitHub App installation token
  * to stdout (and nothing else there), for the bot writes no typed command

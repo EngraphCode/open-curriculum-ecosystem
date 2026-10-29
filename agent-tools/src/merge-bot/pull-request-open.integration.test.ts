@@ -47,10 +47,10 @@ function happyScript(overrides: Partial<Record<string, GithubScript>> = {}): Git
     if (line === `GET ${API}`) {
       return { status: 200, body: { default_branch: 'trunk' } };
     }
-    if (line === `GET ${API}/branches/feat/x`) {
+    if (line === `GET ${API}/branches/feat%2Fx`) {
       return { status: 200, body: { name: 'feat/x' } };
     }
-    if (line === `GET ${API}/pulls?state=open&head=acme:feat/x&per_page=1`) {
+    if (line === `GET ${API}/pulls?state=open&head=acme%3Afeat%2Fx&per_page=1`) {
       return { status: 200, body: [] };
     }
     if (line === `GET ${API}/pulls?state=open&per_page=100&page=1`) {
@@ -87,8 +87,8 @@ describe('openPullRequest', () => {
     expect(requestLines(github.requests)).toEqual(
       expect.arrayContaining([
         `GET ${API}`,
-        `GET ${API}/branches/feat/x`,
-        `GET ${API}/pulls?state=open&head=acme:feat/x&per_page=1`,
+        `GET ${API}/branches/feat%2Fx`,
+        `GET ${API}/pulls?state=open&head=acme%3Afeat%2Fx&per_page=1`,
         `GET ${API}/pulls?state=open&per_page=100&page=1`,
       ]),
     );
@@ -109,7 +109,7 @@ describe('openPullRequest', () => {
   it('refuses, writing nothing, when the remote does not hold the branch', async () => {
     const github = scriptedGithub(
       happyScript({
-        [`GET ${API}/branches/feat/x`]: () => ({
+        [`GET ${API}/branches/feat%2Fx`]: () => ({
           status: 404,
           body: { message: 'Branch not found' },
         }),
@@ -125,7 +125,7 @@ describe('openPullRequest', () => {
   it('refuses, naming the existing pull request, when an open one already has that head', async () => {
     const github = scriptedGithub(
       happyScript({
-        [`GET ${API}/pulls?state=open&head=acme:feat/x&per_page=1`]: () => ({
+        [`GET ${API}/pulls?state=open&head=acme%3Afeat%2Fx&per_page=1`]: () => ({
           status: 200,
           body: [openPr(31, 'feat/x')],
         }),
@@ -196,9 +196,9 @@ describe('openPullRequest', () => {
 
   it.each([
     { line: `GET ${API}`, status: 403, message: 'Resource not accessible by integration' },
-    { line: `GET ${API}/branches/feat/x`, status: 500, message: 'Server Error' },
+    { line: `GET ${API}/branches/feat%2Fx`, status: 500, message: 'Server Error' },
     {
-      line: `GET ${API}/pulls?state=open&head=acme:feat/x&per_page=1`,
+      line: `GET ${API}/pulls?state=open&head=acme%3Afeat%2Fx&per_page=1`,
       status: 502,
       message: 'Bad',
     },
