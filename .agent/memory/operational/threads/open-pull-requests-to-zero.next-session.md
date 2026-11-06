@@ -110,13 +110,35 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
 1. Read `git status --branch` on the primary and `gh pr list` first-hand before any act.
 2. The analyser plan is complete: units 0 and 1 landed as 366 and 369, the two tool lanes as 368 and
    370, and units 2 to 14 as 375. Criterion 1 read zero on 2026-11-03 (comms event `7af7c09a`).
-3. The mirror workflow's cure is its own lane, at the owner's word of 2026-11-03 ("coordinate
-   please"). It lands before Oak's workflow-linter lane merges on Oak `main`, as agreed with Elder
-   rides Topsoil (65857c) on the comms stream (event `2dd20168` and that seat's acceptance).
+3. The mirror workflow's cure landed as 378 (`8fc338d84`, 17:37:31Z), at the owner's word of
+   2026-11-03 ("do fix the mirror"). The run's own token stays the writer (decision 7: no CI on
+   the mirror branch). Only GitHub's exact refusal for a workflow-file range mints the bot's App
+   token and moves with it, and the job runs only on its schedule or a dispatch. No Oak lane
+   waited on it: event `8bafd3c2` withdrew the sequencing of `2dd20168`. A security review before
+   the push read the loop closed and shaped the refusal-only mint. Live check, run 41686089225:
+   `main` moved `52e7f3bed` to `0c841ed7f` by the run's own token, and no workflow started on
+   `main`. The App-token path is proven by a stub trial only; its first live run comes with the
+   parent's next workflow-file change.
+   One observation, a single instance: that run was dispatched under `workflow-dispatch`
+   (`actions: write` alone), and its own token wrote the reference. On 2026-09-17 the same
+   dispatch shape answered 403 at that write (run 35240876819). The scope table's comment still
+   states the 2026-09-17 reading.
+   `engraph` carries Oak 1.186.5 (380, `c2bcfe7e9`, 2026-11-04). The next carrier opens when Oak's
+   `main` moves.
 4. The follow-up lanes the fold of 360's reviews routed, none opened yet: the review-cost gate's hold
    (the hook's guidance lines dead under `sh -e`, the hold counting reviewed rounds where PDR-140 says
    pushes, the unrounded crossing test and its duplicated loop) and the comms write path (a render
    that fails after the write; renders published out of order).
+   Routed 2026-11-05 at the owner's "please continue", for sizing first: a guard on
+   `merge-bot pull-request close`. It would refuse a pull request whose timeline holds a review, a
+   ready-for-review event, a comment by a person or seat, or a non-bot commit, unless the caller
+   states that count, as `merge --expect` does. Warrant: the 379 close acted on a stale read, and
+   the cross-fork skill's rule (step 1, a bare carrier read live at the close) is a passive lesson
+   that a tool check would enforce. Falsifier: closes of worked pull requests turn out routine, so
+   the flag becomes noise. Its companion, text only: the carrier workflow's pull-request body
+   (`.github/workflows/upstream-carrier.yml:180`) still tells the seat to replace a carrier the
+   mirror has moved past. Step 1 now extends it. Code never rides the coordination branch, so the
+   line is re-trued in its own pull request.
 
 ## Updates after the compaction word
 
@@ -410,3 +432,161 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   analysis at 14:47:26Z, after 375 merged at 14:46:50Z (its check run on `4adcfc069` green at
   14:53:35Z). One issue stays open outside the filter: S6822, RELIABILITY LOW, at
   `TokenRows.tsx:107`, a deliberate `role="list"`. Recorded on comms event `7af7c09a`.
+
+## Lane state (2026-11-04 15:1xZ, the Oak 1.186.5 sync landed; Sandpiper guards Wind, 690653)
+
+- **The owner's word, verbatim.** "okay, please make merging 379 the priority, use all appropriate
+  skills to plan the work".
+- **The replacement, and the owner's correction.** 379 was the carrier at `0c841ed7f` (Oak's pull
+  request 1015). The mirror had moved one release commit past it to `0bb2ae4f0` (1.186.5). 379 was
+  closed at 14:34:21Z as unworked under the cross-fork skill's step 1, the carrier workflow was
+  dispatched (run 41848915934), and 380 opened at `0bb2ae4f0`. The classification was wrong: the
+  owner had readied 379 at 14:27:07Z, and Codex (14:30:51Z) and Copilot (14:32:13Z) had reviewed
+  it, so step 1 kept it. The landed merge `5cc1ba948` fast-forwards 379's head, so the same commit
+  could have landed on 379. The owner's correction and the mechanism are in the napkin
+  (2026-11-04). Both Cricket stances read the plan ON-TRACK and SOUND, on the plan's own stale
+  "unworked".
+- **The landing.** `engraph` merged into the carrier at `5cc1ba948`. The tree is `dd5ca5ac7`, equal
+  to the merge-tree preview. The owner is the author and the bot the committer, by the bot-identity
+  rule. Proofs:
+  - the frozen install exits 0, and `file-type` resolves nowhere;
+  - the five generators leave the tree unchanged;
+  - no memory file is among the 11 incoming paths;
+  - the premise sweep has nothing to re-true;
+  - no numbering collides;
+  - the full pre-push gate passes.
+
+  One unrequested Codex P1, that the mirror commit was not an ancestor, was rejected with
+  `git merge-base --is-ancestor` and resolved, as on 376. The door merged 380 at `c2bcfe7e9`
+  (15:00:37Z). The integration record is on 380.
+- **The landing proof.** The second parent is `5cc1ba948`. The tree diff of `engraph` against Oak's
+  tip reads the same 4,690 files and line counts as the pre-sync diff of `8fc338d84` against
+  `52e7f3bed`. Of the 11 incoming paths, nine equal Oak's. `package.json` and `turbo.json` carry
+  `engraph`'s own lines, identical before and after. Both carrier branches are retired, and the
+  worktree is removed.
+- **Local work list: one observation, no lane.** Both forks cured the design system's Vite "ESM
+  config loaded as CommonJS" warning, in different ways:
+  - `engraph` declared `"type": "module"` at `packages/design/oak-design-system/package.json:7`
+    (`c4aedb698`);
+  - Oak renamed the config to `vitest.config.mts` and kept the type field off.
+
+  Both stand, consistently: a `.mts` config is ESM under any type field, and `c4aedb698` measured
+  the theme emit byte-identical under the declaration. Converging on one cure is for the merge-back.
+- **Local work list: two observations harvested late from 379's review round, no lane.** Neither
+  recurred on 380.
+  - Codex P2: `.github/dependabot.yml` groups the github-actions updates across `/` and
+    `/.github/actions/*` with `group-by: dependency-name`, and Dependabot cannot rebase or refresh
+    a pull request made that way. The upstream bug, `dependabot/dependabot-core#14780`, is open,
+    and a comment of 2026-08-13 reproduces it on `github_actions`. The effect: a grouped action
+    bump that conflicts after the default branch moves is closed and reopened by hand. The config
+    is Oak's (its pull request 1015) and now on both forks, so a cure is Oak's to make; leaving it
+    is an option (the owner's ruling of 2026-11-03 on harmless warnings).
+  - Copilot: in `packages/design/oak-design-system/vitest.config.mts`, `mergeConfig` concatenates
+    the `include` arrays, so the base `src/**/*.test.ts` stays live. The header's "scoped to
+    exactly that category" is untrue as written. It is latent: the package's two tests are both
+    integration tests, and the config predates this sync on both forks.
+
+## Lane state (2026-11-05 ~14:50Z, carrier 381 merged and pushed, held at the Sonar gate; Sandpiper guards Wind, 690653)
+
+- **The owner's word.** "please continue" (2026-11-05), after the seat's recommendation: re-true
+  step 1, correct 379, route the close guard. Done:
+  - step 1 re-trued on 377 (`d41a12fd1`);
+  - the correction posted on 379 (issue comment 6655777622);
+  - the guard and the carrier workflow's body text routed in Next safe step 4.
+- **Carrier 381.** It is a bot draft at `f1070c2` (release 1.186.7) and bare. Oak's `main` moved
+  past it to `2a03987b0` (oaknational 1018, merged 10:33Z). The mirror was dispatched (run
+  42011866659, success) and equals Oak's tip. 381's head is an ancestor of it, so 381 extends under
+  the re-trued step 1. The worktree `.claude/worktrees/upstream-carrier-381` is at 381's head and
+  installed, with no commits. It is held under claim `9e972476`.
+- **Step 2 stops the sync.** `git merge-tree --write-tree --name-only efe1ba72e 2a03987b0` exits 1
+  with 27 conflicted paths (merge base `0bb2ae4f0`; first-parent exclusive counts 5 and 327). The
+  collision is between two policies.
+  - Oak's 1016 to 1018 invoke `pnpm`, `gh` and `gitleaks` by name, under the owner's S4036 ruling
+    of 2026-11-03 in Oak's Sonar policy ("Tooling invokes each binary it needs by name"; `PATH` is
+    the trust root). They delete `trusted-gh.ts` and `pnpm-path.ts`.
+  - `engraph` carries the opposite cure as its own fork work. Trusted absolute paths with Windows
+    platform partitioning sit in `trusted-git.ts`, `trusted-gh.ts` and `pnpm-path.ts`, alongside
+    the 375 analyser cures. Its Sonar policy carries the One-Outcome Rule (2026-09-08), under which
+    S4036 resolves FIXED.
+
+  The paths by class:
+  - the by-name refactor against the trusted-path files and their call sites (15);
+  - Oak's MCP-830 fixes (the commit workflow's output replay, the agent-task view's null fields)
+    against `engraph`'s own changes there (4);
+  - the refounding instruments, retired on `engraph` (`13be1c97f`) and edited by name on Oak (3),
+    where `engraph`'s retirement stands;
+  - knip and the two hooks: Oak's configuration-hint gate against `engraph`'s hook changes (3);
+  - the Sonar policy and its rule (2).
+- **The owner's ruling, 2026-11-05 ~13:45Z, verbatim: "adopt the by-name ruling on engraph".**
+  `engraph` takes Oak's S4036 position. Tooling invokes each binary by name, and `PATH` is the
+  trust root. The carrier merge resolves the by-name class to Oak's side, keeping `engraph`'s
+  other changes in those files, and `engraph`'s Sonar policy takes Oak's S4036 section. The
+  trusted-path machinery (`trusted-gh.ts`, `pnpm-path.ts`, and `trusted-git.ts` with MCP-833)
+  goes, Windows partitioning included. The integration checks that the by-name calls still launch
+  on native Windows.
+- **The merge, `85621052c`.** 381 extended to `d0023a999` (release 1.186.8), its head an
+  ancestor. oaknational 1019 (git by name) merged at `5007170e6` while the merge was under way,
+  so it is the next carrier. The integration record is on 381 (issue comment 6660499181). Pushed
+  through the pre-push gate and readied; every required check but the analyser's passed.
+- **The analyser gate.** The pull-request analysis raised S4036 at the seven by-name sites, each
+  within §S4036's class (a literal `pnpm` or `gh`, an argv array, no `shell` option). Five are
+  marked `FALSE_POSITIVE` under the policy's second exception, with the canonical rationale. The
+  auto-mode classifier denied the agent's marks on `AaGsHnCqF0Bho36dFvNH`
+  (`agent-tools/smoke-tests/gate-slot-cli.smoke.ts:48`) and `AaGsHnC5F0Bho36dFvNJ`
+  (`packages/libs/fidelity-review/src/dev-server-spawn.ts:51`), so the gate holds at security
+  rating B until the owner marks those two or allows the write. A background watch runs the door
+  when the analyser's check passes.
+- **The follow-up, `fix/by-name-follow-ups` (`611ff6b27` on `85621052c`, claim `7e0c53cf`).** It
+  carries the resolution review's six non-blocking findings and the stale comments. It opens
+  against `engraph` once 381 lands, so its diff is its own.
+
+## Lane state (2026-11-06 ~15:3xZ, carrier 381 landed; Sandpiper guards Wind, 690653)
+
+- **381 landed at `e3574df72`.** It is a merge commit with parents `44ddac8d7` and `6f553429c`.
+  - **The conflict.** `engraph` had moved on with #382 and #383 (parallax). The carrier conflicted
+    on the four generated parallax adapter projections. Merging `engraph` in at `6f553429c` and
+    regenerating them with `skills:generate` resolved the conflict, and the result equals
+    `engraph`'s copies.
+  - **The analyser gate.** It held on `AaGsHnCqF0Bho36dFvNH` and `AaGsHnC5F0Bho36dFvNJ` (S4036,
+    "OS commands should not rely on PATH resolution"). The owner allowed the write on
+    2026-11-06, and both are now `FALSE_POSITIVE` with the canonical rationale.
+  - **The open thread.** The door then refused on one unresolved Codex P1 thread, about native
+    Windows `.cmd` shims. Triaged as real and non-blocking under the carrier rule, the thread was
+    replied to as the bot and resolved, and the door merged.
+- **Landing proofs.**
+  - The parents are as above.
+  - Oak release 1.186.8 (`d0023a999`) is an ancestor of `engraph`.
+  - `engraph`'s tree equals the carrier head's.
+  - The branch is retired, the worktree removed, claim `9e972476` closed, and the primary
+    checkout fast-forwarded.
+- **The Windows gap.** The 2026-11-05 entry said the integration would check that the by-name
+  calls launch on native Windows. It did not. `windows-basic` builds agent-tools and runs its
+  unit suite, which injects fakes, so no Windows job launches pnpm. Shell-less, Node finds only
+  `.com` and `.exe` on `PATH` and refuses `.cmd`. So where pnpm is a `pnpm.cmd` shim, four
+  launchers fail to start:
+  - the commit workflow's advisory;
+  - the commitlint check;
+  - the worktree build runner;
+  - the agent-ops gates.
+- **The follow-up, #385** (`fix/by-name-follow-ups`, `611ff6b27`, claim `7e0c53cf`). It is open
+  and readied, with the door running. It opened with `--wip-limit 2` while #384 (a research report
+  for the owner, from another session) was open; a solo seat's limit is one.
+- **The Windows fix, `fix/windows-pnpm-by-name`** (`5a390a837`, committed locally, worktree
+  `.claude/worktrees/windows-pnpm-by-name`, not yet pushed).
+  - **The fix.** The four launchers (`runFileBackedChild`, `realPnpmRunner`, `runPnpmGate`, and
+    commitlint in `check-commit-message`) go through `cross-spawn`. It keeps the by-name lookup
+    on `PATH` and `PATHEXT`, and wraps a `.cmd` shim in `cmd.exe`.
+  - **The proof.** The new `pnpm-by-name-launch` smoke runs each launcher, and `windows-basic`
+    runs the smoke. The smoke reports a control (a plain shell-less `spawnSync('pnpm')`), so the
+    Windows log shows whether the proofs discriminate.
+  - **Not changed.** The gate-slot smoke and the fidelity-review dev server spawn detached process
+    groups and reap them with POSIX group signals.
+  - **When it opens.** It pushes and opens when #385 lands.
+- **Next.**
+  - The next carrier, at Oak 1.186.9 (`d5846cf6f`, which includes #1019, git by name).
+  - Oak carries the same Windows defect.
+  - Lanes still open:
+    - `trusted-gitleaks` and `trusted-shell` to by-name;
+    - Dependabot group-by (P2);
+    - the merge-bot close guard;
+    - the carrier workflow's body text.
