@@ -1749,8 +1749,28 @@ outside the repository. One instance each; scope is this session.
 - **Tooling fact:** in a cloud session a pull-request subscription can be backed by one
   `send_later` check-in; the trigger id is returned and is listed by `list_triggers`. The one
   armed for pull request 397 fires at 15:05Z on 2026-11-10 and re-arms only while nothing changes.
-- **Owner word (2026-11-10, before the compaction):** the next phase begins in five named modes,
-  free play among them. The comparison brief had a verdict frame written before that word. Free
-  play admits no problem statement at entry, so the brief now holds the verdict shut until the
-  play pass is harvested. That ordering is my reading of the owner's word, named as such in the
-  brief.
+- **Correction (the owner, 2026-11-10: "Those skills were specified as part of the compaction
+  preparation, I said nothing to imply that is how the next session should start"):** the owner
+  wrote "Please prepare for compaction, after compaction we begin", then five skill names. I read
+  the names as the modes of the next phase, rewrote the comparison brief's opening around free
+  play, and held its verdict shut. The names were how to prepare. I had marked the reading as an
+  inference, and then acted on it in a ratified-shape document, a pull-request description and
+  the continuity entry before the owner could answer. Naming an inference does not make it safe
+  to build on: where a reading changes what a later session does first and the owner is present,
+  the cheaper reading is taken (the skills apply to the request they are attached to, as in
+  every earlier message of this session) and the other is offered in one line. The brief section
+  is removed. I had also not run the play pass the owner asked for; it follows.
+- **Play seeds (free play over this session's events, one sitting, 2026-11-10; associations, not
+  findings):**
+  - Kept: today's corrections reminded me of one another in a way I had not grouped them. "Hermes
+    claims none", "the owner has not said", the napkin line about an undeveloped thought, "each
+    row restates a citation", and the opening order just removed all look shaped alike: a
+    sentence about what someone else said, did or holds, written because it completed the
+    paragraph. None was a mistake about code I had read.
+  - Kept: batch 3's one miss was the row's fault and not the citation's. It reminded me that the
+    nine misses in batch 1 were read as nine wrong citations without asking, row by row, which
+    side was wrong.
+  - Discarded as forced: "Hermes's runtime loop writes and measures nothing, and so did my three
+    wraps today." It arrived whole and fluent, and it is the comparison brief's own frame, which
+    I wrote; it belongs to the next phase's evidence or nowhere.
+  - Discarded as forced: dropping 12 KB of row files as "packing light from habit". Decorative.

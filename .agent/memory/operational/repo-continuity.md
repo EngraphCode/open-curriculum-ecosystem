@@ -52,10 +52,7 @@ forward-asks remain.
   Pull request 396 (the brief, the instruments, that wrap) merged at 13:27Z. Pull request 397 is
   open as a draft on the same branch name, restarted from `engraph`, and by the owner's word it is
   where the comparison lands: "The PR we open for the fix is the one we will continue on for the
-  implementation work". The owner's last word before compaction named the modes the phase begins
-  in, free play among them; the brief's section "How the session opens: play before the frame"
-  gives the opening order, with the verdict held shut until the play pass has been harvested.
-  The comparison itself has not started. The two Hermes clones in
+  implementation work". The comparison itself has not started; it opens on the brief's verdict. The two Hermes clones in
   the cloud session are pinned and clean and nothing was ever written to them; the pins and the
   commands to recreate them are in `method-instruments.md` beside the study.
 
