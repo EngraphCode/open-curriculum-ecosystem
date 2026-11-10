@@ -1727,3 +1727,30 @@ outside the repository. One instance each; scope is this session.
   one command (`pnpm docs-validators:check`, about a minute); I had not run it on new Markdown
   because the earlier research files had passed without it. A new file that names where things
   are on this machine is the case that validator exists for.
+- **Correction (a reviewer bot, on pull request 396, six minutes before it merged):** the
+  instruments record kept the quotation-match script and dropped its six row files, with the
+  sentence "each row restates a citation". A row also holds the substring that was looked for,
+  which no citation records. The files were 12 KB and sitting in scratch. The earlier wrap's
+  loss scan asked which scripts the evidence cites and never asked what each script reads. For
+  a kept instrument, the question is whether its inputs can be regenerated from what is kept.
+  I then applied it to the rest of scratch: the cold-pass hits, the census and the DSPy wheels
+  regenerate from the pinned clones, the recorded search pattern and PyPI; the row files were
+  the only inputs that did not.
+- **Observation:** the thread arrived after my last read of the pull request and before the
+  merge, and I had ended the turn with CI still running. The owner's request to review the
+  pull request found it. A pull request's threads are read again after CI concludes on the last
+  push, not only after the push.
+- **Observation:** re-running the kept row files reproduced every figure in the synthesis,
+  including the nine misses, because batch 1 holds the ranges as first written. A duplicated
+  clause in `synthesis.md` had passed two pull requests, a fresh-eyes pass and two reviewer
+  bots; I saw it only because a `sed` range happened to print that line.
+- **Tooling fact:** `validate-markdown-links` reports a link to a new, untracked directory as
+  broken (`tracked-source-to-untracked-target`). Stage the target, then run the validator.
+- **Tooling fact:** in a cloud session a pull-request subscription can be backed by one
+  `send_later` check-in; the trigger id is returned and is listed by `list_triggers`. The one
+  armed for pull request 397 fires at 15:05Z on 2026-11-10 and re-arms only while nothing changes.
+- **Owner word (2026-11-10, before the compaction):** the next phase begins in five named modes,
+  free play among them. The comparison brief had a verdict frame written before that word. Free
+  play admits no problem statement at entry, so the brief now holds the verdict shut until the
+  play pass is harvested. That ordering is my reading of the owner's word, named as such in the
+  brief.

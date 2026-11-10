@@ -48,7 +48,14 @@ forward-asks remain.
   back to the owner as a question; the owner sent it through the decision lenses ("run this through
   the decision matrix please"), and the brief now carries a verdict on purpose, depth and output,
   resting on the ratified node `outcome-informed-practice-learning`. The session proceeds on that
-  verdict unless the owner says otherwise; the one inference it rests on is named in the brief. The two Hermes clones in
+  verdict unless the owner says otherwise; the one inference it rests on is named in the brief.
+  Pull request 396 (the brief, the instruments, that wrap) merged at 13:27Z. Pull request 397 is
+  open as a draft on the same branch name, restarted from `engraph`, and by the owner's word it is
+  where the comparison lands: "The PR we open for the fix is the one we will continue on for the
+  implementation work". The owner's last word before compaction named the modes the phase begins
+  in, free play among them; the brief's section "How the session opens: play before the frame"
+  gives the opening order, with the verdict held shut until the play pass has been harvested.
+  The comparison itself has not started. The two Hermes clones in
   the cloud session are pinned and clean and nothing was ever written to them; the pins and the
   commands to recreate them are in `method-instruments.md` beside the study.
 
