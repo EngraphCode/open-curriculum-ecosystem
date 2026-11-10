@@ -164,9 +164,23 @@ sys.exit(1 if bad else 0)
 
 Checks that a substring occurs within a cited line range. Arguments: the two clone paths, then a tab-separated file with
 one row per check: `H` or `E` (which clone), path, first line, last line, substring. On a miss it
-prints the lines where the first forty characters do occur. The session ran six batches (122, 44,
-25, 5, 16 and 8 rows); the row files were scratch and are not kept, since each row restates a
-citation that is in the research files.
+prints the lines where the first forty characters do occur.
+
+The session ran six batches. Their row files are kept in
+[`quotation-check-rows/`](quotation-check-rows/) as the session ran them, because a citation
+does not say which substring was looked for. Re-run against the pinned clones with the script
+below, they give:
+
+| File | Rows | Misses | Reading |
+| --- | --- | --- | --- |
+| `batch-1.tsv` | 122 | 9 | Citations from `memory-learning-architecture.md` as first written. The nine misses are the citations that were then corrected in the research files; the rows keep the uncorrected ranges, so the misses reproduce. |
+| `batch-2.tsv` | 44 | 0 | `architecture-map.md` and the ledger rows. |
+| `batch-3.tsv` | 25 | 1 | Lines cited by the fresh-eyes subagent. The miss is a phrase that runs from line 817 on to line 818 while the row ends at 817: the row is one line short, and the citation is not wrong. |
+| `batch-4.tsv` | 5 | 0 | DSPy and GEPA additions. |
+| `batch-5.tsv` | 16 | 0 | DSPy and GEPA additions. |
+| `batch-6.tsv` | 8 | 0 | DSPy and GEPA additions. |
+
+`synthesis.md` reports the last three as one batch of 29.
 
 ```python
 """Spot-check: each row is repo, path, first line, last line, substring that must occur in that line range. Reads only."""

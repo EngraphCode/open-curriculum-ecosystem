@@ -151,7 +151,7 @@ specifications.
     cited by the fresh-eyes subagent (24 matched; the other was a docstring wrapped across
     lines, not an error); and 29 from the DSPy and GEPA additions (none off). In total 220
     checked, nine corrected. Citations outside those batches were not quotation-checked.
-- The fresh-eyes pass in section 5 is the same model The fresh-eyes pass in section 5 is the same model
+- The fresh-eyes pass in section 5 is the same model
   family and is recorded as a challenge pass, not independent assurance.
 - The brief, the Charter and these files share one author lineage.
 
