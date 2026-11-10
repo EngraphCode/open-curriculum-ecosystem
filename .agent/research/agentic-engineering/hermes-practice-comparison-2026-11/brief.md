@@ -32,6 +32,35 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   owner for the comparison's purpose, depth and output: "Ultrathink run this through the
   decision matrix please @principles.md"
 
+- 2026-11-10, after pull request 396 merged and a follow-up fix opened pull request 397: "The
+  PR we open for the fix is the one we will continue on for the implementation work"
+- 2026-11-10, the last word before compaction: "Please prepare for compaction, after compaction
+  we begin", followed by five skill names: metacognition, concept-exploration, free-play, reason
+  and wrap
+
+## How the session opens: play before the frame
+
+The owner's last word names free play among the modes the next phase begins in. That skill's
+entry contract is material, a time-box and a capture surface, and nothing else: "No problem
+statement, no target, no hypothesis — writing one before exit is breaking the skill." The
+verdict in the next section is a problem statement, and it was written before the owner named
+play. The author's reading, which the owner's word overrides:
+
+1. Ground with start-right, then read the material on both sides with the verdict set aside.
+   The verdict is not re-read before the play pass ends. This is the sealed-envelope discipline
+   the Hermes study used on its prior claims, applied to this brief's own frame.
+2. Free play, one sitting. Material: the Hermes study files and the Practice's own learning
+   surfaces, entered wherever attention goes. Capture surface: `play-harvest.md` beside this
+   brief. The harvest marks each seed as an association, shows its discards, and may be empty.
+3. Concept exploration over whatever the harvest holds, then reason.
+4. Only then open the verdict and put it to what appeared. It stands, narrows or falls on that
+   reading. The steps under "The verdict" follow from whichever frame survives.
+5. Wrap at the end of the phase, and before any compaction inside it.
+
+The reading rests on one inference: that the five skill names describe how the next phase
+begins, and not only how this compaction is prepared. Wrap was run before the compaction in
+either case.
+
 ## Purpose, depth and output: a verdict, not a question
 
 The first draft of this brief handed the purpose back to the owner as an open question. The
