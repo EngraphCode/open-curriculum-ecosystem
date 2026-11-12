@@ -12,6 +12,42 @@ The reading was done by a sub-agent that had written none of the code or the pla
 that commissioned it then checked the claims a design would lean on most at their cited
 lines; section 10 lists them.
 
+## The audit in one page
+
+Each line is established in the section named.
+
+- **A rule is declared by four frontmatter fields**: `classification` (`core` or
+  `situational`), `description`, `trigger` and `globs`. No other key is admitted, so a rule
+  cannot carry a size limit of its own (section 1).
+- **One command renders four outputs from each rule**: a Claude adapter, an `.agents` adapter,
+  a Cursor rule and a row of the rules index. The two adapters are a one-line pointer to the
+  canonical file. No output carries a rule's body, and only the Cursor rule carries its
+  description (section 2).
+- **On Claude Code `classification` alone changes nothing.** An adapter is path-scoped only
+  when a situational rule has globs: 21 of 124. The other 103 are unscoped pointers
+  (sections 2 and 6).
+- **`trigger` reaches the index row and nothing else**, and no reader enforces its
+  vocabulary (sections 1 and 2).
+- **Skills have a separate generator**, run from built JavaScript with a required prefix. It
+  writes adapters to `.claude/skills` and `.agents/skills` only. Each adapter carries the
+  skill's whole description and a pointer to the canonical file, and supporting files are
+  copied beside it (section 3).
+- **The checks run in CI; the generators do not.** `portability:check` and `skills:check` run
+  in the `static-checks` job. Nothing runs `portability:fix` or `skills:generate` for the
+  author (section 4).
+- **One size threshold fails the build**: the rules index against 32 × 1,024 bytes. It
+  measures the index alone, at 11,876 bytes, and not `AGENTS.md` (section 5).
+- **The fitness validator fails no build and measures no rule or skill file** (section 5d).
+- **The skill specification's size limits are checked nowhere.** Five adapter descriptions
+  exceed 1,024 characters (sections 3 and 5c).
+- **The canonical rules hold 1,077,957 bytes in 124 files; the Claude adapters hold 9,931**
+  (section 6).
+- **By the vendors' documentation, not by observation**: `.agents/rules/` has no reader, and
+  the Codex fallback setting that names the rules index does nothing while a root `AGENTS.md`
+  exists (section 8).
+- **Not audited**: the sub-agent validators, the other build checks, and every platform's
+  behaviour in a running session (sections 5 and 9).
+
 Four commands were run at this commit; each exited 0:
 
 | Command | Last line of output | Exit |
@@ -326,7 +362,22 @@ invoker of the `--informational` fitness run
 script holds no fitness leg (`package.json:115`); `make` does (`package.json:112`). Verified by
 reading `package.json`.
 
-## 5. Every check that fails the build today
+## 5. The checks in the audited modules that fail the build today
+
+This inventory covers the portability validator and the skills generator's checker only. It
+is not every check in the build. Markdownlint, Prettier, ESLint, `docs-validators:check` and
+`repo-validators:check` also run in the build and were not audited (section 9), so nothing
+here shows that they refuse nothing about a rule or a skill. What a search shows of them,
+without reading their conditions:
+
+- Four other validators name a rule or skill path in their source: `cited-paths`,
+  `cited-scripts`, `reference-direction` and `notion-fence` (`grep -rl` over
+  `agent-tools/src/validators/` for `.agent/rules`, `.agent/skills`, `SKILL-CANONICAL`,
+  `.claude/rules`, `.claude/skills` and `RULES_INDEX`, test files excluded).
+- Markdownlint ignores `.claude/**` and `.agents/**` (`.markdownlint-cli2.jsonc:44-45`), and
+  Prettier ignores the generated rule and skill adapters and the rules index
+  (`.prettierignore:86-95`). The canonical files under `.agent/rules/` and `.agent/skills/`
+  are in neither ignore list at those lines.
 
 "Fails the build" means a non-zero exit from a command run by CI job `static-checks` or by
 `pnpm check`. Portability collects issues and exits 1 if there is at least one

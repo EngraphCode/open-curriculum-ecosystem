@@ -162,8 +162,10 @@ Each is one pull request.
 
 1. **Audit the present pipeline against its code.** The declaration shape, both generators,
    the portability and fitness validators, the one build-failing threshold (which is in the
-   portability validator), and what each platform's directory holds today. One page of facts.
-   Done on 2026-11-12:
+   portability validator), and what each platform's directory holds today. One page of facts,
+   with the citations and quoted templates behind it in the same document. Done on
+   2026-11-12, for the generators and those two validators; the build's other checks are
+   named there and not audited:
    [`pipeline-audit.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/pipeline-audit.md).
 2. **Write the unit model, the contracts and the budgets**, with the script behind the
    measures.
