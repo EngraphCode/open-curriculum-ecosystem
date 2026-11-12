@@ -81,8 +81,17 @@ forward-asks remain.
   That reading's main point for the review: the baseline's evidence makes a gate that reads a
   proposed change weaker than a gate the change must pass, which favours the comparison's
   skill-evaluation candidate (6.3) over its staged-pull-request proposal (6.2). It adds four
-  questions to the review. Whether more results are to come is the owner's to say. The
-  reflection leaves
+  questions to the review. The third and, by the owner's word, final piece arrived the same
+  day: the Attendant Workflow's research step (pull requests 394 and 398; `engraph` merged in
+  at `b10d5c6db`). The owner then asked for a deep reflection on all of it and suggested next
+  steps: `where-we-are.md` in the same directory is the entry point for the joint review. Its
+  suggestions, none begun: measure what the rule adapters deliver to a session before anything
+  is designed (the Attendant research found the adapters are one-line pointers and, in one
+  trial, the rule's file was never opened); write the deep comparison as a map of links filled
+  by observation; have it checked by a reader that is not this model; order the lanes by
+  dependency; agree one with-and-without instrument; clear what is already owed. A seat arriving
+  here must not open the Attendant's held-back scenarios or its scenario review unless it is
+  certain it is not the seat for that lane's next step. The earlier reflection leaves
   five questions for the joint review (its section 6): whether the estate means to forget;
   whether a learning pass may change the body or only the memory; whether distilled memory
   should have one writer; what a pass asks of its reviewer; and whether the experiment is

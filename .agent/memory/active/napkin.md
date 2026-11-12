@@ -1893,6 +1893,20 @@ outside the repository. One instance each; scope is this session.
   same fact read as convergence in a comparison and as failure in an account written from first
   principles. A finding filed under "both systems do this" has not yet been asked whether either
   should.
+- **Observation (reflecting on four pieces of related work at the owner's word):** four seats
+  reaching one conclusion read to me as four confirmations until I listed what each rested on.
+  The estate-side evidence in three of them is the same three records. Before counting
+  agreeing accounts, list each one's sources and count the sources.
+- **Observation (the same reflection):** the four pieces together hold three first-hand trials
+  and a great deal of reading, on the question of whether written lessons work. The cheapest
+  trial cost a quarter of a dollar. I added a reading for each result as it arrived, which is
+  the additive response the comparison had measured in the estate. When the subject is whether
+  writing changes anything, the next written thing needs a reason a trial would not serve.
+- **Observation (from the Attendant research, which measured it):** I had written, with the
+  estate's own records, that lessons with homes recur although they are in context. On this
+  platform a rule's adapter is a one-line pointer, and in one trial the file was not opened.
+  "Has a home" and "reached the agent" are two facts, and I had been treating the first as the
+  second.
 
 ### 2026-11-12 (Limpet lifts Spray, 01Duoc): the attendant research step, first sitting
 
