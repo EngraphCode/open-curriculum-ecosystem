@@ -36,7 +36,9 @@ session's container is reclaimed.
 
 `tools/build_evidence.py` replaced the scratch directory's path, the home directory, session
 identifiers and UUIDs with placeholders in angle brackets, and removed each clone's path
-prefix so that read paths are relative to the repository root. Nothing else was altered. The
+prefix so that read paths are relative to the repository root. In the three driver scripts
+the test `[ "$arm" = "B" ]` is written `[[ "$arm" = "B" ]]`, which behaves the same here and
+is what the repository's analyser asks of a shell script. Nothing else was altered. The
 treatment clone's directory name, `cloneT`, is left where an answer wrote it: that answer is
 the incomplete blind the habit-text record describes, and it is evidence.
 
