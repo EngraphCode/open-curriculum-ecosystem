@@ -321,8 +321,10 @@ skill directory that is neither `SKILL.md` nor an expected carried file is an "o
 Membership of "ours" is by content, not by name: a frontmatter block, then exactly two non-empty
 body lines, a title matching `^# .+ \(.+\)$` and the pointer line, the pointer ending in
 `SKILL-CANONICAL.md` (`adapter-stub.ts:55-56`, `:76-90`, `:94-110`, `:128-130`). Anything else
-under the roots is out of jurisdiction and is neither reported nor removed
-(`projection-roots.ts:17-30`).
+under the roots is out of jurisdiction for the sweep of each root, which neither reports nor
+removes it (`projection-roots.ts:17-30`). One case is reported: a foreign entry that occupies
+the name a canonical's adapter should have, `<root>/<prefix><id>`, is classified and added to
+the refused stream by the per-canonical check (`skills-adapter-generate/checker.ts:218-226`).
 
 ## 4. Commands
 
@@ -334,7 +336,7 @@ under the roots is out of jurisdiction and is neither reported nor removed
 | `pnpm skills:check` | `package.json:104` (`--check`) | Read-only comparison described in section 3 (`agent-tools/src/bin/skills-adapter-generate.ts:79-116`) | No tracked file; it runs `pnpm agent-tools:build`, which writes the untracked `agent-tools/dist` | CI job `static-checks` (`ci.yml:187-188`); `pnpm check` (`package.json:115`); pre-push through `pnpm check` |
 | `pnpm practice:fitness` | `package.json:107` → `agent-tools/package.json:87` | Report over every Markdown file that declares fitness frontmatter; mode `strict` | No | Nowhere |
 | `pnpm practice:fitness:informational` | `package.json:108` | The same report, mode `informational` | No | `pnpm make` only (`package.json:112`) |
-| `pnpm practice:fitness:strict-hard` | `package.json:109` | The same report, mode `strict-hard` | No | Nowhere |
+| `pnpm practice:fitness:strict-hard` | `package.json:109` | The same report, mode `strict-hard` | No | The commit skill's advisory run: `agent-tools:check-commit-skill-advisories` calls it (`agent-tools/src/commit-advisories/check-commit-skill-advisories.ts:156`), and the commit workflow calls that script (`agent-tools/src/commit-queue/commit-workflow-runtime.ts:82`). The script's own header states that its exit is advisory and not blocking (`check-commit-skill-advisories.ts:12-13`). No CI job or git hook calls it |
 | `pnpm subagents:check` | `package.json:99` → `agent-tools/package.json:88` | Validates sub-agent wrappers, Codex adapters and templates (`agent-tools/src/validators/subagents/validate-subagents.ts:21-24`) | No | CI job `static-checks` (`ci.yml:175-176`); `pnpm check`; `pnpm make` |
 | `pnpm agent-tools:context-cost` | `package.json:132` → `agent-tools/package.json:32` | For the globs given, prints characters and `ceil(chars / 4)` tokens per file and in total (`context-cost/tokenize-globs.ts:17-54`; `context-cost/tokenizer.ts:5-7`) | No | Nowhere |
 | `pnpm --filter @oaknational/agent-tools rule-frontmatter-sweep [--write]` | `agent-tools/package.json:86` | Mints frontmatter from a hand-kept index and adapters; described as a one-time "transplant instrument" (`rule-declarations/README.md:38-44`) | With `--write`: the canonical rule files | Nowhere |
