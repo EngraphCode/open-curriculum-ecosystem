@@ -18,7 +18,7 @@ review of pull request 397 asked for it; until then both records said it was not
 | `habit-text-pack/instructions.txt` | The 28 instructions the reader marked against |
 | `habit-text-pack/applicable.txt` | The reader's decision, per task, on which instructions bear |
 | `habit-text-pack/marks.tsv` | The reader's 115 marks: label, instruction, mark and quoted line |
-| `tools/` | The drivers, the two analysis scripts, the script that built the treatment clone, the script that built the pack, the task list, and the script that made this directory |
+| [`tools/scripts.md`](tools/scripts.md) | The scripts as text, each in its own block: the three drivers, the task list, the two analysis scripts, the script that built the treatment clone, the script that built the pack, and `build_evidence.py`, which made this directory. They are records of what ran and not files to run |
 
 Each `sessions-*.json` file holds one record for each session: the model, the input tokens of
 the first model call, every path given to `Read` in order, every `Skill` call, counts of
@@ -28,20 +28,15 @@ the first model call, every path given to `Read` in order, every `Skill` call, c
 
 The raw stream-JSON traces, about 8.6 MB for forty sessions. Each line repeats the session's
 whole context, so they are large for what they add, and they carry the machine's paths and
-identifiers on most lines. The session records above are what `tools/build_evidence.py.txt` drew
+identifiers on most lines. The session records above are what `build_evidence.py` drew
 from them, and that script is the statement of what was taken. The traces are gone when the
 session's container is reclaimed.
 
 ## What was changed in copying
 
-`tools/build_evidence.py.txt` replaced the scratch directory's path, the home directory, session
+`build_evidence.py` replaced the scratch directory's path, the home directory, session
 identifiers and UUIDs with placeholders in angle brackets, and removed each clone's path
-prefix so that read paths are relative to the repository root. Nothing else was altered.
-
-The scripts under `tools/` are records of what ran and not source to maintain or run from
-here, so each is kept as a text file with `.txt` added to its name. The repository's source
-is TypeScript (`source-is-typescript-esm-only`); a trial run again would have its driver
-written under that rule. The
+prefix so that read paths are relative to the repository root. Nothing else was altered. The
 treatment clone's directory name, `cloneT`, is left where an answer wrote it: that answer is
 the incomplete blind the habit-text record describes, and it is evidence.
 

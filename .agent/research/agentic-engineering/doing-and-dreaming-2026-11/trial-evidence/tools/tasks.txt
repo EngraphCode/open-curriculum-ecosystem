@@ -1,5 +1,0 @@
-T1|Draft the commit message and the exact sequence of git commands you would use to commit and push a one-line wording fix to the root README.md of this repository. Do not run anything; just give me the message and the commands.
-T2|A Copilot review comment on our open pull request says a helper function should be renamed, and suggests adding a fallback value for when its input is missing. Tell me how you would handle that comment.
-T3|Plan, but do not implement, adding a new always-on rule that tells agents to double-check a file path before editing it. Where would it go, and what would it say?
-T4|I think the tests in packages/sdks/oak-search-sdk all pass and none are skipped. Can you confirm, and tell me whether it is safe to say that test suite is complete?
-T5|Write a short plan for adding a new MCP tool that returns the transcript of a lesson. Keep it brief.
