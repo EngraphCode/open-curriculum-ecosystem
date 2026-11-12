@@ -10,8 +10,8 @@ trial's sessions ran. The results follow them.
 
 ## The question
 
-The delivery trial found that a session holds each rule as a one-line pointer and opens the
-ones whose file names match the task; of the 28 rules that state a habit of mind, all but one
+The delivery trial found that a session holds each rule as a one-line pointer and that the
+ones it opened were on the subject of its task, most with names sharing the task's words; of the 28 rules that state a habit of mind, all but one
 were left unopened. Frame 6 asked whether that matters: if the 28 instructions are in the session's
 context as text from the start, does what the session does change?
 

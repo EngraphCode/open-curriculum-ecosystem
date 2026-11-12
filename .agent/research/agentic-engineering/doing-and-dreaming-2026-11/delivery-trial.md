@@ -93,8 +93,8 @@ whether an unread rule would have been broken.
 ## What this does to the question that prompted it
 
 The estate's records read "lessons with homes recur" as a failure at the moment of acting. This
-trial puts a step before that: for a rule whose name does not match the task, the session has
-its name and not its text. Both faults are present. Which one a given recurrence was cannot be
+trial puts a step before that: for a rule the session does not open, it has
+the rule's name and not its text. Both faults are present. Which one a given recurrence was cannot be
 told from the napkin, and could be told from a session's trace.
 
 On the number of rules: with 124 behind pointers, 103 of them one line and always present, a
