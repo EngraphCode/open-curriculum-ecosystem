@@ -46,8 +46,8 @@ I am expecting the former."
 Stated as a gap, before any design.
 
 - **The gap.** On Claude Code, a rule reaches a session as a pointer to a file, and the
-  model must choose to open it; a skill reaches it as a name and its description, and its
-  body is read when the skill is used. By its documentation, Codex has no mechanism
+  model must choose to open it; a skill reaches it as a name and its description, in an
+  adapter that points to the skill's body as another file to open. By its documentation, Codex has no mechanism
   that loads a rule at all, and nothing was observed in a running Codex. The 124 rules and 78
   skills hold about 2.2 million characters, in which an instruction of a sentence or two
   shares a file with the ruling behind it and the incidents behind that. The build checks one
@@ -161,7 +161,7 @@ record or another home) is one of the questions it puts to the owner. Its parts:
 Each is one pull request.
 
 1. **Audit the present pipeline against its code.** The declaration shape, both generators,
-   the portability and fitness validators, the one build-failing threshold (which is in the
+   the portability and fitness validators, the one build-failing size threshold (which is in the
    portability validator), and what each platform's directory holds today. One page of facts,
    with the citations and quoted templates behind it in the same document. Done on
    2026-11-12, for the generators and those two validators; the build's other checks are

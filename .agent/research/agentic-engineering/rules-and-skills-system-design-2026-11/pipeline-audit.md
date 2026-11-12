@@ -38,8 +38,8 @@ Each line is established in the section named.
 - **One size threshold fails the build**: the rules index against 32 × 1,024 bytes. It
   measures the index alone, at 11,876 bytes, and not `AGENTS.md` (section 5).
 - **The fitness validator fails no build and measures no rule or skill file** (section 5d).
-- **The skill specification's size limits are checked nowhere.** Five adapter descriptions
-  exceed 1,024 characters (sections 3 and 5c).
+- **The skill specification's size limits are checked nowhere.** Three adapter descriptions,
+  as parsed, exceed 1,024 characters (sections 3, 5c and 6).
 - **The canonical rules hold 1,077,957 bytes in 124 files; the Claude adapters hold 9,931**
   (section 6).
 - **By the vendors' documentation, not by observation**: `.agents/rules/` has no reader, and
@@ -331,7 +331,7 @@ under the roots is out of jurisdiction and is neither reported nor removed
 | `pnpm portability:check` | `package.json:100` → `agent-tools/package.json:84` (tsx on source) | Skill canonical `classification` check; rule declarations read and four projections recomputed; sub-agent adapters recomputed; index byte budget; Claude hook wiring; Claude `Skill()` permission census (`validators/portability/validate-portability.ts:57-149`) | No | CI job `static-checks` (`.github/workflows/ci.yml:177-178`); `pnpm check` (`package.json:115`); `pnpm make` (`package.json:112`); pre-push through `pnpm check` (`.husky/pre-push:69-70`) |
 | `pnpm portability:fix` | `package.json:103` → `agent-tools/package.json:85` (`--fix`) | The same run with `fixMode` true (`validate-portability.ts:53`): writes missing and drifted projections, removes stale regular files on the generated surfaces (`validators/portability/projection-drift.ts:79-102`) | Yes: `RULES_INDEX.md`, `.claude/rules/`, `.agents/rules/`, `.cursor/rules/`, the sub-agent adapter directories and the Codex registry's blocks (`validate-portability.ts:91-107`) | Nowhere; run by hand |
 | `pnpm skills:generate` | `package.json:105` (builds agent-tools, then the built bin with `--prefix=oak-`) | Discovers canonicals, removes stale entries of its own class, syncs carried files, writes both adapters (`skills-adapter-generate/generator.ts:83-130`, `:179-210`) | Yes: `.claude/skills/oak-*/`, `.agents/skills/oak-*/` | Nowhere; run by hand |
-| `pnpm skills:check` | `package.json:104` (`--check`) | Read-only comparison described in section 3 (`agent-tools/src/bin/skills-adapter-generate.ts:79-116`) | No (it runs `pnpm agent-tools:build`, which writes `agent-tools/dist`) | CI job `static-checks` (`ci.yml:187-188`); `pnpm check` (`package.json:115`); pre-push through `pnpm check` |
+| `pnpm skills:check` | `package.json:104` (`--check`) | Read-only comparison described in section 3 (`agent-tools/src/bin/skills-adapter-generate.ts:79-116`) | No tracked file; it runs `pnpm agent-tools:build`, which writes the untracked `agent-tools/dist` | CI job `static-checks` (`ci.yml:187-188`); `pnpm check` (`package.json:115`); pre-push through `pnpm check` |
 | `pnpm practice:fitness` | `package.json:107` → `agent-tools/package.json:87` | Report over every Markdown file that declares fitness frontmatter; mode `strict` | No | Nowhere |
 | `pnpm practice:fitness:informational` | `package.json:108` | The same report, mode `informational` | No | `pnpm make` only (`package.json:112`) |
 | `pnpm practice:fitness:strict-hard` | `package.json:109` | The same report, mode `strict-hard` | No | Nowhere |
@@ -527,7 +527,11 @@ including any YAML quoting and the newline (the census commands).
 generator's stub. `.agents/skills/*/SKILL.md`: 87 files, 200,295 bytes; 78 are this generator's
 stubs. The serialised `description:` line of the 78 Claude adapters: shortest 37, median 433,
 longest 1,161, total 38,256 characters; 5 exceed 1,024 and none exceeds 1,536 (shell loop over
-`.claude/skills/oak-*/SKILL.md`; lengths include YAML quoting). 6 canonicals exceed 500 lines
+`.claude/skills/oak-*/SKILL.md`; lengths include YAML quoting). Those are lengths of lines in
+the file and not of descriptions. Parsed as YAML, the 78 descriptions have a longest of 1,139
+characters and 3 exceed 1,024: `oak-update-dependencies` (1,139), `oak-cross-fork-integration`
+(1,077) and `oak-sif` (1,051); a fourth is exactly 1,024 (the second block of the appendix,
+run by the commissioning seat). 6 canonicals exceed 500 lines
 (`find .agent/skills -name SKILL-CANONICAL.md -exec wc -l {} + | awk '$1>500'`).
 
 **Character totals by the repository's own tool.**
@@ -773,7 +777,7 @@ The audit found three sentences in the plan that the code does not bear out. The
 corrected in the same change.
 
 - The plan spoke of "the portability and fitness validators and the one threshold check they
-  hold". The one build-failing threshold is in the portability validator. The fitness
+  hold". The one build-failing size threshold is in the portability validator. The fitness
   validator holds thresholds read from each file's own frontmatter, fails no build, and
   measures no rule or skill file (section 5d).
 - The plan said "Skills have a like generator". The skills generator is a separate command
@@ -786,7 +790,12 @@ corrected in the same change.
 ## Appendix: the census commands
 
 Run at the repository root with `bash`. They were a throwaway script and are kept here as
-text, not as a tracked script.
+text, not as a tracked script. The appendix reproduces the directory counts of section 6. It
+does not reproduce the other figures there: the serialised description lengths, the count of
+canonicals over 500 lines and the character totals each name their own command beside them.
+
+The parsed description lengths came from the second block, a throwaway Node script run from
+the repository root with the `yaml` package resolved from `agent-tools`.
 
 ```bash
 #!/usr/bin/env bash
@@ -821,4 +830,19 @@ for s in .claude/skills .agents/skills; do
   echo "$s: entries=$(ls "$s" | wc -l) oak-prefixed=$(ls -d "$s"/oak-* 2>/dev/null | wc -l) symlink-entries=$(find "$s" -maxdepth 1 -type l | wc -l) SKILL.md=$(find "$s" -maxdepth 2 -name SKILL.md | wc -l) SKILL.md-bytes=$(find "$s" -maxdepth 2 -name SKILL.md -exec cat {} + | wc -c) practice-stubs=$(grep -l '^Read and follow `.agent/skills/.*SKILL-CANONICAL.md`\.$' "$s"/*/SKILL.md 2>/dev/null | wc -l)"
 done
 echo "carried files under .agent/skills (assets|references|scripts beside a canonical): $(find .agent/skills -name SKILL-CANONICAL.md | while read -r c; do d=$(dirname "$c"); for k in assets references scripts; do [ -d "$d/$k" ] && find "$d/$k" -type f; done; done | wc -l)"
+```
+
+```js
+import { readFileSync, readdirSync } from 'node:fs';
+import { parse } from 'yaml';
+const root = '.claude/skills';
+const rows = [];
+for (const d of readdirSync(root).filter((n) => n.startsWith('oak-'))) {
+  const text = readFileSync(`${root}/${d}/SKILL.md`, 'utf8');
+  const fm = parse(text.split('---')[1]);
+  rows.push([d, [...String(fm.description)].length]);
+}
+rows.sort((a, b) => b[1] - a[1]);
+console.log('adapters', rows.length, 'over 1024:', rows.filter((r) => r[1] > 1024).length, 'longest', rows[0][1]);
+console.log(rows.slice(0, 7).map((r) => `${r[0]}=${r[1]}`).join(' '));
 ```
