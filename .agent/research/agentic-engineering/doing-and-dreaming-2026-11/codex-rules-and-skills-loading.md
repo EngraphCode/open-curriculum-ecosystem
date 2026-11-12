@@ -23,7 +23,7 @@ text as guidance. What Codex puts in front of the model at the start is three th
 
 | What | From where | Limit |
 | --- | --- | --- |
-| The `AGENTS.md` chain | A global file, then one per directory from the repository root down to the working directory, joined root first | 32 KiB by default (`project_doc_max_bytes`); files stop being added beyond it |
+| The `AGENTS.md` chain | A global file, then one per directory from the repository root down to the working directory, joined root first | 32 KiB by default (`project_doc_max_bytes`). Unresolved: one vendor page says the limit is for all files together and files stop being added beyond it, and two describe it for each file |
 | The skills listing: each skill's name, description and file path | `.agents/skills` from the working directory up to the root, the home and system equivalents, bundled skills, plugins | 2 % of the context window by default; descriptions are shortened first, then skills left out with a warning |
 | What a session-start hook prints | The repository's hook configuration | None documented |
 

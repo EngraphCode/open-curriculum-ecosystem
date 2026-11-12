@@ -135,9 +135,12 @@ those.
 
 ## Reading
 
-1. **For a habit rule, text in context was used where a pointer was not opened.** The
-   delivery trial showed that pointers to activity rules are opened by name, so this is a
-   statement about habit rules only. The treatment's visible changes are each a delivered
+1. **On task T5 in this trial, a habit rule's text in context was used where its pointer was
+   not opened.** That is two treatment answers against four controls on one task, with a
+   blind that was not complete and an adapter whose wording around the pointer also changed.
+   It is an observation of uptake in one task and one run and not a general result on
+   delivery. The delivery trial showed that pointers to activity rules are opened by name,
+   so this is a statement about habit rules only. The treatment's visible changes are each a delivered
    instruction being followed or cited. The Goal and scope block is the instruction
    carried out almost to the letter. This is the result frame 6 said would count for it: the
    pointer was the wrong unit for these rules.

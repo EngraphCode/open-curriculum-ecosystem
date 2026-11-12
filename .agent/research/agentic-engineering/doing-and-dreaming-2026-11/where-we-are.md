@@ -140,7 +140,11 @@ first.
 
 ## 5. Suggested next steps
 
-In order. Each names what warrants it and what would show it wrong. None is begun.
+In order. Each names what warrants it and what would show it wrong. None was begun when this
+was written. Step 1 has since been run and is recorded in
+[`delivery-trial.md`](delivery-trial.md), with its result in the addition to section 2; it is
+not to be run again. The steps after it are as written, and what followed them is in the
+[review of the collection](review-of-the-collection.md).
 
 1. **Measure delivery before anything is designed.** Using D's method, run a small set of
    headless sessions, opened as the estate's sessions are opened, and read from their traces

@@ -98,7 +98,7 @@ What the design starts from, each marked for what it is.
 | Rules and skills "must describe current requirements, not the evolution that arrived at them" | The owner's ruling, 2026-11-12 |
 | "each rule, skill, and the combined total of the relevant parts, should be well within the identified important thresholds" | The owner's word, 2026-11-12. How far within is a figure the design proposes and the owner decides |
 | The thresholds themselves | Read from each vendor's documentation and recorded in the loading notes; measured only where the notes say so |
-| A rule and a skill are containers that platforms provide, and Codex provides no rule container | Documented for Codex, not observed. If it holds, the design cannot be stated in rules and skills alone |
+| A rule and a skill are containers that platforms provide, and Codex provides no container for a rule's text as guidance. Its `.codex/rules/` files are execution policy, which allows or forbids commands | Documented for Codex, not observed. If it holds, the design cannot be stated in rules and skills alone, and the audit still counts the execution-policy files as a Codex surface |
 | A unit is better described by when it must be in front of the agent than by which container holds it | This seat's starting hypothesis. The design derives its own kinds and may discard this |
 
 ## What the design delivers
@@ -189,7 +189,9 @@ Each is one pull request.
     Claude Code and on Codex, once each, well inside each platform's thresholds.
   - *The evidence that warrants it.* The two trials, the sort and the loading notes.
   - *The stop condition.* The spike shows the hypothesis false for Claude Code: the standing
-    instructions, as their own descriptions state them, do not fit the proposed budget.
+    instructions, as their own descriptions state them, do not fit the proposed budget, or a
+    unit is loaded twice. The same two failures observed on Codex, under the third acceptance
+    criterion, reopen the Codex projection and do not stop the Claude Code design.
   - *The effect expected.* An agent starts with the standing instructions as text, at a known
     and bounded cost.
   - *Information governance and decision rights.* The design reads only tracked repository
