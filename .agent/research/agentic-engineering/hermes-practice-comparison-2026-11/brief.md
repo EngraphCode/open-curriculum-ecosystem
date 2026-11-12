@@ -60,6 +60,10 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   node. We should wait for the other session inputs and review all work together before
   starting a design phase"
 
+- 2026-11-12, on the reflection's first suggested step: "Yes, run step 1, opus medium effort, 5
+  without start right, 5 with."; and: "Above you mentioned a biggest unknown. What is it, how do
+  we determine the answer, and is it related to the fact that we have far, far too many rules?"
+  The trial is recorded at `../doing-and-dreaming-2026-11/delivery-trial.md`.
 - 2026-11-12, supplying the Attendant Workflow's research step (pull requests 394 and 398) as
   "the final related work", with that session's summary, and then: "What has not necessarily
   been done yet for the reports is a deep comparison with the current capabilities and

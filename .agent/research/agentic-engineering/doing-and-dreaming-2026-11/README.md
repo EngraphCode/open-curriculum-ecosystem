@@ -1,13 +1,14 @@
 # Doing and Dreaming: readings for the joint review
 
-Two readings, by the seat that wrote the Hermes and Practice comparison, of research results
-the owner supplied on 12 November 2026. Both are for the joint review the owner asked for
-before any design starts. Neither proposes a design.
+Readings, a reflection and one trial, by the seat that wrote the Hermes and Practice
+comparison, on research results the owner supplied on 12 November 2026. All are for the joint
+review the owner asked for before any design starts. None proposes a design.
 
 | Document | What it is |
 | --- | --- |
 | [`reflection.md`](reflection.md) | The reflection the owner asked for on the report "Doing and Dreaming", set against the Practice's own records |
 | [`reading-the-loop-baseline.md`](reading-the-loop-baseline.md) | A reading of the loop-engineering baseline (pull request 403) for what it bears on the comparison and on the strategic node |
+| [`delivery-trial.md`](delivery-trial.md) | The first measurement the reflection suggested, run at the owner's word: ten headless sessions, and which of the estate's 124 rules each one opened. Rules were opened by name; rules about how to think were mostly not |
 | [`where-we-are.md`](where-we-are.md) | **Start here.** A reflection across all four pieces of related work, written when the owner supplied the last of them: what they say together, what reflection changed, a first sketch of where the estate stands on self-governance and self-improvement, and six suggested next steps |
 
 **Where the report is.** The owner's report is kept once, as received, at
