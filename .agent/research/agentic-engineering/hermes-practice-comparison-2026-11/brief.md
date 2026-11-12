@@ -60,6 +60,11 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   node. We should wait for the other session inputs and review all work together before
   starting a design phase"
 
+- 2026-11-12, a side question for a sub-agent: "when it comes to loading rules and skills into
+  memory, what are the differences between rules and skills, and are there important
+  byte/context size thresholds that change loading or execution behaviour. In this instance we
+  only need information for Claude Code. Use a Fable subagent please". The answer is at
+  `../doing-and-dreaming-2026-11/claude-code-rules-and-skills-loading.md`.
 - 2026-11-12, on sorting the rules after the trial: "Yes please, and please use the parallax
   skills to consider additional ways the rules can be understood or grouped. As you go please
   make sure that all findings are recorded so that the damage caused by surprise loss of
