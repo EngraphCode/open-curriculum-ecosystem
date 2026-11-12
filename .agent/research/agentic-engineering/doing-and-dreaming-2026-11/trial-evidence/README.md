@@ -28,17 +28,20 @@ the first model call, every path given to `Read` in order, every `Skill` call, c
 
 The raw stream-JSON traces, about 8.6 MB for forty sessions. Each line repeats the session's
 whole context, so they are large for what they add, and they carry the machine's paths and
-identifiers on most lines. The session records above are what `tools/build_evidence.py` drew
+identifiers on most lines. The session records above are what `tools/build_evidence.py.txt` drew
 from them, and that script is the statement of what was taken. The traces are gone when the
 session's container is reclaimed.
 
 ## What was changed in copying
 
-`tools/build_evidence.py` replaced the scratch directory's path, the home directory, session
+`tools/build_evidence.py.txt` replaced the scratch directory's path, the home directory, session
 identifiers and UUIDs with placeholders in angle brackets, and removed each clone's path
-prefix so that read paths are relative to the repository root. In the three driver scripts
-the test `[ "$arm" = "B" ]` is written `[[ "$arm" = "B" ]]`, which behaves the same here and
-is what the repository's analyser asks of a shell script. Nothing else was altered. The
+prefix so that read paths are relative to the repository root. Nothing else was altered.
+
+The scripts under `tools/` are records of what ran and not source to maintain or run from
+here, so each is kept as a text file with `.txt` added to its name. The repository's source
+is TypeScript (`source-is-typescript-esm-only`); a trial run again would have its driver
+written under that rule. The
 treatment clone's directory name, `cloneT`, is left where an answer wrote it: that answer is
 the incomplete blind the habit-text record describes, and it is evidence.
 

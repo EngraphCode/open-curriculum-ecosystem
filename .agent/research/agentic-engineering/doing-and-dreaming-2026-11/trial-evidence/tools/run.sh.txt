@@ -4,7 +4,7 @@ set -u
 ROOT="$1"; CLONE="$ROOT/clone"; OUT="$ROOT/traces"
 while IFS='|' read -r id task; do
   for arm in A B; do
-    if [[ "$arm" = "B" ]]; then prompt="/oak-start-right-quick $task"; else prompt="$task"; fi
+    if [ "$arm" = "B" ]; then prompt="/oak-start-right-quick $task"; else prompt="$task"; fi
     ( cd "$CLONE" && timeout 900 claude -p "$prompt" --model opus --effort medium \
         --output-format stream-json --verbose --no-session-persistence \
         --tools Read Grep Glob Skill --allowedTools Read Grep Glob Skill \
