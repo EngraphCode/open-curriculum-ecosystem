@@ -107,7 +107,18 @@ forward-asks remain.
   after compaction, and an invoked skill's body is re-attached after compaction; in this estate
   both arrive as a pointer to a canonical file, so those protections cover the pointer.
   Measured: 13 of 78 canonical skills exceed about 5,000 tokens, and the pull-request lifecycle
-  skill, at 157,044 characters, exceeds what one read returns. A seat arriving
+  skill, at 157,044 characters, exceeds what one read returns. The owner then ruled
+  (2026-11-12, verbatim): "Regarding history in rules, there should be none of that, same for
+  skills, they must describe current requirements, not the evolution that arrived at them."
+  That ruling is recorded in the napkin, the brief and `rules-sort/README.md` and is not yet
+  written into any rule, skill or register; by a count of lines that carry a date, 110 of 124
+  rules and 41 of 78 skills carry some history. The owner also widened the investigation to
+  rules and skills together and asked for the patterns directory to be explored:
+  `rules-sort/patterns-findings.md` (246 pattern files, 170 of them cited by no rule, skill,
+  directive, decision record or code; the policy for what a pattern becomes is stated four ways
+  that do not agree; a pattern is not one of the levers the landing rule names) and
+  `rules-sort/rules-and-skills-use.md` (what each is good for, by the platform, by the estate's
+  own landing rule, and where practice departs from both). A seat arriving
   here must not open the Attendant's held-back scenarios or its scenario review unless it is
   certain it is not the seat for that lane's next step. The earlier reflection leaves
   five questions for the joint review (its section 6): whether the estate means to forget;

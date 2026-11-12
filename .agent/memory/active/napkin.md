@@ -1919,6 +1919,23 @@ outside the repository. One instance each; scope is this session.
   for a commit task; `verify-dont-trust` was not opened for a request to confirm that tests
   pass. A rule's file name is its delivery mechanism on this platform. A rule named for a habit
   of mind has no task that names it.
+- **Owner ruling (2026-11-12, verbatim):** "Regarding history in rules, there should be none of
+  that, same for skills, they must describe current requirements, not the evolution that
+  arrived at them." Said after this seat reported that a rule file holds an instruction, a
+  record of rulings and an incident history in one place. It binds every rule and skill, new
+  and existing. It is not yet in any rule, skill or register: a candidate for the landing rule
+  and the skill-authoring skill, and a graduation for the next consolidation. By a count of
+  lines carrying a date, 110 of 124 rules and 41 of 78 canonical skills carry some.
+- **Observation (the patterns directory, measured):** 246 pattern files, about a million
+  characters; 170 are cited by no rule, skill, directive, decision record or code. The estate
+  calls a pattern file a permanent home for a graduated lesson, and its landing rule does not
+  list a pattern among its levers. A lesson "graduated" to a pattern file has been filed where
+  no session is sent. Before calling a lesson homed, name what will put it in front of the
+  agent that needs it.
+- **Observation:** rules and skills both reach a Claude session as a pointer to a canonical
+  file. The platform keeps a rule's text present and re-attaches a skill's body after a
+  compaction; the pointer gets that treatment and the text does not. The portability layer that
+  keeps one canonical file for several platforms has cost each platform's own delivery.
 
 ### 2026-11-12 (Limpet lifts Spray, 01Duoc): the attendant research step, first sitting
 
