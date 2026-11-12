@@ -15,7 +15,16 @@ leaves what was done.
 | Stage | File | State |
 | --- | --- | --- |
 | 1. Mechanical facts about every rule | [`data.tsv`](data.tsv) | Done |
-| 2. The sort and the alternative groupings | `findings.md` | Not yet written |
+| 2. The sort, row by row | [`classification.tsv`](classification.tsv) | Done: one reader, from each rule's name and description |
+| 3. Two further measurements | [`usage.tsv`](usage.tsv) | Done: the length of each rule's description, and how often its name appears in the napkins |
+| 4. Findings and the alternative groupings | [`findings.md`](findings.md) | Done, status `provisional`. **Start here.** |
+| 5. A second reader's check of the sort | — | Not done |
+| 6. The test that frame 6 names (deliver the 28 habit instructions as text and re-run the delivery trial) | — | Not done; it starts sessions and needs the owner's word |
+
+`classification.tsv` columns: `kind` is A for a named activity, H for a habit of mind, M for a
+pointer; `moment` is when in a session's life the rule applies; `protects` is who is harmed by
+a breach; `marker` is what other than recall could mark the moment; `catch_class` reduces the
+Attendant research's ten classes of owner catch to frame, claim or practice.
 
 ## Stage 1: what `data.tsv` holds
 

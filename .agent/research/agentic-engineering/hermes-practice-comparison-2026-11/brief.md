@@ -60,6 +60,10 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   node. We should wait for the other session inputs and review all work together before
   starting a design phase"
 
+- 2026-11-12, on sorting the rules after the trial: "Yes please, and please use the parallax
+  skills to consider additional ways the rules can be understood or grouped. As you go please
+  make sure that all findings are recorded so that the damage caused by surprise loss of
+  context is minimal". The record is at `../doing-and-dreaming-2026-11/rules-sort/`.
 - 2026-11-12, on the reflection's first suggested step: "Yes, run step 1, opus medium effort, 5
   without start right, 5 with."; and: "Above you mentioned a biggest unknown. What is it, how do
   we determine the answer, and is it related to the fact that we have far, far too many rules?"
