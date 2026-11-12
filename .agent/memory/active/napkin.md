@@ -1973,6 +1973,16 @@ outside the repository. One instance each; scope is this session.
   ledger. The other seat's entry below records the same thing from pull request 403. I saw it
   only because I was counting checks before a push. A check list with four entries where there
   are usually twenty is a conflict with the base until shown otherwise.
+- **Observation (mine, the habit-text trial):** I predicted no clear difference and set the bar
+  at two instructions separating treatment from both controls. One did, cleanly, and two lesser
+  signs pointed the same way. The bar held the report honest: without it I would have called
+  three signs an effect. What worked: writing the prediction and the bar into the record and
+  committing it before the run; running the unchanged clone a second time, which showed that
+  two of the apparent differences were variation between runs; a check session that proved the
+  treatment text was in context before any money was spent on the trial.
+- **Correction (mine):** I appended the trial's results to a tracked file with a shell heredoc,
+  against the owner's word to use the proper tools for tracked files. The content was checked
+  afterwards and is sound. Tracked files are written with the write and edit tools.
 
 ### 2026-11-12 (Limpet lifts Spray, 01Duoc): the attendant research step, first sitting
 

@@ -58,12 +58,15 @@ forward-asks remain.
     skill or register: rules and skills "must describe current requirements, not the evolution
     that arrived at them". The owner also stated, as the premise of a question and not as a
     ruling, "the fact that we have far, far too many rules".
-  - **Authorised by the owner after the wrap, and not yet run** (2026-11-12, verbatim: "Carry
-    out the test."): deliver the 28 habit-of-mind instructions as text to the same ten sessions
-    and compare with the delivery trial. The owner then asked the seat to acknowledge, record
-    and stop, so the test is the first piece of work when the session resumes. Its method is in
-    `delivery-trial.md` and `rules-sort/findings.md` (frame 6); close each session's standard
-    input.
+  - **The test the owner authorised is run** (2026-11-12, "Carry out the test."; resumed at the
+    owner's "Compaction is complete, please continue"). Record: `habit-text-trial.md` in the
+    same directory. The 28 habit-of-mind instructions were delivered as text to ten sessions,
+    with the unchanged clone run again beside them and 30 answers marked by a reader blind to
+    condition. The text was taken up in form (a goal-and-scope block in both treatment answers
+    to one planning task and in none of four controls; two lesser signs) and no conclusion
+    changed. The tasks were at the ceiling, so the test shows that delivered text reaches
+    behaviour and does not show a breach prevented. It bears on the pointer system for habit
+    rules on this platform only.
   - **The owner's stated next steps** (the same message, verbatim in the brief): to define an
     ideal system of rules and skills, "not the specific instances, but the qualities of each,
     their relationships, and the mechanisms that allow them to bring about impact, their
@@ -75,15 +78,11 @@ forward-asks remain.
     them. Defining that system is design work and waits for the owner's word to begin.
   - **Waiting on the owner.** The joint review of all the work. Whether pull request 397 leaves
     draft.
-  - **Pull request subscription.** Removed on 2026-11-12 at the owner's word, temporarily,
-    because its events were keeping the session from pausing. Subscribe again when work
-    resumes on the pull request.
-  - **Owed by a seat, needing no owner word.** A second reader's check of the rules sort. The
-    pull request's description is behind the branch: it does not mention the delivery trial,
-    the rules sort, the loading findings or the patterns findings; it was left unedited under
-    the wrap's freeze and is the first act after the compaction.
-  - **Nothing runs under this seat.** No timer, monitor, loop or sub-agent. A throwaway clone and ten traces are in the
-    session's scratch directory and are not needed.
+  - **Pull request subscription.** Removed on 2026-11-12 at the owner's word, temporarily, and
+    restored when the owner resumed the session.
+  - **Owed by a seat, needing no owner word.** A second reader's check of the rules sort.
+  - **Nothing runs under this seat.** No timer, monitor, loop or sub-agent. Two throwaway
+    clones and the trials' traces are in the session's scratch directory and are not needed.
   - **Do not.** Begin either design. Open the Attendant's held-back scenarios or its scenario
     review. Run Hermes code or write to either Hermes clone.
 
