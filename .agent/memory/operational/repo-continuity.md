@@ -37,6 +37,40 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12T12:1xZ: boundary record at the owner's compaction word, for the strand that began
+  as the Hermes and Practice comparison** (Swift holds Aether, 01Duocji, solo cloud session; the
+  seat stays live). The entry below this one is the day's running record and is long; this is
+  where to start.
+  - **Entry point.** `.agent/research/agentic-engineering/doing-and-dreaming-2026-11/README.md`
+    indexes everything the strand produced on 2026-11-12, and `where-we-are.md` beside it is
+    the reflection the owner asked for. The owner's words for the whole strand are verbatim and
+    dated in `hermes-practice-comparison-2026-11/brief.md`. The ratified strategic node is
+    `.agent/plans/strategic/self-starting-practice-refinement.plan.md`.
+  - **What the day established, in order.** The comparison (no new effect measure; nothing in
+    the repository starts a refinement step and does its work). The node (find out by a
+    permitted experiment whether refinement can start without the owner; sessions start without
+    the owner's word only inside that experiment, by permission given when it runs). Three
+    research inputs read. A delivery trial of ten headless sessions (rules are opened by file
+    name; 11 of 124 opened). A sort of the rules (90 tied to an activity, 28 habits of mind, 6
+    pointers). The platform's loading rules for rules and skills. The patterns directory (246
+    files, 170 connected to nothing). What a rule and a skill are each good for.
+  - **The owner's ruling of the day that binds beyond this strand** and is not yet in any rule,
+    skill or register: rules and skills "must describe current requirements, not the evolution
+    that arrived at them". The owner also stated, as the premise of a question and not as a
+    ruling, "the fact that we have far, far too many rules".
+  - **Waiting on the owner.** Whether to run the test that delivers the 28 habit instructions
+    as text to the same ten sessions (it starts sessions). The joint review of all the work,
+    before which no design phase starts. Whether pull request 397 leaves draft.
+  - **Owed by a seat, needing no owner word.** A second reader's check of the rules sort. The
+    pull request's description is behind the branch: it does not mention the delivery trial,
+    the rules sort, the loading findings or the patterns findings; it was left unedited under
+    the wrap's freeze and is the first act after the compaction.
+  - **Nothing runs under this seat.** No timer, monitor, loop or sub-agent. The session is
+    subscribed to pull request 397's activity. A throwaway clone and ten traces are in the
+    session's scratch directory and are not needed.
+  - **Do not.** Begin either design. Open the Attendant's held-back scenarios or its scenario
+    review. Run Hermes code or write to either Hermes clone.
+
 - **2026-11-12T08:5xZ: the Hermes and Practice comparison is drafted, at its second draft, on pull
   request 397** (Swift holds Aether, 01Duocji, solo cloud session; the owner's word of 2026-11-12:
   "Please go ahead and run the comparison"). The document is

@@ -1936,6 +1936,43 @@ outside the repository. One instance each; scope is this session.
   file. The platform keeps a rule's text present and re-attaches a skill's body after a
   compaction; the pointer gets that treatment and the text does not. The portability layer that
   keeps one canonical file for several platforms has cost each platform's own delivery.
+- **Wrap at the owner's compaction word (2026-11-12T12:1xZ, non-terminal). The loss scan and
+  its recursion:**
+  - _Found, first pass._ The three scripts that produced this strand's tables were in scratch
+    and in no record, while the findings said "produced by a script". This is the class the
+    reviewer caught on pull request 396 (an instrument kept without what it needs), met again
+    two days later. They are now in `rules-sort/instruments.md`. The delivery trial's traces
+    were not kept and cannot be regenerated; the record says so.
+  - _Found, first pass._ The pull request's description is four pieces of work behind the
+    branch. Under the wrap's freeze it is not edited now; it is named in repo-continuity as the
+    first act after the compaction.
+  - _Found, second pass._ The pattern mention counts quoted in the patterns findings were
+    computed inline and written to no table. Recorded as such in the instruments file, with the
+    expression used.
+  - _Promises._ The test of delivering 28 habit instructions as text: with the owner. A second
+    reader for the sort: owed by a seat, in repo-continuity. Naming each research input in the
+    strategic node: done for all three. Recording the owner's words: in the brief, each dated.
+  - _Inferences that a successor must not inherit as facts._ That the one-line pointer design
+    was forced by the number of rules. That a canonical skill file read through a pointer loses
+    the platform's re-attachment at compaction. That the rules about the frame of the work are
+    the ones delivered least (five tasks). That Hermes is a near miss for the loop baseline's
+    eleventh verdict. Each is marked as inference where it is written.
+  - _What the scan cannot see._ The first half of this session reaches this seat only as a
+    compaction summary. No rule, skill or pattern body was read for the sort. Every review in
+    the strand was by one model family. The seat chose the trial's tasks knowing the question.
+  - _Where outside eyes caught what this seat's own scans missed, today:_ a recommendation
+    refuted by a napkin entry the seat had not read; three ratified plan nodes on the same
+    ground, missed by a search for the seat's own words; an owner quotation attached to the
+    wrong object; a count of "three records" that was six; a harness that leaked its task list.
+    The signature is constant: a statement about what exists or does not exist, written from
+    the seat's frame. Point outside scrutiny at this seat's negatives and its counts.
+  - _Fixed point._ A third pass would only re-find the missing second reader and the stale
+    pull-request description, both now named with owners. The recursion closes here.
+- **Observation (mine, at the wrap):** the last pushed head but one showed four checks and no
+  quality-gates run, because the branch had come to conflict with its base in the review-cost
+  ledger. The other seat's entry below records the same thing from pull request 403. I saw it
+  only because I was counting checks before a push. A check list with four entries where there
+  are usually twenty is a conflict with the base until shown otherwise.
 
 ### 2026-11-12 (Limpet lifts Spray, 01Duoc): the attendant research step, first sitting
 
