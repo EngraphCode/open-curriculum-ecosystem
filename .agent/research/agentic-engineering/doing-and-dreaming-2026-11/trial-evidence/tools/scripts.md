@@ -139,7 +139,10 @@ json.dump([{"run": r[0], "reads": r[11], "skills": r[7], "final": r[12]} for r i
 
 ## `analyse2.py`
 
-The same summary for the second run.
+The same summary for the second run. It reads `<root>/traces`, as the first does. It was run
+with `<root>` set to a directory `run2/` in which `traces` was a link to the second run's
+trace directory, `traces2`, and `clone` a link to the clone, so it read the second run's
+traces and wrote its summary beside them and not over the first run's.
 
 ```python
 """Summarise each stream-json trace: model, cost, turns, tools used, and which files were opened. Reads only."""
@@ -253,7 +256,9 @@ print("total cost", round(sum(r[3] for r in opens if r[0] != "C1"), 2))
 
 ## `build_evidence.py`
 
-The script that made this directory from the scratch files.
+The script that made this directory from the scratch files. The scripts above were copied
+from the same scratch directory by an earlier form of this script, with the same scrub, and
+then placed in this document.
 
 ```python
 """Copy the two trials' scratch evidence into the repository, scrubbed of machine-local paths and session identifiers."""
@@ -269,13 +274,12 @@ def scrub(t):
     t = re.sub(r"session_[0-9A-Za-z]{10,}", "<session-id>", t)
     t = re.sub(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b", "<uuid>", t)
     return t
-os.makedirs(OUT + "/habit-text-pack", exist_ok=True); os.makedirs(OUT + "/tools", exist_ok=True)
+os.makedirs(OUT + "/habit-text-pack", exist_ok=True)
 for src, dst in [("score/answers.md", "habit-text-pack/answers.txt"), ("score/instructions.md", "habit-text-pack/instructions.txt"),
                  ("score/applicable.md", "habit-text-pack/applicable.txt"), ("score/marks.tsv", "habit-text-pack/marks.tsv")]:
     open(f"{OUT}/{dst}", "w", encoding="utf-8").write(scrub(open(f"{S}/{src}", encoding="utf-8").read()))
 json.dump(json.load(open(S + "/key.json")), open(OUT + "/habit-text-pack/key.json", "w"), indent=2)
-for f in sorted(glob.glob(S + "/tools/*")):
-    open(f"{OUT}/tools/{os.path.basename(f)}", "w", encoding="utf-8").write(scrub(open(f, encoding="utf-8").read()))
+listing = {"names": None, "sessions": []}
 runs = {"delivery-run-1": "traces", "delivery-run-2-control-1": "traces2", "habit-text-control-2": "traces3C", "habit-text-treatment": "traces3T"}
 for name, d in runs.items():
     rows = []
@@ -285,7 +289,10 @@ for name, d in runs.items():
             try: e = json.loads(line)
             except Exception: continue
             t = e.get("type")
-            if t == "system" and e.get("subtype") == "init": r["model"] = e.get("model")
+            if t == "system" and e.get("subtype") == "init":
+                r["model"] = e.get("model"); sk = e.get("skills") or []
+                if listing["names"] is None: listing["names"] = sk
+                listing["sessions"].append({"run": name, "session": sid, "listed": len(sk), "distinct": len(set(sk)), "same_names_same_order": sk == listing["names"]})
             if t == "assistant":
                 u = e.get("message", {}).get("usage") or {}
                 if r["first_call_input_tokens"] is None and u:
@@ -302,4 +309,5 @@ for name, d in runs.items():
         rows.append(r)
     json.dump(rows, open(f"{OUT}/sessions-{name}.json", "w"), indent=2, ensure_ascii=False)
     print(name, len(rows), [x["first_call_input_tokens"] for x in rows][:3])
+json.dump(listing, open(OUT + "/startup-skill-listing.json", "w"), indent=2)
 ```

@@ -13,6 +13,7 @@ review of pull request 397 asked for it; until then both records said it was not
 | `sessions-delivery-run-2-control-1.json` | The delivery trial's second run, which is also the habit-text trial's first control |
 | `sessions-habit-text-control-2.json` | The habit-text trial's second control, the unchanged clone run again |
 | `sessions-habit-text-treatment.json` | The habit-text trial's treatment, the clone with 28 instructions as text |
+| `startup-skill-listing.json` | The skills each session's start-up event listed: the names once, and for each of the forty sessions how many were listed, how many were distinct, and whether the list was the same |
 | `habit-text-pack/answers.txt` | The thirty final answers as the reader saw them, under shuffled labels |
 | `habit-text-pack/key.json` | The key from label to condition and session, kept from the reader |
 | `habit-text-pack/instructions.txt` | The 28 instructions the reader marked against |
@@ -46,3 +47,5 @@ the incomplete blind the habit-text record describes, and it is evidence.
   42,225 to 42,509 in the treatment, which agrees with the records' figures of about 39,300
   and 42,250.
 - The pack holds thirty answers and the key thirty labels; the marks file holds 115 rows.
+- Every one of the forty sessions listed the same 118 skills at start-up, all distinct, 78 of
+  them named `oak-`, which is what the review of the collection reports.
