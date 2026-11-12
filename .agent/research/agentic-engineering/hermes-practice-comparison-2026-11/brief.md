@@ -60,6 +60,13 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   node. We should wait for the other session inputs and review all work together before
   starting a design phase"
 
+- 2026-11-12, after the wrap, authorising the test and stating the next steps: "Carry out the
+  test."; "My preference for next steps is to define an ideal system of rules and skills, not
+  the specific instances, but the qualities of each, their relationships, and the mechanisms
+  that allow them to bring about impact, their contracts and constraints. We need a system
+  that works cross-platform, which is the intent of the pointer system, and we need to show it
+  does not work before we scrap it."; "Please acknowledge, record, then stop, and temporarily
+  unsubscribe from the PR, it is preventing the session from pausing"
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
