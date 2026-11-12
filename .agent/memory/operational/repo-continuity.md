@@ -89,7 +89,12 @@ forward-asks remain.
   is designed (the Attendant research found the adapters are one-line pointers and, in one
   trial, the rule's file was never opened); write the deep comparison as a map of links filled
   by observation; have it checked by a reader that is not this model; order the lanes by
-  dependency; agree one with-and-without instrument; clear what is already owed. A seat arriving
+  dependency; agree one with-and-without instrument; clear what is already owed. The first of
+  these was then run at the owner's word (ten headless sessions, Opus at medium effort, five
+  opened with start-right; `delivery-trial.md`): six of ten sessions opened at least one rule,
+  11 of the 124 rules were opened at all, and rules were chosen by file name, so rules about a
+  named activity were found and rules about how to think were mostly not. The owner's own
+  words on the count: "we have far, far too many rules". A seat arriving
   here must not open the Attendant's held-back scenarios or its scenario review unless it is
   certain it is not the seat for that lane's next step. The earlier reflection leaves
   five questions for the joint review (its section 6): whether the estate means to forget;

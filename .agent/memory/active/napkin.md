@@ -1907,6 +1907,18 @@ outside the repository. One instance each; scope is this session.
   platform a rule's adapter is a one-line pointer, and in one trial the file was not opened.
   "Has a home" and "reached the agent" are two facts, and I had been treating the first as the
   second.
+- **Correction (mine, caught in the traces):** a driver script read its task list in a `while
+  read` loop and started `claude -p` inside it. Five of ten sessions took the rest of the list
+  from standard input and answered all five tasks. This napkin already records `rg` reading
+  standard input and hanging; it is the same class. Any command started inside a read loop gets
+  `< /dev/null`, and the loop reads from its own file descriptor. I found it because one
+  session's first line said "these five tasks": read the first line of each trace before
+  reading any count.
+- **Observation (the delivery trial, ten sessions):** sessions chose which rules to open from
+  the list of rule file names, by words shared with the task. `never-commit-to-main` was opened
+  for a commit task; `verify-dont-trust` was not opened for a request to confirm that tests
+  pass. A rule's file name is its delivery mechanism on this platform. A rule named for a habit
+  of mind has no task that names it.
 
 ### 2026-11-12 (Limpet lifts Spray, 01Duoc): the attendant research step, first sitting
 
