@@ -37,6 +37,18 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12, the design plan's first todo is done and in review** (Swift holds Aether,
+  Claude cloud session `01Duocji`). Pull request 410 (the trials' evidence) merged as
+  `8e80d7527`. The audit of the pipeline against its code is
+  `rules-and-skills-system-design-2026-11/pipeline-audit.md`, read by one sub-agent
+  (about 280,000 tokens against an estimate of 300,000 to 500,000) and checked by the seat
+  at seven of its load-bearing citations. Next, each its own pull request after the one
+  before merges: todo 2, the unit model, contracts and budgets with the script behind the
+  measures; todo 3, the spike in a throwaway clone; todo 4, the rest of the design, a cold
+  read and the owner's questions as cards. What the audit changes for todo 2: a rule's
+  description reaches only Cursor; `classification` alone changes nothing on Claude Code;
+  `trigger` reaches only the index; the fitness validator fails no build and measures no
+  rule or skill; no check holds the skill specification's size limits.
 - **2026-11-12, pull request 397 is merged** (`de0fba6fd`, by the seat, merge commit, after
   nine review rounds; Swift holds Aether, Claude cloud session `01Duocji`). The branch
   `claude/hermes-agent-brief-a0kjw3` is restarted from `engraph`. Its first commit keeps
