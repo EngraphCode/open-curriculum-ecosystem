@@ -56,6 +56,10 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   we run the experiment I will give permission for sessions within the experiment to start
   without my say so"
 
+- 2026-11-12, ratifying the strategic node `self-starting-practice-refinement`: "I approve the
+  node. We should wait for the other session inputs and review all work together before
+  starting a design phase"
+
 The second of those is the owner's own statement of what the comparison should bear on. It is
 later than the verdict below and outranks it where they differ; `comparison.md` section 8
 records what it changed.

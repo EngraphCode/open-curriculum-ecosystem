@@ -3,10 +3,10 @@ id: self-starting-practice-refinement
 node_type: strategic
 name: Self-starting Practice refinement
 overview: Find out, by an experiment the owner permits, whether the Practice's refinement and learning steps can start without the owner instigating them.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-11-12
+ratified_where: "In-session word, Claude cloud session session_01DuocjSig1rYLYhoLbF6r6w (seat Swift holds Aether), 2026-11-12, verbatim: \"I approve the node. We should wait for the other session inputs and review all work together before starting a design phase\"; recorded in the comparison brief under The owner's words and on pull request 397"
 serves: FRAME-1
 impact_areas:
   - practice-and-estate
@@ -121,6 +121,9 @@ force. What follows for this node's work:
 4. **Sessions start without the owner's word only inside the experiment, by the owner's
    permission given when it is run; the general constraint stands** (the owner, 2026-11-12,
    quoted in the section above).
+5. **No design phase starts until the other sessions' inputs have arrived and all the work has
+   been reviewed together** (the owner, ratifying this node on 2026-11-12: "We should wait for
+   the other session inputs and review all work together before starting a design phase").
 
 The authoring seat's readings, not the owner's words: that the first experiment is small and
 can fail, with its result recorded whichever way it falls.
@@ -180,7 +183,13 @@ refinement, or that the pattern read in another system works there or here.
 ## Delivery
 
 Delivery plans serving this node declare `serves: self-starting-practice-refinement`; enumerate
-them by search. The first is the experiment's design. Its authoring is delegated to the seat
-that picks it up once the owner has pointed at the research results. Running the experiment is
-a separate step and needs the owner's permission for its sessions to start (settled item 4). A
-change to this node's outcome, bet or settled decisions returns this node to the owner.
+them by search. The sequence is the owner's (settled items 3 to 5):
+
+1. The owner concludes the other research sessions, merges them and points at their results.
+2. All the work is reviewed together with the owner: those results, the comparison and this
+   node.
+3. The experiment's design is written, as the first delivery node, by the seat that picks it
+   up after that review.
+4. The experiment is run, its sessions starting by the owner's permission given then.
+
+A change to this node's outcome, bet or settled decisions returns this node to the owner.
