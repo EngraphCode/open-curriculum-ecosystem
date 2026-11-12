@@ -77,6 +77,10 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   second point relaxes the earlier condition that the pointer system be shown not to work
   before it is scrapped, and puts in its place the condition that nothing is loaded twice.
   The third makes the definition of the ideal system authorised work.
+- 2026-11-12, on what "review all work together" meant, and a delegation: "Ah, I meant together
+  in the sense of review the collection of work, rather than a joint review. I am happy to
+  delegate that review to you". The review named in the strategic node's order is therefore a
+  review of the collection as a whole, and it is this seat's to carry out.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
