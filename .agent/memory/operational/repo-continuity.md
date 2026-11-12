@@ -37,9 +37,45 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12, the review of the collection is done** (Swift holds Aether, 01Duocji, solo
+  cloud session; the seat stays live). Start here.
+  - **Where it is.**
+    `.agent/research/agentic-engineering/doing-and-dreaming-2026-11/review-of-the-collection.md`.
+    The owner delegated it ("I am happy to delegate that review to you"). It was written after
+    re-reading every piece whole, with three readers who wrote none of the collection: a second
+    sort of the rules, a recount of the numbers and a search against each statement of
+    absence, and a read of nineteen skill-evaluation runs the collection had missed.
+  - **Its verdict, in short.** Enough to start defining the rules and skills system for Claude
+    Code; nothing is recorded on how the other platforms load what the estate renders for
+    them, and that research is the first step of the definition. Enough to write the design of
+    the node's experiment, with four constraints: a standing brief, a first job that subtracts,
+    a result judged by something it must pass, a start taken on a threshold. The shared
+    diagnosis is one finding from shared records, not four.
+  - **What the checks changed.** About twenty corrections, applied where they stand. Skill
+    evaluation had nineteen recorded runs in September, not one, and the comparison carries a
+    dated correction. Sixteen skills carry a suite, not 20. The second sort agrees on 112 of
+    124 rules and moves six of the 28 habits. Seven of the delivery trial's ten sessions opened
+    a rule, not six. A headless session starts with about 39,000 tokens; the Attendant
+    research's 169,000 is a counter that adds up every turn, and is not changed in that seat's
+    files.
+  - **For the owner** (the review's section 9). The ratified node still says "joint review" and
+    "reviewed together with the owner"; proposed replacement text is in the review. Which
+    design is first: the recommendation is the rules and skills definition. Whether a reader
+    of another model family checks the review. Whether pull request 397 leaves draft.
+  - **Next work, authorised by the owner's earlier word** ("part of the work of either this
+    session or the follow on session"): define the rules and skills system. First step: how
+    Cursor, Codex, Gemini and Copilot load the adapters the estate renders, from each vendor's
+    documentation and the adapters themselves. The review's section 7 lists what each platform
+    receives today and what the definition can and cannot yet rest on.
+  - **Not to start** without the owner's word: the design of the node's experiment. The review
+    is the report the node's order asked for; the owner has not yet answered it.
+  - **Nothing runs under this seat** but the pull request subscription. The trial traces and
+    the readers' reports are in the session's scratch directory; what they showed is in the
+    review and the corrected documents.
 - **2026-11-12, second boundary record, at the owner's second compaction word** (Swift holds
-  Aether, 01Duocji, solo cloud session; the seat stays live). Start here. The entry below is
-  the first boundary record and still holds except where this one changes it.
+  Aether, 01Duocji, solo cloud session; the seat stays live). The entry above supersedes this
+  one where they differ: the review it calls not done is done. The entry below is the first
+  boundary record.
   - **Since the first record.** The habit-text trial is run and recorded
     (`doing-and-dreaming-2026-11/habit-text-trial.md`). Pull request 397's description was
     brought up to date after it. The pull request subscription is active again.
@@ -59,12 +95,10 @@ forward-asks remain.
       node's ratification were "review all work together before starting a design phase", and
       the owner has since said what was meant: "together in the sense of review the collection
       of work, rather than a joint review. I am happy to delegate that review to you". So the
-      review is of the collection as a whole, and it is delegated to this seat. **It is not
-      done. It is the first work after the compaction**, ahead of defining the rules and
-      skills system. It needs the documents re-read, not this seat's summaries of them, and a
-      reader who wrote none of it for the statements of absence and the counts. The label
-      "joint review" still stands in the ratified node and in about a dozen places in the
-      collection; the node is ratified, so correcting it there is the owner's call.
+      review is of the collection as a whole, and it is delegated to this seat. It was done
+      after the compaction (the entry above). The label "joint review" is now replaced
+      throughout the collection and still stands in the ratified node; the node is ratified,
+      so correcting it there is the owner's call.
     - The node's design phase is the design of the experiment on self-starting refinement. By
       the node's order it follows the review. Report the review to the owner before starting
       it.
@@ -85,9 +119,9 @@ forward-asks remain.
     had both directories been loaded the count would be at least 174. So, by inference, Claude
     Code 2.1.322 did not load `.agents/skills` in those sessions. Not checked for rules, and
     not checked for any other platform reading a second directory.
-  - **Owed by a seat.** A second reader's check of the rules sort. The scope section of pull
-    request 397's description still says the definition of the ideal system waits for the
-    owner's word; correct it when that work begins.
+  - **Owed by a seat, and since done.** A second reader's check of the rules sort (the review,
+    section 6). The scope section of pull request 397's description, which said the definition
+    of the ideal system waits for the owner's word, was corrected when the review landed.
   - **Nothing runs under this seat** but the pull request subscription. Two throwaway clones
     and the trials' traces and marks are in the session's scratch directory and are not needed.
   - **Do not.** Start the design of the node's experiment before the review of the collection
@@ -133,11 +167,12 @@ forward-asks remain.
     strand's statements that pointers cost each platform its own delivery are inferences from
     one trial and the documentation, and the test above is the first evidence that bears on
     them. Defining that system is design work and waits for the owner's word to begin.
-  - **Waiting on the owner.** The joint review of all the work. Whether pull request 397 leaves
-    draft.
+  - **Waiting on the owner.** Whether pull request 397 leaves draft. The review of all the
+    work, first listed here as waiting on the owner, was delegated and is done (the top entry).
   - **Pull request subscription.** Removed on 2026-11-12 at the owner's word, temporarily, and
     restored when the owner resumed the session.
-  - **Owed by a seat, needing no owner word.** A second reader's check of the rules sort.
+  - **Owed by a seat, needing no owner word.** A second reader's check of the rules sort: done
+    with the review.
   - **Nothing runs under this seat.** No timer, monitor, loop or sub-agent. Two throwaway
     clones and the trials' traces are in the session's scratch directory and are not needed.
   - **Do not.** Begin either design. Open the Attendant's held-back scenarios or its scenario
@@ -190,7 +225,7 @@ forward-asks remain.
   questions to the review. The third and, by the owner's word, final piece arrived the same
   day: the Attendant Workflow's research step (pull requests 394 and 398; `engraph` merged in
   at `b10d5c6db`). The owner then asked for a deep reflection on all of it and suggested next
-  steps: `where-we-are.md` in the same directory is the entry point for the joint review. Its
+  steps: `where-we-are.md` in the same directory was the entry point for the review of the collection. Its
   suggestions, none begun: measure what the rule adapters deliver to a session before anything
   is designed (the Attendant research found the adapters are one-line pointers and, in one
   trial, the rule's file was never opened); write the deep comparison as a map of links filled
@@ -227,7 +262,7 @@ forward-asks remain.
   own landing rule, and where practice departs from both). A seat arriving
   here must not open the Attendant's held-back scenarios or its scenario review unless it is
   certain it is not the seat for that lane's next step. The earlier reflection leaves
-  five questions for the joint review (its section 6): whether the estate means to forget;
+  five questions for the review of the collection (its section 6): whether the estate means to forget;
   whether a learning pass may change the body or only the memory; whether distilled memory
   should have one writer; what a pass asks of its reviewer; and whether the experiment is
   mostly a clock joined to the three consolidation nodes. Two small things are with the owner:

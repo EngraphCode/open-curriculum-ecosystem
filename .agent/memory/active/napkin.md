@@ -2004,6 +2004,37 @@ outside the repository. One instance each; scope is this session.
   not worth keeping: the blind reader's row-level marks and the traces, whose tables are in
   `habit-text-trial.md`. The wrap skill's body was not re-read for this pass because the
   owner reported low context; the pass followed its classes from the earlier wrap today.
+- **Correction (mine, found because two counts disagreed):** the comparison said the estate's
+  skill evaluation had "one recorded run". Two of my documents gave 16 and 20 for the skills
+  that carry a suite. Listing the directories to settle that showed nineteen result
+  directories from September, each with a written reading. The comparison's reviewer, the
+  node's readiness reviewer and I had each passed the sentence. When two documents give
+  different counts of one thing, look at the things, and check a statement of absence about
+  the estate's own instruments with a file listing before it is written.
+- **Correction (mine, found by a reader who wrote none of it):** "six of ten sessions opened a
+  rule" stood in a summary above a table that showed seven. The 103 pointers were given the
+  size of all 124 adapters, and a "would cost less" rested on it. The habit-text trial's pack
+  was recorded as searched for anything revealing a condition, and one answer held the
+  treatment clone's directory name. A search for leaks in a blind pack includes the names of
+  the directories the conditions ran in.
+- **What worked:** the checking reader was given the documents, the tables and the raw traces
+  and no conclusion. It reported 62 claims reproduced, 14 differing and 2 refuted. I checked
+  each difference at its source before changing a file; all held.
+- **What worked:** a second reader sorted the 124 rules from names, descriptions and three
+  one-line definitions, without the first sort. Agreement was 112 of 124. Its account of where
+  the definitions strained (a standing constraint is neither a habit nor tied to an activity)
+  was worth as much as the agreement figure.
+- **Observation:** a counter named "input tokens read from cache" adds up every turn's
+  re-read. Another seat read 169,000 as a session's fixed load; the first model call in my
+  thirty traces carries about 39,300. Recorded in the review and not changed in that seat's
+  files.
+- **Observation (cost):** I estimated 150,000 to 250,000 tokens for two readers and launched
+  without a pilot leg. They used 441,000, and 705,000 with a third. The estate's rule asks for
+  a pilot before any fan-out; three single readers with different jobs is not a fleet, and
+  the estimate was still wrong by more than half.
+- **The review of the collection is done** (`doing-and-dreaming-2026-11/review-of-the-collection.md`).
+  "Joint review" is replaced everywhere but the ratified node, whose correction is the
+  owner's; proposed text is in the review's section 9.
 
 ### 2026-11-12 (Limpet lifts Spray, 01Duoc): the attendant research step, first sitting
 
