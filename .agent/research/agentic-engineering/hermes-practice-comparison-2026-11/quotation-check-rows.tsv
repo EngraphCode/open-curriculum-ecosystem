@@ -82,3 +82,8 @@ docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.
 .agent/skills/cognition/retrospective/SKILL-CANONICAL.md	37	37	The owner commissions a retrospective on a completed arc
 .agent/skills/knowledge/consolidate-docs/SKILL-CANONICAL.md	63	79	the owner requests historical synthesis
 .agent/skills/knowledge/napkin/SKILL-CANONICAL.md	18	18	This skill is always active
+.agent/plans/delivery/consolidation-induction.plan.md	60	61	a signal never starts a session by itself — owner/Director word does
+.agent/plans/delivery/consolidation-signal.plan.md	1	6	a noticer, never a nag
+.agent/plans/delivery/consolidation-induction.plan.md	1	6	a single agent-inducible action
+.agent/plans/delivery/consolidation-signal.plan.md	53	56	Automation that starts sessions from the signal
+.agent/plans/delivery/consolidation-ledger.plan.md	76	80	any processing automation

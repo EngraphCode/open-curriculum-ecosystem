@@ -10,7 +10,7 @@ have been organised around. Section 8 records both.
 
 In brief. On whether to add an effect measure: no. The Practice already keeps six records of
 whether its lessons worked, which is six more than Hermes's runtime keeps. Each is written;
-none has had a decision taken from it since mid-October, because the workflow that reads them,
+four of them have had no decision taken from them since mid-October, because the workflow that reads them,
 the dedicated consolidation, last ran on 15 October and has been recorded as due since.
 
 The reason it has not run is the weakness the owner named on reading the second draft: "that
@@ -232,7 +232,7 @@ running at all, not what the step reads once it runs.
 | Archive synthesis | "the owner requests historical synthesis" (same checklist) | No |
 | Slow-lane review | The first consolidation on or after the row's date | No |
 | Skill evaluation | Whoever runs the suite | No |
-| Fitness readout | An agent runs the command | No. It reports when run, and nothing acts on the report |
+| Fitness readout | An agent runs the command, or runs `pnpm make`, which includes it | No. It reports when run, and nothing acts on the report |
 | Plan-gate expiry alert | A session-start hook | Yes. It tells the opening seat; it does no work |
 | Upstream mirror and carrier | Scheduled workflows, four slots a day on weekdays (`.github/workflows/upstream-carrier.yml`) | Yes. This is delivery plumbing, not learning |
 
@@ -249,10 +249,20 @@ Hermes, from the study's L2 and L3 table:
 The two tables are mirror images. Hermes automates the start of refinement and leaves
 measurement to a person. The Practice has people start refinement and, once it runs, measures
 more than Hermes does. The one automatic start the Practice has on its learning side is an
-alert to a seat that is busy with something else, and the owner's recorded verdict on that
-alert is "ceremony has been invented, and then declared a blocker"
-(`pending-graduations.md:198-199`). An alert asks for work. Hermes's counters start a separate
-agent whose only job is the work.
+alert to a seat that is busy with something else. It reports expired owner gates on plans, and
+the owner's word on those gates, when a seat carried them as blockers, was "ceremony has been
+invented, and then declared a blocker" (`pending-graduations.md:198-199`). That the alert
+itself fails is this seat's reading and not the owner's verdict. An alert asks for work.
+Hermes's counters start a separate agent whose only job is the work.
+
+Three delivery nodes the owner ratified on 2026-09-08 already hold a position on this ground,
+and the first three drafts of this document did not find them. `consolidation-signal` computes
+when a consolidation is due and is "a noticer, never a nag". `consolidation-induction` makes a
+consolidation "a single agent-inducible action". Both put automatic starting out of scope, the
+second in these words: "a signal never starts a session by itself — owner/Director word does"
+(`.agent/plans/delivery/consolidation-induction.plan.md:60-61`). So the estate has planned the
+signal and the worker, and deliberately left the start with a person. The owner's word of
+2026-11-12 is later; section 8 records it.
 
 ## 3. Breadth: the learning loop side by side
 
@@ -377,8 +387,9 @@ starts the loop at all.
 
 ### 6.1 The answer: no new measure; change what starts the loop
 
-Six records of effect exist (section 2.2). Every one is being written. Since 2026-10-15 none
-has had a decision taken from it. A new measure would be a seventh record waiting on the same
+Six records of effect exist (section 2.2). Every one is being written. Four are read only by
+the dedicated consolidation, which last ran on 2026-10-15; of the other two, the skill suites
+decided one pull request on 2026-10-27 and the cost ledger has changed no weight. A new measure would be a seventh record waiting on the same
 workflow, and that workflow waits on a person (section 2.5). The node this work serves names
 the risk: that "maintaining the learning substrate" becomes "the dominant work". For the
 owner it already is work that only the owner can start.
@@ -484,8 +495,9 @@ each is for a plan to take up.
   `critical`, a seat saw both on the first row's review date and deferred (P-3), and the
   falsifier the draft gave it, "seen and not acted on", describes the present state. The
   estate has also run the stronger version of the experiment: a hook has reported expired plan
-  gates at every session open since July, and the owner's word on the result is "ceremony has
-  been invented, and then declared a blocker" (`pending-graduations.md:198-199`).
+  gates at every session open since July, four were reported expired on 2026-10-14, and the owner's word on the
+  gates themselves is "ceremony has been invented, and then declared a blocker"
+  (`pending-graduations.md:198-199`).
 - **A count of hook matches per class.** The design-space plan already names a cheaper form: a
   census of each class's signature over the existing archive (P-8). It needs no new log and no
   information-governance work, and it falls inside 6.4.
@@ -607,7 +619,7 @@ new record.
 
 **Quotation check.** Run after this revision with the script in
 `../hermes-agent-v0.23.0-2026-11/method-instruments.md` section 4, reduced to one repository:
-84 rows, no misses. The file keeps earlier drafts' rows beside this draft's, so a few rows
+89 rows, no misses. The file keeps earlier drafts' rows beside this draft's, so a few rows
 check phrases this revision no longer quotes. Seven ranges were corrected before the first two
 drafts were committed: three in the first, four in the second.
 
