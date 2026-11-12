@@ -67,6 +67,16 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   that works cross-platform, which is the intent of the pointer system, and we need to show it
   does not work before we scrap it."; "Please acknowledge, record, then stop, and temporarily
   unsubscribe from the PR, it is preventing the session from pausing"
+- 2026-11-12, resuming the session: "Compaction is complete, please continue"
+- 2026-11-12, after the habit-text trial was reported, four numbered points: "1. What is the
+  joint review? 2. The pointer system is designed to reduce repetition, however, I have no
+  problem replacing it with copied text for each vendor platform as long as we don't end up
+  loading things twice, e.g. Claude loading skills from both .claude and .agents 3. Figuring
+  out what the ideal skill and rule system looks like is part of the work of either this
+  session or the follow on session 4. Context is low, please prepare for compaction". The
+  second point relaxes the earlier condition that the pointer system be shown not to work
+  before it is scrapped, and puts in its place the condition that nothing is loaded twice.
+  The third makes the definition of the ideal system authorised work.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
