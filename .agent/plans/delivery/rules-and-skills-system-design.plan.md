@@ -3,10 +3,10 @@ id: rules-and-skills-system-design
 node_type: delivery
 name: "Design the rules and skills system: units, contracts, budgets, projections and build"
 overview: "A design for how the estate's guidance is shaped, sized, built and delivered to Claude Code first and Codex second, with every budget well inside the platforms' thresholds. The system, not the content of any rule or skill."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-11-12
+ratified_where: "In-session word, Claude cloud session session_01DuocjSig1rYLYhoLbF6r6w (seat Swift holds Aether), 2026-11-12, verbatim: \"Ratified. I mean PR 397, but it will review all PRs. Leave the plan under the current node. Yes, update the platform citizenship ordering\"; recorded in the comparison brief under The owner's words and on pull request 397"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
@@ -181,8 +181,7 @@ Each is one pull request.
   through one link of the learning loop: whether a lesson, once written, is in front of the
   agent that needs it. That node routes capability frameworks to `agent-platform-citizenship`;
   this node is placed here because its seventh part is about showing that delivered guidance
-  changes later work. If the owner reads it as capability work, the serving edge changes and
-  nothing else does.
+  changes later work. The owner, 2026-11-12: "Leave the plan under the current node."
   - *The live decision it enables.* What the build of the estate's guidance is changed to do.
   - *The narrower hypothesis.* That the standing instructions can be carried as text on
     Claude Code and on Codex, once each, well inside each platform's thresholds.
@@ -198,11 +197,11 @@ Each is one pull request.
 - **[`agent-platform-citizenship`](../strategic/agent-platform-citizenship.plan.md)** holds
   that every capable platform is an equal first-class citizen, and records the owner
   deprioritising Codex on 2026-09-28. The owner's word of 2026-11-12 orders the platforms for
-  this work. This node follows the later word within its own scope and does not amend that
-  node; whether that node should say the same is the owner's.
+  this work, and at the owner's word of the same day that node carries the ordering as a
+  dated note.
 - **A second model family.** The owner, 2026-11-12: "Codex will review the PR so it gets a
-  second agent family at that point". Which pull request is meant is the owner's to say; the
-  design's own pull requests are open to the same review.
+  second agent family at that point", and on which pull request: "I mean PR 397, but it will
+  review all PRs". The design's own pull requests are therefore reviewed by Codex too.
 - **The rule `capability-landing-decision-procedure`** already orders the estate's levers from
   always-loaded text to code that needs no context. The design builds on it and proposes its
   amendment where the evidence requires one.

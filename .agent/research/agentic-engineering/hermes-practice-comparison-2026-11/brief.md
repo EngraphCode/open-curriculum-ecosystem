@@ -97,6 +97,9 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   succinctly, so I don't think we will have an issue establishing stricter budgets and
   meeting them." The plan is the delivery node
   `.agent/plans/delivery/rules-and-skills-system-design.plan.md`.
+- 2026-11-12, ratifying that plan and answering three questions (which pull request Codex
+  reviews, which node the plan serves, and whether `agent-platform-citizenship` carries the
+  platform ordering): "Ratified. I mean PR 397, but it will review all PRs. Leave the plan under the current node. Yes, update the platform citizenship ordering".
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
