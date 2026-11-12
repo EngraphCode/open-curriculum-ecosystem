@@ -37,6 +37,56 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12, second boundary record, at the owner's second compaction word** (Swift holds
+  Aether, 01Duocji, solo cloud session; the seat stays live). Start here. The entry below is
+  the first boundary record and still holds except where this one changes it.
+  - **Since the first record.** The habit-text trial is run and recorded
+    (`doing-and-dreaming-2026-11/habit-text-trial.md`). Pull request 397's description was
+    brought up to date after it. The pull request subscription is active again.
+  - **The owner's words at this boundary** are verbatim in the comparison's `brief.md`. In
+    short: the owner asked what the joint review is; said of the pointer system "I have no
+    problem replacing it with copied text for each vendor platform as long as we don't end up
+    loading things twice, e.g. Claude loading skills from both .claude and .agents"; and said
+    "Figuring out what the ideal skill and rule system looks like is part of the work of either
+    this session or the follow on session".
+  - **What that changes.**
+    - Defining the ideal system of rules and skills no longer waits for a word. It is the next
+      piece of work, for this seat or the one that follows.
+    - The condition that the pointer system be shown not to work before it is scrapped is
+      relaxed by the owner. Copied text for each platform is acceptable. The condition in its
+      place is that nothing is loaded twice.
+    - "Joint review" is this seat's label, not a defined step. It stands for the owner's words
+      at the node's ratification: "review all work together before starting a design phase".
+      All three inputs the node names have arrived and been read, and `where-we-are.md` with
+      the two trials is the material for it. The owner has not said whether that review is
+      done. The node's design phase is the design of the experiment on self-starting
+      refinement; it is a different thing from defining the rules and skills system, and
+      whether it still waits was not stated. Ask before starting it.
+  - **Where the next work starts.** The owner's specification, from the earlier message: "not
+    the specific instances, but the qualities of each, their relationships, and the mechanisms
+    that allow them to bring about impact, their contracts and constraints", and it must work
+    across platforms. Inputs, all under `doing-and-dreaming-2026-11/`:
+    `rules-sort/rules-and-skills-use.md`, `claude-code-rules-and-skills-loading.md`,
+    `delivery-trial.md`, `habit-text-trial.md`, `rules-sort/findings.md` and
+    `rules-sort/patterns-findings.md`. The owner's ruling that rules and skills carry no
+    history applies to whatever is defined.
+  - **Known gaps before a definition can be sound.** Loading behaviour was researched for
+    Claude Code only, at the owner's scoping; how the other platforms load rules and skills is
+    not recorded in this strand. Whether anything is loaded twice today has not been checked
+    directly.
+  - **A first fact on loading twice.** `.claude/skills` and `.agents/skills` each hold 87
+    entries under the same 87 names. The trial sessions' start-up event reported 118 skills;
+    had both directories been loaded the count would be at least 174. So, by inference, Claude
+    Code 2.1.322 did not load `.agents/skills` in those sessions. Not checked for rules, and
+    not checked for any other platform reading a second directory.
+  - **Owed by a seat.** A second reader's check of the rules sort. The scope section of pull
+    request 397's description still says the definition of the ideal system waits for the
+    owner's word; correct it when that work begins.
+  - **Nothing runs under this seat** but the pull request subscription. Two throwaway clones
+    and the trials' traces and marks are in the session's scratch directory and are not needed.
+  - **Do not.** Start the design of the node's experiment without asking. Open the Attendant's
+    held-back scenarios or its scenario review. Run Hermes code or write to either Hermes
+    clone.
 - **2026-11-12T12:1xZ: boundary record at the owner's compaction word, for the strand that began
   as the Hermes and Practice comparison** (Swift holds Aether, 01Duocji, solo cloud session; the
   seat stays live). The entry below this one is the day's running record and is long; this is

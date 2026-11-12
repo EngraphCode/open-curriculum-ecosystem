@@ -1983,6 +1983,21 @@ outside the repository. One instance each; scope is this session.
 - **Correction (mine):** I appended the trial's results to a tracked file with a shell heredoc,
   against the owner's word to use the proper tools for tracked files. The content was checked
   afterwards and is sound. Tracked files are written with the write and edit tools.
+- **Correction (the owner, by a question):** "What is the joint review?" I had turned the
+  owner's words "review all work together before starting a design phase" into a noun, used it
+  in a dozen places and then told the owner the next move was "the joint review", as though it
+  were a step with a form. The owner did not recognise their own instruction in my label. A
+  name this seat coins for an owner's step carries the owner's words beside it wherever the
+  owner will read it, or it is not used.
+- **Owner direction (2026-11-12):** copied text for each platform may replace the pointer
+  system, provided nothing is loaded twice; and defining the ideal system of rules and skills
+  is work for this session or the next. Verbatim in the comparison's `brief.md`.
+- **Loss scan at the second compaction word.** Carried only in context and now written down:
+  the owner's four points; that "joint review" is my label; the skill-count inference on
+  loading twice; that the pull request's scope section is behind. Not written down and judged
+  not worth keeping: the blind reader's row-level marks and the traces, whose tables are in
+  `habit-text-trial.md`. The wrap skill's body was not re-read for this pass because the
+  owner reported low context; the pass followed its classes from the earlier wrap today.
 
 ### 2026-11-12 (Limpet lifts Spray, 01Duoc): the attendant research step, first sitting
 
