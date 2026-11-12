@@ -57,3 +57,25 @@ docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.
 .agent/research/agentic-engineering/hermes-agent-v0.23.0-2026-11/memory-learning-architecture.md	624	624	A large library can therefore look fully curated while most of it is untouchable.
 .agent/research/agentic-engineering/hermes-agent-v0.23.0-2026-11/memory-learning-architecture.md	623	623	57 gone in one startup tick
 .agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/historical-napkin-synthesis-2026-09-02.md	280	280	The napkin measures recurrence, never extinction.
+.agent/practice-core/decision-records/PDR-130-two-speed-learning.md	96	98	which of our own changes worked?
+.agent/memory/operational/pending-graduations.md	258	272	Slow lane (PDR-130
+.agent/practice-core/decision-records/PDR-130-two-speed-learning.md	115	122	five slow-lane rows were decided on 2026-10-01
+.agent/skills/knowledge/consolidate-docs/SKILL-CANONICAL.md	271	282	recurred despite its home
+.agent/memory/operational/review-cost-ledger.md	15	16	an experiment, not a constant
+.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/historical-napkin-synthesis-2026-09-02.md	73	79	35 kept
+.agent/reports/agentic-engineering/why-written-lessons-kept-needing-the-owner-2026-09-16.md	299	317	weaker after 2026-09-12
+.agent/memory/active/napkin.md	1029	1030	0 of 8 behavioural cases passed, with the skill and without it, delta 0. The suite settled the land-or-close question the prose read could not
+.agent/memory/active/napkin.md	1038	1043	the suite cannot distinguish a weak skill from over-strict fixtures or judge
+.agent/memory/active/napkin.md	1038	1044	a null result needs a baseline that passes something
+.agent/memory/active/napkin.md	852	854	**The consolidation gate**: due — a lane closed with 356, the napkin is at critical and its rotation is unblocked, the register holds six due entries. Not bounded for this close; a curator seat's, after the partial plans by the owner's ordering
+.agent/memory/operational/pending-graduations.md	121	129	read whole
+.agent/practice-core/decision-records/PDR-130-two-speed-learning.md	85	86	a dedicated consolidation passes it by unless its date has arrived
+.agent/memory/operational/review-cost-ledger.md	229	229	#375
+.agent/memory/active/napkin.md	1032	1033	dollars, not seat-hours
+.agent/memory/operational/pending-graduations.md	198	199	ceremony has been invented, and then declared a blocker
+.agent/practice-core/decision-records/PDR-098-doctrine-traction-firing-detection-response.md	172	174	gained a fourth generation — hardened after each recurrence, never before one
+.agent/research/agentic-engineering/hermes-agent-v0.23.0-2026-11/memory-learning-architecture.md	620	620	wiped the other facts in multi-fact entries
+.agent/research/agentic-engineering/hermes-agent-v0.23.0-2026-11/memory-learning-architecture.md	625	625	a per-review denial storm
+.agent/plans/strategic/outcome-informed-practice-learning.plan.md	44	45	maintaining the learning substrate
+.agent/plans/strategic/outcome-informed-practice-learning.plan.md	93	93	Doctrine disposition reviews
+.agent/plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md	871	874	run over the archive
