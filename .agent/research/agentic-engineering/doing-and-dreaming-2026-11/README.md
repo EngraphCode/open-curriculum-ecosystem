@@ -6,7 +6,7 @@ whole collection that the owner asked for before any design starts. None propose
 
 | Document | What it is |
 | --- | --- |
-| [`review-of-the-collection.md`](review-of-the-collection.md) | **Start here.** The review the owner delegated: what the collection establishes and how each finding is known, where its pieces disagree, which claims were wrong or weaker than written and what was corrected, what nobody looked at, and whether it is enough to start design. Two readers who wrote none of it sorted the rules again and recomputed the numbers |
+| [`review-of-the-collection.md`](review-of-the-collection.md) | **Start here.** The review the owner delegated: what the collection establishes and how each finding is known, where its pieces disagree, which claims were wrong or weaker than written and what was corrected, what nobody looked at, and whether it is enough to start design. Readers who wrote none of it sorted the rules again, recomputed the numbers, and read nineteen recorded skill-evaluation runs the collection had missed |
 | [`reflection.md`](reflection.md) | The reflection the owner asked for on the report "Doing and Dreaming", set against the Practice's own records |
 | [`reading-the-loop-baseline.md`](reading-the-loop-baseline.md) | A reading of the loop-engineering baseline (pull request 403) for what it bears on the comparison and on the strategic node |
 | [`delivery-trial.md`](delivery-trial.md) | The first measurement the reflection suggested, run at the owner's word: ten headless sessions, and which of the estate's 124 rules each one opened. Rules were opened by name; rules about how to think were mostly not |

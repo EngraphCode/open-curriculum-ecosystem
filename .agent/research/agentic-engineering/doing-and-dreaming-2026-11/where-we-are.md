@@ -83,7 +83,7 @@ Four things I held before reading all of it together, and no longer hold as I di
 
 **Added the same day, after step 1 of section 5 was run.** The owner asked for the delivery
 measurement and it is recorded in [`delivery-trial.md`](delivery-trial.md). Item 4 above is
-answered in part: rules are opened, by name. Six of ten sessions opened at least one rule, 11
+answered in part: rules are opened, by name. Seven of ten sessions opened at least one rule, 11
 of 124 rules were opened at all, and a rule was opened when its file name shared words with
 the task. Rules named for a habit of mind were not opened by tasks that did not use their
 words. So the premise is neither sound nor false: delivery works for rules about a named

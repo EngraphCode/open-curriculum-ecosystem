@@ -55,7 +55,7 @@ the delivery trial opened it; and its `description` field, cut at 260 characters
 
 First readings from the table, before any sorting:
 
-- The 124 rule files hold 1,073,128 characters. The median is 6,927; the largest,
+- The 124 rule files hold 1,073,128 characters. The median is about 6,870; the largest,
   `verify-dont-trust`, is 60,852; the smallest is 456.
 - The estate already sorts them one way: 75 call themselves `core` and 49 `situational`.
 - 103 adapters are one line. 21 are path-scoped and run to between 6 and 14 lines.

@@ -16,8 +16,8 @@ behavioural rules, but few.
 
 ## What the directory holds
 
-`.agent/memory/active/patterns/` holds 246 pattern files and a README: 1,034,859 characters,
-about the size of the rules and of the skills.
+`.agent/memory/active/patterns/` holds a README and 246 pattern files. The 246 hold 1,034,859
+characters, about the size of the rules and of the skills.
 
 | By category | Files |
 | --- | --- |
@@ -33,8 +33,9 @@ about the size of the rules and of the skills.
 - 216 call themselves `general`, 28 `family`, 2 `contextual`.
 - 44 have no `proven_date`. Of the rest, by month: February 5, March 22, April 34, May 19, June
   57, July 41, August 18, September 6.
-- 175 are in the behavioural categories (process, agent, planning, coordination). That is six
-  times the 28 habit-of-mind rules the rules sort found.
+- 175 are in the behavioural categories: process, agent, planning and coordination hold 173,
+  and two one-off values, `coordination-architecture` and `agent-operations`, hold the other
+  two. That is six times the 28 habit-of-mind rules the rules sort found.
 
 ## What becomes of a pattern
 
@@ -109,7 +110,9 @@ are in force.
   that "passive guidance needs an active layer to fire under context pressure".
 - Nothing loads a pattern file. The index is inside a 488-line README that lists 246 one-line
   entries.
-- In the delivery trial's ten sessions no pattern file and no patterns README was opened.
+- In the delivery trial's ten sessions no pattern file and no patterns README was opened. In
+  the twenty sessions of the later habit-text trial one pattern file was opened once, by a
+  control session on the rule-writing task.
 
 So a pattern acts on a session only if the agent goes looking, in an index of 246, at a moment
 it has already recognised as one for looking. For an anti-pattern that is the wrong way
@@ -127,7 +130,7 @@ skills "must describe current requirements, not the evolution that arrived at th
    landing through the landing procedure.
 2. **Decide, for the 175 behavioural patterns, which carry an instruction that is not yet a
    rule or part of a skill.** That is a reading task over their `use_this_when` lines, which
-   the table holds. The 67 behavioural anti-patterns come first, since no session will look
+   the table holds. The 67 behavioural anti-patterns (one of them spelt `antipattern`) come first, since no session will look
    them up.
 3. **Reconcile the entry bar** between promote-on-first-instance and
    one-instance-is-an-observation. They can both stand if a first instance may be filed as

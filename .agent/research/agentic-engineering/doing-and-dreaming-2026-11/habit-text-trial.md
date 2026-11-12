@@ -11,8 +11,8 @@ trial's sessions ran. The results follow them.
 ## The question
 
 The delivery trial found that a session holds each rule as a one-line pointer and opens the
-ones whose file names match the task; the 28 rules that state a habit of mind were the ones
-left unopened. Frame 6 asked whether that matters: if the 28 instructions are in the session's
+ones whose file names match the task; of the 28 rules that state a habit of mind, all but one
+were left unopened. Frame 6 asked whether that matters: if the 28 instructions are in the session's
 context as text from the start, does what the session does change?
 
 - If behaviour changes, the fault was delivery, and the unit (a pointer to a long file) was
@@ -62,7 +62,7 @@ a shell and edits. The five tasks were written to test opening, not to tempt a b
 
 ## Results
 
-All twenty sessions completed. They cost 13.04 US dollars; the two check sessions cost 0.29.
+All twenty sessions completed. They cost 13.02 US dollars; the two check sessions cost 0.29.
 "Control 1" is the delivery trial's own run; "control 2" is the unchanged clone run again
 beside the treatment.
 
@@ -162,8 +162,10 @@ those.
 ## Limits
 
 - One run of each treatment cell. The one clear difference is two answers against four.
-- One reader marked the answers. The reader was blind to condition and to the fact that there
-  were three, and set the applicable instructions per task before marking. The reader's own
+- One reader marked the answers. The reader was told nothing of the conditions or that there
+  were three, and set the applicable instructions per task before marking. The blind was not
+  complete: one treatment answer of the thirty carried its clone's name (see the marking pack
+  under Instruments). The reader's own
   doubts: the three instructions shown in every T5 answer rest on one behaviour and are not
   three pieces of evidence; the strictness on `design-work-for-small-prs` was a judgement; the
   single `capture-practice-tool-feedback` row breaks the per-task rule the reader otherwise
@@ -193,7 +195,12 @@ with a copy of its clone beside it.
 - **Marking pack.** The final answer of each of the 30 sessions, shuffled with a fixed seed and
   labelled A01 to A30 with the task it answered; the 28 instructions as a list; the key kept in
   a file the reader was not given. The pack was searched for lines that would reveal the
-  condition and none was found.
+  condition and this record first said none was found. One was there: a treatment answer to
+  T1 proposed a worktree path built from its clone's directory name, `cloneT`, and no control
+  answer names a clone. A reader checking this record found it on 12 November 2026. The reader
+  of the pack reported no guess at where any answer came from. T1 was one of the three tasks
+  on which every applicable instruction was marked shown in every answer, so no mark that
+  separates the conditions rests on that answer.
 - **Reader's brief.** Mark each instruction for each answer as not bearing, shown, absent or
   contradicted; decide per task which instructions bear and hold that set for all six answers;
   mark shown or contradicted only with a quoted line; do not guess where the answers came from.

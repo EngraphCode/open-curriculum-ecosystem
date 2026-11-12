@@ -10,7 +10,7 @@ assumes a rule with a home is text in front of the agent. If rules are rarely op
 that recur may never have been delivered.
 
 **The answer, in one paragraph.** Delivery is partial and it follows the rule's file name. In
-ten sessions, six opened at least one rule and four opened none; 11 of 124 rule files were
+ten sessions, seven opened at least one rule and three opened none; 11 of 124 rule files were
 opened at all. A rule was opened when its name matched the words of the task: a commit task
 opened `never-commit-to-main` and `stage-by-explicit-pathspec`, a review-comment task opened
 both review rules. Rules about how to think did not get opened when the task did not use their
@@ -91,7 +91,8 @@ trial puts a step before that: for a rule whose name does not match the task, th
 its name and not its text. Both faults are present. Which one a given recurrence was cannot be
 told from the napkin, and could be told from a session's trace.
 
-On the number of rules: with 124 behind one-line pointers, a session selects by name. A rule
+On the number of rules: with 124 behind pointers, 103 of them one line and always present, a
+session selects by name. A rule
 competes for attention with every other name on the list, and the frame-level rules lose. The
 count is part of the mechanism, not only a cost.
 
@@ -111,9 +112,10 @@ count is part of the mechanism, not only a cost.
 
 ## A fault in the first run
 
-The first run fed the task list to each session's standard input by accident, and five of the
-ten sessions received all five tasks. One began "I'll read the repo's rules that govern these
-five tasks first." The fault was seen in the traces, the driver was corrected to close standard
+The first run fed the task list to each session's standard input by accident. All ten sessions
+received the whole list. Five answered all five tasks and five answered only their own and
+said they had seen the others. One began "I'll read the repo's rules that govern these five
+tasks first." The fault was seen in the traces, the driver was corrected to close standard
 input, and all ten were run again. Only the second run is reported above. The first cost 7.93
 US dollars; both together 14.12.
 
@@ -129,7 +131,7 @@ the table above is what was drawn from them. `<root>` is a working directory hol
 
 ```bash
 #!/usr/bin/env bash
-# Each session's standard input is closed so the task file cannot leak into a prompt.
+# As run.sh, with each session's standard input closed so the task file cannot leak into a prompt.
 set -u
 ROOT="$1"; CLONE="$ROOT/clone"; OUT="$ROOT/traces2"
 while IFS='|' read -r id task <&3; do
@@ -142,6 +144,7 @@ while IFS='|' read -r id task <&3; do
   done
   wait
 done 3< "$ROOT/tools/tasks.txt"
+echo done >> "$OUT/status.txt"
 ```
 
 The analysis read each trace line as JSON, took the model from the `init` event, the paths

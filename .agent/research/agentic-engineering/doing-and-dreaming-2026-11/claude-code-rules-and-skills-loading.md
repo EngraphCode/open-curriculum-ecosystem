@@ -43,7 +43,7 @@ same day. Everything that joins the two is inference and is marked.
    unscoped rule's text loads at launch and is re-injected after compaction. The 28
    habit-of-mind rules' own descriptions total 6,859 characters. Putting that text in the
    adapters in place of the pointer sentence would use the platform's mechanism as documented
-   and cost less than the 103 pointers do. Whether it changes behaviour was then tested:
+   and cost about what the 103 pointers do, which total 6,780 characters. Whether it changes behaviour was then tested:
    [`habit-text-trial.md`](habit-text-trial.md). Measured there, the text added about 2,900
    tokens to a session that starts with about 39,300.
 5. **An import is not a way round the size.** The documentation says an `@path` import loads

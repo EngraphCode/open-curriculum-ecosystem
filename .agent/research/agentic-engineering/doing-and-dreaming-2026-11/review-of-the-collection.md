@@ -13,11 +13,12 @@ to delegate that review to you". This is that review.
 establishes, where its pieces disagree, which of its claims are weaker than they are written,
 what nobody looked at, and whether it is enough to start design. It proposes no design.
 
-**Who wrote what.** This seat wrote most of the collection, so this is an author's review. Two
-readers who wrote none of it were used where an author is least to be trusted: one sorted the
-124 rules again without sight of the first sort, and one recomputed the collection's numbers
-and tried to refute its statements that something is absent. Their results are in section 6.
-Both are the same model family as the author. No reader of another family and no person has
+**Who wrote what.** This seat wrote most of the collection, so this is an author's review.
+Three readers who wrote none of it were used where an author is least to be trusted. One
+sorted the 124 rules again without sight of the first sort. One recomputed the collection's
+numbers and tried to refute its statements that something is absent. One read a body of
+evidence the review found and the collection had missed. Their results are in section 6. All
+three are the same model family as the author. No reader of another family and no person has
 checked any of it.
 
 ## 1. The verdict
@@ -35,16 +36,22 @@ checked any of it.
    stepping back start only when a person or an agent's recall starts them. Three of the four
    draw their evidence about this estate from the same few records. What is independent of
    those records is listed in section 3.
-4. **Five statements in the collection were wrong or stronger than their evidence**, and are
-   corrected with this review (section 5). The one that matters most: the collection says the
-   estate's with-and-without skill evaluation had been used once. The repository holds nineteen
-   recorded runs from September, each with a written reading, and nobody in this collection
-   read them. They are the estate's largest body of first-hand evidence on whether a skill's
-   text changes an answer. The others: a count of skills with suites; a claim about which
-   errors the owner catches most; the heading of the habit-text trial's first reading; and the
-   label "joint review". A sixth, in another seat's work, is recorded here and not changed
-   there: a headless session's starting load is about 39,000 tokens in this repository, not
-   about 169,000.
+4. **The checks found about twenty places where the collection was wrong, stale or stronger
+   than its evidence.** All in this seat's documents are corrected where they stand (sections 5
+   and 6). Most are small. Four change a reading:
+   - The collection says the estate's with-and-without skill evaluation had been used once.
+     The repository holds nineteen recorded runs from September, each with a written reading,
+     and no piece of this collection had read them. They are the estate's largest body of
+     first-hand evidence on whether a skill's text changes an answer, and they show what the
+     November trials show: the answer without the text is usually already close, and the text
+     adds form (section 6).
+   - The line between a habit of mind and a rule for an activity is not sharp. A second reader
+     moved six of the 28 habits, and the first sort itself gave seventeen of them a moment.
+   - Carrying the 28 habit rules as text is not cheaper than the pointers, as the sort said.
+     Measured, it added about 2,900 tokens.
+   - A headless session here starts with about 39,000 tokens in context. Another seat's figure
+     of about 169,000 is a counter that adds up every turn. That figure is in work this seat
+     did not write, and is recorded here and not changed there.
 5. **The deep comparison the owner named has still not been written.** The owner's words:
    "What has not necessarily been done yet for the reports is a deep comparison with the
    current capabilities and mechanisms of the Practice". Two rows of the map that would hold it
@@ -61,6 +68,7 @@ Read whole, for this review, on 12 November 2026:
 | C. The loop-engineering baseline | [`findings.md`](../loop-engineering-governance-2026-11/findings.md), [`doing-and-dreaming-reading.md`](../loop-engineering-governance-2026-11/doing-and-dreaming-reading.md), [`paper-readings.md`](../loop-engineering-governance-2026-11/paper-readings.md) |
 | D. The Attendant research | [`attendant-research-findings.md`](../attendant-research-findings.md), [`attendant-step-back-scenarios.md`](../attendant-step-back-scenarios.md), the feasibility check |
 | E. This seat's work of 12 November | Every file in this directory and in [`rules-sort/`](rules-sort/README.md) |
+| Found during the review, in no piece | Nineteen recorded skill-evaluation runs of September 2026 under `.agent/skills/`. Two readings opened by this seat; all nineteen coded by a reader |
 
 Not read: the Hermes study's other files; C's evidence log beyond six rows checked against
 what this collection cites from them, and its two commissioned reports; D's working notes and
@@ -79,6 +87,7 @@ means it rests on records or on another system's code and documents.
 | A session opens rules whose file names share words with the task, and few others. Three runs of ten sessions opened 19, 17 and 18 rule files; a commit task opened the commit rules and a request to confirm that tests pass opened none | Observed: thirty headless sessions on five tasks | A shape, for short read-only tasks. No rate |
 | An instruction placed in context as text can change what a session writes. A goal-and-scope block appeared in both treatment answers to one planning task and in none of four controls | Observed: twenty sessions, marked by a reader blind to condition, against a bar set before the run | Shown once. The bar was two instructions and one met it |
 | Delivering the text is not sufficient. The same sentence was acted on in one planning task and not in the other | Observed in the same trial | One instance |
+| On short, self-contained tasks the answer without a rule's or a skill's text is already close to what the text asks for, and what the text visibly adds is form | Observed twice, by different seats and instruments: 59 case-runs on five skills in September (section 6), thirty sessions on rules in November | A shape. One run for each arm; one model family reading and judging |
 | A session in this repository starts with about 39,000 tokens in context. Carrying the 28 habit instructions as text added about 2,900 | Observed: the first model call of each of the thirty trial sessions (section 6) | Firm for a headless session with four tools |
 | The estate holds 124 rules of 1.07 million characters whose own one-line descriptions total about 41,600; 78 canonical skills of 1.11 million; 246 pattern files of 1.03 million | Observed: counted by script, tables kept | Firm |
 | Hermes starts its refinement in code and measures none of what that refinement writes | Read: static reading of code at one tag. Nothing was run | `provisional`, by the study's own status |
@@ -237,11 +246,126 @@ second reader. The one instruction that separated treatment from control,
 
 ### The numbers and the statements of absence
 
-Not yet returned when this was first committed. A reader who wrote none of the collection is
-recomputing its counts from the tables, the repository and the trial traces, and running the
-search that would refute each statement that something is absent. A second reader is going
-through the nineteen September evaluation readings. Both results are added here when they
-return; until then section 5 holds only what this seat checked directly.
+A reader who wrote none of the collection recomputed its counts from the tables, the
+repository and the trial traces, and ran the search that would refute each statement that
+something is absent. It was given the documents and no conclusion. This seat then checked each
+difference it reported against the source before changing anything.
+
+| Verdict | Claims |
+| --- | --- |
+| Reproduces | 62 |
+| Differs | 14 |
+| A statement of absence, not refuted by the search run | 14 |
+| A statement of absence, refuted | 2 |
+| Two documents contradict each other | 7 |
+| Could not be checked | 1 |
+
+**What reproduces.** Every table in the two trials, the rules sort and the patterns note was
+recomputed. The trial's rule opens session by session, the marks by condition, the six cells
+where the conditions differ, the split into 90, 28 and 6 with its character totals, the
+adapter counts, the hook-policy names, the napkin mentions and the patterns tables are as
+written.
+
+**What was refuted.** That skill evaluation had one recorded run (section 5, item 1). And
+that the habit-text trial's marking pack held nothing that revealed a condition: one treatment
+answer of the thirty proposed a worktree path built from its clone's directory name,
+`cloneT`. That answer was to a task on which every answer was marked alike, so no mark that
+separates the conditions rests on it, and the trial's record now says the blind was not
+complete.
+
+**What differs and changes a reading.**
+
+- **Seven of the delivery trial's ten sessions opened a rule, not six.** The trial's own table
+  showed seven; its summary sentence and `where-we-are.md` said six.
+- **The habit text is not smaller than the pointers.** The 103 always-loaded pointers total
+  6,780 characters. The rules sort gave them 9,931, which is all 124 adapters, and concluded
+  that 6,859 characters of habit text "would cost less" than the pointers. It is 79 characters
+  more than all 103, and it would replace only the 28 habit rules' own pointers. The trial
+  measured the net cost: about 2,900 tokens on a start of about 39,300.
+- **Most of the 28 habit rules were given a moment by the same sort that called them habits.**
+  Eleven sit in the sort's "any time" group; seventeen were placed at planning, team sessions,
+  documents, editing, claims or loops. With the second reader's result, this says the line
+  between a habit and a rule for an activity is not sharp, and a definition should not assume
+  it is.
+- **All ten sessions of the delivery trial's faulty first run received the task list**, not
+  five. Five answered every task. Only the second run was ever reported, so no result moves.
+
+**What differs and changes nothing.** The habit-text trial cost 13.02 US dollars, not 13.04.
+Two medians were upper-middle values (6,927 for 6,872.5; 268 for 266.5). One row of a table is
+two characters short. The patterns note's 175 behavioural patterns need two one-off category
+values to reach 175, and its character total is the 246 files without their README. The
+comparison counted four skill files carrying a prediction sentence where there are two. The
+driver script printed in the delivery trial differed from the file by a comment and a last
+line. Each is corrected where it stands.
+
+**Statements of absence that survived the search**, and what the search was: nothing in the
+repository starts a refinement step (scheduled workflows are code scanning and the two
+upstream ones; the hooks cover four events, none a session's end; the Codex and Cursor hook
+configurations were not parsed). The three consolidation nodes have no implementation by name.
+The design-space plan's six todos are all `pending`. No session in thirty called the `Skill`
+tool. No commit after 15 October 2026 names a consolidation or a rotation in its subject. The
+owner's ruling on history is in no rule, skill, directive or decision record.
+
+**Not reached by the reader:** the comparison's rows P-4, P-8 and P-9 and half of P-7; its
+quotations from the napkin; the slow-lane and recurrence-ledger dates; and this review, which
+was written while the check ran.
+
+### The September evaluation runs
+
+Once this review had found the nineteen runs, a reader was given their readings and result
+files, and nothing from this collection, and asked what they show about whether a skill's
+text changed the answers. The runs are another seat's work of 27 and 28 September 2026 on five
+skills: `plan`, `user-value`, `specify`, `assess-specification` and `specify-connection`. Each
+case was answered once with the skill available and once without, in an empty workspace, with
+a smaller model as judge on the final message, and then read by the agent that ran it.
+This seat opened two of the nineteen readings; the figures below are the reader's coding of
+all of them.
+
+| | By the judge | By the run's own reader |
+| --- | --- | --- |
+| Case-runs, over 30 cases | 59 | 59 |
+| Held with the skill and not without | 17 | 4 |
+| Held in both arms | 27 | 46, in 11 of them the arm without the skill only "in substance" |
+| Held in neither | 14 | 6 |
+| Held without the skill and not with | 1 | 0 |
+| Not stated | | 3 |
+
+- **The judge and the reader disagree often, and in one direction.** They differ on 28 of 114
+  verdicts on an arm, and in 27 the reader holds an answer the judge failed. Of the judge's 17
+  separations, the reader calls 13 a hold in both arms.
+- **The answer without the skill usually did what the skill asks.** One reading says so
+  outright: "The assertions did not discriminate the arms". The readings say what the skill
+  added: "structure the assertions do not require".
+- **Where the reader saw a difference of substance it was specific and it repeated.** In one
+  planning case the arm with the skill traced a revision through every artefact and the arm
+  without did not, in two runs. Of one skill, `specify`, its reading says "The arms differ on
+  this fixture".
+- **A run changed a skill's text once.** The control case of one suite failed with the skill
+  and without it, the reading called it "the one substantive finding about the skill in this
+  suite", and the skill gained a clause. Eight other changes after a run were to a case's
+  wording or its expected outcome, and one was to the grader.
+- **In the harness a skill is chosen from its description.** 43 of 43 prompts that should have
+  chosen the skill did. Three that should not have were counted as misses in one run, and the
+  reading puts that on the grader, which was then changed.
+- **The limits are the ones the November trials have, and one more.** One run for each arm; a
+  judge reading only the final message; self-contained prompts in an empty workspace. The
+  judge's verdict on an answer without the skill changed between runs in four cases whose
+  wording had not. And every reading is by the agent that wrote the cases and ran them.
+
+**What this adds to the collection.** Two bodies of first-hand evidence, made by different
+seats two months apart with different instruments, one on skills and one on rules, have the
+same shape. On short, self-contained tasks the answer without the text is already close to what
+the text asks for. What the text visibly adds is form and structure. A difference of substance
+is rare, specific to a case, and needs a person's kind of reading to find. Neither body says
+what happens in long work, and both were read and judged by one model family. Unlike the
+shared diagnosis of section 1, this agreement does not rest on the three shared records.
+
+**One contrast it exposes.** In the harness, with only the carried skills present, the skill
+was chosen every time it should have been. In this collection's thirty sessions in the whole
+repository, with 118 skills listed, no session called the `Skill` tool, on tasks that included
+writing a commit and writing a plan. In the delivery trial both sessions on the commit task
+opened the commit skill's file by path. So a description that selects its skill in isolation was not what
+selected it among the estate's full listing.
 
 Two checks this seat made directly, from the trial traces, which still exist in the session's
 scratch directory although the trial records say they were not kept:
@@ -294,10 +418,19 @@ method that answered it for Claude Code in an afternoon will serve.
 **What the definition can already rest on.** A rule's one strength on this platform is that
 its text is present without anyone choosing, and the estate does not use it. A skill's
 strengths are that it costs a description until used, can be started by name, and can be
-tested. Neither enforces anything. Habits of mind are few (28 by one sort), short when stated
-(about 6,900 characters together), have no moment that anything but recall can mark, and are
-the rules a session does not open. Rules tied to an activity are opened by name and mostly
-belong to a moment that already has a skill. Evidence and history have no assigned home.
+tested. Neither enforces anything. Habits of mind are few (27 and 28 by two sorts, 22 by
+both), short when stated (about 6,900 characters together, or about 2,900 tokens added to a
+session's start as the trial delivered them), mostly without a moment that anything but
+recall can mark, and are the rules a session does not open. Rules tied to an activity are opened by name and mostly belong to a moment
+that already has a skill. Evidence and history have no assigned home.
+
+**What the definition must not assume.** That every rule is one of those two kinds. Both
+sorts strained on standing constraints and conventions, which hold at all times and are not
+habits of mind, and the two readers disagreed about six of the 28. The kinds are a first cut
+made from descriptions, and the definition should derive its own from what each kind needs
+from a platform. Nor that a description which selects its skill in a test harness will select
+it among the estate's full listing, or that text alone changes a judgement the model already
+makes: section 6 has the evidence on both.
 
 ### The node's experiment
 
@@ -315,7 +448,9 @@ comparison's proposal of a scheduled seat and a draft pull request did not have:
    problem that this collection measured and did not solve.
 3. **The result is judged by something it must pass, and not only by being read.** The
    estate's fitness tool already computes candidates: the register's count of undecided
-   entries, the age of the oldest, the state of each buffer.
+   entries, the age of the oldest, the state of each buffer. A model judging a final message
+   is not such a thing by itself: in the September runs it disagreed with the reader on a
+   quarter of its verdicts.
 4. **The start is taken on a threshold.** A clock or an event grants the opportunity. A
    computed signal decides whether to take it.
 
@@ -328,17 +463,17 @@ does not depend on it and could be designed alongside.
 
 ## 8. What nobody has looked at
 
-- The nineteen readings of the September skill-evaluation runs. They compare answers with and
-  without a skill's text, case by case, which is the question this collection kept asking of
-  rules. Reading them is a small job and should come before any design that turns on whether
-  text changes behaviour.
+- The nineteen readings of the September skill-evaluation runs, by this seat beyond two of
+  them. A reader coded all nineteen for section 6. Nobody has yet read them for what they say
+  a skill's text should and should not be asked to do.
 - How any platform other than Claude Code loads rules and skills.
 - A long session with a shell and edits: whether path-scoped rules arrive as files are touched,
   and what survives a compaction. Every trial here was one turn, read-only.
 - Whether a rule that was not read was then broken. No trial tempted a breach. D's scenarios
   are built to do that for errors of frame and have not been run.
-- Whether a skill is chosen from its description. In thirty sessions none called the `Skill`
-  tool.
+- Why no session of thirty called the `Skill` tool when the harness shows descriptions
+  selecting their skills (section 6). The listing's size, the read-only tool set and the
+  single turn are each a candidate, and none was varied.
 - The six lanes that stand on this one diagnosis, set side by side: the Attendant;
   self-starting refinement; outcome-informed Practice learning; the three consolidation nodes
   of September; the action-time interrupt design space; PDR-130's predictions.
@@ -364,9 +499,14 @@ does not depend on it and could be designed alongside.
 ## 10. Limits of this review
 
 - Written by the author of most of what it reviews.
-- Both checking readers are the author's model family.
+- All three checking readers are the author's model family.
+- The figures on the September evaluation runs are one reader's coding of another seat's
+  readings. This seat opened two of the nineteen.
 - C and D were read in their findings and not in their evidence. Six of C's evidence rows were
   checked against what this collection cites from them and agree.
 - The correction to D's fixed-load figure rests on this seat's traces and on D's table, not on
   D's traces.
+- The three readers used about 705,000 tokens between them: 127,000 for the second sort,
+  314,000 for the check of counts and absences, 264,000 for the September runs. This seat's
+  estimate before launching the first two was 150,000 to 250,000.
 - A day's work, on a repository as it stood on 12 November 2026.

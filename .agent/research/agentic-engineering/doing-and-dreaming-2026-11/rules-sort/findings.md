@@ -44,9 +44,10 @@ The 28 habit-of-mind rules, so the list is on record:
 1. **The whole rule set, stated in one line each, is smaller than its largest rule.** Every
    rule carries a `description` field that states it. Those 124 descriptions total 41,631
    characters. The largest single rule file is 60,852. The 28 habit-of-mind descriptions total
-   6,859 characters. The 103 one-line pointers a session receives today total 9,931 (the
-   Attendant research's measurement). So the text of all 28 habit rules, as their own authors
-   summarised them, would cost less at session start than the pointers do now.
+   6,859 characters. The 103 one-line pointers a session receives today total 6,780; the
+   Attendant research's 9,931 is all 124 adapters, and an earlier wording here gave it to the
+   103. So the text of all 28 habit rules, as their own authors summarised them, would cost
+   about what the 103 pointers cost now, not less.
 2. **The rules the estate talks about most are the ones the trial opened least.** Across the
    live napkin and its 121 archives (7.4 million characters), `verify-dont-trust` is named 142
    times, more than any other rule; the 28 habit rules are named 329 times between them and
@@ -94,8 +95,10 @@ seat in one context, which the skill calls emulated and not protected.
 - **What it shows.** Most rules belong to a moment that already has a skill: commit, pull
   request, plan, start-right, the team-start ceremony. The 17 team-session rules hold 221,087
   characters and reach a solo session as 17 of its 103 pointers.
-- **What it hides.** The "any time" group is where frame 1's habit rules sit; this frame has
-  nowhere to put them.
+- **What it hides.** Eleven of frame 1's 28 habit rules sit in the "any time" group, and this
+  frame has nowhere else to put them. The other 17 were given a moment here (planning 6, team
+  sessions 3, documents 3, editing 2, claims 2, loops 1). So this seat's own sort did not hold
+  "applies to almost any task" for most of the rules it called habits.
 - **What it enables.** Moving a rule's instruction into the skill that runs at its moment. The
   estate's own landing rule says where substance lives when there is a choice: "favour skills
   as the SSOT, with evals".
@@ -130,8 +133,8 @@ seat in one context, which the skill calls emulated and not protected.
 
 - **Claim.** A rule file is three things in one place: an instruction of a sentence or two; a
   record of what the owner ruled and when; and a history of the incidents behind it. 104 of
-  124 files quote the owner. The median file is 6,927 characters and its instruction, by its
-  own description, about 268.
+  124 files quote the owner. The median file is about 6,870 characters and its instruction, by
+  its own description, about 267.
 - **What it shows.** "Far too many rules" may be two different complaints. There are 124
   instructions, which fit in 41,631 characters. And there is a million characters of ruling
   record and incident history filed under the instructions' names, which a session pays for
@@ -191,6 +194,12 @@ Not designs. Each could be tested cheaply and each has a result that would count
   activity, and the three kinds have no place for it. The same model family made both sorts.
 - The three-way kind and the five markers are this seat's categories; a rule can fairly sit in
   two. Each was given one.
+- A reader who wrote none of this recomputed every count here from the tables and the files
+  on 12 November 2026. The kinds, the character totals, the napkin mentions and the frame
+  counts reproduce. One row of `usage.tsv` is two characters short of its file
+  (`no-verify-requires-fresh-authorisation`, 123 for 125), so the descriptions total 41,633
+  from the files and 41,631 from the table. The corrections that check led to are marked
+  where they stand above.
 - The mention count matches a rule's name as a whole word in napkin files only. Thread records,
   the comms stream and pull requests were not searched.
 - The delivery trial behind the "opened" column was ten sessions on five tasks.
