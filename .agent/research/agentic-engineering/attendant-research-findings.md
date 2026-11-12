@@ -447,6 +447,14 @@ the model opens the file; a workflow step carries its own prompt. Nothing in the
   configured otherwise, loads `CLAUDE.md`. In this repository that fixed load is large: a
   sub-agent measured at about 107,000 tokens before its task, a headless session at about
   169,000.
+  *Correction, 2026-11-12, by the seat that reviewed the collection (not this document's
+  author):* the 169,000 is the feasibility check's count of input tokens read from cache
+  across a session of five turns, which adds up every turn's re-read of the context. It is
+  not the load at the start. In thirty headless sessions traced on the same estate the
+  first model call carried about 39,300 tokens. The sub-agent figure was not re-measured
+  and may be the same kind of counter. The reasoning is in the
+  [review of the collection](doing-and-dreaming-2026-11/review-of-the-collection.md),
+  section 5.
 - **The estate's own rule for landing a capability already says where a trigger can live.**
   `capability-landing-decision-procedure`, step 4: "A trigger-bound landing is sound only when
   the *loader* — a path match, a tool-call match, a session-shape flag, or an always-invoked

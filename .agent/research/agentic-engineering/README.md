@@ -128,6 +128,18 @@ sources without turning research notes into a second canon.
   — entry brief for the session that compares the Hermes study with the Practice: the owner's
   words, the inputs on both sides, and proposals for the session to test. It does not begin
   the comparison.
+- [hermes-practice-comparison-2026-11/comparison.md](./hermes-practice-comparison-2026-11/comparison.md)
+  — the comparison itself: what each system keeps, what starts each refinement step, the six
+  records the Practice keeps of whether a lesson worked, and the proposal that led to the
+  strategic node `self-starting-practice-refinement`.
+- [doing-and-dreaming-2026-11/](./doing-and-dreaming-2026-11/README.md)
+  — the work that followed the comparison, and the review of the whole collection that the
+  strategic node `self-starting-practice-refinement` waits on. Start at
+  [the review](./doing-and-dreaming-2026-11/review-of-the-collection.md). Beside it: a
+  reflection on the owner's report "Doing and Dreaming" and a reading of the loop-engineering
+  baseline; two trials of how rules reach a session; a sort of the 124 rules, the patterns
+  directory and the skills; and how Claude Code loads rules and skills. The report itself is
+  kept once, in the loop-engineering directory.
 - [cross-lane-direction-survey.md](./cross-lane-direction-survey.md) —
   Slice C umbrella: re-reads direction-of-travel evidence (Slice A
   governance projects, Slice B practice-methodology primitives,

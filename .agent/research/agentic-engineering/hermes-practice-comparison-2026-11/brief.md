@@ -31,6 +31,115 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
 - 2026-11-10, on this brief's first draft, which said the session should open by asking the
   owner for the comparison's purpose, depth and output: "Ultrathink run this through the
   decision matrix please @principles.md"
+- 2026-11-10, after pull request 396 merged and a follow-up fix opened pull request 397: "The
+  PR we open for the fix is the one we will continue on for the implementation work"
+
+- 2026-11-12, starting the comparison: "Please go ahead and run the comparison"
+- 2026-11-12, on the comparison's second draft: "In my opinion, that lack of loop automation is
+  the biggest weakness in the Practice as it stands today. There are multiple mechanisms,
+  session wrap, retrospectives, the napkin, dedicated consolidation sessions, all encoded as
+  skills, but almost all if it requires the user to instigate the refinement and learning
+  process."; "Note that Hermes code was run in prior sessions"
+
+- 2026-11-12, closing the question of the earlier runs: "I don't think we will re-analayse , so
+  we don't need the earlier runs, as long as the recorded conclusions are sufficient to convey
+  our findings"
+
+- 2026-11-12, on the comparison's recommended trial: "Yes, we should do that, absolutely.
+  However, related research sessions are ongoing, and I would like them to feed in before we
+  finalise the experiment design. So I am commissioning a strategic plan but not yet a detailed
+  implementation plan, effectively a plan to make a plan"
+
+- 2026-11-12, on which research feeds the design and on the 2026-09-08 position that a signal
+  never starts a session by itself: "I will conclude the other research sessions, merge them,
+  and point you at the results."; "The session starting constraint stands in general, but when
+  we run the experiment I will give permission for sessions within the experiment to start
+  without my say so"
+
+- 2026-11-12, ratifying the strategic node `self-starting-practice-refinement`: "I approve the
+  node. We should wait for the other session inputs and review all work together before
+  starting a design phase"
+
+- 2026-11-12, after the wrap, authorising the test and stating the next steps: "Carry out the
+  test."; "My preference for next steps is to define an ideal system of rules and skills, not
+  the specific instances, but the qualities of each, their relationships, and the mechanisms
+  that allow them to bring about impact, their contracts and constraints. We need a system
+  that works cross-platform, which is the intent of the pointer system, and we need to show it
+  does not work before we scrap it."; "Please acknowledge, record, then stop, and temporarily
+  unsubscribe from the PR, it is preventing the session from pausing"
+- 2026-11-12, resuming the session: "Compaction is complete, please continue"
+- 2026-11-12, after the habit-text trial was reported, four numbered points: "1. What is the
+  joint review? 2. The pointer system is designed to reduce repetition, however, I have no
+  problem replacing it with copied text for each vendor platform as long as we don't end up
+  loading things twice, e.g. Claude loading skills from both .claude and .agents 3. Figuring
+  out what the ideal skill and rule system looks like is part of the work of either this
+  session or the follow on session 4. Context is low, please prepare for compaction". The
+  second point relaxes the earlier condition that the pointer system be shown not to work
+  before it is scrapped, and puts in its place the condition that nothing is loaded twice.
+  The third makes the definition of the ideal system authorised work.
+- 2026-11-12, on what "review all work together" meant, and a delegation: "Ah, I meant together
+  in the sense of review the collection of work, rather than a joint review. I am happy to
+  delegate that review to you". The review named in the strategic node's order is therefore a
+  review of the collection as a whole, and it is this seat's to carry out.
+- 2026-11-12, after the review and the Cursor loading note were reported, on which platforms
+  matter: "I don't care about Cursor at all, the repo should be functional in Cursor agent.
+  That is all. Claude Code is the main concern, Codex is the secondary concern, every else is
+  reasonable efforts only". So the rules and skills system is defined for Claude Code first
+  and Codex second; Cursor and the rest need only to keep working.
+- 2026-11-12, on what the next work is, on review, on merging and on size: "Is the next work
+  defining the rule and skill system shape and mechanics and processes and build steps etc,
+  or the actual content of those rules and skills? I am expecting the former. Codex will
+  review the PR so it gets a second agent family at that point. I am happy for the current PR
+  to be merged once we have a plan for designing the improved system. In terms of size
+  limits, I don't want to push up against them, each rule, skill, and the combined total of
+  the relevant parts, should be well within the identified important thresholds: some
+  existing materials will be redundant or inappropriate or be better expressed more
+  succinctly, so I don't think we will have an issue establishing stricter budgets and
+  meeting them." The plan is the delivery node
+  `.agent/plans/delivery/rules-and-skills-system-design.plan.md`.
+- 2026-11-12, ratifying that plan and answering three questions (which pull request Codex
+  reviews, which node the plan serves, and whether `agent-platform-citizenship` carries the
+  platform ordering): "Ratified. I mean PR 397, but it will review all PRs. Leave the plan under the current node. Yes, update the platform citizenship ordering".
+- 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
+  there should be none of that, same for skills, they must describe current requirements, not
+  the evolution that arrived at them."; "Please find the patterns directory and explore it. I
+  suspect that we have an inconsistent and inconsistently applied policy on turning patterns
+  into useful mechanisms, and some of them may be the source of the behavioural rules you
+  mentioned."; "From now on this investigation considered rules AND skills, and for that we
+  need a clear understanding of the strengths and appropriate use cases for each". The records
+  are in `../doing-and-dreaming-2026-11/rules-sort/`.
+- 2026-11-12, a side question for a sub-agent: "when it comes to loading rules and skills into
+  memory, what are the differences between rules and skills, and are there important
+  byte/context size thresholds that change loading or execution behaviour. In this instance we
+  only need information for Claude Code. Use a Fable subagent please". The answer is at
+  `../doing-and-dreaming-2026-11/claude-code-rules-and-skills-loading.md`.
+- 2026-11-12, on sorting the rules after the trial: "Yes please, and please use the parallax
+  skills to consider additional ways the rules can be understood or grouped. As you go please
+  make sure that all findings are recorded so that the damage caused by surprise loss of
+  context is minimal". The record is at `../doing-and-dreaming-2026-11/rules-sort/`.
+- 2026-11-12, on the reflection's first suggested step: "Yes, run step 1, opus medium effort, 5
+  without start right, 5 with."; and: "Above you mentioned a biggest unknown. What is it, how do
+  we determine the answer, and is it related to the fact that we have far, far too many rules?"
+  The trial is recorded at `../doing-and-dreaming-2026-11/delivery-trial.md`.
+- 2026-11-12, supplying the Attendant Workflow's research step (pull requests 394 and 398) as
+  "the final related work", with that session's summary, and then: "What has not necessarily
+  been done yet for the reports is a deep comparison with the current capabilities and
+  mechanisms of the Practice. All of these pieces of work are steps towards self governance and
+  self improvement, and we must understand where we are in order to plan how to get where we
+  want to be. Please reflect deeply on all of it, using all appropriate skills, then suggest
+  next steps". The reflection is at `../doing-and-dreaming-2026-11/where-we-are.md`.
+- 2026-11-12, supplying the loop-engineering baseline (pull request 403, in
+  `../loop-engineering-governance-2026-11/`): "Here is the next set of results", followed by
+  that session's summary of its conclusions, limits and files
+- 2026-11-12, supplying the report "Doing and Dreaming" (kept at
+  `../loop-engineering-governance-2026-11/owner-reports/`): "Here is the first
+  of the results, a report created in isolation from the Practice. Please read it and reflect
+  on it, as well as adding it to the PR"; and, after the reflection: "Please make sure that all
+  of that is recorded"
+
+The second of those is the owner's own statement of what the comparison should bear on. It is
+later than the verdict below and outranks it where they differ; `comparison.md` section 8
+records what it changed.
 
 ## Purpose, depth and output: a verdict, not a question
 
