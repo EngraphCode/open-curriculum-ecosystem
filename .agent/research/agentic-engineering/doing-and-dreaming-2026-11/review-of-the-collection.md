@@ -113,7 +113,7 @@ when it governs and improves itself. This is that table's fourth column, brought
 | --- | --- |
 | Capture experience | Read |
 | Decide what a lesson becomes | Observed once, as a date: last run 15 October |
-| Deliver guidance to the acting agent | **Measured for rules on Claude Code**: by name for rules tied to an activity; by pointer only for habits of mind. Not measured for skills, for other platforms, or for sessions with a shell |
+| Deliver guidance to the acting agent | **Measured for rules on Claude Code**: rules tied to an activity were opened when the task was on their subject, why not measured; habits of mind reached the session as pointers only. Not measured for skills, for other platforms, or for sessions with a shell |
 | Fire at the moment of the act | Read, and no longer wholly confounded with delivery: one trial shows delivered text used in one task and unused in another |
 | Check the frame of the work | Read |
 | Show a lesson changed anything | Observed, and mostly unread: 16 of 78 skills have a suite; twenty runs are on record, nineteen of them from September and not read by any piece of this collection |
@@ -435,7 +435,7 @@ strengths are that it costs a description until used, can be started by name, an
 tested. Neither enforces anything. Habits of mind are few (27 and 28 by two sorts, 22 by
 both), short when stated (about 6,900 characters together, or about 2,900 tokens added to a
 session's start as the trial delivered them), mostly without a moment that anything but
-recall can mark, and are the rules a session does not open. Rules tied to an activity are opened by name and mostly belong to a moment
+recall can mark, and are the rules a session does not open. Rules tied to an activity were opened when the task was on their subject and mostly belong to a moment
 that already has a skill. Evidence and history have no assigned home.
 
 **What the definition must not assume.** That every rule is one of those two kinds. Both

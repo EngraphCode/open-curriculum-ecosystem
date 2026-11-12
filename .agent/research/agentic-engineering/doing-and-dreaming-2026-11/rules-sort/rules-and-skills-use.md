@@ -116,8 +116,9 @@ Four departures follow from the table.
    sessions.
 3. **Both carry history.** A dated line is a floor for it, not a measure: a line can tell a
    story with no date in it. By that floor, nine rules in ten and half the skills carry some.
-4. **The descriptions are doing the work the bodies were meant to do.** A session chooses
-   rules by file name and skills by description. The descriptions of everything, rules and
+4. **The descriptions are doing the work the bodies were meant to do.** A session has a
+   rule's file name and a skill's description to choose by, and the rules it opened were on
+   the subject of its task; how it chose was not measured. The descriptions of everything, rules and
    skills together, come to 79,691 characters. The bodies come to 2.18 million.
 
 ## 5. What this suggests, for the review of the collection

@@ -76,9 +76,8 @@ whether an unread rule would have been broken.
    files were read and not why. Three opened rules share no word with their task: T1 opened
    `bot-identity-on-third-party-systems` and `identify-as-agent-under-shared-credentials`,
    and T3 opened `worktree-residency`. They may have been reached by relevance of subject or
-   through another document the session read. So "opened by name", here and in the documents
-   that cite this trial, is shorthand for an association between a rule's name and the task,
-   and the trial did not measure literal matching as the mechanism.
+   through another document the session read. So the trial shows an association between a rule's
+   name and the task, and did not measure literal matching as the mechanism.
 2. **Rules named for a habit of mind are the ones left unopened.** `verify-dont-trust`,
    `compute-dont-hope`, `scope-from-goal-before-approach`, `one-instance-is-an-observation`,
    `read-before-asking` and their like apply to almost every task and are named for none. The
@@ -99,7 +98,7 @@ its name and not its text. Both faults are present. Which one a given recurrence
 told from the napkin, and could be told from a session's trace.
 
 On the number of rules: with 124 behind pointers, 103 of them one line and always present, a
-session selects by name. A rule
+session has names to select from. A rule
 competes for attention with every other name on the list, and the frame-level rules lose. The
 count is part of the mechanism, not only a cost.
 

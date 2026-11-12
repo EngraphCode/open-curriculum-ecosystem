@@ -98,7 +98,7 @@ three.
 
 Delivering the 28 instructions as text did not change how many rule files a session opened.
 The two control runs differ from each other by about as much as either differs from the
-treatment. The activity rules were opened by name in all three, as before.
+treatment. The same activity rules were opened in all three, as before.
 
 ### What the answers did
 
@@ -139,7 +139,7 @@ those.
    not opened.** That is two treatment answers against four controls on one task, with a
    blind that was not complete and an adapter whose wording around the pointer also changed.
    It is an observation of uptake in one task and one run and not a general result on
-   delivery. The delivery trial showed that pointers to activity rules are opened by name,
+   delivery. The delivery trial showed that pointers to activity rules are opened by tasks on their subject,
    so this is a statement about habit rules only. The treatment's visible changes are each a delivered
    instruction being followed or cited. The Goal and scope block is the instruction
    carried out almost to the letter. This is the kind of result frame 6 said would count for
@@ -159,7 +159,7 @@ those.
    tasks could not have.
 5. **On the pointer system.** The owner's bar is that the pointer system is shown not to work
    before it is scrapped. This trial and the delivery trial together show: a pointer to an
-   activity rule works, because the session opens it by name; a pointer to a habit rule
+   activity rule was opened when the task was on its subject; a pointer to a habit rule
    delivers a name only, and the same rule delivered as its one-paragraph instruction is acted
    on at least sometimes. That is evidence against the pointer for one kind of rule on one
    platform. It is not a showing for the other platforms, and not for the activity rules.

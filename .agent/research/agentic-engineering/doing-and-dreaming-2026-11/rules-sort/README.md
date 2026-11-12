@@ -7,7 +7,8 @@ you go please make sure that all findings are recorded so that the damage caused
 loss of context is minimal".
 
 It follows from [`../delivery-trial.md`](../delivery-trial.md), which found that a session
-chooses which rules to open by file name.
+opened the rules on the subject of its task, most of them with names that shared the task's
+words, and did not measure how it chose.
 
 **Widened the same day, at the owner's word.** Three statements, verbatim:
 
