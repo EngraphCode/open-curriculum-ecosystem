@@ -34,6 +34,17 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
 - 2026-11-10, after pull request 396 merged and a follow-up fix opened pull request 397: "The
   PR we open for the fix is the one we will continue on for the implementation work"
 
+- 2026-11-12, starting the comparison: "Please go ahead and run the comparison"
+- 2026-11-12, on the comparison's second draft: "In my opinion, that lack of loop automation is
+  the biggest weakness in the Practice as it stands today. There are multiple mechanisms,
+  session wrap, retrospectives, the napkin, dedicated consolidation sessions, all encoded as
+  skills, but almost all if it requires the user to instigate the refinement and learning
+  process."; "Note that Hermes code was run in prior sessions"
+
+The second of those is the owner's own statement of what the comparison should bear on. It is
+later than the verdict below and outranks it where they differ; `comparison.md` section 8
+records what it changed.
+
 ## Purpose, depth and output: a verdict, not a question
 
 The first draft of this brief handed the purpose back to the owner as an open question. The

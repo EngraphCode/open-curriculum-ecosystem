@@ -4,22 +4,35 @@ A comparison of the learning loop of Hermes Agent v0.23.0 with the learning loop
 Practice, written to answer one question from [`brief.md`](brief.md): which single feedback
 loop in the Practice should get an effect measure first, or whether none should. Written
 12 November 2026 by the seat Swift holds Aether (Claude Code cloud session `01Duocji`, solo)
-for the owner. This is the second draft; a challenge pass refuted the first draft's
-recommendation, and section 8 records what changed.
+for the owner. This is the third draft. A challenge pass refuted the first draft's
+recommendation; the owner's response to the second named the weakness the comparison should
+have been organised around. Section 8 records both.
 
-In brief. The answer is: none, yet. The Practice already keeps six records of whether its
-lessons worked, which is six more than Hermes's runtime keeps. Each is written; on the day
-this was observed, none had a decision taken from it since mid-October, because the workflow
-that reads them, the dedicated consolidation, last ran on 15 October and has been recorded as
-due and deferred since. A seventh record would join the queue. The recommendation in section 6
-is to take the decisions the existing records already support and to build nothing.
+In brief. On whether to add an effect measure: no. The Practice already keeps six records of
+whether its lessons worked, which is six more than Hermes's runtime keeps. Each is written;
+none has had a decision taken from it since mid-October, because the workflow that reads them,
+the dedicated consolidation, last ran on 15 October and has been recorded as due since.
 
-Hermes supplied less to that conclusion than the brief expected, and the document says where.
-It supplied one comparison worth having. The loop the owner asked about, Hermes's offline
-scoring of a skill's text, has a held-out set and no path to a decision. The Practice has a
-counterpart, skill evaluation suites with a with-and-without comparison, which has a path to a
-decision and, on its one recorded use, a baseline that could discriminate nothing. Each has
-the half the other lacks.
+The reason it has not run is the weakness the owner named on reading the second draft: "that
+lack of loop automation is the biggest weakness in the Practice as it stands today … almost
+all if it requires the user to instigate the refinement and learning process". The record
+agrees (section 2.5). Every refinement step in the Practice starts at the owner's word or at an
+agent's recall. Nothing in the repository starts one by clock, counter or event, although the
+same repository starts its upstream synchronisation by schedule four times a day.
+
+This is where Hermes bears on the Practice most directly. Hermes starts its refinement in
+code: a counter starts a review after the reply, and a timer with an idle test starts the
+curator. Its record also shows what unattended refinement needed once it ran: destructive
+writes staged for approval, archiving in place of deletion, a narrow tool list, a snapshot
+before each run. And it shows the cost: what the automation writes is not measured. The
+recommendation in section 6 is one bounded trial of the half Hermes has and the Practice lacks,
+a scheduled seat that runs the consolidation's deciding step and stages its result as a draft
+pull request, with the decisions already owed as its first job.
+
+One further comparison is worth having. The loop the owner asked about, Hermes's offline
+scoring of a skill's text, has a held-out comparison and no path to a decision. The Practice's
+counterpart, skill evaluation suites, has a path to a decision and, on its one recorded use, a
+baseline that could discriminate nothing. Each has the half the other lacks.
 
 ## 0. Method
 
@@ -37,7 +50,7 @@ reviewer that wrote neither account, and return conditions.
 
 | Side | What was read | What was observed running | Pin |
 | --- | --- | --- | --- |
-| Hermes | The merged study in `../hermes-agent-v0.23.0-2026-11/`: `synthesis.md` whole; `memory-learning-architecture.md` sections 5 (L1 to L8) and L10 | Nothing. The study's status is `provisional` and forbids reading any row as observed behaviour. No Hermes code was run in this session either. | `hermes-agent` `2bd378ed`, `hermes-agent-self-evolution` `0a929e3a` |
+| Hermes | The merged study in `../hermes-agent-v0.23.0-2026-11/`: `synthesis.md` whole; `memory-learning-architecture.md` sections 5 (L1 to L8) and L10 | Nothing by this seat: the study ran no Hermes code and neither did this session, and the study's status is `provisional`. The owner states that Hermes code was run in prior sessions (section 8). No record of those runs was found in this repository or on the two forks' remote branches, so nothing here draws on them. | `hermes-agent` `2bd378ed`, `hermes-agent-self-evolution` `0a929e3a` |
 | The Practice | The mechanisms named in section 2, each read first-hand at the cited lines | Its own tooling, run in this session: `pnpm practice:fitness:informational`, and read-only `git log` queries | This repository's `engraph` at `495c82f45`, merged into the work branch at `d2e5aa15c` |
 
 A "does" cell for Hermes means "the code at the tag reads this way". A "does" cell for the
@@ -205,6 +218,42 @@ one whose measures go unread because nobody remembers them.
 | P-8 | Whether a cure worked needs "a designed surface-signature census per window, never an absence read" (`consolidate-docs`, lines 620 to 621) | No census has been run. The design-space plan already names the instrument, a census of each class's literal signature "run over the archive" (`.agent/plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md:871-874`), which needs no new collection | A census result anywhere in the repository |
 | P-9 | The cost gate's weights are "an experiment, not a constant" (`review-cost-ledger.md`, lines 15 to 16) | Two months of rows; one weights row, the initial one | A later row in the weight-changes table |
 
+### 2.5 What starts each step
+
+Added in the third draft, after the owner's word. "Starts" means the first cause of the step
+running at all, not what the step reads once it runs.
+
+| Step | What the Practice's records say starts it | Started by code? |
+| --- | --- | --- |
+| Capture to the napkin | The agent's recall of an always-on instruction (napkin skill, line 18) | No |
+| Session wrap | The owner's word, or an agent recognising a session's end. The repository configures hooks for four events: session start, before a tool call, prompt submission and before compaction. None is a session-end event | No |
+| Retrospective | "The owner commissions a retrospective on a completed arc" (`.agent/skills/cognition/retrospective/SKILL-CANONICAL.md:37`) | No |
+| Dedicated consolidation | A checklist of conditions an agent or the owner must notice (`consolidate-docs`, lines 63 to 79). Those of 2026-09-02, 09-16 and 10-14 are each recorded as at the owner's word; the seat that saw it due on 2026-10-19 left it to "a curator seat", which exists only when someone launches one | No |
+| Archive synthesis | "the owner requests historical synthesis" (same checklist) | No |
+| Slow-lane review | The first consolidation on or after the row's date | No |
+| Skill evaluation | Whoever runs the suite | No |
+| Fitness readout | An agent runs the command | No. It reports when run, and nothing acts on the report |
+| Plan-gate expiry alert | A session-start hook | Yes. It tells the opening seat; it does no work |
+| Upstream mirror and carrier | Scheduled workflows, four slots a day on weekdays (`.github/workflows/upstream-carrier.yml`) | Yes. This is delivery plumbing, not learning |
+
+Hermes, from the study's L2 and L3 table:
+
+| Step | What starts it | Default |
+| --- | --- | --- |
+| Review of the conversation for memory | A user-turn counter reaching its interval | 10 turns |
+| Review of the conversation for skills | A tool-iteration counter reaching its interval | 10 iterations |
+| Curator transitions (active, stale, archived) | An interval and an idle test, checked at session start, gateway housekeeping or a maintenance timer | 168 hours; 2 hours idle |
+| Curator consolidation by a model | The same, when switched on | Off |
+| Offline scoring | A person runs a script | — |
+
+The two tables are mirror images. Hermes automates the start of refinement and leaves
+measurement to a person. The Practice has people start refinement and, once it runs, measures
+more than Hermes does. The one automatic start the Practice has on its learning side is an
+alert to a seat that is busy with something else, and the owner's recorded verdict on that
+alert is "ceremony has been invented, and then declared a blocker"
+(`pending-graduations.md:198-199`). An alert asks for work. Hermes's counters start a separate
+agent whose only job is the work.
+
 ## 3. Breadth: the learning loop side by side
 
 "Code" means the mechanism runs without a model's or a person's decision to start it.
@@ -323,43 +372,72 @@ overlap on two held-out examples, and the Practice's is one suite on one draft.
 ## 6. What the Practice could take
 
 The live decision, from the brief: which single feedback loop gets an effect measure first, or
-whether none should.
+whether none should. The owner's word on the second draft adds the question beneath it: what
+starts the loop at all.
 
-### 6.1 The answer: none, yet
+### 6.1 The answer: no new measure; change what starts the loop
 
 Six records of effect exist (section 2.2). Every one is being written. Since 2026-10-15 none
-has had a decision taken from it, and the reason is on the record: the consolidation is due
-and was deferred behind other work "by the owner's ordering" (P-3). A new measure would be a
-seventh record waiting on the same workflow. The node this work serves names the risk: that
-"maintaining the learning substrate" becomes "the dominant work".
+has had a decision taken from it. A new measure would be a seventh record waiting on the same
+workflow, and that workflow waits on a person (section 2.5). The node this work serves names
+the risk: that "maintaining the learning substrate" becomes "the dominant work". For the
+owner it already is work that only the owner can start.
 
 Each candidate below is in the node's shape. None changes a rule, skill, plan or register;
-each is for a consolidation or a plan to take up.
+each is for a plan to take up.
 
-### 6.2 Recommended: take the decisions the records already support, and build nothing
+### 6.2 Recommended: one scheduled seat that runs the consolidation's deciding step
 
-- **The loop.** The consolidation's own deciding step, on three records.
-- **The change.** At the next dedicated consolidation:
-  1. Decide the two slow-lane rows whose dates have passed. The first has its test case now
-     (pull request 375); the second has a reading logged on 2026-10-14.
-  2. Finish the fast-lane count and let PDR-130's falsifier speak. The first reading is in
-     P-6. If it holds, the record says what follows: "the obligation has no traction and needs
-     a mechanical check or retirement" (PDR-130, lines 112 to 113).
-  3. Read the cost ledger's two months of rows against the gate's weights once, and either
-     change a weight or record that the initial weights stand.
-- **The live decision it enables.** Three decisions, each already owed: keep or kill two
-  concepts; keep, mechanise or retire the prediction sentence; change or confirm the weights.
-- **The evidence that warrants it.** Section 2.2's last column and P-3.
-- **Falsifier or stop.** By 2026-12-20, the latest review date the register already carries,
-  none of the three is recorded as decided. That would show the estate's effect records are
-  not consumed even when a consolidation is asked for these decisions by name, and the
-  question becomes which records to stop writing.
-- **The effect it expects to change.** For the owner: one bounded set of decisions and a
-  first answer, from records, to which changes worked. For a later agent: registers whose rows
-  are live or decided.
-- **The one thing that is the owner's.** The consolidation has been due since 19 October by
-  the owner's ordering of work. Whether it now outranks what was ahead of it is the owner's
-  call, and this document's finding is the case for it.
+- **The loop.** Capture, then decide: the step from "a record exists" to "something was
+  decided from it". It is the step with no starter.
+- **The change.** A trial, bounded in time and cost: a scheduled trigger opens a fresh
+  unattended session whose only job is the deciding step of the dedicated consolidation, and
+  whose output is a draft pull request. The pattern is Hermes's, in three parts.
+  1. **The start is in code.** A schedule, as the upstream carrier already has, or a signal
+     the fitness tool already computes (a buffer at `hard` or `critical`, or an item past its
+     dwell). Hermes uses both kinds: a counter and a timer with an idle test.
+  2. **The work is done by a separate agent with nothing else to do.** This is the difference
+     from the session-start alert, which asks a seat that opened for other work.
+  3. **The result is staged.** A draft pull request is the Practice's staging area, as the
+     pending directory is Hermes's. The Hermes study's controls for unattended runs carry over
+     as constraints on the trial: nothing deleted, only archived; edits and removals of
+     existing doctrine proposed and not applied; a short allowed tool list; one bounded run
+     (L5).
+- **Its first job is the three decisions already owed.** Decide the two slow-lane rows whose
+  dates have passed (pull request 375 is now the first row's test case). Finish the fast-lane
+  count so PDR-130's falsifier can be decided; the first reading is in P-6, and if it holds
+  the record says what follows: "the obligation has no traction and needs a mechanical check
+  or retirement" (PDR-130, lines 112 to 113). Read the cost ledger's rows against the gate's
+  weights once.
+- **The live decision it enables.** Whether refinement in the Practice can be started without
+  the owner, and at what cost per run.
+- **The evidence that warrants it.** The owner's word (section 8). Section 2.5: no refinement
+  step starts in code. P-3: the due state was seen by a seat that could not take it up. The
+  session-start alert: an automatic reminder without an automatic worker drew a correction.
+  And one first-hand observation from this session: a harness hook that fired at the end of a
+  turn with "There are uncommitted changes" was followed, in the same turn, by the commit and
+  push it asked for. A check that fires at the boundary, on a state it can detect, to an agent
+  with nothing else queued, was acted on.
+- **Falsifier or stop.** Three scheduled runs. Stop if any of these holds: a run opens no pull
+  request; the owner's response to a run's output is a correction of the ceremony kind; a run
+  exceeds its declared cost; or the three owed decisions are still not recorded after the
+  third run. The clock is the schedule, so the falsifier matures whether or not anyone
+  remembers it.
+- **The effect it expects to change.** For the owner: refinement stops needing the owner to
+  start it, and what the owner receives is a pull request to accept, correct or close. For a
+  later agent: buffers that drain between sessions.
+- **What Hermes's record warns of.** Automatic refinement writes, and Hermes does not measure
+  what it writes. Its own documents name the results: a library that hoards, constraints that
+  harden, and "57 gone in one startup tick" when an automatic rule met a case its authors had
+  not pictured. The trial's seat therefore decides and drains; it does not mint new doctrine
+  unattended, and its pull request is where the Practice's existing review applies.
+- **What the Practice's own rules already constrain.** An unattended seat cannot ask the
+  owner anything (`.agent/rules/unattended-seats-never-prompt.md`), and the consolidation skill
+  reserves some outcomes for the owner in person, such as keeping an open question open. The
+  trial's seat leaves those items untouched and lists them in the pull request.
+- **Not decided here.** Which platform carries the trigger, the schedule, and the cost bound.
+  A cloud session can create a scheduled trigger that opens a fresh session; a scheduled
+  workflow is the other route. Those are the plan's to settle.
 
 ### 6.3 Make skill evaluation the first loop with a discriminating measure
 
@@ -412,25 +490,31 @@ each is for a consolidation or a plan to take up.
   census of each class's signature over the existing archive (P-8). It needs no new log and no
   information-governance work, and it falls inside 6.4.
 
-### 6.6 Why 6.2 first
+### 6.6 Why 6.2 first, and what Hermes contributed
 
-It adds nothing to maintain and it tests the estate's capacity to act on a measure before
-another measure is built. If the three decisions are taken, the Practice has its first
-decisions from effect records since October and a reading on PDR-130. If they are not, 6.3 and
-6.4 would have gone unread too.
+It addresses the weakness the owner named, and the other candidates depend on it. 6.3 and 6.4
+each improve a record; a better record with no starter is read as often as the present ones.
+It also tests the least-known thing first: whether an unattended seat can run the deciding
+step to a standard the owner accepts. If it can, 6.4 becomes that seat's later work. If it
+cannot, the trial says so in three runs and the Practice has learned that its refinement needs
+a person, which is worth knowing before more is built on the assumption that it does not.
 
-What Hermes contributed to this choice: no evidence. 6.2 and 6.4 follow from the Practice's
-records alone and would read the same with Hermes removed. Hermes contributed the contrast
-behind 6.3, and the general observation that a use record (which Hermes has) and an effect
-record (which the Practice has) are different things and that neither system connects its
-record to what it keeps. The brief named "nothing in Hermes bears on the node" as a condition
-that would overturn its verdict. That condition is met in part: Hermes bears on one candidate
-of three, and not on the recommended one.
+What Hermes contributed, restated after the owner's word. The second draft said Hermes
+supplied no evidence for its recommendation, and for that recommendation it was true. Under
+the weakness the owner named, Hermes is the nearest worked example available: a system that
+starts refinement in code, with a record of the controls that needed and of what went wrong.
+It is a design to learn from and not evidence that the design works; the study observed
+nothing running, and Hermes itself measures none of it.
 
 ## 7. Limits
 
 - **Unequal evidence.** Stated in section 0. No sentence here about Hermes's behaviour in use
-  is supported, and none is intended.
+  is supported, and none is intended. The owner states that Hermes code was run in prior
+  sessions; this seat found no record of those runs and used none. If their observations
+  exist, they would be the first evidence on what Hermes's automatic refinement does in use,
+  and section 6.2 should be re-read against them.
+- **The trial in 6.2 is a design, not a tested mechanism.** Its only first-hand support is
+  one hook firing in one session. The platform route was not tried: no trigger was created.
 - **One day's observation.** The "does" columns are this repository on 12 November 2026.
 - **The fast-lane count.** Ten files read by hand, by the reviewer and not by this seat;
   fourteen scanned by term. Skills and patterns were not hand-read. "Rule files added" is not
@@ -479,8 +563,31 @@ state, and the absence of any slow-lane date reader.
 shaped the first draft toward "find an unread measure and attach a reader". No owner word asks
 for one feedback loop to be made outcome-informed. The owner's one content-level steer was
 about Hermes's measured loop, and the first draft never asked whether the Practice has one.
-This draft keeps the brief's question, because it is the commission, and answers it "none,
-yet"; the inference under the frame remains the owner's to confirm or replace.
+The second draft kept the brief's question, because it is the commission, and answered it
+"none, yet". The owner's response, next, supplied the purpose the frame had lacked.
+
+**The owner's response to the second draft, 2026-11-12, verbatim.** Quoting the second
+draft's summary line "both of its measures depend on someone remembering to run them":
+
+> In my opinion, that lack of loop automation is the biggest weakness in the Practice as it
+> stands today. There are multiple mechanisms, session wrap, retrospectives, the napkin,
+> dedicated consolidation sessions, all encoded as skills, but almost all if it requires the
+> user to instigate the refinement and learning process.
+>
+> Note that Hermes code was run in prior sessions
+
+What changed for it. Section 2.5 was added and bears the owner's statement out from the
+records. The second draft's recommendation, to take the owed decisions and build nothing,
+became the first job of a new recommendation (6.2), because it too waited on someone starting
+a consolidation. The first draft and the reviewer had each held half of this: the draft saw
+that nothing starts the measures, and proposed an alert; the reviewer saw that alerts are
+already seen and deferred, and proposed asking the owner to reprioritise. The owner's
+statement names what both missed: the missing part is a starter that also does the work.
+
+On the second sentence: this seat's statements that no Hermes code was run are true of the
+study and of this session and were written as if true of all sessions. They are corrected in
+sections 0 and 7. A search of this repository and of the two forks' remote branches found no
+record of the earlier runs.
 
 **What the reviewer proposed that this draft did not take.** A count of how often each rule's
 cure text was patched, as a standing measure of its own: folded into 6.4 as an input, not a
@@ -488,8 +595,8 @@ new record.
 
 **Quotation check.** Run after this revision with the script in
 `../hermes-agent-v0.23.0-2026-11/method-instruments.md` section 4, reduced to one repository:
-81 rows, no misses. The file keeps the first draft's rows beside this draft's, so a few rows
-check phrases this revision no longer quotes. Seven ranges were corrected before the two
+84 rows, no misses. The file keeps earlier drafts' rows beside this draft's, so a few rows
+check phrases this revision no longer quotes. Seven ranges were corrected before the first two
 drafts were committed: three in the first, four in the second.
 
 **Return conditions.** Reopen this document when a dedicated consolidation next runs (it

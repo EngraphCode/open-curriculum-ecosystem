@@ -79,3 +79,6 @@ docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.
 .agent/plans/strategic/outcome-informed-practice-learning.plan.md	44	45	maintaining the learning substrate
 .agent/plans/strategic/outcome-informed-practice-learning.plan.md	93	93	Doctrine disposition reviews
 .agent/plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md	871	874	run over the archive
+.agent/skills/cognition/retrospective/SKILL-CANONICAL.md	37	37	The owner commissions a retrospective on a completed arc
+.agent/skills/knowledge/consolidate-docs/SKILL-CANONICAL.md	63	79	the owner requests historical synthesis
+.agent/skills/knowledge/napkin/SKILL-CANONICAL.md	18	18	This skill is always active
