@@ -510,9 +510,10 @@ nothing running, and Hermes itself measures none of it.
 
 - **Unequal evidence.** Stated in section 0. No sentence here about Hermes's behaviour in use
   is supported, and none is intended. The owner states that Hermes code was run in prior
-  sessions; this seat found no record of those runs and used none. If their observations
-  exist, they would be the first evidence on what Hermes's automatic refinement does in use,
-  and section 6.2 should be re-read against them.
+  sessions; this seat found no record of those runs and used none. The owner has since
+  decided that no re-analysis against them is planned (section 8). The findings here do not
+  need them: each is worded as a reading of code and documents or as an observation of this
+  repository, and none depends on how Hermes behaves in use.
 - **The trial in 6.2 is a design, not a tested mechanism.** Its only first-hand support is
   one hook firing in one session. The platform route was not tried: no trigger was created.
 - **One day's observation.** The "does" columns are this repository on 12 November 2026.
@@ -588,6 +589,12 @@ On the second sentence: this seat's statements that no Hermes code was run are t
 study and of this session and were written as if true of all sessions. They are corrected in
 sections 0 and 7. A search of this repository and of the two forks' remote branches found no
 record of the earlier runs.
+
+The owner then closed the question, 2026-11-12, verbatim: "I don't think we will re-analayse ,
+so we don't need the earlier runs, as long as the recorded conclusions are sufficient to
+convey our findings". This seat's reading of the condition: they are sufficient. The findings
+are the six effect records, the table of what starts each step, the scored-loop contrast and
+the recommendation, and each stands on what is cited beside it.
 
 **What the reviewer proposed that this draft did not take.** A count of how often each rule's
 cure text was patched, as a standing measure of its own: folded into 6.4 as an input, not a

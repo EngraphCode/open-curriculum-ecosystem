@@ -41,6 +41,10 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   skills, but almost all if it requires the user to instigate the refinement and learning
   process."; "Note that Hermes code was run in prior sessions"
 
+- 2026-11-12, closing the question of the earlier runs: "I don't think we will re-analayse , so
+  we don't need the earlier runs, as long as the recorded conclusions are sufficient to convey
+  our findings"
+
 The second of those is the owner's own statement of what the comparison should bear on. It is
 later than the verdict below and outranks it where they differ; `comparison.md` section 8
 records what it changed.
