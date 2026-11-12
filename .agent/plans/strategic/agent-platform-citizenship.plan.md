@@ -82,8 +82,9 @@ modes serve this node:
   ordered: Claude Code first, Codex second, and every other platform is
   kept working with reasonable efforts and no more. The ordering governs
   where work is spent. It does not withdraw the principle that a capable
-  platform may join as a citizen through its own native surfaces, and it
-  does not by itself re-seat the Codex nodes paused on 2026-09-28.
+  platform may join as a citizen through its own native surfaces. Whether
+  the Codex nodes paused on 2026-09-28 are seated again under this
+  ordering is the Director's to rule; this note seats nothing.
 
 ## The first fully-worked instance: GitHub Copilot CLI
 

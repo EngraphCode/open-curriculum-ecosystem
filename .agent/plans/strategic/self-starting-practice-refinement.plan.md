@@ -124,6 +124,10 @@ force. What follows for this node's work:
 5. **No design phase starts until the other sessions' inputs have arrived and all the work has
    been reviewed together** (the owner, ratifying this node on 2026-11-12: "We should wait for
    the other session inputs and review all work together before starting a design phase").
+   The owner, later the same day, on what "together" meant: "I meant together in the sense
+   of review the collection of work, rather than a joint review. I am happy to delegate that
+   review to you". The inputs arrived and the review is done; its record is the
+   [review of the collection](../../research/agentic-engineering/doing-and-dreaming-2026-11/review-of-the-collection.md).
 
 The authoring seat's readings, not the owner's words: that the first experiment is small and
 can fail, with its result recorded whichever way it falls.
@@ -147,7 +151,7 @@ Inputs the design step reads before it is written.
     ([findings](../../research/agentic-engineering/attendant-research-findings.md)), on why the
     estate's step-back instruments only partly succeed and what can mark a moment without an
     agent's recall.
-  - A reflection across all of these, with suggested next steps for the joint review, is at
+  - A reflection across all of these, with suggested next steps for the review of the collection, is at
     [where we are](../../research/agentic-engineering/doing-and-dreaming-2026-11/where-we-are.md).
 - The comparison's proposal (section 6.2) and its limits (section 7). It is one input with one
   first-hand observation behind it, and it is not the design.
@@ -200,8 +204,10 @@ Delivery plans serving this node declare `serves: self-starting-practice-refinem
 them by search. The sequence is the owner's (settled items 3 to 5):
 
 1. The owner concludes the other research sessions, merges them and points at their results.
-2. All the work is reviewed together with the owner: those results, the comparison and this
-   node.
+2. All the work is reviewed as one collection: those results, the comparison and this node.
+   The owner delegated that review on 2026-11-12; its record is
+   [`review-of-the-collection.md`](../../research/agentic-engineering/doing-and-dreaming-2026-11/review-of-the-collection.md).
+   Steps 1 and 2 are done.
 3. The experiment's design is written, as the first delivery node, by the seat that picks it
    up after that review.
 4. The experiment is run, its sessions starting by the owner's permission given then.

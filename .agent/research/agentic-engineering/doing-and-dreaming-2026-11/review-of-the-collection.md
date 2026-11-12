@@ -51,7 +51,7 @@ checked any of it.
      Measured, it added about 2,900 tokens.
    - A headless session here starts with about 39,000 tokens in context. Another seat's figure
      of about 169,000 is a counter that adds up every turn. That figure is in work this seat
-     did not write, and is recorded here and not changed there.
+     did not write; it now carries a dated correction beside it.
 5. **The deep comparison the owner named has still not been written.** The owner's words:
    "What has not necessarily been done yet for the reports is a deep comparison with the
    current capabilities and mechanisms of the Practice". Two rows of the map that would hold it
@@ -148,12 +148,15 @@ when it governs and improves itself. This is that table's fourth column, brought
    habit rules only.
 5. **The label "joint review".** This seat coined it for the owner's "review all work
    together" and wrote it into a dozen places. It is replaced by "the review of the collection"
-   everywhere but the ratified node (section 9) and the records of the correction itself.
+   everywhere, the ratified node included (section 9), but the records of the correction
+   itself.
 
 Two statements that a test "has not been run" also stood, in the loading note and in
 `rules-and-skills-use.md`, after the habit-text trial ran. They now point to it.
 
-### Recorded here, not changed where they stand
+### In another seat's work
+
+The first is now also marked where it stands, by a dated correction beside D's sentence.
 
 1. **A headless session's fixed load.** D's feasibility check reports "About 169,000 tokens of
    fixed load per session", and D's findings repeat it with 107,000 for a sub-agent. The check's
@@ -498,17 +501,17 @@ does not depend on it and could be designed alongside.
 
 ## 9. For the owner
 
-1. **The ratified node still carries this seat's label and an order the owner has since
-   changed.** Its line on the reflection reads "with suggested next steps for the joint
-   review", and step 2 of its delivery order reads "All the work is reviewed together with the
-   owner". The owner has said the review was of the collection and has delegated it. This seat
-   has not edited a ratified node. Proposed text, for a one-word acceptance: "with suggested
-   next steps for the review of the collection" and "All the work is reviewed as one
-   collection: those results, the comparison and this node. The owner delegated that review on
-   2026-11-12; its record is `review-of-the-collection.md`."
-2. **Which design is first.** The recommendation is in section 7.
-3. **Whether a reader of another model family checks this review** before design rests on it.
-4. **Whether pull request 397 leaves draft.**
+All four are closed, the same day.
+
+1. **The ratified node carried this seat's label "joint review" and an order the owner had
+   since changed.** The node now says "the review of the collection" and records the
+   delegation. This seat held that correction back as a question when the text was known
+   wrong and its replacement known; the owner said so, and the correction was made.
+2. **Which design is first.** The rules and skills system, by the owner's ratification of
+   its plan.
+3. **Whether a reader of another model family checks this review.** Codex reviewed pull
+   request 397, at the owner's word, and its findings are applied.
+4. **Whether pull request 397 leaves draft.** It has.
 
 ## 10. Limits of this review
 
