@@ -2051,6 +2051,13 @@ outside the repository. One instance each; scope is this session.
   index against Codex's 32 KiB limit. I also listed my own design choices under "the owner's
   word or a measured fact", and gave my reason for the pointers where the owner had stated
   theirs. The lesson recorded above did not fire at the next act; the reviewer did.
+- **Loss scan at the third compaction word.** Carried only in context and now in the
+  continuity record's top entry: the four questions waiting on the owner; the order of acts
+  on ratification; that pull request 397's description is behind; where the design document
+  is to live. Judged not worth keeping: the readers' scratch reports and the saved vendor
+  pages, whose findings are in the review and the three loading notes. The wrap skill's body
+  was not re-read, at the owner's word that context is low; the pass followed its classes
+  from the first wrap of the day.
 - **The review of the collection is done** (`doing-and-dreaming-2026-11/review-of-the-collection.md`).
   "Joint review" is replaced everywhere but the ratified node, whose correction is the
   owner's; proposed text is in the review's section 9.

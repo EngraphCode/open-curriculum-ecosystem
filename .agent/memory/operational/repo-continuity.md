@@ -37,8 +37,37 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12, third boundary record, at the owner's third compaction word** (Swift holds
+  Aether, 01Duocji, solo cloud session; the seat stays live). Start here; the entry below
+  holds the detail and is current.
+  - **State.** Everything is committed. The branch carries the review of the collection, the
+    Cursor and Codex loading notes, and the sketch plan
+    `.agent/plans/delivery/rules-and-skills-system-design.plan.md`. Nothing runs under this
+    seat but the pull request subscription.
+  - **Waiting on the owner, four things, put to the owner on 2026-11-12 and not yet answered.**
+    (1) Ratify the sketch plan or correct it. (2) Which pull request Codex reviews: this seat
+    read "the PR" as 397. (3) Whether the plan serves `outcome-informed-practice-learning` or
+    `agent-platform-citizenship`. (4) Whether `agent-platform-citizenship` should carry the
+    owner's new ordering of platforms. Also still open from the review: the ratified node
+    `self-starting-practice-refinement` keeps the label "joint review" and "reviewed together
+    with the owner"; replacement text is in the review's section 9.
+  - **On the owner's ratifying word, in this order.** Stamp the plan (`ratified_by`,
+    `ratified_date`, `ratified_where` quoting the word). Merge `engraph` into the branch,
+    which is behind it. Update pull request 397's description, which does not yet mention the
+    Codex note or the plan and whose Scope section predates both. Take the pull request out
+    of draft. The owner said: "I am happy for the current PR to be merged once we have a plan
+    for designing the improved system".
+  - **Then the plan's first todo**, in a new pull request: an audit of the generator pipeline
+    against its code (`agent-tools/src/rule-declarations/`, `skills-adapter-generate`,
+    `validators/portability/`, the fitness validator). The design document goes in
+    `.agent/research/agentic-engineering/rules-and-skills-system-design-2026-11/design.md`.
+  - **Do not.** Start the plan's todos before ratification. Write or rewrite any rule or
+    skill: the work is the system and not the content. Research Cursor, Gemini or Copilot
+    further. Start the design of the experiment on self-starting refinement. Open the
+    Attendant's held-back scenarios or its scenario review. Run Hermes code or write to
+    either Hermes clone.
 - **2026-11-12, the review of the collection is done** (Swift holds Aether, 01Duocji, solo
-  cloud session; the seat stays live). Start here.
+  cloud session; the seat stays live).
   - **Where it is.**
     `.agent/research/agentic-engineering/doing-and-dreaming-2026-11/review-of-the-collection.md`.
     The owner delegated it ("I am happy to delegate that review to you"). It was written after
