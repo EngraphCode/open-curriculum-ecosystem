@@ -37,6 +37,19 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12, the design plan is ratified** (Swift holds Aether, Claude cloud session
+  `01Duocji`). The owner's word, verbatim: "Ratified. I mean PR 397, but it will review all
+  PRs. Leave the plan under the current node. Yes, update the platform citizenship ordering".
+  This answers the four questions in the entry below; they are closed. Done on that word:
+  `rules-and-skills-system-design` stamped ratified; a dated note of the platform ordering
+  added to `agent-platform-citizenship`; the word recorded in the comparison brief;
+  `engraph` merged into the branch; pull request 397 taken out of draft for Codex to review.
+  Next: the plan's first todo, in a new pull request after 397 merges (audit the generator
+  pipeline against its code). Still the owner's: the wording in
+  `self-starting-practice-refinement` that says "joint review" (proposed text in the review
+  of the collection, section 9). The citizenship note's last sentence, that the ordering
+  does not by itself re-seat the Codex nodes paused on 2026-09-28, is this seat's reading
+  and was reported to the owner as such.
 - **2026-11-12, third boundary record, at the owner's third compaction word** (Swift holds
   Aether, 01Duocji, solo cloud session; the seat stays live). Start here; the entry below
   holds the detail and is current.
