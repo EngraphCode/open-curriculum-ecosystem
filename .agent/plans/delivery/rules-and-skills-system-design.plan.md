@@ -135,16 +135,18 @@ record or another home) is one of the questions it puts to the owner. Its parts:
    of units is rendered for Claude Code and for Codex in a throwaway clone, using each unit's
    existing description unaltered as its text, as the habit-text trial did. The tokens at
    session start are measured on Claude Code, and each unit is shown to be present once.
-   `repo-safe`: the script that renders and measures is kept with the document, with its
-   output.
+   `owner-held`, because the measure is taken from a running Claude Code session and no
+   repository check can reproduce it: verified by the seat that runs the spike, with the
+   dated observation, the script that renders and measures, and its output recorded with the
+   document.
 3. On Codex the same units are present once and within the proposed budget. `owner-held`:
    verified by the owner, or by a seat running Codex at the owner's word, with the dated
    observation recorded in the document.
 4. The goal's "from the design alone" is tested. A reader who wrote none of it is given the
    document and nothing else and lists the changes the build requires; where the list is
-   wrong or cannot be made, the document is corrected. `repo-safe`: the reader's list and the
-   corrections it led to are recorded in the document. This is a recorded read and not an
-   automated check.
+   wrong or cannot be made, the document is corrected. `owner-held`, because a read is not a
+   test, validator or CI check: verified by the seat that commissions the read, with the
+   reader's list and the corrections it led to recorded, dated, in the document.
 5. Each decision that is the owner's is put as one question with a recommendation and concrete
    text to accept. `owner-held`: the owner's answers, dated, in the document.
 

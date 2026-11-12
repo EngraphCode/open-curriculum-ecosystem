@@ -67,7 +67,7 @@ Read whole, for this review, on 12 November 2026:
 | B. The owner's report | [`doing-and-dreaming.md`](../loop-engineering-governance-2026-11/owner-reports/doing-and-dreaming.md) |
 | C. The loop-engineering baseline | [`findings.md`](../loop-engineering-governance-2026-11/findings.md), [`doing-and-dreaming-reading.md`](../loop-engineering-governance-2026-11/doing-and-dreaming-reading.md), [`paper-readings.md`](../loop-engineering-governance-2026-11/paper-readings.md) |
 | D. The Attendant research | [`attendant-research-findings.md`](../attendant-research-findings.md), [`attendant-step-back-scenarios.md`](../attendant-step-back-scenarios.md), the feasibility check |
-| E. This seat's work of 12 November | Every file in this directory and in [`rules-sort/`](rules-sort/README.md) |
+| E. This seat's work of 12 November | Every file that was in this directory and in [`rules-sort/`](rules-sort/README.md) when the review was written. The Cursor and Codex loading notes and their reports were added afterwards and are not assessed by this review |
 | Found during the review, in no piece | Nineteen recorded skill-evaluation runs of September 2026 under `.agent/skills/`. Two readings opened by this seat; all nineteen coded by a reader |
 
 Not read: the Hermes study's other files; C's evidence log beyond six rows checked against
@@ -412,7 +412,13 @@ alike today:
 **Added the same day, after the review.** The Cursor row has since been answered from
 Cursor's documentation: [`cursor-rules-and-skills-loading.md`](cursor-rules-and-skills-loading.md).
 By that documentation Cursor loads skills from both `.agents/skills` and `.claude/skills`, so
-the estate's skills are discovered twice there. The other rows are still unanswered.
+the estate's skills are discovered twice there. The `.agents` and `.codex` rows have been
+answered from OpenAI's documentation:
+[`codex-rules-and-skills-loading.md`](codex-rules-and-skills-loading.md). By that
+documentation Codex loads no rule file at all, and nothing twice. Neither note was checked by
+a reader as sections 5 and 6 checked the rest, and nothing was observed in a running Cursor
+or Codex. The Gemini and Copilot rows are unanswered and, by the owner's word on which
+platforms matter, will stay so.
 
 So the platforms already receive different things. Twenty-eight rules that the estate calls
 `situational` are always-loaded pointers on Claude Code, because their adapters carry no path
@@ -471,7 +477,10 @@ does not depend on it and could be designed alongside.
 - The nineteen readings of the September skill-evaluation runs, by this seat beyond two of
   them. A reader coded all nineteen for section 6. Nobody has yet read them for what they say
   a skill's text should and should not be asked to do.
-- How any platform other than Claude Code loads rules and skills.
+- How any platform other than Claude Code loads rules and skills, when this review was
+  written. Since then Cursor and Codex have been read from their vendors' documentation (the
+  addition in section 7). What a running Codex or Cursor session loads has still been
+  observed by nobody.
 - A long session with a shell and edits: whether path-scoped rules arrive as files are touched,
   and what survives a compaction. Every trial here was one turn, read-only.
 - Whether a rule that was not read was then broken. No trial tempted a breach. D's scenarios
