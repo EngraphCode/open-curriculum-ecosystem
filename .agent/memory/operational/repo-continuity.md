@@ -66,8 +66,11 @@ forward-asks remain.
   results; and the rule that a session starts only at the owner's word stands in general, with
   permission for sessions inside the experiment to be given when it is run. The three delivery
   nodes ratified on 2026-09-08 (`consolidation-signal`, `consolidation-induction`,
-  `consolidation-ledger`) are therefore unamended. Next on this strand: the owner's ratification
-  of the node, then the owner's pointer to the research results, then the design step. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
+  `consolidation-ledger`) are therefore unamended. The owner ratified the node on 2026-11-12: "I
+  approve the node. We should wait for the other session inputs and review all work together
+  before starting a design phase". This strand now waits on the owner: no design work starts
+  until the owner has pointed at the other sessions' merged results and all the work has been
+  reviewed together. A seat arriving here does not begin the design. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
   kept).
 
 - **2026-11-10T13:0xZ: the Hermes and Practice comparison is the next phase of this session, at the
