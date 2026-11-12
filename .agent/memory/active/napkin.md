@@ -1989,6 +1989,12 @@ outside the repository. One instance each; scope is this session.
   were a step with a form. The owner did not recognise their own instruction in my label. A
   name this seat coins for an owner's step carries the owner's words beside it wherever the
   owner will read it, or it is not used.
+- **Correction (the owner, completing the one above):** "I meant together in the sense of
+  review the collection of work, rather than a joint review. I am happy to delegate that review
+  to you". I had read "together" as the owner and the seat together, and from the node's
+  ratification onward the continuity record listed the review as waiting on the owner. It was
+  waiting on my reading of one word. When a gate rests on a word of the owner's that has two
+  readings, ask which is meant when the gate is written down.
 - **Owner direction (2026-11-12):** copied text for each platform may replace the pointer
   system, provided nothing is loaded twice; and defining the ideal system of rules and skills
   is work for this session or the next. Verbatim in the comparison's `brief.md`.

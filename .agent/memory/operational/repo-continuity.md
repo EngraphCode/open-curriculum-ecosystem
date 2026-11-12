@@ -50,18 +50,24 @@ forward-asks remain.
     "Figuring out what the ideal skill and rule system looks like is part of the work of either
     this session or the follow on session".
   - **What that changes.**
-    - Defining the ideal system of rules and skills no longer waits for a word. It is the next
-      piece of work, for this seat or the one that follows.
+    - Defining the ideal system of rules and skills no longer waits for a word. It is work for
+      this seat or the one that follows, after the review of the collection described below.
     - The condition that the pointer system be shown not to work before it is scrapped is
       relaxed by the owner. Copied text for each platform is acceptable. The condition in its
       place is that nothing is loaded twice.
-    - "Joint review" is this seat's label, not a defined step. It stands for the owner's words
-      at the node's ratification: "review all work together before starting a design phase".
-      All three inputs the node names have arrived and been read, and `where-we-are.md` with
-      the two trials is the material for it. The owner has not said whether that review is
-      done. The node's design phase is the design of the experiment on self-starting
-      refinement; it is a different thing from defining the rules and skills system, and
-      whether it still waits was not stated. Ask before starting it.
+    - "Joint review" was this seat's label and it was wrong in sense. The owner's words at the
+      node's ratification were "review all work together before starting a design phase", and
+      the owner has since said what was meant: "together in the sense of review the collection
+      of work, rather than a joint review. I am happy to delegate that review to you". So the
+      review is of the collection as a whole, and it is delegated to this seat. **It is not
+      done. It is the first work after the compaction**, ahead of defining the rules and
+      skills system. It needs the documents re-read, not this seat's summaries of them, and a
+      reader who wrote none of it for the statements of absence and the counts. The label
+      "joint review" still stands in the ratified node and in about a dozen places in the
+      collection; the node is ratified, so correcting it there is the owner's call.
+    - The node's design phase is the design of the experiment on self-starting refinement. By
+      the node's order it follows the review. Report the review to the owner before starting
+      it.
   - **Where the next work starts.** The owner's specification, from the earlier message: "not
     the specific instances, but the qualities of each, their relationships, and the mechanisms
     that allow them to bring about impact, their contracts and constraints", and it must work
@@ -84,7 +90,8 @@ forward-asks remain.
     owner's word; correct it when that work begins.
   - **Nothing runs under this seat** but the pull request subscription. Two throwaway clones
     and the trials' traces and marks are in the session's scratch directory and are not needed.
-  - **Do not.** Start the design of the node's experiment without asking. Open the Attendant's
+  - **Do not.** Start the design of the node's experiment before the review of the collection
+    is done and reported. Open the Attendant's
     held-back scenarios or its scenario review. Run Hermes code or write to either Hermes
     clone.
 - **2026-11-12T12:1xZ: boundary record at the owner's compaction word, for the strand that began
