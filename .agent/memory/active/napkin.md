@@ -1917,7 +1917,9 @@ outside the repository. One instance each; scope is this session.
 - **Observation (the delivery trial, ten sessions):** sessions chose which rules to open from
   the list of rule file names, by words shared with the task. `never-commit-to-main` was opened
   for a commit task; `verify-dont-trust` was not opened for a request to confirm that tests
-  pass. A rule's file name is its delivery mechanism on this platform. A rule named for a habit
+  pass. A rule's file name is what the session has to choose by on this platform (read as the
+  delivery mechanism at the time; a Codex review later showed the traces do not say why a
+  file was opened, and three opened rules share no word with their task). A rule named for a habit
   of mind has no task that names it.
 - **Owner ruling (2026-11-12, verbatim):** "Regarding history in rules, there should be none of
   that, same for skills, they must describe current requirements, not the evolution that
