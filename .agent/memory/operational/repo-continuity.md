@@ -315,7 +315,7 @@ forward-asks remain.
   dependency; agree one with-and-without instrument; clear what is already owed. The first of
   these was then run at the owner's word (ten headless sessions, Opus at medium effort, five
   opened with start-right; `delivery-trial.md`): six of ten sessions opened at least one rule,
-  11 of the 124 rules were opened at all, and rules were chosen by file name, so rules about a
+  11 of the 124 rules were opened at all, and the rules opened were on the task's subject (how they were chosen was not measured), so rules about a
   named activity were found and rules about how to think were mostly not. The owner's own
   words on the count: "we have far, far too many rules". The owner then asked for the rules to
   be sorted, with other groupings considered and everything recorded as it went:
