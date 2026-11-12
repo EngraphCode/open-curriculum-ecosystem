@@ -45,6 +45,11 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   we don't need the earlier runs, as long as the recorded conclusions are sufficient to convey
   our findings"
 
+- 2026-11-12, on the comparison's recommended trial: "Yes, we should do that, absolutely.
+  However, related research sessions are ongoing, and I would like them to feed in before we
+  finalise the experiment design. So I am commissioning a strategic plan but not yet a detailed
+  implementation plan, effectively a plan to make a plan"
+
 The second of those is the owner's own statement of what the comparison should bear on. It is
 later than the verdict below and outranks it where they differ; `comparison.md` section 8
 records what it changed.

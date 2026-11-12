@@ -596,6 +596,11 @@ convey our findings". This seat's reading of the condition: they are sufficient.
 are the six effect records, the table of what starts each step, the scored-loop contrast and
 the recommendation, and each stands on what is cited beside it.
 
+**The owner's decision on section 6.2, 2026-11-12.** The trial is to be done, and its design
+waits for related research to feed in; the owner's words are in the brief. The strategic plan
+node `self-starting-practice-refinement` carries it from here. This document is not revised
+further for that work; its section 6.2 is one input to the design and not the design.
+
 **What the reviewer proposed that this draft did not take.** A count of how often each rule's
 cure text was patched, as a standing measure of its own: folded into 6.4 as an input, not a
 new record.
