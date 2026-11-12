@@ -49,4 +49,4 @@ Adopting an "accessible" headless library (Base UI et al., §5b of consuming-nex
 
 ## Sign-off
 
-A wrapped widget is done when: every check above passes with a real SR · pairings are in the audit · the widget renders correctly in all five themes and forced-colors · reduced motion honoured. Record the SR/browser pair used in the PR.
+A wrapped widget is done when: every check above that needs no screen reader passes (keyboard, focus, visible state, zoom and reflow) · pairings are in the audit · the widget renders correctly in all five themes and forced-colors · reduced motion honoured. A pass with a real screen reader is an ambition, not a requirement (ADR-213, owner gate 3, amended 2026-11-12); when one is run, record the SR/browser pair in the PR, and when none is, say in the PR that announcements were not verified.

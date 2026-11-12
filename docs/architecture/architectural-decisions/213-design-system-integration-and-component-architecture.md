@@ -331,11 +331,13 @@ Standing rules:
   new hard widgets; grandfathered widgets migrate only when next materially touched —
   "material touch" includes the intra-hub behaviour consolidation and the grandfather-patch
   class convergence above. Grandfathered code is **candidate evidence, not gate-passing
-  evidence**: its current proof (jsdom axe, light-only, no screen-reader records) sits below
-  the estate's own bar until it passes the same checklist as every other path.
+  evidence**: its current proof (jsdom axe, light-only) sits below the estate's own bar
+  until it passes the same checklist as every other path.
 - **The audit doctrine is symmetric.** The wrapped-widget checklist obligation binds every
   construction path — library wrap, hand-rolled APG module, and platform primitive alike;
-  the browser is a vendor too. No path ships on asserted accessibility. **Sequencing
+  the browser is a vendor too. No path ships on asserted accessibility. The checklist's
+  real screen-reader pass is the one part that is an ambition, not a ship condition (owner
+  gate 3, amended 2026-11-12); every check that needs no screen reader binds. **Sequencing
   precondition**: the ADR-147 gate extension (owner-ratified theme cardinality, per-theme
   axe runs, a forced-colors render check, CI promotion) lands **before** the first Base UI
   widget ships — a ship condition without an executor is discharged by assertion, which is
