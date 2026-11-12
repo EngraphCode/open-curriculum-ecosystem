@@ -50,6 +50,12 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   finalise the experiment design. So I am commissioning a strategic plan but not yet a detailed
   implementation plan, effectively a plan to make a plan"
 
+- 2026-11-12, on which research feeds the design and on the 2026-09-08 position that a signal
+  never starts a session by itself: "I will conclude the other research sessions, merge them,
+  and point you at the results."; "The session starting constraint stands in general, but when
+  we run the experiment I will give permission for sessions within the experiment to start
+  without my say so"
+
 The second of those is the owner's own statement of what the comparison should bear on. It is
 later than the verdict below and outranks it where they differ; `comparison.md` section 8
 records what it changed.

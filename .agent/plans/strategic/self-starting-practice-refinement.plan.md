@@ -2,7 +2,7 @@
 id: self-starting-practice-refinement
 node_type: strategic
 name: Self-starting Practice refinement
-overview: The Practice's refinement and learning steps start without the owner instigating them.
+overview: Find out, by an experiment the owner permits, whether the Practice's refinement and learning steps can start without the owner instigating them.
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -33,9 +33,12 @@ bet and what is settled. It holds no experiment design.
 
 ## Outcome
 
-Refinement of the Practice starts by itself. The steps that turn captured experience into
-decisions begin without the owner asking for them, and the owner's attention is spent on what
-refinement produced, not on remembering to begin it.
+It is known, from an experiment the owner has permitted, whether refinement of the Practice
+can start by itself: whether the steps that turn captured experience into decisions can begin
+without the owner asking for them, to a standard the owner accepts. The direction this serves
+is the owner's attention being spent on what refinement produced and not on remembering to
+begin it. Whether sessions may start without the owner's word beyond the experiment is not
+this node's to assume; the general rule that they may not stands (below).
 
 ## User groups and value
 
@@ -79,11 +82,13 @@ Deliberately not bet on here:
   difference the design must face either way: a step that no session is running cannot be
   started by text a session reads.
 
-## Where this node departs from what is already ratified
+## How this node sits with what is already ratified
 
 Three delivery nodes the owner ratified on 2026-09-08 stand on the same ground and put
-automatic starting out of scope. A seat picking one up reads the opposite of this node, so the
-relationship is stated here and is the owner's to confirm at ratification.
+automatic starting out of scope. The owner settled the relationship on 2026-11-12: "The
+session starting constraint stands in general, but when we run the experiment I will give
+permission for sessions within the experiment to start without my say so". So this node is an
+exception the owner grants, scoped to the experiment, and not a change to the rule.
 
 - [`consolidation-signal`](../delivery/consolidation-signal.plan.md) computes when a
   consolidation is due: "a noticer, never a nag". Out of scope: "Automation that starts sessions
@@ -95,9 +100,15 @@ relationship is stated here and is the owner's to confirm at ratification.
   processing automation".
 
 Read together, those nodes plan the signal and the worker and leave the start with a person.
-This node is about the start. It does not amend them: their exclusions bound their own scope,
-and they remain inputs the design builds on. If the owner intends the 2026-09-08 position to
-stand as a limit on this work, this node returns to sketch.
+This node does not amend them, and a seat picking one up reads its exclusion as still in
+force. What follows for this node's work:
+
+- No session is started without the owner's word until the owner gives the experiment's
+  permission. That permission is given when the experiment is run, not by this node's
+  ratification and not by the design's.
+- The permission covers sessions within the experiment. A design that would start sessions
+  outside it, or after it ends, is outside this node.
+- Whether the general rule changes after the experiment is the owner's decision on its result.
 
 ## What is settled
 
@@ -105,18 +116,22 @@ stand as a limit on this work, this node returns to sketch.
 2. **The experiment's design waits for related research to feed in** (the owner, the same
    message). The design is not written here and is not to be inferred from the comparison's
    proposal.
+3. **The owner brings the research** (2026-11-12: "I will conclude the other research sessions,
+   merge them, and point you at the results").
+4. **Sessions start without the owner's word only inside the experiment, by the owner's
+   permission given when it is run; the general constraint stands** (the owner, 2026-11-12,
+   quoted in the section above).
 
 The authoring seat's readings, not the owner's words: that the first experiment is small and
-can fail, with its result recorded whichever way it falls; and that this node's own success is
-narrower than its outcome (below).
+can fail, with its result recorded whichever way it falls.
 
 ## What feeds the design
 
 Inputs the design step reads before it is written.
 
-- **The related research the owner named.** The owner did not enumerate the sessions, and this
-  node does not guess them. Which they are is the one question put to the owner at
-  ratification; their records are then named here.
+- **The related research the owner named.** The owner will conclude those sessions, merge them
+  and point at their results (settled item 3). This node does not guess which they are; their
+  records are named here when the owner points at them.
 - The comparison's proposal (section 6.2) and its limits (section 7). It is one input with one
   first-hand observation behind it, and it is not the design.
 - The three consolidation nodes above, and the curator role in PDR-081 and the `curator-pass`
@@ -157,15 +172,15 @@ Not answered here. Each is the design step's, with the owner where it is the own
 - The experiment run, and its result recorded whichever way it falls.
 - A decision, from that result, on whether further steps are made self-starting.
 
-Not claimed: that the outcome above is reached by this node's first experiment. What the first
-experiment can show is whether one refinement step can start without the owner and be done to a
-standard the owner accepts. Nor is it claimed that refinement started without the owner is good
+Not claimed: that refinement in the Practice becomes self-starting. What the first experiment
+can show is whether one refinement step can start without the owner and be done to a standard
+the owner accepts. Nor is it claimed that refinement started without the owner is good
 refinement, or that the pattern read in another system works there or here.
 
 ## Delivery
 
 Delivery plans serving this node declare `serves: self-starting-practice-refinement`; enumerate
 them by search. The first is the experiment's design. Its authoring is delegated to the seat
-that picks it up, once the research named under "What feeds the design" is recorded; it needs
-no further word from the owner to begin. A change to this node's outcome, bet or settled
-decisions returns this node to the owner.
+that picks it up once the owner has pointed at the research results. Running the experiment is
+a separate step and needs the owner's permission for its sessions to start (settled item 4). A
+change to this node's outcome, bet or settled decisions returns this node to the owner.

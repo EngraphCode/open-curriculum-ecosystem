@@ -262,7 +262,8 @@ consolidation "a single agent-inducible action". Both put automatic starting out
 second in these words: "a signal never starts a session by itself — owner/Director word does"
 (`.agent/plans/delivery/consolidation-induction.plan.md:60-61`). So the estate has planned the
 signal and the worker, and deliberately left the start with a person. The owner's word of
-2026-11-12 is later; section 8 records it.
+2026-11-12 keeps that position in general and permits an exception inside the experiment;
+section 8 records it.
 
 ## 3. Breadth: the learning loop side by side
 
@@ -611,7 +612,12 @@ the recommendation, and each stands on what is cited beside it.
 **The owner's decision on section 6.2, 2026-11-12.** The trial is to be done, and its design
 waits for related research to feed in; the owner's words are in the brief. The strategic plan
 node `self-starting-practice-refinement` carries it from here. This document is not revised
-further for that work; its section 6.2 is one input to the design and not the design.
+further for that work; its section 6.2 is one input to the design and not the design. On the
+position ratified on 2026-09-08 that a signal never starts a session by itself, the owner's
+word the same day: "The session starting constraint stands in general, but when we run the
+experiment I will give permission for sessions within the experiment to start without my say
+so". Section 6.2 is to be read under that: its scheduled seat is something the experiment may
+do with that permission, and nothing the estate does otherwise.
 
 **What the reviewer proposed that this draft did not take.** A count of how often each rule's
 cure text was patched, as a standing measure of its own: folded into 6.4 as an input, not a
