@@ -57,8 +57,14 @@ forward-asks remain.
   as a draft pull request, the three owed decisions as its first job. It is a proposal; no
   trigger was created. The earlier Hermes runs are not needed: the owner's word of 2026-11-12 is
   that no re-analysis is planned, "as long as the recorded conclusions are sufficient to convey
-  our findings", and the document records why they are. Nothing is open on this strand but the
-  owner's decision on the proposal in section 6.2. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
+  our findings", and the document records why they are. The owner then decided the proposal
+  (2026-11-12): it is to be done, its experiment design waits for related research to feed in,
+  and a strategic plan was commissioned and not an implementation plan. The node is
+  `.agent/plans/strategic/self-starting-practice-refinement.plan.md`, a sketch awaiting
+  ratification. Two things are put to the owner with it: which research sessions are to feed in;
+  and that three delivery nodes ratified on 2026-09-08 (`consolidation-signal`,
+  `consolidation-induction`, `consolidation-ledger`) put automatic starting out of scope, which
+  this node departs from. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
   kept).
 
 - **2026-11-10T13:0xZ: the Hermes and Practice comparison is the next phase of this session, at the

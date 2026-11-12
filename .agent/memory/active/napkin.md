@@ -1843,3 +1843,20 @@ outside the repository. One instance each; scope is this session.
   sessions"):** I wrote "no Hermes code was run" in a document and a pull-request description as
   a fact about the world. It was a fact about the study and this session. A sentence about what
   was not done needs its subject: who did not do it, and when.
+- **Correction (a readiness reviewer, on the strategic node's first sketch):** I searched the plan
+  estate for earlier proposals to start consolidation automatically, with one regular expression,
+  read a list of unrelated hits, and wrote the node as if the ground were clear. Three delivery
+  nodes the owner ratified on 2026-09-08 (`consolidation-signal`, `consolidation-induction`,
+  `consolidation-ledger`) stand on it, and each puts automatic starting out of scope. My pattern
+  looked for the words I would have used; theirs are "induction" and "noticer". Before a node
+  claims new ground, list the plan directory and read the names, and search by the object
+  (consolidation) before the idea (automatic).
+- **Correction (the same reviewer):** the sketch said the design would be authored "at the owner's
+  word that the related research has fed in". The owner had asked for no second word. I had
+  invented an owner touch, declined to record it as a gate, and so built the thing the node is
+  about: a step that waits on the owner remembering. Delegation at pickup, once named inputs
+  exist, is the estate's shape for this (the Attendant node uses it).
+- **Correction (the same reviewer):** I attached the owner's "ceremony has been invented, and then
+  declared a blocker" to the session-open alert, in the comparison and in the node. The owner said
+  it of owner gates that a seat had carried as blockers. A verbatim quotation attached to a
+  different object is a misquotation.
