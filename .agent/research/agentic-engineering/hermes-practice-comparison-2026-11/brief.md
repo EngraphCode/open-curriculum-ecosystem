@@ -81,6 +81,11 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   in the sense of review the collection of work, rather than a joint review. I am happy to
   delegate that review to you". The review named in the strategic node's order is therefore a
   review of the collection as a whole, and it is this seat's to carry out.
+- 2026-11-12, after the review and the Cursor loading note were reported, on which platforms
+  matter: "I don't care about Cursor at all, the repo should be functional in Cursor agent.
+  That is all. Claude Code is the main concern, Codex is the secondary concern, every else is
+  reasonable efforts only". So the rules and skills system is defined for Claude Code first
+  and Codex second; Cursor and the rest need only to keep working.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
