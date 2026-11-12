@@ -163,22 +163,24 @@ only in a record is delivered to no one.
 
 ### The thresholds, and how each is known
 
-From the vendors' documentation as the two loading notes record it, except T10. The loading
-notes were not re-fetched for this document; the plan's first-principles check asks that each
-threshold be re-read at its page before a budget is set against it, and that is owed before
-the owner decides. Where characters are converted to tokens, four characters to a token is
+From the vendors' documentation, except T10. The two loading notes recorded them, and each
+was then re-read at its vendor page on 12 November 2026, as the plan's first-principles check
+asks: [`threshold-reread.md`](threshold-reread.md), every quotation fetched raw. Eight were
+confirmed as recorded. T2 counted the wrong fields and is corrected below. The character
+figure the first draft gave for T4 is not the vendor's. The re-read also changed what window
+the thresholds are taken at, which is the paragraph after the table. Where characters are converted to tokens, four characters to a token is
 used, which is the repository's own estimate. The habit-text trial measured fewer for
 instruction text, about 2.4 to 2.7, and where that matters it is said.
 
 | # | Threshold | Value | Platform | Known how |
 | --- | --- | --- | --- | --- |
-| T1 | A rule file loaded on demand, each file | 40,000 characters on a 200,000-token window | Claude Code | Documented |
-| T2 | One entry of the skills listing, name and description together | 1,536 characters | Claude Code | Documented |
-| T3 | A skill's description | 1,024 characters | The Agent Skills specification | Named in a comment in the repository's code, which checks it nowhere. No limit on one description was found in Codex's documentation |
-| T4 | The skills listing, all entries together | 1 % of the window by default, about 8,000 characters at 200,000 tokens. This repository sets 3 %, about 24,000 | Claude Code | The fraction is documented. The conversion to characters is this seat's arithmetic |
-| T5 | The skills listing, which on Codex also carries each skill's path | 2 % of the window by default, about 16,000 characters at 200,000 tokens; 8,000 characters when the window is unknown; at most 10,000 tokens if set | Codex | Documented. The window Codex runs with was not established |
+| T1 | A rule file loaded on demand, each file | 40,000 characters on a 200,000-token window; 150,000 on a 1,000,000-token window for current models | Claude Code | Documented, re-read |
+| T2 | One entry of the skills listing: a skill's `description` and `when_to_use` together | 1,536 characters | Claude Code | Documented, re-read. The name is not said to count |
+| T3 | A skill's description | 1,024 characters | The Agent Skills specification | Confirmed at the specification's site. Neither vendor's skills page restates it; both link the specification. The repository's code names it in a comment and checks it nowhere |
+| T4 | The skills listing, all entries together | 1 % of the window by default, with "a fallback of 8,000 characters". This repository sets 3 %. By this seat's arithmetic at four characters a token: 3 % is about 24,000 characters at 200,000 tokens and about 120,000 at 1,000,000 | Claude Code | The fraction and the fallback are documented, re-read. The vendor gives no conversion to characters. Whether skills from plugins and the harness draw on the same budget is not said |
+| T5 | The skills listing, which on Codex also carries each skill's path | 2 % of the window by default; 8,000 characters when the window is unknown; at most 10,000 tokens if set. By this seat's arithmetic: about 16,000 characters at 200,000 tokens and about 40,000 at 500,000 | Codex | Documented, re-read. One model's window is stated, at 500,000 tokens; no figure was found for the others |
 | T6 | A skill's body kept through a compaction | 5,000 tokens each, 25,000 in all | Claude Code | Documented |
-| T7 | One read of a file | 25,000 tokens; a partial view beyond it | Claude Code | Documented |
+| T7 | One read of a file | 25,000 tokens, and a partial view beyond it; a whole file over 256 KB is refused | Claude Code | Documented, re-read |
 | T8 | The project documents, the `AGENTS.md` chain | 32 KiB. One vendor page says together, one says each file, one says neither | Codex | Documented, and unresolved between pages |
 | T9 | The documentation's own advice | under 200 lines for a memory file, under 500 for a skill body | Claude Code | Documented, as advice |
 | T10 | The context at a session's first call | 39,300 to 39,600 tokens in twenty headless control sessions with four tools; 42,250 with the 28 habit instructions as text | Claude Code | Measured |
@@ -189,12 +191,22 @@ number (T11) and a refusal at 4 MiB a file. So that budget is set against the Co
 same text must fit (T8) and against what a session carries (T10), and the spike records
 whether the warning appears.
 
+**The window the thresholds are taken at.** Four thresholds scale with the context window.
+The loading notes took them at 200,000 tokens. The re-read found that Claude Code's current
+models "run with the 1M window by default", and that one Codex model is stated at 500,000
+tokens. So two readings exist, and the budgets below give both: the **smallest documented
+case**, a 200,000-token window on either platform, which still applies to older models and to
+a model Claude Code does not recognise; and the **current defaults**, 1,000,000 on Claude
+Code and 500,000 on the one Codex model stated. Which of the two the owner means by "the
+identified important thresholds" is question 3.
+
 ### The rule for "well within"
 
 The owner's word is "well within the identified important thresholds". This design reads it
-as **half or less of the smallest threshold that applies in the configuration the estate
-runs**. Where a threshold is a platform default the estate has overridden, the overridden
-value applies. Where no threshold is documented, the budget is marked as this seat's choice.
+as **half or less of the smallest threshold that applies**. Where a threshold is a platform
+default the estate has overridden, the overridden value applies. Where a threshold scales
+with the window, the budget is given at both readings and question 3 chooses. Where no
+threshold is documented, the budget is marked as this seat's choice.
 
 ### What is proposed, beside what is there now
 
@@ -206,8 +218,8 @@ value.
 | **B1** One instruction with no place | 300 characters | This seat's choice: no threshold. With B2 it allows about 26 instructions at full length, or more that are shorter | If the first sort's 28 habit rules were instructions as their descriptions state them: median 205, longest 793, and 7 over 300 |
 | **B2** All instructions with no place, together | 8,000 characters | T8 at its stricter reading: a quarter of 32 KiB. Against T10 the cost is larger than the character count suggests: 6,859 characters measured about 2,900 tokens net, so 8,000 is about 3,400 tokens, 8 to 9 % of a first call | Those 28 descriptions total 6,859, and the 28 pointers they would replace total 1,794. The 28 is a floor: standing constraints are not counted in it |
 | **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
-| **B4** One procedure's description | 256 characters | T3: a quarter. T2: a sixth, before the name. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
-| **B5** The listing: every name and description in the repository's skill directories | 8,000 characters | Half of T5 at a 200,000-token window. A third of T4 as this repository sets it. Equal to T4's default and to T5's figure for an unknown window | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries: each trial session listed 118, and the 31 from outside the repository, and the paths Codex lists, are not counted |
+| **B4** One procedure's description | 256 characters | T3: a quarter. T2: a sixth. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
+| **B5** The listing: every name and description in the repository's skill directories | 20,000 characters at the current default windows; 8,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens, about 40,000 characters, and 20,000 is half of it and a sixth of T4 as this repository sets it. At a 200,000-token window the smallest is T5 at about 16,000, and 8,000 is half of it; 8,000 is also each vendor's fallback figure | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries: each trial session listed 118, and the 31 from outside the repository, and the paths Codex lists, are not counted |
 | **B6** One procedure's body | 10,000 characters, about 2,500 tokens | T6: half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 30 are over 10,000 and 12 over 20,000 |
 | **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
 
@@ -225,12 +237,12 @@ Three things follow and are stated plainly.
    39,400. It is not free, and it does not shrink unless other pointers are removed, which is
    a question for part 4. The budget cannot be confirmed as enough until the content is
    sorted, because standing constraints are uncounted.
-2. **B5 is the hard one, and B4 does not decide it.** Names take 1,612 of the 42,370
-   characters. At 8,000, the listing holds about 29 procedures at B4's full length, or all 87
-   at about 73 characters each. The alternative of 12,000 holds about 43, or all 87 at about
-   119. Either way most of the reduction comes from fewer listed procedures or much shorter
-   descriptions, and the 31 skills a session lists from outside the repository are not the
-   estate's to shorten. The owner expects that "some existing materials will be redundant or
+2. **B5 is the hard one, and B4 does not decide it.** Today's 42,370 characters are already
+   about the size of the Codex listing's limit at that platform's one stated window, before
+   the paths Codex adds. Names take 1,612 of them. At 20,000 the listing holds about 72
+   procedures at B4's full length, or all 87 at about 211 characters each. At 8,000 it holds
+   about 29, or all 87 at about 73. The 31 skills a session lists from outside the repository
+   are not the estate's to shorten, and whether they share the budget is not documented. The owner expects that "some existing materials will be redundant or
    inappropriate or be better expressed more succinctly"; this is where that is tested
    hardest.
 3. **B6 would move text out of procedure bodies.** Thirty are over it. The longest is 15.7
@@ -253,16 +265,18 @@ text each answer would put into the design is on its card.
    first draft, which name the same things as kinds; or rules and skills as they are, with
    Codex treated as a reduced platform.
 2. **The rule for "well within".** Recommended: half or less of the smallest threshold that
-   applies in the configuration the estate runs. Accepting it accepts B6 and B7 as derived
-   from it. B1, B3 and B4 have no threshold that decides them and are this seat's choices,
-   offered for acceptance with it.
-3. **The listing budget, B5.** Recommended: 8,000 characters, which is what the rule in
-   question 2 gives. It means about 29 listed procedures at 256 characters, or all 87 at
-   about 73. The alternative is 12,000, about 43 or about 119, which is over the rule: it is
-   three quarters of the Codex default at a 200,000-token window and over Codex's figure for
-   an unknown window. Two facts the owner should have and this document cannot supply: the
-   window Codex runs with, and whether the 31 skills from outside the repository draw on the
-   same budget.
+   applies. Accepting it accepts B6 and B7 as derived from it. B1, B3 and B4 have no
+   threshold that decides them and are this seat's choices, offered for acceptance with it.
+3. **Which windows the thresholds are taken at, and so the listing budget, B5.**
+   Recommended: the current defaults, which gives 20,000 characters. That is about 72 listed
+   procedures at 256 characters, or all 87 at about 211, and a description of that length can
+   still say when to use a procedure. The cost of this choice: on a 200,000-token window, or
+   where Codex does not know its window, the listing is over the limit and the platform
+   shortens or drops descriptions itself. The alternative is the smallest documented case,
+   8,000 characters, which is inside every documented listing limit on both platforms and
+   means about 29 procedures, or all 87 at about 73 characters, which is too short to say
+   when. Still not known, and stated on the card: the window of any Codex model but one, and
+   whether the 31 skills from outside the repository draw on the same budget.
 4. **The budget for always-present instructions, B2.** Recommended: 8,000 characters, with
    the cost stated: about 3,400 tokens on a first call of about 39,400, measured at 2,900 for
    the 28 habit descriptions. It is a quarter of the Codex limit. It may prove too small once
