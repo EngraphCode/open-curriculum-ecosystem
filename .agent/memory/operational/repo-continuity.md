@@ -37,6 +37,23 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12T08:5xZ: the Hermes and Practice comparison is drafted, at its second draft, on pull
+  request 397** (Swift holds Aether, 01Duocji, solo cloud session; the owner's word of 2026-11-12:
+  "Please go ahead and run the comparison"). The document is
+  `.agent/research/agentic-engineering/hermes-practice-comparison-2026-11/comparison.md`. Its answer to
+  the brief's question (which feedback loop gets an effect measure first, or none) is none yet: the
+  Practice keeps six records of whether its lessons worked, and no decision has been taken from any
+  of them since the consolidation of 2026-10-15. Its recommendation is for the next dedicated
+  consolidation and changes nothing itself: decide the two slow-lane rows whose dates have passed
+  (pull request 375 is now the first row's test case), finish the count of fast-lane prediction
+  sentences so PDR-130's falsifier can be decided, and read the review-cost ledger against the
+  gate's weights once. One challenge pass by a non-author reviewer refuted the first draft's
+  recommendation (a readout line for review dates); section 8 of the document records what changed.
+  Open for the owner: whether the consolidation, due since 2026-10-19, now outranks the work
+  ordered ahead of it; and the one inference under the brief's frame, which the reviewer judged
+  imposed. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
+  kept).
+
 - **2026-11-10T13:0xZ: the Hermes and Practice comparison is the next phase of this session, at the
   owner's word** (Swift holds Aether, 01Duocji, solo cloud session, the owner-interface directly). The
   Hermes Agent v0.23.0 own-terms study merged as pull request 395 (merge `8af1b0fc2`); start at

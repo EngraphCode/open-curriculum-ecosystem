@@ -1801,3 +1801,32 @@ outside the repository. One instance each; scope is this session.
 - **Observation:** a side agent's note said Oak's CI "needs" a `TURBO_TEAM` variable. Oak's own
   CI log showed the variable already set, and the missing piece was the Vercel policy. Reading
   the run's log answered in one step a question the note left open.
+
+### 2026-11-12 (Swift holds Aether, 01Duocji): the Hermes and Practice comparison
+
+- **Correction (a non-author reviewer, on the comparison's first draft):** I recommended a readout
+  line for slow-lane review dates, on the diagnosis that the dates go unread. The napkin held the
+  refutation at lines I had not read: a seat recorded on 2026-10-19 that the consolidation was due
+  and deferred by the owner's ordering. The signals were seen. I had measured the symptom (two
+  rows past their dates) and written the cause from the shape I expected. Before a diagnosis of
+  "nobody looks at this", search the capture file for someone looking at it.
+- **Correction (the same reviewer):** I wrote two claims of absence about the Practice that a search
+  would have refuted: that nothing writes later experience against a promoted lesson (the
+  consolidation skill has a recurrence-check step, and a plan holds four dated ledger blocks), and
+  that the effect records numbered three (skill evaluation suites exist and one decided a pull
+  request). The class is the one this napkin already records from 2026-11-10: a "none" written
+  without its sweep. I ran sweeps for the absences I had framed as claims and none for the ones I had framed
+  as a summary. A count ("three records") is a claim of absence about the fourth.
+- **Observation:** the reviewer was given the documents and five questions, the frame first, and
+  not my reasoning. Its first finding refuted the recommendation and its fifth found what the
+  frame had hidden. The frame was mine; the brief said so, and saying so did not protect the draft
+  from it. A frame's author cannot test the frame by reading harder inside it.
+- **Observation:** the first draft compared the Practice's whole loop, people included, with
+  Hermes's installed runtime alone, and concluded Hermes had no enforce stage. The study's own
+  table held the maintainers' code changes after named failures. When two systems are compared,
+  state where each one's boundary was drawn before reading any difference as a property.
+- **Correction (mine):** I edited the comparison and its row file with inline Python three times
+  before returning to the edit tool. The owner's word on this is in the 2026-09-16 retrospective
+  and in this napkin's entry of 2026-11-10.
+- **What worked:** checking every quotation at its cited lines before each commit found seven
+  ranges a few lines off across the two drafts, at a cost of one command.
