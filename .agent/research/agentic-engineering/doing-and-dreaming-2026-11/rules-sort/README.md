@@ -34,6 +34,7 @@ leaves what was done.
 | 4a. The patterns directory | [`patterns.tsv`](patterns.tsv), [`patterns-findings.md`](patterns-findings.md) | Done, `provisional`: 246 pattern files, where each is cited, and the four statements of policy that do not agree |
 | 4b. Skills, measured as the rules were | [`skills.tsv`](skills.tsv), [`rule-date-lines.tsv`](rule-date-lines.tsv) | Done. The `family` column of `skills.tsv` is unreliable and should be ignored |
 | 4c. What a rule and a skill are each good for | [`rules-and-skills-use.md`](rules-and-skills-use.md) | Done, `provisional`: the platform's account, the estate's doctrine, and where practice departs from both |
+| 4d. The scripts behind the tables | [`instruments.md`](instruments.md) | Done: kept as text at the session's wrap |
 | 5. A second reader's check of the sort | — | Not done |
 | 6. The test that frame 6 names (deliver the 28 habit instructions as text and re-run the delivery trial) | — | Not done; it starts sessions and needs the owner's word |
 
