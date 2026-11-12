@@ -51,8 +51,15 @@ that must always be in force with an invariant that points to it.
 
 That model is sound and is kept. What it lacks is what the audit and the trials found
 missing: the invariant's text is not delivered, nothing bounds a unit's size, and a unit's
-reasons live in the same file as its instruction. The model below adds those three things and
-nothing else.
+reasons live in the same file as its instruction. The model below adds those three things to
+what a unit is.
+
+It replaces none of that rule's procedure. The rule also decides which audience a capability
+serves, where it is sourced and who owns it, the security channel for anything adopted from
+outside, its family test, and its consumer. Those are decisions made when a capability lands.
+They stay in the landing procedure and are not part of a unit's contract here. One of its
+steps does bear on the contract, and is carried: the loader that recognises a unit's moment,
+under "Place" below.
 
 ### Two kinds of unit
 
@@ -89,7 +96,13 @@ instruction has one home, the `AGENTS.md` chain.
 4. **Place narrows presence and is not a third kind.** An instruction that applies in one
    part of the repository is the same kind of thing as one that applies everywhere. Whether
    a platform can deliver it at the moment its place is touched is a fact about the platform,
-   and part 4 says what each platform gets.
+   and part 4 says what each platform gets. A path is one of four loaders the present rule
+   names; the others are a tool call, the shape of a session and a ceremony that is always
+   run. Those three are served today by hooks and by ceremony procedures, which this plan
+   does not change. For an instruction whose moment no loader can recognise, the present
+   rule's answer stands and is the model's: "land it always-on or bind it to a loader that
+   fires mechanically". So such an instruction has no place and is always present, or it has
+   a check.
 5. **One home for each instruction.** It is written once. The build copies it to each
    platform, and it reaches no platform twice.
 
@@ -174,13 +187,13 @@ instruction text, about 2.4 to 2.7, and where that matters it is said.
 
 | # | Threshold | Value | Platform | Known how |
 | --- | --- | --- | --- | --- |
-| T1 | A rule file loaded on demand, each file | 40,000 characters on a 200,000-token window; 150,000 on a 1,000,000-token window for current models | Claude Code | Documented, re-read |
+| T1 | A rule file loaded on demand, each file | 40,000 characters on a 200,000-token window. On a 1,000,000-token window: 200,000 for Opus 4.6 and Sonnet 4.6, and 150,000 for later models | Claude Code | Documented, re-read |
 | T2 | One entry of the skills listing: a skill's `description` and `when_to_use` together | 1,536 characters | Claude Code | Documented, re-read. The name is not said to count |
 | T3 | A skill's description | 1,024 characters | The Agent Skills specification | Confirmed at the specification's site. Neither vendor's skills page restates it; both link the specification. The repository's code names it in a comment and checks it nowhere |
 | T4 | The skills listing, all entries together | 1 % of the window by default, with "a fallback of 8,000 characters". This repository sets 3 %. By this seat's arithmetic at four characters a token: 3 % is about 24,000 characters at 200,000 tokens and about 120,000 at 1,000,000 | Claude Code | The fraction and the fallback are documented, re-read. The vendor gives no conversion to characters. Whether skills from plugins and the harness draw on the same budget is not said |
 | T5 | The skills listing, which on Codex also carries each skill's path | 2 % of the window by default; 8,000 characters when the window is unknown; at most 10,000 tokens if set. By this seat's arithmetic: about 16,000 characters at 200,000 tokens and about 40,000 at 500,000 | Codex | Documented, re-read. One model's window is stated, at 500,000 tokens; no figure was found for the others |
 | T6 | A skill's body kept through a compaction | 5,000 tokens each, 25,000 in all | Claude Code | Documented |
-| T7 | One read of a file | 25,000 tokens, and a partial view beyond it; a whole file over 256 KB is refused | Claude Code | Documented, re-read |
+| T7 | One read of a file | By default 25,000 tokens, and a partial view beyond it; a whole file over 256 KB is refused. Recent versions can read a whole file past both when the read sets `allow_large` | Claude Code | Documented, re-read |
 | T8 | The project documents, the `AGENTS.md` chain | 32 KiB. One vendor page says together, one says each file, one says neither | Codex | Documented, and unresolved between pages |
 | T9 | The documentation's own advice | under 200 lines for a memory file, under 500 for a skill body | Claude Code | Documented, as advice |
 | T10 | The context at a session's first call | 39,300 to 39,600 tokens in twenty headless control sessions with four tools; 42,250 with the 28 habit instructions as text | Claude Code | Measured |
@@ -219,7 +232,7 @@ value.
 | **B2** All instructions with no place, together | 8,000 characters | T8 at its stricter reading: a quarter of 32 KiB. Against T10 the cost is larger than the character count suggests: 6,859 characters measured about 2,900 tokens net, so 8,000 is about 3,400 tokens, 8 to 9 % of a first call | Those 28 descriptions total 6,859, and the 28 pointers they would replace total 1,794. The 28 is a floor: standing constraints are not counted in it |
 | **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
 | **B4** One procedure's description | 256 characters | T3: a quarter. T2: a sixth. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
-| **B5** The listing: every name and description in the repository's skill directories | 20,000 characters at the current default windows; 8,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens, about 40,000 characters, and 20,000 is half of it and a sixth of T4 as this repository sets it. At a 200,000-token window the smallest is T5 at about 16,000, and 8,000 is half of it; 8,000 is also each vendor's fallback figure | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries: each trial session listed 118, and the 31 from outside the repository, and the paths Codex lists, are not counted |
+| **B5** The listing: every name and description in the repository's skill directories | 20,000 characters at the current default windows; 8,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens, about 40,000 characters, and 20,000 is half of it and a sixth of T4 as this repository sets it. At a 200,000-token window the smallest is T5 at about 16,000, and 8,000 is half of it; 8,000 is also each vendor's fallback figure | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries, and not a measure against T5: each trial session listed 118, and the 31 from outside the repository are not counted; Codex also lists each skill's path, and the 87 paths relative to the repository root add 3,700 characters, more if Codex lists them in full. What a Codex listing holds is for the spike's Codex leg to measure |
 | **B6** One procedure's body | 10,000 characters, about 2,500 tokens | T6: half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 30 are over 10,000 and 12 over 20,000 |
 | **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
 
@@ -290,8 +303,9 @@ A throwaway Node script, kept here as text and not as a tracked script, because 
 repository's source is TypeScript and its checks hold every tracked script to the estate's
 standard. The plan's first acceptance criterion asks for a script kept with the document
 that reproduces the table; this is that script, and it reproduces the present measures and
-not the fractions in the "Against" column, which are arithmetic on them. It reads only
-tracked files. It was run from the repository root at commit `5584f3337`, as a copy placed
+not the fractions in the "Against" column, which are arithmetic on them. It reads whatever
+is on disk under the directories it walks and does not ask which files are tracked, so it
+reproduces these figures only in a clean checkout. It was run in one, from the repository root at commit `5584f3337`, as a copy placed
 in `agent-tools/` so that its import of the `yaml` package resolves. The reviewer of the
 first draft ran it again at the same commit and got the same figures. Its median is the
 lower middle value. The habit rules are those marked `H` in the first sort

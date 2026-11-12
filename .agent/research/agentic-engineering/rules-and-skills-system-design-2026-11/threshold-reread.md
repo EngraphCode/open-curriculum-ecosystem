@@ -34,6 +34,11 @@ to `learn.chatgpt.com/docs/...`. Both URLs are given where that happened.
 
 ## The thresholds
 
+The second column is each value as the design's first draft recorded it, which is what was
+being checked. Where the verdict is that it differs, the design has since been corrected and
+this column keeps the earlier wording on purpose: T2's "name and description together" is
+the recorded text, and the vendor's counted fields are in the third column.
+
 | # | Value the design records | Vendor sentence, verbatim | URL (key) | Mode | Verdict |
 | --- | --- | --- | --- | --- | --- |
 | T1 | A rule file loaded on demand, each file: 40,000 characters on a 200,000-token window | "When a subdirectory `CLAUDE.md` or a rules file that loads on demand is over a per-file size limit, Claude receives only the start of it." Then, in the numbered list: "**200K context window**: 40,000 characters" and "**1M context window**: 200,000 characters on Claude Opus 4.6 and Claude Sonnet 4.6, and 150,000 characters on later models". Also: "Before v2.1.309, Claude Code didn't apply this limit to files that load on demand." | MEM | raw | **CONFIRMED.** See note 1: the same page set says current models run with the 1M window by default, where the figure is 150,000 (or 200,000). |
