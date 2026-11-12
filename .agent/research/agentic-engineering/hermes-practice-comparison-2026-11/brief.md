@@ -60,6 +60,14 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   node. We should wait for the other session inputs and review all work together before
   starting a design phase"
 
+- 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
+  there should be none of that, same for skills, they must describe current requirements, not
+  the evolution that arrived at them."; "Please find the patterns directory and explore it. I
+  suspect that we have an inconsistent and inconsistently applied policy on turning patterns
+  into useful mechanisms, and some of them may be the source of the behavioural rules you
+  mentioned."; "From now on this investigation considered rules AND skills, and for that we
+  need a clear understanding of the strengths and appropriate use cases for each". The records
+  are in `../doing-and-dreaming-2026-11/rules-sort/`.
 - 2026-11-12, a side question for a sub-agent: "when it comes to loading rules and skills into
   memory, what are the differences between rules and skills, and are there important
   byte/context size thresholds that change loading or execution behaviour. In this instance we

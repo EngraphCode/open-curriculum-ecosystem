@@ -9,6 +9,19 @@ loss of context is minimal".
 It follows from [`../delivery-trial.md`](../delivery-trial.md), which found that a session
 chooses which rules to open by file name.
 
+**Widened the same day, at the owner's word.** Three statements, verbatim:
+
+- "Regarding history in rules, there should be none of that, same for skills, they must
+  describe current requirements, not the evolution that arrived at them."
+- "Please find the patterns directory and explore it. I suspect that we have an inconsistent
+  and inconsistently applied policy on turning patterns into useful mechanisms, and some of
+  them may be the source of the behavioural rules you mentioned."
+- "From now on this investigation considered rules AND skills, and for that we need a clear
+  understanding of the strengths and appropriate use cases for each"
+
+The first is a ruling and binds beyond this record. It is recorded here, in the napkin and in
+the comparison brief; it has not yet been written into any rule, skill or register.
+
 **State of this record.** Written in stages and pushed at each, so that a session lost part-way
 leaves what was done.
 
@@ -18,6 +31,9 @@ leaves what was done.
 | 2. The sort, row by row | [`classification.tsv`](classification.tsv) | Done: one reader, from each rule's name and description |
 | 3. Two further measurements | [`usage.tsv`](usage.tsv) | Done: the length of each rule's description, and how often its name appears in the napkins |
 | 4. Findings and the alternative groupings | [`findings.md`](findings.md) | Done, status `provisional`. **Start here.** |
+| 4a. The patterns directory | [`patterns.tsv`](patterns.tsv), [`patterns-findings.md`](patterns-findings.md) | Done, `provisional`: 246 pattern files, where each is cited, and the four statements of policy that do not agree |
+| 4b. Skills, measured as the rules were | [`skills.tsv`](skills.tsv), [`rule-date-lines.tsv`](rule-date-lines.tsv) | Done. The `family` column of `skills.tsv` is unreliable and should be ignored |
+| 4c. What a rule and a skill are each good for | [`rules-and-skills-use.md`](rules-and-skills-use.md) | Done, `provisional`: the platform's account, the estate's doctrine, and where practice departs from both |
 | 5. A second reader's check of the sort | — | Not done |
 | 6. The test that frame 6 names (deliver the 28 habit instructions as text and re-run the delivery trial) | — | Not done; it starts sessions and needs the owner's word |
 
