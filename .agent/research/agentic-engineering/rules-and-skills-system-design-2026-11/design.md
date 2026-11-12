@@ -8,8 +8,12 @@ processes, and how it will be known to work) follow the spike and are not writte
 
 It is a proposal. Nothing here is decided until the owner decides it, and the decisions that
 are the owner's are listed at the end as questions, each with a recommendation. It designs the
-system and not the content of any rule or skill: which present rule becomes which kind of
-unit is not settled here.
+system and not the content of any rule or skill. Which present rule or skill becomes what is
+not settled here, and where this document uses the present estate it does so to size a
+budget and says "if".
+
+A reader that wrote none of it reviewed the first draft and found it ready with corrections.
+The model in part 1 is the reviewer's alternative, adopted, and the reason is given there.
 
 ## What it stands on
 
@@ -22,233 +26,268 @@ Each line says how it is known.
 | Rules and skills "must describe current requirements, not the evolution that arrived at them" | The owner's ruling, 2026-11-12 |
 | "each rule, skill, and the combined total of the relevant parts, should be well within the identified important thresholds" | The owner's word, 2026-11-12 |
 | A rule reaches Claude Code as a one-line pointer, and no output carries a rule's body or, outside Cursor, its description | Read in the code: the [audit](pipeline-audit.md), section 2 |
-| A skill reaches both platforms as a name and a description, in an adapter that points to its body | Read in the code: the audit, section 3 |
-| Claude Code loads an unscoped rule's text at launch and puts it back after a compaction; a path-scoped rule's text loads when a matching file is read or written; a skill's description is listed and its body loaded on use | Anthropic's documentation, in the [Claude Code loading note](../doing-and-dreaming-2026-11/claude-code-rules-and-skills-loading.md). Not observed beyond the two trials |
-| Codex loads the `AGENTS.md` chain, a skills listing and hook output, and has no mechanism that loads a rule's text as guidance | OpenAI's documentation, in the [Codex loading note](../doing-and-dreaming-2026-11/codex-rules-and-skills-loading.md). Not observed |
-| In thirty short read-only sessions, the rules a session opened were on the subject of its task; rules that state a habit of mind were left unopened | Measured: the [delivery trial](../doing-and-dreaming-2026-11/delivery-trial.md). Why a file was opened was not measured |
-| Twenty-eight habit instructions delivered as text were acted on in one task of five and changed no conclusion | Measured: the [habit-text trial](../doing-and-dreaming-2026-11/habit-text-trial.md). One separating instruction against a bar of two |
+| A skill's adapter carries its name and description and points to its body as another file | Read in the code: the audit, section 3 |
+| Claude Code loads an unscoped rule's text at launch and puts it back after a compaction; loads a path-scoped rule's text when a matching file is read, written or edited; lists a skill's description and loads the adapter on use | Anthropic's documentation, in the [Claude Code loading note](../doing-and-dreaming-2026-11/claude-code-rules-and-skills-loading.md). The first was observed in the habit-text trial's check session. The second was observed once by that note's sub-agent and again in the session that wrote this document. Neither was measured |
+| Codex loads the `AGENTS.md` chain from the root to the working directory, a skills listing and hook output, and no mechanism that loads a rule's text as guidance was found | OpenAI's documentation, in the [Codex loading note](../doing-and-dreaming-2026-11/codex-rules-and-skills-loading.md). Nothing was observed in a running Codex |
+| In twenty sessions that held only pointers, most rules a session opened were on the subject of its task. Of the 28 rules the first sort calls habits of mind, one was opened in the first ten sessions and two in the second ten | Measured: the [delivery trial](../doing-and-dreaming-2026-11/delivery-trial.md) and the control runs of the [habit-text trial](../doing-and-dreaming-2026-11/habit-text-trial.md). Why a file was opened was not measured |
+| Twenty-eight habit instructions delivered as text changed the form of two answers, both on one task of five, and changed no conclusion | Measured: the habit-text trial. One separating instruction against a bar of two set beforehand, so its prediction of no clear difference stands |
+| The estate already has a procedure for where a capability lands: by the shape of its payload and by when it must be disclosed | The rule `capability-landing-decision-procedure`, steps 2 to 5 |
 
 ## 1. The unit model
 
-### The question the model answers
+### Where the model comes from
 
-The estate has two containers, rules and skills, because the platforms it started on had
-two. The containers are not the same on the two platforms that matter: Codex has skills and
-no rules. So a model stated as "rules and skills" cannot be delivered to Codex as stated. The
-model here asks a question that has the same answer on every platform: **when must this be in
-front of the agent, and what on the platform can put it there?**
+The first draft of this part proposed five kinds of unit. The reviewer's objection was that
+the five were Claude Code's five containers under new names, that enforcement appeared both
+as a kind and as a property of other kinds, and that the estate already has the two axes that
+matter. The objection holds, and the simpler model is used here.
 
-That question has five answers in the evidence. Each is a kind of unit.
+The estate's rule on landing a capability asks two things of a payload. Is it "a standing
+invariant small enough to afford in always-loaded context, or a multi-step procedure that is
+not"? And when must it be disclosed: "Always in force, loaded on a trigger, or consulted at
+dispatch?" It assigns
+"enforcement that must hold with zero context" to a hook or validator, and pairs a procedure
+that must always be in force with an invariant that points to it.
 
-### The five kinds
+That model is sound and is kept. What it lacks is what the audit and the trials found
+missing: the invariant's text is not delivered, nothing bounds a unit's size, and a unit's
+reasons live in the same file as its instruction. The model below adds those three things and
+nothing else.
 
-| Kind | When it must be in front of the agent | What it needs of a platform |
+### Two kinds of unit
+
+| Kind | What it is | How it must reach the agent |
 | --- | --- | --- |
-| **Standing instruction** | At all times. No moment in the work marks it | Text in context from the start, kept through a compaction |
-| **Situated instruction** | When a particular part of the repository is touched | Text delivered when a matching file is read or written |
-| **Procedure** | When a named activity starts: a commit, a pull request, a wrap | A short listing that selects it, and a body loaded on use |
-| **Enforced requirement** | Never, as text. It must hold whether or not the agent has it in mind | Code that runs at the act: a hook, a gate, a lint rule |
-| **Record** | Never, in a session. A person or a later seat goes to it | Nothing. A file that the unit names |
+| **Instruction** | A requirement stated in a few sentences: what to do, and when | As text, in context without anyone choosing to open it |
+| **Procedure** | The steps of a named activity | As a listed name and description that select it, and a body loaded when it is selected |
 
-What each is, in a sentence.
+These are the present rule's "invariant" and "procedure". On Claude Code they are what a rule
+and a skill are for. On Codex, by its documentation, a procedure is a skill and an
+instruction has one home, the `AGENTS.md` chain.
 
-- A **standing instruction** is a habit of mind or a standing constraint: check before
-  asserting, scope from the goal, never commit to the default branch. The rules sort found 28
-  rules of this kind among 124, and they were the ones left unopened.
-- A **situated instruction** is guidance that only matters in one place: how tests in one
-  workspace are named, what a generated directory must not be edited by hand. Twenty-one
-  rules carry path globs today.
-- A **procedure** is the how of an activity with steps and an order. The estate has 78.
-- An **enforced requirement** is whatever code can check. The text of such a requirement is
-  for explaining a refusal, and the estate's rule on landing a capability already ranks code
-  that needs no context above text that must be recalled.
-- A **record** is why a unit exists: the owner's ruling, the incidents, the dated history, the
-  evidence. Dated lines appear in 110 of 124 rule files today. By the owner's ruling they do
-  not belong in a rule or a skill.
+### Four things a unit declares
 
-### What each may and may not carry
-
-| Kind | Carries | Does not carry |
+| Attribute | Applies to | What it says |
 | --- | --- | --- |
-| Standing instruction | One instruction, stated as what to do and when, in a few sentences | Steps, examples, incidents, dates, the argument for it |
-| Situated instruction | The instructions for one place, and the paths that define the place | Anything that applies everywhere; history |
-| Procedure | A description that says when to use it, and a body of steps | Standing constraints restated; history; another procedure's steps |
-| Enforced requirement | The check, and one sentence a refusal can print | A paragraph asking the agent to remember it |
-| Record | Everything else: rulings, incidents, evidence, superseded text | Any instruction that is not also in a unit |
+| **Record** | every unit, required | Where the unit's reasons are kept: the ruling, the incidents, the evidence, the history. A record is never loaded into a session |
+| **Place** | an instruction, optional | The paths where the instruction applies. An instruction with a place is delivered when the place is touched, on a platform that can do that, in place of being present from the start |
+| **Check** | any unit, optional | The code that enforces the requirement: a hook, a gate, a lint rule. A unit with no check is advice |
+| **Pair** | an instruction and a procedure, optional | That the instruction is the always-present half of a procedure, as the present rule's companion pair is |
 
-### How the kinds relate
+### What follows from it
 
-1. **Every unit names its record, and no record is loaded.** A unit's declaration holds the
-   path of its record. The record may be long. Nothing in a session's start reads it.
-2. **An instruction and a procedure may be a pair.** "Commit through the commit procedure" is
-   a standing instruction; the steps are the procedure. The instruction is one sentence and
-   names the procedure. The procedure does not restate the instruction.
-3. **A requirement is enforced or it is advice, and a unit says which.** A unit that code
-   enforces names the check. A unit that names no check is advice, and its contract says so.
-4. **One home for each instruction.** An instruction lives in one unit. The build copies it to
-   each platform. No instruction is written twice by hand, and none reaches one platform
-   twice.
-5. **A unit of one kind does not grow into another.** A standing instruction that needs steps
-   has become a procedure and is moved. A procedure whose steps are always the same and can
-   be checked has become an enforced requirement and is moved.
+1. **An instruction is text and not a pointer.** Its declared text is what the platform
+   delivers. This is the one change to what a rule is.
+2. **A unit's reasons leave the unit.** By the owner's ruling history does not belong in a
+   rule or a skill. The record is where it goes, with the evidence and the argument. Dated
+   lines appear in 110 of 124 rule files today; a dated line is this seat's proxy for
+   history, and the ruling is the owner's.
+3. **A requirement that must hold has a check.** The habit-text trial is the evidence that
+   delivered text is not enough for that. A requirement whose only form is a check, with no
+   text beyond the sentence a refusal prints, is code and not a unit of guidance. Building
+   checks is outside this plan.
+4. **Place narrows presence and is not a third kind.** An instruction that applies in one
+   part of the repository is the same kind of thing as one that applies everywhere. Whether
+   a platform can deliver it at the moment its place is touched is a fact about the platform,
+   and part 4 says what each platform gets.
+5. **One home for each instruction.** It is written once. The build copies it to each
+   platform, and it reaches no platform twice.
 
-### What the model does to the present estate, in outline only
+### What the model leaves alone
 
-This is what the kinds imply, and not a sort of the content.
+- **Sub-agents.** The present rule lands "judgement consulted at dispatch" as a sub-agent.
+  This design does not change that.
+- **Hook output.** A session-start hook prints text into a session on both platforms. It is a
+  third always-present surface. This design does not move guidance into it, and part 4 states
+  what it carries today so that nothing is counted twice.
 
-- The 124 rules are of four kinds today, held in one container. The sort found 28 habits of
-  mind, 90 tied to a named activity and 6 that only point elsewhere. Under the model the
-  first are standing instructions. The second divide among situated instructions, steps of
-  a procedure and enforced requirements. The third have no kind and are not units.
-- The 78 skills are procedures already. What changes for them is the budget.
-- The text that explains and justifies, which is most of the 2.2 million characters, is
-  record.
+### What the sort did and did not establish about the present estate
+
+Stated so that the budgets below are not read as a sort of the content.
+
+- The first sort of the 124 rules, from their descriptions, by one reader, found 28 habits of
+  mind, 90 rules tied to a named activity and 6 that only point elsewhere. It is marked
+  provisional. A second reader, without sight of the first, found 27, 92 and 5, and the two
+  agree that 22 rules are habits.
+- Neither sort counted standing constraints, such as a rule against disabling checks. The
+  second reader reported that the three categories have no place for one. Under this model
+  such a rule is an instruction with no place, like a habit. So the number of always-present
+  instructions is not known, and the 28 is a floor.
+- No count exists of how much of the 2.2 million characters is record. It is not claimed
+  here.
 
 ## 2. Contracts
 
-A contract says what a unit of a kind must declare, how long it may be, what it promises a
-reader, and what it must not be relied on to do. The lengths are in part 3.
+A contract says what a unit must declare, what it promises a reader, and what it must not be
+relied on to do. The lengths are in part 3.
 
-### Standing instruction
+### Instruction
 
-- **Declares:** a name; the instruction text; the path of its record; the name of the check
-  that enforces it, if one does; the name of its paired procedure, if it has one.
-- **Promises:** on Claude Code and on Codex, this text is in context when a session starts,
-  once. On Claude Code it is put back after a compaction. Both by the vendors' documentation;
-  the spike observes the first on Claude Code.
-- **Must not be relied on to:** change what an agent concludes, or fire at a particular
-  moment. In the habit-text trial, delivered instructions changed the form of one answer in
-  five tasks and no conclusion. A requirement that must hold is an enforced requirement, or
-  a step of a procedure the agent is in.
-
-### Situated instruction
-
-- **Declares:** a name; the paths that define its place; the instruction text; the path of
-  its record; the check that enforces it, if one does.
-- **Promises:** on Claude Code, this text is delivered when a file matching its paths is
-  read, written or edited. By the documentation; not observed, since every trial was
-  read-only and one turn long.
-- **Must not be relied on to:** reach Codex by the same means. Codex has no mechanism for it.
-  What Codex gets is a question for part 4, and the least it can be is nothing.
+- **Declares:** a name; the instruction text; its record; its place, if it has one; its
+  check, if it has one; its paired procedure, if it has one.
+- **Promises, with no place:** on Claude Code the text is in context when a session starts
+  and is put back after a compaction. By the documentation, and observed once at the start of
+  a session. On Codex the text is in the root `AGENTS.md`, which Codex loads. By the
+  documentation; not observed. That it arrives once on each platform is what the build must
+  guarantee and the spike must show.
+- **Promises, with a place:** on Claude Code the text is delivered when a file in its place
+  is read, written or edited. By the documentation, and observed twice in passing. On Codex
+  no mechanism that delivers text when a file is touched was found. Codex's documented
+  mechanism bound to a place is an `AGENTS.md` in a directory, loaded when the session's
+  working directory is at or below it. What Codex gets is for part 4, and the least it can
+  be is nothing.
+- **Must not be relied on to:** change what an agent concludes, or act at a particular
+  moment. A requirement that must hold has a check, or is a step of a procedure the agent is
+  in.
 
 ### Procedure
 
-- **Declares:** a name; a description that says when to use it; a body; the path of its
-  record.
-- **Promises:** on both platforms, the name and description are listed when a session starts,
-  and the body is loaded when the procedure is used.
-- **Must not be relied on to:** be used. In thirty sessions no session called a skill, on
+- **Declares:** a name; a description that says when to use it; a body; its record; its
+  check, if it has one; its paired instruction, if it has one.
+- **Promises:** on both platforms the name and description are listed when a session starts,
+  and the body is available when the procedure is selected. By the documentation of both;
+  the listing was observed on Claude Code, where each of forty sessions listed the estate's
+  78. Both platforms document that descriptions are shortened or left out when the listing is
+  over its budget, so the first promise holds only inside the budget.
+- **Must not be relied on to:** be selected. In forty sessions no session called a skill, on
   tasks that included a commit and a review comment. Whether that is the listing's size, the
-  tasks, or the read-only tool set is not known. The description is the only thing that can
-  select the procedure, so its budget is the one that matters most.
-
-### Enforced requirement
-
-- **Declares:** the check; where it runs; the sentence it prints on refusal; the path of its
-  record.
-- **Promises:** the act is refused or reported whether or not any text was read.
-- **Must not be relied on to:** explain itself beyond that sentence. The explanation is the
-  record.
+  tasks or the read-only tool set is not known.
 
 ### Record
 
-- **Declares:** nothing. It is named by the units it stands behind.
-- **Promises:** that the reason for a unit can be found from the unit.
-- **Must not be relied on to:** be read by a session. An instruction that exists only in a
-  record is not delivered to anyone.
+A record is not a unit. It declares nothing and is named by the units it stands behind. It
+promises that the reason for a unit can be found from the unit. An instruction that exists
+only in a record is delivered to no one.
 
 ## 3. Budgets
 
 ### The thresholds, and how each is known
 
-All from the vendors' documentation as the two loading notes record it. None was measured
-here except where the last column says so. A token is taken as four characters, which is the
-repository's own estimate.
+From the vendors' documentation as the two loading notes record it, except T10. The loading
+notes were not re-fetched for this document; the plan's first-principles check asks that each
+threshold be re-read at its page before a budget is set against it, and that is owed before
+the owner decides. Where characters are converted to tokens, four characters to a token is
+used, which is the repository's own estimate. The habit-text trial measured fewer for
+instruction text, about 2.4 to 2.7, and where that matters it is said.
 
 | # | Threshold | Value | Platform | Known how |
 | --- | --- | --- | --- | --- |
 | T1 | A rule file loaded on demand, each file | 40,000 characters on a 200,000-token window | Claude Code | Documented |
-| T2 | A skill's description | 1,536 characters | Claude Code | Documented |
-| T3 | A skill's description | 1,024 characters | The Agent Skills specification, which both read | Documented; named in the repository's code |
-| T4 | The skills listing, all descriptions together | 1 % of the window by default, about 8,000 characters at 200,000 tokens; this repository sets 3 %, about 24,000 | Claude Code | Fraction documented; the conversion to characters is this seat's arithmetic |
-| T5 | The skills listing | 2 % of the window by default, about 16,000 characters at 200,000 tokens; 8,000 characters when the window is unknown; at most 10,000 tokens if set | Codex | Documented; the window Codex runs with was not established |
+| T2 | One entry of the skills listing, name and description together | 1,536 characters | Claude Code | Documented |
+| T3 | A skill's description | 1,024 characters | The Agent Skills specification | Named in a comment in the repository's code, which checks it nowhere. No limit on one description was found in Codex's documentation |
+| T4 | The skills listing, all entries together | 1 % of the window by default, about 8,000 characters at 200,000 tokens. This repository sets 3 %, about 24,000 | Claude Code | The fraction is documented. The conversion to characters is this seat's arithmetic |
+| T5 | The skills listing, which on Codex also carries each skill's path | 2 % of the window by default, about 16,000 characters at 200,000 tokens; 8,000 characters when the window is unknown; at most 10,000 tokens if set | Codex | Documented. The window Codex runs with was not established |
 | T6 | A skill's body kept through a compaction | 5,000 tokens each, 25,000 in all | Claude Code | Documented |
 | T7 | One read of a file | 25,000 tokens; a partial view beyond it | Claude Code | Documented |
-| T8 | The project documents, `AGENTS.md` from the root down | 32 KiB. One vendor page says together, two say each | Codex | Documented, and unresolved between pages |
+| T8 | The project documents, the `AGENTS.md` chain | 32 KiB. One vendor page says together, one says each file, one says neither | Codex | Documented, and unresolved between pages |
 | T9 | The documentation's own advice | under 200 lines for a memory file, under 500 for a skill body | Claude Code | Documented, as advice |
-| T10 | The context at a session's first call | about 39,300 tokens today | Claude Code | Measured in forty sessions |
+| T10 | The context at a session's first call | 39,300 to 39,600 tokens in twenty headless control sessions with four tools; 42,250 with the 28 habit instructions as text | Claude Code | Measured |
+| T11 | A warning when instruction files together pass a combined limit at session start | no value given | Claude Code | Documented without a number |
 
-No documented threshold limits the total of always-present text on Claude Code short of 4 MiB
-a file. The budget for it is therefore set against what a session carries today (T10) and
-against the Codex limit (T8), which the same text must also fit.
+For the total of always-present text on Claude Code the documentation gives a warning with no
+number (T11) and a refusal at 4 MiB a file. So that budget is set against the Codex limit the
+same text must fit (T8) and against what a session carries (T10), and the spike records
+whether the warning appears.
+
+### The rule for "well within"
+
+The owner's word is "well within the identified important thresholds". This design reads it
+as **half or less of the smallest threshold that applies in the configuration the estate
+runs**. Where a threshold is a platform default the estate has overridden, the overridden
+value applies. Where no threshold is documented, the budget is marked as this seat's choice.
 
 ### What is proposed, beside what is there now
 
-"Well within" is read here as half of a threshold or less, where a threshold exists. The
-present measures are computed by the script in the appendix.
+The present measures are computed by the script in the appendix. Medians are the lower middle
+value.
 
 | Budget | Proposed | Against | Present measure |
 | --- | --- | --- | --- |
-| **B1** One standing instruction | 300 characters | none documented; set by B2 | The 28 habit rules' descriptions: median 205, longest 793; 7 are over 300 |
-| **B2** All standing instructions together | 8,000 characters, about 2,000 tokens | T8: a quarter of 32 KiB. T10: about 5 % of today's first call | The 28 descriptions total 6,859. The 103 pointers they would replace total 6,780 |
-| **B3** One situated instruction | 4,000 characters | T1: a tenth | The 21 path-scoped rules: median 4,249, longest 10,614 as whole files; 93 of all 124 rule files are over 4,000 |
-| **B4** One procedure's description | 256 characters | T3: a quarter. T2: a sixth | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
-| **B5** All listed descriptions together, names included, vendor skills included | 12,000 characters | T4 as this repository sets it: half. T5 at a 200,000-token window: three quarters. Over T5's 8,000 for an unknown window | 42,370 across 87 listed skills, of which 9 are vendor skills |
-| **B6** One procedure's body | 10,000 characters, about 2,500 tokens | T6: half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 30 are over 10,000, 12 over 20,000 |
-| **B7** The root `AGENTS.md`, everything in it | 16 KiB | T8 on its stricter reading: half | 1,975 bytes. It holds a pointer and no instruction |
-| **B8** A record | no limit | none: it is not loaded | The 124 rule files hold 1,073,128 characters, and the 78 skill bodies 1,065,154 |
+| **B1** One instruction with no place | 300 characters | This seat's choice: no threshold. With B2 it allows about 26 instructions at full length, or more that are shorter | If the first sort's 28 habit rules were instructions as their descriptions state them: median 205, longest 793, and 7 over 300 |
+| **B2** All instructions with no place, together | 8,000 characters | T8 at its stricter reading: a quarter of 32 KiB. Against T10 the cost is larger than the character count suggests: 6,859 characters measured about 2,900 tokens net, so 8,000 is about 3,400 tokens, 8 to 9 % of a first call | Those 28 descriptions total 6,859, and the 28 pointers they would replace total 1,794. The 28 is a floor: standing constraints are not counted in it |
+| **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
+| **B4** One procedure's description | 256 characters | T3: a quarter. T2: a sixth, before the name. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
+| **B5** The listing: every name and description in the repository's skill directories | 8,000 characters | Half of T5 at a 200,000-token window. A third of T4 as this repository sets it. Equal to T4's default and to T5's figure for an unknown window | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries: each trial session listed 118, and the 31 from outside the repository, and the paths Codex lists, are not counted |
+| **B6** One procedure's body | 10,000 characters, about 2,500 tokens | T6: half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 30 are over 10,000 and 12 over 20,000 |
+| **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
 
-Three things follow from the table and are stated plainly.
+A record has no budget. It is not loaded. The 124 rule files hold 1,073,128 characters and
+the 78 skill bodies 1,065,154; how much of that is record is not counted.
 
-1. **B2 is met today by the text that already exists.** The 28 habit rules' own descriptions
-   fit. Seven are over the single-instruction length and would be shortened, which is content
-   work and not this design's.
-2. **B5 is not met by shortening alone.** At 256 characters each, 78 procedures and 9 vendor
-   skills come to about 22,000 characters before names. Meeting 12,000 takes fewer listed
-   procedures, shorter descriptions than B4 allows, or both. The owner expects that "some
-   existing materials will be redundant or inappropriate or be better expressed more
-   succinctly"; this is where that expectation is tested hardest.
-3. **B6 moves text out of procedures and into records.** Thirty bodies are over it. The
-   largest is fifteen times it.
+No total is proposed for B3 or B6. No threshold for a total of path-scoped text was found. T6
+gives a total of 25,000 tokens for skill bodies kept through a compaction, which concerns how
+many procedures one session uses and not the size of the estate.
 
-### What a budget is, in the build
+Three things follow and are stated plainly.
 
-Each budget is a number the build holds and compares, as the one existing size check does.
-A unit over its budget fails the build, and so does a total. A budget is changed by changing
-the number in one place, by the owner's decision, and the change is visible in a diff. How
-the build does this is part 5.
+1. **B2 is close to what the 28 habit descriptions already come to, and its cost is known.**
+   Delivering them as text was measured at about 2,900 tokens on a first call of about
+   39,400. It is not free, and it does not shrink unless other pointers are removed, which is
+   a question for part 4. The budget cannot be confirmed as enough until the content is
+   sorted, because standing constraints are uncounted.
+2. **B5 is the hard one, and B4 does not decide it.** Names take 1,612 of the 42,370
+   characters. At 8,000, the listing holds about 29 procedures at B4's full length, or all 87
+   at about 73 characters each. The alternative of 12,000 holds about 43, or all 87 at about
+   119. Either way most of the reduction comes from fewer listed procedures or much shorter
+   descriptions, and the 31 skills a session lists from outside the repository are not the
+   estate's to shorten. The owner expects that "some existing materials will be redundant or
+   inappropriate or be better expressed more succinctly"; this is where that is tested
+   hardest.
+3. **B6 would move text out of procedure bodies.** Thirty are over it. The longest is 15.7
+   times it.
+
+### What a budget would be in the build
+
+For part 5 to settle, and stated here only so the budgets can be judged: each budget would be
+a number the build holds and compares, as the one existing size check does, changed in one
+place by the owner's decision.
 
 ## Questions for the owner
 
 Each is the owner's by the plan. Each has a recommendation. They are put as decision cards
-when this part is complete, and are listed here so that the cards have a record.
+once this part has been reviewed, and are listed here so the cards have a record. The exact
+text each answer would put into the design is on its card.
 
-1. **The five kinds.** Recommended: accept them as the model. The alternative is to keep
-   "rule" and "skill" as the kinds and treat Codex as a reduced platform.
-2. **"Well within" as half or less.** Recommended: accept, with B5 as the stated exception
-   at three quarters of the Codex default.
-3. **The listing budget, B5.** Recommended: 12,000 characters. The stricter alternative is
-   8,000, which is inside every documented listing budget on both platforms including the
-   Codex fallback, and means about half as many listed procedures or descriptions of about
-   90 characters.
-4. **The standing budget, B2.** Recommended: 8,000 characters. It is close to what the
-   pointers cost today, so the first call of a session grows by little or nothing.
+1. **The model.** Recommended: two kinds of unit, instruction and procedure, each declaring a
+   record and optionally a place, a check and a pair. Alternatives: the five kinds of the
+   first draft, which name the same things as kinds; or rules and skills as they are, with
+   Codex treated as a reduced platform.
+2. **The rule for "well within".** Recommended: half or less of the smallest threshold that
+   applies in the configuration the estate runs. Accepting it accepts B6 and B7 as derived
+   from it. B1, B3 and B4 have no threshold that decides them and are this seat's choices,
+   offered for acceptance with it.
+3. **The listing budget, B5.** Recommended: 8,000 characters, which is what the rule in
+   question 2 gives. It means about 29 listed procedures at 256 characters, or all 87 at
+   about 73. The alternative is 12,000, about 43 or about 119, which is over the rule: it is
+   three quarters of the Codex default at a 200,000-token window and over Codex's figure for
+   an unknown window. Two facts the owner should have and this document cannot supply: the
+   window Codex runs with, and whether the 31 skills from outside the repository draw on the
+   same budget.
+4. **The budget for always-present instructions, B2.** Recommended: 8,000 characters, with
+   the cost stated: about 3,400 tokens on a first call of about 39,400, measured at 2,900 for
+   the 28 habit descriptions. It is a quarter of the Codex limit. It may prove too small once
+   standing constraints are counted, and the design would then come back with the count.
 5. **Where the decisions are recorded once made.** Recommended: a Practice decision record
-   for the kinds and contracts, and the budget numbers in the build's own configuration,
-   which the record points to.
+   for the model and the contracts. Where the budget numbers live is part 5's to propose.
 
 ## Appendix: the script behind the present measures
 
-A throwaway Node script, kept here as text and not as a tracked script. It reads only tracked
-files. It was run from the repository root, with the `yaml` package resolved from
-`agent-tools`, at commit `5584f3337`. The habit rules are those marked `H` in the first sort
+A throwaway Node script, kept here as text and not as a tracked script, because the
+repository's source is TypeScript and its checks hold every tracked script to the estate's
+standard. The plan's first acceptance criterion asks for a script kept with the document
+that reproduces the table; this is that script, and it reproduces the present measures and
+not the fractions in the "Against" column, which are arithmetic on them. It reads only
+tracked files. It was run from the repository root at commit `5584f3337`, as a copy placed
+in `agent-tools/` so that its import of the `yaml` package resolves. The reviewer of the
+first draft ran it again at the same commit and got the same figures. Its median is the
+lower middle value. The habit rules are those marked `H` in the first sort
 of the rules,
 [`classification.tsv`](../doing-and-dreaming-2026-11/rules-sort/classification.tsv).
 Lengths are of parsed values, counted in characters.
 
 ```js
 // Present measures of the estate's guidance against proposed budgets. Read-only.
-// Run from the repository root with the `yaml` package resolvable (copy beside agent-tools/package.json, or run with NODE_PATH).
+// Run from the repository root, as a copy placed in agent-tools/ so that the `yaml` import resolves.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'yaml';
