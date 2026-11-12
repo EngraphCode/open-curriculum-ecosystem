@@ -102,7 +102,7 @@ table is the thing the deep comparison should replace with measurements.
 | --- | --- | --- | --- |
 | Capture experience | The napkin, written during work | The working agent's recall | Read. One consolidation found 186 items of state and 367 already homed among 708 |
 | Decide what a lesson becomes | Consolidation, graduation, the registers | The owner starts it; an agent decides within it | Observed 2026-11-12: last run 2026-10-15, buffers `critical` |
-| Deliver guidance to the acting agent | Rule adapters, the skill listing, start-right | The platform, at session open | One trial (D): pointer present, file not opened. Otherwise unmeasured |
+| Deliver guidance to the acting agent | Rule adapters, the skill listing, start-right | The platform, at session open | One trial (D): pointer present, file not opened. Then one trial of ten sessions ([`delivery-trial.md`](delivery-trial.md)): partial, and following the task's subject as a rule's name shows it |
 | Fire at the moment of the act | Recall; a few hooks, gates and lint rules | The agent, except where code fires | Two archive syntheses, confounded with the row above |
 | Check the frame of the work | Cricket, the step-back skills | The owner, in eight of ten classes of recorded catch (D) | Read, from about seventy recorded catches |
 | Show a lesson changed anything | Six records; with-and-without skill suites for 16 of 78 skills | Whoever remembers to read them | Observed 2026-11-12; twenty suite runs on record, nineteen of them from September and unread here |

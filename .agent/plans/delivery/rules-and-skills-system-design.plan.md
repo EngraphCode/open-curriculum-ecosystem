@@ -53,8 +53,9 @@ Stated as a gap, before any design.
   platform threshold, the Codex limit on project documents, against the rules index, and no
   other.
 - **What a session does with pointers.** In thirty short read-only sessions on Claude Code, a
-  session opened the rule files whose names shared words with its task and few others. That
-  is a shape and not a rate.
+  session opened rule files on the subject of its task, most of them with names that shared
+  its words, and few others. That is a shape and not a rate, and why a file was opened was
+  not measured.
 - **Who it costs.** Every session carries the listing and pays in full for a file it opens.
   The owner stated the count as the premise of a question: "the fact that we have far, far too
   many rules". That the owner supplies by hand what undelivered guidance would have supplied

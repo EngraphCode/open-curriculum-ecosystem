@@ -9,9 +9,10 @@ follow" and a path. Does a session then open the rule? The estate's account of i
 assumes a rule with a home is text in front of the agent. If rules are rarely opened, lessons
 that recur may never have been delivered.
 
-**The answer, in one paragraph.** Delivery is partial and it follows the rule's file name. In
-ten sessions, seven opened at least one rule and three opened none; 11 of 124 rule files were
-opened at all. A rule was opened when its name matched the words of the task: a commit task
+**The answer, in one paragraph.** Delivery is partial and it follows the subject of the task,
+which is most often visible in the rule's file name. In ten sessions, seven opened at least
+one rule and three opened none; 11 of 124 rule files were opened at all. Most opened rules
+had names that shared words with the task: a commit task
 opened `never-commit-to-main` and `stage-by-explicit-pathspec`, a review-comment task opened
 both review rules. Rules about how to think did not get opened when the task did not use their
 words: a request to confirm that tests pass opened no rule, `verify-dont-trust` included, and a
@@ -68,10 +69,16 @@ whether an unread rule would have been broken.
 
 ## Reading
 
-1. **The pointer list works as an index searched by name.** The sessions chose from about a
-   hundred file names, and chose the ones whose names shared words with the task. For T1 and T2
-   that found the right rules. This is better than the Attendant research's single trial
-   suggested: rules are opened.
+1. **The pointer list works as an index of subjects, read mostly from names.** The sessions
+   chose from about a hundred file names, and most of what they chose had names that shared
+   words with the task. For T1 and T2 that found the right rules. This is better than the
+   Attendant research's single trial suggested: rules are opened. The traces record which
+   files were read and not why. Three opened rules share no word with their task: T1 opened
+   `bot-identity-on-third-party-systems` and `identify-as-agent-under-shared-credentials`,
+   and T3 opened `worktree-residency`. They may have been reached by relevance of subject or
+   through another document the session read. So "opened by name", here and in the documents
+   that cite this trial, is shorthand for an association between a rule's name and the task,
+   and the trial did not measure literal matching as the mechanism.
 2. **Rules named for a habit of mind are the ones left unopened.** `verify-dont-trust`,
    `compute-dont-hope`, `scope-from-goal-before-approach`, `one-instance-is-an-observation`,
    `read-before-asking` and their like apply to almost every task and are named for none. The
