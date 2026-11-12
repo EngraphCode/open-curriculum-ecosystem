@@ -61,10 +61,13 @@ forward-asks remain.
   (2026-11-12): it is to be done, its experiment design waits for related research to feed in,
   and a strategic plan was commissioned and not an implementation plan. The node is
   `.agent/plans/strategic/self-starting-practice-refinement.plan.md`, a sketch awaiting
-  ratification. Two things are put to the owner with it: which research sessions are to feed in;
-  and that three delivery nodes ratified on 2026-09-08 (`consolidation-signal`,
-  `consolidation-induction`, `consolidation-ledger`) put automatic starting out of scope, which
-  this node departs from. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
+  ratification. The owner answered the two questions put with it (2026-11-12, verbatim in the
+  brief): the owner will conclude the other research sessions, merge them and point at the
+  results; and the rule that a session starts only at the owner's word stands in general, with
+  permission for sessions inside the experiment to be given when it is run. The three delivery
+  nodes ratified on 2026-09-08 (`consolidation-signal`, `consolidation-induction`,
+  `consolidation-ledger`) are therefore unamended. Next on this strand: the owner's ratification
+  of the node, then the owner's pointer to the research results, then the design step. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
   kept).
 
 - **2026-11-10T13:0xZ: the Hermes and Practice comparison is the next phase of this session, at the
