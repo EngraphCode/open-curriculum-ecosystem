@@ -745,8 +745,10 @@ adapters by `skills:generate`; `portability:fix` does not write skill adapters, 
   formatting); they were not audited. `.prettierignore` excludes `.claude/skills/`,
   `.agents/skills/`, `.claude/rules/`, `.agents/rules/` and `RULES_INDEX.md`
   (`.prettierignore:86-95`) and the whole of `.cursor` (`.prettierignore:14`).
-- **Description lengths** in section 6 are of serialised lines, not parsed YAML values; the
-  parsed lengths differ by quoting and escapes.
+- **Description lengths.** Section 6 gives two sets for the skill adapters: the lengths of
+  serialised lines, and the parsed YAML values, which the commissioning seat computed. The
+  rule description lengths there are of serialised lines only; their parsed values were not
+  computed.
 - **CI gating.** `static-checks` was read as a job that runs on `push` and `pull_request` to
   `main` and `engraph` (`.github/workflows/ci.yml:34-37`, `:150-190`); whether the branch ruleset
   makes it a required check was not verifiable from the repository.
@@ -770,8 +772,13 @@ Read at the cited lines on 12 November 2026, and found as the audit states:
 - `portability:check` and `skills:check` run in the `static-checks` job
   (`.github/workflows/ci.yml:177-188`).
 
-Not checked by this seat: the counts in section 6, sections 3 and 7 beyond the lines above,
-and everything section 9 lists.
+Five figures of section 6 were recomputed by this seat and agree: the rules index at 11,876
+bytes, the Claude rule adapters at 9,931 bytes, the canonical rules at 1,077,957 bytes, 21
+path-scoped Claude adapters, and the parsed skill description lengths, which this seat
+computed and which replaced the audit's first count of five over the limit with three.
+
+Not checked by this seat: the other counts in section 6, sections 3 and 7 beyond the lines
+above, and everything section 9 lists.
 
 ## 11. Where the plan's wording differed from the code
 
