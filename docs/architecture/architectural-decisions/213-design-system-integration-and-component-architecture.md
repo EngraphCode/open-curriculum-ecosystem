@@ -8,7 +8,7 @@
   integration, not vendoring; §2 amended 2026-07-19 — overlay completeness model and
   colour-value grammar, evidence-driven; §2 amended 2026-07-20 — dual-gate window,
   comparand filter, fixpoint resolution, ratified gate levels (PR3 cycle 3); §3 amended
-  2026-07-23 — the owned React component tier (owner substance at the sitting); AIP-137; §3 amended 2026-09-05 — the region contract's first shipped binding named.
+  2026-07-23 — the owned React component tier (owner substance at the sitting); AIP-137; §3 amended 2026-09-05 — the region contract's first shipped binding named. Owner gate 3 amended 2026-11-12 — screen-reader checks are an ambition, not a requirement.
 - **Supersedes in part:** [ADR-148](148-design-token-architecture.md) §Source Format (the
   source-of-truth direction only; the three-tier model, contrast gate, and delivery format
   stand)
@@ -487,9 +487,13 @@ kill).
    The implementer's AAA reading was ratified 2026-07-20: high-contrast gates at AAA
    thresholds, light/dark/colour-safe at the AA floor (§2 amendment of 2026-07-20). The
    full verbatim ruling is recorded in the implementing plan's gate table.
-3. **SR audit operator — RULED (owner, 2026-07-19)**: owner-run VoiceOver/Safari at each
-   widget ship, NVDA/Firefox alternating per widget class, batched with pin-bump re-audits,
-   operator named in every checklist record.
+3. **SR audit operator — RULED (owner, 2026-07-19), amended 2026-11-12**: a screen-reader
+   check of a web app (VoiceOver/Safari, NVDA/Firefox) is an ambition, not a requirement,
+   and the work is not scheduled. No widget ship and no pull request waits on one. A change
+   that affects what assistive technology reads lands on its source evidence, its automated
+   checks and its rendered proof, and says what was not proved. The ruling of 2026-07-19
+   (owner-run VoiceOver/Safari at each widget ship, NVDA/Firefox alternating per widget
+   class, batched with pin-bump re-audits) proved unworkable in practice.
 
 ## Alternatives considered
 
