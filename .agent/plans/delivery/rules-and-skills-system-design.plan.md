@@ -45,8 +45,9 @@ I am expecting the former."
 
 Stated as a gap, before any design.
 
-- **The gap.** On Claude Code, the estate's guidance reaches a session as a pointer to a
-  file, and the model must choose to open it. By its documentation, Codex has no mechanism
+- **The gap.** On Claude Code, a rule reaches a session as a pointer to a file, and the
+  model must choose to open it; a skill reaches it as a name and its description, and its
+  body is read when the skill is used. By its documentation, Codex has no mechanism
   that loads a rule at all, and nothing was observed in a running Codex. The 124 rules and 78
   skills hold about 2.2 million characters, in which an instruction of a sentence or two
   shares a file with the ruling behind it and the incidents behind that. The build checks one
@@ -86,7 +87,11 @@ Stated as a gap, before any design.
 
 The estate already generates its rule adapters. A rule's frontmatter is its declaration, and
 `pnpm portability:fix` renders the index, the Cursor triggers and the Claude and `.agents`
-adapters from it; `pnpm portability:check` recomputes them. Skills have a like generator. The
+adapters from it; `pnpm portability:check` recomputes them. Skills have a generator of their
+own, a separate command that writes adapters carrying each skill's description to two
+platform directories. The first todo's
+[audit](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/pipeline-audit.md)
+describes both from their code. The
 design therefore changes what is declared and what is rendered, and adds what the build
 refuses. Whether anything in the pipeline must be replaced is for the first todo to find.
 
@@ -156,8 +161,10 @@ record or another home) is one of the questions it puts to the owner. Its parts:
 Each is one pull request.
 
 1. **Audit the present pipeline against its code.** The declaration shape, both generators,
-   the portability and fitness validators and the one threshold check they hold, and what each
-   platform's directory holds today. One page of facts.
+   the portability and fitness validators, the one build-failing threshold (which is in the
+   portability validator), and what each platform's directory holds today. One page of facts.
+   Done on 2026-11-12:
+   [`pipeline-audit.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/pipeline-audit.md).
 2. **Write the unit model, the contracts and the budgets**, with the script behind the
    measures.
 3. **Spike the projections** in a throwaway clone and record the measurements.

@@ -140,6 +140,10 @@ sources without turning research notes into a second canon.
   baseline; two trials of how rules reach a session; a sort of the 124 rules, the patterns
   directory and the skills; and how Claude Code loads rules and skills. The report itself is
   kept once, in the loop-engineering directory.
+- [rules-and-skills-system-design-2026-11/](./rules-and-skills-system-design-2026-11/pipeline-audit.md)
+  — the work of the delivery node `rules-and-skills-system-design`. So far: an audit, against
+  the code, of how canonical rules and skills become the files each platform loads and of
+  what the build refuses. Facts only.
 - [cross-lane-direction-survey.md](./cross-lane-direction-survey.md) —
   Slice C umbrella: re-reads direction-of-travel evidence (Slice A
   governance projects, Slice B practice-methodology primitives,
