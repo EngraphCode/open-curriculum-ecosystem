@@ -845,3 +845,14 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   3. After it: the release watch (todo 5), todo 6, and the file-encoding warning read on Oak's
      SonarCloud project.
 - **Claims.** `a811ef22-6735-4306-bf57-4f29adaac9b7` holds `reunify-oce-forks`.
+- **Since that section (2026-11-12 ~13:0xZ).** #408 landed at `0c197db22` by the door as a
+  records-class change, and it proved the docs-only skip live: `change-scope` read
+  "docs_only=true: all 2 changed paths", `browser-tests` was skipped and `run-quality-gates`
+  passed. `reunify-oce-forks` was pushed to Oak at the same commit, and every check on
+  oaknational#1023 passes there, the SonarCloud gate included.
+- **The owner, 2026-11-12, verbatim:** "PR 397 will merge before we merge back to Oak". #397 is
+  the owner's own research pull request. After it lands, fast-forward and push
+  `reunify-oce-forks` again before reporting ready.
+- **The owner, 2026-11-12, verbatim:** "VoiceOver checks for web apps are an ambition, not a
+  requirement, and currently that work is not scheduled." ADR-213's third owner gate and the
+  wrapped-widget accessibility checklist carry it.
