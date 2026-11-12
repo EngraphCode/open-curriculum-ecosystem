@@ -9,7 +9,7 @@ at the owner's word, given with the last of the related results:
 > how to get where we want to be. Please reflect deeply on all of it, using all appropriate
 > skills, then suggest next steps
 
-This is a reflection and a set of suggestions for the joint review. It is not the deep
+This is a reflection and a set of suggestions for the review of the collection. It is not the deep
 comparison the owner names, and it is not a design. It was run as a concept exploration (four
 movements, alternating reflection and reasoning), with the `reason` skill's two gates applied
 to the suggestions.
@@ -105,7 +105,7 @@ table is the thing the deep comparison should replace with measurements.
 | Deliver guidance to the acting agent | Rule adapters, the skill listing, start-right | The platform, at session open | One trial (D): pointer present, file not opened. Otherwise unmeasured |
 | Fire at the moment of the act | Recall; a few hooks, gates and lint rules | The agent, except where code fires | Two archive syntheses, confounded with the row above |
 | Check the frame of the work | Cricket, the step-back skills | The owner, in eight of ten classes of recorded catch (D) | Read, from about seventy recorded catches |
-| Show a lesson changed anything | Six records; with-and-without skill suites for 20 of 78 skills | Whoever remembers to read them | Observed 2026-11-12; one suite run on record |
+| Show a lesson changed anything | Six records; with-and-without skill suites for 16 of 78 skills | Whoever remembers to read them | Observed 2026-11-12; twenty suite runs on record, nineteen of them from September and unread here |
 | Revise or forget | Supersession; folding; nothing keyed to evidence | An agent at consolidation | Read, from commit subjects |
 | Start the next round | Nothing in the repository | The owner | Observed 2026-11-12 |
 
@@ -160,7 +160,7 @@ In order. Each names what warrants it and what would show it wrong. None is begu
    of another family, or the owner's own read, is the independent check C and D both say is
    missing. *Warrant:* C's verdict 7; D's reading of the Cricket tallies. *Falsifier:* the
    other reader finds nothing the same-model reviews had not.
-4. **At the joint review, order the lanes by dependency.** My reading: stepping back inside a
+4. **At the review of the collection, order the lanes by dependency.** My reading: stepping back inside a
    task (the Attendant's next step, which has an opener and scenarios ready) comes before
    self-started refinement, because D shows that guidance produced between tasks still has to
    be delivered and to fire, and that is the unsolved part. A self-started pass whose first

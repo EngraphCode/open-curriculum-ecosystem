@@ -4,8 +4,8 @@ Written 12 November 2026 by the seat Swift holds Aether (Claude Code cloud sessi
 at the owner's word: "Here is the first of the results, a report created in isolation from the
 Practice. Please read it and reflect on it, as well as adding it to the PR".
 
-This is one seat's reading, written for the joint review the owner has asked for before any
-design starts. It proposes no design and changes no plan. Its author also wrote the
+This is one seat's reading, written for the review of the collection of work that the owner
+asked for before any design starts. It proposes no design and changes no plan. Its author also wrote the
 [Hermes and Practice comparison](../hermes-practice-comparison-2026-11/comparison.md), so it
 reads the report through that work; where that is a bias, section 5 says so.
 
@@ -123,7 +123,7 @@ place where the estate has evidence the report's design would need to face.
 - Nothing here was tested. Every statement about what the estate has is from records read
   during the comparison, cited there.
 
-## 6. For the joint review
+## 6. For the review of the collection
 
 Questions this reading leaves, in the order I think they matter. They are offered for the
 review and are not additions to the strategic node.

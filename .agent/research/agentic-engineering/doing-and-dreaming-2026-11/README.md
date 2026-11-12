@@ -1,18 +1,19 @@
-# Doing and Dreaming: readings for the joint review
+# Doing and Dreaming: the collection, and its review
 
-Readings, a reflection and one trial, by the seat that wrote the Hermes and Practice
-comparison, on research results the owner supplied on 12 November 2026. All are for the joint
-review the owner asked for before any design starts. None proposes a design.
+Readings, a reflection, two trials and a sort, by the seat that wrote the Hermes and Practice
+comparison, on research results the owner supplied on 12 November 2026; and the review of the
+whole collection that the owner asked for before any design starts. None proposes a design.
 
 | Document | What it is |
 | --- | --- |
+| [`review-of-the-collection.md`](review-of-the-collection.md) | **Start here.** The review the owner delegated: what the collection establishes and how each finding is known, where its pieces disagree, which claims were wrong or weaker than written and what was corrected, what nobody looked at, and whether it is enough to start design. Two readers who wrote none of it sorted the rules again and recomputed the numbers |
 | [`reflection.md`](reflection.md) | The reflection the owner asked for on the report "Doing and Dreaming", set against the Practice's own records |
 | [`reading-the-loop-baseline.md`](reading-the-loop-baseline.md) | A reading of the loop-engineering baseline (pull request 403) for what it bears on the comparison and on the strategic node |
 | [`delivery-trial.md`](delivery-trial.md) | The first measurement the reflection suggested, run at the owner's word: ten headless sessions, and which of the estate's 124 rules each one opened. Rules were opened by name; rules about how to think were mostly not |
 | [`rules-sort/`](rules-sort/README.md) | A sort of the 124 rules that followed from the trial (90 tied to a named activity, 28 habits of mind, 6 pointers) with five other ways of grouping them; then, widened at the owner's word, the 246 pattern files and what becomes of them, the 78 skills measured the same way, and what a rule and a skill are each good for. Tables beside each finding so the counts can be redone |
 | [`habit-text-trial.md`](habit-text-trial.md) | The test the rules sort named, run at the owner's word: the 28 habit instructions delivered as text to the same ten sessions, with the unchanged clone run again beside them and the 30 answers marked by a reader blind to condition. The text was taken up (a goal-and-scope block in both treatment answers to one planning task and in no control) and no conclusion changed; design and prediction were written before the run |
 | [`claude-code-rules-and-skills-loading.md`](claude-code-rules-and-skills-loading.md) | How Claude Code loads rules and skills and where its size thresholds are, from Anthropic's documentation by a sub-agent at the owner's request, with this seat's reading of what it means here: both rules and skills reach a session as pointers, so the platform's protections apply to the pointer and not the text |
-| [`where-we-are.md`](where-we-are.md) | **Start here.** A reflection across all four pieces of related work, written when the owner supplied the last of them: what they say together, what reflection changed, a first sketch of where the estate stands on self-governance and self-improvement, and six suggested next steps |
+| [`where-we-are.md`](where-we-are.md) | A reflection across all four pieces of related work, written when the owner supplied the last of them: what they say together, what reflection changed, a first sketch of where the estate stands on self-governance and self-improvement, and six suggested next steps |
 
 **Where the report is.** The owner's report is kept once, as received, at
 [`../loop-engineering-governance-2026-11/owner-reports/doing-and-dreaming.md`](../loop-engineering-governance-2026-11/owner-reports/doing-and-dreaming.md)
@@ -29,4 +30,5 @@ against the field's sources; and `reading-the-loop-baseline.md` here on where th
 These are inputs to the strategic node
 [`self-starting-practice-refinement`](../../../plans/strategic/self-starting-practice-refinement.plan.md).
 By the owner's word no design phase starts until the other results have arrived and all the
-work has been reviewed together.
+work has been reviewed together. The results arrived on 12 November 2026 and the review is the
+first document in the table above.

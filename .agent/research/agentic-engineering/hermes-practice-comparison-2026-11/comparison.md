@@ -34,6 +34,18 @@ scoring of a skill's text, has a held-out comparison and no path to a decision. 
 counterpart, skill evaluation suites, has a path to a decision and, on its one recorded use, a
 baseline that could discriminate nothing. Each has the half the other lacks.
 
+**Corrected on 12 November 2026 by the
+[review of the collection](../doing-and-dreaming-2026-11/review-of-the-collection.md).** This
+document said that 20 of 78 skills carry an evaluation suite and that the suites had one
+recorded use, on 27 October. Both were wrong. Sixteen canonical skills carry a suite. The
+repository also holds nineteen recorded runs from 27 and 28 September across five skills, each
+with a written reading, which this comparison did not find. In the two readings opened for the
+review, some cases passed with the skill and failed without it. So "on its one recorded use, a
+baseline that could discriminate nothing" describes the October run only, and the contrast
+with Hermes drawn from it in sections 5 and 6.3 is weaker than written. The two counts are
+corrected in sections 2.2 and 6.3. The argument of sections 2.3, 5 and 6.3 is left as it was
+written and is to be read with this note.
+
 ## 0. Method
 
 **Frame.** The brief's verdict stands as written: goal, scope and exclusions are in
@@ -167,7 +179,7 @@ first-hand. This table is the centre of the document.
 | **The recurrence ledger**: lessons that recurred after they had a home, routed at each dedicated consolidation by a skill step (`consolidate-docs`, lines 271 to 282) into a design-space plan | A dedicated consolidation | Four blocks, dated 2026-07-06, 07-30, 09-02 and 09-16 | The plan's six todos are all `pending`; its last commit is dated 2026-09-25. One instrument was built outside the plan on the same evidence (section 2.3) |
 | **Archive synthesis**: recurrence counted across napkin archives by a staged engine | An owner-launched consolidation | 2026-09-02; eight napkin archives are dated after it | PDR-098 gained an evidence section; one pattern file graduated |
 | **The review-cost ledger**: one row per pull request with the cost gate's verdict beside a seat's judgement of where the review loop should have stopped (`.agent/memory/operational/review-cost-ledger.md:19-21`) | Each session's wrap | 2026-11-10 | The gate's weights "change only against this ledger". Its weight-changes table holds one row, the initial policy of 2026-09-12 |
-| **Skill evaluation suites**: behavioural cases run with and without the skill's text (`agent-tools/src/skill-evals/`) | Whoever runs the suite; 20 of 78 canonical skills carry one | One recorded run, 2026-10-27 | One pull request closed on it (section 2.3) |
+| **Skill evaluation suites**: behavioural cases run with and without the skill's text (`agent-tools/src/skill-evals/`) | Whoever runs the suite; 16 of 78 canonical skills carry one | Nineteen runs kept beside five skills, 2026-09-27 and 09-28; one more recorded in the napkin, 2026-10-27 | One pull request closed on the October run (section 2.3). What the September runs decided was not read |
 
 Hermes's runtime has no row to set beside any of these. Its offline repository has one, and
 section 5 sets it beside the last.
@@ -469,7 +481,7 @@ each is for a plan to take up.
   passes nothing.
 - **The effect it expects to change.** A later agent reviewing a skill spends "dollars, not
   seat-hours" (`napkin.md:1032-1033`) and knows what the number can show.
-- **What it does not cover.** 58 of 78 canonical skills carry no suite, and rules carry none.
+- **What it does not cover.** 62 of 78 canonical skills carry no suite, and rules carry none.
 
 ### 6.4 Give the recurrence ledger a disposition for each class
 

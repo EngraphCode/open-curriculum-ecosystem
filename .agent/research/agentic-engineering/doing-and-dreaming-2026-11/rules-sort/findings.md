@@ -117,9 +117,12 @@ seat in one context, which the skill calls emulated and not protected.
   about the frame of the work (its classes 1 to 8), a claim that outran what was looked at
   (class 9), an operating practice not followed (class 10).
 - **Sort.** Operating practice, 89. Frame, 22. Claim, 13.
-- **What it shows.** The owner's catches are mostly about the frame, and the rule set is
-  mostly about operating practice: 22 rules for the kind of error the owner catches most. Of
-  those 22, 16 are habit rules, and 13 of the 16 have no marker.
+- **What it shows.** Eight of the ten classes of owner catch concern the frame, and the rule
+  set is mostly about operating practice: 22 rules for those eight classes. Of those 22, 16
+  are habit rules, and 13 of the 16 have no marker. This counts classes and not catches. The
+  Attendant research gives no count of catches by class; its one sample, a pilot's twenty rows,
+  had twelve in the class for operating practice. An earlier wording here said the owner's
+  catches are mostly about the frame, which that research does not support.
 - **What it hides.** Catches nobody recorded, and operating failures the owner never needed to
   catch because a gate did.
 
@@ -154,7 +157,7 @@ seat in one context, which the skill calls emulated and not protected.
   Which are already held by code other than the nine found by name in the hook policy: a lint
   rule or a commit guard enforces some without naming them. And the sibling estate's rules.
 
-## What this suggests, for the joint review
+## What this suggests, for the review of the collection
 
 Not designs. Each could be tested cheaply and each has a result that would count against it.
 
@@ -175,7 +178,17 @@ Not designs. Each could be tested cheaply and each has a result that would count
 ## Limits
 
 - Sorted from descriptions by one reader. A rule whose description undersells its body is
-  mis-sorted. No second reader has checked a row.
+  mis-sorted.
+- A second reader has since sorted all 124 without sight of this sort, from the same names and
+  descriptions and the three definitions alone: [`second-sort.tsv`](second-sort.tsv). The two
+  agree on the kind of 112 of 124 rules (Cohen's kappa 0.76). The second reader found 92
+  activity rules, 27 habits and 5 pointers. Twenty-two rules are habits by both, 33 by either,
+  and each of the six that only this sort calls a habit was the second reader's alternative.
+  On what could mark a rule's moment the two agree on 92 of 124 (kappa 0.65), and on whether
+  anything could on 103. Of the 22 habits by both, 19 have no marker by both. The second
+  reader's difficulty is a finding in itself: a standing constraint such as
+  `never-disable-checks` or `no-warning-toleration` is neither a habit of mind nor tied to one
+  activity, and the three kinds have no place for it. The same model family made both sorts.
 - The three-way kind and the five markers are this seat's categories; a rule can fairly sit in
   two. Each was given one.
 - The mention count matches a rule's name as a whole word in napkin files only. Thread records,

@@ -35,7 +35,7 @@ leaves what was done.
 | 4b. Skills, measured as the rules were | [`skills.tsv`](skills.tsv), [`rule-date-lines.tsv`](rule-date-lines.tsv) | Done. The `family` column of `skills.tsv` is unreliable and should be ignored |
 | 4c. What a rule and a skill are each good for | [`rules-and-skills-use.md`](rules-and-skills-use.md) | Done, `provisional`: the platform's account, the estate's doctrine, and where practice departs from both |
 | 4d. The scripts behind the tables | [`instruments.md`](instruments.md) | Done: kept as text at the session's wrap |
-| 5. A second reader's check of the sort | — | Not done |
+| 5. A second reader's check of the sort | [`second-sort.tsv`](second-sort.tsv) | Done: all 124 sorted again by a reader without sight of the first sort. Agreement on kind for 112 of 124; the comparison is in the limits of [`findings.md`](findings.md) |
 | 6. The test that frame 6 names (deliver the 28 habit instructions as text and re-run the delivery trial) | [`../habit-text-trial.md`](../habit-text-trial.md) | Done at the owner's word ("Carry out the test."). The delivered text was taken up in form (one instruction separated treatment from both controls; two other signs) and no conclusion changed; the tasks were at the ceiling |
 
 `classification.tsv` columns: `kind` is A for a named activity, H for a habit of mind, M for a

@@ -115,7 +115,7 @@ So a pattern acts on a session only if the agent goes looking, in an index of 24
 it has already recognised as one for looking. For an anti-pattern that is the wrong way
 round: the 79 anti-patterns describe failures a seat does not know it is in.
 
-## What this suggests, for the joint review
+## What this suggests, for the review of the collection
 
 Not designs. The owner's ruling of the same day gives the first one its shape: rules and
 skills "must describe current requirements, not the evolution that arrived at them".

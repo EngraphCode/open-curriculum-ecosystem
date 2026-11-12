@@ -120,7 +120,7 @@ Four departures follow from the table.
    rules by file name and skills by description. The descriptions of everything, rules and
    skills together, come to 79,691 characters. The bodies come to 2.18 million.
 
-## 5. What this suggests, for the joint review
+## 5. What this suggests, for the review of the collection
 
 Not a design. One sorting question, asked of each rule and each skill, with where each answer
 leads.
@@ -144,5 +144,7 @@ file as one home for that evidence.
 - "Carries a date" is a proxy for history. No rule or skill was read line by line for it.
 - The count of 16 skills with evaluations is by directory beside the canonical file; an
   earlier count in this strand, made by path pattern, gave 20.
-- Section 3 is one seat's reading. The test that would check its first claim, delivering the
-  habit rules as text, has not been run.
+- Section 3 is one seat's reading. The test of its first claim, delivering the habit rules as
+  text, was run after this was written: [`../habit-text-trial.md`](../habit-text-trial.md). The
+  delivered text was taken up in one planning task and not in another, and no conclusion
+  changed.

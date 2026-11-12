@@ -135,8 +135,10 @@ those.
 
 ## Reading
 
-1. **Text in context is used; a pointer is not.** The treatment's visible changes are each a
-   delivered instruction being followed or cited. The Goal and scope block is the instruction
+1. **For a habit rule, text in context was used where a pointer was not opened.** The
+   delivery trial showed that pointers to activity rules are opened by name, so this is a
+   statement about habit rules only. The treatment's visible changes are each a delivered
+   instruction being followed or cited. The Goal and scope block is the instruction
    carried out almost to the letter. This is the result frame 6 said would count for it: the
    pointer was the wrong unit for these rules.
 2. **It changed form, not judgement.** No conclusion moved. Whether a goal-and-scope block

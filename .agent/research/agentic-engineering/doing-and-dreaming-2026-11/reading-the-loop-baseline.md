@@ -1,4 +1,4 @@
-# Reading the loop-engineering baseline for the joint review
+# Reading the loop-engineering baseline for the review of the collection
 
 Written 12 November 2026 by the seat Swift holds Aether (Claude Code cloud session `01Duocji`).
 The owner supplied the baseline's summary with the words "Here is the next set of results"; it
@@ -16,8 +16,8 @@ the paper readings and the two commissioned reports were not read; every row cit
 status is `provisional`, and it says every review of it was by the same model that wrote it.
 
 **A boundary crossed on purpose.** The baseline holds to its own terms and makes no comparison
-with the Practice. This file does make that comparison, because the joint review needs it and
-this seat holds the Practice-side evidence. Nothing here is the baseline's claim.
+with the Practice. This file does make that comparison, because the review of the collection
+needs it and this seat holds the Practice-side evidence. Nothing here is the baseline's claim.
 
 ## 1. What it changes in the comparison's proposal
 
@@ -38,7 +38,9 @@ proposal and strengthens a different candidate.
   evaluation a baseline that can discriminate. The baseline names that instrument as the
   field's one worked method for showing a lesson changed anything: "evaluate the same held-out
   work with the stored artefact available and with it switched off" (E-320). The Practice
-  already has it for 20 of 78 skills and has used it once.
+  already has it for 16 of 78 skills. It has used it more than this file first said: nineteen
+  runs across five skills are kept from September, beside the one of October that the
+  comparison cites.
 
 What follows for the review, and not for me to settle: whether the first experiment should be
 judged by a person reading its output, or by something it has to pass.
@@ -112,7 +114,7 @@ judged by a person reading its output, or by something it has to pass.
   Section 3, item 3 applies to all of it.
 - Section 1 is a judgement about my own earlier proposal and may overcorrect.
 
-## 6. For the joint review
+## 6. For the review of the collection
 
 Added to the five questions in [`reflection.md`](reflection.md), section 6:
 
