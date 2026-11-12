@@ -72,8 +72,17 @@ forward-asks remain.
   until the owner has pointed at the other sessions' merged results and all the work has been
   reviewed together. A seat arriving here does not begin the design. The first result arrived on
   2026-11-12: the owner's report "Doing and Dreaming", written in isolation from the Practice,
-  kept byte for byte at `.agent/research/agentic-engineering/doing-and-dreaming-2026-11/` with
-  the reflection the owner asked for beside it. More results are to come. The reflection leaves
+  with the reflection the owner asked for at
+  `.agent/research/agentic-engineering/doing-and-dreaming-2026-11/reflection.md`. The second
+  arrived the same day: the loop-engineering baseline (pull request 403, merged; `engraph` was
+  merged into this branch again at `d7b148cd4` to bring it in), with this seat's reading of what
+  it bears on at `reading-the-loop-baseline.md` in the same directory. The owner's report is
+  kept once, in the baseline's `owner-reports/`; this branch's byte-identical copy was removed.
+  That reading's main point for the review: the baseline's evidence makes a gate that reads a
+  proposed change weaker than a gate the change must pass, which favours the comparison's
+  skill-evaluation candidate (6.3) over its staged-pull-request proposal (6.2). It adds four
+  questions to the review. Whether more results are to come is the owner's to say. The
+  reflection leaves
   five questions for the joint review (its section 6): whether the estate means to forget;
   whether a learning pass may change the body or only the memory; whether distilled memory
   should have one writer; what a pass asks of its reviewer; and whether the experiment is
