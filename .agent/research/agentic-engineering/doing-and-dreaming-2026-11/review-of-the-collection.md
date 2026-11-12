@@ -370,8 +370,8 @@ writing a commit and writing a plan. In the delivery trial both sessions on the 
 opened the commit skill's file by path. So a description that selects its skill in isolation was not what
 selected it among the estate's full listing.
 
-Two checks this seat made directly, from the trial traces, which still exist in the session's
-scratch directory although the trial records say they were not kept:
+Two checks this seat made directly, from the trial traces. A record of each session drawn
+from them is now kept in [`trial-evidence/`](trial-evidence/README.md):
 
 - **Nothing was listed twice.** The owner's condition for replacing pointers with copied text
   is that nothing ends up loaded twice, "e.g. Claude loading skills from both .claude and

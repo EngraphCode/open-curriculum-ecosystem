@@ -211,5 +211,6 @@ with a copy of its clone beside it.
   mark shown or contradicted only with a quoted line; do not guess where the answers came from.
   The reader's marks were a table of label, instruction, mark and quote, 115 rows.
 
-The traces, the pack and the marks were scratch files and are not kept; the tables above are
-what was drawn from them.
+The pack, its key, the reader's marks and a record of each session are kept in
+[`trial-evidence/`](trial-evidence/README.md), scrubbed of machine paths and identifiers. The
+raw traces are not kept.

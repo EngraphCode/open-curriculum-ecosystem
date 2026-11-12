@@ -127,8 +127,8 @@ US dollars; both together 14.12.
 
 ## Instruments
 
-Kept as text because the results cite them. The traces were scratch files and are not kept;
-the table above is what was drawn from them. `<root>` is a working directory holding `clone/`,
+Kept as text because the results cite them. A record of each session, drawn from its trace,
+is kept in [`trial-evidence/`](trial-evidence/README.md); the raw traces are not. `<root>` is a working directory holding `clone/`,
 `tools/` and `traces2/`.
 
 `tools/tasks.txt` holds the five rows above as `id|task`.

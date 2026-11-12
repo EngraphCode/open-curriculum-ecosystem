@@ -37,6 +37,13 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-12, pull request 397 is merged** (`de0fba6fd`, by the seat, merge commit, after
+  nine review rounds; Swift holds Aether, Claude cloud session `01Duocji`). The branch
+  `claude/hermes-agent-brief-a0kjw3` is restarted from `engraph`. Its first commit keeps
+  the two trials' evidence (`doing-and-dreaming-2026-11/trial-evidence/`), the cure of the
+  last Codex finding on 397. Next on the same branch: the design plan's first todo, the
+  audit of the generator pipeline against its code. The raw traces stay in the session's
+  scratch directory and are lost with the container; what was drawn from them is tracked.
 - **2026-11-12, the design plan is ratified** (Swift holds Aether, Claude cloud session
   `01Duocji`). The owner's word, verbatim: "Ratified. I mean PR 397, but it will review all
   PRs. Leave the plan under the current node. Yes, update the platform citizenship ordering".

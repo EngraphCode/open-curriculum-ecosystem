@@ -7,7 +7,9 @@ Python's standard library, reads files and git history, and writes nothing but i
 table. Run from outside the repository with `python3 -I`, giving the repository root as the
 first argument where one is taken.
 
-What cannot be regenerated: the delivery trial's traces, which were scratch files. The trial
+What cannot be regenerated: the delivery trial's traces, which were scratch files; a record
+of each session drawn from them is kept in
+[`../trial-evidence/`](../trial-evidence/README.md). The trial
 can be run again from the driver kept in `../delivery-trial.md`; a second run is a new sample
 and not a reproduction. Everything else here regenerates from the repository at the commit a
 table was made on.
