@@ -409,6 +409,11 @@ alike today:
 | `GEMINI.md`, `.gemini/commands` | An entry file and 19 commands; no rules | Nothing |
 | `.github/copilot-instructions.md` | An entry file | Nothing |
 
+**Added the same day, after the review.** The Cursor row has since been answered from
+Cursor's documentation: [`cursor-rules-and-skills-loading.md`](cursor-rules-and-skills-loading.md).
+By that documentation Cursor loads skills from both `.agents/skills` and `.claude/skills`, so
+the estate's skills are discovered twice there. The other rows are still unanswered.
+
 So the platforms already receive different things. Twenty-eight rules that the estate calls
 `situational` are always-loaded pointers on Claude Code, because their adapters carry no path
 scope, and are not marked always-apply on Cursor. The first step of the definition is therefore to find out, from each vendor's
