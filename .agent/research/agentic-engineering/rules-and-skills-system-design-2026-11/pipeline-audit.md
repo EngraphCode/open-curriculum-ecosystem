@@ -330,7 +330,7 @@ the refused stream by the per-canonical check (`skills-adapter-generate/checker.
 
 | Command | Script | What it does | Writes | Wired at |
 | --- | --- | --- | --- | --- |
-| `pnpm portability:check` | `package.json:100` → `agent-tools/package.json:84` (tsx on source) | Skill canonical `classification` check; rule declarations read and four projections recomputed; sub-agent adapters recomputed; index byte budget; Claude hook wiring; Claude `Skill()` permission census (`validators/portability/validate-portability.ts:57-149`) | No | CI job `static-checks` (`.github/workflows/ci.yml:177-178`); `pnpm check` (`package.json:115`); `pnpm make` (`package.json:112`); pre-push through `pnpm check` (`.husky/pre-push:69-70`) |
+| `pnpm portability:check` | `package.json:100` → `agent-tools/package.json:84` (tsx on source) | Skill canonical `classification` check; rule declarations read and four projections recomputed; sub-agent adapters recomputed; index byte budget; Claude hook wiring; Claude `Skill()` permission census (`validators/portability/validate-portability.ts:57-149`) | No | CI job `static-checks` (`.github/workflows/ci.yml:177-178`); `pnpm check` (`package.json:115`); `pnpm make` (`package.json:112`); pre-push through `pnpm check` (`.husky/pre-push:69-70`); the `preflight` command of `agent-tools:claude-agent-ops`, which prints PASS or FAIL for it (`agent-tools/src/bin/claude-agent-ops.ts:163-167`) |
 | `pnpm portability:fix` | `package.json:103` → `agent-tools/package.json:85` (`--fix`) | The same run with `fixMode` true (`validate-portability.ts:53`): writes missing and drifted projections, removes stale regular files on the generated surfaces (`validators/portability/projection-drift.ts:79-102`) | Yes: `RULES_INDEX.md`, `.claude/rules/`, `.agents/rules/`, `.cursor/rules/`, the sub-agent adapter directories and the Codex registry's blocks (`validate-portability.ts:91-107`) | Nowhere; run by hand |
 | `pnpm skills:generate` | `package.json:105` (builds agent-tools, then the built bin with `--prefix=oak-`) | Discovers canonicals, removes stale entries of its own class, syncs carried files, writes both adapters (`skills-adapter-generate/generator.ts:83-130`, `:179-210`) | Yes: `.claude/skills/oak-*/`, `.agents/skills/oak-*/` | Nowhere; run by hand |
 | `pnpm skills:check` | `package.json:104` (`--check`) | Read-only comparison described in section 3 (`agent-tools/src/bin/skills-adapter-generate.ts:79-116`) | No tracked file; it runs `pnpm agent-tools:build`, which writes the untracked `agent-tools/dist` | CI job `static-checks` (`ci.yml:187-188`); `pnpm check` (`package.json:115`); pre-push through `pnpm check` |
@@ -341,10 +341,17 @@ the refused stream by the per-canonical check (`skills-adapter-generate/checker.
 | `pnpm agent-tools:context-cost` | `package.json:132` → `agent-tools/package.json:32` | For the globs given, prints characters and `ceil(chars / 4)` tokens per file and in total (`context-cost/tokenize-globs.ts:17-54`; `context-cost/tokenizer.ts:5-7`) | No | Nowhere |
 | `pnpm --filter @oaknational/agent-tools rule-frontmatter-sweep [--write]` | `agent-tools/package.json:86` | Mints frontmatter from a hand-kept index and adapters; described as a one-time "transplant instrument" (`rule-declarations/README.md:38-44`) | With `--write`: the canonical rule files | Nowhere |
 
-"Nowhere" in the last column means that a search of the root and `agent-tools` package
-scripts, `.husky/`, `.github/` and the non-test source under `agent-tools/src/` finds no
-caller (`git grep` for each command's name, run by the commissioning seat). A skill or
-document that tells an agent to run a command is not counted as a caller.
+The callers in the last column were first listed from the files the audit read, and two
+were missed. The column was then checked by the commissioning seat with one search: `git
+grep -F` for each command's script name and for the name of the file it runs, over every
+tracked file that is not Markdown, a test or a lockfile, leaving out each tool's own
+directory. That search found the two missed callers, now in the table (the commit skill's
+advisory run for `practice:fitness:strict-hard`, and `claude-agent-ops preflight` for
+`portability:check`), and no other. "Nowhere" means that search finds no caller. Three kinds
+of mention are not callers and are not listed: a skill or document that tells an agent to
+run a command; `.agent/family/typescript/practice-operations.json`, which names these scripts
+as the family's contract (lines 23-33 and 51-53); and `knip.config.ts:146-149`, which names
+the entry files.
 
 Further facts on wiring:
 
