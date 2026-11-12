@@ -36,7 +36,7 @@ leaves what was done.
 | 4c. What a rule and a skill are each good for | [`rules-and-skills-use.md`](rules-and-skills-use.md) | Done, `provisional`: the platform's account, the estate's doctrine, and where practice departs from both |
 | 4d. The scripts behind the tables | [`instruments.md`](instruments.md) | Done: kept as text at the session's wrap |
 | 5. A second reader's check of the sort | — | Not done |
-| 6. The test that frame 6 names (deliver the 28 habit instructions as text and re-run the delivery trial) | — | Not done. Authorised by the owner on 2026-11-12 ("Carry out the test."), then paused at the owner's word; first work on resuming |
+| 6. The test that frame 6 names (deliver the 28 habit instructions as text and re-run the delivery trial) | [`../habit-text-trial.md`](../habit-text-trial.md) | Done at the owner's word ("Carry out the test."). The delivered text was taken up in form (one instruction separated treatment from both controls; two other signs) and no conclusion changed; the tasks were at the ceiling |
 
 `classification.tsv` columns: `kind` is A for a named activity, H for a habit of mind, M for a
 pointer; `moment` is when in a session's life the rule applies; `protects` is who is harmed by
