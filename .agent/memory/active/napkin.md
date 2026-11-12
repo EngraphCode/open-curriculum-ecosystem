@@ -1830,3 +1830,16 @@ outside the repository. One instance each; scope is this session.
   and in this napkin's entry of 2026-11-10.
 - **What worked:** checking every quotation at its cited lines before each commit found seven
   ranges a few lines off across the two drafts, at a cost of one command.
+- **Correction (the owner, 2026-11-12: "that lack of loop automation is the biggest weakness in
+  the Practice as it stands today … almost all if it requires the user to instigate the
+  refinement and learning process"):** two drafts and a challenge pass had circled this without
+  stating it. The first draft saw that nothing starts the measures and proposed an alert; the
+  reviewer saw that alerts are seen and deferred and proposed asking the owner to reprioritise;
+  I took the reviewer's finding as the whole answer. Neither asked what starts each step. The
+  Hermes study's own table of writers and triggers had the column, and I had used it for Hermes
+  and not for the Practice. When one system's account has a column the other's lacks, fill the
+  column before comparing.
+- **Correction (the owner, the same message: "Note that Hermes code was run in prior
+  sessions"):** I wrote "no Hermes code was run" in a document and a pull-request description as
+  a fact about the world. It was a fact about the study and this session. A sentence about what
+  was not done needs its subject: who did not do it, and when.

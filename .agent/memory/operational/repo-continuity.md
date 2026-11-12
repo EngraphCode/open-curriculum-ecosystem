@@ -49,9 +49,14 @@ forward-asks remain.
   sentences so PDR-130's falsifier can be decided, and read the review-cost ledger against the
   gate's weights once. One challenge pass by a non-author reviewer refuted the first draft's
   recommendation (a readout line for review dates); section 8 of the document records what changed.
-  Open for the owner: whether the consolidation, due since 2026-10-19, now outranks the work
-  ordered ahead of it; and the one inference under the brief's frame, which the reviewer judged
-  imposed. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
+  The owner's response to the second draft (2026-11-12, verbatim in the brief and in section 8):
+  the lack of loop automation is the Practice's biggest weakness, since almost every refinement
+  step needs the user to start it; and Hermes code was run in prior sessions. The third draft
+  adds a table of what starts each step (none starts in code) and recommends one bounded trial:
+  a scheduled unattended seat that runs the consolidation's deciding step and stages its result
+  as a draft pull request, the three owed decisions as its first job. It is a proposal; no
+  trigger was created. Open: where the observations from the earlier Hermes runs are kept (none
+  was found in this repository or on the forks' remote branches). `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
   kept).
 
 - **2026-11-10T13:0xZ: the Hermes and Practice comparison is the next phase of this session, at the
