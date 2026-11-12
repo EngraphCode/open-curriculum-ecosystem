@@ -2039,6 +2039,12 @@ outside the repository. One instance each; scope is this session.
   documentation, present on Cursor: it reads `.agents/skills` and `.claude/skills` both, and
   the estate has the same 87 names in each. A cross-platform layout is checked from each
   platform's side, since one platform reads another's directories.
+- **Correction (the owner):** "I don't care about Cursor at all, the repo should be functional
+  in Cursor agent. That is all. Claude Code is the main concern, Codex is the secondary
+  concern, every else is reasonable efforts only". I chose Cursor for the pilot because its
+  adapters differed most, and spent 290,000 tokens on the platform the owner cares about
+  least. "Cross-platform" was the owner's word and I did not ask which platforms carry
+  weight. Before spending on one of several targets, ask which matter, or read it from use.
 - **The review of the collection is done** (`doing-and-dreaming-2026-11/review-of-the-collection.md`).
   "Joint review" is replaced everywhere but the ratified node, whose correction is the
   owner's; proposed text is in the review's section 9.

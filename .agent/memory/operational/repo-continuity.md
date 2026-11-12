@@ -74,6 +74,20 @@ forward-asks remain.
     the Claude session-start hook and the Cursor one can both run. The owner's condition that
     nothing is loaded twice is therefore unmet on Cursor today, by the present layout. Someone
     with Cursor open on this repository could confirm each in minutes.
+  - **The owner's priority among platforms** (2026-11-12, verbatim in the comparison's
+    `brief.md`): "Claude Code is the main concern, Codex is the secondary concern, every else
+    is reasonable efforts only", and of Cursor, "the repo should be functional in Cursor
+    agent. That is all." So Codex is the one platform still to research, with a narrow brief;
+    Gemini and Copilot are not researched; the Cursor note stands as a record and its double
+    loading matters only if it stops the repository working there. This supersedes the line
+    below.
+  - **Codex is done** (`doing-and-dreaming-2026-11/codex-rules-and-skills-loading.md`, report
+    beside it; documentation only). Codex has no mechanism that loads a rule's text: the model
+    gets the `AGENTS.md` chain (32 KiB), the skills listing (2 % of the window) and a hook's
+    output. `.agents/rules/` is read by nothing. Nothing is loaded twice. Three setup points:
+    the `RULES_INDEX.md` fallback setting does nothing; the 87 descriptions risk being
+    shortened; the identity hook does not match `compact`. With this the loading research for
+    the two platforms that matter is complete, and the next work is the definition itself.
   - **Codex, Gemini and Copilot are not started, and wait on the owner's price.** The Cursor
     pilot used 289,573 tokens. Three more at that depth is about 870,000, past the estate's
     line for a fleet whose design is reviewed before the owner prices it. A narrower brief
