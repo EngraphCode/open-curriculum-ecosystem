@@ -70,7 +70,10 @@ forward-asks remain.
   approve the node. We should wait for the other session inputs and review all work together
   before starting a design phase". This strand now waits on the owner: no design work starts
   until the owner has pointed at the other sessions' merged results and all the work has been
-  reviewed together. A seat arriving here does not begin the design. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
+  reviewed together. A seat arriving here does not begin the design. The first result arrived on
+  2026-11-12: the owner's report "Doing and Dreaming", written in isolation from the Practice,
+  kept byte for byte at `.agent/research/agentic-engineering/doing-and-dreaming-2026-11/` with
+  the reflection the owner asked for beside it. More results are to come. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
   kept).
 
 - **2026-11-10T13:0xZ: the Hermes and Practice comparison is the next phase of this session, at the
