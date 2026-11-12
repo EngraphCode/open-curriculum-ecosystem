@@ -142,8 +142,10 @@ those.
    delivery. The delivery trial showed that pointers to activity rules are opened by name,
    so this is a statement about habit rules only. The treatment's visible changes are each a delivered
    instruction being followed or cited. The Goal and scope block is the instruction
-   carried out almost to the letter. This is the result frame 6 said would count for it: the
-   pointer was the wrong unit for these rules.
+   carried out almost to the letter. This is the kind of result frame 6 said would count for
+   it, that the pointer is the wrong unit for these rules. It is one separating instruction
+   against the bar of two set beforehand, so the prediction of no clear difference stands
+   and this is a signal consistent with frame 6 and not a verdict for it.
 2. **It changed form, not judgement.** No conclusion moved. Whether a goal-and-scope block
    improves a plan was not measured, and a session that writes the block because it was told to
    has not thereby scoped better.
