@@ -94,7 +94,14 @@ forward-asks remain.
   opened with start-right; `delivery-trial.md`): six of ten sessions opened at least one rule,
   11 of the 124 rules were opened at all, and rules were chosen by file name, so rules about a
   named activity were found and rules about how to think were mostly not. The owner's own
-  words on the count: "we have far, far too many rules". A seat arriving
+  words on the count: "we have far, far too many rules". The owner then asked for the rules to
+  be sorted, with other groupings considered and everything recorded as it went:
+  `rules-sort/findings.md` in the same directory, with three tables beside it. The sort: 90
+  rules tied to a named activity, 28 habits of mind, 6 pointers. The 28 habit rules' own
+  one-line descriptions total 6,859 characters, less than the 9,931 that the 103 pointers cost
+  a session now; all 124 descriptions total 41,631, less than the largest single rule file.
+  Not done and waiting on the owner: a second reader's check of the sort, and the test of
+  delivering the 28 habit instructions as text and re-running the ten sessions. A seat arriving
   here must not open the Attendant's held-back scenarios or its scenario review unless it is
   certain it is not the seat for that lane's next step. The earlier reflection leaves
   five questions for the joint review (its section 6): whether the estate means to forget;
