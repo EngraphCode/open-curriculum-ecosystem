@@ -86,6 +86,17 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   That is all. Claude Code is the main concern, Codex is the secondary concern, every else is
   reasonable efforts only". So the rules and skills system is defined for Claude Code first
   and Codex second; Cursor and the rest need only to keep working.
+- 2026-11-12, on what the next work is, on review, on merging and on size: "Is the next work
+  defining the rule and skill system shape and mechanics and processes and build steps etc,
+  or the actual content of those rules and skills? I am expecting the former. Codex will
+  review the PR so it gets a second agent family at that point. I am happy for the current PR
+  to be merged once we have a plan for designing the improved system. In terms of size
+  limits, I don't want to push up against them, each rule, skill, and the combined total of
+  the relevant parts, should be well within the identified important thresholds: some
+  existing materials will be redundant or inappropriate or be better expressed more
+  succinctly, so I don't think we will have an issue establishing stricter budgets and
+  meeting them." The plan is the delivery node
+  `.agent/plans/delivery/rules-and-skills-system-design.plan.md`.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
