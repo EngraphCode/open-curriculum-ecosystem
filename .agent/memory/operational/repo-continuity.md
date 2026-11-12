@@ -101,7 +101,13 @@ forward-asks remain.
   one-line descriptions total 6,859 characters, less than the 9,931 that the 103 pointers cost
   a session now; all 124 descriptions total 41,631, less than the largest single rule file.
   Not done and waiting on the owner: a second reader's check of the sort, and the test of
-  delivering the 28 habit instructions as text and re-running the ten sessions. A seat arriving
+  delivering the 28 habit instructions as text and re-running the ten sessions. A side question
+  the owner put to a sub-agent is answered in `claude-code-rules-and-skills-loading.md`: by
+  Anthropic's documentation an unscoped rule's text is in context from the start and returns
+  after compaction, and an invoked skill's body is re-attached after compaction; in this estate
+  both arrive as a pointer to a canonical file, so those protections cover the pointer.
+  Measured: 13 of 78 canonical skills exceed about 5,000 tokens, and the pull-request lifecycle
+  skill, at 157,044 characters, exceeds what one read returns. A seat arriving
   here must not open the Attendant's held-back scenarios or its scenario review unless it is
   certain it is not the seat for that lane's next step. The earlier reflection leaves
   five questions for the joint review (its section 6): whether the estate means to forget;
