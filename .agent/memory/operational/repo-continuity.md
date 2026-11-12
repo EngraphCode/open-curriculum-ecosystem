@@ -73,7 +73,15 @@ forward-asks remain.
   reviewed together. A seat arriving here does not begin the design. The first result arrived on
   2026-11-12: the owner's report "Doing and Dreaming", written in isolation from the Practice,
   kept byte for byte at `.agent/research/agentic-engineering/doing-and-dreaming-2026-11/` with
-  the reflection the owner asked for beside it. More results are to come. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
+  the reflection the owner asked for beside it. More results are to come. The reflection leaves
+  five questions for the joint review (its section 6): whether the estate means to forget;
+  whether a learning pass may change the body or only the memory; whether distilled memory
+  should have one writer; what a pass asks of its reviewer; and whether the experiment is
+  mostly a clock joined to the three consolidation nodes. Two small things are with the owner:
+  the report's one figure did not arrive with its text (a placeholder line stands where it
+  was), and pull request 397 is left a draft until the owner says otherwise. The session's
+  lessons are in the napkin block of 2026-11-12, the two reviewers' findings and dispositions
+  in `comparison.md` section 8, and the pull request's row in the review-cost ledger. `engraph` was merged into the branch at `d2e5aa15c` (one napkin conflict, both sides
   kept).
 
 - **2026-11-10T13:0xZ: the Hermes and Practice comparison is the next phase of this session, at the
