@@ -88,6 +88,14 @@ forward-asks remain.
     the `RULES_INDEX.md` fallback setting does nothing; the 87 descriptions risk being
     shortened; the identity hook does not match `compact`. With this the loading research for
     the two platforms that matter is complete, and the next work is the definition itself.
+  - **The plan for the design exists as a sketch and waits on the owner's ratification**:
+    `.agent/plans/delivery/rules-and-skills-system-design.plan.md`. The owner confirmed the
+    work is the system (shape, mechanics, processes, build) and not the content, wants every
+    unit and total well inside the platforms' thresholds, and is "happy for the current PR to
+    be merged once we have a plan for designing the improved system". A readiness review found
+    nine corrections and all are applied. On ratification: stamp the node, bring the branch up
+    to date with `engraph`, and take pull request 397 out of draft. The node's first todo is
+    an audit of the present generator pipeline; nothing in it is started.
   - **Codex, Gemini and Copilot are not started, and wait on the owner's price.** The Cursor
     pilot used 289,573 tokens. Three more at that depth is about 870,000, past the estate's
     line for a fleet whose design is reviewed before the owner prices it. A narrower brief

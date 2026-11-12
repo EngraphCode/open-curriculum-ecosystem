@@ -2045,6 +2045,12 @@ outside the repository. One instance each; scope is this session.
   adapters differed most, and spent 290,000 tokens on the platform the owner cares about
   least. "Cross-platform" was the owner's word and I did not ask which platforms carry
   weight. Before spending on one of several targets, ask which matter, or read it from use.
+- **Correction (a readiness reviewer, on my plan sketch):** I wrote "Nothing in the build
+  compares any of it with a platform's size thresholds" an hour after recording that a
+  statement of absence is checked with a search. The portability validator checks the rules
+  index against Codex's 32 KiB limit. I also listed my own design choices under "the owner's
+  word or a measured fact", and gave my reason for the pointers where the owner had stated
+  theirs. The lesson recorded above did not fire at the next act; the reviewer did.
 - **The review of the collection is done** (`doing-and-dreaming-2026-11/review-of-the-collection.md`).
   "Joint review" is replaced everywhere but the ratified node, whose correction is the
   owner's; proposed text is in the review's section 9.
