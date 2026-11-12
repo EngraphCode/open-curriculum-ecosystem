@@ -341,6 +341,11 @@ the refused stream by the per-canonical check (`skills-adapter-generate/checker.
 | `pnpm agent-tools:context-cost` | `package.json:132` → `agent-tools/package.json:32` | For the globs given, prints characters and `ceil(chars / 4)` tokens per file and in total (`context-cost/tokenize-globs.ts:17-54`; `context-cost/tokenizer.ts:5-7`) | No | Nowhere |
 | `pnpm --filter @oaknational/agent-tools rule-frontmatter-sweep [--write]` | `agent-tools/package.json:86` | Mints frontmatter from a hand-kept index and adapters; described as a one-time "transplant instrument" (`rule-declarations/README.md:38-44`) | With `--write`: the canonical rule files | Nowhere |
 
+"Nowhere" in the last column means that a search of the root and `agent-tools` package
+scripts, `.husky/`, `.github/` and the non-test source under `agent-tools/src/` finds no
+caller (`git grep` for each command's name, run by the commissioning seat). A skill or
+document that tells an agent to run a command is not counted as a caller.
+
 Further facts on wiring:
 
 - All three fitness modes return 0. The code: "The exit code is always 0; the mode governs
@@ -457,7 +462,11 @@ constant carries no citation to a vendor page.
 | Surface root | `.claude/skills` or `.agents/skills`, or an ancestor, resolving outside the repository | `surface-roots.ts:45-49`; `checker.ts:133-136` | No |
 | Canonical-side symlink | A symlink or non-regular entry in a carried tree | `carriage-walk.ts:162-166` | No |
 
-### 5c. Every numeric threshold found in these modules
+### 5c. The numeric thresholds found in the files read
+
+Not exhaustive: section 9 lists the files of these modules that were not read line by line,
+and a threshold in one of them would not be here. The last row was added from a reviewer's
+finding and confirmed at its lines.
 
 | Value | Where | Compared against | Fails a build |
 | --- | --- | --- | --- |
@@ -468,6 +477,7 @@ constant carries no citation to a vendor page.
 | `CRITICAL_RATIO = 1.5` | `practice-fitness/model.ts:12` | a file's count over `hard limit × 1.5` | No (`run.ts:187-191`) |
 | `chars / 4` | `practice-fitness/model.ts:51-57`; `context-cost/tokenizer.ts:5-7` | token estimate | No |
 | per-file `fitness_line_target`, `fitness_line_limit`, `fitness_char_limit`, `fitness_line_length`, `fitness_token_target`, `fitness_token_limit` | read from each file's own frontmatter, `practice-fitness/evaluate.ts:68-84` | that file's lines, characters, longest prose line, estimated tokens | No |
+| per-buffer `fitness_item_count_target`, `_soft`, `_hard` and `fitness_item_dwell_target`, `_soft`, `_hard` (dwell in days) | read from a buffer file's own frontmatter, `practice-fitness/decision-debt.ts:94-109`; `.agent/memory/operational/pending-graduations.md:7-12` sets 0, 2, 3 and 2, 4, 7 | the count of live items in that buffer and how long each has waited | No |
 
 Limits named in a comment and checked nowhere: skill description at most 1,024 characters,
 `compatibility` at most 500 (`canonical-frontmatter.ts:24-28`).
