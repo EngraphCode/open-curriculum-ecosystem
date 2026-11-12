@@ -2032,6 +2032,13 @@ outside the repository. One instance each; scope is this session.
   without a pilot leg. They used 441,000, and 705,000 with a third. The estate's rule asks for
   a pilot before any fan-out; three single readers with different jobs is not a fleet, and
   the estimate was still wrong by more than half.
+- **What worked:** after the low estimate above, the next research was run as one pilot leg
+  (Cursor) before the other three platforms. It cost 289,573 tokens, which prices the rest at
+  about 870,000 and puts the decision with the owner before anything is spent.
+- **Surprise:** the double loading the owner named as a risk for Claude is, by Cursor's
+  documentation, present on Cursor: it reads `.agents/skills` and `.claude/skills` both, and
+  the estate has the same 87 names in each. A cross-platform layout is checked from each
+  platform's side, since one platform reads another's directories.
 - **The review of the collection is done** (`doing-and-dreaming-2026-11/review-of-the-collection.md`).
   "Joint review" is replaced everywhere but the ratified node, whose correction is the
   owner's; proposed text is in the review's section 9.

@@ -67,6 +67,18 @@ forward-asks remain.
     Cursor, Codex, Gemini and Copilot load the adapters the estate renders, from each vendor's
     documentation and the adapters themselves. The review's section 7 lists what each platform
     receives today and what the definition can and cannot yet rest on.
+  - **Cursor is done, as a pilot** (`doing-and-dreaming-2026-11/cursor-rules-and-skills-loading.md`,
+    with the sub-agent's report beside it). From documentation only, nothing observed in
+    Cursor: it loads skills from `.agents/skills` and `.claude/skills` both, so the estate's
+    87 skills are discovered twice there; `AGENTS.md` and `CLAUDE.md` are both always loaded;
+    the Claude session-start hook and the Cursor one can both run. The owner's condition that
+    nothing is loaded twice is therefore unmet on Cursor today, by the present layout. Someone
+    with Cursor open on this repository could confirm each in minutes.
+  - **Codex, Gemini and Copilot are not started, and wait on the owner's price.** The Cursor
+    pilot used 289,573 tokens. Three more at that depth is about 870,000, past the estate's
+    line for a fleet whose design is reviewed before the owner prices it. A narrower brief
+    (what is in context at the start for each kind of adapter; which directories are read)
+    would cost less.
   - **Not to start** without the owner's word: the design of the node's experiment. The review
     is the report the node's order asked for; the owner has not yet answered it.
   - **Nothing runs under this seat** but the pull request subscription. The trial traces and
