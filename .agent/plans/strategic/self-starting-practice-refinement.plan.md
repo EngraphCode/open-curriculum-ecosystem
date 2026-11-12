@@ -135,6 +135,10 @@ Inputs the design step reads before it is written.
 - **The related research the owner named.** The owner will conclude those sessions, merge them
   and point at their results (settled item 3). This node does not guess which they are; their
   records are named here when the owner points at them.
+  - 2026-11-12, the first: the owner's report
+    [Doing and Dreaming](../../research/agentic-engineering/doing-and-dreaming-2026-11/README.md),
+    written in isolation from the Practice, with one seat's reflection beside it. More are to
+    come.
 - The comparison's proposal (section 6.2) and its limits (section 7). It is one input with one
   first-hand observation behind it, and it is not the design.
 - The three consolidation nodes above, and the curator role in PDR-081 and the `curator-pass`

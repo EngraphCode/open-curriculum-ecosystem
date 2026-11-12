@@ -116,6 +116,14 @@ sources without turning research notes into a second canon.
   — entry brief for the session that compares the Hermes study with the Practice: the owner's
   words, the inputs on both sides, and proposals for the session to test. It does not begin
   the comparison.
+- [hermes-practice-comparison-2026-11/comparison.md](./hermes-practice-comparison-2026-11/comparison.md)
+  — the comparison itself: what each system keeps, what starts each refinement step, the six
+  records the Practice keeps of whether a lesson worked, and the proposal that led to the
+  strategic node `self-starting-practice-refinement`.
+- [doing-and-dreaming-2026-11/](./doing-and-dreaming-2026-11/README.md)
+  — the owner's report on periodic learning for agents in a repo, written in isolation from
+  the Practice, with one seat's reflection on it; the first of the research results the
+  strategic node `self-starting-practice-refinement` waits on.
 - [cross-lane-direction-survey.md](./cross-lane-direction-survey.md) —
   Slice C umbrella: re-reads direction-of-travel evidence (Slice A
   governance projects, Slice B practice-methodology primitives,
