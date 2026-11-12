@@ -141,8 +141,14 @@ Inputs the design step reads before it is written.
   - 2026-11-12, the second: the loop-engineering baseline
     ([findings](../../research/agentic-engineering/loop-engineering-governance-2026-11/findings.md)),
     an own-terms account of loops in agentic systems that also reads the owner's report against
-    the field. One seat's reading of what it bears on here is beside the reflection. Whether
-    more are to come is the owner's to say.
+    the field. One seat's reading of what it bears on here is beside the reflection.
+  - 2026-11-12, the third, which the owner named as the final related work: the Attendant
+    Workflow's research step
+    ([findings](../../research/agentic-engineering/attendant-research-findings.md)), on why the
+    estate's step-back instruments only partly succeed and what can mark a moment without an
+    agent's recall.
+  - A reflection across all of these, with suggested next steps for the joint review, is at
+    [where we are](../../research/agentic-engineering/doing-and-dreaming-2026-11/where-we-are.md).
 - The comparison's proposal (section 6.2) and its limits (section 7). It is one input with one
   first-hand observation behind it, and it is not the design.
 - The three consolidation nodes above, and the curator role in PDR-081 and the `curator-pass`

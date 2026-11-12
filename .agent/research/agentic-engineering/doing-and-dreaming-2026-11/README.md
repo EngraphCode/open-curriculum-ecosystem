@@ -8,6 +8,7 @@ before any design starts. Neither proposes a design.
 | --- | --- |
 | [`reflection.md`](reflection.md) | The reflection the owner asked for on the report "Doing and Dreaming", set against the Practice's own records |
 | [`reading-the-loop-baseline.md`](reading-the-loop-baseline.md) | A reading of the loop-engineering baseline (pull request 403) for what it bears on the comparison and on the strategic node |
+| [`where-we-are.md`](where-we-are.md) | **Start here.** A reflection across all four pieces of related work, written when the owner supplied the last of them: what they say together, what reflection changed, a first sketch of where the estate stands on self-governance and self-improvement, and six suggested next steps |
 
 **Where the report is.** The owner's report is kept once, as received, at
 [`../loop-engineering-governance-2026-11/owner-reports/doing-and-dreaming.md`](../loop-engineering-governance-2026-11/owner-reports/doing-and-dreaming.md)
