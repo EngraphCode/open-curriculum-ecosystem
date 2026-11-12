@@ -137,8 +137,12 @@ Inputs the design step reads before it is written.
   records are named here when the owner points at them.
   - 2026-11-12, the first: the owner's report
     [Doing and Dreaming](../../research/agentic-engineering/doing-and-dreaming-2026-11/README.md),
-    written in isolation from the Practice, with one seat's reflection beside it. More are to
-    come.
+    written in isolation from the Practice, with one seat's reflection beside it.
+  - 2026-11-12, the second: the loop-engineering baseline
+    ([findings](../../research/agentic-engineering/loop-engineering-governance-2026-11/findings.md)),
+    an own-terms account of loops in agentic systems that also reads the owner's report against
+    the field. One seat's reading of what it bears on here is beside the reflection. Whether
+    more are to come is the owner's to say.
 - The comparison's proposal (section 6.2) and its limits (section 7). It is one input with one
   first-hand observation behind it, and it is not the design.
 - The three consolidation nodes above, and the curator role in PDR-081 and the `curator-pass`

@@ -133,9 +133,11 @@ sources without turning research notes into a second canon.
   records the Practice keeps of whether a lesson worked, and the proposal that led to the
   strategic node `self-starting-practice-refinement`.
 - [doing-and-dreaming-2026-11/](./doing-and-dreaming-2026-11/README.md)
-  — the owner's report on periodic learning for agents in a repo, written in isolation from
-  the Practice, with one seat's reflection on it; the first of the research results the
-  strategic node `self-starting-practice-refinement` waits on.
+  — two readings for the joint review that the strategic node
+  `self-starting-practice-refinement` waits on: a reflection on the owner's report "Doing and
+  Dreaming" against the Practice's records, and a reading of the loop-engineering baseline for
+  what it bears on the comparison and the node. The report itself is kept once, in the
+  loop-engineering directory.
 - [cross-lane-direction-survey.md](./cross-lane-direction-survey.md) —
   Slice C umbrella: re-reads direction-of-travel evidence (Slice A
   governance projects, Slice B practice-methodology primitives,

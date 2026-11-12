@@ -1,17 +1,27 @@
-# Doing and Dreaming: periodic learning for agents in a repo
+# Doing and Dreaming: readings for the joint review
 
-A report by the owner, dated 12 November 2026, and one seat's reflection on it.
+Two readings, by the seat that wrote the Hermes and Practice comparison, of research results
+the owner supplied on 12 November 2026. Both are for the joint review the owner asked for
+before any design starts. Neither proposes a design.
 
 | Document | What it is |
 | --- | --- |
-| [`report.md`](report.md) | The report as the owner supplied it, byte for byte (SHA-256 `37726eb5fc6737d868aeaad146a5ec27f606fa2e966b5b41f08bda94a24c3277`). It was written in isolation from the Practice: it does not describe this repository and was not written from its records. |
-| [`reflection.md`](reflection.md) | The reflection the owner asked for, by the seat that wrote the Hermes and Practice comparison. A reading for the joint review, and not a design. |
+| [`reflection.md`](reflection.md) | The reflection the owner asked for on the report "Doing and Dreaming", set against the Practice's own records |
+| [`reading-the-loop-baseline.md`](reading-the-loop-baseline.md) | A reading of the loop-engineering baseline (pull request 403) for what it bears on the comparison and on the strategic node |
 
-The report's one figure did not travel with the text: the line beginning "embedded content:
-learning loop" stands where it was.
+**Where the report is.** The owner's report is kept once, as received, at
+[`../loop-engineering-governance-2026-11/owner-reports/doing-and-dreaming.md`](../loop-engineering-governance-2026-11/owner-reports/doing-and-dreaming.md)
+(SHA-256 `37726eb5fc6737d868aeaad146a5ec27f606fa2e966b5b41f08bda94a24c3277`). This directory
+first held a second copy; it was compared byte for byte with that one and removed when the
+baseline merged. The report was written in isolation from the Practice. Its one figure did not
+travel with the text: the line beginning "embedded content: learning loop" stands where it was.
 
-The owner supplied the report on 2026-11-12 as "the first of the results" of the related
-research that the strategic node
-[`self-starting-practice-refinement`](../../../plans/strategic/self-starting-practice-refinement.plan.md)
-waits on. By the owner's word no design phase starts until the other results have arrived and
-all the work has been reviewed together.
+**Three readings of the one report now exist**, from different sides: `reflection.md` here
+against the Practice's records; the baseline's
+[`doing-and-dreaming-reading.md`](../loop-engineering-governance-2026-11/doing-and-dreaming-reading.md)
+against the field's sources; and `reading-the-loop-baseline.md` here on where those two meet.
+
+These are inputs to the strategic node
+[`self-starting-practice-refinement`](../../../plans/strategic/self-starting-practice-refinement.plan.md).
+By the owner's word no design phase starts until the other results have arrived and all the
+work has been reviewed together.

@@ -60,7 +60,11 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   node. We should wait for the other session inputs and review all work together before
   starting a design phase"
 
-- 2026-11-12, supplying the report kept at `../doing-and-dreaming-2026-11/`: "Here is the first
+- 2026-11-12, supplying the loop-engineering baseline (pull request 403, in
+  `../loop-engineering-governance-2026-11/`): "Here is the next set of results", followed by
+  that session's summary of its conclusions, limits and files
+- 2026-11-12, supplying the report "Doing and Dreaming" (kept at
+  `../loop-engineering-governance-2026-11/owner-reports/`): "Here is the first
   of the results, a report created in isolation from the Practice. Please read it and reflect
   on it, as well as adding it to the PR"; and, after the reflection: "Please make sure that all
   of that is recorded"
