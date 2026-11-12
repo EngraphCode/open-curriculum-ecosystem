@@ -60,6 +60,11 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   node. We should wait for the other session inputs and review all work together before
   starting a design phase"
 
+- 2026-11-12, supplying the report kept at `../doing-and-dreaming-2026-11/`: "Here is the first
+  of the results, a report created in isolation from the Practice. Please read it and reflect
+  on it, as well as adding it to the PR"; and, after the reflection: "Please make sure that all
+  of that is recorded"
+
 The second of those is the owner's own statement of what the comparison should bear on. It is
 later than the verdict below and outranks it where they differ; `comparison.md` section 8
 records what it changed.

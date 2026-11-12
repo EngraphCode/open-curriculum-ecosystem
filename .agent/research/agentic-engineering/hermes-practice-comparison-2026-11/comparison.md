@@ -609,6 +609,25 @@ convey our findings". This seat's reading of the condition: they are sufficient.
 are the six effect records, the table of what starts each step, the scored-loop contrast and
 the recommendation, and each stands on what is cited beside it.
 
+**The readiness review of the strategic node, 2026-11-12.** A second read-only reviewer was
+given the node's first sketch, the owner's commissioning words and the plan contract, and
+found it not ready. Its findings and what was done with each, kept here because the node
+itself carries no review record:
+
+| Finding | Disposition |
+| --- | --- |
+| The sketch made the design wait on a further owner word that the owner had not asked for, and recorded no gate for it | Accepted. Removed. The owner later set the order in person: inputs arrive, all the work is reviewed together, then design |
+| Three delivery nodes ratified on 2026-09-08 put automatic starting out of scope, and neither the node nor this document cited them | Accepted. Named in the node and in section 2.5 here. The owner then ruled that their constraint stands in general, with permission inside the experiment |
+| The bet settled three things the owner said should wait: a separate agent, a non-human start, results staged for the owner | Accepted. Moved into the node's open questions |
+| "No decision had been taken from any of them for four weeks" was contradicted by this document's own table | Accepted. Corrected here in the summary and section 6.1, and in the node |
+| The owner's "ceremony has been invented" was attached to the session-open alert | Accepted. Re-attributed here and removed from the node |
+| Rulings the owner gave for the Attendant were imported with a default on the owner's silence | Accepted. Listed in the node as inputs whose application is the owner's |
+| A seat's reading sat in the node's numbered list of what is settled | Accepted. Moved out of the list |
+| The outcome was wider than the commission | Accepted, and narrowed again after the owner's ruling on starting sessions |
+| "None by a clock, a counter or an event" contradicted the node's own mention of a session-start alert; and the fitness readout also runs inside `pnpm make` | Accepted. The node says nothing in the repository starts a step and does its work; section 2.5 here gained the `pnpm make` fact |
+| `serves: FRAME-1` and a separate strategic node are right | Confirmed |
+| Dated state and counts in the node that would age | Accepted. Replaced by citations to this document |
+
 **The owner's decision on section 6.2, 2026-11-12.** The trial is to be done, and its design
 waits for related research to feed in; the owner's words are in the brief. The strategic plan
 node `self-starting-practice-refinement` carries it from here. This document is not revised
