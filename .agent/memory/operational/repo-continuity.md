@@ -45,11 +45,17 @@ forward-asks remain.
   added to `agent-platform-citizenship`; the word recorded in the comparison brief;
   `engraph` merged into the branch; pull request 397 taken out of draft for Codex to review.
   Next: the plan's first todo, in a new pull request after 397 merges (audit the generator
-  pipeline against its code). Still the owner's: the wording in
-  `self-starting-practice-refinement` that says "joint review" (proposed text in the review
-  of the collection, section 9). The citizenship note's last sentence, that the ordering
-  does not by itself re-seat the Codex nodes paused on 2026-09-28, is this seat's reading
-  and was reported to the owner as such.
+  pipeline against its code). It needs no further word: the plan is ratified. The seat
+  merges 397 itself at green and clean, by the standing merge doctrine and the owner's
+  ask (merge-commit method through the session's GitHub connector, which acts under the
+  operator credential in a cloud session, as `cloud-environment.md` records). The
+  "joint review" wording in `self-starting-practice-refinement` is corrected. Nothing
+  waits on the owner. One item is the Director's: whether the Codex nodes paused on
+  2026-09-28 are seated again under the owner's platform ordering of 2026-11-12.
+  The unknowns as resolved through the decision lenses, none reaching the owner: the
+  Codex 32 KiB limit (per file or combined) is budgeted on the stricter combined reading
+  until the spike or a Codex seat observes it; the node's seven questions on the
+  self-starting experiment travel as cards when that design starts, not before.
 - **2026-11-12, third boundary record, at the owner's third compaction word** (Swift holds
   Aether, 01Duocji, solo cloud session; the seat stays live). Start here; the entry below
   holds the detail and is current.
