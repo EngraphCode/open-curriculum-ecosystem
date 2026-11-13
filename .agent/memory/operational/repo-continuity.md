@@ -42,8 +42,8 @@ forward-asks remain.
   audit) merged as `5584f3337`. Pull request 412 holds parts 1 to 3 of the design,
   `rules-and-skills-system-design-2026-11/design.md`, and the re-read of each threshold at
   its vendor page, `threshold-reread.md`. It is marked ready so that Codex reviews it, and
-  it is not to be merged before the owner answers: it proposes and decides nothing. Twelve
-  review threads are resolved at head `7f91b84de`.
+  it is not to be merged before the owner answers: it proposes and decides nothing. Fourteen
+  review threads were raised over six rounds and each is answered and resolved.
   - **The four questions**, each recorded with its recommendation in the design's
     "Questions for the owner". (1) The unit model: two kinds, instruction and procedure,
     each declaring a record and optionally a place, a check and a pair. (2) The rule for
@@ -52,7 +52,7 @@ forward-asks remain.
     this seat's choices. (3) The listing budget: 10,000 characters at the current default
     windows, or 4,000 at the smallest documented case. Neither holds all 87 skills at a
     useful description length, so either means fewer procedures listed than today.
-    (4) Always-present instructions: 8,000 bytes, about 3,400 tokens on a first call of
+    (4) Always-present instructions: 8,000 bytes, up to 4,000 tokens on a first call of
     about 39,400.
   - **How they were put.** The decision-card tool was called twice and both calls were
     closed by a worker restart, unanswered, so the questions went to the owner as prose. No
