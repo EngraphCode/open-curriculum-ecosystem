@@ -190,12 +190,14 @@ figure the first draft gave for T4 is not the vendor's. The re-read also changed
 the thresholds are taken at, which is the paragraph after the table. **Tokens and characters.** Several thresholds are in tokens, and a build can count characters
 exactly and tokens only by estimate. The repository's own estimate is four characters to a
 token. That is too generous to set a margin by, and the one measurement this work has is
-lower. In the habit-text trial, 6,859 characters of instruction took the place of 28 pointers
-and the first call grew by about 2,900 tokens, which is 2.4 characters to a token; taken
-between the extremes of the runs, the growth was 2,625 to 3,209 tokens, which is 2.1 to 2.6.
-So where a budget is set against a threshold in tokens, this design converts at **two
-characters to a token**, which is under the lowest ratio measured, and the spike measures the
-ratio for a sample of procedure text.
+lower. In the habit-text trial each of 28 pointers was replaced by a heading with the rule's
+name, its description and a line naming its record: 10,223 characters in place of 1,794, a
+net 8,429. The first call grew by about 2,900 tokens, which is 2.9 characters to a token;
+taken between the extremes of the runs, the growth was 2,625 to 3,209 tokens, which is 2.6 to
+3.2. That is one sample, of short prose. A procedure body with tables and code is denser. So
+where a budget is set against a threshold in tokens, this design converts at **two characters
+to a token**, which is under the lowest ratio measured with room for denser text, and the
+spike measures the ratio for a sample of procedure text.
 
 | # | Threshold | Value | Platform | Known how |
 | --- | --- | --- | --- | --- |
@@ -245,13 +247,13 @@ value.
 
 | Budget | Proposed | Against | Present measure |
 | --- | --- | --- | --- |
-| **B1** One instruction with no place | 300 characters | This seat's choice: no threshold. With B2 it allows about 26 instructions at full length, or more that are shorter | If the first sort's 28 habit rules were instructions as their descriptions state them: median 205, longest 793, and 7 over 300 |
-| **B2** All instructions with no place, together | 8,000 bytes | T8 at its stricter reading: under a quarter of 32 KiB, which is in bytes. Against T10 the cost is larger than the size suggests: 6,859 characters measured about 2,900 tokens net, so 8,000 bytes is about 3,400 tokens at the ratio measured and up to 4,000 at this design's conversion, 9 to 10 % of a first call | Those 28 descriptions total 6,859 characters, 6,891 bytes, and the 28 pointers they would replace total 1,794 characters. The 28 is a floor: standing constraints are not counted in it |
+| **B1** One instruction with no place | 300 characters | This seat's choice: no threshold. With B2, and the 120 bytes of name and record line the trial gave each, it allows about 28 instructions at full length, or more that are shorter | If the first sort's 28 habit rules were instructions as their descriptions state them: median 205, longest 793, and 7 over 300 |
+| **B2** All instructions with no place, together, counted as the bytes delivered: each instruction's text and whatever name, record line and format its projection adds | 12,000 bytes | T8 at its stricter reading: 37 % of 32 KiB, which is in bytes; with the root `AGENTS.md` as it is, 13,975, inside B7. Against T10: the trial's 10,255 bytes measured about 2,900 tokens net of the pointers they replaced, so 12,000 bytes is about 3,500 tokens at the ratio measured and up to 6,000 at this design's conversion, 9 to 15 % of a first call | The 28 descriptions alone total 6,859 characters, 6,891 bytes. As the trial delivered them, each with a heading and a record line, they total 10,223 characters, 10,255 bytes, and the 28 pointers they replace total 1,794 characters. The 28 is a floor: standing constraints are not counted in it |
 | **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
 | **B4** One procedure's description, with its `when_to_use` if it sets one | 256 characters | T3: a quarter. T2: a sixth. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
 | **B5** The listing as a platform carries it: every name and description in the repository's skill directories, each `when_to_use` where one is set, and on Codex every path | 10,000 characters at the current default windows; 4,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens: 10,000 tokens, about 20,000 characters at two to a token, and 10,000 is half of it. At a 200,000-token window the smallest is T5 at 4,000 tokens, about 8,000 characters, and 4,000 is half of it and half of each vendor's 8,000-character fallback | 42,370 across 87 skills, 78 the estate's and 9 vendor skills; no tracked skill sets `when_to_use` today, by a search of the three skill directories. A floor on what a session carries, and not a measure against T5: each trial session listed 118, and the 31 from outside the repository are not counted; Codex also lists each skill's path, and the 87 paths relative to the repository root add 3,700 characters, more if Codex lists them in full. What a Codex listing holds is for the spike's Codex leg to measure |
 | **B6** One procedure's body | 5,000 characters | T6: 5,000 tokens is about 10,000 characters at two to a token, and 5,000 is half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 51 are over 5,000 and 12 over 20,000 |
-| **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
+| **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The largest chain today is 2,653 bytes, the root file and the one under `demos/`. The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
 
 A record has no budget. It is not loaded. The 124 rule files hold 1,073,128 characters and
 the 78 skill bodies 1,065,154; how much of that is record is not counted.
@@ -267,7 +269,10 @@ has used more than ten is past the vendor's total.
 
 Three things follow and are stated plainly.
 
-1. **B2 is close to what the 28 habit descriptions already come to, and its cost is known.**
+1. **B2 is close to what the 28 habit instructions already come to, and its cost is known.**
+   As the trial delivered them they are 10,255 bytes, which an 8,000-byte budget would not
+   hold; with a heading and no record line they are about 7,800. How much a projection adds
+   to each instruction is part 4's to settle, and B2 counts whatever it adds.
    Delivering them as text was measured at about 2,900 tokens on a first call of about
    39,400. It is not free, and it does not shrink unless other pointers are removed, which is
    a question for part 4. The budget cannot be confirmed as enough until the content is
@@ -315,10 +320,14 @@ text each answer would put into the design is on its card.
    4,000 characters, which is inside every documented listing limit on both platforms and
    means about 12 listed procedures. Still not known, and stated on the card: the window of any Codex model but one, and
    whether the 31 skills from outside the repository draw on the same budget.
-4. **The budget for always-present instructions, B2.** Recommended: 8,000 bytes, with
-   the cost stated: up to 4,000 tokens on a first call of about 39,400, measured at 2,900 for
-   the 28 habit descriptions. It is a quarter of the Codex limit. It may prove too small once
-   standing constraints are counted, and the design would then come back with the count.
+4. **The budget for always-present instructions, B2.** Recommended: 12,000 bytes,
+   counted as delivered, with the cost stated: about 3,500 tokens at the ratio measured and
+   up to 6,000 at this design's conversion, on a first call of about 39,400. The 28 habit
+   instructions as the trial delivered them are 10,255 bytes and measured 2,900 tokens. It is
+   37 % of the Codex limit. The alternative is 8,000 bytes, which holds the 28 only with
+   shorter text or a projection that adds less than the trial's did. Either may prove too
+   small once standing constraints are counted, and the design would then come back with the
+   count.
 5. **Where the decisions are recorded once made.** Recommended: a Practice decision record
    for the model and the contracts. Where the budget numbers live is part 5's to propose.
 
@@ -328,7 +337,7 @@ A throwaway Node script, kept here as text and not as a tracked script, because 
 repository's source is TypeScript and its checks hold every tracked script to the estate's
 standard. The plan's first acceptance criterion asks for a script kept with the document
 that reproduces the table; this is that script. It reproduces every figure in the "Present
-measure" column, including the 6,891 bytes of the 28 habit descriptions, the 1,794 characters of their pointers, the 6,780 of the
+measure" column, including the 6,891 bytes of the 28 habit descriptions, the 10,255 bytes of the same 28 in the form the trial delivered, the 2,653 bytes of the largest `AGENTS.md` chain among tracked files, the 1,794 characters of their pointers, the 6,780 of the
 103 unscoped ones, the 1,612 of the names and the 3,700 of the relative paths. It does not
 compute the fractions in the "Against" column, which are arithmetic on those figures and on
 the thresholds, and it does not reproduce T10 or the measured cost of 2,900 tokens, which
@@ -336,7 +345,7 @@ come from the trials' session records. It reads whatever
 is on disk under the directories it walks and does not ask which files are tracked, so it
 reproduces these figures only in a clean checkout. It was run in one, from the repository root at commit `5584f3337`, as a copy placed
 in `agent-tools/` so that its import of the `yaml` package resolves. The reviewer of the
-first draft ran an earlier form of it at the same commit and got the same figures; five
+first draft ran an earlier form of it at the same commit and got the same figures; eight
 outputs were added since, at reviews' findings. Its median is the
 lower middle value. The habit rules are those marked `H` in the first sort
 of the rules,
@@ -347,7 +356,8 @@ Lengths are of parsed values, counted in characters.
 // Present measures of the estate's guidance against proposed budgets. Read-only.
 // Run from the repository root of a clean checkout, as a copy placed in agent-tools/ so that the `yaml` import resolves.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { execSync } from 'node:child_process';
 import { parse } from 'yaml';
 
 const chars = (s) => [...s].length;
@@ -357,7 +367,7 @@ const over = (xs, t) => xs.filter((x) => x > t).length;
 const walk = (d, out = []) => { for (const e of readdirSync(d)) { const p = join(d, e); statSync(p).isDirectory() ? walk(p, out) : out.push(p); } return out; };
 
 // Rules
-const rules = readdirSync('.agent/rules').filter((f) => f.endsWith('.md')).map((f) => { const t = readFileSync(join('.agent/rules', f), 'utf8'); const { data, body } = fm(t); return { name: f.slice(0, -3), classification: data.classification, globs: (data.globs ?? []).length, desc: chars(String(data.description ?? '')), descBytes: Buffer.byteLength(String(data.description ?? ''), 'utf8'), file: chars(t), body: chars(body) }; });
+const rules = readdirSync('.agent/rules').filter((f) => f.endsWith('.md')).map((f) => { const t = readFileSync(join('.agent/rules', f), 'utf8'); const { data, body } = fm(t); return { name: f.slice(0, -3), classification: data.classification, globs: (data.globs ?? []).length, descText: String(data.description ?? ''), desc: chars(String(data.description ?? '')), descBytes: Buffer.byteLength(String(data.description ?? ''), 'utf8'), file: chars(t), body: chars(body) }; });
 const sortFile = '.agent/research/agentic-engineering/doing-and-dreaming-2026-11/rules-sort/classification.tsv';
 const kinds = new Map(); if (existsSync(sortFile)) { const [h, ...rows] = readFileSync(sortFile, 'utf8').trim().split('\n').map((l) => l.split('\t')); const ni = h.indexOf('name'), ki = h.indexOf('kind'); for (const r of rows) kinds.set(r[ni], r[ki]); }
 const habit = rules.filter((r) => kinds.get(r.name) === 'H');
@@ -373,18 +383,24 @@ const pathChars = (root) => readdirSync(root).filter((d) => existsSync(join(root
 const adapterChars = (names) => names.reduce((p, n) => p + chars(readFileSync(join('.claude/rules', n + '.md'), 'utf8')), 0);
 const dirBytes = (d) => walk(d).reduce((p, f) => p + statSync(f).size, 0);
 const size = (f) => (existsSync(f) ? statSync(f).size : null);
+// The 28 habit instructions as the habit-text trial delivered them: a heading with the name, the description, and a line naming the record.
+const asDelivered = (r) => `# ${r.name}\n\n${r.descText}\n\nThe record behind this instruction is \`.agent/rules/${r.name}.md\`.\n`;
+// Every tracked AGENTS.md, and the largest total from the root to any directory that holds one.
+const agentsFiles = execSync('git ls-files', { encoding: 'utf8', maxBuffer: 1 << 28 }).split('\n').filter((f) => f === 'AGENTS.md' || f.endsWith('/AGENTS.md'));
+const chain = (f) => agentsFiles.filter((g) => dirname(g) === '.' || dirname(f) === dirname(g) || dirname(f).startsWith(dirname(g) + '/')).reduce((p, g) => p + statSync(g).size, 0);
 
 const out = {
   rules: { count: rules.length, core: rules.filter((r) => r.classification === 'core').length, situational: rules.filter((r) => r.classification === 'situational').length, withGlobs: rules.filter((r) => r.globs > 0).length,
     description: stats(rules.map((r) => r.desc)), descriptionOver: { 300: over(rules.map((r) => r.desc), 300), 400: over(rules.map((r) => r.desc), 400), 600: over(rules.map((r) => r.desc), 600) },
     file: stats(rules.map((r) => r.file)), fileOver: { 4000: over(rules.map((r) => r.file), 4000), 20000: over(rules.map((r) => r.file), 20000), 40000: over(rules.map((r) => r.file), 40000) } },
-  habitRules: { count: habit.length, descriptionBytes: habit.reduce((p, r) => p + r.descBytes, 0), claudeAdapterChars: adapterChars(habit.map((r) => r.name)), description: stats(habit.map((r) => r.desc)), over300: over(habit.map((r) => r.desc), 300), over400: over(habit.map((r) => r.desc), 400) },
+  habitRules: { count: habit.length, descriptionBytes: habit.reduce((p, r) => p + r.descBytes, 0), claudeAdapterChars: adapterChars(habit.map((r) => r.name)), asDeliveredInTrialChars: habit.reduce((p, r) => p + chars(asDelivered(r)), 0), asDeliveredInTrialBytes: habit.reduce((p, r) => p + Buffer.byteLength(asDelivered(r), 'utf8'), 0), description: stats(habit.map((r) => r.desc)), over300: over(habit.map((r) => r.desc), 300), over400: over(habit.map((r) => r.desc), 400) },
   pathScopedRules: { count: rules.filter((r) => r.globs > 0).length, file: stats(rules.filter((r) => r.globs > 0).map((r) => r.file)), description: stats(rules.filter((r) => r.globs > 0).map((r) => r.desc)) },
   skills: { count: canon.length, description: stats(canon.map((s) => s.desc)), descriptionOver: { 256: over(canon.map((s) => s.desc), 256), 512: over(canon.map((s) => s.desc), 512), 1024: over(canon.map((s) => s.desc), 1024) },
     body: stats(canon.map((s) => s.body)), bodyOver: { 5000: over(canon.map((s) => s.body), 5000), 7500: over(canon.map((s) => s.body), 7500), 10000: over(canon.map((s) => s.body), 10000), 20000: over(canon.map((s) => s.body), 20000), 100000: over(canon.map((s) => s.body), 100000) }, linesOver500: over(canon.map((s) => s.lines), 500) },
   listing: { claude: { skills: cl.length, descriptionChars: cl.reduce((p, x) => p + x.desc, 0), nameChars: nameChars(cl), nameAndDescriptionChars: listingCost(cl) }, agents: { skills: ag.length, descriptionChars: ag.reduce((p, x) => p + x.desc, 0), nameChars: nameChars(ag), nameAndDescriptionChars: listingCost(ag), relativePathChars: pathChars('.agents/skills') } },
   adapters: { claudeUnscopedRuleAdapterChars: adapterChars(rules.filter((r) => r.classification === 'core' || r.globs === 0).map((r) => r.name)), claudeRulesBytes: dirBytes('.claude/rules'), agentsRulesBytes: dirBytes('.agents/rules') },
   entry: { 'AGENTS.md': size('AGENTS.md'), 'CLAUDE.md': size('CLAUDE.md'), 'RULES_INDEX.md': size('RULES_INDEX.md'), '.agent/directives/AGENT.md': size('.agent/directives/AGENT.md') },
+  agentsChain: { files: Object.fromEntries(agentsFiles.map((f) => [f, statSync(f).size])), largestChainBytes: Math.max(...agentsFiles.map(chain)) },
 };
 console.log(JSON.stringify(out, null, 1));
 ```
@@ -393,10 +409,11 @@ Its output at that commit, abridged to the figures the table uses:
 
 ```json
 {"rules": {"count": 124, "core": 75, "situational": 49, "withGlobs": 21, "description": {"n": 124, "min": 42, "median": 265, "max": 1303, "total": 41630}, "descriptionOver": {"300": 52, "400": 42, "600": 13}, "file": {"n": 124, "min": 456, "median": 6818, "max": 60852, "total": 1073128}, "fileOver": {"4000": 93, "20000": 7, "40000": 3}}}
-{"habitRules": {"count": 28, "descriptionBytes": 6891, "claudeAdapterChars": 1794, "description": {"n": 28, "min": 58, "median": 205, "max": 793, "total": 6859}, "over300": 7, "over400": 4}}
+{"habitRules": {"count": 28, "descriptionBytes": 6891, "claudeAdapterChars": 1794, "asDeliveredInTrialChars": 10223, "asDeliveredInTrialBytes": 10255, "description": {"n": 28, "min": 58, "median": 205, "max": 793, "total": 6859}, "over300": 7, "over400": 4}}
 {"pathScopedRules": {"count": 21, "file": {"n": 21, "min": 1305, "median": 4249, "max": 10614, "total": 105886}, "description": {"n": 21, "min": 46, "median": 345, "max": 899, "total": 8432}}}
 {"skills": {"count": 78, "description": {"n": 78, "min": 37, "median": 429, "max": 1139, "total": 38060}, "descriptionOver": {"256": 57, "512": 38, "1024": 3}, "body": {"n": 78, "min": 646, "median": 7423, "max": 156546, "total": 1065154}, "bodyOver": {"5000": 51, "7500": 38, "10000": 30, "20000": 12, "100000": 1}, "linesOver500": 6}}
 {"listing": {"claude": {"skills": 87, "descriptionChars": 40758, "nameChars": 1612, "nameAndDescriptionChars": 42370}, "agents": {"skills": 87, "descriptionChars": 40758, "nameChars": 1612, "nameAndDescriptionChars": 42370, "relativePathChars": 3700}}}
 {"adapters": {"claudeUnscopedRuleAdapterChars": 6780, "claudeRulesBytes": 9931, "agentsRulesBytes": 8143}}
 {"entry": {"AGENTS.md": 1975, "CLAUDE.md": 57, "RULES_INDEX.md": 11876, ".agent/directives/AGENT.md": 14274}}
+{"agentsChain": {"files": {"AGENTS.md": 1975, "demos/oak-design-showcase/AGENTS.md": 678}, "largestChainBytes": 2653}}
 ```
