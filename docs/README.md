@@ -54,7 +54,8 @@ last_reviewed: 2026-08-30
 
 ### Development
 
-- [Root README Quick Start](../README.md#quick-start) — install, verify, and key commands for new contributors
+- [Root README Quick Start](../README.md#quick-start) — install and verify for new contributors
+- [Setup](engineering/setup.md) — prerequisites, the Windows (via WSL) path, and key commands
 - [CONTRIBUTING.md](../CONTRIBUTING.md) — development process, conventions, and quality expectations
 - [Development Workflow](engineering/workflow.md) - Complete lifecycle: branching, TDD, CI, review, merge, release
 - [Environment Variables](operations/environment-variables.md) - Complete setup guide

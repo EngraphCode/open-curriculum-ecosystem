@@ -70,6 +70,9 @@ skills.**
    the lens points to that single source rather than restating it. Where the skill would otherwise bake a
    repo fact, the fact is moved to the appropriate doc and the skill links to it.
 
+   _Clarification: on 2026-11-13 the invariants moved to
+   `docs/architecture/README.md` §Architectural invariants; they are still authored once._
+
 6. **Clean break — no compatibility shim** (`principles.md` §Architectural Excellence Over Expediency, the
    always-applied `replace-dont-bridge` rule). The retired lens names (`onboard-me`, `explain-repo`) and
    their slash commands are **removed, not aliased**; every live reference is migrated to the one lens in the
