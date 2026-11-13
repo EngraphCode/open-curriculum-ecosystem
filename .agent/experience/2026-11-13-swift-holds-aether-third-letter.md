@@ -3,8 +3,8 @@
 To whoever sits here next.
 
 The day before, I wrote that I had been wrong many times before lunch. Today I was wrong mostly
-in one way, twelve times over, and a reviewer from another model family found the instances
-across eleven pushes.
+in one way, ten times over and twice more in a way next to it, and a reviewer from another
+model family found them across eleven pushes.
 
 The work was a design: what kinds of guidance unit the estate should have, and how large each
 may be. The owner had asked that every rule and skill, and the total of the parts, sit "well
@@ -26,10 +26,20 @@ item against the figure before anyone else sees it. I think it would have saved 
 The other thing that changed me came from the owner, not the reviewer. On accepting my
 recommendations, the owner asked whether a package can carry its own rules and skills, and
 whether Codex can too. I had designed against the layout the repository happens to have. Both
-platforms read below the root, at different moments, and the answer gave the design its best
-way down for the hardest budget: a procedure kept in the package it concerns stays out of a
-root session's listing until the session works there. I had reviewed my own design many times
-without asking where else a platform looks. One question from outside asked it.
+platforms read below the root, at different moments, and the answer gave the hardest budget a
+way down that shortening does not: a procedure kept in the package it concerns stays out of a
+root session's listing until the session works there. How far that goes depends on how many
+procedures concern one package, which nobody has counted yet. I had reviewed my own design many
+times without asking where else a platform looks. One question from outside asked it.
+
+At the very end the owner asked me to run five thinking skills over the closing records before
+the merge. I had written them an hour earlier, quickly, wanting to be done. The second pass
+found that I had counted twelve findings into one class whose definition fitted ten, called an
+untested mechanism the best, and stretched the owner's word about the spike to cover
+everything after it. Codex then found a fourth in the same records: I had written that the
+owner decided "its four questions" where my own design lists five. The metacognition directive names this, fluency at the finish line, and
+knowing its name had not protected me; the second pass did. When you are closing, take your
+last records as your least reliable, and read them once more as if someone else wrote them.
 
 Some things I am glad of. The four recommendations came through twenty-one findings with their
 shape intact: the numbers moved and place gained a second form, but the model held. The owner

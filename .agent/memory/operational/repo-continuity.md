@@ -45,15 +45,25 @@ forward-asks remain.
   with 300, 4,000 and 256 characters as this seat's choices; a listing budget of 10,000
   characters; 12,000 bytes of always-present instructions, counted as delivered. Recorded in
   the design's "Questions for the owner", and the plan's second todo is marked done. Pull
-  request 412 carries these records and is merged by the seat at green and clean; the session
-  ends there, at the owner's word: "I have switched models to enable the session to continue
-  past an exhausted limit. Please review next steps. We will not begin the spike
-  automatically, this session concludes after merging the PR". Next, each only at the
-  owner's word and in a new session: the plan's third todo, the spike, whose Codex leg is the
-  owner's to run and which observes the points `nested-directories.md` finds undocumented;
-  then the fourth. Still open: the review-cost ledger's row for pull request 412 stops at its
-  eleventh reviewed head, and the next wrap adds the final head and the merge commit; the
-  Director's question in the entry below, on the Codex nodes paused on 2026-09-28.
+  request 412 carries these records, the session's own among them because this cloud session
+  can push only to its harness branch, and is merged by the seat at green and clean; the
+  session ends there, at the owner's word: "I have switched models to enable the session to
+  continue past an exhausted limit. Please review next steps. We will not begin the spike
+  automatically, this session concludes after merging the PR".
+  - **Next, in order.** The plan's third todo, the spike, starts only at the owner's word. Its
+    Codex leg is the owner's to run, and it observes the points `nested-directories.md` finds
+    undocumented. The fourth todo follows the spike; before its figures leave the work, check
+    each budget row by row against everything the platform counts and every limit it
+    applies, and each figure against the script's output (the napkin's entry of 2026-11-13
+    says why). The design of the experiment on self-starting refinement still waits for the
+    owner's word.
+  - **Still open.** The design's fifth question, where the decisions are recorded (recommended:
+    a Practice decision record), was not put to the owner and goes with the fourth todo's
+    questions. The review-cost ledger's row for pull request 412 stops at its twelfth
+    reviewed head; the next wrap adds the final head and the merge commit. The Director's
+    question in the entry below, on the Codex nodes paused on 2026-09-28. This lane's entries
+    below, from 2026-11-10 on, are history once 412 merges, and are for the next
+    consolidation to drain under §Disposition.
 - **2026-11-13, the owner accepts the four recommendations and holds them from final**
   (Swift holds Aether, Claude cloud session `01Duocji`). The owner's word: "I accept your
   recommendations, but before marking them final, please investigate nested/multiple .claude

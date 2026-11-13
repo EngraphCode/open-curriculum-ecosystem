@@ -2069,18 +2069,37 @@ outside the repository. One instance each; scope is this session.
   10,223 with headings and record lines, which is 2.9. Measure what was delivered, not what
   was meant to be. A reviewer found the margin twice and the delivered size once. Convert under
   the lowest ratio measured, and state the measurement beside the figure.
-- **Before offering a budget, list what the platform counts** (2026-11-13, pull request 412,
-  eleven reviewed heads). Each Codex round found one more thing a figure had not counted: the
-  unit (tokens, bytes), a field (`when_to_use`, paths), the delivered form (headings and record
-  lines), every file in a chain, every source that shares a listing, every total the vendor
-  states. Twelve of fifteen findings were that one class. Writing the rule down after the
-  first did not stop the next; a list per budget, checked once before the first push, would
-  have.
+- **Before offering a budget, check it row by row against the platform's accounting**
+  (2026-11-13, pull request 412, eleven reviewed heads). Of Codex's fifteen findings, ten were
+  a figure measured over something other than what the platform counts: the unit and its
+  conversion (tokens, bytes), a field (`when_to_use`, paths), the delivered form (headings and
+  record lines), every file in a chain, every source that shares a listing. Two more were a
+  threshold in the design's own table left with neither a budget nor a reason. Two were
+  figures the script did not emit, and one was a fault in the model. Writing the unit rule
+  down after the first finding did not stop the next. The check that would have: for each
+  budget, list what the platform counts and every limit that applies; then confirm the
+  script emits each figure, and that each promise in the contracts is backed by a budget or
+  narrowed.
 - **Enumerate every location a platform reads, not the layout the repository has** (2026-11-13).
   The design placed guidance only where the estate keeps it today, at the root. The owner
   asked whether a package can hold its own rules and skills: both platforms read below the
-  root, and placing a procedure in its package turned out to be the listing budget's best way
-  down. The question came from outside; the design's own review had not asked it.
+  root, and placing a procedure in its package gives the listing budget a way down that
+  shortening does not, if enough procedures concern one package, which nobody has counted.
+  Play seed, an association and not a finding: both model families reviewed what the design
+  said, and the omission in its frame came from the owner's question.
+- **The wrap's second pass found three overclaims in its first** (2026-11-13, at the owner's
+  request to run the cognition skills over the closeout records before the merge). The first
+  pass, written under the drive to finish, counted twelve findings into one class whose own
+  definition fitted ten, called an untested mechanism the listing's "best" way down, and wrote
+  "each only at the owner's word and in a new session" where the owner had spoken only of the
+  spike and of this session's end. Each is the metacognition directive's finish-line fluency,
+  and none was caught at the first pass. Corrected before the merge. Codex found a fourth on
+  the first pass's head: the records said "its four questions" were decided where the design
+  lists five, and the fifth had never been put to the owner. The same pass also left the
+  design saying its questions "are put as decision cards" after the card never arrived.
+- **Play seed, an association and not a finding** (2026-11-13): the session studied the gap
+  between what a rule says and what reaches the agent, and its own budget measured the meant
+  text rather than the delivered one. The subject recurred in the measuring of it.
 - **The decision-card tool can be closed by a worker restart** (2026-11-12, twice in one
   session; a third time on 2026-11-13). The call returns "not completed" with no answer and no refusal. Do not read it as
   a decline: record that no answer exists, put the questions in prose so they are not lost,
