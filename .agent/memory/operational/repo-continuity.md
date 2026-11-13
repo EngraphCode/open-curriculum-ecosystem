@@ -54,8 +54,7 @@ forward-asks remain.
   stale state." Standing for this lane: no Hermes code is run and nothing is written to either
   Hermes clone (the comparison's `brief.md`), and the design of the experiment on self-starting
   refinement waits for the owner's word (its node). The lane's entries of 2026-11-10 to
-  2026-11-13 are archived byte-identical in
-  `archive/repo-continuity-current-state-rules-and-skills-lane-2026-11-10-to-2026-11-13.md`.
+  2026-11-13 are in `archive/repo-continuity-2026-11-13.md`.
 
 - **2026-11-08T20:0xZ: the Attendant Workflow design brief is the next session's entry point**
   (Juniper seeks Pollen, 01Duoc, solo cloud session, the owner-interface directly). The owner's words

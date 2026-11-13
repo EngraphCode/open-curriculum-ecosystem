@@ -2178,6 +2178,25 @@ outside the repository. One instance each; scope is this session.
   the first job of the self-starting refinement trial (its section 6.2), which the owner
   endorsed on 2026-11-12 ("Yes, we should do that, absolutely") and whose node waits for other
   research before its design.
+- **An archive's header that says where each entry went is the ledger the rule forbids**
+  (2026-11-13, Codex on pull request 413's second head). The continuity directive prescribes
+  the archive of finished entries: the moved block, byte-identical, at
+  `archive/<surface>-YYYY-MM-DD.md`. This seat gave it a header listing each live item's home,
+  which is the disposition ledger `permanent-doc-is-the-consolidation-record` rejects, and
+  which also broke the byte-identity, since an archive's body is everything after its
+  frontmatter. Codex asked for the archive's removal; the directive keeps it, so the archive
+  is now the moved block alone under the directive's name. Read the governing directive and
+  the rule before writing an archive's first line.
+- **Under the owner's account, the harness footer is not the attribution the estate's rule
+  asks for** (2026-11-13). `identify-as-agent-under-shared-credentials` asks a post under a
+  human account to name the seat and the account, as "Agent-authored on behalf of
+  `jimCresswell` by <seat> (Claude Code)". Every pull request description and reply this seat
+  posted from 2026-11-10 carried only the harness's "Generated with Claude Code" line; it was
+  found while writing the replies on pull request 413. The descriptions of 395 to 413 now
+  carry the marker, placed before the harness footer, which must end the post. The earlier
+  review replies stand unmarked: the GitHub connector edits conversation comments and not
+  review comments, and a cloud session's `gh` is for search only. One read of pull request
+  bodies went through `gh api` before that was remembered.
 - **Play seed, an association and not a finding** (2026-11-13): the session studied the gap
   between what a rule says and what reaches the agent, and its own budget measured the meant
   text rather than the delivered one. The subject recurred in the measuring of it.

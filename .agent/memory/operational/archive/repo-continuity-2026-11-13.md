@@ -1,23 +1,3 @@
-# Repo continuity, the rules and skills lane's current-state entries of 2026-11-10 to 2026-11-13
-
-Moved byte-identical from `.agent/memory/operational/repo-continuity.md` §Current State on
-2026-11-13 by the seat that wrote them (Swift holds Aether, Claude cloud session `01Duocji`), at
-the session's close, after pull request 412 merged as `1caf7ca30`: the lane's twelve entries,
-from the Hermes and Practice comparison to the design's decision, cut whole from the file as it
-stood at `1caf7ca30` and compared byte for byte before the live file was written. Each live item
-in them was first confirmed in a permanent home: the owner's words in the comparison's
-`brief.md`, the owner's ruling against history in rules and skills among them; the rules on the
-Hermes clones in that brief's constraints; the session-start rule and the wait before the
-experiment's design in the node `self-starting-practice-refinement`; the Attendant's held-back
-file in that lane's thread record; the design, its decisions and its open items in
-`rules-and-skills-system-design-2026-11/`; the plan's state in its node; the three estate
-decisions past their dates that the comparison found, in `comparison.md` and the napkin. One
-observation found only here went to the Claude Code loading note: no trial session listed a
-skill twice. The entry below read it as Claude Code not loading `.agents/skills`, which the list
-cannot show; the note says so. The Director's question in these entries is stale: the owner,
-2026-11-13, of the Director: "doesn't exist and nothing is owed from the 28th, that's just stale
-state."
-
 - **2026-11-13, the four recommendations are final** (Swift holds Aether, Claude cloud
   session `01Duocji`). Asked, having read the investigation of nested directories, whether
   the four are final, the owner answered "Yes, I agree". Decided: two kinds of unit,
