@@ -312,7 +312,7 @@ A throwaway Node script, kept here as text and not as a tracked script, because 
 repository's source is TypeScript and its checks hold every tracked script to the estate's
 standard. The plan's first acceptance criterion asks for a script kept with the document
 that reproduces the table; this is that script. It reproduces every figure in the "Present
-measure" column, including the 1,794 characters of the 28 habit pointers, the 6,780 of the
+measure" column, including the 6,891 bytes of the 28 habit descriptions, the 1,794 characters of their pointers, the 6,780 of the
 103 unscoped ones, the 1,612 of the names and the 3,700 of the relative paths. It does not
 compute the fractions in the "Against" column, which are arithmetic on those figures and on
 the thresholds, and it does not reproduce T10 or the measured cost of 2,900 tokens, which
@@ -341,7 +341,7 @@ const over = (xs, t) => xs.filter((x) => x > t).length;
 const walk = (d, out = []) => { for (const e of readdirSync(d)) { const p = join(d, e); statSync(p).isDirectory() ? walk(p, out) : out.push(p); } return out; };
 
 // Rules
-const rules = readdirSync('.agent/rules').filter((f) => f.endsWith('.md')).map((f) => { const t = readFileSync(join('.agent/rules', f), 'utf8'); const { data, body } = fm(t); return { name: f.slice(0, -3), classification: data.classification, globs: (data.globs ?? []).length, desc: chars(String(data.description ?? '')), file: chars(t), body: chars(body) }; });
+const rules = readdirSync('.agent/rules').filter((f) => f.endsWith('.md')).map((f) => { const t = readFileSync(join('.agent/rules', f), 'utf8'); const { data, body } = fm(t); return { name: f.slice(0, -3), classification: data.classification, globs: (data.globs ?? []).length, desc: chars(String(data.description ?? '')), descBytes: Buffer.byteLength(String(data.description ?? ''), 'utf8'), file: chars(t), body: chars(body) }; });
 const sortFile = '.agent/research/agentic-engineering/doing-and-dreaming-2026-11/rules-sort/classification.tsv';
 const kinds = new Map(); if (existsSync(sortFile)) { const [h, ...rows] = readFileSync(sortFile, 'utf8').trim().split('\n').map((l) => l.split('\t')); const ni = h.indexOf('name'), ki = h.indexOf('kind'); for (const r of rows) kinds.set(r[ni], r[ki]); }
 const habit = rules.filter((r) => kinds.get(r.name) === 'H');
@@ -362,7 +362,7 @@ const out = {
   rules: { count: rules.length, core: rules.filter((r) => r.classification === 'core').length, situational: rules.filter((r) => r.classification === 'situational').length, withGlobs: rules.filter((r) => r.globs > 0).length,
     description: stats(rules.map((r) => r.desc)), descriptionOver: { 300: over(rules.map((r) => r.desc), 300), 400: over(rules.map((r) => r.desc), 400), 600: over(rules.map((r) => r.desc), 600) },
     file: stats(rules.map((r) => r.file)), fileOver: { 4000: over(rules.map((r) => r.file), 4000), 20000: over(rules.map((r) => r.file), 20000), 40000: over(rules.map((r) => r.file), 40000) } },
-  habitRules: { count: habit.length, claudeAdapterChars: adapterChars(habit.map((r) => r.name)), description: stats(habit.map((r) => r.desc)), over300: over(habit.map((r) => r.desc), 300), over400: over(habit.map((r) => r.desc), 400) },
+  habitRules: { count: habit.length, descriptionBytes: habit.reduce((p, r) => p + r.descBytes, 0), claudeAdapterChars: adapterChars(habit.map((r) => r.name)), description: stats(habit.map((r) => r.desc)), over300: over(habit.map((r) => r.desc), 300), over400: over(habit.map((r) => r.desc), 400) },
   pathScopedRules: { count: rules.filter((r) => r.globs > 0).length, file: stats(rules.filter((r) => r.globs > 0).map((r) => r.file)), description: stats(rules.filter((r) => r.globs > 0).map((r) => r.desc)) },
   skills: { count: canon.length, description: stats(canon.map((s) => s.desc)), descriptionOver: { 256: over(canon.map((s) => s.desc), 256), 512: over(canon.map((s) => s.desc), 512), 1024: over(canon.map((s) => s.desc), 1024) },
     body: stats(canon.map((s) => s.body)), bodyOver: { 7500: over(canon.map((s) => s.body), 7500), 10000: over(canon.map((s) => s.body), 10000), 20000: over(canon.map((s) => s.body), 20000), 100000: over(canon.map((s) => s.body), 100000) }, linesOver500: over(canon.map((s) => s.lines), 500) },
@@ -377,7 +377,7 @@ Its output at that commit, abridged to the figures the table uses:
 
 ```json
 {"rules": {"count": 124, "core": 75, "situational": 49, "withGlobs": 21, "description": {"n": 124, "min": 42, "median": 265, "max": 1303, "total": 41630}, "descriptionOver": {"300": 52, "400": 42, "600": 13}, "file": {"n": 124, "min": 456, "median": 6818, "max": 60852, "total": 1073128}, "fileOver": {"4000": 93, "20000": 7, "40000": 3}}}
-{"habitRules": {"count": 28, "claudeAdapterChars": 1794, "description": {"n": 28, "min": 58, "median": 205, "max": 793, "total": 6859}, "over300": 7, "over400": 4}}
+{"habitRules": {"count": 28, "descriptionBytes": 6891, "claudeAdapterChars": 1794, "description": {"n": 28, "min": 58, "median": 205, "max": 793, "total": 6859}, "over300": 7, "over400": 4}}
 {"pathScopedRules": {"count": 21, "file": {"n": 21, "min": 1305, "median": 4249, "max": 10614, "total": 105886}, "description": {"n": 21, "min": 46, "median": 345, "max": 899, "total": 8432}}}
 {"skills": {"count": 78, "description": {"n": 78, "min": 37, "median": 429, "max": 1139, "total": 38060}, "descriptionOver": {"256": 57, "512": 38, "1024": 3}, "body": {"n": 78, "min": 646, "median": 7423, "max": 156546, "total": 1065154}, "bodyOver": {"7500": 38, "10000": 30, "20000": 12, "100000": 1}, "linesOver500": 6}}
 {"listing": {"claude": {"skills": 87, "descriptionChars": 40758, "nameChars": 1612, "nameAndDescriptionChars": 42370}, "agents": {"skills": 87, "descriptionChars": 40758, "nameChars": 1612, "nameAndDescriptionChars": 42370, "relativePathChars": 3700}}}
