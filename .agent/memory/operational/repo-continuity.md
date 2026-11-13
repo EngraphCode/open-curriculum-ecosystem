@@ -37,6 +37,16 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-13, the four recommendations are final** (Swift holds Aether, Claude cloud
+  session `01Duocji`). Asked, having read the investigation of nested directories, whether
+  the four are final, the owner answered "Yes, I agree". Decided: two kinds of unit,
+  instruction and procedure, with place as paths or as the directory a unit is kept in; half
+  or less of the smallest threshold that applies, tokens converted at two characters each,
+  with 300, 4,000 and 256 characters as this seat's choices; a listing budget of 10,000
+  characters; 12,000 bytes of always-present instructions, counted as delivered. Recorded in
+  the design's "Questions for the owner". Next: merge pull request 412 at green and clean,
+  restart the branch, then the plan's third todo, the spike, whose Codex leg is the owner's
+  to run and which carries the undocumented points listed in `nested-directories.md`.
 - **2026-11-13, the owner accepts the four recommendations and holds them from final**
   (Swift holds Aether, Claude cloud session `01Duocji`). The owner's word: "I accept your
   recommendations, but before marking them final, please investigate nested/multiple .claude
