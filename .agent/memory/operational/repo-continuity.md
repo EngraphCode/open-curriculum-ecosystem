@@ -37,6 +37,20 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-13, the owner accepts the four recommendations and holds them from final**
+  (Swift holds Aether, Claude cloud session `01Duocji`). The owner's word: "I accept your
+  recommendations, but before marking them final, please investigate nested/multiple .claude
+  directories e.g. a package can have it's own additional (?) rules and skills. I don't know
+  if codex also supports that". The investigation is
+  `rules-and-skills-system-design-2026-11/nested-directories.md`, from the vendors'
+  documentation, nothing observed. Claude Code reads a package's own instruction file, rules
+  and skills, from the start in a session started there and on first touch in a session
+  started above. Codex reads a package's `AGENTS.md` and skills only in a session started
+  there. The design gains a second form of place, the directory a unit is kept in, for
+  procedures as well as instructions; the four recommendations stand. Pull request 412 is
+  not merged until the owner, having read it, says they are final. By then twenty-one review
+  threads over eleven rounds, each answered and resolved; the entry below was written
+  earlier and its counts and "no answer exists" are of that time.
 - **2026-11-13, the design plan's second todo is in review and waits on four answers from
   the owner** (Swift holds Aether, Claude cloud session `01Duocji`). Pull request 411 (the
   audit) merged as `5584f3337`. Pull request 412 holds parts 1 to 3 of the design,
