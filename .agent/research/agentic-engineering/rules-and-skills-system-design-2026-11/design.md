@@ -183,11 +183,13 @@ confirmed as recorded. T2 counted the wrong fields and is corrected below. The c
 figure the first draft gave for T4 is not the vendor's. The re-read also changed what window
 the thresholds are taken at, which is the paragraph after the table. **Tokens and characters.** Several thresholds are in tokens, and a build can count characters
 exactly and tokens only by estimate. The repository's own estimate is four characters to a
-token. That is too generous to set a margin by: dense text has fewer characters to a token,
-and the habit-text trial measured an all-in cost of 2.4 to 2.7 characters a token for
-instruction text delivered one file to an instruction. So where a budget is set against a
-threshold in tokens, this design converts at **three characters to a token**, which is this
-seat's choice of a cautious figure, and the spike measures the real ratio for a sample.
+token. That is too generous to set a margin by, and the one measurement this work has is
+lower. In the habit-text trial, 6,859 characters of instruction took the place of 28 pointers
+and the first call grew by about 2,900 tokens, which is 2.4 characters to a token; taken
+between the extremes of the runs, the growth was 2,625 to 3,209 tokens, which is 2.1 to 2.6.
+So where a budget is set against a threshold in tokens, this design converts at **two
+characters to a token**, which is under the lowest ratio measured, and the spike measures the
+ratio for a sample of procedure text.
 
 | # | Threshold | Value | Platform | Known how |
 | --- | --- | --- | --- | --- |
@@ -227,7 +229,7 @@ threshold is documented, the budget is marked as this seat's choice.
 
 A budget is measured in the unit its threshold is stated in, and over the same fields the
 threshold counts. A threshold in bytes gives a budget in bytes. A threshold in tokens gives a
-budget in characters at three to a token. A threshold that counts a field gives a budget that
+budget in characters at two to a token. A threshold that counts a field gives a budget that
 counts it: the Codex listing counts each skill's path, so the listing budget does.
 
 ### What is proposed, beside what is there now
@@ -241,8 +243,8 @@ value.
 | **B2** All instructions with no place, together | 8,000 bytes | T8 at its stricter reading: under a quarter of 32 KiB, which is in bytes. Against T10 the cost is larger than the size suggests: 6,859 characters measured about 2,900 tokens net, so 8,000 is about 3,400 tokens, 8 to 9 % of a first call | Those 28 descriptions total 6,859 characters, 6,891 bytes, and the 28 pointers they would replace total 1,794 characters. The 28 is a floor: standing constraints are not counted in it |
 | **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
 | **B4** One procedure's description, with its `when_to_use` if it sets one | 256 characters | T3: a quarter. T2: a sixth. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
-| **B5** The listing as a platform carries it: every name and description in the repository's skill directories, and on Codex every path | 15,000 characters at the current default windows; 6,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens: 10,000 tokens, about 30,000 characters at three to a token, and 15,000 is half of it. At a 200,000-token window the smallest is T5 at 4,000 tokens, about 12,000 characters, and 6,000 is half of it and is under each vendor's 8,000-character fallback | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries, and not a measure against T5: each trial session listed 118, and the 31 from outside the repository are not counted; Codex also lists each skill's path, and the 87 paths relative to the repository root add 3,700 characters, more if Codex lists them in full. What a Codex listing holds is for the spike's Codex leg to measure |
-| **B6** One procedure's body | 7,500 characters | T6: 5,000 tokens is about 15,000 characters at three to a token, and 7,500 is half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 38 are over 7,500 and 12 over 20,000 |
+| **B5** The listing as a platform carries it: every name and description in the repository's skill directories, and on Codex every path | 10,000 characters at the current default windows; 4,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens: 10,000 tokens, about 20,000 characters at two to a token, and 10,000 is half of it. At a 200,000-token window the smallest is T5 at 4,000 tokens, about 8,000 characters, and 4,000 is half of it and half of each vendor's 8,000-character fallback | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries, and not a measure against T5: each trial session listed 118, and the 31 from outside the repository are not counted; Codex also lists each skill's path, and the 87 paths relative to the repository root add 3,700 characters, more if Codex lists them in full. What a Codex listing holds is for the spike's Codex leg to measure |
+| **B6** One procedure's body | 5,000 characters | T6: 5,000 tokens is about 10,000 characters at two to a token, and 5,000 is half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 51 are over 5,000 and 12 over 20,000 |
 | **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
 
 A record has no budget. It is not loaded. The 124 rule files hold 1,073,128 characters and
@@ -262,14 +264,16 @@ Three things follow and are stated plainly.
 2. **B5 is the hard one, and B4 does not decide it.** Today's 42,370 characters are, by this
    arithmetic, over the Codex listing's limit at that platform's one stated window, before
    the paths Codex adds. Names take 1,612 of them and the paths, relative to the root, add
-   3,700, so an entry costs about 61 characters before its description. At 15,000 the
-   listing holds about 47 procedures at B4's full length, or all 87 at about 111 characters
-   each. At 6,000 it holds about 18, and cannot hold all 87 at any useful length. The 31 skills a session lists from outside the repository
+   3,700, so an entry costs about 61 characters before its description. At 10,000 the
+   listing holds about 31 procedures at B4's full length, or 50 at about 139 characters
+   each, or all 87 at about 54, which is too short to say when to use one. At 4,000 it holds
+   about 12, and the names and paths of all 87 alone come to 5,312. So under this budget the
+   estate lists fewer procedures than it has today, at either reading. The 31 skills a session lists from outside the repository
    are not the estate's to shorten, and whether they share the budget is not documented. The owner expects that "some existing materials will be redundant or
    inappropriate or be better expressed more succinctly"; this is where that is tested
    hardest.
-3. **B6 would move text out of procedure bodies.** Thirty-eight of 78 are over it. The
-   longest is 21 times it.
+3. **B6 would move text out of procedure bodies.** Fifty-one of 78 are over it. The
+   longest is 31 times it.
 
 ### What a budget would be in the build
 
@@ -291,13 +295,14 @@ text each answer would put into the design is on its card.
    applies. Accepting it accepts B6 and B7 as derived from it. B1, B3 and B4 have no
    threshold that decides them and are this seat's choices, offered for acceptance with it.
 3. **Which windows the thresholds are taken at, and so the listing budget, B5.**
-   Recommended: the current defaults, which gives 15,000 characters, names and paths
-   included. That is about 47 listed procedures at 256 characters, or all 87 at about 111,
-   and a description of that length can still say when to use a procedure. The cost of this choice: on a 200,000-token window, or
+   Recommended: the current defaults, which gives 10,000 characters, names and paths
+   included. That is about 31 listed procedures at 256 characters, or 50 at about 139. It
+   does not hold all 87 at a length that can say when to use a procedure, so accepting it
+   accepts that fewer procedures are listed than today. The cost of this choice: on a 200,000-token window, or
    where Codex does not know its window, the listing is over the limit and the platform
    shortens or drops descriptions itself. The alternative is the smallest documented case,
-   6,000 characters, which is inside every documented listing limit on both platforms and
-   means about 18 listed procedures. Still not known, and stated on the card: the window of any Codex model but one, and
+   4,000 characters, which is inside every documented listing limit on both platforms and
+   means about 12 listed procedures. Still not known, and stated on the card: the window of any Codex model but one, and
    whether the 31 skills from outside the repository draw on the same budget.
 4. **The budget for always-present instructions, B2.** Recommended: 8,000 bytes, with
    the cost stated: about 3,400 tokens on a first call of about 39,400, measured at 2,900 for
@@ -320,8 +325,8 @@ come from the trials' session records. It reads whatever
 is on disk under the directories it walks and does not ask which files are tracked, so it
 reproduces these figures only in a clean checkout. It was run in one, from the repository root at commit `5584f3337`, as a copy placed
 in `agent-tools/` so that its import of the `yaml` package resolves. The reviewer of the
-first draft ran an earlier form of it at the same commit and got the same figures; four
-outputs were added since, at a review's finding. Its median is the
+first draft ran an earlier form of it at the same commit and got the same figures; five
+outputs were added since, at reviews' findings. Its median is the
 lower middle value. The habit rules are those marked `H` in the first sort
 of the rules,
 [`classification.tsv`](../doing-and-dreaming-2026-11/rules-sort/classification.tsv).
@@ -365,7 +370,7 @@ const out = {
   habitRules: { count: habit.length, descriptionBytes: habit.reduce((p, r) => p + r.descBytes, 0), claudeAdapterChars: adapterChars(habit.map((r) => r.name)), description: stats(habit.map((r) => r.desc)), over300: over(habit.map((r) => r.desc), 300), over400: over(habit.map((r) => r.desc), 400) },
   pathScopedRules: { count: rules.filter((r) => r.globs > 0).length, file: stats(rules.filter((r) => r.globs > 0).map((r) => r.file)), description: stats(rules.filter((r) => r.globs > 0).map((r) => r.desc)) },
   skills: { count: canon.length, description: stats(canon.map((s) => s.desc)), descriptionOver: { 256: over(canon.map((s) => s.desc), 256), 512: over(canon.map((s) => s.desc), 512), 1024: over(canon.map((s) => s.desc), 1024) },
-    body: stats(canon.map((s) => s.body)), bodyOver: { 7500: over(canon.map((s) => s.body), 7500), 10000: over(canon.map((s) => s.body), 10000), 20000: over(canon.map((s) => s.body), 20000), 100000: over(canon.map((s) => s.body), 100000) }, linesOver500: over(canon.map((s) => s.lines), 500) },
+    body: stats(canon.map((s) => s.body)), bodyOver: { 5000: over(canon.map((s) => s.body), 5000), 7500: over(canon.map((s) => s.body), 7500), 10000: over(canon.map((s) => s.body), 10000), 20000: over(canon.map((s) => s.body), 20000), 100000: over(canon.map((s) => s.body), 100000) }, linesOver500: over(canon.map((s) => s.lines), 500) },
   listing: { claude: { skills: cl.length, descriptionChars: cl.reduce((p, x) => p + x.desc, 0), nameChars: nameChars(cl), nameAndDescriptionChars: listingCost(cl) }, agents: { skills: ag.length, descriptionChars: ag.reduce((p, x) => p + x.desc, 0), nameChars: nameChars(ag), nameAndDescriptionChars: listingCost(ag), relativePathChars: pathChars('.agents/skills') } },
   adapters: { claudeUnscopedRuleAdapterChars: adapterChars(rules.filter((r) => r.classification === 'core' || r.globs === 0).map((r) => r.name)), claudeRulesBytes: dirBytes('.claude/rules'), agentsRulesBytes: dirBytes('.agents/rules') },
   entry: { 'AGENTS.md': size('AGENTS.md'), 'CLAUDE.md': size('CLAUDE.md'), 'RULES_INDEX.md': size('RULES_INDEX.md'), '.agent/directives/AGENT.md': size('.agent/directives/AGENT.md') },
@@ -379,7 +384,7 @@ Its output at that commit, abridged to the figures the table uses:
 {"rules": {"count": 124, "core": 75, "situational": 49, "withGlobs": 21, "description": {"n": 124, "min": 42, "median": 265, "max": 1303, "total": 41630}, "descriptionOver": {"300": 52, "400": 42, "600": 13}, "file": {"n": 124, "min": 456, "median": 6818, "max": 60852, "total": 1073128}, "fileOver": {"4000": 93, "20000": 7, "40000": 3}}}
 {"habitRules": {"count": 28, "descriptionBytes": 6891, "claudeAdapterChars": 1794, "description": {"n": 28, "min": 58, "median": 205, "max": 793, "total": 6859}, "over300": 7, "over400": 4}}
 {"pathScopedRules": {"count": 21, "file": {"n": 21, "min": 1305, "median": 4249, "max": 10614, "total": 105886}, "description": {"n": 21, "min": 46, "median": 345, "max": 899, "total": 8432}}}
-{"skills": {"count": 78, "description": {"n": 78, "min": 37, "median": 429, "max": 1139, "total": 38060}, "descriptionOver": {"256": 57, "512": 38, "1024": 3}, "body": {"n": 78, "min": 646, "median": 7423, "max": 156546, "total": 1065154}, "bodyOver": {"7500": 38, "10000": 30, "20000": 12, "100000": 1}, "linesOver500": 6}}
+{"skills": {"count": 78, "description": {"n": 78, "min": 37, "median": 429, "max": 1139, "total": 38060}, "descriptionOver": {"256": 57, "512": 38, "1024": 3}, "body": {"n": 78, "min": 646, "median": 7423, "max": 156546, "total": 1065154}, "bodyOver": {"5000": 51, "7500": 38, "10000": 30, "20000": 12, "100000": 1}, "linesOver500": 6}}
 {"listing": {"claude": {"skills": 87, "descriptionChars": 40758, "nameChars": 1612, "nameAndDescriptionChars": 42370}, "agents": {"skills": 87, "descriptionChars": 40758, "nameChars": 1612, "nameAndDescriptionChars": 42370, "relativePathChars": 3700}}}
 {"adapters": {"claudeUnscopedRuleAdapterChars": 6780, "claudeRulesBytes": 9931, "agentsRulesBytes": 8143}}
 {"entry": {"AGENTS.md": 1975, "CLAUDE.md": 57, "RULES_INDEX.md": 11876, ".agent/directives/AGENT.md": 14274}}
