@@ -867,3 +867,18 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   #415.
 - **The owner, 2026-11-13, verbatim:** "wait for 413". #413 landed at `167ea3376`; the sync to
   Oak follows it.
+- **Landed 2026-11-13.** #414 at `b99280e94` (the fork-only values list in the reunification
+  plan). #417 at `6e6066dec`: the fork's programme notice and fork wording left the README, the
+  vision, the contributing page and four other pages. The reunification plan carries two ready
+  checks, both run against `reunify-oce-forks` when reporting ready.
+- **The sync to Oak waits on three things** (the owner, 2026-11-13: "I will tell you when the
+  other PRs are finished and the reunification PR can be updated"): the owner's word; Hydra's
+  line that the Sonar architecture investigation, its fix and the logger config tidy are
+  complete, with the pull request numbers; and those pull requests on `engraph`. #406 is closed,
+  never merged.
+- **A second lane opened at the owner's word, 2026-11-13.** The public pages: the strategic node
+  `public-explanatory-system` and the delivery node `public-pages-to-standard`. Its todo 2 waits
+  on the owner's seven answers. After the owner's merge its pull requests go to Oak's repository
+  as Oak's bot.
+- **Put to the owner, unanswered.** ADR-233 calls itself "This Engraph development line" and will
+  read as Oak's accepted decision on Oak.
