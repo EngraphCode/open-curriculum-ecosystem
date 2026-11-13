@@ -94,9 +94,9 @@ forward-asks remain.
     windows, or 4,000 at the smallest documented case. Neither holds all 87 skills at a
     useful description length, so either means fewer procedures listed than today.
     (4) Always-present instructions: 12,000 bytes counted as delivered (the 28 habit
-    instructions in the trial's form are 10,255, so 8,000 does not hold them), about 3,500
+    instructions in the trial's form are 10,255, so 8,000 does not hold them), about 4,100
     tokens at the ratio measured and up to 6,000 at the design's conversion, on a first call of
-    about 39,400.
+    about 39,400. The figure put to the owner was 3,500 and was corrected after the answer.
   - **How they were put.** The decision-card tool was called twice and both calls were
     closed by a worker restart, unanswered, so the questions went to the owner as prose. No
     answer exists. They go as cards again when the owner is present.
