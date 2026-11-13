@@ -42,7 +42,10 @@ forward-asks remain.
   412 merged as `1caf7ca30`. `.agent/research/agentic-engineering/rules-and-skills-system-design-2026-11/`
   holds the audit of the pipeline, the design's parts 1 to 3 with the owner's decisions of
   2026-11-13, the threshold re-read, the note on nested directories and the open items through
-  the decision lenses (`open-items.md`); no question is open. The delivery node
+  the decision lenses (`open-items.md`). One question is open, by the owner's word of
+  2026-11-13: whether the repository needs the nine skills installed from their vendors. The
+  lane's closing records are pull request 413, the thread's last; the owner, 2026-11-13: "This
+  is the last PR in this thread, don't invent later PRs". The delivery node
   `rules-and-skills-system-design` has todos 1 and 2 done. Its spike happens only when the owner
   says so, and any documentation change related to it is part of it; the owner, 2026-11-13: "The
   spike will not happen until I say so, stop treating it as imminent, and any related change of

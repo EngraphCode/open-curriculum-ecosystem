@@ -2128,16 +2128,56 @@ outside the repository. One instance each; scope is this session.
     being read against the present, and each looked like care while moving work off the seat.
   - The test. At a close, before writing "next", "owed", "later", "for the Director" or "the
     owner's to ratify", ask three things: can it be done now, does a rule already decide it,
-    and does its owner still exist? Yes, no and yes are the only answers that let it stand.
+    and does its owner still exist? The word stands only on no, no and yes. On any other
+    answer, do the work now, apply the rule, or drop the item.
   - Done at once: the ledger row completed, this lane's continuity entries graduated and
     archived byte-identical, the stale Director line removed, the ratification withdrawn.
-- **Owed by the next dedicated consolidation, from the Hermes and Practice comparison**
-  (2026-11-12, `hermes-practice-comparison-2026-11/comparison.md`, the first job of its
-  proposal). Three decisions: the two slow-lane rows in `pending-graduations.md` whose review
-  dates have passed (pull request 375 is the first row's test case); the count of fast-lane
-  prediction sentences that PDR-130's falsifier needs; one reading of the review-cost ledger
-  against the gate's weights. The comparison found that slow-lane review dates have no reader
-  in the tooling, so this line carries them to the consolidation that reads the napkin.
+- **Correction from the owner, 2026-11-13: the installed skills were treated as fixed.** The
+  owner, verbatim: "Do not assume that the external skills are fixed! Maybe we don't need
+  them, we don't know yet, it's an open question. Step back and assess your assumptions".
+  - What happened. The design spread the listing budget over all 87 skills, "all 87 at about
+    54", as if the nine installed from vendors were shortened with the estate's own. Asked to
+    tell the two kinds apart, this seat read PDR-051's ingested class and swung to calling the
+    nine a fixed cost. Both took their presence as settled, and the closing records said no
+    question was open.
+  - Why. Who wrote a skill was read as deciding whether it stays: PDR-051 governs how an
+    installed skill is kept, not whether. The swing followed the last correction's direction
+    instead of the axis's own principle, that everything listed earns its place.
+  - The check of the cure caught two more. The seat's answer stretched the open question to
+    the 31 skills from outside the repository and to B4. Neither holds: S1 asks about the 31
+    only if they share the budget, which is the condition that matters, and B4 is defined over
+    the 78 procedures.
+  - Done at once: the question recorded as open in `open-items.md`, the design, the plan and
+    continuity, and the design's arithmetic split by kind.
+- **Correction from the owner, 2026-11-13: an invented later, written the same day as the test
+  against it.** The owner, verbatim: "This is the last PR in this thread, don't invent later
+  PRs. All required changes go in this PR, now. Run each change through metacognition and the
+  decision matrix first, in case it is nonsense".
+  - What happened. Asked what should be done about the errors found, this seat answered that
+    the three estate decisions below "can be done now (two rows, one count, one reading)" and
+    put them in "their own small PR". The test above was in this napkin and did not fire. Its
+    first answer was inverted as written, "Yes, no and yes", which let a deferral stand when
+    the work could be done now. And this napkin's line on the three began "Owed by the next
+    dedicated consolidation".
+  - Why. The sizing was written without reading the records it sized. Read, each outcome
+    changes a Core record, a directive or the gate's code, and the first row's only test drew
+    no reviewer round. A lesson held in a buffer does not fire at the moment of a fluent
+    verdict.
+  - Done at once: the test corrected, the line on the three rewritten as a finding, and each
+    change of the answer run through the lenses, which dropped three: deciding the three
+    here, rewriting S1, and a point on B4's coverage.
+- **Slow-lane review dates have no reader, and three estate decisions are past their dates**
+  (2026-11-12, found by the Hermes and Practice comparison,
+  `hermes-practice-comparison-2026-11/comparison.md`, P-4, P-6 and P-9). The slow-lane rows in
+  `pending-graduations.md` dated 2026-10-19 and 2026-10-26 are undecided, though PDR-130
+  allows no undated holding. The first row's one qualifying landing since its date, pull
+  request 375, drew no vendor review round, so the settlement it predicts was not exercised.
+  PDR-130's fast-lane falsifier fell due on 2026-10-20, and by its own text the outcome is a
+  mechanical check or the obligation's retirement. The review-cost gate's weights have one row
+  in two months against a ledger that calls them an experiment. The comparison makes the three
+  the first job of the self-starting refinement trial (its section 6.2), which the owner
+  endorsed on 2026-11-12 ("Yes, we should do that, absolutely") and whose node waits for other
+  research before its design.
 - **Play seed, an association and not a finding** (2026-11-13): the session studied the gap
   between what a rule says and what reaches the agent, and its own budget measured the meant
   text rather than the delivered one. The subject recurred in the measuring of it.

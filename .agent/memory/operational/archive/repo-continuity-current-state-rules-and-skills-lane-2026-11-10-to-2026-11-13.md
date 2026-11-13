@@ -10,11 +10,13 @@ in them was first confirmed in a permanent home: the owner's words in the compar
 Hermes clones in that brief's constraints; the session-start rule and the wait before the
 experiment's design in the node `self-starting-practice-refinement`; the Attendant's held-back
 file in that lane's thread record; the design, its decisions and its open items in
-`rules-and-skills-system-design-2026-11/`; the plan's state in its node; the comparison's three
-owed decisions in `comparison.md` and the napkin. One fact found only here, that Claude Code did
-not load `.agents/skills` in the trial sessions, went to the Claude Code loading note. The
-Director's question in these entries is stale: the owner, 2026-11-13, of the Director: "doesn't
-exist and nothing is owed from the 28th, that's just stale state."
+`rules-and-skills-system-design-2026-11/`; the plan's state in its node; the three estate
+decisions past their dates that the comparison found, in `comparison.md` and the napkin. One
+observation found only here went to the Claude Code loading note: no trial session listed a
+skill twice. The entry below read it as Claude Code not loading `.agents/skills`, which the list
+cannot show; the note says so. The Director's question in these entries is stale: the owner,
+2026-11-13, of the Director: "doesn't exist and nothing is owed from the 28th, that's just stale
+state."
 
 - **2026-11-13, the four recommendations are final** (Swift holds Aether, Claude cloud
   session `01Duocji`). Asked, having read the investigation of nested directories, whether
