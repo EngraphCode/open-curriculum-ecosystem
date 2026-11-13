@@ -123,11 +123,12 @@ travel to Oak with the merge. The check when reporting ready: `git diff` between
   `engraph`, on the fork's `main` and on Oak's `main`.
 - **Uncommitted in the primary checkout on 2026-11-13, never to be staged:** edits to those two
   files that swap in the fork's organisation (`engraphcode`) and project
-  (`EngraphCode_open-curriculum-ecosystem`), and an `enabledPlugins` entry for
-  `sonarqube@claude-plugins-official` in `.claude/settings.json`. The plugin entry names no fork
-  value, but Oak has not reviewed it. Which tool wrote the first two is not known. The branch
-  for Oak is built from the fetched `engraph` ref, so a working-tree edit cannot reach it unless
+  (`EngraphCode_open-curriculum-ecosystem`). Which tool wrote them is not known. The branch for
+  Oak is built from the fetched `engraph` ref, so a working-tree edit cannot reach it unless
   someone commits it.
+- **Not a fork value:** the `enabledPlugins` entry for `sonarqube@claude-plugins-official` in
+  `.claude/settings.json` names no organisation or project. It has its own pull request (#415),
+  with a security review, and reaches Oak only if that lands first.
 - **Names in test data and records, not live configuration:** `engraph` and `engraphcode` in
   agent-tools tests, the pull-request tally fixtures and the operator-profile scope key
   `engraphcode--open-curriculum-ecosystem`.
