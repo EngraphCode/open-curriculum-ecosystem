@@ -2069,8 +2069,20 @@ outside the repository. One instance each; scope is this session.
   10,223 with headings and record lines, which is 2.9. Measure what was delivered, not what
   was meant to be. A reviewer found the margin twice and the delivered size once. Convert under
   the lowest ratio measured, and state the measurement beside the figure.
+- **Before offering a budget, list what the platform counts** (2026-11-13, pull request 412,
+  eleven reviewed heads). Each Codex round found one more thing a figure had not counted: the
+  unit (tokens, bytes), a field (`when_to_use`, paths), the delivered form (headings and record
+  lines), every file in a chain, every source that shares a listing, every total the vendor
+  states. Twelve of fifteen findings were that one class. Writing the rule down after the
+  first did not stop the next; a list per budget, checked once before the first push, would
+  have.
+- **Enumerate every location a platform reads, not the layout the repository has** (2026-11-13).
+  The design placed guidance only where the estate keeps it today, at the root. The owner
+  asked whether a package can hold its own rules and skills: both platforms read below the
+  root, and placing a procedure in its package turned out to be the listing budget's best way
+  down. The question came from outside; the design's own review had not asked it.
 - **The decision-card tool can be closed by a worker restart** (2026-11-12, twice in one
-  session). The call returns "not completed" with no answer and no refusal. Do not read it as
+  session; a third time on 2026-11-13). The call returns "not completed" with no answer and no refusal. Do not read it as
   a decline: record that no answer exists, put the questions in prose so they are not lost,
   and card them again when the owner is present.
 - **Tracked prose was edited by script several times against the owner's "Use the proper

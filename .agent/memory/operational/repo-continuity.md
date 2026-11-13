@@ -44,9 +44,16 @@ forward-asks remain.
   or less of the smallest threshold that applies, tokens converted at two characters each,
   with 300, 4,000 and 256 characters as this seat's choices; a listing budget of 10,000
   characters; 12,000 bytes of always-present instructions, counted as delivered. Recorded in
-  the design's "Questions for the owner". Next: merge pull request 412 at green and clean,
-  restart the branch, then the plan's third todo, the spike, whose Codex leg is the owner's
-  to run and which carries the undocumented points listed in `nested-directories.md`.
+  the design's "Questions for the owner", and the plan's second todo is marked done. Pull
+  request 412 carries these records and is merged by the seat at green and clean; the session
+  ends there, at the owner's word: "I have switched models to enable the session to continue
+  past an exhausted limit. Please review next steps. We will not begin the spike
+  automatically, this session concludes after merging the PR". Next, each only at the
+  owner's word and in a new session: the plan's third todo, the spike, whose Codex leg is the
+  owner's to run and which observes the points `nested-directories.md` finds undocumented;
+  then the fourth. Still open: the review-cost ledger's row for pull request 412 stops at its
+  eleventh reviewed head, and the next wrap adds the final head and the merge commit; the
+  Director's question in the entry below, on the Codex nodes paused on 2026-09-28.
 - **2026-11-13, the owner accepts the four recommendations and holds them from final**
   (Swift holds Aether, Claude cloud session `01Duocji`). The owner's word: "I accept your
   recommendations, but before marking them final, please investigate nested/multiple .claude
