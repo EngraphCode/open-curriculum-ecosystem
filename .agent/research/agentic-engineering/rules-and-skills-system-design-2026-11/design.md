@@ -325,8 +325,11 @@ accept your recommendations, but before marking them final, please investigate
 nested/multiple .claude directories e.g. a package can have it's own additional (?) rules and
 skills. I don't know if codex also supports that". The investigation is
 [`nested-directories.md`](nested-directories.md). It adds a form of place to the model and
-leaves the four recommendations as they are. They are accepted and not yet marked final: that
-is the owner's to say, having read it.
+leaves the four recommendations as they are. Asked, having read it, whether the four are
+final, the owner answered on the same day: "Yes, I agree". So the four recommendations below
+are decided: the two-kind model, with place in both its forms; half or less of the smallest
+threshold that applies, with this seat's three choices; a listing budget of 10,000
+characters; and 12,000 bytes of always-present instructions, counted as delivered.
 
 Each is the owner's by the plan. Each has a recommendation. They are put as decision cards
 once this part has been reviewed, and are listed here so the cards have a record. The exact
