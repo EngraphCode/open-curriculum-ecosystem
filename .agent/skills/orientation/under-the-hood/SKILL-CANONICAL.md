@@ -55,7 +55,7 @@ structural, not tone advice; they override everything below them.
 5. **One thing at a time, at their pace** in the tour and in any hands-on work,
    with explicit go-ahead before any state-changing action. Hands-on steps are
    never yours to invent: they come from the repository's `README.md` Quick
-   Start (prerequisites, install, verify). Never invent sections, summaries,
+   Start (install, verify) and `docs/engineering/setup.md` (prerequisites). Never invent sections, summaries,
    statistics, or steps that are not in the source document you are surfacing,
    and never present usage statistics as "the team workflow".
 
@@ -209,7 +209,7 @@ enables, or writes. Anything state-changing (installs, `corepack enable`,
 | `node --version` vs `.nvmrc` | Node present and at the pinned major? |
 | `pnpm --version` | pnpm available? |
 | `gitleaks version` | Pre-push secrets scanner installed? |
-| Optional tools named in the live README prerequisites | Present or absent, per tool |
+| Optional tools named in the live prerequisites (`docs/engineering/setup.md`) | Present or absent, per tool |
 | `node_modules/` exists at repo root | Dependencies installed? |
 | `git remote -v` | Clone wired to the expected origin? |
 | For each `**/.env.example`: does a `.env.local` sibling exist? | Workspace env set up (structural — never hardcode workspace names) |
@@ -219,7 +219,7 @@ whether they are an Oak teammate or an external visitor. Render detection as one
 message — a checklist with `[x]` and `[ ]` marks, **leading with what already
 works**, one sentence per item — then guided execution: offer the first unchecked
 item, get explicit go-ahead, run or instruct the fix **using the command the live
-README gives**, re-detect, move on. The README's install-and-verify commands are
+README or setup guide gives**, re-detect, move on. The README's install-and-verify commands are
 **opt-in, go-ahead-gated** steps (the verify gates are slow; never auto-run them).
 Teammates: route env depth to the live `CONTRIBUTING.md` contribution levels, and
 offer `docs/engineering/sibling-repos.md` for the wider working set.
@@ -266,8 +266,9 @@ docs, and never from memory.
 
 | Source document | What it holds for the lens |
 | --- | --- |
-| `README.md` | Audience routing, Quick Start (prerequisites, install and verify), key commands, package topology |
-| `README.md` §Architectural invariants | The six ADR-backed invariants that make the repo distinctive (each links its authoritative doc, which wins) — the single source; never restate them |
+| `README.md` | Audience routing, Quick Start (install and verify), package topology |
+| `docs/engineering/setup.md` | Prerequisites, the Windows (via WSL) path, key commands |
+| `docs/architecture/README.md` §Architectural invariants | The six ADR-backed invariants that make the repo distinctive (each links its authoritative doc, which wins) — the single source; never restate them |
 | `VISION.md` (repo root) | What we're changing, why it matters, and the map to how |
 | `CONTRIBUTING.md` | Contributor flow, contribution levels, external-contribution posture |
 | `CONTRIBUTING.md` §Working with AI Coding Agents | How to start, steer, and close agent sessions; the skill vocabulary |
@@ -289,11 +290,11 @@ docs, and never from memory.
 ## Headline Invariants (point to the single source — never restate them here)
 
 Six stable, ADR-backed architectural invariants make this repo distinctive, and a
-newcomer should hear them early. **They live in `README.md` §Architectural
-invariants** — read them live there and route into each linked doc for depth.
+newcomer should hear them early. **They live in `docs/architecture/README.md`
+§Architectural invariants** — read them live there and route into each linked doc for depth.
 Overview mode condenses the few that land hardest for the reader and names the
 rest in a line; tour mode surfaces them one at a time at the person's pace. Do not
-restate them here — the README block is the single source, and it wins.
+restate them here — that block is the single source, and it wins.
 
 ## Access-Aware Fork (teammate vs external visitor)
 

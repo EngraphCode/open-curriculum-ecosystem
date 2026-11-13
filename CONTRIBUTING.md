@@ -182,12 +182,12 @@ Before making changes, follow the install and verify steps in the
 1. **Node.js 24.x**
 2. **pnpm**
 3. **bash 5.2 or later**: the repository's bash scripts, the shellcheck
-   installer among them, stop on an older bash with install advice. See
-   [README prerequisites](README.md#prerequisites).
+   installer among them, stop on an older bash with install advice. See the
+   [setup guide](docs/engineering/setup.md#prerequisites).
 4. Service credentials for the areas you are touching (Oak Curriculum API keys,
    Elasticsearch Serverless API keys). See workspace READMEs for details.
 5. Some scripts require additional external tools (`bun`, `jq`, `lsof`) that are
-   not managed via `package.json`. See [README prerequisites](README.md#prerequisites).
+   not managed via `package.json`. See the [setup guide](docs/engineering/setup.md#prerequisites).
    Scripts that require these commands emit installation instructions when they
    are missing.
 

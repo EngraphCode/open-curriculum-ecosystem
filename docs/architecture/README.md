@@ -3,12 +3,12 @@ boundary: B2-Architecture
 doc_role: index
 authority: architecture-navigation
 status: active
-last_reviewed: 2026-09-08
+last_reviewed: 2026-11-13
 ---
 
 # Architecture
 
-**Last Updated**: 2026-10-10
+**Last Updated**: 2026-11-13
 **Status**: Active architectural index
 
 ## Start Here
@@ -39,6 +39,64 @@ block in the ADR index:
 - [ADR-031](./architectural-decisions/031-generation-time-extraction.md) — Generation-time extraction
 - [ADR-048](./architectural-decisions/048-shared-parse-schema-helper.md) — Shared parsing helper pattern
 - [ADR-107](./architectural-decisions/107-deterministic-sdk-nl-in-mcp-boundary.md) — Deterministic SDK and NL boundary
+
+## Workspace Summaries
+
+**Apps:**
+
+| Workspace                                                                              | Purpose                                                                                                                                                                                         |
+| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`oak-curriculum-mcp-streamable-http`](../../apps/oak-curriculum-mcp-streamable-http/) | Canonical MCP server — Streamable HTTP transport, Vercel deployment, the full curriculum tool set (the workspace README is the authoritative inventory), resources, prompts, and MCP App widget |
+| [`oak-search-cli`](../../apps/oak-search-cli/)                                         | Search CLI — admin operations, bulk ingestion, blue/green index lifecycle ([ADR-130](./architectural-decisions/130-blue-green-index-swapping.md)), evaluation, and ground-truth benchmarking    |
+
+**SDKs:**
+
+| Workspace                                                       | Purpose                                                                                                                                                               |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`oak-curriculum-sdk`](../../packages/sdks/oak-curriculum-sdk/) | Curriculum API SDK — generated types, Zod validators, MCP tool metadata, all flowing from the OpenAPI schema                                                          |
+| [`oak-search-sdk`](../../packages/sdks/oak-search-sdk/)         | Search SDK — hybrid lexical (BM25) + semantic (ELSER) retrieval, admin services, observability, and blue/green index lifecycle management (zero downtime index swaps) |
+| [`oak-sdk-codegen`](../../packages/sdks/oak-sdk-codegen/)       | Schema-driven code generation — OpenAPI → TypeScript types, Zod schemas, ES mappings, MCP tool definitions                                                            |
+
+**Core and Libraries:**
+
+**Core packages:**
+
+| Workspace                                                      | Purpose                                                               |
+| -------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [`result`](../../packages/core/result/README.md)               | `Result<T, E>` type for explicit error handling without exceptions    |
+| [`env`](../../packages/core/env/README.md)                     | Env schema contracts — Zod-based validation for environment variables |
+| [`observability`](../../packages/core/observability/README.md) | Provider-neutral redaction and active-span helpers                    |
+| [`type-helpers`](../../packages/core/type-helpers/README.md)   | Shared type-level utilities                                           |
+| [`oak-eslint`](../../packages/core/oak-eslint/README.md)       | Custom ESLint rules enforcing architectural boundaries                |
+
+**Libraries:**
+
+| Workspace                                                                         | Purpose                                                                       |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [`@oaknational/logger`](../../packages/libs/logger/README.md)                     | Structured logger with sink fan-out, redaction, and trace correlation         |
+| [`@oaknational/env-resolution`](../../packages/libs/env-resolution/README.md)     | Environment resolution pipeline — `.env` discovery, validation, and injection |
+| [`@oaknational/fidelity-review`](../../packages/libs/fidelity-review/README.md)   | Shared fidelity capture/diff/report core for the demo apps                    |
+| [`@oaknational/search-contracts`](../../packages/libs/search-contracts/README.md) | Canonical semantic-search field and stage contracts                           |
+| [`@oaknational/sentry-node`](../../packages/libs/sentry-node/README.md)           | Shared Sentry Node config, sinks, fixture runtime, and flush helpers          |
+
+**Design:**
+
+| Workspace                                                         | Purpose                                                                            |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [`design-tokens-core`](../../packages/design/design-tokens-core/) | Pure functions for DTCG token parsing and WCAG AA contrast validation              |
+| [`oak-design-tokens`](../../packages/design/oak-design-tokens/)   | Oak-specific token definitions (palette, semantic, component) and CSS build output |
+| [`oak-design-ink`](../../packages/design/oak-design-ink/)         | Reusable Oak React primitives for Ink-based terminal interfaces                    |
+
+## Architectural invariants
+
+Six stable, ADR-backed properties make this repository what it is. Each links to its authoritative doc, which always carries the detail:
+
+1. **The SDK updates itself from the API spec** — when the upstream OpenAPI schema changes, regeneration brings every workspace into alignment with zero manual type work (the [Cardinal Rule](../../.agent/directives/principles.md#cardinal-rule-of-this-repository); [OpenAPI pipeline](./openapi-pipeline.md)).
+2. **Two data feeds, both deliberate** — the live API powers the SDK and MCP tools ([OpenAPI pipeline](./openapi-pipeline.md)), while bulk-downloaded curriculum data is the source of truth for search ingestion and graph derivation ([semantic search architecture](../agent-guidance/semantic-search-architecture.md)).
+3. **The curriculum graphs are derived from the bulk data** — prior knowledge, misconceptions, keywords, and progressions served as anchored graph tools ([graph-stack topology, ADR-173](./architectural-decisions/173-graph-stack-topology.md)).
+4. **EEF evidence grounds the pedagogy** — the Teaching and Learning Toolkit is integrated for evidence-based support ([Data Sources](../../README.md#data-sources)).
+5. **The bulk data populates the semantic search** — ingestion builds the search indices from it ([ingestion guide](../../apps/oak-search-cli/docs/INGESTION-GUIDE.md)).
+6. **The Search SDK serves both sides** — creating and operating search instances as well as querying them ([Search SDK](../../packages/sdks/oak-search-sdk/README.md)).
 
 ## Reference Documentation
 
