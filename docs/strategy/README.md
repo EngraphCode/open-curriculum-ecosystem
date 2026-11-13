@@ -40,10 +40,15 @@ _Dated line, 2026-09-03 (owner word on the card of that day: "Also state it as t
 priority"): the repository's current structural commitment, and its current first priority for
 structural work, is the extraction of the MCP app product into its own public repository,
 `oaknational/oak-open-curriculum-mcp`, as thin workspaces over packages published from here —
-the decision recorded in [ADR-227](../architecture/architectural-decisions/227-oak-product-in-its-own-repository.md),
-amended by [ADR-233](../architecture/architectural-decisions/233-retained-framework-and-configurable-instances.md). The plan
+the decision recorded in [ADR-227](../architecture/architectural-decisions/227-oak-product-in-its-own-repository.md). The plan
 estate (`.agent/plans/`, its index the entry point) carries the lane whose delivery order puts
 the extraction first._
+
+_Dated line, 2026-10-10: [ADR-233](../architecture/architectural-decisions/233-retained-framework-and-configurable-instances.md),
+"Retained framework and configurable instances", was accepted as direction that day. It amends
+ADR-227 and records the order of the line above, "ADR-227 puts extraction before remaining estate
+relocation", as replaced "by CF-first preference with actual dependency edges". Its adoption is
+held (the owner, 2026-10-13: "Merge is not blocked on the corpus being added, but adoption is")._
 
 | Read                                                                           | For                                                                                                                |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
