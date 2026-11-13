@@ -108,6 +108,30 @@ back to being a plain mirror of Oak: one line of development again.
    7. Each local checkout is re-pointed on the owner's word: its remotes, its default branch and
       the commit identity it uses. Those bindings belong in the operator profile.
 
+## Fork-only values that must not reach Oak
+
+Kept at the owner's request (2026-11-13), so that a value naming the fork's own services does not
+travel to Oak with the merge. The check when reporting ready: `git diff` between
+`reunify-oce-forks` and Oak's `main` shows none of the uncommitted values below.
+
+- **Committed, and removed by todo 6 step 6:** the `[main, engraph]` branch filters in
+  `.github/workflows/ci.yml`, `codeql.yml` and `dependency-review.yml`. They are inert on Oak,
+  which has no `engraph` branch.
+- **Committed, and correct for Oak:** `.sonarlint/connectedMode.json` and the
+  `sonarlint.connectedMode.project` entry in `.vscode/settings.json` name Oak's SonarCloud
+  organisation (`oaknational`) and project (`oaknational_oak-open-curriculum-ecosystem`) on
+  `engraph`, on the fork's `main` and on Oak's `main`.
+- **Uncommitted in the primary checkout on 2026-11-13, never to be staged:** edits to those two
+  files that swap in the fork's organisation (`engraphcode`) and project
+  (`EngraphCode_open-curriculum-ecosystem`), and an `enabledPlugins` entry for
+  `sonarqube@claude-plugins-official` in `.claude/settings.json`. The plugin entry names no fork
+  value, but Oak has not reviewed it. Which tool wrote the first two is not known. The branch
+  for Oak is built from the fetched `engraph` ref, so a working-tree edit cannot reach it unless
+  someone commits it.
+- **Names in test data and records, not live configuration:** `engraph` and `engraphcode` in
+  agent-tools tests, the pull-request tally fixtures and the operator-profile scope key
+  `engraphcode--open-curriculum-ecosystem`.
+
 ## Out of scope
 
 - Moving `gitleaks` and the smokes' shell to by-name calls: ordinary Oak work after the merge.
