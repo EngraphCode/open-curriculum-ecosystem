@@ -2108,6 +2108,95 @@ outside the repository. One instance each; scope is this session.
   the decision lenses found them, because sending a question anywhere starts with reading the
   record it would go to. The decided model fits PDR-009's own exception, and one item, inline
   skill bodies against PDR-051, went back to the owner as a ratification.
+- **Correction from the owner, 2026-11-13, at the session's close: four faults in one report.**
+  The owner, verbatim, point by point:
+  - "The spike will not happen until I say so, stop treating it as imminent, and any related
+    change of documentation is part of that spike, not a separate thing."
+  - "\"The Director\" doesn't exist and nothing is owed from the 28th, that's just stale state."
+  - "What question is still open?"
+  - "What do you mean records owed? This session is about to be removed, if there is any
+    information in context that should be recorded it happens now. There are rules
+    specifically about not inventing \"later\" as a way of avoiding work"
+  - What happened. The closing report listed the spike as the next step, though the owner had
+    said it would not begin automatically. It carried a Director's question forward from an
+    entry of 2026-11-12 without checking that a Director sits. It put a ratification to the
+    owner where the estate's own classifier lands the change as an amendment quoting the
+    owner's word: the fault the owner corrected the day before ("Why would merging be mine?").
+    And it wrote "records still owed" for the next wrap and the next consolidation, a later
+    invented at a close, against the deferral-honesty discipline of `session-handoff`.
+  - Why. Each came from the seat's own earlier records, copied forward entry by entry without
+    being read against the present, and each looked like care while moving work off the seat.
+  - The test. At a close, before writing "next", "owed", "later", "for the Director" or "the
+    owner's to ratify", ask three things: can it be done now, does a rule already decide it,
+    and does its owner still exist? The word stands only on no, no and yes. On any other
+    answer, do the work now, apply the rule, or drop the item.
+  - Done at once: the ledger row completed, this lane's continuity entries graduated and
+    archived byte-identical, the stale Director line removed, the ratification withdrawn.
+- **Correction from the owner, 2026-11-13: the installed skills were treated as fixed.** The
+  owner, verbatim: "Do not assume that the external skills are fixed! Maybe we don't need
+  them, we don't know yet, it's an open question. Step back and assess your assumptions".
+  - What happened. The design spread the listing budget over all 87 skills, "all 87 at about
+    54", as if the nine installed from vendors were shortened with the estate's own. Asked to
+    tell the two kinds apart, this seat read PDR-051's ingested class and swung to calling the
+    nine a fixed cost. Both took their presence as settled, and the closing records said no
+    question was open.
+  - Why. Who wrote a skill was read as deciding whether it stays: PDR-051 governs how an
+    installed skill is kept, not whether. The swing followed the last correction's direction
+    instead of the axis's own principle, that everything listed earns its place.
+  - The check of the cure caught two more. The seat's answer stretched the open question to
+    the 31 skills from outside the repository and to B4. Neither holds: S1 asks about the 31
+    only if they share the budget, which is the condition that matters, and B4 is defined over
+    the 78 procedures.
+  - Done at once: the question recorded as open in `open-items.md`, the design, the plan and
+    continuity, and the design's arithmetic split by kind.
+- **Correction from the owner, 2026-11-13: an invented later, written the same day as the test
+  against it.** The owner, verbatim: "This is the last PR in this thread, don't invent later
+  PRs. All required changes go in this PR, now. Run each change through metacognition and the
+  decision matrix first, in case it is nonsense".
+  - What happened. Asked what should be done about the errors found, this seat answered that
+    the three estate decisions below "can be done now (two rows, one count, one reading)" and
+    put them in "their own small PR". The test above was in this napkin and did not fire. Its
+    first answer was inverted as written, "Yes, no and yes", which let a deferral stand when
+    the work could be done now. And this napkin's line on the three began "Owed by the next
+    dedicated consolidation".
+  - Why. The sizing was written without reading the records it sized. Read, each outcome
+    changes a Core record, a directive or the gate's code, and the first row's only test drew
+    no reviewer round. A lesson held in a buffer does not fire at the moment of a fluent
+    verdict.
+  - Done at once: the test corrected, the line on the three rewritten as a finding, and each
+    change of the answer run through the lenses, which dropped three: deciding the three
+    here, rewriting S1, and a point on B4's coverage.
+- **Slow-lane review dates have no reader, and three estate decisions are past their dates**
+  (2026-11-12, found by the Hermes and Practice comparison,
+  `hermes-practice-comparison-2026-11/comparison.md`, P-4, P-6 and P-9). The slow-lane rows in
+  `pending-graduations.md` dated 2026-10-19 and 2026-10-26 are undecided, though PDR-130
+  allows no undated holding. The first row's one qualifying landing since its date, pull
+  request 375, drew no vendor review round, so the settlement it predicts was not exercised.
+  PDR-130's fast-lane falsifier fell due on 2026-10-20, and by its own text the outcome is a
+  mechanical check or the obligation's retirement. The review-cost gate's weights have one row
+  in two months against a ledger that calls them an experiment. The comparison makes the three
+  the first job of the self-starting refinement trial (its section 6.2), which the owner
+  endorsed on 2026-11-12 ("Yes, we should do that, absolutely") and whose node waits for other
+  research before its design.
+- **An archive's header that says where each entry went is the ledger the rule forbids**
+  (2026-11-13, Codex on pull request 413's second head). The continuity directive prescribes
+  the archive of finished entries: the moved block, byte-identical, at
+  `archive/<surface>-YYYY-MM-DD.md`. This seat gave it a header listing each live item's home,
+  which is the disposition ledger `permanent-doc-is-the-consolidation-record` rejects, and
+  which also broke the byte-identity, since an archive's body is everything after its
+  frontmatter. Codex asked for the archive's removal; the directive keeps it, so the archive
+  is now the moved block alone under the directive's name. Read the governing directive and
+  the rule before writing an archive's first line.
+- **Under the owner's account, the harness footer is not the attribution the estate's rule
+  asks for** (2026-11-13). `identify-as-agent-under-shared-credentials` asks a post under a
+  human account to name the seat and the account, as "Agent-authored on behalf of
+  `jimCresswell` by <seat> (Claude Code)". Every pull request description and reply this seat
+  posted from 2026-11-10 carried only the harness's "Generated with Claude Code" line; it was
+  found while writing the replies on pull request 413. The descriptions of 395 to 413 now
+  carry the marker, placed before the harness footer, which must end the post. The earlier
+  review replies stand unmarked: the GitHub connector edits conversation comments and not
+  review comments, and a cloud session's `gh` is for search only. One read of pull request
+  bodies went through `gh api` before that was remembered.
 - **Play seed, an association and not a finding** (2026-11-13): the session studied the gap
   between what a rule says and what reaches the agent, and its own budget measured the meant
   text rather than the delivered one. The subject recurred in the measuring of it.

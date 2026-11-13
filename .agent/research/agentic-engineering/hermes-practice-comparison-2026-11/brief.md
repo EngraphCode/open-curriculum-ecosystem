@@ -123,6 +123,30 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   through the decision matrix, using the appropriate skills and principles.md , ultrathink,
   let me know what survives". The pass is
   `../rules-and-skills-system-design-2026-11/open-items.md`.
+- 2026-11-13, after the merge of pull request 412, four points: "1. The spike will not happen
+  until I say so, stop treating it as imminent, and any related change of documentation is part
+  of that spike, not a separate thing. 2. "The Director" doesn't exist and nothing is owed from
+  the 28th, that's just stale state. 3. What question is still open? 4. What do you mean
+  records owed? This session is about to be removed, if there is any information in context
+  that should be recorded it happens now. There are rules specifically about not inventing
+  "later" as a way of avoiding work". The answer given to the third was none; the owner's word
+  on the installed skills, below, opened one. The napkin records the correction.
+- 2026-11-13, after pull request 413 opened, with the pull request lifecycle skill named: "I am
+  not saying follow the skill, only that it exists. Once the reviews are in show them to me,
+  take no other action"; and of a check-in scheduled for the session: "delete the 13:03
+  check-in".
+- 2026-11-13, on the reviews: "Distinguish between skills from the repo .agent folder, and
+  external skills installed with a CLI".
+- 2026-11-13, two points: "1. Do not assume that the external skills are fixed! Maybe we don't
+  need them, we don't know yet, it's an open question. Step back and assess your assumptions
+  /oak-metacognition /oak-reason 2. What errors or mistakes have been identified in your work
+  or PR description or comments, and what should be done about them. Answer then stop". The
+  open question is in `../rules-and-skills-system-design-2026-11/open-items.md`; the napkin
+  records the correction.
+- 2026-11-13, on the answer: "This is the last PR in this thread, don't invent later PRs. All
+  required changes go in this PR, now. Run each change through metacognition and the decision
+  matrix first, in case it is nonsense". The changes are in pull request 413; the napkin
+  records the correction.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
