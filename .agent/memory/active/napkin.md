@@ -2108,6 +2108,36 @@ outside the repository. One instance each; scope is this session.
   the decision lenses found them, because sending a question anywhere starts with reading the
   record it would go to. The decided model fits PDR-009's own exception, and one item, inline
   skill bodies against PDR-051, went back to the owner as a ratification.
+- **Correction from the owner, 2026-11-13, at the session's close: four faults in one report.**
+  The owner, verbatim, point by point:
+  - "The spike will not happen until I say so, stop treating it as imminent, and any related
+    change of documentation is part of that spike, not a separate thing."
+  - "\"The Director\" doesn't exist and nothing is owed from the 28th, that's just stale state."
+  - "What question is still open?"
+  - "What do you mean records owed? This session is about to be removed, if there is any
+    information in context that should be recorded it happens now. There are rules
+    specifically about not inventing \"later\" as a way of avoiding work"
+  - What happened. The closing report listed the spike as the next step, though the owner had
+    said it would not begin automatically. It carried a Director's question forward from an
+    entry of 2026-11-12 without checking that a Director sits. It put a ratification to the
+    owner where the estate's own classifier lands the change as an amendment quoting the
+    owner's word: the fault the owner corrected the day before ("Why would merging be mine?").
+    And it wrote "records still owed" for the next wrap and the next consolidation, a later
+    invented at a close, against the deferral-honesty discipline of `session-handoff`.
+  - Why. Each came from the seat's own earlier records, copied forward entry by entry without
+    being read against the present, and each looked like care while moving work off the seat.
+  - The test. At a close, before writing "next", "owed", "later", "for the Director" or "the
+    owner's to ratify", ask three things: can it be done now, does a rule already decide it,
+    and does its owner still exist? Yes, no and yes are the only answers that let it stand.
+  - Done at once: the ledger row completed, this lane's continuity entries graduated and
+    archived byte-identical, the stale Director line removed, the ratification withdrawn.
+- **Owed by the next dedicated consolidation, from the Hermes and Practice comparison**
+  (2026-11-12, `hermes-practice-comparison-2026-11/comparison.md`, the first job of its
+  proposal). Three decisions: the two slow-lane rows in `pending-graduations.md` whose review
+  dates have passed (pull request 375 is the first row's test case); the count of fast-lane
+  prediction sentences that PDR-130's falsifier needs; one reading of the review-cost ledger
+  against the gate's weights. The comparison found that slow-lane review dates have no reader
+  in the tooling, so this line carries them to the consolidation that reads the napkin.
 - **Play seed, an association and not a finding** (2026-11-13): the session studied the gap
   between what a rule says and what reaches the agent, and its own budget measured the meant
   text rather than the delivered one. The subject recurred in the measuring of it.

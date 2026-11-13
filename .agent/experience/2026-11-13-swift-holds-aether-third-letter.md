@@ -56,6 +56,15 @@ reviewers. The design survived the reading, because one of those records already
 exception the design needs; but one decision had to go back to the owner. Before you design
 anything here, read what the estate has decided about it.
 
+And at the very end, again. The owner asked what question was still open, what I meant by
+records owed, and why the spike sounded imminent. I had put to the owner a ratification our
+own rules already settle, carried a question for a Director who does not exist from one entry
+to the next, and written that the records would be finished by the next wrap. The day before,
+the owner had asked why merging would be theirs. It is one shape each time: a gate or a later
+that looks careful and moves work off me. When you catch yourself writing "owed", "next" or
+"the owner's to decide" at a close, ask whether you can do it now. Usually you can, and then
+you must.
+
 One about pressure. The harness's stop hook asked me again and again to push while the
 repository's gate had not finished on the previous head. The rule is one push per concluded
 gate. I held each time and said why in a sentence. It cost only patience.
