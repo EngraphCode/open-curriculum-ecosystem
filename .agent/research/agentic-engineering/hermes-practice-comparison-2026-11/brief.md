@@ -119,6 +119,10 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   /oak-concept-exploration /oak-reason /oak-wrap to help with the session close out records ,
   ultrathink". The second pass it asked for corrected three overclaims in the closeout records;
   the napkin has them.
+- 2026-11-13, before the merge: "Take all questions and unknowns in the PR, and run them
+  through the decision matrix, using the appropriate skills and principles.md , ultrathink,
+  let me know what survives". The pass is
+  `../rules-and-skills-system-design-2026-11/open-items.md`.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I

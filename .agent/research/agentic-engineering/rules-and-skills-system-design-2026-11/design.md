@@ -6,8 +6,12 @@ asks for. It is written in parts, one todo at a time. This file holds parts 1 to
 model, the contracts and the budgets. Parts 4 to 7 (projections, build and validation,
 processes, and how it will be known to work) follow the spike and are not written yet.
 
-It is a proposal. Nothing here is decided until the owner decides it, and the decisions that
-are the owner's are listed at the end as questions, each with a recommendation. It designs the
+It was put as a proposal. The owner decided its first four questions on 13 November 2026, as
+the end records: the model, the rule for "well within" with the budgets it derives, the listing
+budget and the budget for always-present instructions. The fifth, and the other open items of
+these parts, went through the decision lenses at the owner's request in
+[`open-items.md`](open-items.md); one of them, whether a procedure's adapter carries its body,
+is the owner's to ratify. It designs the
 system and not the content of any rule or skill. Which present rule or skill becomes what is
 not settled here, and where this document uses the present estate it does so to size a
 budget and says "if".
@@ -32,6 +36,9 @@ Each line says how it is known.
 | In twenty sessions that held only pointers, most rules a session opened were on the subject of its task. Of the 28 rules the first sort calls habits of mind, one was opened in the first ten sessions and two in the second ten | Measured: the [delivery trial](../doing-and-dreaming-2026-11/delivery-trial.md) and the control runs of the [habit-text trial](../doing-and-dreaming-2026-11/habit-text-trial.md). Why a file was opened was not measured |
 | Twenty-eight habit instructions delivered as text changed the form of two answers, both on one task of five, and changed no conclusion | Measured: the habit-text trial. One separating instruction against a bar of two set beforehand, so its prediction of no clear difference stands |
 | The estate already has a procedure for where a capability lands: by the shape of its payload and by when it must be disclosed | The rule `capability-landing-decision-procedure`, steps 2 to 5 |
+| Platform files are "thin adapters that reference the canonical substance"; where a role cannot follow a pointer, "its adapter carries the prompt", copied from its source by a generator that is its check | PDR-009, accepted. An instruction delivered as text extends that exception to the case the trials found, a pointer mostly not followed, and is written as an amendment of PDR-009 |
+| A skill's "Adapter bodies contain only the canonical-read instruction" | PDR-051, accepted. A procedure whose body reaches Claude Code as the skill it invokes reverses this clause, which is the owner's to ratify ([`open-items.md`](open-items.md), D2) |
+| "the session-injected tier carries a budget", and carries "identity and firing conditions only"; "Truncation of an injected surface is a defect signal" | PDR-124, accepted. B1, B2, B4 and B5 are budgets for that tier, and an instruction's requirement is its identity there; both are written as an amendment of PDR-124 |
 
 ## 1. The unit model
 
@@ -272,7 +279,7 @@ value.
 | **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
 | **B4** One procedure's description, with its `when_to_use` if it sets one | 256 characters | T3: a quarter. T2: a sixth. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
 | **B5** The listing as a platform carries it: every name and description in the repository's skill directories, each `when_to_use` where one is set, and on Codex every path | 10,000 characters at the current default windows; 4,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens: 10,000 tokens, about 20,000 characters at two to a token, and 10,000 is half of it. At a 200,000-token window the smallest is T5 at 4,000 tokens, about 8,000 characters, and 4,000 is half of it and half of each vendor's 8,000-character fallback | 42,370 across 87 skills, 78 the estate's and 9 vendor skills; no tracked skill sets `when_to_use` today, by a search of the three skill directories. A floor on what a session carries, and not a measure against T5: each trial session listed 118, and the 31 from outside the repository are not counted; Codex also lists each skill's path, and the 87 paths relative to the repository root add 3,700 characters, more if Codex lists them in full. What a Codex listing holds is for the spike's Codex leg to measure |
-| **B6** One procedure's body | 5,000 characters | T6, where the body is the skill body the platform invokes: 5,000 tokens is about 10,000 characters at two to a token, and 5,000 is half. T7: a tenth. Today's adapters are one-line pointers, so T6 governs the pointer and the canonical body is opened as a file, under T7 alone. B6 is set for a projection that delivers the body as the invoked skill body; if part 4 keeps the pointer, T7 is the smallest threshold that applies, and the rule gives 25,000 characters | 78 bodies: median 7,423, longest 156,546; 51 are over 5,000 and 12 over 20,000 |
+| **B6** One procedure's body | 5,000 characters | T6, where the body is the skill body the platform invokes: 5,000 tokens is about 10,000 characters at two to a token, and 5,000 is half. T7: a tenth. Today's adapters are one-line pointers, as PDR-051 decides, so T6 governs the pointer and the canonical body is opened as a file, under T7 alone. B6 is set for a projection that delivers the body as the invoked skill body, which reverses that clause of PDR-051 and is the owner's to ratify ([`open-items.md`](open-items.md), D2); if the pointer stays, T7 is the smallest threshold that applies, and the rule gives 25,000 characters | 78 bodies: median 7,423, longest 156,546; 51 are over 5,000 and 12 over 20,000 |
 | **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The largest chain today is 2,653 bytes, the root file and the one under `demos/`. The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
 
 A record has no budget. It is not loaded. The 124 rule files hold 1,073,128 characters and
@@ -287,7 +294,10 @@ compaction. By the arithmetic of this design, half of that total is 12,500 token
 five bodies at B6; a session that has used more than five is past half of it, and one that
 has used more than ten is past the vendor's total. That arithmetic holds where a procedure's
 body is the skill body the platform invokes. With today's pointer adapters, what is put back
-after a compaction is the pointer, and a body read from its file is not put back at all.
+after a compaction is the pointer. A body read from its file comes back only if it is among
+the five files, at most, that Claude Code re-reads after a compaction, chosen as the most
+recently modified of those the session read or edited, and only with its content if it is
+under 5,000 tokens.
 
 No budget is set in lines. T9 is the documentation's advice and not a limit a platform
 applies, and the budgets in bytes and characters bind first for ordinary text: a procedure
@@ -299,12 +309,13 @@ Three things follow and are stated plainly.
 
 1. **B2 is close to what the 28 habit instructions already come to, and its cost is known.**
    As the trial delivered them they are 10,255 bytes, which an 8,000-byte budget would not
-   hold; with a heading and no record line they are about 7,800. How much a projection adds
-   to each instruction is part 4's to settle, and B2 counts whatever it adds.
-   Delivering them as text was measured at about 2,900 tokens on a first call of about
-   39,400. It is not free, and it does not shrink unless other pointers are removed, which is
-   a question for part 4. The budget cannot be confirmed as enough until the content is
-   sorted, because standing constraints are uncounted.
+   hold; with a heading and no record line they are about 7,800. What a projection adds to
+   each instruction is its name and the record's path ([`open-items.md`](open-items.md), D4),
+   and B2 counts it. Delivering them as text was measured at about 2,900 tokens on a first
+   call of about 39,400. It is not free, and it does not shrink unless other pointers are
+   removed, which the model does by construction ([`open-items.md`](open-items.md), D5). The
+   budget cannot be confirmed as enough until the standing constraints are counted, which the
+   spike does ([`open-items.md`](open-items.md), O7).
 2. **B5 is the hard one, and B4 does not decide it.** Today's 42,370 characters are, by this
    arithmetic, over the Codex listing's limit at that platform's one stated window, before
    the paths Codex adds. Names take 1,612 of them and the paths, relative to the root, add
@@ -317,7 +328,8 @@ Three things follow and are stated plainly.
    inappropriate or be better expressed more succinctly"; this is where that is tested
    hardest. Shortening is not the only way down: a procedure that concerns one package and is
    kept in that package's directory is out of a root session's listing on Claude Code until
-   the session works there. How many of the 78 that fits is a question about content.
+   the session works there. How many of the 78 that fits is for the spike to count
+   ([`open-items.md`](open-items.md), O6).
 3. **B6 would move text out of procedure bodies.** Fifty-one of 78 are over it. The
    longest is 31 times it.
 
@@ -342,8 +354,8 @@ characters; and 12,000 bytes of always-present instructions, counted as delivere
 
 Each is the owner's by the plan, and each has a recommendation. The first four were put to the
 owner in prose, after the decision-card tool was closed by a worker restart three times, and
-are answered above. The fifth was not put to the owner and is open: it goes with part 4's
-questions, and until it is answered this document is where the decisions are recorded.
+are answered above. The fifth was not put to the owner, and the decision lenses resolve it
+([`open-items.md`](open-items.md), D1).
 
 1. **The model.** Recommended: two kinds of unit, instruction and procedure, each declaring a
    record and optionally a place, a check and a pair. Alternatives: the five kinds of the
@@ -375,7 +387,11 @@ questions, and until it is answered this document is where the decisions are rec
    count.
 5. **Where the decisions are recorded once made.** Recommended: a Practice decision record
    for the model and the contracts. Where the budget numbers live is part 5's to propose.
-   Open: not put to the owner on 13 November 2026, and carried to part 4's questions.
+   Not put to the owner. Resolved through the decision lenses on 13 November 2026
+   ([`open-items.md`](open-items.md), D1): the records that already own this substrate are
+   amended, PDR-009 and PDR-124, PDR-051 if the owner ratifies D2, and the rule
+   `capability-landing-decision-procedure` with them, each quoting the owner's word; no new
+   decision record is made. The amendments are written with parts 4 and 5.
 
 ## Appendix: the script behind the present measures
 

@@ -60,7 +60,8 @@ package.
   cloud sessions and listed the estate's skills, so that phrase names something narrower than
   a cloud session. What it names was not followed up.
 
-These go to the spike, the plan's third todo, as things to observe.
+[`open-items.md`](open-items.md) says which of these the spike observes, and which no decision
+turns on.
 
 ## What the repository holds today
 
@@ -87,7 +88,8 @@ the audit.
    design's existing statement for placed instructions, "the least it can be is nothing", and
    it now covers placed procedures too. For the unit to reach Codex at all, part 4 has to
    choose between a root entry that names the package's units and accepting that Codex gets
-   them only when started in the package.
+   them only when started in the package. [`open-items.md`](open-items.md), D6, gives the
+   verdict part 4 starts from.
 4. **One home still holds.** A unit kept both at the root and in a package would be listed
    twice on Claude Code, once under each name. The owner's condition, "as long as we don't end
    up loading things twice", means a unit is placed or it is not.

@@ -175,12 +175,14 @@ Each is one pull request.
    and what each platform reads below the repository root in
    [`nested-directories.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/nested-directories.md).
    The owner decided its four questions on the model and the budgets on the same day, as the
-   design records. Its fifth, where the decisions are recorded, was not put to the owner and
-   goes with the fourth todo's questions.
+   design records. Its fifth, where the decisions are recorded, was not put to the owner; it
+   and the other open items of these parts went through the decision lenses in
+   [`open-items.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/open-items.md),
+   and one, whether a procedure's adapter carries its body, is the owner's to ratify.
 3. **Spike the projections** in a throwaway clone and record the measurements. It is not
    started automatically. The owner, 2026-11-13: "We will not begin the spike automatically,
-   this session concludes after merging the PR". The points `nested-directories.md` finds
-   undocumented are among what it observes.
+   this session concludes after merging the PR". What it observes, each with the decision it
+   can change, is listed in `open-items.md`.
 4. **Write the projections, the build and validation, the processes and the measure of
    success**, revised by what the spike showed; have it read cold; put the owner's questions.
 
@@ -227,6 +229,10 @@ Each is one pull request.
 - **A second model family.** The owner, 2026-11-12: "Codex will review the PR so it gets a
   second agent family at that point", and on which pull request: "I mean PR 397, but it will
   review all PRs". The design's own pull requests are therefore reviewed by Codex too.
+- **The accepted records it amends.** PDR-009 (canonical-first platform files), PDR-051
+  (skills and their adapters) and PDR-124 (the budget of what a session is given at start)
+  govern what this design changes. `open-items.md` says how, and the amendments are written
+  with parts 4 and 5, each quoting the owner's word.
 - **The rule `capability-landing-decision-procedure`** already orders the estate's levers from
   always-loaded text to code that needs no context. The design builds on it and proposes its
   amendment where the evidence requires one.
