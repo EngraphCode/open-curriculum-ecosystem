@@ -26,6 +26,16 @@ Fires at every third-party adoption moment, in any session:
 - bumping the pin of an already-vendored source (a whole-repo pin means
   the re-review scopes to the changed executables in the diff).
 
+## Scope
+
+A plugin published through a harness vendor's own official marketplace
+(for Claude Code, the marketplace names Anthropic reserves, such as
+`claude-plugins-official`) is outside this rule. The estate does not
+vet or pin it: the vendor's automatic updates carry its security
+fixes, and a pin would withhold them. The rule covers every other
+source: community and third-party marketplaces, skill packs, and
+vendored content.
+
 ## Action
 
 1. **Enumerate the executable surface** of the incoming unit first:
