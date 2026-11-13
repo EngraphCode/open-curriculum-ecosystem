@@ -861,6 +861,9 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
   reconciled). The owner's #397 at `de0fba6fd`, then #410, #411 and #412, to `1caf7ca30`. The
   order the owner set is met: #397 is on `engraph` before the merge to Oak.
 - **Fork-only values.** At the owner's request (relayed by Hydra, 2026-11-13) the plan now lists
-  the values that must not reach Oak. Three uncommitted edits in the primary checkout carry the
-  fork's SonarCloud organisation and project, and a plugin entry; none is committed on any
-  branch. Never stage them.
+  the values that must not reach Oak. Two uncommitted edits in the primary checkout carry the
+  fork's SonarCloud organisation and project; neither is committed on any branch. Never stage
+  them. The SonarQube plugin entry beside them is not a fork value and has its own pull request,
+  #415.
+- **The owner, 2026-11-13, verbatim:** "wait for 413". #413 landed at `167ea3376`; the sync to
+  Oak follows it.
