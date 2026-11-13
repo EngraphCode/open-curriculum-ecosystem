@@ -37,6 +37,86 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-13, the four recommendations are final** (Swift holds Aether, Claude cloud
+  session `01Duocji`). Asked, having read the investigation of nested directories, whether
+  the four are final, the owner answered "Yes, I agree". Decided: two kinds of unit,
+  instruction and procedure, with place as paths or as the directory a unit is kept in; half
+  or less of the smallest threshold that applies, tokens converted at two characters each,
+  with 300, 4,000 and 256 characters as this seat's choices; a listing budget of 10,000
+  characters; 12,000 bytes of always-present instructions, counted as delivered. Recorded in
+  the design's "Questions for the owner", and the plan's second todo is marked done. Pull
+  request 412 carries these records, the session's own among them because this cloud session
+  can push only to its harness branch, and is merged by the seat at green and clean; the
+  session ends there, at the owner's word: "I have switched models to enable the session to
+  continue past an exhausted limit. Please review next steps. We will not begin the spike
+  automatically, this session concludes after merging the PR".
+  - **Next, in order.** The plan's third todo, the spike, starts only at the owner's word. Its
+    Codex leg is the owner's to run, and what it observes, each with the decision it can
+    change, is listed in `rules-and-skills-system-design-2026-11/open-items.md`. The fourth
+    todo follows the spike; before its figures leave the work, check each budget row by row
+    against everything the platform counts and every limit it applies, and each figure
+    against the script's output (the napkin's entry of 2026-11-13 says why). The design of the
+    experiment on self-starting refinement still waits for the owner's word.
+  - **The open items, through the decision lenses at the owner's request** (`open-items.md`).
+    One survives, as a ratification: whether a procedure's adapter carries its body, which
+    reverses PDR-051's "Adapter bodies contain only the canonical-read instruction"; the
+    verdict is to ratify. The design had not cited three accepted records that govern it,
+    PDR-009, PDR-051 and PDR-124; the decided model amends PDR-009 and PDR-124, and those
+    amendments, with the rule `capability-landing-decision-procedure`, are where the
+    decisions are recorded, written with parts 4 and 5. Two questions arise only on a spike
+    result: which outside skills sessions carry, and B2 if the standing instructions cannot
+    be made to fit.
+  - **Still open.** The ratification above, if the owner has not given it. The review-cost
+    ledger's row for pull request 412 stops at its twelfth reviewed head; the next wrap adds
+    the later heads and the merge commit. The Director's
+    question in the entry below, on the Codex nodes paused on 2026-09-28. This lane's entries
+    below, from 2026-11-10 on, are history once 412 merges, and are for the next
+    consolidation to drain under §Disposition.
+- **2026-11-13, the owner accepts the four recommendations and holds them from final**
+  (Swift holds Aether, Claude cloud session `01Duocji`). The owner's word: "I accept your
+  recommendations, but before marking them final, please investigate nested/multiple .claude
+  directories e.g. a package can have it's own additional (?) rules and skills. I don't know
+  if codex also supports that". The investigation is
+  `rules-and-skills-system-design-2026-11/nested-directories.md`, from the vendors'
+  documentation, nothing observed. Claude Code reads a package's own instruction file and
+  skills from the start in a session started there and on first touch in a session started
+  above, and its rules at an event the documentation does not state. Codex reads a package's `AGENTS.md` and skills only in a session started
+  there. The design gains a second form of place, the directory a unit is kept in, for
+  procedures as well as instructions; the four recommendations stand. Pull request 412 is
+  not merged until the owner, having read it, says they are final. By then twenty-one review
+  threads over eleven rounds, each answered and resolved; the entry below was written
+  earlier and its counts and "no answer exists" are of that time.
+- **2026-11-13, the design plan's second todo is in review and waits on four answers from
+  the owner** (Swift holds Aether, Claude cloud session `01Duocji`). Pull request 411 (the
+  audit) merged as `5584f3337`. Pull request 412 holds parts 1 to 3 of the design,
+  `rules-and-skills-system-design-2026-11/design.md`, and the re-read of each threshold at
+  its vendor page, `threshold-reread.md`. It is marked ready so that Codex reviews it, and
+  it is not to be merged before the owner answers: it proposes and decides nothing. Eighteen
+  review threads were raised over nine rounds and each is answered and resolved.
+  - **The four questions**, each recorded with its recommendation in the design's
+    "Questions for the owner". (1) The unit model: two kinds, instruction and procedure,
+    each declaring a record and optionally a place, a check and a pair. (2) The rule for
+    "well within": half or less of the smallest threshold that applies, with 300 characters
+    for one instruction, 4,000 for one with a place and 256 for a procedure's description as
+    this seat's choices. (3) The listing budget: 10,000 characters at the current default
+    windows, or 4,000 at the smallest documented case. Neither holds all 87 skills at a
+    useful description length, so either means fewer procedures listed than today.
+    (4) Always-present instructions: 12,000 bytes counted as delivered (the 28 habit
+    instructions in the trial's form are 10,255, so 8,000 does not hold them), about 4,100
+    tokens at the ratio measured and up to 6,000 at the design's conversion, on a first call of
+    about 39,400. The figure put to the owner was 3,500 and was corrected after the answer.
+  - **How they were put.** The decision-card tool was called twice and both calls were
+    closed by a worker restart, unanswered, so the questions went to the owner as prose. No
+    answer exists. They go as cards again when the owner is present.
+  - **On the owner's answers.** Record each, dated and verbatim, in the design; get the pull
+    request green and clean; merge it by merge commit; restart the branch from `engraph`.
+    Then todo 3, the spike in a throwaway clone, whose Codex leg is the owner's to run.
+  - **The figures changed late.** Budgets set against a threshold in tokens convert at two
+    characters to a token, under the trial's measured 2.6 to 3.2. An earlier head used
+    three, and before that four; any note that quotes 15,000 or 20,000 for the listing, or
+    7,500 or 10,000 for a procedure body, is from those heads.
+  - **For the Director, not the owner.** Whether the Codex nodes paused on 2026-09-28 are
+    seated again under the owner's platform ordering.
 - **2026-11-12, the design plan's first todo is done and in review** (Swift holds Aether,
   Claude cloud session `01Duocji`). Pull request 410 (the trials' evidence) merged as
   `8e80d7527`. The audit of the pipeline against its code is

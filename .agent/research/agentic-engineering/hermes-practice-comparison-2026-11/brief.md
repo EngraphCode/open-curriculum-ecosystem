@@ -100,6 +100,29 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
 - 2026-11-12, ratifying that plan and answering three questions (which pull request Codex
   reviews, which node the plan serves, and whether `agent-platform-citizenship` carries the
   platform ordering): "Ratified. I mean PR 397, but it will review all PRs. Leave the plan under the current node. Yes, update the platform citizenship ordering".
+- 2026-11-12, correcting two gates the seat had invented: "Why would merging be mine? First,
+  that is not policy, second, I already asked you to merge. And are you telling me that you
+  know text is wrong, and that there is known good replacement text, but you are waiting on my
+  to ask you to fix it?", followed by three skill invocations and "run all of the current
+  unknowns through the decision matrix". The correction is recorded in the napkin.
+- 2026-11-13, answering the four questions of the design's parts 1 to 3: "I accept your
+  recommendations, but before marking them final, please investigate nested/multiple .claude
+  directories e.g. a package can have it's own additional (?) rules and skills. I don't know if
+  codex also supports that". The investigation is
+  `../rules-and-skills-system-design-2026-11/nested-directories.md`.
+- 2026-11-13, having read it, on whether the four are final: "Yes, I agree". The decision is
+  recorded in `../rules-and-skills-system-design-2026-11/design.md`.
+- 2026-11-13, on how the session ends: "I have switched models to enable the session to
+  continue past an exhausted limit. Please review next steps. We will not begin the spike
+  automatically, this session concludes after merging the PR".
+- 2026-11-13, before the merge: "Please use /oak-metacognition /oak-free-play
+  /oak-concept-exploration /oak-reason /oak-wrap to help with the session close out records ,
+  ultrathink". The second pass it asked for corrected three overclaims in the closeout records;
+  the napkin has them.
+- 2026-11-13, before the merge: "Take all questions and unknowns in the PR, and run them
+  through the decision matrix, using the appropriate skills and principles.md , ultrathink,
+  let me know what survives". The pass is
+  `../rules-and-skills-system-design-2026-11/open-items.md`.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I
