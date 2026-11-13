@@ -3,19 +3,6 @@
 
 # Oak Open Curriculum Ecosystem
 
-## Engraph OCE programme — 10 October 2026
-
-OCE remains the full capability innovation kit and framework, retaining all
-mechanisms and potentially reusable material. External apps will carry supported
-instance configuration over published OCE packages. CF construction, reusable-core
-reconstruction, layered curriculum integrity, Castr, publication and receiving
-responsibility form one incremental design. See the
-[architecture](docs/architecture/oce-architecture.md) and
-[instance guide](docs/development/oce-instance-development.md).
-This is the accepted direction and proposed design, not a completed implementation
-or a claim that packages are available. The curriculum infrastructure consumer and the exploratory pedagogy project remain distinct profiles;
-the framework extends beyond them and today's applications.
-
 The [Oak National Academy Open Curriculum](https://open-api.thenational.academy/)
 becomes AI-native infrastructure through four co-equal value streams: a
 [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)
@@ -107,7 +94,7 @@ are set out in [What This Repo Provides](#what-this-repo-provides) below.
   practical guide to how you direct the work, what the agents do around you, and what keeps
   the quality honest
 - **Oak teammates joining via Claude Code (or another AI coding agent)** — Quick Start as above, then [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md) for the sanctioned MCP set
-- **AI agents** — read the [start-right-quick workflow](.agent/skills/start-right-quick/shared/start-right.md), then [AGENT.md](.agent/directives/AGENT.md), then scan the [five foundational ADRs](docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes) — the architectural source of truth
+- **AI agents** — read the [start-right-quick workflow](.agent/skills/start-right-quick/shared/start-right.md), then [AGENT.md](.agent/directives/AGENT.md), then scan the [foundational ADRs](docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes) — the architectural source of truth
 
 ### Working with agents
 
@@ -216,11 +203,11 @@ full licence terms.
 
 ### MCP Server Capabilities
 
-The MCP servers expose curriculum data through the three [MCP primitive types](https://modelcontextprotocol.io/docs/learn/server-concepts):
+The MCP servers expose curriculum data through two of the three [MCP primitive types](https://modelcontextprotocol.io/docs/learn/server-concepts):
 
 - **Tools** (model-controlled): 37 curriculum tools (24 generated from the OpenAPI schema plus 13 aggregated compositions) covering search/browse/fetch flows, orientation via `get-curriculum-model`, the curriculum graph tools (`get-thread-progressions` for curriculum-ordered sequences, `get-prior-knowledge-graph`, `get-misconception-graph`, `get-keyword-graph`), EEF evidence, `download-asset`, and the user-search pair. The AI decides when to use them. See [`apps/oak-curriculum-mcp-streamable-http/README.md`](apps/oak-curriculum-mcp-streamable-http/README.md) as the canonical count.
 - **Resources** (application-controlled): The curriculum model, a getting-started guide, and the EEF evidence-interpretation guide as pre-loadable context for MCP clients that support resource injection. The curriculum graphs are deliberately tool-only — served anchored and bounded by the graph tools rather than as whole-corpus dumps.
-- **Prompts** (user-controlled): Seven workflow templates (`find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`, `curriculum-mapping`, `adapt-lesson`, `continue-progression`) that guide users through common curriculum tasks — including the position-anchored entry point: state what your class just covered and plan the next step from Oak's sequence, building on what came before.
+- **Prompts** (user-controlled): none are served; the workflow guidance is served as resources — see the [server README](apps/oak-curriculum-mcp-streamable-http/README.md).
 
 The standalone stdio workspace has been retired and removed. The
 canonical MCP server workspace is now
@@ -252,14 +239,10 @@ is installed inside WSL, never in PowerShell.
   and Sentry Seer) — install only when you need local Sentry operator tooling;
   see [Sentry CLI usage](docs/operations/sentry-cli-usage.md) for the
   `sentry-cli` vs dev-`sentry` split and workspace invocation details.
-- **Linear plugin** (Claude Code users, upstream line only) — issue tracking
-  through Linear's hosted MCP server. The upstream repository's tracked
-  `.claude/settings.json` enables `linear@claude-plugins-official`, so Claude
-  Code offers to install it on first launch there — accept the prompt, then
-  authenticate with `/mcp`. This fork does not use Linear (owner ruling,
-  2026-09-06), and its tracked [`.claude/settings.json`](.claude/settings.json)
-  activates no plugin; contributors here skip this entry. The full sanctioned
-  MCP set is listed in
+- **Claude Code plugins** (Claude Code users) — on first launch Claude Code offers to
+  install the plugins enabled under `enabledPlugins` in the tracked
+  [`.claude/settings.json`](.claude/settings.json); accept the prompt. Install any others you
+  use from the sanctioned set, Linear included, in
   [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md).
 - **MCPJam** (optional, for MCP server development and validation only) —
   inspects, runs conformance checks, and authors/runs evals against the MCP
@@ -548,13 +531,13 @@ Search uses Elasticsearch with 4-way reciprocal rank fusion (ELSER sparse vector
 | [`oak-design-tokens`](packages/design/oak-design-tokens/)   | Oak-specific token definitions (palette, semantic, component) and CSS build output |
 | [`oak-design-ink`](packages/design/oak-design-ink/)         | Reusable Oak React primitives for Ink-based terminal interfaces                    |
 
-Architectural Decision Records (ADRs) are the architectural source of truth. These three foundational ADRs define the schema-first approach that underpins the codebase:
+Architectural Decision Records (ADRs) are the architectural source of truth. These foundational ADRs define the schema-first approach that underpins the codebase:
 
 - [ADR-029](docs/architecture/architectural-decisions/029-no-manual-api-data.md) — No manual API data structures
 - [ADR-030](docs/architecture/architectural-decisions/030-sdk-single-source-truth.md) — SDK as single source of truth
 - [ADR-031](docs/architecture/architectural-decisions/031-generation-time-extraction.md) — Generation-time extraction
 
-See the [full ADR index](docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes) for all decisions (start with the "5 ADRs in 15 Minutes" block).
+See the [full ADR index](docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes) for all decisions (start with its Start Here block).
 
 ### Architectural invariants
 
