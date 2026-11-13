@@ -37,6 +37,35 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **2026-11-13, the design plan's second todo is in review and waits on four answers from
+  the owner** (Swift holds Aether, Claude cloud session `01Duocji`). Pull request 411 (the
+  audit) merged as `5584f3337`. Pull request 412 holds parts 1 to 3 of the design,
+  `rules-and-skills-system-design-2026-11/design.md`, and the re-read of each threshold at
+  its vendor page, `threshold-reread.md`. It is marked ready so that Codex reviews it, and
+  it is not to be merged before the owner answers: it proposes and decides nothing. Twelve
+  review threads are resolved at head `7f91b84de`.
+  - **The four questions**, each recorded with its recommendation in the design's
+    "Questions for the owner". (1) The unit model: two kinds, instruction and procedure,
+    each declaring a record and optionally a place, a check and a pair. (2) The rule for
+    "well within": half or less of the smallest threshold that applies, with 300 characters
+    for one instruction, 4,000 for one with a place and 256 for a procedure's description as
+    this seat's choices. (3) The listing budget: 10,000 characters at the current default
+    windows, or 4,000 at the smallest documented case. Neither holds all 87 skills at a
+    useful description length, so either means fewer procedures listed than today.
+    (4) Always-present instructions: 8,000 bytes, about 3,400 tokens on a first call of
+    about 39,400.
+  - **How they were put.** The decision-card tool was called twice and both calls were
+    closed by a worker restart, unanswered, so the questions went to the owner as prose. No
+    answer exists. They go as cards again when the owner is present.
+  - **On the owner's answers.** Record each, dated and verbatim, in the design; get the pull
+    request green and clean; merge it by merge commit; restart the branch from `engraph`.
+    Then todo 3, the spike in a throwaway clone, whose Codex leg is the owner's to run.
+  - **The figures changed late.** Budgets set against a threshold in tokens convert at two
+    characters to a token, under the trial's measured 2.1 to 2.6. An earlier head used
+    three, and before that four; any note that quotes 15,000 or 20,000 for the listing, or
+    7,500 or 10,000 for a procedure body, is from those heads.
+  - **For the Director, not the owner.** Whether the Codex nodes paused on 2026-09-28 are
+    seated again under the owner's platform ordering.
 - **2026-11-12, the design plan's first todo is done and in review** (Swift holds Aether,
   Claude cloud session `01Duocji`). Pull request 410 (the trials' evidence) merged as
   `8e80d7527`. The audit of the pipeline against its code is

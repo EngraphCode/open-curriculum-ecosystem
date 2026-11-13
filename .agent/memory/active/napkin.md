@@ -2062,6 +2062,17 @@ outside the repository. One instance each; scope is this session.
   from the first wrap of the day.
 - **The review of the collection is done** (`doing-and-dreaming-2026-11/review-of-the-collection.md`).
   "Joint review" is replaced everywhere, the ratified node included (see the correction below).
+- **A margin is only as good as the conversion under it** (2026-11-13, pull request 412).
+  The design set budgets at "half the threshold" and converted tokens to characters at four,
+  then three, while its own trial had measured 2.4. A reviewer found it twice. Convert under
+  the lowest ratio measured, and state the measurement beside the figure.
+- **The decision-card tool can be closed by a worker restart** (2026-11-12, twice in one
+  session). The call returns "not completed" with no answer and no refusal. Do not read it as
+  a decline: record that no answer exists, put the questions in prose so they are not lost,
+  and card them again when the owner is present.
+- **Tracked prose was edited by script several times against the owner's "Use the proper
+  tools only"** (2026-11-12). Generated blocks (a script's text, its output, copied evidence)
+  are written by script; a sentence is changed with the edit tool, every time.
 - **Correction from the owner, 2026-11-12: two gates this seat invented.** The owner: "Why
   would merging be mine? First, that is not policy, second, I already asked you to merge. And
   are you telling me that you know text is wrong, and that there is known good replacement
