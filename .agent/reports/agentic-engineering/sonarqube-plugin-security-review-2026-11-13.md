@@ -71,16 +71,35 @@ Markdown that directs execution:
   installs at user level. Each is a separate adoption by the user who
   runs it. The MCP server reaches SonarQube Cloud with the user's own
   token.
-- **No version pin in the project setting.** `enabledPlugins` names the
-  plugin without a version, so a contributor's harness may install a
-  later release than the one reviewed. The rule's pin-bump clause
-  applies: a release that changes `hooks.json`, `scripts/` or
-  `mcp.json` needs this review repeated against the new SHA. The
-  hashes above make that comparison mechanical.
+- **No version pin, by the owner's decision (2026-11-13).** The
+  project setting names the plugin without a version, and the official
+  marketplace auto-updates by default. The owner wants the vendor's
+  automatic security updates and does not want a pin. So this review
+  is a point-in-time record of version 2.6.0, not a gate on later
+  releases. The hashes above let anyone compare a later release's
+  `hooks.json`, `scripts/` and `mcp.json` against what was read here.
+  The rule's wording assumes a pinned SHA; whether it should carve out
+  auto-updating plugins from an official marketplace is an open
+  question for the rule's owner.
+
+## Installing
+
+Committing the `enabledPlugins` entry turns the plugin on for the
+project but does not download it. Each collaborator runs this once
+per clone:
+
+```bash
+claude plugin install sonarqube@claude-plugins-official --scope project
+```
+
+The skills then need the Sonar CLI (`/sonarqube:sonar-integrate`
+installs and authenticates it) and, for the MCP tools, a running
+container runtime.
 
 ## Verdict
 
 Safe to enable at SHA `5a9356d957db063e4d2cf87511b44cc1ba88dc99`. The
 auto-run surface is one read-only session-start script. The review
 does not extend to the Sonar CLI, the MCP container image, or any
-later plugin release.
+later plugin release; later releases arrive by auto-update, by the
+owner's decision above.
