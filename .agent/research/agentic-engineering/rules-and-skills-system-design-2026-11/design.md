@@ -77,7 +77,7 @@ instruction has one home, the `AGENTS.md` chain.
 | Attribute | Applies to | What it says |
 | --- | --- | --- |
 | **Record** | every unit, required | Where what stands behind the unit is kept: the ruling, the incidents, the evidence, the full argument, the history. A record is never loaded into a session |
-| **Place** | an instruction, optional | The paths where the instruction applies. An instruction with a place is delivered when the place is touched, on a platform that can do that, in place of being present from the start |
+| **Place** | any unit, optional | The part of the repository where the unit applies, given as a set of paths or as the directory the unit is kept in. A unit with a place is delivered when the place is touched, on a platform that can do that, in place of being present from the start |
 | **Check** | any unit, optional | The code that enforces the requirement: a hook, a gate, a lint rule. A unit with no check is advice |
 | **Pair** | an instruction and a procedure, optional | That the instruction is the always-present half of a procedure, as the present rule's companion pair is |
 
@@ -100,7 +100,11 @@ instruction has one home, the `AGENTS.md` chain.
 4. **Place narrows presence and is not a third kind.** An instruction that applies in one
    part of the repository is the same kind of thing as one that applies everywhere. Whether
    a platform can deliver it at the moment its place is touched is a fact about the platform,
-   and part 4 says what each platform gets. A path is one of four loaders the present rule
+   and part 4 says what each platform gets. Both platforms also read guidance from their
+   directories below the repository root, so a unit can be placed by where it is kept: Claude
+   Code delivers such a unit when a session first works in that directory, and Codex only to
+   a session started there. [`nested-directories.md`](nested-directories.md) has what each
+   documents. A path is one of four loaders the present rule
    names; the others are a tool call, the shape of a session and a ceremony that is always
    run. Those three are served today by hooks and by ceremony procedures, which this plan
    does not change. For an instruction whose moment no loader can recognise, the present
@@ -160,7 +164,13 @@ relied on to do. The lengths are in part 3.
 ### Procedure
 
 - **Declares:** a name; a description that says when to use it; a body; its record; its
-  check, if it has one; its paired instruction, if it has one.
+  place, if it has one; its check, if it has one; its paired instruction, if it has one.
+- **Promises, with a place:** on Claude Code, by the documentation and not observed, a
+  procedure kept in a package's own directory is listed from the start in a session started
+  in that package, and in a session started above it once the session reads or edits a file
+  there; until then it is not listed and cannot be invoked by name. On Codex it is listed
+  only in a session started in that package or below, and a session started at the root does
+  not get it. The promises below are for a procedure with no place.
 - **Promises:** on both platforms the name and description are listed when a session starts,
   and the body is available when the procedure is selected. By the documentation of both;
   the listing was observed on Claude Code, where each of forty sessions listed the estate's
@@ -296,7 +306,9 @@ Three things follow and are stated plainly.
    estate lists fewer procedures than it has today, at either reading. The 31 skills a session lists from outside the repository
    are not the estate's to shorten, and whether they share the budget is not documented. The owner expects that "some existing materials will be redundant or
    inappropriate or be better expressed more succinctly"; this is where that is tested
-   hardest.
+   hardest. Shortening is not the only way down: a procedure that concerns one package and is
+   kept in that package's directory is out of a root session's listing on Claude Code until
+   the session works there. How many of the 78 that fits is a question about content.
 3. **B6 would move text out of procedure bodies.** Fifty-one of 78 are over it. The
    longest is 31 times it.
 
@@ -307,6 +319,14 @@ a number the build holds and compares, as the one existing size check does, chan
 place by the owner's decision.
 
 ## Questions for the owner
+
+**The owner's answer, 13 November 2026**, to the four questions put as they stand below: "I
+accept your recommendations, but before marking them final, please investigate
+nested/multiple .claude directories e.g. a package can have it's own additional (?) rules and
+skills. I don't know if codex also supports that". The investigation is
+[`nested-directories.md`](nested-directories.md). It adds a form of place to the model and
+leaves the four recommendations as they are. They are accepted and not yet marked final: that
+is the owner's to say, having read it.
 
 Each is the owner's by the plan. Each has a recommendation. They are put as decision cards
 once this part has been reviewed, and are listed here so the cards have a record. The exact

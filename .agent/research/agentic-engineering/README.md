@@ -143,7 +143,10 @@ sources without turning research notes into a second canon.
 - [rules-and-skills-system-design-2026-11/](./rules-and-skills-system-design-2026-11/pipeline-audit.md)
   — the work of the delivery node `rules-and-skills-system-design`. So far: an audit, against
   the code, of how canonical rules and skills become the files each platform loads and of
-  what the build refuses. Facts only.
+  what the build refuses, facts only; parts 1 to 3 of the design (`design.md`: the unit
+  model, the contracts and the budgets); each threshold re-read at its vendor page
+  (`threshold-reread.md`); and what each platform reads from its directories below the
+  repository root (`nested-directories.md`).
 - [cross-lane-direction-survey.md](./cross-lane-direction-survey.md) —
   Slice C umbrella: re-reads direction-of-travel evidence (Slice A
   governance projects, Slice B practice-methodology primitives,
