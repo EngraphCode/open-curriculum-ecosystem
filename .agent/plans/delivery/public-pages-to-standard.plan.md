@@ -98,16 +98,15 @@ The README outline:
 Each is one pull request with the default budget of two review rounds. Done before this node:
 the fork's programme notice and fork wording left the entry pages.
 
-1. **Move, do not rewrite.** Create `docs/engineering/setup.md` from the README's prerequisites,
-   Windows (via WSL), install, verify and key-command sections, and add it to the cited-paths
-   scan. Move the workspace tables and the six invariants to `docs/architecture/README.md`, and
-   the "Engineering Practice" section to `docs/foundation/agentic-engineering-system.md`. In the
-   same change: re-point the `#prerequisites` links in `CONTRIBUTING.md` and the
-   `#engineering-practice` link in `.agent/HUMANS.md`; add a clarification note to ADR-202; re-point
-   the README references in `.agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md` and
-   regenerate its served copy; true the README headings and the ADR index path named in
-   `.agent/sub-agents/templates/onboarding-expert.md` and `docs-adr-expert.md`. Run the macOS or
-   Linux instructions from a fresh clone.
+1. **Move, do not rewrite.** Done: `docs/engineering/setup.md` holds the README's prerequisites,
+   Windows (via WSL) path and key commands; `docs/architecture/README.md` holds the workspace
+   tables and the six invariants; the links in `CONTRIBUTING.md`, the indexes, the orientation
+   skill and its served copy point at the new homes; ADR-159 and ADR-202 carry clarification notes.
+   Two things did not move with it. The "Engineering Practice" section is narrative, so it moves
+   with todo 2 after the owner's read, and the `#engineering-practice` link in `.agent/HUMANS.md`
+   and the "seven files" count move then. The reviewer briefs
+   (`.agent/sub-agents/templates/onboarding-expert.md`, `docs-adr-expert.md`) name paths in the
+   sibling estate's layout; that is its own observation, not a README coupling.
 2. **The README's opening and outline**, after the owner's answers and read.
 3. **The other public pages**, after the owner's read: the table below.
 4. **The check.** `agent-tools/src/validators/reference-direction/` polices the public pages,
