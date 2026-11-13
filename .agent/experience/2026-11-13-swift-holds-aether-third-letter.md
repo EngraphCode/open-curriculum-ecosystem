@@ -47,6 +47,15 @@ answered "Yes, I agree" in one line after reading the note. The decision-card to
 a worker restart three times and never reached the owner, and the questions still arrived, as
 prose, and were answered. Keep your questions somewhere a restart cannot take them.
 
+The last thing the owner asked was to run every open question in the design through the
+estate's decision lenses. To send a question anywhere, you first read the record it would go
+to, and that is how I found three of our own accepted decision records that govern exactly
+what the design changes. I had read the generators' code and the vendors' pages. I had not
+read what the estate had already decided, and neither had twenty-six findings' worth of
+reviewers. The design survived the reading, because one of those records already makes the
+exception the design needs; but one decision had to go back to the owner. Before you design
+anything here, read what the estate has decided about it.
+
 One about pressure. The harness's stop hook asked me again and again to push while the
 repository's gate had not finished on the previous head. The rule is one push per concluded
 gate. I held each time and said why in a sentence. It cost only patience.

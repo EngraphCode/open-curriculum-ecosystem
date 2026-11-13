@@ -2097,6 +2097,17 @@ outside the repository. One instance each; scope is this session.
   the first pass's head: the records said "its four questions" were decided where the design
   lists five, and the fifth had never been put to the owner. The same pass also left the
   design saying its questions "are put as decision cards" after the card never arrived.
+- **Read the records that govern a design before designing, not only its code** (2026-11-13,
+  pull request 412). The design of the rules and skills system read the generators' code
+  (todo 1) and the vendors' pages, and never read the estate's accepted decision records on
+  the same subject: PDR-009 (thin adapters, with an exception for a role that cannot follow a
+  pointer), PDR-051 (skill adapters carry only the canonical-read instruction) and PDR-124
+  (what a session is given at start carries a budget and only identity and firing
+  conditions). Twenty-six review findings from two model families did not raise them: a
+  reviewer checks what a document says. The owner's request to run the open items through
+  the decision lenses found them, because sending a question anywhere starts with reading the
+  record it would go to. The decided model fits PDR-009's own exception, and one item, inline
+  skill bodies against PDR-051, went back to the owner as a ratification.
 - **Play seed, an association and not a finding** (2026-11-13): the session studied the gap
   between what a rule says and what reaches the agent, and its own budget measured the meant
   text rather than the delivered one. The subject recurred in the measuring of it.

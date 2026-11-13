@@ -51,16 +51,24 @@ forward-asks remain.
   continue past an exhausted limit. Please review next steps. We will not begin the spike
   automatically, this session concludes after merging the PR".
   - **Next, in order.** The plan's third todo, the spike, starts only at the owner's word. Its
-    Codex leg is the owner's to run, and it observes the points `nested-directories.md` finds
-    undocumented. The fourth todo follows the spike; before its figures leave the work, check
-    each budget row by row against everything the platform counts and every limit it
-    applies, and each figure against the script's output (the napkin's entry of 2026-11-13
-    says why). The design of the experiment on self-starting refinement still waits for the
-    owner's word.
-  - **Still open.** The design's fifth question, where the decisions are recorded (recommended:
-    a Practice decision record), was not put to the owner and goes with the fourth todo's
-    questions. The review-cost ledger's row for pull request 412 stops at its twelfth
-    reviewed head; the next wrap adds the final head and the merge commit. The Director's
+    Codex leg is the owner's to run, and what it observes, each with the decision it can
+    change, is listed in `rules-and-skills-system-design-2026-11/open-items.md`. The fourth
+    todo follows the spike; before its figures leave the work, check each budget row by row
+    against everything the platform counts and every limit it applies, and each figure
+    against the script's output (the napkin's entry of 2026-11-13 says why). The design of the
+    experiment on self-starting refinement still waits for the owner's word.
+  - **The open items, through the decision lenses at the owner's request** (`open-items.md`).
+    One survives, as a ratification: whether a procedure's adapter carries its body, which
+    reverses PDR-051's "Adapter bodies contain only the canonical-read instruction"; the
+    verdict is to ratify. The design had not cited three accepted records that govern it,
+    PDR-009, PDR-051 and PDR-124; the decided model amends PDR-009 and PDR-124, and those
+    amendments, with the rule `capability-landing-decision-procedure`, are where the
+    decisions are recorded, written with parts 4 and 5. Two questions arise only on a spike
+    result: which outside skills sessions carry, and B2 if the standing instructions cannot
+    be made to fit.
+  - **Still open.** The ratification above, if the owner has not given it. The review-cost
+    ledger's row for pull request 412 stops at its twelfth reviewed head; the next wrap adds
+    the later heads and the merge commit. The Director's
     question in the entry below, on the Codex nodes paused on 2026-09-28. This lane's entries
     below, from 2026-11-10 on, are history once 412 merges, and are for the next
     consolidation to drain under §Disposition.
