@@ -51,7 +51,7 @@ that must always be in force with an invariant that points to it.
 
 That model is sound and is kept. What it lacks is what the audit and the trials found
 missing: the invariant's text is not delivered, nothing bounds a unit's size, and a unit's
-reasons live in the same file as its instruction. The model below adds those three things to
+history lives in the same file as its instruction. The model below adds those three things to
 what a unit is.
 
 It replaces none of that rule's procedure. The rule also decides which audience a capability
@@ -65,7 +65,7 @@ under "Place" below.
 
 | Kind | What it is | How it must reach the agent |
 | --- | --- | --- |
-| **Instruction** | A requirement stated in a few sentences: what to do, and when | As text, in context without anyone choosing to open it |
+| **Instruction** | A requirement stated in a few sentences: what to do, when, and the reason a reader needs in order to apply it | As text, in context without anyone choosing to open it |
 | **Procedure** | The steps of a named activity | As a listed name and description that select it, and a body loaded when it is selected |
 
 These are the present rule's "invariant" and "procedure". On Claude Code they are what a rule
@@ -76,7 +76,7 @@ instruction has one home, the `AGENTS.md` chain.
 
 | Attribute | Applies to | What it says |
 | --- | --- | --- |
-| **Record** | every unit, required | Where the unit's reasons are kept: the ruling, the incidents, the evidence, the history. A record is never loaded into a session |
+| **Record** | every unit, required | Where what stands behind the unit is kept: the ruling, the incidents, the evidence, the full argument, the history. A record is never loaded into a session |
 | **Place** | an instruction, optional | The paths where the instruction applies. An instruction with a place is delivered when the place is touched, on a platform that can do that, in place of being present from the start |
 | **Check** | any unit, optional | The code that enforces the requirement: a hook, a gate, a lint rule. A unit with no check is advice |
 | **Pair** | an instruction and a procedure, optional | That the instruction is the always-present half of a procedure, as the present rule's companion pair is |
@@ -85,8 +85,12 @@ instruction has one home, the `AGENTS.md` chain.
 
 1. **An instruction is text and not a pointer.** Its declared text is what the platform
    delivers. This is the one change to what a rule is.
-2. **A unit's reasons leave the unit.** By the owner's ruling history does not belong in a
-   rule or a skill. The record is where it goes, with the evidence and the argument. Dated
+2. **A unit's history leaves the unit, and its reason stays.** By the owner's ruling history
+   does not belong in a rule or a skill. The record is where it goes, with the incidents, the
+   evidence and the full argument. The ruling excludes history and not reasons. The
+   repository's rule on documentation requires that doctrine "state enough 'why' for a future
+   reader to re-derive the rule under novel conditions", so a unit keeps the reason a reader
+   needs in order to apply it, stated as a present fact and inside the unit's budget. Dated
    lines appear in 110 of 124 rule files today; a dated line is this seat's proxy for
    history, and the ruling is the owner's.
 3. **A requirement that must hold has a check.** The habit-text trial is the evidence that
@@ -169,7 +173,7 @@ relied on to do. The lengths are in part 3.
 ### Record
 
 A record is not a unit. It declares nothing and is named by the units it stands behind. It
-promises that the reason for a unit can be found from the unit. An instruction that exists
+promises that what stands behind a unit can be found from the unit. An instruction that exists
 only in a record is delivered to no one.
 
 ## 3. Budgets
@@ -240,7 +244,7 @@ value.
 | Budget | Proposed | Against | Present measure |
 | --- | --- | --- | --- |
 | **B1** One instruction with no place | 300 characters | This seat's choice: no threshold. With B2 it allows about 26 instructions at full length, or more that are shorter | If the first sort's 28 habit rules were instructions as their descriptions state them: median 205, longest 793, and 7 over 300 |
-| **B2** All instructions with no place, together | 8,000 bytes | T8 at its stricter reading: under a quarter of 32 KiB, which is in bytes. Against T10 the cost is larger than the size suggests: 6,859 characters measured about 2,900 tokens net, so 8,000 is about 3,400 tokens, 8 to 9 % of a first call | Those 28 descriptions total 6,859 characters, 6,891 bytes, and the 28 pointers they would replace total 1,794 characters. The 28 is a floor: standing constraints are not counted in it |
+| **B2** All instructions with no place, together | 8,000 bytes | T8 at its stricter reading: under a quarter of 32 KiB, which is in bytes. Against T10 the cost is larger than the size suggests: 6,859 characters measured about 2,900 tokens net, so 8,000 bytes is about 3,400 tokens at the ratio measured and up to 4,000 at this design's conversion, 9 to 10 % of a first call | Those 28 descriptions total 6,859 characters, 6,891 bytes, and the 28 pointers they would replace total 1,794 characters. The 28 is a floor: standing constraints are not counted in it |
 | **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
 | **B4** One procedure's description, with its `when_to_use` if it sets one | 256 characters | T3: a quarter. T2: a sixth. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
 | **B5** The listing as a platform carries it: every name and description in the repository's skill directories, and on Codex every path | 10,000 characters at the current default windows; 4,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens: 10,000 tokens, about 20,000 characters at two to a token, and 10,000 is half of it. At a 200,000-token window the smallest is T5 at 4,000 tokens, about 8,000 characters, and 4,000 is half of it and half of each vendor's 8,000-character fallback | 42,370 across 87 skills, 78 the estate's and 9 vendor skills. A floor on what a session carries, and not a measure against T5: each trial session listed 118, and the 31 from outside the repository are not counted; Codex also lists each skill's path, and the 87 paths relative to the repository root add 3,700 characters, more if Codex lists them in full. What a Codex listing holds is for the spike's Codex leg to measure |
@@ -305,7 +309,7 @@ text each answer would put into the design is on its card.
    means about 12 listed procedures. Still not known, and stated on the card: the window of any Codex model but one, and
    whether the 31 skills from outside the repository draw on the same budget.
 4. **The budget for always-present instructions, B2.** Recommended: 8,000 bytes, with
-   the cost stated: about 3,400 tokens on a first call of about 39,400, measured at 2,900 for
+   the cost stated: up to 4,000 tokens on a first call of about 39,400, measured at 2,900 for
    the 28 habit descriptions. It is a quarter of the Codex limit. It may prove too small once
    standing constraints are counted, and the design would then come back with the count.
 5. **Where the decisions are recorded once made.** Recommended: a Practice decision record
