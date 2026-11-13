@@ -44,6 +44,11 @@ ONBOARDING.md
 # Cursor sessionStart hook: human-readable mirror (gitignored; not committed)
 .cursor/oak-composer-session.local.json
 .gemini/settings.local.json
+# SonarQube for IDE binding is per-checkout (each clone names its own
+# SonarQube organisation and project) and never tracked. Bind a checkout
+# from the extension's Connected Mode view; do not commit the
+# sonarlint.connectedMode.project key it may write to .vscode/settings.json.
+.sonarlint/
 
 # Agent worktrees nested in the checkout (owner ruling 2026-09-30): every
 # lane lives under .claude/worktrees/<lane>, ignored here and by every root
