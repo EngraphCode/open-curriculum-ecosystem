@@ -168,8 +168,17 @@ Each is one pull request.
    named there and not audited:
    [`pipeline-audit.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/pipeline-audit.md).
 2. **Write the unit model, the contracts and the budgets**, with the script behind the
-   measures.
-3. **Spike the projections** in a throwaway clone and record the measurements.
+   measures. Done on 2026-11-13:
+   [`design.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/design.md),
+   with each threshold re-read at its vendor page in
+   [`threshold-reread.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/threshold-reread.md)
+   and what each platform reads below the repository root in
+   [`nested-directories.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/nested-directories.md).
+   The owner decided its four questions on the same day, as the design records.
+3. **Spike the projections** in a throwaway clone and record the measurements. It is not
+   started automatically. The owner, 2026-11-13: "We will not begin the spike automatically,
+   this session concludes after merging the PR". The points `nested-directories.md` finds
+   undocumented are among what it observes.
 4. **Write the projections, the build and validation, the processes and the measure of
    success**, revised by what the spike showed; have it read cold; put the owner's questions.
 
