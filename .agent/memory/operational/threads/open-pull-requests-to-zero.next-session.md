@@ -856,3 +856,11 @@ push; the owner approved the plan in plan mode and has not yet read the rechecke
 - **The owner, 2026-11-12, verbatim:** "VoiceOver checks for web apps are an ambition, not a
   requirement, and currently that work is not scheduled." ADR-213's third owner gate and the
   wrapped-widget accessibility checklist carry it.
+- **Landed since (2026-11-12 to 2026-11-13).** #409 at `aa3d39f32` by the door (the
+  screen-reader ruling, with the five other sentences that made it a ship condition
+  reconciled). The owner's #397 at `de0fba6fd`, then #410, #411 and #412, to `1caf7ca30`. The
+  order the owner set is met: #397 is on `engraph` before the merge to Oak.
+- **Fork-only values.** At the owner's request (relayed by Hydra, 2026-11-13) the plan now lists
+  the values that must not reach Oak. Three uncommitted edits in the primary checkout carry the
+  fork's SonarCloud organisation and project, and a plugin entry; none is committed on any
+  branch. Never stage them.
