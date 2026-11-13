@@ -326,14 +326,15 @@ nested/multiple .claude directories e.g. a package can have it's own additional 
 skills. I don't know if codex also supports that". The investigation is
 [`nested-directories.md`](nested-directories.md). It adds a form of place to the model and
 leaves the four recommendations as they are. Asked, having read it, whether the four are
-final, the owner answered on the same day: "Yes, I agree". So the four recommendations below
-are decided: the two-kind model, with place in both its forms; half or less of the smallest
+final, the owner answered on the same day: "Yes, I agree". So the first four recommendations
+below are decided: the two-kind model, with place in both its forms; half or less of the smallest
 threshold that applies, with this seat's three choices; a listing budget of 10,000
 characters; and 12,000 bytes of always-present instructions, counted as delivered.
 
-Each is the owner's by the plan. Each has a recommendation. They are put as decision cards
-once this part has been reviewed, and are listed here so the cards have a record. The exact
-text each answer would put into the design is on its card.
+Each is the owner's by the plan, and each has a recommendation. The first four were put to the
+owner in prose, after the decision-card tool was closed by a worker restart three times, and
+are answered above. The fifth was not put to the owner and is open: it goes with part 4's
+questions, and until it is answered this document is where the decisions are recorded.
 
 1. **The model.** Recommended: two kinds of unit, instruction and procedure, each declaring a
    record and optionally a place, a check and a pair. Alternatives: the five kinds of the
@@ -350,7 +351,7 @@ text each answer would put into the design is on its card.
    where Codex does not know its window, the listing is over the limit and the platform
    shortens or drops descriptions itself. The alternative is the smallest documented case,
    4,000 characters, which is inside every documented listing limit on both platforms and
-   means about 12 listed procedures. Still not known, and stated on the card: the window of any Codex model but one, and
+   means about 12 listed procedures. Still not known: the window of any Codex model but one, and
    whether the 31 skills from outside the repository draw on the same budget.
 4. **The budget for always-present instructions, B2.** Recommended: 12,000 bytes,
    counted as delivered, with the cost stated: about 3,500 tokens at the ratio measured and
@@ -362,6 +363,7 @@ text each answer would put into the design is on its card.
    count.
 5. **Where the decisions are recorded once made.** Recommended: a Practice decision record
    for the model and the contracts. Where the budget numbers live is part 5's to propose.
+   Open: not put to the owner on 13 November 2026, and carried to part 4's questions.
 
 ## Appendix: the script behind the present measures
 

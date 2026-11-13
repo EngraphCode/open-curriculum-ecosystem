@@ -115,6 +115,10 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
 - 2026-11-13, on how the session ends: "I have switched models to enable the session to
   continue past an exhausted limit. Please review next steps. We will not begin the spike
   automatically, this session concludes after merging the PR".
+- 2026-11-13, before the merge: "Please use /oak-metacognition /oak-free-play
+  /oak-concept-exploration /oak-reason /oak-wrap to help with the session close out records ,
+  ultrathink". The second pass it asked for corrected three overclaims in the closeout records;
+  the napkin has them.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I

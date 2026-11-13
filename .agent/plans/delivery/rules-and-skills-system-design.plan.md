@@ -174,7 +174,9 @@ Each is one pull request.
    [`threshold-reread.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/threshold-reread.md)
    and what each platform reads below the repository root in
    [`nested-directories.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/nested-directories.md).
-   The owner decided its four questions on the same day, as the design records.
+   The owner decided its four questions on the model and the budgets on the same day, as the
+   design records. Its fifth, where the decisions are recorded, was not put to the owner and
+   goes with the fourth todo's questions.
 3. **Spike the projections** in a throwaway clone and record the measurements. It is not
    started automatically. The owner, 2026-11-13: "We will not begin the spike automatically,
    this session concludes after merging the PR". The points `nested-directories.md` finds
