@@ -123,6 +123,14 @@ merged (merge commit `8af1b0fc2` on `engraph`), and the owner's go-ahead (the fo
   through the decision matrix, using the appropriate skills and principles.md , ultrathink,
   let me know what survives". The pass is
   `../rules-and-skills-system-design-2026-11/open-items.md`.
+- 2026-11-13, after the merge of pull request 412, four points: "1. The spike will not happen
+  until I say so, stop treating it as imminent, and any related change of documentation is part
+  of that spike, not a separate thing. 2. "The Director" doesn't exist and nothing is owed from
+  the 28th, that's just stale state. 3. What question is still open? 4. What do you mean
+  records owed? This session is about to be removed, if there is any information in context
+  that should be recorded it happens now. There are rules specifically about not inventing
+  "later" as a way of avoiding work". The answer to the third is none; the napkin records the
+  correction.
 - 2026-11-12, a ruling and two directions for the investigation: "Regarding history in rules,
   there should be none of that, same for skills, they must describe current requirements, not
   the evolution that arrived at them."; "Please find the patterns directory and explore it. I

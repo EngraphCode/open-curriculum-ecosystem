@@ -56,6 +56,13 @@ same day. Everything that joins the two is inference and is marked.
    skill listing as an interactive one does, unless run bare; and the documentation says bare
    "will become the default" for headless runs. A later repeat of the trial should state
    which it used.
+8. **Claude Code does not read `.agents/skills`, so the estate's two skill directories are not
+   loaded twice on it.** The skills page's table of where skills live (fetched raw on 12
+   November 2026) names no `.agents/skills` location. Observed: each of the forty trial
+   sessions listed the same 118 skills, all distinct ([`trial-evidence/README.md`](trial-evidence/README.md)),
+   while `.claude/skills` and `.agents/skills` each hold the same 87 names. *Inference:* had both
+   been read, those names would have been listed twice, since the documentation keeps two
+   skills of one name side by side rather than merging them. Rules were not checked this way.
 
 **What was not established.** How many characters the skill listing is allowed (the fraction is
 documented, the conversion is not); the size of the combined warning limit for memory files;
