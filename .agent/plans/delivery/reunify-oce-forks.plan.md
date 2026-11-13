@@ -116,6 +116,11 @@ travel to Oak with the merge. The check when reporting ready:
 finds nothing. It names the branch, so it reads the committed tree and not the working files,
 and it reads the two live configuration files only, because this record names the values itself.
 
+- **The fork's programme notice.** A block headed "Engraph OCE programme" sat at the top of
+  `README.md`, `VISION.md` and `CONTRIBUTING.md`; the orientation skill routes readers and
+  connected assistants to the first two. It is removed on `engraph`. The second check when reporting ready:
+  `git grep -n "Engraph OCE programme" reunify-oce-forks -- README.md VISION.md CONTRIBUTING.md`
+  finds nothing.
 - **Committed, and removed by todo 6 step 6:** the `[main, engraph]` branch filters in
   `.github/workflows/ci.yml`, `codeql.yml` and `dependency-review.yml`. They are inert on Oak,
   which has no `engraph` branch.
