@@ -183,9 +183,5 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.language": "en-GB",
-  "sonarlint.connectedMode.project": {
-    "connectionId": "oaknational",
-    "projectKey": "oaknational_oak-open-curriculum-ecosystem"
-  }
+  "cSpell.language": "en-GB"
 }
