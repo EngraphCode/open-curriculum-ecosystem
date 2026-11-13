@@ -70,9 +70,9 @@ forward-asks remain.
   directories e.g. a package can have it's own additional (?) rules and skills. I don't know
   if codex also supports that". The investigation is
   `rules-and-skills-system-design-2026-11/nested-directories.md`, from the vendors'
-  documentation, nothing observed. Claude Code reads a package's own instruction file, rules
-  and skills, from the start in a session started there and on first touch in a session
-  started above. Codex reads a package's `AGENTS.md` and skills only in a session started
+  documentation, nothing observed. Claude Code reads a package's own instruction file and
+  skills from the start in a session started there and on first touch in a session started
+  above, and its rules at an event the documentation does not state. Codex reads a package's `AGENTS.md` and skills only in a session started
   there. The design gains a second form of place, the directory a unit is kept in, for
   procedures as well as instructions; the four recommendations stand. Pull request 412 is
   not merged until the owner, having read it, says they are final. By then twenty-one review
