@@ -168,7 +168,9 @@ relied on to do. The lengths are in part 3.
   over its budget, so the first promise holds only inside the budget.
 - **Must not be relied on to:** be selected. In forty sessions no session called a skill, on
   tasks that included a commit and a review comment. Whether that is the listing's size, the
-  tasks or the read-only tool set is not known.
+  tasks or the read-only tool set is not known. Nor to stay in context through a compaction:
+  Claude Code documents a combined limit on the bodies it puts back, and how many procedures
+  a session has used is outside a build's reach. Part 3 gives the arithmetic.
 
 ### Record
 
@@ -254,9 +256,14 @@ value.
 A record has no budget. It is not loaded. The 124 rule files hold 1,073,128 characters and
 the 78 skill bodies 1,065,154; how much of that is record is not counted.
 
-No total is proposed for B3 or B6. No threshold for a total of path-scoped text was found. T6
-gives a total of 25,000 tokens for skill bodies kept through a compaction, which concerns how
-many procedures one session uses and not the size of the estate.
+No total is proposed for B3 or B6, and the owner's "combined total of the relevant parts" is
+not met for either. No threshold for a total of path-scoped text was found. T6 does give a
+total, 25,000 tokens for the skill bodies kept through a compaction, and it counts the
+procedures one session has used, which no build can bound. So no budget is set against it,
+and the contract is narrowed in its place: a procedure is not promised to be kept through a
+compaction. By the arithmetic of this design, half of that total is 12,500 tokens, which is
+five bodies at B6; a session that has used more than five is past half of it, and one that
+has used more than ten is past the vendor's total.
 
 Three things follow and are stated plainly.
 
