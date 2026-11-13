@@ -165,7 +165,10 @@ relied on to do. The lengths are in part 3.
   and the body is available when the procedure is selected. By the documentation of both;
   the listing was observed on Claude Code, where each of forty sessions listed the estate's
   78. Both platforms document that descriptions are shortened or left out when the listing is
-  over its budget, so the first promise holds only inside the budget.
+  over its budget, so the first promise holds only inside the platform's budget for the whole
+  listing. Skills from outside the repository are in that listing as well: each trial session
+  listed 31 of them. B5 bounds the repository's share and nothing else, so it lowers the
+  chance that a procedure's description is shortened or dropped and does not remove it.
 - **Must not be relied on to:** be selected. In forty sessions no session called a skill, on
   tasks that included a commit and a review comment. Whether that is the listing's size, the
   tasks or the read-only tool set is not known. Nor to stay in context through a compaction:
@@ -266,6 +269,12 @@ and the contract is narrowed in its place: a procedure is not promised to be kep
 compaction. By the arithmetic of this design, half of that total is 12,500 tokens, which is
 five bodies at B6; a session that has used more than five is past half of it, and one that
 has used more than ten is past the vendor's total.
+
+No budget is set in lines. T9 is the documentation's advice and not a limit a platform
+applies, and the budgets in bytes and characters bind first for ordinary text: a procedure
+body inside B6 passes 500 lines only at under ten characters a line, and always-present text
+inside B2 passes 200 lines only at under sixty bytes a line. Six of the 78 bodies are over
+500 lines today, and each of the six is also over B6.
 
 Three things follow and are stated plainly.
 
