@@ -21,10 +21,23 @@ is given at start). They change two verdicts below.
 
 ## What survives
 
-- **No question is open.** D2, whether a procedure's adapter carries its body, was first put to
-  the owner as a ratification. It is not one: the estate's classifier lands an owner's word that
-  changes a Core record as an amendment of that record, quoting the word (D1), and the model the
-  owner accepted has the body "loaded when it is selected".
+- **One question is open: whether the repository needs the nine skills installed from their
+  vendors.** The owner, 2026-11-13: "Do not assume that the external skills are fixed! Maybe we
+  don't need them, we don't know yet, it's an open question." They are the seven Clerk skills,
+  `mcp-inspector` and `skill-creator`, recorded with a content hash in `skills-lock.json`
+  (PDR-051). They are in the listing B5 bounds, 3,146 of its 10,000 characters on Codex and
+  2,814 on Claude Code. With them as they are, each of the 78 procedures' descriptions has
+  about 25 characters on Codex and 73 on Claude Code; without them, about 66 and 109. On
+  Claude Code alone, the `skillOverrides` setting lists a skill by name only or hides it
+  without editing it
+  ([`claude-code-rules-and-skills-loading.md`](../doing-and-dreaming-2026-11/claude-code-rules-and-skills-loading.md));
+  Codex's listing is not changed by it. No trial session called any skill, so the trials show
+  no use of them either way, and one cloud session here listed a plugin's
+  `anthropic-skills:skill-creator` beside the repository's `skill-creator`.
+- **D2 is not open.** Whether a procedure's adapter carries its body was first put to the owner
+  as a ratification. It is not one: the estate's classifier lands an owner's word that changes
+  a Core record as an amendment of that record, quoting the word (D1), and the model the owner
+  accepted has the body "loaded when it is selected".
 - **Statements, with nothing asked.** The model the owner decided on 13 November amends three
   accepted records. PDR-009 has platform files be "thin adapters that reference the canonical
   substance", except where a role cannot follow a pointer and "its adapter carries the prompt",
@@ -101,3 +114,9 @@ is given at start). They change two verdicts below.
 On 13 November this seat told the owner that part 4 would put the choice behind B6, an inline
 body or a pointer, to them, and then put it to them as a ratification. Neither holds: the
 classifier lands it as an amendment quoting the owner's word (D2), so it is not put.
+
+The same day this seat told the owner that no question was open. The owner's word on the
+installed skills opened one (above). The arithmetic behind the third question, which the owner
+decided, spread B5 over all 87 skills, "all 87 at about 54", as if the nine installed ones were
+shortened with the estate's own. They are not, and with them kept as they are each of the 78
+has about 25 characters on Codex, not 54. The owner's decision of B5 itself is unchanged.

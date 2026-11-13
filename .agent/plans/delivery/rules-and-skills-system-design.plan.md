@@ -13,7 +13,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-11-12
+last_updated: 2026-11-13
 ---
 
 # Design the rules and skills system
@@ -177,8 +177,9 @@ Each is one pull request.
    The owner decided its four questions on the model and the budgets on the same day, as the
    design records. Its fifth, where the decisions are recorded, was not put to the owner; it
    and the other open items of these parts went through the decision lenses in
-   [`open-items.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/open-items.md),
-   and none is left open.
+   [`open-items.md`](../../research/agentic-engineering/rules-and-skills-system-design-2026-11/open-items.md).
+   One is open, by the owner's word of the same day: whether the repository needs the nine
+   skills installed from their vendors.
 3. **Spike the projections** in a throwaway clone and record the measurements. It happens only
    when the owner says so, and any documentation change related to it, the amendments of the
    accepted records among them, is part of it. The owner, 2026-11-13: "The spike will not

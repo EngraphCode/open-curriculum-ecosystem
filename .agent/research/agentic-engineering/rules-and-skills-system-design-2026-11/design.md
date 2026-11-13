@@ -10,7 +10,8 @@ It was put as a proposal. The owner decided its first four questions on 13 Novem
 the end records: the model, the rule for "well within" with the budgets it derives, the listing
 budget and the budget for always-present instructions. The fifth, and the other open items of
 these parts, went through the decision lenses at the owner's request in
-[`open-items.md`](open-items.md), and none is left open. It designs the
+[`open-items.md`](open-items.md). One is open, by the owner's word of the same day: whether
+the repository needs the nine skills installed from their vendors. It designs the
 system and not the content of any rule or skill. Which present rule or skill becomes what is
 not settled here, and where this document uses the present estate it does so to size a
 budget and says "if".
@@ -322,8 +323,14 @@ Three things follow and are stated plainly.
    listing holds about 31 procedures at B4's full length, or 50 at about 139 characters
    each, or all 87 at about 54, which is too short to say when to use one. At 4,000 it holds
    about 12, and the names and paths of all 87 alone come to 5,312. So under this budget the
-   estate lists fewer procedures than it has today, at either reading. The 31 skills a session lists from outside the repository
-   are not the estate's to shorten, and whether they share the budget is not documented. The owner expects that "some existing materials will be redundant or
+   estate lists fewer procedures than it has today, at either reading. Nine of the 87 are not
+   the estate's procedures: they are installed from their vendors and recorded with a content
+   hash in `skills-lock.json` (PDR-051), so they are not shortened with the rest. With them
+   as they are, their 3,146 characters with paths leave each of the 78 about 25 at 10,000;
+   without them, each has about 66. Whether the repository needs them is open
+   ([`open-items.md`](open-items.md)). The 31 skills a session lists from outside the
+   repository are not the estate's to shorten, and whether they share the budget is not
+   documented. The owner expects that "some existing materials will be redundant or
    inappropriate or be better expressed more succinctly"; this is where that is tested
    hardest. Shortening is not the only way down: a procedure that concerns one package and is
    kept in that package's directory is out of a root session's listing on Claude Code until
