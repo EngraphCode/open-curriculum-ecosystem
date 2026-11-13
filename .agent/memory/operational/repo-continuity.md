@@ -42,8 +42,8 @@ forward-asks remain.
   audit) merged as `5584f3337`. Pull request 412 holds parts 1 to 3 of the design,
   `rules-and-skills-system-design-2026-11/design.md`, and the re-read of each threshold at
   its vendor page, `threshold-reread.md`. It is marked ready so that Codex reviews it, and
-  it is not to be merged before the owner answers: it proposes and decides nothing. Fourteen
-  review threads were raised over six rounds and each is answered and resolved.
+  it is not to be merged before the owner answers: it proposes and decides nothing. Eighteen
+  review threads were raised over nine rounds and each is answered and resolved.
   - **The four questions**, each recorded with its recommendation in the design's
     "Questions for the owner". (1) The unit model: two kinds, instruction and procedure,
     each declaring a record and optionally a place, a check and a pair. (2) The rule for
@@ -52,7 +52,9 @@ forward-asks remain.
     this seat's choices. (3) The listing budget: 10,000 characters at the current default
     windows, or 4,000 at the smallest documented case. Neither holds all 87 skills at a
     useful description length, so either means fewer procedures listed than today.
-    (4) Always-present instructions: 8,000 bytes, up to 4,000 tokens on a first call of
+    (4) Always-present instructions: 12,000 bytes counted as delivered (the 28 habit
+    instructions in the trial's form are 10,255, so 8,000 does not hold them), about 3,500
+    tokens at the ratio measured and up to 6,000 at the design's conversion, on a first call of
     about 39,400.
   - **How they were put.** The decision-card tool was called twice and both calls were
     closed by a worker restart, unanswered, so the questions went to the owner as prose. No
@@ -61,7 +63,7 @@ forward-asks remain.
     request green and clean; merge it by merge commit; restart the branch from `engraph`.
     Then todo 3, the spike in a throwaway clone, whose Codex leg is the owner's to run.
   - **The figures changed late.** Budgets set against a threshold in tokens convert at two
-    characters to a token, under the trial's measured 2.1 to 2.6. An earlier head used
+    characters to a token, under the trial's measured 2.6 to 3.2. An earlier head used
     three, and before that four; any note that quotes 15,000 or 20,000 for the listing, or
     7,500 or 10,000 for a procedure body, is from those heads.
   - **For the Director, not the owner.** Whether the Codex nodes paused on 2026-09-28 are

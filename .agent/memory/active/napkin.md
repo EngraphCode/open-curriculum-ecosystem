@@ -2064,7 +2064,10 @@ outside the repository. One instance each; scope is this session.
   "Joint review" is replaced everywhere, the ratified node included (see the correction below).
 - **A margin is only as good as the conversion under it** (2026-11-13, pull request 412).
   The design set budgets at "half the threshold" and converted tokens to characters at four,
-  then three, while its own trial had measured 2.4. A reviewer found it twice. Convert under
+  then three, while this seat read its own trial as 2.4. That reading was wrong as well: it
+  divided the descriptions' 6,859 characters by the tokens added, when the trial delivered
+  10,223 with headings and record lines, which is 2.9. Measure what was delivered, not what
+  was meant to be. A reviewer found the margin twice and the delivered size once. Convert under
   the lowest ratio measured, and state the measurement beside the figure.
 - **The decision-card tool can be closed by a worker restart** (2026-11-12, twice in one
   session). The call returns "not completed" with no answer and no refusal. Do not read it as
