@@ -14,15 +14,18 @@ fetched on 12 November 2026, and one more fetched on 13 November 2026,
 
 Both platforms read guidance from directories below the repository root. They differ in when.
 
-- **Claude Code** reads a nested directory's instruction file, rules and skills. A session
-  started in that directory has them from the start. A session started above it gets them
-  later, when it first works on a file there.
+- **Claude Code** reads a nested directory's instruction file, rules and skills. Its
+  instruction file and skills reach a session started in that directory from the start, and a
+  session started above it when the session first works on a file there. Its rules load on
+  demand, at an event the documentation does not state (below).
 - **Codex** reads a nested directory's `AGENTS.md` and skills only when the session is
   started in that directory or below it. A session started at the root never gets them. Codex
   has no rules directory, nested or not.
 
-So a unit kept in a package's own directory reaches a Claude Code session that touches the
-package, and reaches a Codex session only if someone starts Codex inside the package.
+So an instruction file or skill kept in a package's own directory reaches a Claude Code
+session that touches the package, a rule kept there reaches it at an event still to be
+observed, and any of them reaches a Codex session only if someone starts Codex inside the
+package.
 
 ## What each platform documents
 

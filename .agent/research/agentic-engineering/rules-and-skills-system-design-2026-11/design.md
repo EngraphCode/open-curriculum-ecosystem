@@ -102,8 +102,9 @@ instruction has one home, the `AGENTS.md` chain.
    a platform can deliver it at the moment its place is touched is a fact about the platform,
    and part 4 says what each platform gets. Both platforms also read guidance from their
    directories below the repository root, so a unit can be placed by where it is kept: Claude
-   Code delivers such a unit when a session first works in that directory, and Codex only to
-   a session started there. [`nested-directories.md`](nested-directories.md) has what each
+   Code delivers a directory's own instruction file and skills when a session first works in
+   that directory, and its rules at an event the documentation does not state; Codex delivers
+   the directory's `AGENTS.md` and skills only to a session started there. [`nested-directories.md`](nested-directories.md) has what each
    documents. A path is one of four loaders the present rule
    names; the others are a tool call, the shape of a session and a ceremony that is always
    run. Those three are served today by hooks and by ceremony procedures, which this plan
@@ -151,8 +152,14 @@ relied on to do. The lengths are in part 3.
   a session. On Codex the text is in the root `AGENTS.md`, which Codex loads. By the
   documentation; not observed. That it arrives once on each platform is what the build must
   guarantee and the spike must show.
-- **Promises, with a place:** on Claude Code the text is delivered when a file in its place
-  is read, written or edited. By the documentation, and observed twice in passing. On Codex
+- **Promises, with a place:** on Claude Code, an instruction placed by paths is delivered when
+  a file in its place is read, written or edited. By the documentation, and observed twice in
+  passing. An instruction placed by directory and delivered in that directory's own
+  `CLAUDE.md` loads once a file in the directory is read, written or edited: by the
+  documentation, not observed. Delivered in that directory's own `.claude/rules/`, its loading
+  event is not stated by the documentation ([`nested-directories.md`](nested-directories.md)),
+  so nothing is promised for it until the spike has observed it, and parts 4 and 5 do not
+  build on it before then. On Codex
   no mechanism that delivers text when a file is touched was found. Codex's documented
   mechanism bound to a place is an `AGENTS.md` in a directory, loaded when the session's
   working directory is at or below it. What Codex gets is for part 4, and the least it can
