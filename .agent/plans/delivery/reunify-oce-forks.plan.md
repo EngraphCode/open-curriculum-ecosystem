@@ -111,8 +111,9 @@ back to being a plain mirror of Oak: one line of development again.
 ## Fork-only values that must not reach Oak
 
 Kept at the owner's request (2026-11-13), so that a value naming the fork's own services does not
-travel to Oak with the merge. The check when reporting ready: `git diff` between
-`reunify-oce-forks` and Oak's `main` shows none of the uncommitted values below.
+travel to Oak with the merge. The check when reporting ready, run on `reunify-oce-forks`:
+`git grep -i engraphcode -- .sonarlint/connectedMode.json .vscode/settings.json` finds nothing.
+It reads the two live configuration files only, because this record names the values itself.
 
 - **Committed, and removed by todo 6 step 6:** the `[main, engraph]` branch filters in
   `.github/workflows/ci.yml`, `codeql.yml` and `dependency-review.yml`. They are inert on Oak,
