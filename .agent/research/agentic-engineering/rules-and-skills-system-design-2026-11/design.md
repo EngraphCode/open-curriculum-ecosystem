@@ -268,11 +268,11 @@ value.
 | Budget | Proposed | Against | Present measure |
 | --- | --- | --- | --- |
 | **B1** One instruction with no place | 300 characters | This seat's choice: no threshold. With B2, and the 120 bytes of name and record line the trial gave each, it allows about 28 instructions at full length, or more that are shorter | If the first sort's 28 habit rules were instructions as their descriptions state them: median 205, longest 793, and 7 over 300 |
-| **B2** All instructions with no place, together, counted as the bytes delivered: each instruction's text and whatever name, record line and format its projection adds | 12,000 bytes | T8 at its stricter reading: 37 % of 32 KiB, which is in bytes; with the root `AGENTS.md` as it is, 13,975, inside B7. Against T10: the trial's 10,255 bytes measured about 2,900 tokens net of the pointers they replaced, so 12,000 bytes is about 3,500 tokens at the ratio measured and up to 6,000 at this design's conversion, 9 to 15 % of a first call | The 28 descriptions alone total 6,859 characters, 6,891 bytes. As the trial delivered them, each with a heading and a record line, they total 10,223 characters, 10,255 bytes, and the 28 pointers they replace total 1,794 characters. The 28 is a floor: standing constraints are not counted in it |
+| **B2** All instructions with no place, together, counted as the bytes delivered: each instruction's text and whatever name, record line and format its projection adds | 12,000 bytes | T8 at its stricter reading: 37 % of 32 KiB, which is in bytes; with the root `AGENTS.md` as it is, 13,975, inside B7. Against T10: the trial's 10,255 bytes replaced 1,794 characters of pointers and added about 2,900 tokens, 2.9 characters a token on the net 8,429, so 12,000 bytes is about 4,100 tokens at the ratio measured and up to 6,000 at this design's conversion, 10 to 15 % of a first call | The 28 descriptions alone total 6,859 characters, 6,891 bytes. As the trial delivered them, each with a heading and a record line, they total 10,223 characters, 10,255 bytes, and the 28 pointers they replace total 1,794 characters. The 28 is a floor: standing constraints are not counted in it |
 | **B3** One instruction with a place | 4,000 characters | T1: a tenth. The figure is this seat's choice of a round number well under it | Not measurable without sorting content. For scale: the 21 rule files that carry globs today, record and all, have a median of 4,249 and a longest of 10,614 |
 | **B4** One procedure's description, with its `when_to_use` if it sets one | 256 characters | T3: a quarter. T2: a sixth. This seat's choice. B5 binds before B4 does: see below | 78 descriptions: median 429, longest 1,139; 57 are over 256, 38 over 512, 3 over 1,024 |
 | **B5** The listing as a platform carries it: every name and description in the repository's skill directories, each `when_to_use` where one is set, and on Codex every path | 10,000 characters at the current default windows; 4,000 at the smallest documented case | At current defaults the smallest threshold is T5 at 500,000 tokens: 10,000 tokens, about 20,000 characters at two to a token, and 10,000 is half of it. At a 200,000-token window the smallest is T5 at 4,000 tokens, about 8,000 characters, and 4,000 is half of it and half of each vendor's 8,000-character fallback | 42,370 across 87 skills, 78 the estate's and 9 vendor skills; no tracked skill sets `when_to_use` today, by a search of the three skill directories. A floor on what a session carries, and not a measure against T5: each trial session listed 118, and the 31 from outside the repository are not counted; Codex also lists each skill's path, and the 87 paths relative to the repository root add 3,700 characters, more if Codex lists them in full. What a Codex listing holds is for the spike's Codex leg to measure |
-| **B6** One procedure's body | 5,000 characters | T6: 5,000 tokens is about 10,000 characters at two to a token, and 5,000 is half. T7: a tenth | 78 bodies: median 7,423, longest 156,546; 51 are over 5,000 and 12 over 20,000 |
+| **B6** One procedure's body | 5,000 characters | T6, where the body is the skill body the platform invokes: 5,000 tokens is about 10,000 characters at two to a token, and 5,000 is half. T7: a tenth. Today's adapters are one-line pointers, so T6 governs the pointer and the canonical body is opened as a file, under T7 alone. B6 is set for a projection that delivers the body as the invoked skill body; if part 4 keeps the pointer, T7 is the smallest threshold that applies, and the rule gives 25,000 characters | 78 bodies: median 7,423, longest 156,546; 51 are over 5,000 and 12 over 20,000 |
 | **B7** The `AGENTS.md` files from the root to any working directory, together | 16 KiB | T8 at its stricter reading: half | The largest chain today is 2,653 bytes, the root file and the one under `demos/`. The root file is 1,975 bytes: two pointers, a section of instructions on code review and a generated block for Codex team sessions. It holds no rule text. One other `AGENTS.md` is tracked, under `demos/` |
 
 A record has no budget. It is not loaded. The 124 rule files hold 1,073,128 characters and
@@ -285,7 +285,9 @@ procedures one session has used, which no build can bound. So no budget is set a
 and the contract is narrowed in its place: a procedure is not promised to be kept through a
 compaction. By the arithmetic of this design, half of that total is 12,500 tokens, which is
 five bodies at B6; a session that has used more than five is past half of it, and one that
-has used more than ten is past the vendor's total.
+has used more than ten is past the vendor's total. That arithmetic holds where a procedure's
+body is the skill body the platform invokes. With today's pointer adapters, what is put back
+after a compaction is the pointer, and a body read from its file is not put back at all.
 
 No budget is set in lines. T9 is the documentation's advice and not a limit a platform
 applies, and the budgets in bytes and characters bind first for ordinary text: a procedure
@@ -361,9 +363,12 @@ questions, and until it is answered this document is where the decisions are rec
    means about 12 listed procedures. Still not known: the window of any Codex model but one, and
    whether the 31 skills from outside the repository draw on the same budget.
 4. **The budget for always-present instructions, B2.** Recommended: 12,000 bytes,
-   counted as delivered, with the cost stated: about 3,500 tokens at the ratio measured and
+   counted as delivered, with the cost stated: about 4,100 tokens at the ratio measured and
    up to 6,000 at this design's conversion, on a first call of about 39,400. The 28 habit
-   instructions as the trial delivered them are 10,255 bytes and measured 2,900 tokens. It is
+   instructions as the trial delivered them are 10,255 bytes, and added about 2,900 tokens
+   over the pointers they replaced. Corrected after the owner's answer: the question as put
+   gave about 3,500 tokens at the ratio measured, which scaled that net figure by the gross
+   size; the upper figure of 6,000 was right. It is
    37 % of the Codex limit. The alternative is 8,000 bytes, which holds the 28 only with
    shorter text or a projection that adds less than the trial's did. Either may prove too
    small once standing constraints are counted, and the design would then come back with the
